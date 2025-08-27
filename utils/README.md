@@ -12,6 +12,7 @@ This directory contains utility functions and helper modules for WebSmith:
 ## From DocSmith
 
 Utilities inherited from DocSmith:
+
 - File handling patterns
 - Configuration management
 - Error handling utilities
@@ -20,6 +21,7 @@ Utilities inherited from DocSmith:
 ## WebSmith Specific
 
 Utilities specific to website generation:
+
 - Component processing
 - YAML generation
 - Pages Kit API integration

@@ -48,7 +48,11 @@ function gitignoreToGlobPatterns(pattern) {
   const patterns = [];
   const cleanPattern = pattern.replace(/^\//, "");
 
-  if (!cleanPattern.includes("*") && !cleanPattern.includes("?") && !cleanPattern.endsWith("/")) {
+  if (
+    !cleanPattern.includes("*") &&
+    !cleanPattern.includes("?") &&
+    !cleanPattern.endsWith("/")
+  ) {
     patterns.push(cleanPattern);
     patterns.push(`${cleanPattern}/**`);
     patterns.push(`**/${cleanPattern}`);
@@ -142,7 +146,12 @@ export async function loadGitignore(dir) {
  * @param {string[]} gitignorePatterns - .gitignore patterns
  * @returns {Promise<string[]>} Array of file paths
  */
-export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gitignorePatterns) {
+export async function getFilesWithGlob(
+  dir,
+  includePatterns,
+  excludePatterns,
+  gitignorePatterns
+) {
   const allIgnorePatterns = [];
 
   if (excludePatterns) {
@@ -154,7 +163,12 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
   }
 
   // Add default exclusions
-  const defaultExclusions = ["node_modules/**", "test/**", "temp/**"];
+  const defaultExclusions = [
+    "node_modules/**",
+    "test/**",
+    "temp/**",
+    ".aigne/**",
+  ];
   for (const exclusion of defaultExclusions) {
     if (!allIgnorePatterns.includes(exclusion)) {
       allIgnorePatterns.push(exclusion);
@@ -180,7 +194,53 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
 
     return files;
   } catch (error) {
-    console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
+    console.warn(
+      `Warning: Error during glob search in ${dir}: ${error.message}`
+    );
     return [];
   }
+}
+
+/**
+ * Process media files from file list
+ * @param {string[]} files - Array of file paths
+ * @param {string} docsDir - Base directory for relative paths
+ * @returns {Array} Array of media file objects
+ */
+export function processMediaFiles(files, docsDir) {
+  const mediaFiles = [];
+
+  // Media file extensions
+  const mediaExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".webp",
+    ".svg",
+    ".mp4",
+    ".mov",
+    ".avi",
+    ".mkv",
+    ".webm",
+    ".m4v",
+  ];
+
+  files.forEach((file) => {
+    const ext = path.extname(file).toLowerCase();
+    if (mediaExtensions.includes(ext)) {
+      const relativePath = path.relative(docsDir, file);
+      const fileName = path.basename(file);
+      const description = path.parse(fileName).name;
+
+      mediaFiles.push({
+        name: fileName,
+        path: relativePath,
+        description,
+      });
+    }
+  });
+
+  return mediaFiles;
 }

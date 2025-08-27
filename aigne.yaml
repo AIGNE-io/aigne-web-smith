@@ -15,9 +15,9 @@ agents:
   - ./agents/batch-content-detail-generator.yaml
   - ./agents/content-generator.yaml
   - ./agents/upload-template.mjs
-  
-  # 从 DocSmith 复用的通用 agents (待迁移)
-  # - ./agents/load-sources.mjs
+
+  - ./agents/load-sources.mjs
+
   # - ./agents/save-output.mjs
   # - ./agents/translate.yaml
 
@@ -31,7 +31,9 @@ cli:
     - ./agents/batch-content-detail-generator.yaml
     - ./agents/content-generator.yaml
     - ./agents/upload-template.mjs
-    
+
+    - ./agents/load-sources.mjs
+
     # WebSmith CLI 入口 agents - 用户命令
     - ./agents/websmith-generate.yaml
     - ./agents/websmith-publish.yaml

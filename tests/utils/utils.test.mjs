@@ -2,8 +2,13 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { normalizePath, toRelativePath, validatePath, detectSystemLanguage } from "../../utils/utils.mjs";
 import { generateSlug } from "../../utils/pages-kit-utils.mjs";
+import {
+  detectSystemLanguage,
+  normalizePath,
+  toRelativePath,
+  validatePath,
+} from "../../utils/utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -76,7 +81,7 @@ describe("WebSmith Utils", () => {
       const result = validatePath("/valid/path");
       expect(typeof result).toBe("object");
       expect(result).toHaveProperty("isValid");
-      
+
       const emptyResult = validatePath("");
       expect(emptyResult.isValid).toBe(true); // Empty path is considered valid
     });
@@ -100,7 +105,7 @@ describe("File System Utils", () => {
     // Create test directory structure
     testDir = join(__dirname, "test-filesystem");
     tempDir = join(testDir, "temp");
-    
+
     await mkdir(testDir, { recursive: true });
     await mkdir(tempDir, { recursive: true });
 

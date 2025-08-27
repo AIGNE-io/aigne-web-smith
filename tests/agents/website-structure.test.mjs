@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -108,8 +108,8 @@ describe("Website Structure", () => {
 
       const result = validateStructure(incompleteStructure);
       expect(result.isValid).toBe(false);
-      expect(result.errors.some(e => e.includes("description"))).toBe(true);
-      expect(result.errors.some(e => e.includes("path"))).toBe(true);
+      expect(result.errors.some((e) => e.includes("description"))).toBe(true);
+      expect(result.errors.some((e) => e.includes("path"))).toBe(true);
     });
   });
 
@@ -143,20 +143,30 @@ describe("Website Structure", () => {
 function generatePagePath(title, isHome = false) {
   if (isHome) return "/";
   if (!title) return "";
-  
-  return "/" + title
-    .toLowerCase()
-    .replace(/[^a-z0-9\u4e00-\u9fa5\s]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/[\u4e00-\u9fa5]/g, (char) => {
-      // Simplified pinyin conversion for testing
-      const pinyinMap = {
-        "产": "chan", "品": "pin", "介": "jie", "绍": "shao",
-        "关": "guan", "于": "yu", "我": "wo", "们": "men",
-        "首": "shou", "页": "ye"
-      };
-      return pinyinMap[char] || char;
-    });
+
+  return (
+    "/" +
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fa5\s]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[\u4e00-\u9fa5]/g, (char) => {
+        // Simplified pinyin conversion for testing
+        const pinyinMap = {
+          产: "chan",
+          品: "pin",
+          介: "jie",
+          绍: "shao",
+          关: "guan",
+          于: "yu",
+          我: "wo",
+          们: "men",
+          首: "shou",
+          页: "ye",
+        };
+        return pinyinMap[char] || char;
+      })
+  );
 }
 
 function validateStructure(structure) {
@@ -196,7 +206,7 @@ function validatePageStructure(page, locale) {
   return page.title && page.description && page.path && locale;
 }
 
-function getLocalizedPath(basePath, locale) {
+function getLocalizedPath(basePath, _locale) {
   // Simplified implementation for testing
   return basePath;
 }

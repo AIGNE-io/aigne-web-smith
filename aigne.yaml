@@ -23,7 +23,7 @@ agents:
 
 cli:
   agents:
-    # WebSmith CLI 入口 agents
+    # WebSmith CLI 入口 agents - 核心功能
     - ./agents/structure-planning.yaml
     - ./agents/content-detail-generator.yaml
     - ./agents/page-template-generator.yaml
@@ -31,9 +31,14 @@ cli:
     - ./agents/batch-content-detail-generator.yaml
     - ./agents/content-generator.yaml
     - ./agents/upload-template.mjs
+    
+    # WebSmith CLI 入口 agents - 用户命令
+    - ./agents/websmith-generate.yaml
+    - ./agents/websmith-publish.yaml
 
-# mcp_server:
-#   agents:
-#     # WebSmith MCP 服务器 agents (待开发)
-#     # - ./web-mcp/get-website-structure.mjs
-#     # - ./web-mcp/get-page-detail.mjs
+mcp_server:
+  agents:
+    # WebSmith MCP 服务器 agents
+    - ./web-mcp/get-website-structure.mjs
+    - ./web-mcp/get-page-detail.mjs
+    - ./web-mcp/website-search.yaml

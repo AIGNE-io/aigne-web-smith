@@ -1,0 +1,55 @@
+name: evaluation
+description: 评估网站结构规划质量，确保 SEO 优化和用户体验符合要求
+instructions:
+  url: ../prompts/evaluation-prompt.md
+input_schema:
+  type: object
+  properties:
+    evaluationDimensions:
+      type: string
+      description: 评估维度，包括 SEO 优化、用户体验、内容完整性、网站架构等
+    structurePlan:
+      type: array
+      description: 待评估的网站结构规划
+      items:
+        type: object
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+          path:
+            type: string
+        required:
+          - title
+          - description
+          - path
+    datasources:
+      type: string
+      description: 评估内容的上下文信息
+    rules:
+      type: string
+      description: 用户的网站生成要求和规则
+  required:
+    - evaluationDimensions
+    - structurePlan
+    - rules
+    - datasources
+output_schema:
+  type: object
+  properties:
+    evaluationResult:
+      type: string
+      description: 评估结果，包括具体的改进建议和质量评分
+    improvedStructurePlan:
+      type: array
+      description: 基于评估结果优化后的结构规划（可选）
+      items:
+        type: object
+        properties:
+          title:
+            type: string
+          description:
+            type: string
+          path:
+            type: string

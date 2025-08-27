@@ -103,22 +103,26 @@ export const WEBSITE_STYLES = {
   blog: {
     name: "Blog/Content Website",
     description: "Content-focused website with regular updates",
-    content: "Focus on: Content organization, readability, social sharing, archive structure",
+    content:
+      "Focus on: Content organization, readability, social sharing, archive structure",
   },
   ecommerce: {
     name: "E-commerce Website",
     description: "Online store with product catalog and purchasing",
-    content: "Focus on: Product showcase, shopping cart, payment integration, user accounts",
+    content:
+      "Focus on: Product showcase, shopping cart, payment integration, user accounts",
   },
   landing: {
     name: "Landing Page",
     description: "Single-page conversion focused site",
-    content: "Focus on: Single conversion goal, minimal navigation, strong CTA, social proof",
+    content:
+      "Focus on: Single conversion goal, minimal navigation, strong CTA, social proof",
   },
   corporate: {
     name: "Corporate Website",
     description: "Large company or organization website",
-    content: "Focus on: Company info, services, team, news, investor relations, compliance",
+    content:
+      "Focus on: Company info, services, team, news, investor relations, compliance",
   },
 };
 
@@ -163,11 +167,16 @@ export const TARGET_AUDIENCES = {
 };
 
 // Pages Kit related constants
-export const PAGES_KIT_API_BASE =
-  "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io/pages-kit/api/sdk";
+export const PAGES_KIT_API_BASE = process.env.PAGES_KIT_API_BASE;
 
 // Supported file extensions for content reading
-export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
+export const SUPPORTED_FILE_EXTENSIONS = [
+  ".txt",
+  ".md",
+  ".json",
+  ".yaml",
+  ".yml",
+];
 
 // Common SEO and conversion optimization patterns
 export const SEO_PATTERNS = {

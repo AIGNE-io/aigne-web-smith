@@ -18,7 +18,7 @@ export default async function findItemByPath(
   // If pagePath is empty, let user select from available pages
   if (!pagePath) {
     try {
-      // Get all main language .md files in pagesDir
+      // Get all main language page files in pagesDir
       const mainLanguageFiles = await getMainLanguageFiles(pagesDir, locale, structurePlanResult);
 
       if (mainLanguageFiles.length === 0) {
@@ -52,7 +52,7 @@ export default async function findItemByPath(
         throw new Error("No page selected");
       }
 
-      // Read the selected .md file content
+      // Read the selected page file content
       selectedFileContent = await readFileContent(pagesDir, selectedFile);
 
       // Convert filename back to path

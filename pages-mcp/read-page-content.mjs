@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
 
 const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
 
@@ -11,10 +12,10 @@ export default async function readPageContent({ relevantPagePaths, pagesDir: cus
     try {
       // Flatten path: remove leading /, replace all / with - (same logic as utils.mjs)
       const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-      const fileFullName = `${flatName}.md`;
+      const fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
       const filePath = path.join(targetPagesDir, fileFullName);
 
-      // Read the markdown file
+      // Read the page file
       const content = await fs.readFile(filePath, "utf8");
 
       pageContents.push({
@@ -87,4 +88,4 @@ readPageContent.output_schema = {
   },
 };
 
-readPageContent.description = "Read markdown content for multiple pages";
+readPageContent.description = "Read page content for multiple pages";

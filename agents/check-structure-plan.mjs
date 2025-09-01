@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
 import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
@@ -32,16 +33,16 @@ export default async function checkStructurePlan(
 
   // If no feedback and originalStructurePlan exists, check for git changes
   if (originalStructurePlan) {
-    // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
+    // If no lastGitHead, check if _sidebar file exists to determine if we should regenerate
     if (!lastGitHead) {
       try {
-        // Check if _sidebar.md exists in pagesDir
-        const sidebarPath = join(pagesDir, "_sidebar.md");
+        // Check if _sidebar file exists in pagesDir
+        const sidebarPath = join(pagesDir, `_sidebar${PAGE_FILE_EXTENSION}`);
         await access(sidebarPath);
-        // If _sidebar.md exists, it means last execution was completed, need to regenerate
+        // If _sidebar file exists, it means last execution was completed, need to regenerate
         shouldRegenerate = true;
       } catch {
-        // If _sidebar.md doesn't exist, it means last execution was interrupted, no need to regenerate
+        // If _sidebar file doesn't exist, it means last execution was interrupted, no need to regenerate
         shouldRegenerate = false;
       }
     } else {

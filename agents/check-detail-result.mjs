@@ -1,3 +1,5 @@
+import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
+
 export default async function checkDetailResult({
   structurePlan,
   // reviewContent,
@@ -6,19 +8,19 @@ export default async function checkDetailResult({
   let isApproved = true;
   const detailFeedback = [];
 
-  // Create a set of allowed links, including both original paths and processed .md paths
+  // Create a set of allowed links, including both original paths and processed page paths
   const allowedLinks = new Set();
   structurePlan.forEach((item) => {
     // Add original path
     allowedLinks.add(item.path);
 
-    // Add processed .md path (same logic as processContent in utils.mjs)
+    // Add processed page path (same logic as processContent in utils.mjs)
     let processedPath = item.path;
     if (processedPath.startsWith(".")) {
       processedPath = processedPath.replace(/^\./, "");
     }
     let flatPath = processedPath.replace(/^\//, "").replace(/\//g, "-");
-    flatPath = `./${flatPath}.md`;
+    flatPath = `./${flatPath}${PAGE_FILE_EXTENSION}`;
     allowedLinks.add(flatPath);
   });
 

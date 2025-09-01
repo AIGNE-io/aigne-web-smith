@@ -1,6 +1,6 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
+import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS, PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -195,7 +195,7 @@ export default async function loadSources({
 
     // First try direct path matching (original format)
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-    fileFullName = `${flatName}.md`;
+    fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
     let filePath = path.join(pagesDir, fileFullName);
 
     try {
@@ -206,7 +206,7 @@ export default async function loadSources({
       if (boardId && pagePath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
         const flattenedPath = pagePath.substring(boardId.length + 1);
-        fileFullName = `${flattenedPath}.md`;
+        fileFullName = `${flattenedPath}${PAGE_FILE_EXTENSION}`;
         filePath = path.join(pagesDir, fileFullName);
 
         try {

@@ -16,7 +16,7 @@ export default async function selectedPages(
   // If pages is empty or not provided, let user select multiple pages
   if (!pages || pages.length === 0) {
     try {
-      // Get all main language .md files in pagesDir
+      // Get all main language page files in pagesDir
       const mainLanguageFiles = await getMainLanguageFiles(pagesDir, locale, structurePlanResult);
 
       if (mainLanguageFiles.length === 0) {

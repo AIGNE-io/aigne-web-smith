@@ -575,3 +575,6 @@ export const TMP_DIR = ".tmp";
 export const TMP_PAGES_DIR = "pages";
 
 export const TMP_ASSETS_DIR = "assets";
+
+// Page file extension
+export const PAGE_FILE_EXTENSION = ".yaml";

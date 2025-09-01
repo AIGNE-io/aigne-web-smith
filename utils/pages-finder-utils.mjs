@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { PAGE_FILE_EXTENSION } from "./constants.mjs";
 
 /**
  * Get action-specific text based on isTranslate flag
@@ -20,13 +21,13 @@ export function getActionText(isTranslate, baseText) {
  */
 function generateFileName(flatName, locale) {
   const isEnglish = locale === "en";
-  return isEnglish ? `${flatName}.md` : `${flatName}.${locale}.md`;
+  return isEnglish ? `${flatName}${PAGE_FILE_EXTENSION}` : `${flatName}.${locale}${PAGE_FILE_EXTENSION}`;
 }
 
 /**
  * Find a single item by path in structure plan result and read its content
  * @param {Array} structurePlanResult - Array of structure plan items
- * @param {string} pagePath - Page path to find (supports .md filenames)
+ * @param {string} pagePath - Page path to find (supports page filenames)
  * @param {string} boardId - Board ID for fallback matching
  * @param {string} pagesDir - Pages directory path for reading content
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
@@ -42,8 +43,8 @@ export async function findItemByPath(
   let foundItem = null;
   let fileName = null;
 
-  // Check if pagePath is a .md filename
-  if (pagePath.endsWith(".md")) {
+  // Check if pagePath is a page filename
+  if (pagePath.endsWith(PAGE_FILE_EXTENSION)) {
     fileName = pagePath;
     const flatName = fileNameToFlatPath(pagePath);
     foundItem = findItemByFlatName(structurePlanResult, flatName);
@@ -117,25 +118,25 @@ export async function readFileContent(pagesDir, fileName) {
  * @param {string} pagesDir - Pages directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @param {Array} structurePlanResult - Array of structure plan items to determine file order
- * @returns {Promise<string[]>} Array of main language .md files ordered by structurePlanResult
+ * @returns {Promise<string[]>} Array of main language page files ordered by structurePlanResult
  */
 export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult = null) {
   const files = await readdir(pagesDir);
 
-  // Filter for main language .md files (exclude _sidebar.md)
+  // Filter for main language page files (exclude _sidebar file)
   const filteredFiles = files.filter((file) => {
-    // Skip non-markdown files and _sidebar.md
-    if (!file.endsWith(".md") || file === "_sidebar.md") {
+    // Skip non-page files and _sidebar file
+    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sidebar${PAGE_FILE_EXTENSION}`) {
       return false;
     }
 
     // If main language is English, return files without language suffix
     if (locale === "en") {
-      // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
-      return !file.match(/\.\w+(-\w+)?\.md$/);
+      // Return files that don't have language suffixes (e.g., overview.yaml, not overview.zh.yaml)
+      return !file.match(new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`));
     } else {
       // For non-English main language, return files with the exact locale suffix
-      const localePattern = new RegExp(`\\.${locale}\\.md$`);
+      const localePattern = new RegExp(`\\.${locale}\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`);
       return localePattern.test(file);
     }
   });
@@ -176,11 +177,11 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
 /**
  * Convert filename to flattened path format
  * @param {string} fileName - File name to convert
- * @returns {string} Flattened path without .md extension and language suffix
+ * @returns {string} Flattened path without page extension and language suffix
  */
 export function fileNameToFlatPath(fileName) {
-  // Remove .md extension first
-  let flatName = fileName.replace(/\.md$/, "");
+  // Remove page extension first
+  let flatName = fileName.replace(new RegExp(`\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`), "");
 
   // Remove language suffix if present (e.g., .zh, .zh-CN, .fr, etc.)
   flatName = flatName.replace(/\.\w+(-\w+)?$/, "");
@@ -212,7 +213,7 @@ export async function processSelectedFiles(selectedFiles, structurePlanResult, p
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
-    // Read the selected .md file content
+    // Read the selected page file content
     const selectedFileContent = await readFileContent(pagesDir, selectedFile);
 
     // Convert filename back to path

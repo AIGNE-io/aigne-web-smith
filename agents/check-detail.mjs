@@ -2,6 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
+import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
 import { hasSourceFilesChanged } from "../utils/utils.mjs";
 import checkDetailResult from "./check-detail-result.mjs";
 
@@ -23,7 +24,7 @@ export default async function checkDetail(
 ) {
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
-  const fileFullName = `${flatName}.md`;
+  const fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
 
   const filePath = join(pagesDir, fileFullName);
   let detailGenerated = true;

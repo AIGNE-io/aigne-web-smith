@@ -12,6 +12,7 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   PAGE_CONTENT_DEPTH,
+  PAGE_FILE_EXTENSION,
   PAGE_STYLES,
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_FILE_EXTENSIONS,
@@ -59,13 +60,13 @@ export function processContent({ content }) {
     if (/\.[a-zA-Z0-9]+$/.test(path)) return match;
     // Only process relative paths or paths starting with /
     if (!path) return match;
-    // Flatten to ./xxx-yyy.md
+    // Flatten to ./xxx-yyy with page extension
     let finalPath = path;
     if (path.startsWith(".")) {
       finalPath = path.replace(/^\./, "");
     }
     let flatPath = finalPath.replace(/^\//, "").replace(/\//g, "-");
-    flatPath = `./${flatPath}.md`;
+    flatPath = `./${flatPath}${PAGE_FILE_EXTENSION}`;
     const newLink = hash ? `${flatPath}#${hash}` : flatPath;
     return `[${text}](${newLink})`;
   });
@@ -100,7 +101,7 @@ export async function savePageWithTranslations({
     // Helper function to generate filename based on language
     const getFileName = (language) => {
       const isEnglish = language === "en";
-      return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
+      return isEnglish ? `${flatName}${PAGE_FILE_EXTENSION}` : `${flatName}.${language}${PAGE_FILE_EXTENSION}`;
     };
 
     // Save main content with appropriate filename based on locale (skip if isTranslate is true)
@@ -1010,8 +1011,8 @@ export function processConfigFields(config) {
  *
  * This function traverses the input object, array, or string recursively. Any string value that starts
  * with '@' is treated as a file reference, and the file's content is loaded asynchronously. Supported
- * file formats include .txt, .md, .json, .yaml, and .yml. For .json and .yaml/.yml files, the content
- * is parsed into objects; for .txt and .md, the raw string is returned.
+ * file formats include .txt, page files, .json, .yaml, and .yml. For .json and .yaml/.yml files, the content
+ * is parsed into objects; for .txt and page files, the raw string is returned.
  *
  * If a file cannot be loaded (e.g., does not exist, is of unsupported type, or parsing fails), the
  * original string value (with '@' prefix) is returned in place of the file content.
@@ -1021,7 +1022,7 @@ export function processConfigFields(config) {
  *
  * Examples of supported file reference formats:
  *   - "@notes.txt"
- *   - "@pages/readme.md"
+ *   - "@pages/readme" (with page extension)
  *   - "@config/settings.json"
  *   - "@data.yaml"
  *
@@ -1092,7 +1093,7 @@ async function loadFileContent(filePath, basePath) {
       }
     }
 
-    // Return raw content for .txt and .md files
+    // Return raw content for .txt and page files
     return content;
   } catch {
     // Return original value if any error occurs

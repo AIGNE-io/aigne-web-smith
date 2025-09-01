@@ -154,7 +154,6 @@ aigne-web-smith/
 ├── agents/                 # Core AI agents
 │   ├── structure-planning.yaml
 │   ├── content-detail-generator.yaml
-│   ├── page-template-generator.yaml
 │   ├── evaluation.yaml
 │   ├── batch-content-detail-generator.yaml
 │   ├── content-generator.yaml        # Main workflow

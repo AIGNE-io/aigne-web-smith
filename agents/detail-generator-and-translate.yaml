@@ -31,7 +31,7 @@ skills:
         { "feedback": "" }
       ])
   - ./batch-translate.yaml
-  - ./save-single-doc.mjs
+  - ./save-single-page.mjs
 input_schema:
   type: object
   properties:
@@ -79,11 +79,11 @@ input_schema:
     outputDir:
       type: string
       description: 输出目录
-      default: ./aigne-docs/output
-    docsDir:
+      default: ./aigne-pages/output
+    pagesDir:
       type: string
-      description: 文档目录
-      default: ./aigne-docs/docs
+      description: 页面目录
+      default: ./aigne-pages/pages
     additionalInformation:
       type: string
       description: 额外补充信息

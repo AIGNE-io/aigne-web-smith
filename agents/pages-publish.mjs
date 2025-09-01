@@ -1,35 +1,51 @@
 import { basename, join } from "node:path";
-import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
+
 import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
+import {
+  PAGES_KIT_STORE_URL,
+  TMP_DIR,
+  TMP_PAGES_DIR,
+} from "../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import {
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../utils/utils.mjs";
 
-const DEFAULT_APP_URL = "https://docsmith.aigne.io";
+const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
-export default async function publishDocs(
-  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
-  options,
+const publishPagesFn = async () => {};
+export default async function publishPages(
+  {
+    pagesDir: rawPagesDir,
+    appUrl,
+    boardId,
+    projectName,
+    projectDesc,
+    projectLogo,
+  },
+  options
 ) {
   // move work dir to tmp-dir
   await ensureTmpDir();
 
-  const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
-  await fs.rm(docsDir, { recursive: true, force: true });
-  await fs.mkdir(docsDir, {
+  const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
+  await fs.rm(pagesDir, { recursive: true, force: true });
+  await fs.mkdir(pagesDir, {
     recursive: true,
   });
-  await fs.cp(rawDocsDir, docsDir, { recursive: true });
+  await fs.cp(rawPagesDir, pagesDir, { recursive: true });
 
   // ----------------- trigger beforePublishHook -----------------------------
-  await beforePublishHook({ docsDir });
+  await beforePublishHook({ pagesDir });
 
   // ----------------- main publish process flow -----------------------------
-  // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-  const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
+  // Check if PAGES_KIT_URL is set in environment variables
+  const envAppUrl = process.env.PAGES_KIT_URL;
   const useEnvAppUrl = !!envAppUrl;
 
   // Use environment variable if available, otherwise use the provided appUrl
@@ -44,14 +60,14 @@ export default async function publishDocs(
 
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
     const choice = await options.prompts.select({
-      message: "Select platform to publish your documents:",
+      message: "Select platform to publish your pages:",
       choices: [
         {
-          name: "Publish to docsmith.aigne.io - free, but your documents will be public accessible, recommended for open-source projects",
+          name: "Publish to websmith.aigne.io - free, but your pages will be public accessible, recommended for open-source projects",
           value: "default",
         },
         {
-          name: "Publish to your own website - you will need to run Discuss Kit by your self ",
+          name: "Publish to your own website - you will need to run Pages Kit by yourself ",
           value: "custom",
         },
       ],
@@ -60,14 +76,18 @@ export default async function publishDocs(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `Start here to run your own website:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
+          `Start here to run your own website:\n${chalk.cyan(
+            PAGES_KIT_STORE_URL
+          )}\n`
       );
       const userInput = await options.prompts.input({
-        message: "Please enter your Discuss Kit platform URL:",
+        message: "Please enter your Pages Kit platform URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
+            const urlWithProtocol = input.includes("://")
+              ? input
+              : `https://${input}`;
             new URL(urlWithProtocol);
             return true;
           } catch {
@@ -82,9 +102,9 @@ export default async function publishDocs(
 
   const accessToken = await getAccessToken(appUrl);
 
-  process.env.DOC_ROOT_DIR = docsDir;
+  process.env.PAGES_ROOT_DIR = pagesDir;
 
-  const sidebarPath = join(docsDir, "_sidebar.md");
+  const sidebarPath = join(pagesDir, "_sidebar.yaml");
 
   // Get project info from config
   const projectInfo = {
@@ -107,7 +127,7 @@ export default async function publishDocs(
   let message;
 
   try {
-    const { success, boardId: newBoardId } = await publishDocsFn({
+    const { success, boardId: newBoardId } = await publishPagesFn({
       sidebarPath,
       accessToken,
       appUrl,
@@ -117,8 +137,8 @@ export default async function publishDocs(
       boardName: projectInfo.name,
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
-      mediaFolder: rawDocsDir,
-      cacheFilePath: join(".aigne", "doc-smith", "upload-cache.yaml"),
+      mediaFolder: rawPagesDir,
+      cacheFilePath: join(".aigne", "web-smith", "upload-cache.yaml"),
       boardMeta,
     });
 
@@ -133,22 +153,22 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      message = `✅ Documentation Published Successfully!`;
+      message = `✅ Pages Published Successfully!`;
     }
   } catch (error) {
-    message = `❌ Failed to publish docs: ${error.message}`;
+    message = `❌ Failed to publish pages: ${error.message}`;
   }
   // clean up tmp work dir
-  await fs.rm(docsDir, { recursive: true, force: true });
+  await fs.rm(pagesDir, { recursive: true, force: true });
   return message ? { message } : {};
 }
 
-publishDocs.input_schema = {
+publishPages.input_schema = {
   type: "object",
   properties: {
-    docsDir: {
+    pagesDir: {
       type: "string",
-      description: "The directory of the docs",
+      description: "The directory of the pages",
     },
     appUrl: {
       type: "string",
@@ -162,4 +182,4 @@ publishDocs.input_schema = {
   },
 };
 
-publishDocs.description = "Publish the documentation to Discuss Kit";
+publishPages.description = "Publish the pages to Pages Kit";

@@ -11,8 +11,8 @@ import {
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
-  DOCUMENT_STYLES,
-  DOCUMENTATION_DEPTH,
+  PAGE_CONTENT_DEPTH,
+  PAGE_STYLES,
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
@@ -171,12 +171,12 @@ export async function saveGitHeadToConfig(gitHead) {
   }
 
   try {
-    const docSmithDir = path.join(process.cwd(), "./.aigne/doc-smith");
-    if (!existsSync(docSmithDir)) {
-      mkdirSync(docSmithDir, { recursive: true });
+    const webSmithDir = path.join(process.cwd(), "./.aigne/web-smith");
+    if (!existsSync(webSmithDir)) {
+      mkdirSync(webSmithDir, { recursive: true });
     }
 
-    const inputFilePath = path.join(docSmithDir, "config.yaml");
+    const inputFilePath = path.join(webSmithDir, "config.yaml");
     let fileContent = "";
 
     // Read existing file content if it exists
@@ -344,7 +344,7 @@ export function hasFileChangesBetweenCommits(
  * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
  */
 export async function loadConfigFromFile() {
-  const configPath = path.join(process.cwd(), "./.aigne/doc-smith", "config.yaml");
+  const configPath = path.join(process.cwd(), "./.aigne/web-smith", "config.yaml");
 
   try {
     if (!existsSync(configPath)) {
@@ -506,12 +506,12 @@ export async function saveValueToConfig(key, value, comment) {
   }
 
   try {
-    const docSmithDir = path.join(process.cwd(), "./.aigne/doc-smith");
-    if (!existsSync(docSmithDir)) {
-      mkdirSync(docSmithDir, { recursive: true });
+    const webSmithDir = path.join(process.cwd(), "./.aigne/web-smith");
+    if (!existsSync(webSmithDir)) {
+      mkdirSync(webSmithDir, { recursive: true });
     }
 
-    const configPath = path.join(docSmithDir, "config.yaml");
+    const configPath = path.join(webSmithDir, "config.yaml");
     let fileContent = "";
 
     // Read existing file content if it exists
@@ -881,8 +881,8 @@ export function processConfigFields(config) {
     nodeName: "Section",
     locale: "en",
     sourcesPath: ["./"],
-    docsDir: "./.aigne/doc-smith/docs",
-    outputDir: "./.aigne/doc-smith/output",
+    pagesDir: "./.aigne/web-smith/pages",
+    outputDir: "./.aigne/web-smith/output",
     translateLanguages: [],
     rules: "",
     targetAudience: "",
@@ -921,9 +921,9 @@ export function processConfigFields(config) {
   if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
     const purposeRules = config.documentPurpose
       .map((key) => {
-        const style = DOCUMENT_STYLES[key];
+        const style = PAGE_STYLES[key];
         if (!style) return null;
-        return `Document Purpose - ${style.name}:\n${style.description}\n${style.content}`;
+        return `Page Purpose - ${style.name}:\n${style.description}\n${style.content}`;
       })
       .filter(Boolean);
 
@@ -979,11 +979,11 @@ export function processConfigFields(config) {
 
   // Process documentation depth (single value)
   let depthContent = "";
-  if (config.documentationDepth) {
-    depthContent = DOCUMENTATION_DEPTH[config.documentationDepth]?.content;
+  if (config.pageContentDepth) {
+    depthContent = PAGE_CONTENT_DEPTH[config.pageContentDepth]?.content;
     if (depthContent) {
-      processed.documentationDepthContent = depthContent;
-      allRulesContent.push(`Documentation Depth:\n${depthContent}`);
+      processed.pageContentDepthContent = depthContent;
+      allRulesContent.push(`Page Content Depth:\n${depthContent}`);
     }
   }
 

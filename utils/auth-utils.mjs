@@ -13,9 +13,9 @@ import {
   InvalidBlockletError,
 } from "./blocklet.mjs";
 import {
-  BLOCKLET_ADD_COMPONENT_DOCS,
-  DISCUSS_KIT_DID,
-  DISCUSS_KIT_STORE_URL,
+  BLOCKLET_ADD_COMPONENT_PAGES,
+  PAGES_KIT_DID,
+  PAGES_KIT_STORE_URL,
 } from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -26,7 +26,7 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * @returns {Promise<string>} - The access token
  */
 export async function getAccessToken(appUrl) {
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
+  const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
   let accessToken = process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
@@ -34,8 +34,8 @@ export async function getAccessToken(appUrl) {
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
-      if (existsSync(DOC_SMITH_ENV_FILE)) {
-        const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
+      if (existsSync(WEB_SMITH_ENV_FILE)) {
+        const data = await readFile(WEB_SMITH_ENV_FILE, "utf8");
         if (data.includes("DOC_DISCUSS_KIT_ACCESS_TOKEN")) {
           const envs = parse(data);
           if (envs[hostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
@@ -64,10 +64,10 @@ export async function getAccessToken(appUrl) {
           `${chalk.bold("💡 Solution:")} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
-      const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
+      const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_PAGES);
       throw new Error(
         `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
+          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Pages Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
@@ -88,10 +88,10 @@ export async function getAccessToken(appUrl) {
     const result = await createConnect({
       connectUrl: connectUrl,
       connectAction: "gen-simple-access-key",
-      source: `AIGNE DocSmith connect to Discuss Kit`,
+      source: `AIGNE WebSmith connect to Pages Kit`,
       closeOnSuccess: true,
-      appName: "AIGNE DocSmith",
-      appLogo: "https://docsmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
+      appName: "AIGNE WebSmith",
+      appLogo: "https://websmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
       openPage: (pageUrl) => open(pageUrl),
     });
 
@@ -104,12 +104,12 @@ export async function getAccessToken(appUrl) {
       mkdirSync(aigneDir, { recursive: true });
     }
 
-    const existingConfig = existsSync(DOC_SMITH_ENV_FILE)
-      ? parse(await readFile(DOC_SMITH_ENV_FILE, "utf8"))
+    const existingConfig = existsSync(WEB_SMITH_ENV_FILE)
+      ? parse(await readFile(WEB_SMITH_ENV_FILE, "utf8"))
       : {};
 
     await writeFile(
-      DOC_SMITH_ENV_FILE,
+      WEB_SMITH_ENV_FILE,
       stringify({
         ...existingConfig,
         [hostname]: {

@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, stringify } from "yaml";
 
-const PREFERENCES_DIR = ".aigne/doc-smith";
+const PREFERENCES_DIR = ".aigne/web-smith";
 const PREFERENCES_FILE = "preferences.yml";
 
 /**

@@ -3,7 +3,7 @@ import path from "node:path";
 
 const structureDir = path.join(
   process.cwd(),
-  "./.aigne/doc-smith",
+  "./.aigne/web-smith",
   "output",
   "structure-plan.json",
 );

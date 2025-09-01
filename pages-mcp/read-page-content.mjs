@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const docsDir = path.join(process.cwd(), "./.aigne/doc-smith", "docs");
+const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
 
-export default async function readDocContent({ relevantDocPaths, docsDir: customDocsDir }) {
-  const targetDocsDir = customDocsDir || docsDir;
+export default async function readPageContent({ relevantPagePaths, pagesDir: customPagesDir }) {
+  const targetPagesDir = customPagesDir || pagesDir;
   const docContents = [];
 
   for (const docPath of relevantDocPaths) {

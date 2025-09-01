@@ -1,13 +1,13 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const docsDir = path.join(process.cwd(), "./.aigne/doc-smith", "docs");
+const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
 
-export default async function getDocDetail({ path: docPath }) {
+export default async function getPageDetail({ path: pagePath }) {
   try {
     // Flatten path: remove leading /, replace all / with - (same logic as utils.mjs)
-    const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
-    const fileFullName = `${flatName}.md`;
+    const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
+    const fileFullName = `${flatName}.yaml`;
     const filePath = path.join(docsDir, fileFullName);
 
     // Read the markdown file

@@ -32,7 +32,7 @@ skills:
     name: batchDocsTranslate
     skills:
       - ./batch-translate.yaml
-      - url: ./save-single-doc.mjs
+      - url: ./save-single-page.mjs
         default_input:
           isTranslate: true
     iterate_on: selectedDocs

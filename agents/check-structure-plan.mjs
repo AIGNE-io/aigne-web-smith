@@ -144,7 +144,7 @@ export default async function checkStructurePlan(
         }
 
         if (hasUpdated) {
-          message = `\n### Auto-updated Project Info to \`.aigne/doc-smith/config.yaml\`\n\n${message}\n\n`;
+          message = `\n### Auto-updated Project Info to \`.aigne/web-smith/config.yaml\`\n\n${message}\n\n`;
         }
       }
     } catch (error) {

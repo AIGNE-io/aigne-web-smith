@@ -103,16 +103,16 @@ export const DEFAULT_INCLUDE_PATTERNS = [
 ];
 
 export const DEFAULT_EXCLUDE_PATTERNS = [
-  "**/aigne-docs/**",
-  "**/doc-smith/**",
+  "**/aigne-pages/**",
+  "**/web-smith/**",
   "**/.aigne/**",
   "**/data/**",
   "**/public/**",
   "**/static/**",
   "**/vendor/**",
   "**/temp/**",
-  "**/*docs/**",
-  "**/*doc/**",
+  "**/*pages/**",
+  "**/*page/**",
   "**/*venv/**",
   "*.venv/**",
   "*test*",
@@ -145,7 +145,7 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
   "**/bun.lockb",
 ];
 
-// Supported languages for documentation
+// Supported languages for pages
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English (en)", sample: "Hello" },
   { code: "zh", label: "简体中文 (zh)", sample: "你好" },
@@ -161,8 +161,8 @@ export const SUPPORTED_LANGUAGES = [
   { code: "ar", label: "العربية (ar)", sample: "مرحبا" },
 ];
 
-// Predefined document generation styles based on primary purpose
-export const DOCUMENT_STYLES = {
+// Predefined page generation styles based on primary purpose
+export const PAGE_STYLES = {
   getStarted: {
     name: "Get started quickly",
     description: "Help new users go from zero to working in <30 minutes",
@@ -201,7 +201,7 @@ export const DOCUMENT_STYLES = {
   },
 };
 
-// Predefined target audiences based on who will read the documentation most often
+// Predefined target audiences based on who will visit the pages most often
 export const TARGET_AUDIENCES = {
   endUsers: {
     name: "End users (non-technical)",
@@ -275,8 +275,8 @@ export const READER_KNOWLEDGE_LEVELS = {
   },
 };
 
-// Documentation depth - how comprehensive should the documentation be?
-export const DOCUMENTATION_DEPTH = {
+// Page content depth - how comprehensive should the page content be?
+export const PAGE_CONTENT_DEPTH = {
   essentialOnly: {
     name: "Essential only",
     description: "Cover the 80% use cases, keep it concise",
@@ -311,7 +311,7 @@ export const PURPOSE_TO_KNOWLEDGE_MAPPING = {
   exploringEvaluating: "exploringEvaluating", // Exploring → Exploring/evaluating
 };
 
-// Documentation Depth recommendation logic
+// Page Content Depth recommendation logic
 export const DEPTH_RECOMMENDATION_LOGIC = {
   // Purpose-based recommendations (highest priority)
   purposes: {
@@ -327,19 +327,19 @@ export const DEPTH_RECOMMENDATION_LOGIC = {
   },
 };
 
-// Component mount point ID for Discuss Kit
-export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+// Component mount point ID for Pages Kit (需要更新为实际的 Pages Kit DID)
+export const PAGES_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 
-// Discuss Kit related URLs
-export const DISCUSS_KIT_STORE_URL =
+// Pages Kit related URLs (需要更新为实际的 Pages Kit URLs)
+export const PAGES_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
-export const BLOCKLET_ADD_COMPONENT_DOCS =
+export const BLOCKLET_ADD_COMPONENT_PAGES =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
 
 // Supported file extensions for content reading
 export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
 
-// Conflict rules configuration for documentation generation
+// Conflict rules configuration for page generation
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
@@ -544,6 +544,6 @@ export const D2_CONFIG = `vars: {
 export const KROKI_CONCURRENCY = 5;
 export const FILE_CONCURRENCY = 3;
 export const TMP_DIR = ".tmp";
-export const TMP_DOCS_DIR = "docs";
+export const TMP_PAGES_DIR = "pages";
 
 export const TMP_ASSETS_DIR = "assets";

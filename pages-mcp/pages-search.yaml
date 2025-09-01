@@ -4,8 +4,8 @@ description: Search relevant documents based on user query
 skills:
   - ../agents/load-config.mjs
   - ../agents/load-sources.mjs
-  - analyze-docs-relevance.yaml
-  - read-doc-content.mjs
+  - analyze-pages-relevance.yaml
+  - read-page-content.mjs
   - analyze-content-relevance.yaml
 includeInputInOutput: false
 input_schema:
@@ -18,7 +18,7 @@ input_schema:
     config:
       type: string
       description: Path to the config file
-      default: ./.aigne/doc-smith/config.yaml
+      default: ./.aigne/web-smith/config.yaml
 output_schema:
   type: object
   properties:

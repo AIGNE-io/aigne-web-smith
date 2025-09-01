@@ -46,7 +46,7 @@ loadConfig.input_schema = {
   properties: {
     config: {
       type: "string",
-      default: "./.aigne/doc-smith/config.yaml",
+      default: "./.aigne/web-smith/config.yaml",
     },
     appUrl: {
       type: "string",

@@ -1,18 +1,19 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { stringify as yamlStringify } from "yaml";
 import { shutdownMermaidWorkerPool } from "../utils/mermaid-worker-pool.mjs";
 import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
 
 /**
  * @param {Object} params
  * @param {Array<{path: string, content: string, title: string}>} params.structurePlan
- * @param {string} params.docsDir
+ * @param {string} params.pagesDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-export default async function saveDocs({
+export default async function savePages({
   structurePlanResult: structurePlan,
-  docsDir,
+  pagesDir,
   translateLanguages = [],
   locale,
   projectInfoMessage,
@@ -26,26 +27,26 @@ export default async function saveDocs({
     console.warn("Failed to save git HEAD:", err.message);
   }
 
-  // Generate _sidebar.md
+  // Generate _sidebar.yaml
   try {
-    const sidebar = generateSidebar(structurePlan);
-    const sidebarPath = join(docsDir, "_sidebar.md");
+    const sidebar = generateSidebarYaml(structurePlan);
+    const sidebarPath = join(pagesDir, "_sidebar.yaml");
     await writeFile(sidebarPath, sidebar, "utf8");
   } catch (err) {
-    console.error("Failed to save _sidebar.md:", err.message);
+    console.error("Failed to save _sidebar.yaml:", err.message);
   }
 
-  // Clean up invalid .md files that are no longer in the structure plan
+  // Clean up invalid .yaml files that are no longer in the structure plan
   try {
-    await cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale);
+    await cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale);
   } catch (err) {
-    console.error("Failed to cleanup invalid .md files:", err.message);
+    console.error("Failed to cleanup invalid .yaml files:", err.message);
   }
 
-  const message = `## ✅ Documentation Generated Successfully!
+  const message = `## ✅ Pages Generated Successfully!
 
-  Successfully generated **${structurePlan.length}** documents and saved to:
-  \`${docsDir}\`
+  Successfully generated **${structurePlan.length}** page templates and saved to:
+  \`${pagesDir}\`
   ${projectInfoMessage || ""}
   ### 🚀 Next Steps
 
@@ -96,24 +97,24 @@ export default async function saveDocs({
  */
 function generateFileName(flatName, language) {
   const isEnglish = language === "en";
-  return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
+  return isEnglish ? `${flatName}.yaml` : `${flatName}.${language}.yaml`;
 }
 
 /**
- * Clean up .md files that are no longer in the structure plan
+ * Clean up .yaml files that are no longer in the structure plan
  * @param {Array<{path: string, title: string}>} structurePlan
- * @param {string} docsDir
+ * @param {string} pagesDir
  * @param {Array<string>} translateLanguages
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale) {
+async function cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale) {
   const results = [];
 
   try {
-    // Get all .md files in docsDir
-    const files = await readdir(docsDir);
-    const mdFiles = files.filter((file) => file.endsWith(".md"));
+    // Get all .yaml files in pagesDir
+    const files = await readdir(pagesDir);
+    const yamlFiles = files.filter((file) => file.endsWith(".yaml"));
 
     // Generate expected file names from structure plan
     const expectedFiles = new Set();
@@ -133,15 +134,15 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
       }
     }
 
-    // Find files to delete (files that are not in expectedFiles and not _sidebar.md)
-    const filesToDelete = mdFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sidebar.md",
+    // Find files to delete (files that are not in expectedFiles and not _sidebar.yaml)
+    const filesToDelete = yamlFiles.filter(
+      (file) => !expectedFiles.has(file) && file !== "_sidebar.yaml",
     );
 
     // Delete invalid files
     for (const file of filesToDelete) {
       try {
-        const filePath = join(docsDir, file);
+        const filePath = join(pagesDir, file);
         await unlink(filePath);
         results.push({
           path: filePath,
@@ -158,10 +159,10 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
     }
 
     if (filesToDelete.length > 0) {
-      console.log(`Cleaned up ${filesToDelete.length} invalid .md files from ${docsDir}`);
+      console.log(`Cleaned up ${filesToDelete.length} invalid .yaml files from ${pagesDir}`);
     }
   } catch (err) {
-    // If docsDir doesn't exist or can't be read, that's okay
+    // If pagesDir doesn't exist or can't be read, that's okay
     if (err.code !== "ENOENT") {
       throw err;
     }
@@ -170,8 +171,8 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
   return results;
 }
 
-// Generate sidebar content, support nested structure, and the order is consistent with structurePlan
-function generateSidebar(structurePlan) {
+// Generate sidebar YAML content, support nested structure, and the order is consistent with structurePlan
+function generateSidebarYaml(structurePlan) {
   // Build tree structure
   const root = {};
   for (const { path, title, parentId } of structurePlan) {
@@ -191,23 +192,31 @@ function generateSidebar(structurePlan) {
       node = node[seg].__children;
     }
   }
-  // Recursively generate sidebar text, the link path is the flattened file name
-  function walk(node, parentSegments = [], indent = "") {
-    let out = "";
+  // Recursively generate YAML sidebar structure
+  function walk(node, parentSegments = []) {
+    const items = [];
     for (const key of Object.keys(node)) {
       const item = node[key];
       const fullSegments = [...parentSegments, key];
-      const flatFile = `${fullSegments.join("-")}.md`;
+      const flatFile = `${fullSegments.join("-")}.yaml`;
       if (item.__title) {
-        const realIndent = item.__parentId === null ? "" : indent;
-        out += `${realIndent}* [${item.__title}](/${flatFile})\n`;
-      }
-      const children = item.__children;
-      if (Object.keys(children).length > 0) {
-        out += walk(children, fullSegments, `${indent}  `);
+        const sidebarItem = {
+          title: item.__title,
+          path: `/${flatFile}`,
+        };
+        const children = item.__children;
+        if (Object.keys(children).length > 0) {
+          sidebarItem.children = walk(children, fullSegments);
+        }
+        items.push(sidebarItem);
       }
     }
-    return out;
+    return items;
   }
-  return walk(root).replace(/\n+$/, "");
+
+  const sidebarData = {
+    sidebar: walk(root),
+  };
+
+  return yamlStringify(sidebarData);
 }

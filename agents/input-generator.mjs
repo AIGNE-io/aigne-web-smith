@@ -5,8 +5,8 @@ import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
   DEPTH_RECOMMENDATION_LOGIC,
-  DOCUMENT_STYLES,
-  DOCUMENTATION_DEPTH,
+  PAGE_CONTENT_DEPTH,
+  PAGE_STYLES,
   PURPOSE_TO_KNOWLEDGE_MAPPING,
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_LANGUAGES,
@@ -31,7 +31,7 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = ".aigne/doc-smith", fileName = "config.yaml", skipIfExists = false },
+  { outputPath = ".aigne/web-smith", fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
   if (skipIfExists) {
@@ -43,16 +43,17 @@ export default async function init(
     }
   }
 
-  console.log("🚀 Welcome to AIGNE DocSmith!");
-  console.log("Let's create your documentation configuration.\n");
+  console.log("🚀 Welcome to AIGNE WebSmith!");
+  console.log("Let's create your website page configuration.\n");
 
   // Collect user information
   const input = {};
 
-  // 1. Primary purpose - what's the main outcome you want readers to achieve?
+  // 1. Primary purpose - what's the main outcome you want visitors to achieve?
   const purposeChoices = await options.prompts.checkbox({
-    message: "📝 [1/8]: What is the primary goal for your readers? (Select all that apply)",
-    choices: Object.entries(DOCUMENT_STYLES)
+    message:
+      "📝 [1/8]: What is the primary goal for your website visitors? (Select all that apply)",
+    choices: Object.entries(PAGE_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
         name: `${style.name}`,
@@ -72,7 +73,7 @@ export default async function init(
   if (purposeChoices.length === 1 && purposeChoices.includes("mixedPurpose")) {
     const topPriorities = await options.prompts.checkbox({
       message: "🎯 Which is most important? (Select top 2 priorities)",
-      choices: Object.entries(DOCUMENT_STYLES)
+      choices: Object.entries(PAGE_STYLES)
         .filter(([key]) => key !== "custom" && key !== "mixedPurpose") // Filter out custom and mixedPurpose
         .map(([key, style]) => ({
           name: `${style.name}`,
@@ -99,7 +100,7 @@ export default async function init(
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/8]: Who is the primary audience for this documentation?",
+    message: "👥 [2/8]: Who is the primary audience for these pages?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -145,7 +146,7 @@ export default async function init(
   // Save reader knowledge level choice as key
   input.readerKnowledgeLevel = knowledgeChoice;
 
-  // 4. Documentation depth - how comprehensive should the documentation be?
+  // 4. Page content depth - how comprehensive should the page content be?
   // Determine default based on priority: Purpose > Audience > Knowledge Level
   const getDepthDefault = () => {
     // Check priority order: purposes -> audiences -> knowledgeLevels
@@ -166,19 +167,19 @@ export default async function init(
 
   const defaultDepth = getDepthDefault();
 
-  // Filter documentation depth options based on all previous selections
+  // Filter page content depth options based on all previous selections
   const { filteredOptions: filteredDepthOptions } = getFilteredOptions(
-    "documentationDepth",
+    "pageContentDepth",
     {
       documentPurpose: prioritizedPurposes,
       targetAudienceTypes: audienceChoices,
       readerKnowledgeLevel: knowledgeChoice,
     },
-    DOCUMENTATION_DEPTH,
+    PAGE_CONTENT_DEPTH,
   );
 
   const depthChoice = await options.prompts.select({
-    message: "📊 [4/8]: How comprehensive should the documentation be?",
+    message: "📊 [4/8]: How comprehensive should the page content be?",
     choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
@@ -187,8 +188,8 @@ export default async function init(
     default: defaultDepth,
   });
 
-  // Save documentation depth choice as key
-  input.documentationDepth = depthChoice;
+  // Save page content depth choice as key
+  input.pageContentDepth = depthChoice;
 
   // 5. Language settings
   // Detect system language and use as default
@@ -196,7 +197,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/8]: Choose primary documentation language:",
+    message: "🌐 [5/8]: Choose primary page language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -231,7 +232,7 @@ export default async function init(
 
   // 8. Source code paths
   console.log("\n🔍 [8/8]: Source Code Paths");
-  console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
+  console.log("Enter paths to analyze for page generation (e.g., ./src, ./lib)");
   console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
@@ -378,7 +379,7 @@ export function generateYAML(input) {
     translateLanguages: input.translateLanguages?.filter((lang) => lang.trim()) || [],
 
     // Paths
-    docsDir: input.docsDir || "./aigne/doc-smith/docs",
+    pagesDir: input.pagesDir || "./aigne/web-smith/pages",
     sourcesPath: input.sourcesPath || [],
   };
 
@@ -402,7 +403,7 @@ export function generateYAML(input) {
   // Document Purpose with all available options
   yaml += "# Purpose: What's the main outcome you want readers to achieve?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
-  Object.entries(DOCUMENT_STYLES).forEach(([key, style]) => {
+  Object.entries(PAGE_STYLES).forEach(([key, style]) => {
     if (key !== "custom") {
       yaml += `#   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
     }
@@ -443,15 +444,15 @@ export function generateYAML(input) {
   // Documentation Depth with all available options
   yaml += "# Documentation Depth: How comprehensive should the documentation be?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
-  Object.entries(DOCUMENTATION_DEPTH).forEach(([key, depth]) => {
+  Object.entries(PAGE_CONTENT_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
   });
 
-  // Safely serialize documentationDepth
-  const documentationDepthSection = yamlStringify({
-    documentationDepth: config.documentationDepth,
+  // Safely serialize pageContentDepth
+  const pageContentDepthSection = yamlStringify({
+    pageContentDepth: config.pageContentDepth,
   }).trim();
-  yaml += `${documentationDepthSection.replace(/^documentationDepth:/, "documentationDepth:")}\n\n`;
+  yaml += `${pageContentDepthSection.replace(/^pageContentDepth:/, "pageContentDepth:")}\n\n`;
 
   // Custom Documentation Rules and Requirements
   yaml += "# Custom Rules: Define specific documentation generation rules and requirements\n";
@@ -480,14 +481,14 @@ export function generateYAML(input) {
     }).trim();
     yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
-    yaml += "# translateLanguages:  # List of languages to translate the documentation to\n";
+    yaml += "# translateLanguages:  # List of languages to translate the pages to\n";
     yaml += "#   - zh  # Example: Chinese translation\n";
     yaml += "#   - en  # Example: English translation\n";
   }
 
   // Directory and source path configurations - safely serialize
-  const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
-  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # Directory to save generated documentation\n`;
+  const pagesDirSection = yamlStringify({ pagesDir: config.pagesDir }).trim();
+  yaml += `${pagesDirSection.replace(/^pagesDir:/, "pagesDir:")}  # Directory to save generated pages\n`;
 
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
@@ -495,4 +496,4 @@ export function generateYAML(input) {
   return yaml;
 }
 
-init.description = "Generate a configuration file for the documentation generation process";
+init.description = "Generate a configuration file for the page generation process";

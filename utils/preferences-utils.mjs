@@ -48,7 +48,9 @@ export function readPreferences() {
     const preferences = parse(content);
     return preferences || { rules: [] };
   } catch (error) {
-    console.warn(`Warning: Failed to read preferences file at ${filePath}: ${error.message}`);
+    console.warn(
+      `Warning: Failed to read preferences file at ${filePath}: ${error.message}`
+    );
     return { rules: [] };
   }
 }
@@ -77,7 +79,7 @@ export function writePreferences(preferences) {
  * Add a new preference rule
  * @param {Object} ruleData - Rule data from feedbackRefiner
  * @param {string} ruleData.rule - The rule text
- * @param {string} ruleData.scope - Rule scope (global, structure, document, translation)
+ * @param {string} ruleData.scope - Rule scope (global, structure, page, translation)
  * @param {boolean} ruleData.limitToInputPaths - Whether to limit to input paths
  * @param {string} feedback - Original user feedback
  * @param {string[]} [paths] - Optional paths to save with the rule
@@ -110,7 +112,7 @@ export function addPreferenceRule(ruleData, feedback, paths = []) {
 
 /**
  * Get all active preference rules for a specific scope
- * @param {string} scope - The scope to filter by (global, structure, document, translation)
+ * @param {string} scope - The scope to filter by (global, structure, page, translation)
  * @param {string[]} [currentPaths] - Current paths to match against rules with path restrictions
  * @returns {Object[]} Array of matching active rules
  */
@@ -130,7 +132,9 @@ export function getActiveRulesForScope(scope, currentPaths = []) {
       }
 
       // Check if any current path matches any rule path pattern
-      return currentPaths.some((currentPath) => rule.paths.includes(currentPath));
+      return currentPaths.some((currentPath) =>
+        rule.paths.includes(currentPath)
+      );
     }
 
     return true; // No path restrictions, include the rule

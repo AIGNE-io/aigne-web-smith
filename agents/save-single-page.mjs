@@ -1,6 +1,6 @@
-import { saveDocWithTranslations } from "../utils/utils.mjs";
+import { savePageWithTranslations } from "../utils/utils.mjs";
 
-export default async function saveSingleDoc({
+export default async function saveSinglePage({
   path,
   content,
   pagesDir,
@@ -10,7 +10,7 @@ export default async function saveSingleDoc({
   isTranslate = false,
   isShowMessage = false,
 }) {
-  const _results = await saveDocWithTranslations({
+  const _results = await savePageWithTranslations({
     path,
     content,
     pagesDir,
@@ -23,11 +23,11 @@ export default async function saveSingleDoc({
   if (isShowMessage) {
     const message = isTranslate
       ? `✅ Translation completed successfully`
-      : `✅ Document updated successfully`;
+      : `✅ Page updated successfully`;
     return { message };
   }
 
   return {};
 }
 
-saveSingleDoc.task_render_mode = "hide";
+saveSinglePage.task_render_mode = "hide";

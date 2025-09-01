@@ -4,11 +4,11 @@ import {
   getActionText,
   getMainLanguageFiles,
   processSelectedFiles,
-} from "../utils/docs-finder-utils.mjs";
+} from "../utils/pages-finder-utils.mjs";
 
-export default async function selectedDocs(
+export default async function selectedPages(
   {
-    docs,
+    pages,
     structurePlanResult,
     boardId,
     pagesDir,
@@ -21,8 +21,8 @@ export default async function selectedDocs(
   let foundItems = [];
   let selectedFiles = [];
 
-  // If docs is empty or not provided, let user select multiple documents
-  if (!docs || docs.length === 0) {
+  // If pages is empty or not provided, let user select multiple pages
+  if (!pages || pages.length === 0) {
     try {
       // Get all main language .md files in pagesDir
       const mainLanguageFiles = await getMainLanguageFiles(
@@ -32,12 +32,12 @@ export default async function selectedDocs(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error("No documents found in the docs directory");
+        throw new Error("No pages found in the pages directory");
       }
 
       // Let user select multiple files
       selectedFiles = await options.prompts.checkbox({
-        message: getActionText(isTranslate, "Select documents to {action}:"),
+        message: getActionText(isTranslate, "Select pages to {action}:"),
         source: (term) => {
           const choices = mainLanguageFiles.map((file) => ({
             name: file,
@@ -52,14 +52,14 @@ export default async function selectedDocs(
         },
         validate: (answer) => {
           if (answer.length === 0) {
-            return "Please select at least one document";
+            return "Please select at least one page";
           }
           return true;
         },
       });
 
       if (!selectedFiles || selectedFiles.length === 0) {
-        throw new Error("No documents selected");
+        throw new Error("No pages selected");
       }
 
       // Process selected files and convert to found items
@@ -73,16 +73,16 @@ export default async function selectedDocs(
       throw new Error(
         getActionText(
           isTranslate,
-          "Please provide a docs parameter to specify which documents to {action}"
+          "Please provide a pages parameter to specify which pages to {action}"
         )
       );
     }
   } else {
-    // Process the provided docs array
-    for (const docPath of docs) {
+    // Process the provided pages array
+    for (const pagePath of pages) {
       const foundItem = await findItemByPath(
         structurePlanResult,
-        docPath,
+        pagePath,
         boardId,
         pagesDir,
         locale
@@ -90,7 +90,7 @@ export default async function selectedDocs(
 
       if (!foundItem) {
         console.warn(
-          `⚠️  Item with path "${docPath}" not found in structurePlanResult`
+          `⚠️  Item with path "${pagePath}" not found in structurePlanResult`
         );
         continue;
       }
@@ -102,7 +102,7 @@ export default async function selectedDocs(
 
     if (foundItems.length === 0) {
       throw new Error(
-        "None of the specified document paths were found in structurePlanResult"
+        "None of the specified page paths were found in structurePlanResult"
       );
     }
   }
@@ -124,7 +124,7 @@ export default async function selectedDocs(
   foundItems = addFeedbackToItems(foundItems, userFeedback);
 
   return {
-    selectedDocs: foundItems,
+    selectedPages: foundItems,
     feedback: userFeedback,
     selectedPaths: foundItems.map((item) => item.path),
   };

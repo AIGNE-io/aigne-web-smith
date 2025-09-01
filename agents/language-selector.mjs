@@ -9,7 +9,7 @@ import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
  * @param {Object} options - Options object with prompts
  * @returns {Promise<Object>} Selected languages
  */
-export default async function languageSelector({ langs, locale, selectedDocs }, options) {
+export default async function languageSelector({ langs, locale, selectedPages }, options) {
   let selectedLanguages = [];
 
   // Load existing config to get current translation languages
@@ -77,16 +77,16 @@ export default async function languageSelector({ langs, locale, selectedDocs }, 
     await saveValueToConfig("translateLanguages", updatedTranslateLanguages);
   }
 
-  const newSelectedDocs = selectedDocs.map((doc) => {
+  const newSelectedPages = selectedPages.map((page) => {
     return {
-      ...doc,
+      ...page,
       translates: selectedLanguages.map((lang) => ({ language: lang })),
     };
   });
 
   return {
     selectedLanguages,
-    selectedDocs: newSelectedDocs,
+    selectedPages: newSelectedPages,
   };
 }
 

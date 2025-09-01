@@ -3,7 +3,7 @@ name: generate
 alias:
   - gen
   - g
-description: Automatically generates comprehensive project documentation
+description: Automatically generates comprehensive project pages
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -53,7 +53,7 @@ input_schema:
       description: Feedback for structure planning adjustments
     forceRegenerate:
       type: boolean
-      description: Force regenerate all documentation
+      description: Force regenerate all pages
   required:
     - config
 mode: sequential

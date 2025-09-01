@@ -2,7 +2,7 @@ import { CONFLICT_RESOLUTION_RULES, CONFLICT_RULES, RESOLUTION_STRATEGIES } from
 
 /**
  * Detect internal conflicts within the same question (multi-select conflicts)
- * @param {string} questionType - Question type (documentPurpose, targetAudienceTypes)
+ * @param {string} questionType - Question type (pagePurpose, targetAudienceTypes)
  * @param {Array} selectedValues - User selected values
  * @returns {Array} List of conflicts
  */
@@ -108,7 +108,7 @@ export function getFilteredOptions(targetQuestion, currentSelections, allOptions
 
 /**
  * Validate user selection for internal conflicts and return validation message
- * @param {string} questionType - Question type (documentPurpose, targetAudienceTypes)
+ * @param {string} questionType - Question type (pagePurpose, targetAudienceTypes)
  * @param {Array} selectedValues - User selected values
  * @returns {string|boolean} Error message if conflicts exist, true if valid
  */

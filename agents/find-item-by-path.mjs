@@ -5,11 +5,11 @@ import {
   getActionText,
   getMainLanguageFiles,
   readFileContent,
-} from "../utils/docs-finder-utils.mjs";
+} from "../utils/pages-finder-utils.mjs";
 
 export default async function findItemByPath(
   {
-    doc,
+    page,
     structurePlanResult,
     boardId,
     pagesDir,
@@ -21,10 +21,10 @@ export default async function findItemByPath(
 ) {
   let foundItem = null;
   let selectedFileContent = null;
-  let docPath = doc;
+  let pagePath = page;
 
-  // If docPath is empty, let user select from available documents
-  if (!docPath) {
+  // If pagePath is empty, let user select from available pages
+  if (!pagePath) {
     try {
       // Get all main language .md files in pagesDir
       const mainLanguageFiles = await getMainLanguageFiles(
@@ -34,12 +34,12 @@ export default async function findItemByPath(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error("No documents found in the docs directory");
+        throw new Error("No pages found in the pages directory");
       }
 
       // Let user select a file
       const selectedFile = await options.prompts.search({
-        message: getActionText(isTranslate, "Select a document to {action}:"),
+        message: getActionText(isTranslate, "Select a page to {action}:"),
         source: async (input) => {
           if (!input || input.trim() === "") {
             return mainLanguageFiles.map((file) => ({
@@ -61,7 +61,7 @@ export default async function findItemByPath(
       });
 
       if (!selectedFile) {
-        throw new Error("No document selected");
+        throw new Error("No page selected");
       }
 
       // Read the selected .md file content
@@ -74,16 +74,16 @@ export default async function findItemByPath(
       const foundItemByFile = findItemByFlatName(structurePlanResult, flatName);
 
       if (!foundItemByFile) {
-        throw new Error("No document found");
+        throw new Error("No page found");
       }
 
-      docPath = foundItemByFile.path;
+      pagePath = foundItemByFile.path;
     } catch (error) {
       console.debug(error?.message);
       throw new Error(
         getActionText(
           isTranslate,
-          "Please run 'aigne doc generate' first to generate documents, then select which document to {action}"
+          "Please run 'aigne page generate' first to generate pages, then select which page to {action}"
         )
       );
     }
@@ -92,7 +92,7 @@ export default async function findItemByPath(
   // Use the utility function to find item and read content
   foundItem = await findItemByPathUtil(
     structurePlanResult,
-    docPath,
+    pagePath,
     boardId,
     pagesDir,
     locale
@@ -100,7 +100,7 @@ export default async function findItemByPath(
 
   if (!foundItem) {
     throw new Error(
-      `Item with path "${docPath}" not found in structurePlanResult`
+      `Item with path "${pagePath}" not found in structurePlanResult`
     );
   }
 

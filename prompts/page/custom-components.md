@@ -1,9 +1,10 @@
-When generating document details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance document presentation:
+When generating page details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance page presentation:
+
 - `<x-card>`
 - `<x-cards>`
 
-
 ### 1. <x-card> Single Card Component
+
 Suitable for displaying individual links with a richer and more visually appealing presentation format.
 
 Example:
@@ -16,16 +17,15 @@ Example:
 
 Attribute Rules:
 
--	data-title (required): Card title.
--	data-icon / data-image (choose one, at least one must be provided):
-    -	It's recommended to always provide data-icon.
-    -	Icons should prioritize Lucide (lucide:icon-name). If not available in Lucide, use Iconify (collection:icon-name, e.g., material-symbols:rocket-outline).
--	data-image (optional): Image URL, can coexist with icon.
--	data-href (optional): Navigation link for clicking the card or button.
--	data-horizontal (optional): Whether to use horizontal layout.
--	data-cta (optional): Button text (call to action).
--	Body content: Must be written within <x-card>...</x-card> children.
-
+- data-title (required): Card title.
+- data-icon / data-image (choose one, at least one must be provided):
+  - It's recommended to always provide data-icon.
+  - Icons should prioritize Lucide (lucide:icon-name). If not available in Lucide, use Iconify (collection:icon-name, e.g., material-symbols:rocket-outline).
+- data-image (optional): Image URL, can coexist with icon.
+- data-href (optional): Navigation link for clicking the card or button.
+- data-horizontal (optional): Whether to use horizontal layout.
+- data-cta (optional): Button text (call to action).
+- Body content: Must be written within <x-card>...</x-card> children.
 
 ### 2. `<x-cards>` Card List Component
 
@@ -42,13 +42,13 @@ Syntax:
 ```
 
 Attribute Rules:
--	data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
--	Must contain multiple <x-card> elements internally.
--	Consistency requirement: All <x-card> elements within the same <x-cards> must maintain visual consistency:
-    -	Recommended to always provide data-icon for each card.
-    -	Or all cards should have data-image.
-    -	Avoid mixing (some with icons, some with only images).
 
+- data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
+- Must contain multiple <x-card> elements internally.
+- Consistency requirement: All <x-card> elements within the same <x-cards> must maintain visual consistency:
+  - Recommended to always provide data-icon for each card.
+  - Or all cards should have data-image.
+  - Avoid mixing (some with icons, some with only images).
 
 ### 3. Examples
 

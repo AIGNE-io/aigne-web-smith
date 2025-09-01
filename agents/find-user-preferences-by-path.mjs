@@ -4,7 +4,7 @@ export default async function findUserPreferencesByPath({ path, scope }) {
   // Get global rules (always applicable)
   const globalRules = getActiveRulesForScope("global", []);
 
-  // Get scope-specific rules (document/translation based on scope parameter)
+  // Get scope-specific rules (page/translation based on scope parameter)
   const scopeRules = getActiveRulesForScope(scope, path ? [path] : []);
 
   // Combine all applicable rules
@@ -24,13 +24,13 @@ findUserPreferencesByPath.input_schema = {
   properties: {
     path: {
       type: "string",
-      description: "Document path to find preferences for",
+      description: "Page path to find preferences for",
     },
     scope: {
       type: "string",
       description:
-        "Preference scope: 'document' for update operations, 'translation' for translate operations",
-      enum: ["document", "translation"],
+        "Preference scope: 'page' for update operations, 'translation' for translate operations",
+      enum: ["page", "translation"],
     },
   },
   required: ["scope"],

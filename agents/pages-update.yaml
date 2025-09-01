@@ -2,7 +2,7 @@ type: team
 name: update
 alias:
   - up
-description: Optimize and regenerate individual document content and translations
+description: Optimize and regenerate individual page content and translations
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -29,14 +29,14 @@ skills:
   - ./find-items-by-paths.mjs
   - ./format-structure-plan.mjs
   - type: team
-    name: batchDocsUpdate
+    name: batchPagesUpdate
     skills:
       - ./detail-generator-and-translate.yaml
-    iterate_on: selectedDocs
+    iterate_on: selectedPages
     concurrency: 3
   - url: ./check-feedback-refiner.mjs
     default_input:
-      stage: document_refine
+      stage: page_refine
 
 input_schema:
   type: object
@@ -44,11 +44,11 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    docs:
+    pages:
       type: array
       items:
         type: string
-      description: Document paths to translate
+      description: Page paths to translate
     feedback:
       type: string
       description: Feedback for content improvement

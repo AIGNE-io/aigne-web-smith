@@ -32,7 +32,7 @@ export default async function readPageContent({ relevantPagePaths, pagesDir: cus
     }
   }
 
-  // Combine all successful document contents into a single text
+  // Combine all successful page contents into a single text
   const allPagesText = pageContents
     .filter((page) => page.success)
     .map((page) => page.content)

@@ -1,5 +1,5 @@
 name: feedbackRefiner
-description: Analyzes a user's specific feedback on generated documentation and refines it into a general, reusable preference rule for future use.
+description: Analyzes a user's specific feedback on generated pages and refines it into a general, reusable preference rule for future use.
 
 # The instructions file contains the core logic (the prompt) for this Agent.
 instructions:
@@ -13,16 +13,16 @@ input_schema:
       description: User's original feedback
     stage:
       type: string
-      description: The command/scenario that generated the feedback (used to infer scope), possible values. structure_planning, document_refine, translation_refine
+      description: The command/scenario that generated the feedback (used to infer scope), possible values. structure_planning, page_refine, translation_refine
     paths:
       type: array
       items:
         type: string
-      description: Optional. Document paths specified by the user in the current command
+      description: Optional. Page paths specified by the user in the current command
     existingPreferences:
       type: string
       description: Optional. YAML format string of currently saved user preference rules, used to avoid duplicate saving of similar rules
-  required: 
+  required:
     - feedback
     - stage
 
@@ -34,7 +34,7 @@ output_schema:
       description: Refine and summarize user feedback into a general rule
     scope:
       type: string
-      description: Rule scope. global, structure, document, translation
+      description: Rule scope. global, structure, page, translation
     save:
       type: boolean
       description: Whether to save as persistent preference (true=save; false=one-time, do not save)

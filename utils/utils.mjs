@@ -86,18 +86,18 @@ export function processContent({ content }) {
 }
 
 /**
- * Save a single document and its translations to files
+ * Save a single page and its translations to files
  * @param {Object} params
  * @param {string} params.path - Relative path (without extension)
- * @param {string} params.content - Main document content
+ * @param {string} params.content - Main page content
  * @param {string} params.pagesDir - Root directory
  * @param {string} params.locale - Main content language (e.g., 'en', 'zh', 'fr')
  * @param {Array<{language: string, translation: string}>} [params.translates] - Translation content
- * @param {Array<string>} [params.labels] - Document labels for front matter
+ * @param {Array<string>} [params.labels] - Page labels for front matter
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-export async function saveDocWithTranslations({
-  path: docPath,
+export async function savePageWithTranslations({
+  path: pagePath,
   content,
   pagesDir,
   locale,
@@ -108,7 +108,7 @@ export async function saveDocWithTranslations({
   const results = [];
   try {
     // Flatten path: remove leading /, replace all / with -
-    const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+    const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
     await fs.mkdir(pagesDir, { recursive: true });
 
     // Helper function to generate filename based on language
@@ -153,7 +153,7 @@ export async function saveDocWithTranslations({
       results.push({ path: translatePath, success: true });
     }
   } catch (err) {
-    results.push({ path: docPath, success: false, error: err.message });
+    results.push({ path: pagePath, success: false, error: err.message });
   }
   return results;
 }
@@ -980,9 +980,9 @@ export function processConfigFields(config) {
     }
   }
 
-  // Process document purpose (array)
-  if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
-    const purposeRules = config.documentPurpose
+  // Process page purpose (array)
+  if (config.pagePurpose && Array.isArray(config.pagePurpose)) {
+    const purposeRules = config.pagePurpose
       .map((key) => {
         const style = PAGE_STYLES[key];
         if (!style) return null;
@@ -1041,7 +1041,7 @@ export function processConfigFields(config) {
     }
   }
 
-  // Process documentation depth (single value)
+  // Process page depth (single value)
   let depthContent = "";
   if (config.pageContentDepth) {
     depthContent = PAGE_CONTENT_DEPTH[config.pageContentDepth]?.content;
@@ -1085,7 +1085,7 @@ export function processConfigFields(config) {
  *
  * Examples of supported file reference formats:
  *   - "@notes.txt"
- *   - "@docs/readme.md"
+ *   - "@pages/readme.md"
  *   - "@config/settings.json"
  *   - "@data.yaml"
  *

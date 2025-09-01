@@ -71,7 +71,7 @@ export default async function init(
       if (input.length === 0) {
         return "Please select at least one purpose.";
       }
-      return validateSelection("documentPurpose", input);
+      return validateSelection("pagePurpose", input);
     },
   });
 
@@ -102,8 +102,8 @@ export default async function init(
     prioritizedPurposes = topPriorities;
   }
 
-  // Save document purpose choices as keys
-  input.documentPurpose = prioritizedPurposes;
+  // Save page purpose choices as keys
+  input.pagePurpose = prioritizedPurposes;
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
@@ -139,7 +139,7 @@ export default async function init(
   const { filteredOptions: filteredKnowledgeOptions } = getFilteredOptions(
     "readerKnowledgeLevel",
     {
-      documentPurpose: prioritizedPurposes,
+      pagePurpose: prioritizedPurposes,
       targetAudienceTypes: audienceChoices,
     },
     READER_KNOWLEDGE_LEVELS
@@ -188,7 +188,7 @@ export default async function init(
   const { filteredOptions: filteredDepthOptions } = getFilteredOptions(
     "pageContentDepth",
     {
-      documentPurpose: prioritizedPurposes,
+      pagePurpose: prioritizedPurposes,
       targetAudienceTypes: audienceChoices,
       readerKnowledgeLevel: knowledgeChoice,
     },
@@ -240,9 +240,9 @@ export default async function init(
 
   input.translateLanguages = translateLanguageChoices;
 
-  // 7. Documentation directory
+  // 7. Page directory
   const pagesDirInput = await options.prompts.input({
-    message: `📁 [7/8]: Where to save generated docs:`,
+    message: `📁 [7/8]: Where to save generated pages:`,
     default: `${outputPath}/pages`,
   });
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
@@ -367,8 +367,8 @@ export default async function init(
     );
     console.log(
       `🚀 Run ${chalk.cyan(
-        "'aigne doc generate'"
-      )} to start documentation generation!\n`
+        "'aigne page generate'"
+      )} to start page generation!\n`
     );
 
     return {};
@@ -394,11 +394,11 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
 
-    // Documentation configuration
-    documentPurpose: input.documentPurpose || [],
+    // Page configuration
+    pagePurpose: input.pagePurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
     readerKnowledgeLevel: input.readerKnowledgeLevel || "",
-    documentationDepth: input.documentationDepth || "",
+    pageContentDepth: input.pageContentDepth || "",
 
     // Custom rules and target audience (empty for user to fill)
     rules: "",
@@ -415,7 +415,7 @@ export function generateYAML(input) {
   };
 
   // Generate comments and structure
-  let yaml = "# Project information for documentation publishing\n";
+  let yaml = "# Project information for page publishing\n";
 
   // Serialize the project info section safely
   const projectSection = yamlStringify({
@@ -426,14 +426,14 @@ export function generateYAML(input) {
 
   yaml += `${projectSection}\n\n`;
 
-  // Add documentation configuration with comments
+  // Add page configuration with comments
   yaml +=
     "# =============================================================================\n";
-  yaml += "# Documentation Configuration\n";
+  yaml += "# Page Configuration\n";
   yaml +=
     "# =============================================================================\n\n";
 
-  // Document Purpose with all available options
+  // Page Purpose with all available options
   yaml += "# Purpose: What's the main outcome you want readers to achieve?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(PAGE_STYLES).forEach(([key, style]) => {
@@ -442,14 +442,11 @@ export function generateYAML(input) {
     }
   });
 
-  // Safely serialize documentPurpose
-  const documentPurposeSection = yamlStringify({
-    documentPurpose: config.documentPurpose,
+  // Safely serialize pagePurpose
+  const pagePurposeSection = yamlStringify({
+    pagePurpose: config.pagePurpose,
   }).trim();
-  yaml += `${documentPurposeSection.replace(
-    /^documentPurpose:/,
-    "documentPurpose:"
-  )}\n\n`;
+  yaml += `${pagePurposeSection.replace(/^pagePurpose:/, "pagePurpose:")}\n\n`;
 
   // Target Audience Types with all available options
   yaml += "# Target Audience: Who will be reading this most often?\n";
@@ -488,9 +485,9 @@ export function generateYAML(input) {
     "readerKnowledgeLevel:"
   )}\n\n`;
 
-  // Documentation Depth with all available options
+  // Page Content Depth with all available options
   yaml +=
-    "# Documentation Depth: How comprehensive should the documentation be?\n";
+    "# Page Content Depth: How comprehensive should the page content be?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(PAGE_CONTENT_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
@@ -507,9 +504,9 @@ export function generateYAML(input) {
     )}\n\n`;
   }
 
-  // Custom Documentation Rules and Requirements
+  // Custom Page Rules and Requirements
   yaml +=
-    "# Custom Rules: Define specific documentation generation rules and requirements\n";
+    "# Custom Rules: Define specific page generation rules and requirements\n";
   const rulesSection = yamlStringify({ rules: config.rules }).trim();
   // Use literal style for multiline strings
   yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;

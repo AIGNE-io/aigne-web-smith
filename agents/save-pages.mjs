@@ -49,29 +49,29 @@ export default async function savePages({
   ${projectInfoMessage || ""}
   ### 🚀 Next Steps
 
-  1. Publish Documentation
+  1. Publish Pages
 
      \`\`\`bash
-     aigne doc publish
+     aigne page publish
      \`\`\`
 
      Get an online preview link to share with your team
 
   ### 🔧 Optional Improvements
 
-  1. Update Specific Documents
+  1. Update Specific Pages
 
      \`\`\`bash
-     aigne doc update
+     aigne page update
      \`\`\`
 
-     Regenerate content for specific documents
+     Regenerate content for specific pages
 
   2. Provide Structure Feedback
      \`\`\`bash
-     aigne doc generate --feedback "Your feedback on document structure"
+     aigne page generate --feedback "Your feedback on page structure"
      \`\`\`
-     Improve the overall documentation structure
+     Improve the overall page structure
 
   ---
   `;
@@ -111,7 +111,7 @@ async function cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, 
     // Generate expected file names from structure plan
     const expectedFiles = new Set();
 
-    // Add main document files
+    // Add main page files
     for (const { path } of structurePlan) {
       const flatName = path.replace(/^\//, "").replace(/\//g, "-");
 

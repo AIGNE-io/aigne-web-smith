@@ -18,7 +18,7 @@ export default async function loadSources({
   excludePatterns,
   outputDir,
   pagesDir,
-  "doc-path": docPath,
+  "page-path": pagePath,
   boardId,
   useDefaultPatterns = true,
   lastGitHead,
@@ -201,11 +201,11 @@ export default async function loadSources({
 
   // Get the last output result of the specified path
   let content;
-  if (docPath) {
+  if (pagePath) {
     let fileFullName;
 
     // First try direct path matching (original format)
-    const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+    const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
     fileFullName = `${flatName}.md`;
     let filePath = path.join(pagesDir, fileFullName);
 
@@ -214,9 +214,9 @@ export default async function loadSources({
       content = await readFile(filePath, "utf8");
     } catch {
       // If not found and boardId is provided, try boardId-flattenedPath format
-      if (boardId && docPath.startsWith(`${boardId}-`)) {
+      if (boardId && pagePath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
-        const flattenedPath = docPath.substring(boardId.length + 1);
+        const flattenedPath = pagePath.substring(boardId.length + 1);
         fileFullName = `${flattenedPath}.md`;
         filePath = path.join(pagesDir, fileFullName);
 
@@ -252,7 +252,7 @@ export default async function loadSources({
   }
 
   // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Documentation\n\n";
+  let assetsContent = "# Available Media Assets for Pages\n\n";
 
   if (mediaFiles.length > 0) {
     // Helper function to determine file type from extension
@@ -347,9 +347,9 @@ loadSources.input_schema = {
       description:
         "Whether to use default include/exclude patterns. Defaults to true.",
     },
-    "doc-path": {
+    "page-path": {
       type: "string",
-      description: "The document path to load content for",
+      description: "The page path to load content for",
     },
     boardId: {
       type: "string",

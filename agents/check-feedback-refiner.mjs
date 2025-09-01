@@ -1,9 +1,12 @@
 import { stringify } from "yaml";
-import { addPreferenceRule, readPreferences } from "../utils/preferences-utils.mjs";
+import {
+  addPreferenceRule,
+  readPreferences,
+} from "../utils/preferences-utils.mjs";
 
 export default async function checkFeedbackRefiner(
   { feedback, stage, selectedPaths, structurePlanFeedback },
-  options,
+  options
 ) {
   // If feedback is empty, no need to save user preferences
   if (!feedback && !structurePlanFeedback) {
@@ -12,19 +15,25 @@ export default async function checkFeedbackRefiner(
 
   // Read existing preferences as context for deduplication
   const existingPreferences = readPreferences();
-  const activePreferences = existingPreferences.rules?.filter((rule) => rule.active) || [];
+  const activePreferences =
+    existingPreferences.rules?.filter((rule) => rule.active) || [];
 
   // Convert active preferences to YAML string format for passing
   const activePreferencesYaml =
-    activePreferences.length > 0 ? stringify({ rules: activePreferences }, { indent: 2 }) : "";
+    activePreferences.length > 0
+      ? stringify({ rules: activePreferences }, { indent: 2 })
+      : "";
 
   const feedbackToUse = feedback || structurePlanFeedback;
-  const result = await options.context.invoke(options.context.agents["feedbackRefiner"], {
-    feedback: feedbackToUse,
-    stage,
-    paths: selectedPaths,
-    existingPreferences: activePreferencesYaml,
-  });
+  const result = await options.context.invoke(
+    options.context.agents["feedbackRefiner"],
+    {
+      feedback: feedbackToUse,
+      stage,
+      paths: selectedPaths,
+      existingPreferences: activePreferencesYaml,
+    }
+  );
 
   // If preferences need to be saved, save them to the preference file
   if (result?.save) {
@@ -41,7 +50,7 @@ export default async function checkFeedbackRefiner(
         "Failed to save user preference rule:",
         error.message,
         "\nFeedback:",
-        feedbackToUse,
+        feedbackToUse
       );
       result.savedPreference = {
         saved: false,
@@ -73,7 +82,7 @@ checkFeedbackRefiner.input_schema = {
       items: {
         type: "string",
       },
-      description: "Selected paths of documents",
+      description: "Selected paths of pages",
     },
   },
 };

@@ -11,7 +11,7 @@ export default async function loadConfig({ config, appUrl }) {
     await fs.access(configPath);
   } catch (_error) {
     console.log(`Config file not found: ${configPath}`);
-    console.log("Please run 'aigne doc init' to create the config file.");
+    console.log("Please run 'aigne page init' to create the config file.");
     throw new Error(`Config file not found: ${configPath}`);
   }
 

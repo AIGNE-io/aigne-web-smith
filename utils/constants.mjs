@@ -78,7 +78,7 @@ export const DEFAULT_INCLUDE_PATTERNS = [
   "*.pro",
   "*.prolog",
   "*.sql",
-  // Documentation & Config
+  // Page & Config
   "*.md",
   "*.rst",
   "*.json",
@@ -191,7 +191,7 @@ export const PAGE_STYLES = {
     name: "Blog / Content pages",
     description: "Engage audience with valuable content and insights",
     content:
-      "Optimizes for: Engaging content, SEO optimization, shareability.\nSkips: Sales pitches, technical documentation.",
+      "Optimizes for: Engaging content, SEO optimization, shareability.\nSkips: Sales pitches, technical pages.",
   },
   contactSupport: {
     name: "Contact / Support pages",
@@ -363,7 +363,7 @@ export const SUPPORTED_FILE_EXTENSIONS = [
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
-    // Note: Most conflicts can be resolved through intelligent document structure planning
+    // Note: Most conflicts can be resolved through intelligent page structure planning
     // Only keeping conflicts that represent fundamental incompatibilities
   },
 
@@ -371,7 +371,7 @@ export const CONFLICT_RULES = {
   crossConflicts: [
     {
       conditions: {
-        documentPurpose: ["getStarted"],
+        pagePurpose: ["getStarted"],
         readerKnowledgeLevel: ["experiencedUsers"],
       },
       severity: "severe",
@@ -384,12 +384,12 @@ export const CONFLICT_RULES = {
     },
     {
       conditions: {
-        documentPurpose: ["findAnswers"],
+        pagePurpose: ["findAnswers"],
         readerKnowledgeLevel: ["completeBeginners"],
       },
       severity: "severe",
       reason:
-        "API reference documentation skips beginner explanations and is not suitable for complete beginners",
+        "API reference pages skips beginner explanations and is not suitable for complete beginners",
       action: "filter",
       conflictingOptions: {
         readerKnowledgeLevel: ["completeBeginners"],
@@ -397,7 +397,7 @@ export const CONFLICT_RULES = {
     },
     {
       conditions: {
-        documentPurpose: ["understandSystem"],
+        pagePurpose: ["understandSystem"],
         readerKnowledgeLevel: ["emergencyTroubleshooting"],
       },
       severity: "severe",
@@ -439,8 +439,8 @@ export const CONFLICT_RULES = {
 
 // Conflict resolution rules - defines how to handle conflicts when users select conflicting options
 export const CONFLICT_RESOLUTION_RULES = {
-  // Document purpose conflicts that can be resolved through structure planning
-  documentPurpose: [
+  // Page purpose conflicts that can be resolved through structure planning
+  pagePurpose: [
     {
       conflictItems: ["getStarted", "findAnswers"],
       strategy: "layered_structure",
@@ -495,7 +495,7 @@ export const RESOLUTION_STRATEGIES = {
   layered_structure: (items) =>
     `Detected "${items.join(
       '" and "'
-    )}" purpose conflict. Resolution strategy: Create layered document structure
+    )}" purpose conflict. Resolution strategy: Create layered page structure
 - Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
 - API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
 - Ensure sections complement rather than conflict with each other`,
@@ -520,7 +520,7 @@ export const RESOLUTION_STRATEGIES = {
     `Detected "${items.join(
       '" and "'
     )}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
-- API reference section: Uses "find answers" style - comprehensive feature documentation and parameter descriptions
+- API reference section: Uses "find answers" style - comprehensive feature pages and parameter descriptions
 - Troubleshooting section: Uses "solve problems" style - add common issues and diagnostic methods for each feature
 - Create dedicated problem diagnosis index for quick location`,
 

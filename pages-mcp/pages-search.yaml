@@ -1,6 +1,6 @@
 type: team
-name: docs-search
-description: Search relevant documents based on user query
+name: pages-search
+description: Search relevant pages based on user query
 skills:
   - ../agents/load-config.mjs
   - ../agents/load-sources.mjs
@@ -24,8 +24,8 @@ output_schema:
   properties:
     relevantContent:
       type: string
-      description: AI analyzed relevant content from documents
-    relevantDocs:
+      description: AI analyzed relevant content from pages
+    relevantPages:
       type: array
       items:
         type: object
@@ -36,5 +36,5 @@ output_schema:
             type: string
           description:
             type: string
-      description: List of relevant documents from structure plan
+      description: List of relevant pages from structure plan
 mode: sequential

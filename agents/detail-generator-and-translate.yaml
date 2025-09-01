@@ -1,6 +1,6 @@
 type: team
 name: detailGeneratorAndTranslate
-description: 生成文档详情并翻译
+description: 生成页面详情并翻译
 skills:
   - ./transform-detail-datasources.mjs
   - type: team
@@ -9,7 +9,7 @@ skills:
     skills:
       - url: ./find-user-preferences-by-path.mjs
         default_input:
-          scope: document
+          scope: page
       - ./content-detail-generator.yaml
       - type: transform
         jsonata: |
@@ -48,7 +48,7 @@ input_schema:
     glossary:
       type: string
       description: 术语表
-    doc-path:
+    page-path:
       type: string
       description: 当前路径
     feedback:

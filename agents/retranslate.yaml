@@ -1,6 +1,6 @@
 type: team
 name: translate
-description: Translate document content to selected languages
+description: Translate page content to selected languages
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -29,13 +29,13 @@ skills:
       isTranslate: true
   - ./language-selector.mjs
   - type: team
-    name: batchDocsTranslate
+    name: batchPagesTranslate
     skills:
       - ./batch-translate.yaml
       - url: ./save-single-page.mjs
         default_input:
           isTranslate: true
-    iterate_on: selectedDocs
+    iterate_on: selectedPages
     concurrency: 3
   - url: ./check-feedback-refiner.mjs
     default_input:
@@ -46,11 +46,11 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    docs:
+    pages:
       type: array
       items:
         type: string
-      description: Document paths to translate
+      description: Page paths to translate
     langs:
       type: array
       items:

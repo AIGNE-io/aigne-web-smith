@@ -29,9 +29,9 @@ input_schema:
     userPreferences:
       type: string
       description: 用户偏好规则，YAML格式的结构规划和全局范围偏好
-    docsType:
+    pagesType:
       type: string
-      description: 文档类型，支持：general、getting-started、reference、faq
+      description: 页面类型，支持：general、getting-started、reference、faq
       default: general
   required:
     - rules

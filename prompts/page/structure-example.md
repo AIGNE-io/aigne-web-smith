@@ -1,7 +1,8 @@
 <example>
 下面是一些优质的文档结构规划供你参考：
 
-示例 A：开源前端框架 Docs
+示例 A：开源前端框架 Pages
+
 ```yaml
 - 概览
 - 快速开始
@@ -34,7 +35,8 @@
   - 讨论区链接
 ```
 
-示例 B：云服务 REST API Docs
+示例 B：云服务 REST API Pages
+
 ```yaml
 - Overview
 - Get Started
@@ -63,10 +65,10 @@
 - Release Notes
 - Troubleshooting & FAQ
 - Security & Best Practices
-
 ```
 
-示例 C：命令行工具 Docs（多平台发行版）
+示例 C：命令行工具 Pages（多平台发行版）
+
 ```yaml
 - 概览
 - 快速开始
@@ -92,7 +94,6 @@
   - Changelog
   - Breaking Changes
 - 贡献
-
 ```
 
 </example>

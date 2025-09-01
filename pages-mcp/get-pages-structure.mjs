@@ -8,9 +8,9 @@ const structureDir = path.join(
   "structure-plan.json",
 );
 
-export default async function getDocsStructure() {
+export default async function getPagesStructure() {
   const structure = await fs.readFile(structureDir, "utf-8");
   return { structure };
 }
 
-getDocsStructure.description = "Get docs structure";
+getPagesStructure.description = "Get pages structure";

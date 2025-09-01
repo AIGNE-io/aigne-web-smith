@@ -90,7 +90,7 @@ export default async function publishPages(
 
   // Construct boardMeta object
   const boardMeta = {
-    category: config?.documentPurpose || [],
+    category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
     languages: [

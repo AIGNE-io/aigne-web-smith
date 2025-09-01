@@ -1,6 +1,7 @@
 *.local
 node_modules
 migrate-todos.md
+examples
 .DS_Store
 
 .vscode

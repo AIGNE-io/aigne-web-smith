@@ -5,24 +5,28 @@ AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AI
 ## ✨ Features
 
 ### 🤖 AI-Powered Website Generation
+
 - **Intelligent Structure Planning**: Automatically analyze requirements and generate optimal website architecture
 - **Batch Content Generation**: Generate detailed content for all pages with one command
 - **Professional SEO Optimization**: Built-in SEO best practices and optimization recommendations
 - **Multi-language Support**: Support for Chinese and English content generation and localization
 
 ### 🎨 Professional Template System
+
 - **Pages Kit Integration**: Direct generation of Pages Kit-compatible YAML templates
 - **Component-based Design**: Support for modern components like Hero, CTA, FAQ, Content Cards
 - **Responsive Layout**: Automatic adaptation for mobile and desktop displays
 - **Visual Editing**: Generated templates support visual editing and adjustments
 
 ### 📊 Quality Assurance
+
 - **Structure Evaluation System**: Automatic assessment of website architecture and user experience
 - **Content Quality Checks**: Ensure accuracy and consistency of content
 - **Complete Test Coverage**: 32+ test cases covering core functionality
 - **Code Quality Assurance**: Code checking and formatting using Biome
 
 ### 🚀 One-Click Publishing
+
 - **Direct Publishing**: One-click publishing to Pages Kit platform
 - **Batch Upload**: Support for batch publishing of multi-page websites
 - **Status Monitoring**: Detailed publishing status and error reporting
@@ -125,7 +129,7 @@ rules: |
   3. Customer success stories
   4. Technical documentation portal
   5. Contact and support pages
-  
+
   Requirements:
   - Professional business style
   - Highlight product advantages and differentiation
@@ -164,7 +168,7 @@ aigne-web-smith/
 │   └── constants.mjs      # Configuration constants
 ├── web-mcp/               # MCP server agents
 ├── tests/                 # Test suite (32+ tests)
-├── mock-inputs/           # Example inputs and configurations
+├── examples/inputs/           # Example inputs and configurations
 └── aigne.yaml            # Main configuration
 ```
 
@@ -185,8 +189,9 @@ bun test --verbose
 ```
 
 Test coverage includes:
+
 - ✅ 12 utility function tests
-- ✅ 13 Pages Kit integration tests  
+- ✅ 13 Pages Kit integration tests
 - ✅ 7 website structure tests
 - ✅ File system and error handling tests
 
@@ -228,9 +233,11 @@ npm run test:watch
 ### Main Commands
 
 #### websmith-generate
+
 Generate a complete website from user requirements.
 
 **Parameters:**
+
 - `rules` (required): Website requirements description
 - `targetAudience`: Target audience description
 - `locale`: Website language (default: "zh")
@@ -238,9 +245,11 @@ Generate a complete website from user requirements.
 - `projectId`: Pages Kit project ID for publishing
 
 #### websmith-publish
+
 Publish generated website to Pages Kit.
 
 **Parameters:**
+
 - `projectId` (required): Pages Kit project ID
 - `locale`: Website language
 - `dryRun`: Preview without publishing
@@ -270,6 +279,7 @@ WebSmith is optimized for production use:
 - **Error Recovery**: Robust error handling and recovery
 
 Typical performance metrics:
+
 - 5-page website: ~2-3 minutes
 - 15-page website: ~5-8 minutes
 - Template generation: ~10-20 seconds per page

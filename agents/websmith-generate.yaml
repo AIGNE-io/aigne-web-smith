@@ -23,7 +23,7 @@ input_schema:
     componentList:
       type: string
       description: 可用组件列表配置文件路径
-      default: "./mock-inputs/component-list-example.md"
+      default: "./examples/inputs/component-list-example.md"
     projectId:
       type: string
       description: Pages Kit 项目 ID（用于发布）

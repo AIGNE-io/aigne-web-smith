@@ -14,9 +14,9 @@
 {{ originalStructurePlan }}
 </structure_plan>
 
-<data_sources>
+<datasources>
 {{datasources}}
-</data_sources>
+</datasources>
 
 <current>
 当前页面信息：
@@ -46,7 +46,7 @@ parentId: {{parentId}}
 目标受众：{{targetAudience}}
 
 - 必须完整、合理地展示当前页面需要展示的所有信息,不能遗漏。
-- 可以参考 <data_sources> 中的信息做内容规划，但是不要展示不属于当前页面的信息，避免和其他页面展示重复的内容
+- 可以参考 <datasources> 中的信息做内容规划，但是不要展示不属于当前页面的信息，避免和其他页面展示重复的内容
 - 只能使用提供的组件，不能创造不存在的组件。
 - 分区清晰，内容分布合理。
 - 输出必须严格遵循 pages-kit YAML 格式。
@@ -56,7 +56,7 @@ parentId: {{parentId}}
 - 一个页面中如何重复使用同一个组件，如果组件支持不同布局，可以切换布局方式 ，或者间隔其他组件后使用，避免连续使用同一个组件导致视觉疲劳
 - 每个 CTA section 中最多显示两个按钮
 - 输出使用用户语言 {{locale}}
-</rules>
+  </rules>
 
 <common_section>
 下面一些常见的网页 section 内容的要求和特点
@@ -71,6 +71,7 @@ parentId: {{parentId}}
 </hero>
 
 <loss_aversion>
+
 - 强调最相关的 3 个痛点，此时还不提供解决方案
 - 引发情感共鸣，但避免"恐吓式"表达导致跳出
 - 面对理性用户，使用委婉方式或聚焦未来后果
@@ -79,7 +80,7 @@ parentId: {{parentId}}
 - 描述要具体、详细，并贴近用户实际场景
 - 与后续展示的好处形成鲜明对比，制造张力
 - 此处不提供解决方案，只强化问题痛感
-</loss_aversion>
+  </loss_aversion>
 
 <benefits>
 - 聚焦用户获得的成果，而非你产品的做法
@@ -154,27 +155,27 @@ parentId: {{parentId}}
 
 ```yaml
 slug: string # 必须 - 当前页面 path
-meta:  # 可选 - 页面元信息
+meta: # 可选 - 页面元信息
   title: string # 页面标题
   description: string # 页面描述
 sections: # 必需 - 组件定义结构
   - name: string # 必需 - 组件显示名称（用于编辑器）, 请不要使用中文
     component: ComponentType # 必需 - 组件类型标识符，如果是基础组件，component=基础组件名称，如：layout-block 。如果组件自定义组件，component 属性的值固定为：custom-component
-    config?: ComponentConfig 
+    config?: ComponentConfig
     # 可选 - 组件特定配置对象,不存储组件展示的数据，对于 layout-block 和 custom-component 组件，config 字段是必须的
     # layout-block 时，config 中需要存储 gridSettings 信息
     # custom-component 时，config 中需要存储自定义组件的 id、name ，{ componentId: id, componentName: name }
     dataSource: object # 组件数据，结构需要根据组件支持的属性来设定
-
 ```
 
 组件展示数据 （dataSource）
 参考格式：
+
 ```yaml
 dataSource:
   title: AIGNE Framework
   description: AIGNE Framework 是一个功能型 AI 应用开发框架
-  contentList: 
+  contentList:
     - title: 模块化设计
       description: description
       image:
@@ -189,5 +190,5 @@ dataSource:
 - 输出必须为有效 YAML
 - component 必须选自提供的组件列表
 - dataSource 必须包含自定义组件所有属性的值，如果某个属性不需要，可以根据属性类型设置一个空值
-- 自定义组件中如果要使用结构规划中其他页面的 path ，需要添加 Pages Kit 路径前缀：{{pagesKitPoint}}/{{projectId}}，示例：/index 需要使用  {{pagesKitPoint}}/{{projectId}}/index
-</output_schema>
+- 自定义组件中如果要使用结构规划中其他页面的 path ，需要添加 Pages Kit 路径前缀：{{pagesKitPoint}}/{{projectId}}，示例：/index 需要使用 {{pagesKitPoint}}/{{projectId}}/index
+  </output_schema>

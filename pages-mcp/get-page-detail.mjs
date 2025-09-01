@@ -8,34 +8,34 @@ export default async function getPageDetail({ path: pagePath }) {
     // Flatten path: remove leading /, replace all / with - (same logic as utils.mjs)
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
     const fileFullName = `${flatName}.yaml`;
-    const filePath = path.join(docsDir, fileFullName);
+    const filePath = path.join(pagesDir, fileFullName);
 
-    // Read the markdown file
+    // Read the yaml file
     const content = await fs.readFile(filePath, "utf8");
 
     return {
       success: true,
-      path: docPath,
+      path: pagePath,
       content,
       filePath,
     };
   } catch (error) {
     return {
       success: false,
-      path: docPath,
+      path: pagePath,
       error: error.message,
     };
   }
 }
 
-getDocDetail.input_schema = {
+getPageDetail.input_schema = {
   type: "object",
   properties: {
     path: {
       type: "string",
-      description: "The path of the docs to get detail",
+      description: "The path of the page to get detail",
     },
   },
 };
 
-getDocDetail.description = "Get single docs detail";
+getPageDetail.description = "Get single page detail";

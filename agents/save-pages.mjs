@@ -1,7 +1,6 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as yamlStringify } from "yaml";
-import { shutdownMermaidWorkerPool } from "../utils/mermaid-worker-pool.mjs";
 import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
 
 /**
@@ -76,13 +75,6 @@ export default async function savePages({
 
   ---
   `;
-
-  // Shutdown mermaid worker pool to ensure clean exit
-  try {
-    await shutdownMermaidWorkerPool();
-  } catch (error) {
-    console.warn("Failed to shutdown mermaid worker pool:", error.message);
-  }
 
   return {
     message,

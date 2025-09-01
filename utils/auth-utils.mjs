@@ -14,8 +14,8 @@ import {
 } from "./blocklet.mjs";
 import {
   BLOCKLET_ADD_COMPONENT_PAGES,
-  PAGES_KIT_DID,
-  PAGES_KIT_STORE_URL,
+  DISCUSS_KIT_DID,
+  DISCUSS_KIT_STORE_URL,
 } from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -61,13 +61,17 @@ export async function getAccessToken(appUrl) {
     if (error instanceof InvalidBlockletError) {
       throw new Error(
         `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
+          `${chalk.bold(
+            "💡 Solution:",
+          )} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
       const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_PAGES);
       throw new Error(
         `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Pages Kit component:\n${docsLink}\n\n`,
+          `${chalk.bold(
+            "💡 Solution:",
+          )} Please refer to the documentation to add Pages Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
@@ -76,7 +80,9 @@ export async function getAccessToken(appUrl) {
           `• Network connection issues\n` +
           `• Server temporarily unavailable\n` +
           `• Incorrect URL address\n\n` +
-          `${chalk.green("Suggestion:")} Please check your network connection and URL address, then try again`,
+          `${chalk.green(
+            "Suggestion:",
+          )} Please check your network connection and URL address, then try again`,
       );
     }
   }

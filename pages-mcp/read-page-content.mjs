@@ -5,67 +5,67 @@ const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
 
 export default async function readPageContent({ relevantPagePaths, pagesDir: customPagesDir }) {
   const targetPagesDir = customPagesDir || pagesDir;
-  const docContents = [];
+  const pageContents = [];
 
-  for (const docPath of relevantDocPaths) {
+  for (const pagePath of relevantPagePaths) {
     try {
       // Flatten path: remove leading /, replace all / with - (same logic as utils.mjs)
-      const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+      const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
       const fileFullName = `${flatName}.md`;
-      const filePath = path.join(targetDocsDir, fileFullName);
+      const filePath = path.join(targetPagesDir, fileFullName);
 
       // Read the markdown file
       const content = await fs.readFile(filePath, "utf8");
 
-      docContents.push({
+      pageContents.push({
         success: true,
-        path: docPath,
+        path: pagePath,
         content,
         filePath,
       });
     } catch (error) {
-      docContents.push({
+      pageContents.push({
         success: false,
-        path: docPath,
+        path: pagePath,
         error: error.message,
       });
     }
   }
 
   // Combine all successful document contents into a single text
-  const allDocumentsText = docContents
-    .filter((doc) => doc.success)
-    .map((doc) => doc.content)
+  const allPagesText = pageContents
+    .filter((page) => page.success)
+    .map((page) => page.content)
     .join("\n\n---\n\n");
 
   return {
-    docContents,
-    allDocumentsText,
-    totalDocs: relevantDocPaths.length,
-    successfulReads: docContents.filter((doc) => doc.success).length,
+    pageContents,
+    allPagesText,
+    totalPages: relevantPagePaths.length,
+    successfulReads: pageContents.filter((page) => page.success).length,
   };
 }
 
-readDocContent.input_schema = {
+readPageContent.input_schema = {
   type: "object",
   properties: {
-    relevantDocPaths: {
+    relevantPagePaths: {
       type: "array",
       items: { type: "string" },
-      description: "List of document paths to read",
+      description: "List of page paths to read",
     },
-    docsDir: {
+    pagesDir: {
       type: "string",
-      description: "Custom docs directory path (optional)",
+      description: "Custom pages directory path (optional)",
     },
   },
-  required: ["relevantDocPaths"],
+  required: ["relevantPagePaths"],
 };
 
-readDocContent.output_schema = {
+readPageContent.output_schema = {
   type: "object",
   properties: {
-    docContents: {
+    pageContents: {
       type: "array",
       items: {
         type: "object",
@@ -78,13 +78,13 @@ readDocContent.output_schema = {
         },
       },
     },
-    allDocumentsText: {
+    allPagesText: {
       type: "string",
-      description: "Combined text content of all successfully read documents",
+      description: "Combined text content of all successfully read pages",
     },
-    totalDocs: { type: "number" },
+    totalPages: { type: "number" },
     successfulReads: { type: "number" },
   },
 };
 
-readDocContent.description = "Read markdown content for multiple documents";
+readPageContent.description = "Read markdown content for multiple pages";

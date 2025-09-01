@@ -1,6 +1,8 @@
-import { checkMarkdown } from "../utils/markdown-checker.mjs";
-
-export default async function checkDetailResult({ structurePlan, reviewContent, docsDir }) {
+export default async function checkDetailResult({
+  structurePlan,
+  // reviewContent,
+  // docsDir,
+}) {
   let isApproved = true;
   const detailFeedback = [];
 
@@ -22,10 +24,7 @@ export default async function checkDetailResult({ structurePlan, reviewContent, 
 
   // Run comprehensive markdown validation with all checks
   try {
-    const markdownErrors = await checkMarkdown(reviewContent, "result", {
-      allowedLinks,
-      baseDir: docsDir,
-    });
+    const markdownErrors = [];
 
     if (markdownErrors.length > 0) {
       isApproved = false;

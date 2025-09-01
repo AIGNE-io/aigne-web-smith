@@ -40,9 +40,6 @@ skills:
   - url: ./check-feedback-refiner.mjs
     default_input:
       stage: translation_refine
-  - url: ./action-success.mjs
-    default_input:
-      action: "Document translated"
 input_schema:
   type: object
   properties:

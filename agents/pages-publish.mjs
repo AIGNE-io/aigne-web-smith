@@ -4,44 +4,23 @@ import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import {
-  PAGES_KIT_STORE_URL,
-  TMP_DIR,
-  TMP_PAGES_DIR,
-} from "../utils/constants.mjs";
-import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
-import {
-  getGithubRepoUrl,
-  loadConfigFromFile,
-  saveValueToConfig,
-} from "../utils/utils.mjs";
+import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../utils/constants.mjs";
+
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
 const publishPagesFn = async () => {};
 export default async function publishPages(
-  {
-    pagesDir: rawPagesDir,
-    appUrl,
-    boardId,
-    projectName,
-    projectDesc,
-    projectLogo,
-  },
-  options
+  { pagesDir: rawPagesDir, appUrl, boardId, projectName, projectDesc, projectLogo },
+  options,
 ) {
-  // move work dir to tmp-dir
-  await ensureTmpDir();
-
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
   await fs.mkdir(pagesDir, {
     recursive: true,
   });
   await fs.cp(rawPagesDir, pagesDir, { recursive: true });
-
-  // ----------------- trigger beforePublishHook -----------------------------
-  await beforePublishHook({ pagesDir });
 
   // ----------------- main publish process flow -----------------------------
   // Check if PAGES_KIT_URL is set in environment variables
@@ -76,18 +55,14 @@ export default async function publishPages(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `Start here to run your own website:\n${chalk.cyan(
-            PAGES_KIT_STORE_URL
-          )}\n`
+          `Start here to run your own website:\n${chalk.cyan(PAGES_KIT_STORE_URL)}\n`,
       );
       const userInput = await options.prompts.input({
         message: "Please enter your Pages Kit platform URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://")
-              ? input
-              : `https://${input}`;
+            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
             new URL(urlWithProtocol);
             return true;
           } catch {

@@ -330,9 +330,17 @@ export const DEPTH_RECOMMENDATION_LOGIC = {
 // Component mount point ID for Pages Kit (需要更新为实际的 Pages Kit DID)
 export const PAGES_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 
+// Discuss Kit DID for web-smith
+export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+
 // Pages Kit related URLs (需要更新为实际的 Pages Kit URLs)
 export const PAGES_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+
+// Discuss Kit store URL
+export const DISCUSS_KIT_STORE_URL =
+  "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+
 export const BLOCKLET_ADD_COMPONENT_PAGES =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
 
@@ -468,43 +476,57 @@ export const CONFLICT_RESOLUTION_RULES = {
 // Resolution strategy descriptions
 export const RESOLUTION_STRATEGIES = {
   layered_structure: (items) =>
-    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered document structure
+    `Detected "${items.join(
+      '" and "',
+    )}" purpose conflict. Resolution strategy: Create layered document structure
 - Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
 - API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
 - Ensure sections complement rather than conflict with each other`,
 
   separate_sections: (items) =>
-    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create separate sections
+    `Detected "${items.join(
+      '" and "',
+    )}" purpose conflict. Resolution strategy: Create separate sections
 - Quick start section: Uses "get started" style - focuses on practical operations, completable within 30 minutes
 - System understanding section: Uses "understand system" style - dedicated to explaining architecture, concepts, design decision rationale
 - Meet different depth needs through clear section separation`,
 
   concepts_then_practice: (items) =>
-    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Use progressive "concepts-then-practice" structure
+    `Detected "${items.join(
+      '" and "',
+    )}" purpose conflict. Resolution strategy: Use progressive "concepts-then-practice" structure
 - Concepts section: Uses "understand system" style - first explains core concepts and architecture principles
 - Practice section: Uses "complete tasks" style - then provides specific step guidance and practical scenarios
 - Ensure smooth transition between theory and practice`,
 
   reference_with_troubleshooting: (items) =>
-    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
+    `Detected "${items.join(
+      '" and "',
+    )}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
 - API reference section: Uses "find answers" style - comprehensive feature documentation and parameter descriptions
 - Troubleshooting section: Uses "solve problems" style - add common issues and diagnostic methods for each feature
 - Create dedicated problem diagnosis index for quick location`,
 
   separate_user_paths: (items) =>
-    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Create separate user paths
+    `Detected "${items.join(
+      '" and "',
+    )}" audience conflict. Resolution strategy: Create separate user paths
 - User guide path: Uses "end users" style - simple language, UI operations, screenshot instructions, business outcome oriented
 - Developer guide path: Uses "developers" style - code-first, technical precision, SDK examples, configuration snippets
 - Provide clear path navigation for users to choose appropriate entry point`,
 
   role_based_sections: (items) =>
-    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Organize content by role
+    `Detected "${items.join(
+      '" and "',
+    )}" audience conflict. Resolution strategy: Organize content by role
 - Create dedicated sections for different roles, each section uses corresponding audience style
 - Ensure content depth and expression precisely match the needs and background of corresponding audience
 - Provide cross-references between sections to facilitate collaborative understanding between roles`,
 
   progressive_disclosure: (items) =>
-    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Use progressive information disclosure
+    `Detected "${items.join(
+      '" and "',
+    )}" audience conflict. Resolution strategy: Use progressive information disclosure
 - Overview level: Uses "decision makers" style - high-level architecture diagrams, decision points, business value
 - Detail level: Uses "developers" style - technical implementation details, code examples, best practices
 - Ensure smooth transition from strategic to tactical`,

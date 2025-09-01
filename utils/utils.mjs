@@ -1,6 +1,13 @@
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
-import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import {
+  accessSync,
+  constants,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  statSync,
+} from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parse, stringify as yamlStringify } from "yaml";
@@ -25,7 +32,9 @@ import {
  * @returns {string} - Absolute path
  */
 export function normalizePath(filePath) {
-  return path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+  return path.isAbsolute(filePath)
+    ? filePath
+    : path.resolve(process.cwd(), filePath);
 }
 
 /**
@@ -34,7 +43,9 @@ export function normalizePath(filePath) {
  * @returns {string} - Relative path
  */
 export function toRelativePath(filePath) {
-  return path.isAbsolute(filePath) ? path.relative(process.cwd(), filePath) : filePath;
+  return path.isAbsolute(filePath)
+    ? path.relative(process.cwd(), filePath)
+    : filePath;
 }
 
 /**
@@ -49,26 +60,29 @@ export function isGlobPattern(pattern) {
 
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
-  return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {
-    const trimLink = link.trim();
-    // Exclude external links and mailto
-    if (/^(https?:\/\/|mailto:)/.test(trimLink)) return match;
-    // Preserve anchors
-    const [path, hash] = trimLink.split("#");
-    // Skip if already has extension
-    if (/\.[a-zA-Z0-9]+$/.test(path)) return match;
-    // Only process relative paths or paths starting with /
-    if (!path) return match;
-    // Flatten to ./xxx-yyy.md
-    let finalPath = path;
-    if (path.startsWith(".")) {
-      finalPath = path.replace(/^\./, "");
+  return content.replace(
+    /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g,
+    (match, text, link) => {
+      const trimLink = link.trim();
+      // Exclude external links and mailto
+      if (/^(https?:\/\/|mailto:)/.test(trimLink)) return match;
+      // Preserve anchors
+      const [path, hash] = trimLink.split("#");
+      // Skip if already has extension
+      if (/\.[a-zA-Z0-9]+$/.test(path)) return match;
+      // Only process relative paths or paths starting with /
+      if (!path) return match;
+      // Flatten to ./xxx-yyy.md
+      let finalPath = path;
+      if (path.startsWith(".")) {
+        finalPath = path.replace(/^\./, "");
+      }
+      let flatPath = finalPath.replace(/^\//, "").replace(/\//g, "-");
+      flatPath = `./${flatPath}.md`;
+      const newLink = hash ? `${flatPath}#${hash}` : flatPath;
+      return `[${text}](${newLink})`;
     }
-    let flatPath = finalPath.replace(/^\//, "").replace(/\//g, "-");
-    flatPath = `./${flatPath}.md`;
-    const newLink = hash ? `${flatPath}#${hash}` : flatPath;
-    return `[${text}](${newLink})`;
-  });
+  );
 }
 
 /**
@@ -76,7 +90,7 @@ export function processContent({ content }) {
  * @param {Object} params
  * @param {string} params.path - Relative path (without extension)
  * @param {string} params.content - Main document content
- * @param {string} params.docsDir - Root directory
+ * @param {string} params.pagesDir - Root directory
  * @param {string} params.locale - Main content language (e.g., 'en', 'zh', 'fr')
  * @param {Array<{language: string, translation: string}>} [params.translates] - Translation content
  * @param {Array<string>} [params.labels] - Document labels for front matter
@@ -85,7 +99,7 @@ export function processContent({ content }) {
 export async function saveDocWithTranslations({
   path: docPath,
   content,
-  docsDir,
+  pagesDir,
   locale,
   translates = [],
   labels,
@@ -95,7 +109,7 @@ export async function saveDocWithTranslations({
   try {
     // Flatten path: remove leading /, replace all / with -
     const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
-    await fs.mkdir(docsDir, { recursive: true });
+    await fs.mkdir(pagesDir, { recursive: true });
 
     // Helper function to generate filename based on language
     const getFileName = (language) => {
@@ -106,7 +120,7 @@ export async function saveDocWithTranslations({
     // Save main content with appropriate filename based on locale (skip if isTranslate is true)
     if (!isTranslate) {
       const mainFileName = getFileName(locale);
-      const mainFilePath = path.join(docsDir, mainFileName);
+      const mainFilePath = path.join(pagesDir, mainFileName);
 
       // Add labels front matter if labels are provided
       let finalContent = processContent({ content });
@@ -123,7 +137,7 @@ export async function saveDocWithTranslations({
     // Process all translations
     for (const translate of translates) {
       const translateFileName = getFileName(translate.language);
-      const translatePath = path.join(docsDir, translateFileName);
+      const translatePath = path.join(pagesDir, translateFileName);
 
       // Add labels front matter to translation content if labels are provided
       let finalTranslationContent = processContent({
@@ -214,13 +228,20 @@ export async function saveGitHeadToConfig(gitHead) {
  * @param {Array<string>} filePaths - Array of file paths to check
  * @returns {Array<string>} - Array of modified file paths
  */
-export function getModifiedFilesBetweenCommits(fromCommit, toCommit = "HEAD", filePaths = []) {
+export function getModifiedFilesBetweenCommits(
+  fromCommit,
+  toCommit = "HEAD",
+  filePaths = []
+) {
   try {
     // Get all modified files between commits
-    const modifiedFiles = execSync(`git diff --name-only ${fromCommit}..${toCommit}`, {
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "ignore"],
-    })
+    const modifiedFiles = execSync(
+      `git diff --name-only ${fromCommit}..${toCommit}`,
+      {
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "ignore"],
+      }
+    )
       .trim()
       .split("\n")
       .filter(Boolean);
@@ -235,12 +256,12 @@ export function getModifiedFilesBetweenCommits(fromCommit, toCommit = "HEAD", fi
         const absoluteFile = normalizePath(file);
         const absoluteTarget = normalizePath(targetPath);
         return absoluteFile === absoluteTarget;
-      }),
+      })
     );
   } catch (error) {
     console.warn(
       `Failed to get modified files between ${fromCommit} and ${toCommit}:`,
-      error.message,
+      error.message
     );
     return [];
   }
@@ -262,7 +283,7 @@ export function hasSourceFilesChanged(sourceIds, modifiedFiles) {
       const absoluteModifiedFile = normalizePath(modifiedFile);
       const absoluteSourceId = normalizePath(sourceId);
       return absoluteModifiedFile === absoluteSourceId;
-    }),
+    })
   );
 }
 
@@ -278,14 +299,17 @@ export function hasFileChangesBetweenCommits(
   fromCommit,
   toCommit = "HEAD",
   includePatterns = DEFAULT_INCLUDE_PATTERNS,
-  excludePatterns = DEFAULT_EXCLUDE_PATTERNS,
+  excludePatterns = DEFAULT_EXCLUDE_PATTERNS
 ) {
   try {
     // Get file changes with status (A=added, D=deleted, M=modified)
-    const changes = execSync(`git diff --name-status ${fromCommit}..${toCommit}`, {
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "ignore"],
-    })
+    const changes = execSync(
+      `git diff --name-status ${fromCommit}..${toCommit}`,
+      {
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "ignore"],
+      }
+    )
       .trim()
       .split("\n")
       .filter(Boolean);
@@ -309,7 +333,9 @@ export function hasFileChangesBetweenCommits(
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
-        const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
+        const regexPattern = escapedPattern
+          .replace(/\*/g, ".*")
+          .replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -323,7 +349,9 @@ export function hasFileChangesBetweenCommits(
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
-        const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
+        const regexPattern = escapedPattern
+          .replace(/\*/g, ".*")
+          .replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -333,7 +361,7 @@ export function hasFileChangesBetweenCommits(
   } catch (error) {
     console.warn(
       `Failed to check file changes between ${fromCommit} and ${toCommit}:`,
-      error.message,
+      error.message
     );
     return false;
   }
@@ -344,7 +372,11 @@ export function hasFileChangesBetweenCommits(
  * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
  */
 export async function loadConfigFromFile() {
-  const configPath = path.join(process.cwd(), "./.aigne/web-smith", "config.yaml");
+  const configPath = path.join(
+    process.cwd(),
+    "./.aigne/web-smith",
+    "config.yaml"
+  );
 
   try {
     if (!existsSync(configPath)) {
@@ -382,7 +414,9 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
   const lines = fileContent.split("\n");
 
   // Find the start line of the key
-  const keyStartIndex = lines.findIndex((line) => line.match(new RegExp(`^${key}:\\s*`)));
+  const keyStartIndex = lines.findIndex((line) =>
+    line.match(new RegExp(`^${key}:\\s*`))
+  );
 
   if (keyStartIndex !== -1) {
     // Find the end of the array (next non-indented line or end of file)
@@ -390,7 +424,11 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
     for (let i = keyStartIndex + 1; i < lines.length; i++) {
       const line = lines[i].trim();
       // If line is empty, starts with comment, or doesn't start with "- ", it's not part of the array
-      if (line === "" || line.startsWith("#") || (!line.startsWith("- ") && !line.match(/^\w+:/))) {
+      if (
+        line === "" ||
+        line.startsWith("#") ||
+        (!line.startsWith("- ") && !line.match(/^\w+:/))
+      ) {
         if (!line.startsWith("- ")) {
           keyEndIndex = i - 1;
           break;
@@ -425,10 +463,18 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
 
     // Replace the entire array section
     const replacementLines = formattedValue.split("\n");
-    lines.splice(keyStartIndex, keyEndIndex - keyStartIndex + 1, ...replacementLines);
+    lines.splice(
+      keyStartIndex,
+      keyEndIndex - keyStartIndex + 1,
+      ...replacementLines
+    );
 
     // Add comment if provided and not already present
-    if (comment && keyStartIndex > 0 && !lines[keyStartIndex - 1].trim().startsWith("# ")) {
+    if (
+      comment &&
+      keyStartIndex > 0 &&
+      !lines[keyStartIndex - 1].trim().startsWith("# ")
+    ) {
       lines.splice(keyStartIndex, 0, `# ${comment}`);
     }
 
@@ -475,7 +521,8 @@ function handleStringValueUpdate(key, value, comment, fileContent) {
 
     // Add comment if provided and not already present
     if (comment) {
-      const hasCommentAbove = keyIndex > 0 && lines[keyIndex - 1].trim().startsWith("# ");
+      const hasCommentAbove =
+        keyIndex > 0 && lines[keyIndex - 1].trim().startsWith("# ");
       if (!hasCommentAbove) {
         // Add comment above the key if it doesn't already have one
         lines.splice(keyIndex, 0, `# ${comment}`);
@@ -524,7 +571,12 @@ export async function saveValueToConfig(key, value, comment) {
     if (Array.isArray(value)) {
       updatedContent = handleArrayValueUpdate(key, value, comment, fileContent);
     } else {
-      updatedContent = handleStringValueUpdate(key, value, comment, fileContent);
+      updatedContent = handleStringValueUpdate(
+        key,
+        value,
+        comment,
+        fileContent
+      );
     }
 
     await fs.writeFile(configPath, updatedContent);
@@ -687,7 +739,10 @@ export function getAvailablePaths(userInput = "") {
 
     return uniqueResults;
   } catch (error) {
-    console.warn(`Failed to get available paths for "${userInput}":`, error.message);
+    console.warn(
+      `Failed to get available paths for "${userInput}":`,
+      error.message
+    );
     return [];
   }
 }
@@ -728,7 +783,10 @@ function getDirectoryContents(dirPath, searchTerm = "") {
       }
 
       // Filter by search term if provided
-      if (searchTerm && !entryName.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (
+        searchTerm &&
+        !entryName.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
         continue;
       }
 
@@ -766,7 +824,10 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 
     return items;
   } catch (error) {
-    console.warn(`Failed to get directory contents from ${dirPath}:`, error.message);
+    console.warn(
+      `Failed to get directory contents from ${dirPath}:`,
+      error.message
+    );
     return [];
   }
 }
@@ -892,8 +953,10 @@ export function processConfigFields(config) {
   for (const [key, defaultValue] of Object.entries(defaults)) {
     if (
       !config[key] ||
-      (Array.isArray(defaultValue) && (!config[key] || config[key].length === 0)) ||
-      (typeof defaultValue === "string" && (!config[key] || config[key].trim() === ""))
+      (Array.isArray(defaultValue) &&
+        (!config[key] || config[key].length === 0)) ||
+      (typeof defaultValue === "string" &&
+        (!config[key] || config[key].trim() === ""))
     ) {
       processed[key] = defaultValue;
     }
@@ -970,7 +1033,8 @@ export function processConfigFields(config) {
   // Process reader knowledge level (single value)
   let knowledgeContent = "";
   if (config.readerKnowledgeLevel) {
-    knowledgeContent = READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel]?.content;
+    knowledgeContent =
+      READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel]?.content;
     if (knowledgeContent) {
       processed.readerKnowledgeContent = knowledgeContent;
       allRulesContent.push(`Reader Knowledge Level:\n${knowledgeContent}`);
@@ -1035,7 +1099,9 @@ export async function resolveFileReferences(obj, basePath = process.cwd()) {
   }
 
   if (Array.isArray(obj)) {
-    return Promise.all(obj.map((item) => resolveFileReferences(item, basePath)));
+    return Promise.all(
+      obj.map((item) => resolveFileReferences(item, basePath))
+    );
   }
 
   if (obj && typeof obj === "object") {
@@ -1058,7 +1124,9 @@ export async function resolveFileReferences(obj, basePath = process.cwd()) {
 async function loadFileContent(filePath, basePath) {
   try {
     // Resolve path - if absolute, use as is; if relative, resolve from basePath
-    const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(basePath, filePath);
+    const resolvedPath = path.isAbsolute(filePath)
+      ? filePath
+      : path.resolve(basePath, filePath);
 
     // Check if file exists
     if (!existsSync(resolvedPath)) {
@@ -1110,7 +1178,8 @@ export function detectSystemLanguage() {
     let systemLocale = null;
 
     // Method 1: Environment variables (most reliable on Unix systems)
-    systemLocale = process.env.LANG || process.env.LANGUAGE || process.env.LC_ALL;
+    systemLocale =
+      process.env.LANG || process.env.LANGUAGE || process.env.LC_ALL;
 
     // Method 2: Node.js Intl API (fallback)
     if (!systemLocale) {
@@ -1129,7 +1198,9 @@ export function detectSystemLanguage() {
     const langCode = systemLocale.split(/[-_]/)[0].toLowerCase();
 
     // Map to supported language codes
-    const supportedLang = SUPPORTED_LANGUAGES.find((lang) => lang.code === langCode);
+    const supportedLang = SUPPORTED_LANGUAGES.find(
+      (lang) => lang.code === langCode
+    );
     if (supportedLang) {
       return supportedLang.code;
     }
@@ -1138,7 +1209,11 @@ export function detectSystemLanguage() {
     if (langCode === "zh") {
       // Check for Traditional Chinese indicators
       const fullLocale = systemLocale.toLowerCase();
-      if (fullLocale.includes("tw") || fullLocale.includes("hk") || fullLocale.includes("mo")) {
+      if (
+        fullLocale.includes("tw") ||
+        fullLocale.includes("hk") ||
+        fullLocale.includes("mo")
+      ) {
         return "zh-TW";
       }
       return "zh"; // Default to Simplified Chinese

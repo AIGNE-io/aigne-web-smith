@@ -7,8 +7,16 @@ import {
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function selectedDocs(
-  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale },
-  options,
+  {
+    docs,
+    structurePlanResult,
+    boardId,
+    pagesDir,
+    isTranslate,
+    feedback,
+    locale,
+  },
+  options
 ) {
   let foundItems = [];
   let selectedFiles = [];
@@ -16,8 +24,12 @@ export default async function selectedDocs(
   // If docs is empty or not provided, let user select multiple documents
   if (!docs || docs.length === 0) {
     try {
-      // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, structurePlanResult);
+      // Get all main language .md files in pagesDir
+      const mainLanguageFiles = await getMainLanguageFiles(
+        pagesDir,
+        locale,
+        structurePlanResult
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -34,7 +46,9 @@ export default async function selectedDocs(
 
           if (!term) return choices;
 
-          return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
+          return choices.filter((choice) =>
+            choice.name.toLowerCase().includes(term.toLowerCase())
+          );
         },
         validate: (answer) => {
           if (answer.length === 0) {
@@ -49,14 +63,18 @@ export default async function selectedDocs(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, structurePlanResult, docsDir);
+      foundItems = await processSelectedFiles(
+        selectedFiles,
+        structurePlanResult,
+        pagesDir
+      );
     } catch (error) {
       console.error(error);
       throw new Error(
         getActionText(
           isTranslate,
-          "Please provide a docs parameter to specify which documents to {action}",
-        ),
+          "Please provide a docs parameter to specify which documents to {action}"
+        )
       );
     }
   } else {
@@ -66,12 +84,14 @@ export default async function selectedDocs(
         structurePlanResult,
         docPath,
         boardId,
-        docsDir,
-        locale,
+        pagesDir,
+        locale
       );
 
       if (!foundItem) {
-        console.warn(`⚠️  Item with path "${docPath}" not found in structurePlanResult`);
+        console.warn(
+          `⚠️  Item with path "${docPath}" not found in structurePlanResult`
+        );
         continue;
       }
 
@@ -81,7 +101,9 @@ export default async function selectedDocs(
     }
 
     if (foundItems.length === 0) {
-      throw new Error("None of the specified document paths were found in structurePlanResult");
+      throw new Error(
+        "None of the specified document paths were found in structurePlanResult"
+      );
     }
   }
 
@@ -90,7 +112,7 @@ export default async function selectedDocs(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "Please provide feedback for the {action} (press Enter to skip):"
     );
 
     userFeedback = await options.prompts.input({

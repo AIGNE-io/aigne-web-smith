@@ -10,8 +10,15 @@ import {
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
-  { originalStructurePlan, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
-  options,
+  {
+    originalStructurePlan,
+    feedback,
+    lastGitHead,
+    pagesDir,
+    forceRegenerate,
+    ...rest
+  },
+  options
 ) {
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
@@ -21,7 +28,8 @@ export default async function checkStructurePlan(
   // Prompt for feedback if originalStructurePlan exists and no feedback provided
   if (originalStructurePlan && !feedback) {
     const userFeedback = await options.prompts.input({
-      message: "Please provide feedback for structure planning (press Enter to skip):",
+      message:
+        "Please provide feedback for structure planning (press Enter to skip):",
     });
 
     if (userFeedback?.trim()) {
@@ -35,8 +43,8 @@ export default async function checkStructurePlan(
     // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
     if (!lastGitHead) {
       try {
-        // Check if _sidebar.md exists in docsDir
-        const sidebarPath = join(docsDir, "_sidebar.md");
+        // Check if _sidebar.md exists in pagesDir
+        const sidebarPath = join(pagesDir, "_sidebar.md");
         await access(sidebarPath);
         // If _sidebar.md exists, it means last execution was completed, need to regenerate
         shouldRegenerate = true;
@@ -48,7 +56,10 @@ export default async function checkStructurePlan(
       // Check if there are relevant file changes since last generation
       const currentGitHead = getCurrentGitHead();
       if (currentGitHead && currentGitHead !== lastGitHead) {
-        const hasChanges = hasFileChangesBetweenCommits(lastGitHead, currentGitHead);
+        const hasChanges = hasFileChangesBetweenCommits(
+          lastGitHead,
+          currentGitHead
+        );
         if (hasChanges) {
           shouldRegenerate = true;
         }
@@ -115,9 +126,11 @@ export default async function checkStructurePlan(
 
       // Check if user has modified project information
       const userModifiedProjectName =
-        currentConfig?.projectName && currentConfig.projectName !== projectInfo.name;
+        currentConfig?.projectName &&
+        currentConfig.projectName !== projectInfo.name;
       const userModifiedProjectDesc =
-        currentConfig?.projectDesc && currentConfig.projectDesc !== projectInfo.description;
+        currentConfig?.projectDesc &&
+        currentConfig.projectDesc !== projectInfo.description;
 
       // If user hasn't modified project info and it's not from GitHub, save AI output
       if (!userModifiedProjectName && !userModifiedProjectDesc) {

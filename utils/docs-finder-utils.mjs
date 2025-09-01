@@ -28,7 +28,7 @@ function generateFileName(flatName, locale) {
  * @param {Array} structurePlanResult - Array of structure plan items
  * @param {string} docPath - Document path to find (supports .md filenames)
  * @param {string} boardId - Board ID for fallback matching
- * @param {string} docsDir - Docs directory path for reading content
+ * @param {string} pagesDir - Docs directory path for reading content
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Object|null>} Found item with content or null
  */
@@ -36,8 +36,8 @@ export async function findItemByPath(
   structurePlanResult,
   docPath,
   boardId,
-  docsDir,
-  locale = "en",
+  pagesDir,
+  locale = "en"
 ) {
   let foundItem = null;
   let fileName = null;
@@ -61,7 +61,9 @@ export async function findItemByPath(
         // Find item by comparing flattened paths
         foundItem = structurePlanResult.find((item) => {
           // Convert item.path to flattened format (replace / with -)
-          const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+          const itemFlattenedPath = item.path
+            .replace(/^\//, "")
+            .replace(/\//g, "-");
           return itemFlattenedPath === flattenedPath;
         });
       }
@@ -69,7 +71,9 @@ export async function findItemByPath(
 
     // Generate filename from found item path
     if (foundItem) {
-      const itemFlattenedPath = foundItem.path.replace(/^\//, "").replace(/\//g, "-");
+      const itemFlattenedPath = foundItem.path
+        .replace(/^\//, "")
+        .replace(/\//g, "-");
       fileName = generateFileName(itemFlattenedPath, locale);
     }
   }
@@ -78,10 +82,10 @@ export async function findItemByPath(
     return null;
   }
 
-  // Read file content if docsDir is provided
+  // Read file content if pagesDir is provided
   let content = null;
-  if (docsDir && fileName) {
-    content = await readFileContent(docsDir, fileName);
+  if (pagesDir && fileName) {
+    content = await readFileContent(pagesDir, fileName);
   }
 
   // Return item with content
@@ -98,29 +102,36 @@ export async function findItemByPath(
 
 /**
  * Read file content from docs directory
- * @param {string} docsDir - Docs directory path
+ * @param {string} pagesDir - Docs directory path
  * @param {string} fileName - File name to read
  * @returns {Promise<string|null>} File content or null if failed
  */
-export async function readFileContent(docsDir, fileName) {
+export async function readFileContent(pagesDir, fileName) {
   try {
-    const filePath = join(docsDir, fileName);
+    const filePath = join(pagesDir, fileName);
     return await readFile(filePath, "utf-8");
   } catch (readError) {
-    console.warn(`⚠️  Could not read content from ${fileName}:`, readError.message);
+    console.warn(
+      `⚠️  Could not read content from ${fileName}:`,
+      readError.message
+    );
     return null;
   }
 }
 
 /**
  * Get main language markdown files from docs directory
- * @param {string} docsDir - Docs directory path
+ * @param {string} pagesDir - Docs directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @param {Array} structurePlanResult - Array of structure plan items to determine file order
  * @returns {Promise<string[]>} Array of main language .md files ordered by structurePlanResult
  */
-export async function getMainLanguageFiles(docsDir, locale, structurePlanResult = null) {
-  const files = await readdir(docsDir);
+export async function getMainLanguageFiles(
+  pagesDir,
+  locale,
+  structurePlanResult = null
+) {
+  const files = await readdir(pagesDir);
 
   // Filter for main language .md files (exclude _sidebar.md)
   const filteredFiles = files.filter((file) => {
@@ -145,7 +156,9 @@ export async function getMainLanguageFiles(docsDir, locale, structurePlanResult 
     // Create a map from flat file name to structure plan order
     const orderMap = new Map();
     structurePlanResult.forEach((item, index) => {
-      const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+      const itemFlattenedPath = item.path
+        .replace(/^\//, "")
+        .replace(/\//g, "-");
       const expectedFileName = generateFileName(itemFlattenedPath, locale);
       orderMap.set(expectedFileName, index);
     });
@@ -205,15 +218,19 @@ export function findItemByFlatName(structurePlanResult, flatName) {
  * Process selected files and convert to found items with content
  * @param {string[]} selectedFiles - Array of selected file names
  * @param {Array} structurePlanResult - Array of structure plan items
- * @param {string} docsDir - Docs directory path
+ * @param {string} pagesDir - Docs directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
-export async function processSelectedFiles(selectedFiles, structurePlanResult, docsDir) {
+export async function processSelectedFiles(
+  selectedFiles,
+  structurePlanResult,
+  pagesDir
+) {
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
     // Read the selected .md file content
-    const selectedFileContent = await readFileContent(docsDir, selectedFile);
+    const selectedFileContent = await readFileContent(pagesDir, selectedFile);
 
     // Convert filename back to path
     const flatName = fileNameToFlatPath(selectedFile);
@@ -233,7 +250,9 @@ export async function processSelectedFiles(selectedFiles, structurePlanResult, d
 
       foundItems.push(result);
     } else {
-      console.warn(`⚠️  No structure plan item found for file: ${selectedFile}`);
+      console.warn(
+        `⚠️  No structure plan item found for file: ${selectedFile}`
+      );
     }
   }
 

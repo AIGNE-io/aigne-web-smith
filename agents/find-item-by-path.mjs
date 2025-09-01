@@ -8,8 +8,16 @@ import {
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { doc, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale },
-  options,
+  {
+    doc,
+    structurePlanResult,
+    boardId,
+    pagesDir,
+    isTranslate,
+    feedback,
+    locale,
+  },
+  options
 ) {
   let foundItem = null;
   let selectedFileContent = null;
@@ -18,8 +26,12 @@ export default async function findItemByPath(
   // If docPath is empty, let user select from available documents
   if (!docPath) {
     try {
-      // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, structurePlanResult);
+      // Get all main language .md files in pagesDir
+      const mainLanguageFiles = await getMainLanguageFiles(
+        pagesDir,
+        locale,
+        structurePlanResult
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -38,7 +50,7 @@ export default async function findItemByPath(
 
           const searchTerm = input.trim().toLowerCase();
           const filteredFiles = mainLanguageFiles.filter((file) =>
-            file.toLowerCase().includes(searchTerm),
+            file.toLowerCase().includes(searchTerm)
           );
 
           return filteredFiles.map((file) => ({
@@ -53,7 +65,7 @@ export default async function findItemByPath(
       }
 
       // Read the selected .md file content
-      selectedFileContent = await readFileContent(docsDir, selectedFile);
+      selectedFileContent = await readFileContent(pagesDir, selectedFile);
 
       // Convert filename back to path
       const flatName = fileNameToFlatPath(selectedFile);
@@ -71,17 +83,25 @@ export default async function findItemByPath(
       throw new Error(
         getActionText(
           isTranslate,
-          "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
-        ),
+          "Please run 'aigne doc generate' first to generate documents, then select which document to {action}"
+        )
       );
     }
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(structurePlanResult, docPath, boardId, docsDir, locale);
+  foundItem = await findItemByPathUtil(
+    structurePlanResult,
+    docPath,
+    boardId,
+    pagesDir,
+    locale
+  );
 
   if (!foundItem) {
-    throw new Error(`Item with path "${docPath}" not found in structurePlanResult`);
+    throw new Error(
+      `Item with path "${docPath}" not found in structurePlanResult`
+    );
   }
 
   // Prompt for feedback if not provided
@@ -89,7 +109,7 @@ export default async function findItemByPath(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "Please provide feedback for the {action} (press Enter to skip):"
     );
 
     userFeedback = await options.prompts.input({

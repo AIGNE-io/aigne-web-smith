@@ -3,7 +3,7 @@ import { saveDocWithTranslations } from "../utils/utils.mjs";
 export default async function saveSingleDoc({
   path,
   content,
-  docsDir,
+  pagesDir,
   translates,
   labels,
   locale,
@@ -13,7 +13,7 @@ export default async function saveSingleDoc({
   const _results = await saveDocWithTranslations({
     path,
     content,
-    docsDir,
+    pagesDir,
     translates,
     labels,
     locale,

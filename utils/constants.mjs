@@ -163,41 +163,47 @@ export const SUPPORTED_LANGUAGES = [
 
 // Predefined page generation styles based on primary purpose
 export const PAGE_STYLES = {
-  getStarted: {
-    name: "Get started quickly",
-    description: "Help new users go from zero to working in <30 minutes",
+  landingPage: {
+    name: "Landing page / Homepage",
+    description: "Convert visitors into users or customers",
     content:
-      "Optimizes for: Speed, essential steps, working examples.\nSkips: Complex edge cases, theoretical background.",
+      "Optimizes for: Clear value proposition, compelling CTAs, social proof.\nSkips: Technical details, lengthy explanations.",
   },
-  completeTasks: {
-    name: "Complete specific tasks",
-    description: "Guide users through common workflows and use cases",
+  productShowcase: {
+    name: "Product showcase",
+    description: "Highlight features and benefits of your product",
     content:
-      "Optimizes for: Step-by-step instructions, practical scenarios.\nSkips: Deep technical internals, getting started basics.",
+      "Optimizes for: Feature demonstrations, use cases, visual examples.\nSkips: Implementation details, getting started guides.",
   },
-  findAnswers: {
-    name: "Find answers fast",
-    description: "Provide searchable reference for all features and APIs",
+  servicePages: {
+    name: "Service pages",
+    description: "Explain what you offer and how it helps customers",
     content:
-      "Optimizes for: Comprehensive coverage, searchability, examples.\n Skips: Narrative flow, beginner explanations.",
+      "Optimizes for: Service descriptions, benefits, pricing, testimonials.\nSkips: Technical specifications, detailed processes.",
   },
-  understandSystem: {
-    name: "Understand the system",
-    description: "Explain how it works, why design decisions were made",
+  aboutCompany: {
+    name: "About / Company pages",
+    description: "Build trust and tell your company story",
     content:
-      "Optimizes for: Architecture, concepts, decision rationale.\nSkips: Quick wins, copy-paste solutions.",
+      "Optimizes for: Company story, team, values, achievements.\nSkips: Product details, technical information.",
   },
-  solveProblems: {
-    name: "Troubleshoot common issues",
-    description: "Help users troubleshoot and fix issues",
+  blogContent: {
+    name: "Blog / Content pages",
+    description: "Engage audience with valuable content and insights",
     content:
-      "Optimizes for: Error scenarios, diagnostics, solutions.\nSkips: Happy path tutorials, feature overviews.",
+      "Optimizes for: Engaging content, SEO optimization, shareability.\nSkips: Sales pitches, technical documentation.",
+  },
+  contactSupport: {
+    name: "Contact / Support pages",
+    description: "Help visitors get in touch or find help",
+    content:
+      "Optimizes for: Clear contact methods, FAQ, support resources.\nSkips: Marketing content, detailed explanations.",
   },
   mixedPurpose: {
-    name: "Serve multiple purposes",
-    description: "Comprehensive documentation covering multiple needs",
+    name: "Multi-purpose website",
+    description: "Comprehensive website covering multiple needs",
     content:
-      "Optimizes for: Balanced coverage, multiple entry points.\nTrade-off: Longer, requires good navigation.",
+      "Optimizes for: Balanced coverage, multiple user journeys.\nTrade-off: More complex navigation, requires good structure.",
   },
 };
 
@@ -345,7 +351,13 @@ export const BLOCKLET_ADD_COMPONENT_PAGES =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
 
 // Supported file extensions for content reading
-export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
+export const SUPPORTED_FILE_EXTENSIONS = [
+  ".txt",
+  ".md",
+  ".json",
+  ".yaml",
+  ".yml",
+];
 
 // Conflict rules configuration for page generation
 export const CONFLICT_RULES = {
@@ -402,7 +414,8 @@ export const CONFLICT_RULES = {
         readerKnowledgeLevel: ["experiencedUsers"],
       },
       severity: "severe",
-      reason: "Non-technical users are typically not experienced technical users",
+      reason:
+        "Non-technical users are typically not experienced technical users",
       action: "filter",
       conflictingOptions: {
         readerKnowledgeLevel: ["experiencedUsers"],
@@ -414,7 +427,8 @@ export const CONFLICT_RULES = {
         readerKnowledgeLevel: ["emergencyTroubleshooting"],
       },
       severity: "severe",
-      reason: "Decision makers typically do not directly handle emergency technical failures",
+      reason:
+        "Decision makers typically do not directly handle emergency technical failures",
       action: "filter",
       conflictingOptions: {
         readerKnowledgeLevel: ["emergencyTroubleshooting"],
@@ -430,7 +444,8 @@ export const CONFLICT_RESOLUTION_RULES = {
     {
       conflictItems: ["getStarted", "findAnswers"],
       strategy: "layered_structure",
-      description: "Quick start and API reference conflict, resolved through layered structure",
+      description:
+        "Quick start and API reference conflict, resolved through layered structure",
     },
     {
       conflictItems: ["getStarted", "understandSystem"],
@@ -457,12 +472,14 @@ export const CONFLICT_RESOLUTION_RULES = {
     {
       conflictItems: ["endUsers", "developers"],
       strategy: "separate_user_paths",
-      description: "End users and developers conflict, resolved through separate user paths",
+      description:
+        "End users and developers conflict, resolved through separate user paths",
     },
     {
       conflictItems: ["endUsers", "devops"],
       strategy: "role_based_sections",
-      description: "End users and DevOps conflict, resolved through role-based sections",
+      description:
+        "End users and DevOps conflict, resolved through role-based sections",
     },
     {
       conflictItems: ["developers", "decisionMakers"],
@@ -477,7 +494,7 @@ export const CONFLICT_RESOLUTION_RULES = {
 export const RESOLUTION_STRATEGIES = {
   layered_structure: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" purpose conflict. Resolution strategy: Create layered document structure
 - Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
 - API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
@@ -485,7 +502,7 @@ export const RESOLUTION_STRATEGIES = {
 
   separate_sections: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" purpose conflict. Resolution strategy: Create separate sections
 - Quick start section: Uses "get started" style - focuses on practical operations, completable within 30 minutes
 - System understanding section: Uses "understand system" style - dedicated to explaining architecture, concepts, design decision rationale
@@ -493,7 +510,7 @@ export const RESOLUTION_STRATEGIES = {
 
   concepts_then_practice: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" purpose conflict. Resolution strategy: Use progressive "concepts-then-practice" structure
 - Concepts section: Uses "understand system" style - first explains core concepts and architecture principles
 - Practice section: Uses "complete tasks" style - then provides specific step guidance and practical scenarios
@@ -501,7 +518,7 @@ export const RESOLUTION_STRATEGIES = {
 
   reference_with_troubleshooting: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
 - API reference section: Uses "find answers" style - comprehensive feature documentation and parameter descriptions
 - Troubleshooting section: Uses "solve problems" style - add common issues and diagnostic methods for each feature
@@ -509,7 +526,7 @@ export const RESOLUTION_STRATEGIES = {
 
   separate_user_paths: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" audience conflict. Resolution strategy: Create separate user paths
 - User guide path: Uses "end users" style - simple language, UI operations, screenshot instructions, business outcome oriented
 - Developer guide path: Uses "developers" style - code-first, technical precision, SDK examples, configuration snippets
@@ -517,7 +534,7 @@ export const RESOLUTION_STRATEGIES = {
 
   role_based_sections: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" audience conflict. Resolution strategy: Organize content by role
 - Create dedicated sections for different roles, each section uses corresponding audience style
 - Ensure content depth and expression precisely match the needs and background of corresponding audience
@@ -525,7 +542,7 @@ export const RESOLUTION_STRATEGIES = {
 
   progressive_disclosure: (items) =>
     `Detected "${items.join(
-      '" and "',
+      '" and "'
     )}" audience conflict. Resolution strategy: Use progressive information disclosure
 - Overview level: Uses "decision makers" style - high-level architecture diagrams, decision points, business value
 - Detail level: Uses "developers" style - technical implementation details, code examples, best practices

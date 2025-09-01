@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default async function checkDetail(
   {
     path,
-    docsDir,
+    pagesDir,
     sourceIds,
     originalStructurePlan,
     structurePlan,
@@ -19,12 +19,13 @@ export default async function checkDetail(
     forceRegenerate,
     ...rest
   },
-  options,
+  options
 ) {
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
   const fileFullName = `${flatName}.md`;
-  const filePath = join(docsDir, fileFullName);
+
+  const filePath = join(pagesDir, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
 
@@ -40,7 +41,9 @@ export default async function checkDetail(
   let sourceIdsChanged = false;
   if (originalStructurePlan && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find((node) => node.path === path);
+    const originalNode = originalStructurePlan.find(
+      (node) => node.path === path
+    );
 
     if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
@@ -85,7 +88,7 @@ export default async function checkDetail(
     const validationResult = await checkDetailResult({
       structurePlan,
       reviewContent: fileContent,
-      docsDir,
+      pagesDir,
     });
 
     if (!validationResult.isApproved) {
@@ -103,7 +106,7 @@ export default async function checkDetail(
   ) {
     return {
       path,
-      docsDir,
+      pagesDir,
       ...rest,
       detailGenerated: true,
     };
@@ -116,7 +119,7 @@ export default async function checkDetail(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
-    docsDir,
+    pagesDir,
     path,
     sourceIds,
     originalStructurePlan,
@@ -125,7 +128,7 @@ export default async function checkDetail(
 
   return {
     path,
-    docsDir,
+    pagesDir,
     ...rest,
     result,
   };

@@ -1,7 +1,10 @@
 *.local
 node_modules
-migrate-todos.md
-examples
-.DS_Store
 
+
+.DS_Store
 .vscode
+
+examples
+test-temp
+migrate-todos.md

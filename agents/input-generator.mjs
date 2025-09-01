@@ -2,10 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
-import {
-  getFilteredOptions,
-  validateSelection,
-} from "../utils/conflict-detector.mjs";
+import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
   DEPTH_RECOMMENDATION_LOGIC,
   PAGE_CONTENT_DEPTH,
@@ -34,12 +31,8 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  {
-    outputPath = ".aigne/web-smith",
-    fileName = "config.yaml",
-    skipIfExists = false,
-  },
-  options
+  { outputPath = ".aigne/web-smith", fileName = "config.yaml", skipIfExists = false },
+  options,
 ) {
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
@@ -129,11 +122,9 @@ export default async function init(
   // 3. Reader knowledge level - what do readers typically know when they arrive?
   // Determine default based on selected purposes using mapping
   const mappedPurpose = prioritizedPurposes.find(
-    (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose]
+    (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose],
   );
-  const defaultKnowledge = mappedPurpose
-    ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose]
-    : null;
+  const defaultKnowledge = mappedPurpose ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose] : null;
 
   // Filter knowledge level options based on previous selections
   const { filteredOptions: filteredKnowledgeOptions } = getFilteredOptions(
@@ -142,12 +133,11 @@ export default async function init(
       pagePurpose: prioritizedPurposes,
       targetAudienceTypes: audienceChoices,
     },
-    READER_KNOWLEDGE_LEVELS
+    READER_KNOWLEDGE_LEVELS,
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message:
-      "🧠 [3/8]: What is your reader's typical starting knowledge level?",
+    message: "🧠 [3/8]: What is your reader's typical starting knowledge level?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -165,15 +155,11 @@ export default async function init(
     // Check priority order: purposes -> audiences -> knowledgeLevels
     const checks = [
       () => {
-        const purpose = prioritizedPurposes.find(
-          (p) => DEPTH_RECOMMENDATION_LOGIC.purposes[p]
-        );
+        const purpose = prioritizedPurposes.find((p) => DEPTH_RECOMMENDATION_LOGIC.purposes[p]);
         return purpose ? DEPTH_RECOMMENDATION_LOGIC.purposes[purpose] : null;
       },
       () => {
-        const audience = audienceChoices.find(
-          (a) => DEPTH_RECOMMENDATION_LOGIC.audiences[a]
-        );
+        const audience = audienceChoices.find((a) => DEPTH_RECOMMENDATION_LOGIC.audiences[a]);
         return audience ? DEPTH_RECOMMENDATION_LOGIC.audiences[audience] : null;
       },
       () => DEPTH_RECOMMENDATION_LOGIC.knowledgeLevels[knowledgeChoice] || null,
@@ -192,7 +178,7 @@ export default async function init(
       targetAudienceTypes: audienceChoices,
       readerKnowledgeLevel: knowledgeChoice,
     },
-    PAGE_CONTENT_DEPTH
+    PAGE_CONTENT_DEPTH,
   );
 
   const depthChoice = await options.prompts.select({
@@ -227,7 +213,7 @@ export default async function init(
   // 6. Translation languages
   // Filter out the primary language from available choices
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
-    (lang) => lang.code !== primaryLanguageChoice
+    (lang) => lang.code !== primaryLanguageChoice,
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
@@ -249,12 +235,8 @@ export default async function init(
 
   // 8. Source code paths
   console.log("\n🔍 [8/8]: Source Code Paths");
-  console.log(
-    "Enter paths to analyze for page generation (e.g., ./src, ./lib)"
-  );
-  console.log(
-    "💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)"
-  );
+  console.log("Enter paths to analyze for page generation (e.g., ./src, ./lib)");
+  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];
@@ -287,8 +269,7 @@ export default async function init(
           options.push({
             name: searchTerm,
             value: searchTerm,
-            description:
-              "This input will be used as a glob pattern for file matching",
+            description: "This input will be used as a glob pattern for file matching",
           });
         }
 
@@ -297,11 +278,7 @@ export default async function init(
     });
 
     // Check if user chose to exit
-    if (
-      !selectedPath ||
-      selectedPath.trim() === "" ||
-      selectedPath === _PRESS_ENTER_TO_FINISH
-    ) {
+    if (!selectedPath || selectedPath.trim() === "" || selectedPath === _PRESS_ENTER_TO_FINISH) {
       break;
     }
 
@@ -362,14 +339,8 @@ export default async function init(
     console.log(chalk.cyan("---"));
     console.log(chalk.cyan(yamlContent));
     console.log(chalk.cyan("---"));
-    console.log(
-      "💡 You can edit the configuration file anytime to modify settings.\n"
-    );
-    console.log(
-      `🚀 Run ${chalk.cyan(
-        "'aigne page generate'"
-      )} to start page generation!\n`
-    );
+    console.log("💡 You can edit the configuration file anytime to modify settings.\n");
+    console.log(`🚀 Run ${chalk.cyan("'aigne page generate'")} to start page generation!\n`);
 
     return {};
   } catch (error) {
@@ -406,8 +377,7 @@ export function generateYAML(input) {
 
     // Language settings
     locale: input.locale || "en",
-    translateLanguages:
-      input.translateLanguages?.filter((lang) => lang.trim()) || [],
+    translateLanguages: input.translateLanguages?.filter((lang) => lang.trim()) || [],
 
     // Paths
     pagesDir: input.pagesDir || "./aigne/web-smith/pages",
@@ -427,11 +397,9 @@ export function generateYAML(input) {
   yaml += `${projectSection}\n\n`;
 
   // Add page configuration with comments
-  yaml +=
-    "# =============================================================================\n";
+  yaml += "# =============================================================================\n";
   yaml += "# Page Configuration\n";
-  yaml +=
-    "# =============================================================================\n\n";
+  yaml += "# =============================================================================\n\n";
 
   // Page Purpose with all available options
   yaml += "# Purpose: What's the main outcome you want readers to achieve?\n";
@@ -453,9 +421,7 @@ export function generateYAML(input) {
   yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(TARGET_AUDIENCES).forEach(([key, audience]) => {
     if (key !== "custom") {
-      yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${
-        audience.description
-      }\n`;
+      yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${audience.description}\n`;
     }
   });
 
@@ -465,12 +431,11 @@ export function generateYAML(input) {
   }).trim();
   yaml += `${targetAudienceTypesSection.replace(
     /^targetAudienceTypes:/,
-    "targetAudienceTypes:"
+    "targetAudienceTypes:",
   )}\n\n`;
 
   // Reader Knowledge Level with all available options
-  yaml +=
-    "# Reader Knowledge Level: What do readers typically know when they arrive?\n";
+  yaml += "# Reader Knowledge Level: What do readers typically know when they arrive?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
     yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
@@ -482,12 +447,11 @@ export function generateYAML(input) {
   }).trim();
   yaml += `${readerKnowledgeLevelSection.replace(
     /^readerKnowledgeLevel:/,
-    "readerKnowledgeLevel:"
+    "readerKnowledgeLevel:",
   )}\n\n`;
 
   // Page Content Depth with all available options
-  yaml +=
-    "# Page Content Depth: How comprehensive should the page content be?\n";
+  yaml += "# Page Content Depth: How comprehensive should the page content be?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(PAGE_CONTENT_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
@@ -498,35 +462,26 @@ export function generateYAML(input) {
     const pageContentDepthSection = yamlStringify({
       pageContentDepth: config.pageContentDepth,
     }).trim();
-    yaml += `${pageContentDepthSection.replace(
-      /^pageContentDepth:/,
-      "pageContentDepth:"
-    )}\n\n`;
+    yaml += `${pageContentDepthSection.replace(/^pageContentDepth:/, "pageContentDepth:")}\n\n`;
   }
 
   // Custom Page Rules and Requirements
-  yaml +=
-    "# Custom Rules: Define specific page generation rules and requirements\n";
+  yaml += "# Custom Rules: Define specific page generation rules and requirements\n";
   const rulesSection = yamlStringify({ rules: config.rules }).trim();
   // Use literal style for multiline strings
   yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
 
   // Target Audience Description
-  yaml +=
-    "# Target Audience: Describe your specific target audience and their characteristics\n";
+  yaml += "# Target Audience: Describe your specific target audience and their characteristics\n";
   const targetAudienceSection = yamlStringify({
     targetAudience: config.targetAudience,
   }).trim();
   // Use literal style for multiline strings
-  yaml += `${targetAudienceSection.replace(
-    /targetAudience: ''/,
-    "targetAudience: |\n  "
-  )}\n\n`;
+  yaml += `${targetAudienceSection.replace(/targetAudience: ''/, "targetAudience: |\n  ")}\n\n`;
 
   // Glossary Configuration
   yaml += "# Glossary: Define project-specific terms and definitions\n";
-  yaml +=
-    '# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n\n';
+  yaml += '# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n\n';
 
   // Language settings - safely serialize
   const localeSection = yamlStringify({ locale: config.locale }).trim();
@@ -537,13 +492,9 @@ export function generateYAML(input) {
     const translateLanguagesSection = yamlStringify({
       translateLanguages: config.translateLanguages,
     }).trim();
-    yaml += `${translateLanguagesSection.replace(
-      /^translateLanguages:/,
-      "translateLanguages:"
-    )}\n`;
+    yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
-    yaml +=
-      "# translateLanguages:  # List of languages to translate the pages to\n";
+    yaml += "# translateLanguages:  # List of languages to translate the pages to\n";
     yaml += "#   - zh  # Example: Chinese translation\n";
     yaml += "#   - en  # Example: English translation\n";
   }
@@ -552,7 +503,7 @@ export function generateYAML(input) {
   const pagesDirSection = yamlStringify({ pagesDir: config.pagesDir }).trim();
   yaml += `${pagesDirSection.replace(
     /^pagesDir:/,
-    "pagesDir:"
+    "pagesDir:",
   )}  # Directory to save generated pages\n`;
 
   const sourcesPathSection = yamlStringify({
@@ -560,11 +511,10 @@ export function generateYAML(input) {
   }).trim();
   yaml += `${sourcesPathSection.replace(
     /^sourcesPath:/,
-    "sourcesPath:  # Source code paths to analyze"
+    "sourcesPath:  # Source code paths to analyze",
   )}\n`;
 
   return yaml;
 }
 
-init.description =
-  "Generate a configuration file for the page generation process";
+init.description = "Generate a configuration file for the page generation process";

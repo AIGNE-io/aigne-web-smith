@@ -26,11 +26,7 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * @returns {Promise<string>} - The access token
  */
 export async function getAccessToken(appUrl) {
-  const WEB_SMITH_ENV_FILE = join(
-    homedir(),
-    ".aigne",
-    "web-smith-connected.yaml"
-  );
+  const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
   let accessToken = process.env.PAGE_DISCUSS_KIT_ACCESS_TOKEN;
@@ -64,22 +60,18 @@ export async function getAccessToken(appUrl) {
     const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
     if (error instanceof InvalidBlockletError) {
       throw new Error(
-        `${chalk.yellow(
-          "⚠️  The provided URL is not a valid website on ArcBlock platform"
-        )}\n\n` +
+        `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
           `${chalk.bold(
-            "💡 Solution:"
-          )} Start here to run your own website that can host your pages:\n${storeLink}\n\n`
+            "💡 Solution:",
+          )} Start here to run your own website that can host your pages:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
       const pagesLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_PAGES);
       throw new Error(
-        `${chalk.yellow(
-          "⚠️  This website does not have required components for publishing"
-        )}\n\n` +
+        `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
           `${chalk.bold(
-            "💡 Solution:"
-          )} Please refer to the component to add Pages Kit component:\n${pagesLink}\n\n`
+            "💡 Solution:",
+          )} Please refer to the component to add Pages Kit component:\n${pagesLink}\n\n`,
       );
     } else {
       throw new Error(
@@ -89,17 +81,14 @@ export async function getAccessToken(appUrl) {
           `• Server temporarily unavailable\n` +
           `• Incorrect URL address\n\n` +
           `${chalk.green(
-            "Suggestion:"
-          )} Please check your network connection and URL address, then try again`
+            "Suggestion:",
+          )} Please check your network connection and URL address, then try again`,
       );
     }
   }
 
   const DISCUSS_KIT_URL = appUrl;
-  const connectUrl = joinURL(
-    new URL(DISCUSS_KIT_URL).origin,
-    WELLKNOWN_SERVICE_PATH_PREFIX
-  );
+  const connectUrl = joinURL(new URL(DISCUSS_KIT_URL).origin, WELLKNOWN_SERVICE_PATH_PREFIX);
 
   try {
     const result = await createConnect({
@@ -108,8 +97,7 @@ export async function getAccessToken(appUrl) {
       source: `AIGNE WebSmith connect to Pages Kit`,
       closeOnSuccess: true,
       appName: "AIGNE WebSmith",
-      appLogo:
-        "https://websmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
+      appLogo: "https://websmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
       openPage: (pageUrl) => open(pageUrl),
     });
 
@@ -134,12 +122,12 @@ export async function getAccessToken(appUrl) {
           PAGE_DISCUSS_KIT_ACCESS_TOKEN: accessToken,
           PAGE_DISCUSS_KIT_URL: DISCUSS_KIT_URL,
         },
-      })
+      }),
     );
   } catch (error) {
     console.debug(error);
     throw new Error(
-      "Failed to obtain access token. Please check your network connection and try again later."
+      "Failed to obtain access token. Please check your network connection and try again later.",
     );
   }
 

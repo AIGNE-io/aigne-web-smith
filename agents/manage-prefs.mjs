@@ -1,8 +1,4 @@
-import {
-  readPreferences,
-  removeRule,
-  writePreferences,
-} from "../utils/preferences-utils.mjs";
+import { readPreferences, removeRule, writePreferences } from "../utils/preferences-utils.mjs";
 
 /**
  * List all user preferences with formatted display
@@ -20,8 +16,7 @@ function listPreferences() {
   // Add format explanation
   message += "**Format explanation:**\n";
   message += "- 🟢 = Active preference, ⚪ = Inactive preference\n";
-  message +=
-    "- [scope] = Preference scope (global, structure, page, translation)\n";
+  message += "- [scope] = Preference scope (global, structure, page, translation)\n";
   message += "- ID = Unique preference identifier\n";
   message += "- Paths = Specific file paths (if applicable)\n\n";
 
@@ -35,9 +30,7 @@ function listPreferences() {
     // Second line: rule content (truncated if too long)
     const maxRuleLength = 120;
     const ruleText =
-      rule.rule.length > maxRuleLength
-        ? `${rule.rule.substring(0, maxRuleLength)}...`
-        : rule.rule;
+      rule.rule.length > maxRuleLength ? `${rule.rule.substring(0, maxRuleLength)}...` : rule.rule;
     message += `   ${ruleText}\n `;
 
     // Add blank line after each record
@@ -66,7 +59,7 @@ async function removePreferences(id, options) {
     const choices = preferences.rules.map((rule) => ({
       name: `${rule.active ? "🟢" : "⚪"} [${rule.scope}] ${rule.rule.substring(
         0,
-        60
+        60,
       )}${rule.rule.length > 60 ? "..." : ""}`,
       value: rule.id,
       description: `ID: ${rule.id}`,
@@ -124,7 +117,7 @@ async function togglePreferences(id, options) {
     const choices = preferences.rules.map((rule) => ({
       name: `${rule.active ? "🟢" : "⚪"} [${rule.scope}] ${rule.rule.substring(
         0,
-        60
+        60,
       )}${rule.rule.length > 60 ? "..." : ""}`,
       value: rule.id,
       description: `ID: ${rule.id}`,

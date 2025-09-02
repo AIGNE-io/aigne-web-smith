@@ -1,441 +1,164 @@
 <example>
-下面是一些优质的文档详情供你参考：
+下面是一些优质的中间格式页面结构供你参考：
 
 <example_item>
-  # Quick install guide
+技术产品页面示例 - AI 可观察性工具：
 
-  Before you can use Django, you’ll need to get it installed. We have a complete installation guide that covers all the possibilities; this guide will guide you to a minimal installation that’ll work while you walk through the introduction.
+```yaml
+meta:
+  title: 'AIGNE Observability'
+  description: 'Trace, debug, and monitor every agent's decision. Built for developers to ship with confidence'
+  image: 'e11ffbf596e6f6db12ccd69d52e824bc.webp'
 
-  ## Install Python
+sections:
+  # Hero section - 英雄区域
+  - name: 'hero'
+    summary: '页面主标题区域，展示产品核心价值主张和主要行动按钮'
+    title: 'See what your agents see. Understand what they do.'
+    description: 'Trace, debug, and monitor every agent's decision. Built for developers to ship with confidence'
+    image:
+      src: 'ef1783fa15e13095badf1784efd3214b.webp'
+      caption: 'AI agent execution visualization'
+    action:
+      text: 'View on Github'
+      link: 'https://github.com/aigne'
 
-  Being a Python web framework, Django requires Python. See What Python version can I use with Django? for details. Python includes a lightweight database called SQLite so you won’t need to set up a database just yet.
+  # Problem statement
+  - name: 'content'
+    summary: '问题陈述区域，解释开发者为什么需要AI可观察性，配图片说明'
+    title: 'Why Developers Need Observability'
+    description: 'LLM agents may not meet expectations. Visibility is your defense against failures and debugging. AIGNE Observability provides insights into every decision and tool run.'
+    image:
+      src: 'bd5b88e39c716621c7cb24a45c22750e.png'
+      caption: 'Agent execution visualization dashboard'
 
-  Get the latest version of Python at [https://www.python.org/downloads/](https://www.python.org/downloads/) or with your operating system’s package manager.
+  # Key Features
+  - name: 'features'
+    summary: '产品核心功能列表，详细介绍5个主要特性和优势'
+    title: 'Key Features'
+    list:
+      - title: 'Visualize Every Agent Step'
+        description: 'Follow your agent's real-time execution path. See every tool call, decision, and API request in an interactive graph'
+      - title: 'Pinpoint Costs & Bottlenecks'
+        description: 'Monitor token consumption and latency per run. Identify expensive steps and performance issues before they reach production'
+      - title: 'Automatic Instrumentation'
+        description: 'No extra code required. Import the library and traces are captured automatically'
 
-  You can verify that Python is installed by typing `python` from your shell; you should see something like:
+  # How It Works
+  - name: 'howItWorks'
+    summary: '使用指南，展示3个步骤说明和代码示例，展示零配置使用流程'
+    title: 'How It Works: Zero-Config Tracing'
+    description: 'Observability is enabled by default in the AIGNE Framework.'
+    list:
+      - title: 'Run Your Agent'
+        description: 'Simply run your agent as you normally would using the CLI. Traces are automatically collected in the background.'
+        code:
+          title: 'Execute Agent'
+          language: 'bash'
+          content: 'aigne run'
+      - title: 'Launch the Dashboard'
+        description: 'When you're ready to review a trace, start the local observability server.'
+        code:
+          title: 'Start Observability'
+          language: 'bash'
+          content: 'aigne observe'
 
-  ```
-  Python 3.x.y
-  [GCC 4.x] on linux
-  Type "help", "copyright", "credits" or "license" for more information.
-  >>>
-  ```
-
-  ## Set up a database
-
-  This step is only necessary if you’d like to work with a “large” database engine like PostgreSQL, MariaDB, MySQL, or Oracle. To install such a database, consult the database installation information.
-
-  ## Install Django
-
-  You’ve got three options to install Django:
-
-  1. Install an official release. This is the best approach for most users.
-  2. Install a version of Django provided by your operating system distribution.
-  3. Install the latest development version. This option is for enthusiasts who want the latest-and-greatest features and aren’t afraid of running brand new code. You might encounter new bugs in the development version, but reporting them helps the development of Django. Also, releases of third-party packages are less likely to be compatible with the development version than with the latest stable release.
-
-  ## Verifying
-
-  To verify that Django can be seen by Python, type `python` from your shell. Then at the Python prompt, try to import Django:
-
-  ```python
-  >>> import django
-  >>> print(django.get_version())
-  5.2
-  ```
-
-  You may have another version of Django installed.
-
-  ## That’s it!
-
-  That’s it – you can now move onto the tutorial.
+  # Final CTA
+  - name: 'cta'
+    summary: '最终行动召唤区域，引导用户访问GitHub开始使用产品'
+    title: 'Ready to See What Your AI Is Thinking?'
+    description: 'Explore the AIGNE Observability on GitHub and start building more reliable, transparent AI agents today.'
+    action:
+      text: 'View on Github'
+      link: 'https://github.com/aigne'
+```
 </example_item>
 
 <example_item>
-  # Products
-
-  Products are a fundamental resource in PaymentKit, representing the goods or services you offer. This section provides a comprehensive guide to managing your products using the PaymentKit Node.js SDK, including creating, retrieving, updating, listing, and deleting products.
-
-  For information on defining pricing models for your products, refer to the [Prices](/core-resources/prices) section. To manage customer information, see [Customers](/core-resources/customers).
-
-  ## Create a Product
-
-  Use the `create` method to define a new product in your PaymentKit system. You can optionally include associated prices during product creation.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `name` | `string` | The name of the product. |
-  | `description` | `string` | An optional description for the product. |
-  | `type` | `string` | The type of product (e.g., `'service'`, `'good'`). |
-  | `prices` | `Partial<TPrice>[]` | An optional array of partial price objects to associate with the product upon creation. Each object can include `type`, `unit_amount`, `currency_id`, and `recurring` details. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `product` | `TProductExpanded` | The newly created product object, including expanded details. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function createNewProduct() {
-    try {
-      const product = await payment.products.create({
-        name: 'Premium Service Plan',
-        description: 'Access to all premium features and support.',
-        type: 'service',
-        prices: [
-          {
-            type: 'recurring',
-            unit_amount: '19.99',
-            currency_id: 'usd_xxxxxx', // Replace with your currency ID
-            recurring: {
-              interval: 'month',
-              interval_count: 1,
-            },
-          },
-        ],
-      });
-      console.log('Product created:', product.id);
-    } catch (error) {
-      console.error('Error creating product:', error.message);
-    }
-  }
-
-  createNewProduct();
-  ```
-
-  **Example Response**
-  ```
-  {
-    "id": xxxx,
-    "name": xxxx,
-  }
-  ```
-
-  This example demonstrates how to create a new product named "Premium Service Plan" with an associated monthly recurring price.
-
-  ## Retrieve a Product
-
-  Use the `retrieve` method to fetch details of a specific product by its ID.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to retrieve. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `product` | `TProductExpanded` | The retrieved product object, including expanded details. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function getProductDetails(productId) {
-    try {
-      const product = await payment.products.retrieve(productId);
-      console.log('Product details:', product.name, product.description);
-    } catch (error) {
-      console.error(`Error retrieving product ${productId}:`, error.message);
-    }
-  }
-
-  getProductDetails('prod_xxx'); // Replace with a valid product ID
-  ```
-
-  **Example Response**
-  ```
-  {
-    "id": xxxx,
-    "name": xxxx,
-  }
-  ```
-
-  This example retrieves and logs the details of a product using its ID.
-
-  ## Update a Product
-
-  Use the `update` method to modify an existing product's details.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to update. |
-  | `data` | `Partial<TProduct>` | An object containing the product fields to update. Available fields include `name`, `description`, `type`, etc. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `product` | `TProductExpanded` | The updated product object. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function updateProductDescription(productId) {
-    try {
-      const updatedProduct = await payment.products.update(productId, {
-        description: 'Updated description for the premium service plan.',
-      });
-      console.log('Product updated:', updatedProduct.id, updatedProduct.description);
-    } catch (error) {
-      console.error(`Error updating product ${productId}:`, error.message);
-    }
-  }
-
-  updateProductDescription('prod_xxx'); // Replace with a valid product ID
-  ```
-
-  **Example Response**
-  ```
-  {
-    "id": xxxx,
-    "name": xxxx,
-  }
-  ```
-
-  This example updates the description of an existing product.
-
-  ## List Products
-
-  Use the `list` method to retrieve a paginated list of products. You can filter the results by various criteria.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `active` | `boolean` | Optional. Filter by product active status. |
-  | `name` | `string` | Optional. Filter by product name. |
-  | `description` | `string` | Optional. Filter by product description. |
-  | `metadata.{key}` | `string` | Optional. Filter by custom metadata fields. Use `metadata.yourKey` to specify a metadata property. |
-  | `page` | `number` | Optional. The page number for pagination (default: 1). |
-  | `pageSize` | `number` | Optional. The number of items per page (default: 50). |
-  | `order` | `string` | Optional. Sort order (e.g., `'created_at:ASC'`, `'updated_at:DESC'`). |
-  | `activeFirst` | `boolean` | Optional. If `true`, active products are listed first. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `data` | `TProductExpanded[]` | An array of product objects. |
-  | `page` | `number` | The current page number. |
-  | `pageSize` | `number` | The number of items per page. |
-  | `total` | `number` | The total number of products matching the criteria. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function listActiveProducts() {
-    try {
-      const products = await payment.products.list({
-        active: true,
-        pageSize: 10,
-        order: 'name:ASC',
-      });
-      console.log(`Found ${products.total} active products:`);
-      products.data.forEach(product => {
-        console.log(`- ${product.name} (ID: ${product.id})`);
-      });
-    } catch (error) {
-      console.error('Error listing products:', error.message);
-    }
-  }
-
-  listActiveProducts();
-  ```
-
-  **Example Response**
-  ```
-  {
-    "page": 1,
-    "pageSize": 20,
-    "total": 100,
-    "data": [
-      {
-        "id": xxx,
-        "name": xxx,
-      }
-    ]
-  }
-  ```
-
-  This example lists the first 10 active products, sorted alphabetically by name.
-
-  ## Search Products
-
-  Use the `search` method to find products based on a general search query. This is useful for free-text searches across product fields.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `query` | `string` | The search string to match against product fields. |
-  | `page` | `number` | Optional. The page number for pagination (default: 1). |
-  | `pageSize` | `number` | Optional. The number of items per page (default: 50). |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `data` | `TProductExpanded[]` | An array of product objects that match the search query. |
-  | `page` | `number` | The current page number. |
-  | `pageSize` | `number` | The number of items per page. |
-  | `total` | `number` | The total number of products matching the criteria. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function searchProducts(searchTerm) {
-    try {
-      const searchResults = await payment.products.search({
-        query: searchTerm,
-        pageSize: 5,
-      });
-      console.log(`Found ${searchResults.total} products matching "${searchTerm}":`);
-      searchResults.data.forEach(product => {
-        console.log(`- ${product.name} (ID: ${product.id})`);
-      });
-    } catch (error) {
-      console.error(`Error searching for products with "${searchTerm}":`, error.message);
-    }
-  }
-
-  searchProducts('service');
-  ```
-
-  **Example Response**
-  ```
-  {
-    "page": 1,
-    "pageSize": 20,
-    "total": 100,
-    "data": [
-      {
-        "id": xxx,
-        "name": xxx,
-      }
-    ]
-  }
-  ```
-
-  This example searches for products containing the term "service" and logs the results.
-
-  ## Archive a Product
-
-  Use the `archive` method to set a product's status to archived. Archived products are typically not visible or purchasable but are retained in the system.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to archive. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `product` | `TProduct` | The archived product object. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function archiveProduct(productId) {
-    try {
-      const archivedProduct = await payment.products.archive(productId);
-      console.log(`Product ${archivedProduct.id} has been archived.`);
-    } catch (error) {
-      console.error(`Error archiving product ${productId}:`, error.message);
-    }
-  }
-
-  archiveProduct('prod_xxx'); // Replace with a valid product ID
-  ```
-
-  **Example Response**
-  ```
-  {
-    "id": xxxx,
-    "name": xxxx,
-  }
-  ```
-
-  This example archives a specified product.
-
-  ## Delete a Product
-
-  Use the `del` method to permanently delete a product from your PaymentKit system. Use with caution, as this action is irreversible.
-
-  **Parameters**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to delete. |
-
-  **Returns**
-
-  | Name | Type | Description |
-  |---|---|---|
-  | `product` | `TProduct` | The deleted product object. |
-
-  **Example**
-
-  ```javascript
-  import payment from '@blocklet/payment-js';
-
-  async function deleteProduct(productId) {
-    try {
-      const deletedProduct = await payment.products.del(productId);
-      console.log(`Product ${deletedProduct.id} has been permanently deleted.`);
-    } catch (error) {
-      console.error(`Error deleting product ${productId}:`, error.message);
-    }
-  }
-
-  deleteProduct('prod_xxx'); // Replace with a valid product ID
-  ```
-
-  **Example Response**
-  ```
-  {
-    "id": xxxx,
-    "name": xxxx,
-  }
-  ```
-
-  This example permanently deletes a specified product.
-
-  ---
-
-  This section covered the essential operations for managing products within PaymentKit. You can now define and organize your offerings. Continue to the [Prices](/core-resources/prices) section to learn how to set up pricing for your products.
-
+商业网站页面示例 - 奶茶店首页：
+
+```yaml
+meta:
+  title: '悠然茶语 - 精选手作奶茶 | 新鲜现调'
+  description: '悠然茶语专注手作奶茶，选用优质茶叶和新鲜食材，为您带来独特的味蕾体验。营业时间10:00-22:00，欢迎品尝。'
+  image: 'bubble-tea-hero.jpg'
+
+sections:
+  # Hero section
+  - name: 'hero'
+    summary: '首页主视觉区域，展示品牌特色和核心卖点，吸引顾客注意'
+    title: '悠然茶语，每一口都是用心调制'
+    description: '精选优质茶叶，新鲜现调，为您带来独特的味蕾体验'
+    image:
+      src: 'hero-bubble-tea.jpg'
+      caption: '手作奶茶制作现场'
+    action:
+      text: '查看菜单'
+      link: '/menu'
+
+  # 产品特色
+  - name: 'features'
+    summary: '产品特色介绍，突出奶茶店的三大优势和卖点'
+    title: '为什么选择悠然茶语'
+    list:
+      - title: '精选茶叶'
+        description: '甄选台湾高山茶叶，每日新鲜冲泡，确保茶香浓郁'
+        image:
+          src: 'premium-tea-leaves.jpg'
+          caption: '优质茶叶展示'
+      - title: '新鲜食材'
+        description: '严选新鲜牛奶、当季水果，绝不使用隔夜食材'
+        image:
+          src: 'fresh-ingredients.jpg'
+          caption: '新鲜食材准备'
+      - title: '手工调制'
+        description: '每杯奶茶都由经验丰富的调茶师手工制作，口感层次丰富'
+        image:
+          src: 'handcrafted-process.jpg'
+          caption: '手工调制过程'
+
+  # 招牌产品
+  - name: 'products'
+    summary: '招牌产品展示区域，介绍店内最受欢迎的特色饮品'
+    title: '招牌特色'
+    list:
+      - title: '招牌奶茶'
+        description: '经典港式奶茶，茶香浓郁，奶香四溢，是我们的招牌之选 - ¥18'
+      - title: '芝士莓果'
+        description: '新鲜草莓搭配浓郁芝士奶盖，酸甜清香，颜值与口感并存 - ¥25'
+      - title: '抹茶拿铁'
+        description: '日式抹茶粉与香醇牛奶完美融合，苦甜平衡，回味悠长 - ¥22'
+
+  # 店铺信息
+  - name: 'storeInfo'
+    summary: '门店基本信息展示，包括地址、营业时间、联系方式等'
+    title: '门店信息'
+    description: '欢迎来店品尝，我们期待为您服务'
+    list:
+      - title: '营业时间'
+        description: '周一至周日 10:00 - 22:00，无休息日'
+      - title: '店铺地址'
+        description: '上海市徐汇区淮海中路123号，地铁1号线黄陂南路站A出口步行5分钟'
+      - title: '联系电话'
+        description: '021-1234-5678，支持电话预约和外送服务'
+
+  # 行动召唤
+  - name: 'cta'
+    summary: '最终行动召唤，鼓励用户到店体验或联系咨询'
+    title: '立即体验悠然茶语'
+    description: '来店品尝我们的手作奶茶，感受不一样的茶香世界'
+    action:
+      text: '立即到店'
+      link: 'tel:021-1234-5678'
+```
 </example_item>
 
-<bad_example>
-  - 错误示例：
-    - A["开始：`blocklet server upgrade`"]
-    - A -- "执行命令（例如 `start`、`stop`）" --> B
-</bad_example>
-
-<good_example>
-  - 正确示例：
-    - A["开始：blocklet server upgrade"]
-    - A -- "执行命令（例如 start、stop）" --> B
-</good_example>
+<guidelines>
+中间格式要点：
+- 每个 section 必须有清晰的 summary 字段说明用途
+- name 字段使用语义化的英文标识，如 hero、features、content、cta
+- 内容描述要具体明确，便于后续系统理解
+- 重点描述"做什么"（语义）而不是"怎么做"（实现）
+- 适用于不同行业：技术产品、商业服务、个人展示等
+</guidelines>
 </example>

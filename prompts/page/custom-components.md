@@ -1,80 +1,55 @@
-When generating page details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance page presentation:
+当生成页面中间格式时，你需要关注内容的语义组织和结构化表达。以下是内容组织的指导原则：
 
-- `<x-card>`
-- `<x-cards>`
+### 1. 列表内容组织
 
-### 1. <x-card> Single Card Component
+当需要展示多个相关项目时，使用 `list` 字段进行结构化描述：
 
-Suitable for displaying individual links with a richer and more visually appealing presentation format.
+**适用场景**：
+- 功能特性列表
+- 产品优势介绍
+- 步骤说明
+- 服务项目展示
 
-Example:
+**组织原则**：
+- 每个列表项必须有清晰的 `title` 和 `description`
+- 如有图片说明，可添加 `image` 字段
+- 保持列表项之间的逻辑关联和一致性
+- 按重要性或逻辑顺序排列
 
-```
-<x-card data-title="Required Title" data-image="Image URL" data-icon="Icon identifier (e.g., lucide:rocket or material-symbols:rocket-outline)" data-href="Navigation link URL" data-horizontal="true/false" data-cta="Button text" >
-  Card body content
-</x-card>
-```
-
-Attribute Rules:
-
-- data-title (required): Card title.
-- data-icon / data-image (choose one, at least one must be provided):
-  - It's recommended to always provide data-icon.
-  - Icons should prioritize Lucide (lucide:icon-name). If not available in Lucide, use Iconify (collection:icon-name, e.g., material-symbols:rocket-outline).
-- data-image (optional): Image URL, can coexist with icon.
-- data-href (optional): Navigation link for clicking the card or button.
-- data-horizontal (optional): Whether to use horizontal layout.
-- data-cta (optional): Button text (call to action).
-- Body content: Must be written within <x-card>...</x-card> children.
-
-### 2. `<x-cards>` Card List Component
-
-Suitable for displaying multiple links using a card list format, providing a richer and more visually appealing presentation.
-
-Syntax:
-
-```
-<x-cards data-columns="Number of columns">
-  <x-card data-title="Title 1" data-icon="lucide:rocket">Content 1</x-card>
-  <x-card data-title="Title 2" data-icon="lucide:bolt">Content 2</x-card>
-  <x-card data-title="Title 3" data-icon="material-symbols:rocket-outline">Content 3</x-card>
-</x-cards>
+**示例结构**：
+```yaml
+sections:
+  - name: features
+    summary: '产品核心功能列表，展示主要特性和优势'
+    title: '核心功能'
+    list:
+      - title: '功能一'
+        description: '详细描述功能一的作用和价值'
+      - title: '功能二'
+        description: '详细描述功能二的特点和优势'
 ```
 
-Attribute Rules:
+### 2. 内容分组策略
 
-- data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
-- Must contain multiple <x-card> elements internally.
-- Consistency requirement: All <x-card> elements within the same <x-cards> must maintain visual consistency:
-  - Recommended to always provide data-icon for each card.
-  - Or all cards should have data-image.
-  - Avoid mixing (some with icons, some with only images).
+**语义化分组**：根据内容的用途和含义进行分组
+- `hero`：主要价值主张和核心信息
+- `features`：功能特性展示
+- `content`：详细说明和描述
+- `action`：行动召唤和引导
 
-### 3. Examples
+**内容层次**：
+- 优先级高的内容放在前面
+- 相关内容归类在同一个 section
+- 每个 section 有明确的 summary 说明用途
 
-Single card:
+### 3. 语义描述重点
 
-```
-<x-card data-title="Horizontal card" data-icon="lucide:atom" data-horizontal="true">
-  This is an example of a horizontal card.
-</x-card>
-```
+**重点关注**：
+- 描述内容的**作用和意图**，而非视觉表现
+- 说明内容的**逻辑关系**和**重要性**
+- 提供充分的**上下文信息**便于理解
 
-Card list (all using icons, recommended approach):
-
-```
-<x-cards data-columns="3">
-  <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
-  <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
-  <x-card data-title="Feature 3" data-icon="material-symbols:rocket-outline">Description of Feature 3.</x-card>
-</x-cards>
-```
-
-Card list (all using images):
-
-```
-<x-cards data-columns="2">
-  <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
-  <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
-</x-cards>
-```
+**避免**：
+- 具体的技术实现细节
+- 视觉样式和布局约束
+- 组件层面的配置要求

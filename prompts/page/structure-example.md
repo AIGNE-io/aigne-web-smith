@@ -1,99 +1,119 @@
-<example>
-下面是一些优质的文档结构规划供你参考：
+<page_structure_example>
+下面是一些优质的站点结构规划供你参考：
 
-示例 A：开源前端框架 Pages
+<example_item>
+技术产品站点 - AI 开发框架：
 
-```yaml
-- 概览
-- 快速开始
-  - 安装
-  - 第一个组件
-  - 运行本地示例
-- 基础概念
-  - 响应式原理
-  - 组件生命周期
-  - 状态管理
-- 教程
-  - Todo List 全流程
-  - SSR 博客示例
-- 任务指引
-  - 如何集成第三方 UI 库
-  - 如何做代码拆分
-  - 如何做单元测试
-- API 参考
-  - 核心包
-  - 路由模块
-  - CLI
-- 示例代码
-  - JavaScript
-  - TypeScript
-- 版本与迁移
-  - v3 → v4 迁移指南
-  - 发布日志
-- 贡献与社区
-  - 贡献指南
-  - 讨论区链接
 ```
-
-示例 B：云服务 REST API Pages
-
-```yaml
 - Overview
-- Get Started
-  - Create Account
-  - Obtain API Key
-  - Hello World (cURL)
-- Concepts
-  - Authentication Model
-  - Rate Limits
-  - Error Handling
-- Tutorials
-  - Build a Serverless Image Resizer
-  - Streaming Analytics Pipeline
-- How-to Guides
-  - Upload Large Files
-  - Rotate API Keys
-  - Monitor Usage with Grafana
+- Quick Start
+- Core Concepts
+  - Agent Framework
+  - Tool System
 - API Reference
-  - Authentication
-  - Storage
-  - CDN
-- SDK Examples
-  - Python
-  - Go
-  - JavaScript
+- Examples
+```
+
+</example_item>
+
+<example_item>
+商业产品站点 - SaaS 平台：
+
+```
+- 首页
+- 产品功能
+  - 数据分析
+  - 团队协作
+- 定价方案
+- 客户案例
+- 帮助中心
+```
+
+</example_item>
+
+<example_item>
+开源项目站点 - 命令行工具：
+
+```
+- Overview
+- Installation
+- User Guide
+  - Commands
+  - Configuration
+- Development
 - Release Notes
-- Troubleshooting & FAQ
-- Security & Best Practices
 ```
 
-示例 C：命令行工具 Pages（多平台发行版）
+</example_item>
 
-```yaml
-- 概览
-- 快速开始
-  - 二进制下载
-  - Homebrew 安装
-  - Windows Scoop 安装
-- 核心概念
-  - Configuration 文件结构
-  - 插件系统
-- 教程
-  - 构建并部署一个静态站点
-  - 使用插件扩展功能
-- 指令参考
-  - init
-  - build
-  - deploy
-  - plugin
-- 故障排查
-  - 常见错误代码
-  - Debug 日志指南
-- 性能与安全
-- 版本与升级
-  - Changelog
-  - Breaking Changes
-- 贡献
+<example_item>
+个人品牌站点 - 自由设计师：
+
+```
+- About
+- Portfolio
+  - UI/UX Projects
+  - Brand Design
+- Services
+- Process
+- Contact
 ```
 
-</example>
+</example_item>
+
+<example_item>
+社区站点 - 开发者社区：
+
+```
+- Home
+- Discussions
+  - General
+  - Tech Talk
+- Resources
+  - Tutorials
+  - Tools
+- Events
+- Members
+```
+
+</example_item>
+
+<example_item>
+本地商业站点 - 奶茶店：
+
+```
+- 首页
+- 菜单
+  - 招牌奶茶
+  - 季节限定
+- 门店信息
+- 会员专区
+- 联系我们
+```
+
+</example_item>
+
+<guidelines>
+示例使用要点：
+
+层级结构设计：
+
+- 以上示例展示了不同产品类型的页面组织方式，不是固定模板
+- 根据实际数据内容灵活设计页面结构，避免生搬硬套示例
+- 重点关注页面间的逻辑关系和用户访问路径
+
+内容价值导向：
+
+- 每个页面都应有独特价值，避免为了层级而创建空洞页面
+- 优先聚合相关功能，避免不必要的页面分散
+- 确保页面层级清晰但不过度嵌套
+
+数据驱动生成：
+
+- 基于提供的实际数据设计页面结构，不要脱离数据内容
+- 不同数据特点决定不同的页面组织方式
+- 保持结构简洁但内容充实
+
+</guidelines>
+
+</page_structure_example>

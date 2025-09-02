@@ -49,10 +49,11 @@ output_schema:
     structurePlanTree:
       type: string
       description: |
-        结构规划的树形结构，用于展示结构规划的层级关系，每一级有不同的缩进，方便用户直观查看结构规划的层级关系,参考格式：
+        结构规划的树形结构，用于展示结构规划的层级关系，参考格式：
         ```
-        - 首页
-          - 产品
-            - 产品详情
-              - 产品介绍
+        - Overview
+        - Features
+          - Core Features
+          - Advanced Features
+        - Getting Started
         ```

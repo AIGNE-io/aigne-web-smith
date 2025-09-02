@@ -86,12 +86,17 @@ When planning structure, prioritize conflict resolution strategies to ensure the
   </user_preferences>
 
 <rules>
-DataSources 使用规则：
-1. 结构规划时要要尽可能的把 DataSources 中的信息合理的进行规划展示，不能遗漏
-2. 用户可能提供的 DataSources 很少，这个时候你可以用你已知的信息进行补充，来完成结构规划
-3. 对于用户 DataSources 中提供的信息，如果是公开的信息，你可以用你已知的信息进行补充规划，如果是用户私人的产品、信息，**不可以随意创造，补充虚假的信息**
-4. 如果 DataSources 和目标受众不匹配，你需要对 DataSources 进行重新描述来匹配目标受众
 
+<datasources_rules>
+DataSources 使用规则：
+
+1. 结构规划时要要尽可能的把 <datasources> 中的信息合理的进行规划展示，不能遗漏
+2. 用户可能提供的 <datasources> 很少，这个时候你可以用你已知的信息进行补充，来完成结构规划
+3. 对于用户 <datasources> 中提供的信息，如果是公开的信息，你可以用你已知的信息进行补充规划，如果是用户私人的产品、信息，**不可以随意创造，补充虚假的信息**
+4. 如果 <datasources> 和目标受众不匹配，你需要对 <datasources> 进行重新描述来匹配目标受众
+   </datasources_rules>
+
+<structure_plan_rules>
 结构规划规则：
 
 1. {{nodeName}}规划需要优先考虑用户提的规则，特别是对”{{nodeName}}的数量“、”必须包含 xxx {{nodeName}} “、”不能包含 xxx {{nodeName}}“之类的要求
@@ -112,15 +117,18 @@ DataSources 使用规则：
 - 标题
 - 描述{{nodeName}}计划展示的重要信息，描述要匹配目标受众
 
-2. 内容规划优先展示用户提供的 DataSources 中的信息，或者使用你拥有的知识进行补充，不可以随意虚构信息。
+2. 内容规划优先展示用户提供的 <datasources> 中的信息，或者使用你拥有的知识进行补充，不可以随意虚构信息。
 
 {% include "page/structure-planning.md" %}
+</structure_plan_rules>
 
+<other_rules>
 其他：
 
 1. 必须满足用户提出的规则
 2. 使用用户的语言 {{locale}} 返回信息
-   </rules>
+
+</other_rules>
 
 {% ifAsync pagesType == 'general' %}
 {% include "page/structure-example.md" %}
@@ -128,12 +136,13 @@ DataSources 使用规则：
 
 <output_rules>
 
-1. 关联的 sourceIds 要尽可能全面，你可以包含尽可能多的相关 datasources,
+1. 关联的 sourceIds 要尽可能全面，你可以包含尽可能多的相关 <datasources>,
 
-- 如果 datasource 中源代码，**尽可能多的包含相关的、相邻的源代码**，来保障后续详情生成的质量。
+- 如果 <datasources> 中源代码，**尽可能多的包含相关的、相邻的源代码**，来保障后续详情生成的质量。
 - 先找到最相关的源代码文件，然后分析其中引用的源代码，引用的文件路径，引用的文件、引用的路径中的文件都需要包含在 sourceIds 中
 - 引用的文件，仍需再分析一层其中引用的源代码文件，添加 sourceIds 中，确保生成详情的上下文完整
 
 2. 确保 sourceIds 不能为空，不要规划没有相关数据源的 {{nodeName}}
 
 </output_rules>
+</rules>

@@ -114,14 +114,7 @@ DataSources 使用规则：
 
 2. 内容规划优先展示用户提供的 DataSources 中的信息，或者使用你拥有的知识进行补充，不可以随意虚构信息。
 
-{% ifAsync pagesType == 'general' %}
 {% include "page/structure-planning.md" %}
-
-{% endif %}
-
-{% ifAsync pagesType == 'getting-started' %}
-{% include "page/structure-getting-started.md" %}
-{% endif %}
 
 其他：
 

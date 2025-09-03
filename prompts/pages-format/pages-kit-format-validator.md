@@ -4,6 +4,11 @@
 对生成的Pages Kit YAML模板进行全面技术验证，确保其在框架中能够正确运行，发现不符合规范的问题并提供修复建议。
 </goal>
 
+<latest_pages_kit_yaml>
+这是转换后的 Pages Kit YAML 内容，需要检验的内容：
+{{pagesKitYaml}}
+</latest_pages_kit_yaml>
+
 <validation_checklist>
 严格按照以下要求进行验证：
 

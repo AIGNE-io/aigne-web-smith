@@ -1,17 +1,17 @@
 type: team
 name: pagesFormatParser
-description: 将中间格式的 Page YAML 转换为 Pages Kit 可消费的 YAML
+description: 智能转换中间格式为Pages Kit YAML，职责分离：AI负责语义分析，工具负责ID生成和格式组装
 skills:
   - ./load-middle-format.mjs
-  - ./generate-ids.mjs
-  - ./middle-format-to-pages-kit-converter.yaml
+  - ./middle-format-to-structured-data.yaml
+  - ./assemble-pages-kit-yaml.mjs
   - ./save-pages-kit-format.mjs
 # 调试时候，先禁用反思工作流
-# reflection:
-#   reviewer: ./pages-kit-format-validator.yaml
-#   is_approved: isValid
-#   max_iterations: 3
-#   return_last_on_max_iterations: true
+reflection:
+  reviewer: ./pages-kit-format-validator.yaml
+  is_approved: isValid
+  max_iterations: 3
+  return_last_on_max_iterations: true
 input_schema:
   type: object
   properties:

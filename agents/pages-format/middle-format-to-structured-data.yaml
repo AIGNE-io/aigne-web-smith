@@ -1,0 +1,43 @@
+name: middleFormatToStructuredData
+description: 将中间格式YAML转换为结构化的组件数据数组
+instructions:
+  url: ../../prompts/pages-format/middle-format-to-structured-data.md
+input_schema:
+  type: object
+  properties:
+    middleFormatContent:
+      type: string
+      description: 中间格式YAML内容
+    componentList:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          component:
+            type: string
+          description:
+            type: string
+      description: 可用的组件列表
+      default: []
+    feedback:
+      type: string
+      description: 上一轮验证的反馈信息
+      default: ""
+  required:
+    - middleFormatContent
+output_schema:
+  type: object
+  properties:
+    structuredData:
+      type: string
+      description: 结构化的组件数据JSON数组（字符串格式）
+    conversionNotes:
+      type: string
+      description: 转换过程的说明和关键决策
+  required:
+    - structuredData
+    - conversionNotes

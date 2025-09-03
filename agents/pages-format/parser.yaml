@@ -8,7 +8,7 @@ skills:
   - ./save-pages-kit-format.mjs
 # 调试时候，先禁用反思工作流
 reflection:
-  reviewer: ./pages-kit-format-validator.yaml
+  reviewer: ./pages-kit-format-validator.mjs
   is_approved: isValid
   max_iterations: 3
   return_last_on_max_iterations: true

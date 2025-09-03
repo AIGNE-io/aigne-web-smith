@@ -8,8 +8,8 @@ import checkDetailResult from "./check-detail-result.mjs";
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default async function checkDetail(
-  {
+export default async function checkDetail(input, options) {
+  const {
     path,
     pagesDir,
     sourceIds,
@@ -19,9 +19,8 @@ export default async function checkDetail(
     forceRegenerate,
     locale,
     ...rest
-  },
-  options
-) {
+  } = input;
+
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
   const fileFullName = getFileName({ locale, fileName: flatName });
@@ -117,12 +116,12 @@ export default async function checkDetail(
     name: "generateDetail",
     skills: [
       options.context.agents["detailGeneratorAndTranslate"],
-      // options.context.agents["pagesFormatParser"],
+      options.context.agents["pagesFormatParser"],
     ],
   });
 
   const result = await options.context.invoke(teamAgent, {
-    ...rest,
+    ...input,
     pagesDir,
     path,
     sourceIds,

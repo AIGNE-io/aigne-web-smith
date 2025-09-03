@@ -9,8 +9,17 @@ import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
   isGlobPattern,
-  getFileName,
 } from "../utils/utils.mjs";
+import { stringify, parse } from "yaml";
+
+const formatComponentContent = ({ content }) => {
+  const data = parse(content);
+  delete data.renderer;
+
+  return stringify(data, {
+    indent: 2,
+  });
+};
 
 export default async function loadSources({
   sources = [],
@@ -18,7 +27,7 @@ export default async function loadSources({
   includePatterns,
   excludePatterns,
   outputDir,
-  pagesDir,
+  docsDir,
   "page-path": pagePath,
   boardId,
   useDefaultPatterns = true,
@@ -152,6 +161,7 @@ export default async function loadSources({
   // Separate source files from media files
   const sourceFiles = [];
   const mediaFiles = [];
+  const componentFiles = [];
   let allSources = "";
 
   await Promise.all(
@@ -160,7 +170,7 @@ export default async function loadSources({
 
       if (mediaExtensions.includes(ext)) {
         // This is a media file
-        const relativePath = path.relative(pagesDir, file);
+        const relativePath = path.relative(docsDir, file);
         const fileName = path.basename(file);
         const description = path.parse(fileName).name;
 
@@ -171,8 +181,21 @@ export default async function loadSources({
         });
       } else {
         // This is a source file
-        const content = await readFile(file, "utf8");
+        let content = await readFile(file, "utf8");
         const relativePath = path.relative(process.cwd(), file);
+
+        // if it is components-list, format it
+        if (relativePath.includes("components-list")) {
+          content = formatComponentContent({
+            content,
+          });
+          componentFiles.push({
+            sourceId: relativePath,
+            content,
+          });
+          return;
+        }
+
         allSources += `// sourceId: ${relativePath}\n${content}\n`;
 
         sourceFiles.push({
@@ -207,8 +230,8 @@ export default async function loadSources({
 
     // First try direct path matching (original format)
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-    fileFullName = getFileName({ locale, fileName: flatName });
-    let filePath = path.join(pagesDir, fileFullName);
+    fileFullName = `${flatName}.md`;
+    let filePath = path.join(docsDir, fileFullName);
 
     try {
       await access(filePath);
@@ -218,8 +241,8 @@ export default async function loadSources({
       if (boardId && pagePath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
         const flattenedPath = pagePath.substring(boardId.length + 1);
-        fileFullName = getFileName({ locale, fileName: flattenedPath });
-        filePath = path.join(pagesDir, fileFullName);
+        fileFullName = `${flattenedPath}.md`;
+        filePath = path.join(docsDir, fileFullName);
 
         try {
           await access(filePath);
@@ -253,7 +276,7 @@ export default async function loadSources({
   }
 
   // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Pages\n\n";
+  let assetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
     // Helper function to determine file type from extension
@@ -311,6 +334,7 @@ export default async function loadSources({
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
+    componentsList: componentFiles,
     content,
     originalStructurePlan,
     files,

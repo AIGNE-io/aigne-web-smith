@@ -11,14 +11,33 @@
 
 <rules>
 
+<conversion_concept>
+转换核心概念：
+
+从"语义化描述"转换为"技术实现"
+
+- 中间格式：以人类可理解的语义描述页面内容和意图
+- Pages Kit 格式：以机器可执行的技术配置实现页面渲染
+
+转换过程：语义理解 → 组件选择 → 布局设计 → 数据映射 → 技术配置
+</conversion_concept>
+
 <input_rules>
 中间格式 <middle_format> YAML 包含语义化的 section 描述：
 
-- name: section 类型标识
-- summary: section 用途说明（关键：用于理解转换意图，并不需要包含在转换结果中，只需要在转换时参考）
-- title, description, action 等其它内容字段，需要使用这些内容字段，进行组件的匹配，包括组件的属性的填充
+核心字段分析：
 
-</input_rules>
+- name: section 类型标识（如 hero、features、pricing）- 帮助选择合适的组件
+- summary: section 用途说明 - 理解业务意图，指导布局和组件组合策略
+- 内容字段（title、description、action 等）- 映射到组件的 dataSource 属性
+
+转换策略：
+
+1. 分析 summary 理解 section 的业务目的和视觉需求
+2. 根据 name 和内容复杂度选择合适的组件（单组件 vs 布局组合）
+3. 将内容字段映射到组件的具体属性和数据源
+4. 设计合理的页面布局和组件嵌套结构
+   </input_rules>
 
 <important_rules>
 
@@ -27,13 +46,44 @@
 {{componentsList}}
 </component_rules>
 
-- 必须完整转换中间格式中的所有内容，不能遗漏
-- 组件优先级：首选 custom-component，其次 layout-block+custom-component 组合，最后考虑基础组件
+<conversion_principles>
+转换原则：
+
+1. 完整性原则：必须转换中间格式中的所有内容，不能遗漏任何信息
+2. 语义映射原则：根据 summary 和 name 理解业务意图，选择最合适的组件实现
+3. 布局合理性：考虑内容展示效果和用户体验，设计合理的组件布局
+4. 数据完整性：确保所有内容字段都映射到正确的 dataSource 属性中
+5. 技术规范性：严格遵循 Pages Kit YAML 格式和组件使用规范
+   </conversion_principles>
+
+<component_selection_strategy>
+组件选择策略：
+
+判断逻辑：
+
+- 单一内容类型（纯文本/纯图片/纯按钮）→ 使用单个 custom-component
+- 复合内容类型（标题+描述+按钮+图片）→ 使用 layout-block + 多个 custom-component
+- 列表/网格类型（features、testimonials）→ 优先使用列表组件或 layout-block 网格布局
+- 复杂交互类型（表单、定价表）→ 使用专门的 custom-component
+
+布局设计考虑：
+
+- hero section：通常使用 layout-block 实现左右或上下布局
+- features section：使用网格布局展示多个特性
+- pricing section：使用卡片布局或表格布局
+- testimonials：使用列表或网格布局
+  </component_selection_strategy>
+
+<technical_requirements>
+技术要求：
+
 - 输出必须严格遵循 Pages Kit YAML 格式
 - 所有 ID 必须是 16 位随机字符串（小写字母+数字），不能包含语义词汇
 - layout-block 的网格布局：h=1 固定，y 值连续递增，x+w≤12
 - custom-component 必须有 config 配置：{ componentId: string, componentName: string }
 - 基础组件的 config 如果存在必须为空对象{}
+- dataSource 必须包含组件所需的所有属性，确保渲染正确
+  </technical_requirements>
 
 </important_rules>
 
@@ -93,7 +143,7 @@ sections: # 必需 - 组件定义结构
 dataSource: # 必需 - 页面级数据源，包含所有组件的数据
   <componentId>: # 组件ID作为键
     properties: # 必需 - 组件属性配置
-      <propertyId>: # 属性ID作为键
+      <propertyId>: # 属性ID作为键，记得一定是组件的属性ID，而非语义化 key
         value: # 必需 - 属性值，可以是字符串、对象、数组等
 ```
 
@@ -104,7 +154,7 @@ dataSource:
   # 文本组件示例
   a1b2c3d4e5f6g7h8:
     properties:
-      textContentId:
+      h3h1k5l423l1m2n3:
         value:
           text: "标题文本内容"
           style:
@@ -114,17 +164,17 @@ dataSource:
   # 图片组件示例
   i9j0k1l2m3n4o5p6:
     properties:
-      imageId:
+      k56l7m8n9o0p1q2:
         value:
           src: "image-url.jpg"
           alt: "图片描述"
-      ratioId:
+      t3u4v5w6x7y8z9a0:
         value: "16:9"
 
   # 按钮组件示例
   q7r8s9t0u1v2w3x4:
     properties:
-      buttonId:
+      q7r8s9t0u1v2w3x4:
         value:
           text: "按钮文本"
           url: "https://example.com"
@@ -134,7 +184,7 @@ dataSource:
   # 列表组件示例
   y5z6a7b8c9d0e1f2:
     properties:
-      listId:
+      l1m2n3o4p5q6r7s8t9:
         value:
           list:
             - id: "item-1"
@@ -145,9 +195,6 @@ dataSource:
             - id: "item-2"
               type: "text"
               text: "列表项2内容"
-
-  # layout-block组件（空数据源）
-  g3h4i5j6k7l8m9n0: {}
 ```
 
 关键注意事项：
@@ -160,5 +207,37 @@ dataSource:
 - 所有 ID 必须是 16 位随机字符串，不要有任何的顺序
 
 </output_schema>
+
+<conversion_examples>
+转换示例说明：
+
+中间格式示例：
+
+```yaml
+sections:
+  - name: hero
+    summary: 页面主标题区域，展示产品核心价值主张和主要行动按钮
+    title: See what your agents see
+    description: Trace, debug, and monitor every agent's decision
+    action:
+      text: Get Started
+      link: /signup
+    image: hero-dashboard.png
+```
+
+转换思路：
+
+1. 分析 summary：这是一个包含标题、描述、按钮、图片的复合 hero 区域
+2. 组件选择：使用 layout-block + 多个 custom-component 实现邻国布局
+3. 布局设计：左侧文本内容（标题+描述+按钮），右侧图片
+4. 数据映射：根据从 <component_rules> 获取的组件，将数据填充到 dataSource 中
+
+Pages Kit 输出结果：
+
+- 外层 layout-block 定义网格布局
+- 嵌套的 custom-component 分别处理文本、按钮、图片
+- dataSource 包含所有组件的具体数据配置
+
+</conversion_examples>
 
 </rules>

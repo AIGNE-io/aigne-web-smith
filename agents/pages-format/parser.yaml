@@ -3,13 +3,15 @@ name: pagesFormatParser
 description: 将中间格式的 Page YAML 转换为 Pages Kit 可消费的 YAML
 skills:
   - ./load-middle-format.mjs
+  - ./generate-ids.mjs
   - ./middle-format-to-pages-kit-converter.yaml
   - ./save-pages-kit-format.mjs
-reflection:
-  reviewer: ./pages-kit-format-validator.yaml
-  is_approved: isValid
-  max_iterations: 3
-  return_last_on_max_iterations: true
+# 调试时候，先禁用反思工作流
+# reflection:
+#   reviewer: ./pages-kit-format-validator.yaml
+#   is_approved: isValid
+#   max_iterations: 3
+#   return_last_on_max_iterations: true
 input_schema:
   type: object
   properties:

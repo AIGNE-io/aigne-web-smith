@@ -93,6 +93,7 @@
 
 - 输出必须严格遵循 Pages Kit YAML 格式
 - 所有 ID 必须是 16 位随机字符串（小写字母+数字），不能包含语义词汇
+- ID 生成规范：当需要生成多个随机 ID 时，可以使用 generate-ids 技能确保唯一性和规范性
 - layout-block 的网格布局：h=1 固定，y 值连续递增，x+w≤12
 - custom-component 必须有 config 配置：{ componentId: string, componentName: string }
 - 基础组件的 config 如果存在必须为空对象{}
@@ -119,6 +120,14 @@ ID 生成规则：
 - 随机性：完全随机，无任何模式
 - 唯一性：页面内所有 ID 必须唯一
 - 禁止：语义词汇、分隔符、大写字母、有序模式
+
+使用 ID 生成器技能：
+
+当需要生成多个随机 ID 时，使用 generate-ids 技能：
+
+- 输入参数：count（生成数量）
+- 返回：generatedIds（ID 数组）
+- 调用示例：generate-ids({count: 5})
 
 正确示例：k8m3n9p2q7r5s1t6, w9e5r2t8y1u4i7o3
 错误示例：header_001, main-content, TITLE123

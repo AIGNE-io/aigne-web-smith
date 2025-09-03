@@ -6,8 +6,22 @@
 </goal>
 
 <middle_format>
+这是中间格式 YAML 内容：
 {{middleFormatContent}}
 </middle_format>
+
+{% if validationFeedback %}
+<validation_feedback>
+上一轮的验证反馈意见如下，请直接按照反馈意见修改
+{{validationFeedback}}
+</validation_feedback>
+
+<latest_pages_kit_yaml>
+这是上一轮转换后的 Pages Kit YAML 内容：
+{{pagesKitYaml}}
+</latest_pages_kit_yaml>
+
+{% endif %}
 
 <rules>
 

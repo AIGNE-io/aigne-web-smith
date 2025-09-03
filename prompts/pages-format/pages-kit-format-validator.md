@@ -102,7 +102,8 @@ dataSource 错误：
 - 发现问题时提供清晰的改进建议
 - 定位具体位置、描述问题、说明违反的规范
 - 提供建议的修复方法
-  </validation_principles>
+
+</validation_principles>
 
 <output_format>
 验证完成后必须返回：

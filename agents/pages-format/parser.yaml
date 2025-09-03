@@ -3,7 +3,7 @@ name: pagesFormatParser
 description: 将中间格式的 Page YAML 转换为 Pages Kit 可消费的 YAML
 skills:
   - ./load-middle-format.mjs
-  - ./middle-format-to-pageskit-converter.yaml
+  - ./middle-format-to-pages-kit-converter.yaml
   - ./save-pages-kit-format.mjs
 reflection:
   reviewer: ./pages-kit-format-validator.yaml

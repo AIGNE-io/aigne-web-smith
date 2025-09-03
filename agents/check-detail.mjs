@@ -2,8 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
-import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
-import { hasSourceFilesChanged } from "../utils/utils.mjs";
+import { getFileName, hasSourceFilesChanged } from "../utils/utils.mjs";
 import checkDetailResult from "./check-detail-result.mjs";
 
 // Get current script directory
@@ -18,13 +17,14 @@ export default async function checkDetail(
     structurePlan,
     modifiedFiles,
     forceRegenerate,
+    locale,
     ...rest
   },
-  options,
+  options
 ) {
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
-  const fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
+  const fileFullName = getFileName({ locale, fileName: flatName });
 
   const filePath = join(pagesDir, fileFullName);
   let detailGenerated = true;
@@ -42,7 +42,9 @@ export default async function checkDetail(
   let sourceIdsChanged = false;
   if (originalStructurePlan && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find((node) => node.path === path);
+    const originalNode = originalStructurePlan.find(
+      (node) => node.path === path
+    );
 
     if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
@@ -113,7 +115,10 @@ export default async function checkDetail(
 
   const teamAgent = TeamAgent.from({
     name: "generateDetail",
-    skills: [options.context.agents["detailGeneratorAndTranslate"]],
+    skills: [
+      options.context.agents["detailGeneratorAndTranslate"],
+      // options.context.agents["pagesFormatParser"],
+    ],
   });
 
   const result = await options.context.invoke(teamAgent, {

@@ -40,6 +40,8 @@ agents:
   - ./agents/check-feedback-refiner.mjs
   - ./agents/feedback-refiner.yaml
   - ./agents/manage-prefs.mjs
+  # pages format
+  - ./agents/pages-format/parser.yaml
 cli:
   chat: ./agents/chat.yaml
   agents:

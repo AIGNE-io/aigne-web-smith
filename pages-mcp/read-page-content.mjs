@@ -1,10 +1,15 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
+
+import { getFileName } from "../utils/utils.mjs";
 
 const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
 
-export default async function readPageContent({ relevantPagePaths, pagesDir: customPagesDir }) {
+export default async function readPageContent({
+  relevantPagePaths,
+  pagesDir: customPagesDir,
+  locale,
+}) {
   const targetPagesDir = customPagesDir || pagesDir;
   const pageContents = [];
 
@@ -12,7 +17,10 @@ export default async function readPageContent({ relevantPagePaths, pagesDir: cus
     try {
       // Flatten path: remove leading /, replace all / with - (same logic as utils.mjs)
       const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-      const fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
+      const fileFullName = getFileName({
+        locale: locale || "en",
+        fileName: flatName,
+      });
       const filePath = path.join(targetPagesDir, fileFullName);
 
       // Read the page file

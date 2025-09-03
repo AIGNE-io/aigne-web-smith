@@ -1,11 +1,15 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS, PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
+import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+} from "../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
   isGlobPattern,
+  getFileName,
 } from "../utils/utils.mjs";
 
 export default async function loadSources({
@@ -61,8 +65,14 @@ export default async function loadSources({
                 : [excludePatterns]
               : [];
 
-            finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
-            finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
+            finalIncludePatterns = [
+              ...DEFAULT_INCLUDE_PATTERNS,
+              ...userInclude,
+            ];
+            finalExcludePatterns = [
+              ...DEFAULT_EXCLUDE_PATTERNS,
+              ...userExclude,
+            ];
           } else {
             // Use only user patterns
             if (includePatterns) {
@@ -82,7 +92,7 @@ export default async function loadSources({
             dir,
             finalIncludePatterns,
             finalExcludePatterns,
-            gitignorePatterns,
+            gitignorePatterns
           );
           allFiles = allFiles.concat(filesInDir);
         }
@@ -107,7 +117,9 @@ export default async function loadSources({
               }
             }
           } catch (globErr) {
-            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
+            console.warn(
+              `Failed to process glob pattern "${dir}": ${globErr.message}`
+            );
           }
         } else {
           throw err;
@@ -168,7 +180,7 @@ export default async function loadSources({
           content,
         });
       }
-    }),
+    })
   );
 
   // Get the last structure plan result
@@ -195,7 +207,7 @@ export default async function loadSources({
 
     // First try direct path matching (original format)
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-    fileFullName = `${flatName}${PAGE_FILE_EXTENSION}`;
+    fileFullName = getFileName({ locale, fileName: flatName });
     let filePath = path.join(pagesDir, fileFullName);
 
     try {
@@ -206,7 +218,7 @@ export default async function loadSources({
       if (boardId && pagePath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
         const flattenedPath = pagePath.substring(boardId.length + 1);
-        fileFullName = `${flattenedPath}${PAGE_FILE_EXTENSION}`;
+        fileFullName = getFileName({ locale, fileName: flattenedPath });
         filePath = path.join(pagesDir, fileFullName);
 
         try {
@@ -227,8 +239,13 @@ export default async function loadSources({
     try {
       currentGitHead = getCurrentGitHead();
       if (currentGitHead && currentGitHead !== lastGitHead) {
-        modifiedFiles = getModifiedFilesBetweenCommits(lastGitHead, currentGitHead);
-        console.log(`Detected ${modifiedFiles.length} modified files since last generation`);
+        modifiedFiles = getModifiedFilesBetweenCommits(
+          lastGitHead,
+          currentGitHead
+        );
+        console.log(
+          `Detected ${modifiedFiles.length} modified files since last generation`
+        );
       }
     } catch (error) {
       console.warn("Failed to detect git changes:", error.message);
@@ -242,7 +259,15 @@ export default async function loadSources({
     // Helper function to determine file type from extension
     const getFileType = (filePath) => {
       const ext = path.extname(filePath).toLowerCase();
-      const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
+      const imageExts = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".bmp",
+        ".webp",
+        ".svg",
+      ];
       const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
 
       if (imageExts.includes(ext)) return "image";
@@ -277,7 +302,9 @@ export default async function loadSources({
       totalWords += words.length;
 
       // Count lines (excluding empty lines)
-      totalLines += source.split("\n").filter((line) => line.trim() !== "").length;
+      totalLines += source
+        .split("\n")
+        .filter((line) => line.trim() !== "").length;
     }
   }
 
@@ -308,15 +335,18 @@ loadSources.input_schema = {
     },
     includePatterns: {
       anyOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
-      description: "Glob patterns to filter files by path or filename. If not set, include all.",
+      description:
+        "Glob patterns to filter files by path or filename. If not set, include all.",
     },
     excludePatterns: {
       anyOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
-      description: "Glob patterns to exclude files by path or filename. If not set, exclude none.",
+      description:
+        "Glob patterns to exclude files by path or filename. If not set, exclude none.",
     },
     useDefaultPatterns: {
       type: "boolean",
-      description: "Whether to use default include/exclude patterns. Defaults to true.",
+      description:
+        "Whether to use default include/exclude patterns. Defaults to true.",
     },
     "page-path": {
       type: "string",

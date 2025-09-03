@@ -1,9 +1,10 @@
-import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
+import { getFileName } from "../utils/utils.mjs";
 
 export default async function checkDetailResult({
   structurePlan,
   // reviewContent,
   // pagesDir,
+  locale,
 }) {
   let isApproved = true;
   const detailFeedback = [];
@@ -20,7 +21,7 @@ export default async function checkDetailResult({
       processedPath = processedPath.replace(/^\./, "");
     }
     let flatPath = processedPath.replace(/^\//, "").replace(/\//g, "-");
-    flatPath = `./${flatPath}${PAGE_FILE_EXTENSION}`;
+    flatPath = getFileName({ locale: locale || "en", fileName: flatPath });
     allowedLinks.add(flatPath);
   });
 
@@ -34,7 +35,9 @@ export default async function checkDetailResult({
     }
   } catch (error) {
     isApproved = false;
-    detailFeedback.push(`Found markdown validation error in result: ${error.message}`);
+    detailFeedback.push(
+      `Found markdown validation error in result: ${error.message}`
+    );
   }
 
   return {

@@ -1,6 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { PAGE_FILE_EXTENSION } from "./constants.mjs";
+import { getFileName } from "./utils.mjs";
 
 /**
  * Get action-specific text based on isTranslate flag
@@ -11,17 +12,6 @@ import { PAGE_FILE_EXTENSION } from "./constants.mjs";
 export function getActionText(isTranslate, baseText) {
   const action = isTranslate ? "translate" : "update";
   return baseText.replace("{action}", action);
-}
-
-/**
- * Generate filename based on flattened path and locale
- * @param {string} flatName - Flattened path name
- * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
- * @returns {string} Generated filename
- */
-function generateFileName(flatName, locale) {
-  const isEnglish = locale === "en";
-  return isEnglish ? `${flatName}${PAGE_FILE_EXTENSION}` : `${flatName}.${locale}${PAGE_FILE_EXTENSION}`;
 }
 
 /**
@@ -38,7 +28,7 @@ export async function findItemByPath(
   pagePath,
   boardId,
   pagesDir,
-  locale = "en",
+  locale = "en"
 ) {
   let foundItem = null;
   let fileName = null;
@@ -62,7 +52,9 @@ export async function findItemByPath(
         // Find item by comparing flattened paths
         foundItem = structurePlanResult.find((item) => {
           // Convert item.path to flattened format (replace / with -)
-          const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+          const itemFlattenedPath = item.path
+            .replace(/^\//, "")
+            .replace(/\//g, "-");
           return itemFlattenedPath === flattenedPath;
         });
       }
@@ -70,8 +62,10 @@ export async function findItemByPath(
 
     // Generate filename from found item path
     if (foundItem) {
-      const itemFlattenedPath = foundItem.path.replace(/^\//, "").replace(/\//g, "-");
-      fileName = generateFileName(itemFlattenedPath, locale);
+      const itemFlattenedPath = foundItem.path
+        .replace(/^\//, "")
+        .replace(/\//g, "-");
+      fileName = getFileName({ locale, fileName: itemFlattenedPath });
     }
   }
 
@@ -108,7 +102,10 @@ export async function readFileContent(pagesDir, fileName) {
     const filePath = join(pagesDir, fileName);
     return await readFile(filePath, "utf-8");
   } catch (readError) {
-    console.warn(`⚠️  Could not read content from ${fileName}:`, readError.message);
+    console.warn(
+      `⚠️  Could not read content from ${fileName}:`,
+      readError.message
+    );
     return null;
   }
 }
@@ -120,23 +117,36 @@ export async function readFileContent(pagesDir, fileName) {
  * @param {Array} structurePlanResult - Array of structure plan items to determine file order
  * @returns {Promise<string[]>} Array of main language page files ordered by structurePlanResult
  */
-export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult = null) {
+export async function getMainLanguageFiles(
+  pagesDir,
+  locale,
+  structurePlanResult = null
+) {
   const files = await readdir(pagesDir);
 
   // Filter for main language page files (exclude _sidebar file)
   const filteredFiles = files.filter((file) => {
     // Skip non-page files and _sidebar file
-    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sidebar${PAGE_FILE_EXTENSION}`) {
+    if (
+      !file.endsWith(PAGE_FILE_EXTENSION) ||
+      file === `_sidebar${PAGE_FILE_EXTENSION}`
+    ) {
       return false;
     }
 
     // If main language is English, return files without language suffix
     if (locale === "en") {
       // Return files that don't have language suffixes (e.g., overview.yaml, not overview.zh.yaml)
-      return !file.match(new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`));
+      return !file.match(
+        new RegExp(
+          `\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`
+        )
+      );
     } else {
       // For non-English main language, return files with the exact locale suffix
-      const localePattern = new RegExp(`\\.${locale}\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`);
+      const localePattern = new RegExp(
+        `\\.${locale}\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`
+      );
       return localePattern.test(file);
     }
   });
@@ -146,8 +156,13 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
     // Create a map from flat file name to structure plan order
     const orderMap = new Map();
     structurePlanResult.forEach((item, index) => {
-      const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
-      const expectedFileName = generateFileName(itemFlattenedPath, locale);
+      const itemFlattenedPath = item.path
+        .replace(/^\//, "")
+        .replace(/\//g, "-");
+      const expectedFileName = getFileName({
+        locale,
+        fileName: itemFlattenedPath,
+      });
       orderMap.set(expectedFileName, index);
     });
 
@@ -181,7 +196,10 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
  */
 export function fileNameToFlatPath(fileName) {
   // Remove page extension first
-  let flatName = fileName.replace(new RegExp(`\\${PAGE_FILE_EXTENSION.replace('.', '\\.')}$`), "");
+  let flatName = fileName.replace(
+    new RegExp(`\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`),
+    ""
+  );
 
   // Remove language suffix if present (e.g., .zh, .zh-CN, .fr, etc.)
   flatName = flatName.replace(/\.\w+(-\w+)?$/, "");
@@ -209,7 +227,11 @@ export function findItemByFlatName(structurePlanResult, flatName) {
  * @param {string} pagesDir - Pages directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
-export async function processSelectedFiles(selectedFiles, structurePlanResult, pagesDir) {
+export async function processSelectedFiles(
+  selectedFiles,
+  structurePlanResult,
+  pagesDir
+) {
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
@@ -234,7 +256,9 @@ export async function processSelectedFiles(selectedFiles, structurePlanResult, p
 
       foundItems.push(result);
     } else {
-      console.warn(`⚠️  No structure plan item found for file: ${selectedFile}`);
+      console.warn(
+        `⚠️  No structure plan item found for file: ${selectedFile}`
+      );
     }
   }
 

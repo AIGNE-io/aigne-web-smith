@@ -1,0 +1,71 @@
+type: team
+name: pagesFormatParser
+description: 将中间格式的 Page YAML 转换为 Pages Kit 可消费的 YAML
+skills: []
+input_schema:
+  type: object
+  properties:
+    nodeName:
+      type: string
+      description: 节点名称
+      default: Section
+    locale:
+      type: string
+      description: 语言
+    targetAudience:
+      type: string
+      description: 目标受众
+    glossary:
+      type: string
+      description: 术语表
+    page-path:
+      type: string
+      description: 当前路径
+    feedback:
+      type: string
+      description: 反馈
+    sources:
+      type: array
+      items:
+        type: string
+        description: 源码路径
+    sourcesPath:
+      type: array
+      items:
+        type: string
+        description: 源码路径
+      default:
+        - ./
+    includePatterns:
+      type: array
+      items:
+        type: string
+        description: 包含的文件名
+    excludePatterns:
+      type: array
+      items:
+        type: string
+        description: 排除的文件名
+    outputDir:
+      type: string
+      description: 输出目录
+      default: ./aigne-pages/output
+    pagesDir:
+      type: string
+      description: 页面目录
+      default: ./aigne-pages/pages
+    additionalInformation:
+      type: string
+      description: 额外补充信息
+# output_schema:
+#   type: object
+#   properties:
+#     title:
+#       type: string
+#     description:
+#       type: string
+#     path:
+#       type: string
+#     content:
+#       type: string
+mode: sequential

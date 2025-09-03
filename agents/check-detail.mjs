@@ -96,28 +96,12 @@ export default async function checkDetail(input, options) {
     }
   }
 
-  // If file exists, sourceIds haven't changed, source files haven't changed, and content validation passes, no need to regenerate
-  if (
-    detailGenerated &&
-    !sourceIdsChanged &&
-    !sourceFilesChanged &&
-    !contentValidationFailed &&
-    !forceRegenerate
-  ) {
-    return {
-      path,
-      pagesDir,
-      ...rest,
-      detailGenerated: true,
-    };
-  }
-
   const teamAgent = TeamAgent.from({
     name: "generateDetail",
     skills: [
-      options.context.agents["detailGeneratorAndTranslate"],
+      !detailGenerated && options.context.agents["detailGeneratorAndTranslate"],
       options.context.agents["pagesFormatParser"],
-    ],
+    ].filter(Boolean),
   });
 
   const result = await options.context.invoke(teamAgent, {
@@ -134,6 +118,7 @@ export default async function checkDetail(input, options) {
     pagesDir,
     ...rest,
     result,
+    detailGenerated,
   };
 }
 

@@ -1,7 +1,15 @@
 type: team
 name: pagesFormatParser
 description: 将中间格式的 Page YAML 转换为 Pages Kit 可消费的 YAML
-skills: []
+skills:
+  - ./load-middle-format.mjs
+  - ./middle-format-to-pageskit-converter.yaml
+  - ./save-pages-kit-format.mjs
+reflection:
+  reviewer: ./pages-kit-format-validator.yaml
+  is_approved: isValid
+  max_iterations: 3
+  return_last_on_max_iterations: true
 input_schema:
   type: object
   properties:

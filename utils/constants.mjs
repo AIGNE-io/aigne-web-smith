@@ -333,19 +333,12 @@ export const DEPTH_RECOMMENDATION_LOGIC = {
   },
 };
 
-// Component mount point ID for Pages Kit (需要更新为实际的 Pages Kit DID)
-export const PAGES_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+// Pages Kit DID for web-smith
+export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
 
-// Discuss Kit DID for web-smith
-export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
-
-// Pages Kit related URLs (需要更新为实际的 Pages Kit URLs)
+// Pages Kit store URL
 export const PAGES_KIT_STORE_URL =
-  "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
-
-// Discuss Kit store URL
-export const DISCUSS_KIT_STORE_URL =
-  "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
+  "https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
 
 export const BLOCKLET_ADD_COMPONENT_PAGES =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";

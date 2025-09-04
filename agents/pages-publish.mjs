@@ -10,7 +10,81 @@ import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../util
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
-const publishPagesFn = async () => {};
+const publishPagesFn = async ({ pagesKitYaml, locale, projectId, appUrl, accessToken }) => {
+  // 构建请求头
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${accessToken}`);
+
+  // 构建请求体 - 使用 Pages Kit SDK 接口格式
+  const requestBody = JSON.stringify({
+    projectId,
+    lang: locale,
+    pageYaml: pagesKitYaml,
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: requestBody,
+    redirect: "follow",
+  };
+
+  // 发送请求到 Pages Kit 接口
+  const response = await fetch(
+    "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io/pages-kit/api/sdk/upload-page",
+    requestOptions
+  );
+
+  // 处理响应
+  let result;
+  const responseText = await response.text();
+  
+  try {
+    result = JSON.parse(responseText);
+  } catch {
+    result = responseText;
+  }
+
+  if (!response.ok) {
+    throw new Error(`Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`);
+  }
+
+  return {
+    success: true,
+    result: result,
+  };
+};
+// New function specifically for Pages Kit YAML upload
+export async function uploadPagesKitYaml({ pagesKitYaml, locale = "zh", projectId, appUrl }) {
+  try {
+    // 使用现有的鉴权逻辑获取访问令牌
+    const accessToken = await getAccessToken(appUrl);
+
+    const result = await publishPagesFn({
+      pagesKitYaml,
+      locale,
+      projectId,
+      appUrl,
+      accessToken,
+    });
+
+    return {
+      uploadResult: result.result,
+      uploadStatus: "success",
+      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(result.result)}`,
+    };
+
+  } catch (error) {
+    return {
+      uploadResult: null,
+      uploadStatus: "failed",
+      uploadError: error.message,
+      $message: `Failed to upload to Pages Kit: ${error.message}`,
+    };
+  }
+}
+
 export default async function publishPages(
   { pagesDir: rawPagesDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options,

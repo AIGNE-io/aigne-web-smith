@@ -1,9 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
+import loadSources from "../load-sources.mjs";
 
 export default async function loadMiddleFormat(input) {
-  const { path, locale, pagesDir } = input;
+  const { path, locale, pagesDir, sourcesPath } = input;
 
   // 构建中间格式文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
@@ -18,7 +19,6 @@ export default async function loadMiddleFormat(input) {
       ...input,
       middleFormatContent,
       middleFormatFilePath: filePath,
-      $message: `load middle format success ${filePath}`,
     };
   } catch (error) {
     throw new Error(`load middle format failed ${filePath}: ${error.message}`);

@@ -1,6 +1,6 @@
 type: team
 name: pagesFormatParser
-description: 智能转换中间格式为Pages Kit YAML，职责分离：AI负责语义分析，工具负责ID生成和格式组装
+description: 智能转换中间格式为Pages Kit YAML并验证，职责分离：AI负责语义分析，工具负责ID生成和格式组装，最后上传到Pages Kit进行验证
 skills:
   - ./load-middle-format.mjs
   - ./middle-format-to-structured-data.yaml
@@ -67,7 +67,42 @@ input_schema:
     additionalInformation:
       type: string
       description: 额外补充信息
-# output_schema:
+    # Pages Kit 上传验证相关参数
+    projectId:
+      type: string
+      description: Pages Kit 项目 ID
+      default: "test-project"
+    appUrl:
+      type: string
+      description: Pages Kit 应用 URL（用于鉴权）
+      default: "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io"
+    skipUpload:
+      type: boolean
+      description: 是否跳过上传验证步骤
+      default: false
+output_schema:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    content:
+      type: string
+    pagesKitYaml:
+      type: string
+      description: 生成的 Pages Kit YAML 内容
+    uploadResult:
+      description: Pages Kit 上传结果
+    uploadStatus:
+      type: string
+      description: 上传状态（success/failed）
+    uploadError:
+      type: string
+      description: 上传错误信息（如果失败）
+# Commented out old output_schema:
 #   type: object
 #   properties:
 #     title:

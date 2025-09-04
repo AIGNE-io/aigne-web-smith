@@ -11,14 +11,38 @@ import {
   isGlobPattern,
 } from "../utils/utils.mjs";
 import { stringify, parse } from "yaml";
+import {
+  zodSchemaToJsonSchema,
+  propertiesToZodSchema,
+} from "./pages-format/sdk.mjs";
 
 const formatComponentContent = ({ content }) => {
-  const data = parse(content);
-  delete data.renderer;
+  const component = parse(content);
 
-  return stringify(data, {
-    indent: 2,
-  });
+  if (component.properties && !component.properties._def) {
+    // 基于属性结构生成 Zod Schema
+    const zodProperties = propertiesToZodSchema(component.properties || {}, {
+      // webSmith 的组件， 不需要检查是否需要生成， 默认都需要生成
+      skipCheckNeedGenerate: true,
+      llmConfig: component.llmConfig,
+    });
+
+    // 生成 JSON Schema 用于 AI 理解
+    const jsonSchema = zodSchemaToJsonSchema(zodProperties);
+
+    // 添加元数据到组件中
+    component.schema = jsonSchema;
+  }
+
+  // 移除无用的信息
+  delete component.renderer;
+  delete component.llmConfig;
+  delete component.properties;
+  delete component.createdAt;
+  delete component.updatedAt;
+  delete component.version;
+
+  return component;
 };
 
 export default async function loadSources({
@@ -161,6 +185,7 @@ export default async function loadSources({
   // Separate source files from media files
   const sourceFiles = [];
   const mediaFiles = [];
+  const originalComponentFiles = [];
   const componentFiles = [];
   let allSources = "";
 
@@ -184,14 +209,15 @@ export default async function loadSources({
         let content = await readFile(file, "utf8");
         const relativePath = path.relative(process.cwd(), file);
 
-        // if it is components-list, format it
+        // if it is components-list, format it and enhance with structured data
         if (relativePath.includes("components-list")) {
           content = formatComponentContent({
             content,
           });
+
           componentFiles.push({
             sourceId: relativePath,
-            content,
+            content, // json content
           });
           return;
         }

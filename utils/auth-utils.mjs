@@ -14,8 +14,8 @@ import {
 } from "./blocklet.mjs";
 import {
   BLOCKLET_ADD_COMPONENT_PAGES,
-  DISCUSS_KIT_DID,
-  DISCUSS_KIT_STORE_URL,
+  PAGES_KIT_DID,
+  PAGES_KIT_STORE_URL,
 } from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -29,17 +29,17 @@ export async function getAccessToken(appUrl) {
   const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
-  let accessToken = process.env.PAGE_DISCUSS_KIT_ACCESS_TOKEN;
+  let accessToken = process.env.PAGE_KIT_ACCESS_TOKEN;
 
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
       if (existsSync(WEB_SMITH_ENV_FILE)) {
         const data = await readFile(WEB_SMITH_ENV_FILE, "utf8");
-        if (data.includes("PAGE_DISCUSS_KIT_ACCESS_TOKEN")) {
+        if (data.includes("PAGE_KIT_ACCESS_TOKEN")) {
           const envs = parse(data);
-          if (envs[hostname]?.PAGE_DISCUSS_KIT_ACCESS_TOKEN) {
-            accessToken = envs[hostname].PAGE_DISCUSS_KIT_ACCESS_TOKEN;
+          if (envs[hostname]?.PAGE_KIT_ACCESS_TOKEN) {
+            accessToken = envs[hostname].PAGE_KIT_ACCESS_TOKEN;
           }
         }
       }
@@ -53,11 +53,11 @@ export async function getAccessToken(appUrl) {
     return accessToken;
   }
 
-  // Check if Discuss Kit is running at the provided URL
+  // Check if Pages Kit is running at the provided URL
   try {
-    await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
+    await getComponentMountPoint(appUrl, PAGES_KIT_DID);
   } catch (error) {
-    const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
+    const storeLink = chalk.cyan(PAGES_KIT_STORE_URL);
     if (error instanceof InvalidBlockletError) {
       throw new Error(
         `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
@@ -87,8 +87,8 @@ export async function getAccessToken(appUrl) {
     }
   }
 
-  const DISCUSS_KIT_URL = appUrl;
-  const connectUrl = joinURL(new URL(DISCUSS_KIT_URL).origin, WELLKNOWN_SERVICE_PATH_PREFIX);
+  const PAGES_KIT_URL = appUrl;
+  const connectUrl = joinURL(new URL(PAGES_KIT_URL).origin, WELLKNOWN_SERVICE_PATH_PREFIX);
 
   try {
     const result = await createConnect({
@@ -102,7 +102,7 @@ export async function getAccessToken(appUrl) {
     });
 
     accessToken = result.accessKeySecret;
-    process.env.PAGE_DISCUSS_KIT_ACCESS_TOKEN = accessToken;
+    process.env.PAGE_KIT_ACCESS_TOKEN = accessToken;
 
     // Save the access token to config file
     const aigneDir = join(homedir(), ".aigne");
@@ -119,8 +119,8 @@ export async function getAccessToken(appUrl) {
       stringify({
         ...existingConfig,
         [hostname]: {
-          PAGE_DISCUSS_KIT_ACCESS_TOKEN: accessToken,
-          PAGE_DISCUSS_KIT_URL: DISCUSS_KIT_URL,
+          PAGE_KIT_ACCESS_TOKEN: accessToken,
+          PAGE_KIT_URL: PAGES_KIT_URL,
         },
       }),
     );

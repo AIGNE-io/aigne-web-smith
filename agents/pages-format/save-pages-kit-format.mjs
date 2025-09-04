@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
 
 export default async function savePagesKitFormat(input) {
-  const { path, locale, pagesDir, pagesKitYaml, conversionNotes } = input;
+  const { path, locale, pagesDir, pagesKitYaml } = input;
 
   // 构建输出文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
@@ -20,7 +20,7 @@ export default async function savePagesKitFormat(input) {
     return {
       ...input,
       pagesKitFilePath: outputPath,
-      $message: `save pages kit format success ${outputPath}\n\nconversion notes: ${conversionNotes}`,
+      $message: `save pages kit format success ${outputPath}`,
     };
   } catch (error) {
     throw new Error(

@@ -18,7 +18,7 @@ output_schema:
   type: object
   properties:
     structuredData:
-      type: array
+      type: string
       description: 几乎完整的Pages Kit sections结构JSON数组，包含config、sections、dataSource等，程序只需进行ID生成和数据合并
   required:
     - structuredData

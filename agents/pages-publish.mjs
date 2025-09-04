@@ -111,7 +111,7 @@ export default async function publishPages(
   {
     pagesDir: rawPagesDir,
     appUrl,
-    boardId,
+    projectId,
     projectName,
     projectDesc,
     projectLogo,
@@ -209,11 +209,11 @@ export default async function publishPages(
   let message;
 
   try {
-    const { success, boardId: newBoardId } = await publishPagesFn({
+    const { success, projectId: newProjectId } = await publishPagesFn({
       sidebarPath,
       accessToken,
       appUrl,
-      boardId,
+      projectId,
       autoCreateBoard: true,
       // Pass additional project information if available
       boardName: projectInfo.name,
@@ -231,9 +231,9 @@ export default async function publishPages(
         await saveValueToConfig("appUrl", appUrl);
       }
 
-      // Save boardId to config if it was auto-created
-      if (boardId !== newBoardId) {
-        await saveValueToConfig("boardId", newBoardId);
+      // Save projectId to config if it was auto-created
+      if (projectId !== newProjectId) {
+        await saveValueToConfig("projectId", newProjectId);
       }
       message = `✅ Pages Published Successfully!`;
     }
@@ -257,9 +257,9 @@ publishPages.input_schema = {
       description: "The url of the app",
       default: DEFAULT_APP_URL,
     },
-    boardId: {
+    projectId: {
       type: "string",
-      description: "The id of the board",
+      description: "The id of the project",
     },
   },
 };

@@ -53,7 +53,7 @@ export default async function loadSources({
   outputDir,
   docsDir,
   "page-path": pagePath,
-  boardId,
+  projectId,
   useDefaultPatterns = true,
   lastGitHead,
 } = {}) {
@@ -262,10 +262,10 @@ export default async function loadSources({
       await access(filePath);
       content = await readFile(filePath, "utf8");
     } catch {
-      // If not found and boardId is provided, try boardId-flattenedPath format
-      if (boardId && pagePath.startsWith(`${boardId}-`)) {
-        // Extract the flattened path part after boardId-
-        const flattenedPath = pagePath.substring(boardId.length + 1);
+      // If not found and projectId is provided, try projectId-flattenedPath format
+      if (projectId && pagePath.startsWith(`${projectId}-`)) {
+        // Extract the flattened path part after projectId-
+        const flattenedPath = pagePath.substring(projectId.length + 1);
         fileFullName = `${flattenedPath}.md`;
         filePath = path.join(docsDir, fileFullName);
 
@@ -401,9 +401,9 @@ loadSources.input_schema = {
       type: "string",
       description: "The page path to load content for",
     },
-    boardId: {
+    projectId: {
       type: "string",
-      description: "The board ID for boardId-flattenedPath format matching",
+      description: "The project ID for projectId-flattenedPath format matching",
     },
     lastGitHead: {
       type: "string",

@@ -8,7 +8,7 @@ import {
 } from "../utils/pages-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { page, structurePlanResult, boardId, pagesDir, isTranslate, feedback, locale },
+  { page, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItem = null;
@@ -78,7 +78,7 @@ export default async function findItemByPath(
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(structurePlanResult, pagePath, boardId, pagesDir, locale);
+  foundItem = await findItemByPathUtil(structurePlanResult, pagePath, projectId, pagesDir, locale);
 
   if (!foundItem) {
     throw new Error(`Item with path "${pagePath}" not found in structurePlanResult`);

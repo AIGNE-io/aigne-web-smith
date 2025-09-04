@@ -18,7 +18,7 @@ export function getActionText(isTranslate, baseText) {
  * Find a single item by path in structure plan result and read its content
  * @param {Array} structurePlanResult - Array of structure plan items
  * @param {string} pagePath - Page path to find (supports page filenames)
- * @param {string} boardId - Board ID for fallback matching
+ * @param {string} projectId - Project ID for fallback matching
  * @param {string} pagesDir - Pages directory path for reading content
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Object|null>} Found item with content or null
@@ -26,7 +26,7 @@ export function getActionText(isTranslate, baseText) {
 export async function findItemByPath(
   structurePlanResult,
   pagePath,
-  boardId,
+  projectId,
   pagesDir,
   locale = "en"
 ) {
@@ -42,12 +42,12 @@ export async function findItemByPath(
     // First try direct path matching
     foundItem = structurePlanResult.find((item) => item.path === pagePath);
 
-    // If not found and boardId is provided, try boardId-flattenedPath format matching
-    if (!foundItem && boardId) {
-      // Check if path starts with boardId followed by a dash
-      if (pagePath.startsWith(`${boardId}-`)) {
-        // Extract the flattened path part after boardId-
-        const flattenedPath = pagePath.substring(boardId.length + 1);
+    // If not found and projectId is provided, try projectId-flattenedPath format matching
+    if (!foundItem && projectId) {
+      // Check if path starts with projectId followed by a dash
+      if (pagePath.startsWith(`${projectId}-`)) {
+        // Extract the flattened path part after projectId-
+        const flattenedPath = pagePath.substring(projectId.length + 1);
 
         // Find item by comparing flattened paths
         foundItem = structurePlanResult.find((item) => {

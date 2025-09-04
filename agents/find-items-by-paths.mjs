@@ -7,7 +7,7 @@ import {
 } from "../utils/pages-finder-utils.mjs";
 
 export default async function selectedPages(
-  { pages, structurePlanResult, boardId, pagesDir, isTranslate, feedback, locale },
+  { pages, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItems = [];
@@ -65,7 +65,7 @@ export default async function selectedPages(
       const foundItem = await findItemByPath(
         structurePlanResult,
         pagePath,
-        boardId,
+        projectId,
         pagesDir,
         locale,
       );

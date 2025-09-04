@@ -4,10 +4,12 @@ import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
+
 import {
   PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
+  PAGES_OUTPUT_DIR,
 } from "../utils/constants.mjs";
 
 import {
@@ -19,22 +21,26 @@ import {
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
 const publishPagesFn = async ({
-  pagesKitYaml,
-  locale,
   projectId,
   appUrl,
   accessToken,
+  force = false,
+  pageTemplateData,
+  routeData,
+  dataSourceData,
 }) => {
   // 构建请求头
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
 
-  // 构建请求体 - 使用 Pages Kit SDK 接口格式
+  // 构建请求体 - 使用 /upload-data SDK 接口格式
   const requestBody = JSON.stringify({
     projectId,
-    lang: locale,
-    pageYaml: pagesKitYaml,
+    force,
+    pageTemplateData,
+    routeData,
+    dataSourceData,
   });
 
   const requestOptions = {
@@ -46,7 +52,7 @@ const publishPagesFn = async ({
 
   // 发送请求到 Pages Kit 接口
   const response = await fetch(
-    join(appUrl, "pages-kit/api/sdk/upload-data"),
+    join(appUrl, "/api/sdk/upload-data"),
     requestOptions
   );
 
@@ -77,17 +83,30 @@ export async function uploadPagesKitYaml({
   locale = "en",
   projectId,
   appUrl,
+  force = false,
 }) {
   try {
     // 使用现有的鉴权逻辑获取访问令牌
     const accessToken = await getAccessToken(appUrl);
 
-    const result = await publishPagesFn({
-      pagesKitYaml,
+    // 将 pagesKitYaml 转换为 SDK 格式
+    // 这里需要根据 pagesKitYaml 的结构来构造 pageTemplateData
+    const pageTemplateData = {
+      // 将 YAML 内容作为模板数据
+      content: pagesKitYaml,
       locale,
+      templateConfig: {
+        isTemplate: true,
+      },
+    };
+
+    const result = await publishPagesFn({
       projectId,
       appUrl,
       accessToken,
+      force,
+      pageTemplateData,
+      // routeData 和 dataSourceData 可以根据需要添加
     });
 
     return {
@@ -123,7 +142,9 @@ export default async function publishPages(
   await fs.mkdir(pagesDir, {
     recursive: true,
   });
-  await fs.cp(rawPagesDir, pagesDir, { recursive: true });
+  await fs.cp(join(rawPagesDir, PAGES_OUTPUT_DIR), pagesDir, {
+    recursive: true,
+  });
 
   // ----------------- main publish process flow -----------------------------
   // Check if PAGES_KIT_URL is set in environment variables
@@ -209,19 +230,42 @@ export default async function publishPages(
   let message;
 
   try {
+    // 读取 sidebar 内容作为页面数据（如果存在）
+    let sidebarContent = null;
+    try {
+      sidebarContent = await fs.readFile(sidebarPath, "utf-8");
+    } catch {
+      // sidebar 文件不存在时忽略
+    }
+
+    // 构造页面模板数据
+    const pageTemplateData = {
+      name: projectInfo.name,
+      description: projectInfo.description,
+      icon: projectInfo.icon,
+      sidebarContent,
+      templateConfig: {
+        isTemplate: true,
+        ...boardMeta,
+      },
+    };
+
+    // 构造路由数据（如果需要的话）
+    const routeData = {
+      path: "/",
+      displayName: projectInfo.name,
+      description: projectInfo.description,
+      meta: boardMeta,
+    };
+
     const { success, projectId: newProjectId } = await publishPagesFn({
-      sidebarPath,
-      accessToken,
-      appUrl,
       projectId,
-      autoCreateBoard: true,
-      // Pass additional project information if available
-      boardName: projectInfo.name,
-      boardDesc: projectInfo.description,
-      boardCover: projectInfo.icon,
-      mediaFolder: rawPagesDir,
-      cacheFilePath: join(".aigne", "web-smith", "upload-cache.yaml"),
-      boardMeta,
+      appUrl,
+      accessToken,
+      force: false, // 可以根据需要设置为 true
+      pageTemplateData,
+      routeData,
+      // dataSourceData 暂时不需要，可以后续添加
     });
 
     // Save values to config.yaml if publish was successful

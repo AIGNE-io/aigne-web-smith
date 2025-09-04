@@ -5,7 +5,7 @@ skills:
   - ./load-middle-format.mjs
   - ./middle-format-to-structured-data.yaml
   - ./assemble-pages-kit-yaml.mjs
-  - ./save-pages-kit-format.mjs
+  - ./save-pages-kit-yaml.mjs
 # 调试时候，先禁用反思工作流
 # reflection:
 #   reviewer: ./pages-kit-format-validator.mjs

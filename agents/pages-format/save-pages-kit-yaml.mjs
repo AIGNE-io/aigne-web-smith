@@ -1,17 +1,26 @@
-import { writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { writeFile, mkdir } from "node:fs/promises";
+import { join, dirname } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
+import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 
-export default async function savePagesKitFormat(input) {
+export default async function savePagesKitYaml(input) {
   const { path, locale, pagesDir, pagesKitYaml } = input;
 
   // 构建输出文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
   const fileFullName = getFileName({
     locale,
-    fileName: `@pages-kit-${flatName}`,
+    fileName: flatName,
   });
-  const outputPath = join(pagesDir, fileFullName);
+
+  const outputPath = join(pagesDir, PAGES_OUTPUT_DIR, fileFullName);
+
+  // ensure dir exists
+  try {
+    await mkdir(dirname(outputPath), { recursive: true });
+  } catch (error) {
+    // ignore error
+  }
 
   try {
     // 保存 Pages Kit 格式文件
@@ -29,4 +38,4 @@ export default async function savePagesKitFormat(input) {
   }
 }
 
-savePagesKitFormat.taskTitle = "Save Pages Kit format for '{{ path }}'";
+savePagesKitYaml.taskTitle = "Save Pages Kit format for '{{ path }}'";

@@ -32,6 +32,20 @@ const formatComponentContent = ({ content }) => {
 
     // 添加元数据到组件中
     component.schema = jsonSchema;
+
+    // propKeyToIdMap, 用于映射属性key到id
+    component.propKeyToIdMap = {};
+    Object.entries(component.properties || {}).forEach(([key, prop]) => {
+      if (!prop.data) return;
+
+      // 如果key未定义，使用id
+      const propKey = prop.data.key || prop.data.id || key;
+      const propId = prop.data.id;
+
+      if (propId) {
+        component.propKeyToIdMap[propKey] = propId;
+      }
+    });
   }
 
   // 移除无用的信息

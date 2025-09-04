@@ -2,7 +2,7 @@ import { stringify } from "yaml";
 import { generateRandomId } from "./sdk.mjs";
 
 export default async function assemblePagesKitYaml(input) {
-  const { structuredData, middleFormatContent } = input;
+  const { structuredData, middleFormatContent, componentsList, locale } = input;
 
   // 生成唯一ID集合
   function generateUniqueIds(count) {
@@ -60,9 +60,33 @@ export default async function assemblePagesKitYaml(input) {
     return { dataWithIds, idMapping };
   }
 
+  // 处理dataSource的通用函数
+  function processDataSource(dataSource, componentsList, componentId) {
+    const properties = {};
+    Object.entries(dataSource).forEach(([key, value]) => {
+      let mappedId = key;
+
+      // 如果是 customComponent，通过 componentId 找到对应组件的 propKeyToIdMap
+      if (componentId && componentsList?.length) {
+        const currentComponent = componentsList.find(
+          (comp) => comp.content?.id === componentId
+        );
+        if (currentComponent) {
+          mappedId = currentComponent.content?.propKeyToIdMap?.[key] || key;
+        }
+      }
+
+      properties[mappedId] = {
+        value: value,
+      };
+    });
+    return { properties };
+  }
+
   // 重建树状结构从扁平化数据
   function rebuildTreeStructure(flatData) {
-    const sections = [];
+    const sections = {};
+    const sectionIds = [];
     const globalDataSource = {};
 
     // 按level分组
@@ -75,50 +99,52 @@ export default async function assemblePagesKitYaml(input) {
       levelGroups[level].push(item);
     });
 
-    // 处理顶级组件（level: "0", "1", "2"...）
+    // 处理所有顶级组件
     const topLevelKeys = Object.keys(levelGroups)
       .filter((key) => !key.includes("."))
       .sort((a, b) => parseInt(a) - parseInt(b));
 
     topLevelKeys.forEach((levelKey) => {
-      const parentComponents = levelGroups[levelKey];
-
-      parentComponents.forEach((parent) => {
-        if (parent.component === "layout-block") {
-          // 处理layout-block：收集子组件并重建gridSettings
-          const childLevel = levelKey + ".";
-          const children = [];
+      levelGroups[levelKey].forEach((item) => {
+        if (item.component === "layout-block") {
+          // 处理layout-block
+          const childSections = {};
+          const childSectionIds = [];
           const gridSettings = { desktop: {}, mobile: {} };
 
-          // 收集所有子组件
+          // 查找直接子组件
+          const childLevel = levelKey + ".";
           Object.keys(levelGroups).forEach((key) => {
             if (key.startsWith(childLevel) && key.split(".").length === 2) {
               levelGroups[key].forEach((child) => {
-                // 提取gridSettings到父级
+                // 提取gridSettings
                 if (child.config && child.config.gridSettings) {
                   gridSettings.desktop[child.id] =
                     child.config.gridSettings.desktop;
                   gridSettings.mobile[child.id] =
                     child.config.gridSettings.mobile;
 
-                  // 移除子组件的gridSettings
+                  // 创建子组件（移除gridSettings）
                   const childConfig = { ...child.config };
                   delete childConfig.gridSettings;
 
-                  const childSection = {
+                  childSections[child.id] = {
                     id: child.id,
                     name: child.name,
                     component: child.component,
                     config: childConfig,
                   };
-
-                  children.push(childSection);
+                  childSectionIds.push(child.id);
 
                   // 处理子组件的dataSource
                   if (child.dataSource) {
-                    // @FIXME
+                    const componentId = child.config?.componentId;
                     globalDataSource[child.id] = {
-                      properties: child.dataSource,
+                      [locale]: processDataSource(
+                        child.dataSource,
+                        componentsList,
+                        componentId
+                      ),
                     };
                   }
                 }
@@ -126,41 +152,44 @@ export default async function assemblePagesKitYaml(input) {
             }
           });
 
-          // 构建完整的layout-block
-          const layoutBlock = {
-            id: parent.id,
-            name: parent.name,
-            component: parent.component,
+          // 创建layout-block
+          sections[item.id] = {
+            id: item.id,
+            name: item.name,
+            component: item.component,
             config: {
-              ...parent.config,
+              ...item.config,
               gridSettings,
             },
-            sections: children,
+            sections: childSections,
+            sectionIds: childSectionIds,
           };
-
-          sections.push(layoutBlock);
         } else {
-          // 处理独立的custom-component
-          const section = {
-            id: parent.id,
-            name: parent.name,
-            component: parent.component,
-            config: parent.config,
+          // 处理custom-component（不需要sections和sectionIds）
+          sections[item.id] = {
+            id: item.id,
+            name: item.name,
+            component: item.component,
+            config: item.config,
           };
 
           // 处理dataSource
-          if (parent.dataSource) {
-            globalDataSource[parent.id] = {
-              properties: parent.dataSource,
-            };
+          if (item.dataSource) {
+            const componentId = item.config?.componentId;
+            globalDataSource[item.id] = processDataSource(
+              item.dataSource,
+              componentsList,
+              componentId,
+              locale
+            );
           }
-
-          sections.push(section);
         }
+
+        sectionIds.push(item.id);
       });
     });
 
-    return { sections, globalDataSource };
+    return { sections, sectionIds, globalDataSource };
   }
 
   try {
@@ -230,7 +259,8 @@ export default async function assemblePagesKitYaml(input) {
           sticky: true,
         },
       },
-      sections: [],
+      sections: {},
+      sectionIds: [],
       dataSource: {},
     };
 
@@ -245,10 +275,12 @@ export default async function assemblePagesKitYaml(input) {
       );
 
       // 重建树状结构
-      const { sections, globalDataSource } = rebuildTreeStructure(dataWithIds);
+      const { sections, sectionIds, globalDataSource } =
+        rebuildTreeStructure(dataWithIds);
 
       // 设置到Pages Kit数据
       pagesKitData.sections = sections;
+      pagesKitData.sectionIds = sectionIds;
       Object.assign(pagesKitData.dataSource, globalDataSource);
     }
 

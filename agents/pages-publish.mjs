@@ -2,6 +2,8 @@ import { basename, join } from "node:path";
 
 import chalk from "chalk";
 import fs from "fs-extra";
+import pMap from "p-map";
+import { parse } from "yaml";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
 
@@ -259,35 +261,97 @@ export default async function publishPages(
       // sidebar 文件不存在时忽略
     }
 
-    // 构造页面模板数据
-    const pageTemplateData = {
-      name: projectInfo.name,
-      description: projectInfo.description,
-      icon: projectInfo.icon,
-      sidebarContent,
-      templateConfig: {
-        isTemplate: true,
-        ...boardMeta,
+    // 读取 pagesDir 中的所有 .yaml 文件
+    const files = await fs.readdir(pagesDir);
+    const yamlFiles = files.filter(
+      (file) => file.endsWith(".yaml") || file.endsWith(".yml")
+    );
+
+    // 使用 p-map 并发处理页面文件，限制并发数为4
+    const publishResults = await pMap(
+      yamlFiles,
+      async (file) => {
+        const filePath = join(pagesDir, file);
+        let pageContent = null;
+
+        try {
+          pageContent = await fs.readFile(filePath, "utf-8");
+        } catch (error) {
+          console.warn(`Failed to read file ${file}: ${error.message}`);
+          return {
+            file,
+            success: false,
+            error: `Failed to read file: ${error.message}`,
+          };
+        }
+
+        // 构造每个页面的模板数据 - 直接使用解析后的 YAML 作为完整模板对象
+        const parsedPageContent = parse(pageContent);
+        const pageTemplateData = {
+          ...parsedPageContent,
+          // 添加项目相关的元信息
+          name:
+            parsedPageContent.name ||
+            `${projectInfo.name} - ${basename(file, ".yaml")}`,
+          description: parsedPageContent.description || projectInfo.description,
+          icon: parsedPageContent.icon || projectInfo.icon,
+          templateConfig: {
+            isTemplate: true,
+            ...boardMeta,
+            sourceFile: file,
+          },
+        };
+
+        // 构造路由数据
+        const routeData = {
+          path: `/${basename(file, ".yaml")}`,
+          displayName: `${projectInfo.name} - ${basename(file, ".yaml")}`,
+          description: projectInfo.description,
+          meta: {
+            ...boardMeta,
+            sourceFile: file,
+          },
+        };
+
+        try {
+          const {
+            success: pageSuccess,
+            result,
+            projectId: newProjectId,
+          } = await publishPagesFn({
+            projectId,
+            appUrl,
+            accessToken,
+            force: false,
+            pageTemplateData,
+            routeData,
+            // dataSourceData 暂时不需要，可以后续添加
+          });
+
+          console.log(`✅ Successfully published: ${file}`);
+          return {
+            file,
+            success: pageSuccess,
+            result,
+            projectId: newProjectId,
+          };
+        } catch (error) {
+          console.error(`❌ Failed to publish ${file}: ${error.message}`);
+          return {
+            file,
+            success: false,
+            error: error.message,
+          };
+        }
       },
-    };
+      { concurrency: 4 }
+    );
 
-    // 构造路由数据（如果需要的话）
-    const routeData = {
-      path: "/",
-      displayName: projectInfo.name,
-      description: projectInfo.description,
-      meta: boardMeta,
-    };
-
-    const { success, projectId: newProjectId } = await publishPagesFn({
-      projectId,
-      appUrl,
-      accessToken,
-      force: false, // 可以根据需要设置为 true
-      pageTemplateData,
-      routeData,
-      // dataSourceData 暂时不需要，可以后续添加
-    });
+    // 使用整体结果判断成功状态
+    const overallSuccess = publishResults.every((result) => result.success);
+    const success = overallSuccess;
+    const newProjectId =
+      publishResults.find((r) => r.projectId)?.projectId || projectId;
 
     // Save values to config.yaml if publish was successful
     if (success) {
@@ -302,7 +366,10 @@ export default async function publishPages(
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
-      message = `✅ Pages Published Successfully!`;
+
+      const successCount = publishResults.filter((r) => r.success).length;
+      const totalCount = publishResults.length;
+      message = `✅ Pages Published Successfully! (${successCount}/${totalCount} pages)`;
     }
   } catch (error) {
     message = `❌ Failed to publish pages: ${error.message}`;

@@ -5,7 +5,7 @@ import { parse } from "yaml";
 const createSectionSchema = () => {
   const baseSection = z.object({
     id: z.string().min(1, "Section ID is required"),
-    name: z.string().min(1, "Section name is required"), 
+    name: z.string().min(1, "Section name is required"),
     isTemplateSection: z.boolean().optional(),
     llmConfig: z.record(z.unknown()).optional(),
     component: z.string().min(1, "Component type is required"),
@@ -27,36 +27,42 @@ const pagesKitSchema = z.object({
   // 必需的顶级字段
   id: z.string().min(1, "Page ID is required"),
   createdAt: z.string().min(1, "createdAt is required"),
-  updatedAt: z.string().min(1, "updatedAt is required"), 
+  updatedAt: z.string().min(1, "updatedAt is required"),
   isPublic: z.boolean(),
-  
+
   // 可选的顶级字段
   publishedAt: z.string().optional(),
-  templateConfig: z.object({
-    isTemplate: z.boolean(),
-    dataSourceParameters: z.record(z.unknown()).optional(),
-    enabledGenerate: z.boolean().optional(),
-  }).optional(),
-  
+  // templateConfig: z.object({
+  //   isTemplate: z.boolean(),
+  //   dataSourceParameters: z.record(z.unknown()).optional(),
+  //   enabledGenerate: z.boolean().optional(),
+  // }).optional(),
+
   // meta 对象
-  meta: z.object({
-    backgroundColor: z.string().optional(),
-    style: z.record(z.unknown()).optional(),
-    title: z.string().optional(),
-    description: z.string().optional(), 
-    image: z.string().optional(),
-    header: z.record(z.unknown()).optional(),
-  }).optional(),
-  
+  meta: z
+    .object({
+      backgroundColor: z.string().optional(),
+      style: z.record(z.unknown()).optional(),
+      title: z.string().optional(),
+      description: z.string().optional(),
+      image: z.string().optional(),
+      header: z.record(z.unknown()).optional(),
+    })
+    .optional(),
+
   // sections 数组
   sections: z.array(SectionSchema),
-  
+
   // dataSource 对象
-  dataSource: z.record(z.object({
-    properties: z.record(z.object({
-      value: z.unknown(), // 使用 z.unknown() 替代 z.any()
-    }))
-  }))
+  dataSource: z.record(
+    z.object({
+      properties: z.record(
+        z.object({
+          value: z.unknown(), // 使用 z.unknown() 替代 z.any()
+        })
+      ),
+    })
+  ),
 });
 
 export default async function validatePagesKitFormat(input) {
@@ -98,10 +104,12 @@ export default async function validatePagesKitFormat(input) {
         // 校验失败 - 安全地收集所有错误
         const zodError = validationResult.error;
         const zodErrors = zodError?.errors || zodError?.issues || [];
-        
+
         const errors = zodErrors.map((error) => ({
-          path: Array.isArray(error.path) ? error.path.join(".") : String(error.path || "unknown"),
-          message: error.message || "Validation failed", 
+          path: Array.isArray(error.path)
+            ? error.path.join(".")
+            : String(error.path || "unknown"),
+          message: error.message || "Validation failed",
           code: error.code || "VALIDATION_ERROR",
         }));
 
@@ -112,7 +120,9 @@ export default async function validatePagesKitFormat(input) {
             : `Found ${errors.length} validation errors:`;
 
         const errorDetails = errors
-          .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+          .map(
+            (error, index) => `${index + 1}. ${error.path}: ${error.message}`
+          )
           .join("\n");
 
         return {
@@ -129,11 +139,13 @@ export default async function validatePagesKitFormat(input) {
         ...input,
         isValid: false,
         validationFeedback: `Zod validation error: ${zodError.message}`,
-        errors: [{
-          path: "zod_internal",
-          message: zodError.message || "Zod internal error",
-          code: "ZOD_ERROR"
-        }]
+        errors: [
+          {
+            path: "zod_internal",
+            message: zodError.message || "Zod internal error",
+            code: "ZOD_ERROR",
+          },
+        ],
       };
     }
   } catch (error) {

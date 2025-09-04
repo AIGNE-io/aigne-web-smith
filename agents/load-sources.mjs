@@ -52,7 +52,7 @@ export default async function loadSources({
   excludePatterns,
   outputDir,
   docsDir,
-  "page-path": pagePath,
+  pagePath,
   projectId,
   useDefaultPatterns = true,
   lastGitHead,
@@ -397,7 +397,7 @@ loadSources.input_schema = {
       description:
         "Whether to use default include/exclude patterns. Defaults to true.",
     },
-    "page-path": {
+    pagePath: {
       type: "string",
       description: "The page path to load content for",
     },

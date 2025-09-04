@@ -135,6 +135,7 @@ layout-block 样式配置枚举值说明：
 - border: "none|solid|dashed|dotted|chrome|safari|terminal|shadow-sm|shadow-md|shadow-lg|shadow-xl|shadow-max|macbook|phone|custom" - 边框样式，包含设备框架和阴影效果，custom 支持任意 CSS 边框值
 - borderRadius: "none|small|medium|large|xl|rounded|custom" - 边框圆角，rounded=50%圆形，custom 支持任意 CSS 值如 custom:10px
 - height: "auto|100%|unset|inherit|initial|fit-content|max-content|min-content|custom:500px" - 高度设置，custom 支持任意 CSS 值如 custom:400px
+- gridSettings: "object" - 网格布局设置，包含 desktop 和 mobile 两个设备的布局配置，各自包含 x、y、w、h 四个属性
 
 layout-block 配置示例：
 

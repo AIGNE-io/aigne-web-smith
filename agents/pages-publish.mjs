@@ -203,6 +203,27 @@ export default async function publishPages(
     }
   }
 
+  // Now handle projectId after appUrl is finalized
+  const hasProjectIdInConfig = config?.projectId;
+
+  // Use projectId from config if not provided as parameter
+  if (!projectId && hasProjectIdInConfig) {
+    projectId = config.projectId;
+  }
+
+  // Prompt for projectId if still not available
+  if (!projectId) {
+    projectId = await options.prompts.input({
+      message: "Please enter your Pages Kit project ID:",
+      validate: (input) => {
+        if (!input || input.trim() === "") {
+          return "Project ID is required";
+        }
+        return true;
+      },
+    });
+  }
+
   const accessToken = await getAccessToken(appUrl);
 
   process.env.PAGES_ROOT_DIR = pagesDir;
@@ -275,9 +296,11 @@ export default async function publishPages(
         await saveValueToConfig("appUrl", appUrl);
       }
 
-      // Save projectId to config if it was auto-created
-      if (projectId !== newProjectId) {
-        await saveValueToConfig("projectId", newProjectId);
+      // Save projectId to config if it was provided by user input or auto-created
+      const shouldSaveProjectId =
+        !hasProjectIdInConfig || projectId !== newProjectId;
+      if (shouldSaveProjectId) {
+        await saveValueToConfig("projectId", newProjectId || projectId);
       }
       message = `✅ Pages Published Successfully!`;
     }
@@ -303,7 +326,20 @@ publishPages.input_schema = {
     },
     projectId: {
       type: "string",
-      description: "The id of the project",
+      description:
+        "The id of the project. If not provided, will prompt user or use value from config",
+    },
+    projectName: {
+      type: "string",
+      description: "The name of the project",
+    },
+    projectDesc: {
+      type: "string",
+      description: "The description of the project",
+    },
+    projectLogo: {
+      type: "string",
+      description: "The logo/icon of the project",
     },
   },
 };

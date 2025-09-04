@@ -1,5 +1,5 @@
 name: middleFormatToStructuredData
-description: 将中间格式YAML转换为几乎完整的Pages Kit sections结构，包含config、sections、dataSource等完整信息
+description: 将中间格式YAML转换为扁平化的结构化数据数组，使用level字段表示层级关系，简化AI生成复杂度
 instructions:
   url: ../../prompts/pages-format/middle-format-to-structured-data.md
 input_schema:
@@ -19,34 +19,28 @@ output_schema:
   properties:
     structuredData:
       type: array
-      description: 几乎完整的Pages Kit sections结构数组，包含config、sections、dataSource等，程序只需进行ID生成和数据合并
+      description: 扁平化的结构化数据数组，使用level字段表示层级关系，每个组件独立包含配置和数据
       items:
         type: object
         properties:
+          level:
+            type: string
+            description: 层级标识，如"0"表示顶级组件，"0.0"、"0.1"表示第0个组件的子组件
           name:
             type: string
-            description: section名称
-          summary:
-            type: string
-            description: section用途说明
+            description: 组件名称
           component:
             type: string
             description: 组件类型，如layout-block或custom-component
-          config:
-            type: any
-            description: 组件配置对象
-            default: {}
-          sections:
-            type: any
-            description: 子sections数组（仅 layout-block 需要）
-            default: null
           dataSource:
             type: any
-            description: 组件数据源对象，（仅 custom-component 需要）
-            default: null
+            description: 组件数据源对象（仅custom-component需要），必须是 JSON 对象，包括里面的属性（除非属性描述是 string 对象）
+          config:
+            type: any
+            description: 组件配置对象，必须是 JSON 对象
         required:
+          - level
           - name
-          - summary
           - component
           - config
   required:

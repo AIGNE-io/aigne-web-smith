@@ -37,76 +37,130 @@ export default async function assemblePagesKitYaml(input) {
     }
   }
 
-  // 递归生成并替换所有ID，同时建立ID映射关系
-  function generateIdsRecursively(obj, idGenerator, idMapping = new Map()) {
-    if (Array.isArray(obj)) {
-      return obj.map((item) =>
-        generateIdsRecursively(item, idGenerator, idMapping)
-      );
-    } else if (obj && typeof obj === "object") {
-      const result = {};
+  // 为扁平化数据中的每个组件生成ID
+  function assignIdsToFlatData(flatData, idGenerator) {
+    const idMapping = new Map();
 
-      // 为section对象自动添加ID（如果没有id字段）
-      if ((obj.component || obj.name) && !obj.id) {
-        result.id = idGenerator();
-      }
+    // 为每个组件生成ID并记录映射
+    const dataWithIds = flatData.map((item) => {
+      const newId = idGenerator();
+      const result = {
+        ...item,
+        id: newId,
+      };
 
-      for (const [key, value] of Object.entries(obj)) {
-        if (key === "id" && (!value || typeof value === "string")) {
-          const newId = idGenerator();
-          result[key] = newId;
-          // 如果有原始ID，记录映射关系
-          if (value && typeof value === "string") {
-            idMapping.set(value, newId);
-          }
-        } else if (key === "dataSource" && typeof value === "object") {
-          // dataSource先暂存，稍后统一处理ID映射
-          result[key] = value;
-        } else if (key === "gridSettings" && typeof value === "object") {
-          // 处理 gridSettings 中的子section ID引用
-          result[key] = {};
-          for (const [device, settings] of Object.entries(value)) {
-            result[key][device] = {};
-            for (const [childId, gridData] of Object.entries(settings)) {
-              const actualChildId =
-                childId === "PLACEHOLDER_CHILD_ID" ? idGenerator() : childId;
-              result[key][device][actualChildId] = gridData;
-            }
-          }
-        } else {
-          result[key] = generateIdsRecursively(value, idGenerator, idMapping);
-        }
+      // 记录名称到ID的映射，用于后续dataSource处理
+      if (item.name) {
+        idMapping.set(item.name, newId);
       }
 
       return result;
-    }
+    });
 
-    return obj;
+    return { dataWithIds, idMapping };
   }
 
-  // 单独处理dataSource的ID映射
-  function processDataSourceIds(dataSource, idMapping) {
-    const result = {};
+  // 重建树状结构从扁平化数据
+  function rebuildTreeStructure(flatData) {
+    const sections = [];
+    const globalDataSource = {};
 
-    for (const [componentId, componentData] of Object.entries(dataSource)) {
-      // 使用映射后的ID，如果没有映射则保持原ID
-      const actualComponentId = idMapping.get(componentId) || componentId;
-
-      result[actualComponentId] = {
-        properties: {},
-      };
-
-      if (componentData.properties) {
-        for (const [propKey, propValue] of Object.entries(
-          componentData.properties
-        )) {
-          // 属性名保持原始名称，不生成新的ID
-          result[actualComponentId].properties[propKey] = propValue;
-        }
+    // 按level分组
+    const levelGroups = {};
+    flatData.forEach((item) => {
+      const level = item.level;
+      if (!levelGroups[level]) {
+        levelGroups[level] = [];
       }
-    }
+      levelGroups[level].push(item);
+    });
 
-    return result;
+    // 处理顶级组件（level: "0", "1", "2"...）
+    const topLevelKeys = Object.keys(levelGroups)
+      .filter((key) => !key.includes("."))
+      .sort((a, b) => parseInt(a) - parseInt(b));
+
+    topLevelKeys.forEach((levelKey) => {
+      const parentComponents = levelGroups[levelKey];
+
+      parentComponents.forEach((parent) => {
+        if (parent.component === "layout-block") {
+          // 处理layout-block：收集子组件并重建gridSettings
+          const childLevel = levelKey + ".";
+          const children = [];
+          const gridSettings = { desktop: {}, mobile: {} };
+
+          // 收集所有子组件
+          Object.keys(levelGroups).forEach((key) => {
+            if (key.startsWith(childLevel) && key.split(".").length === 2) {
+              levelGroups[key].forEach((child) => {
+                // 提取gridSettings到父级
+                if (child.config && child.config.gridSettings) {
+                  gridSettings.desktop[child.id] =
+                    child.config.gridSettings.desktop;
+                  gridSettings.mobile[child.id] =
+                    child.config.gridSettings.mobile;
+
+                  // 移除子组件的gridSettings
+                  const childConfig = { ...child.config };
+                  delete childConfig.gridSettings;
+
+                  const childSection = {
+                    id: child.id,
+                    name: child.name,
+                    component: child.component,
+                    config: childConfig,
+                  };
+
+                  children.push(childSection);
+
+                  // 处理子组件的dataSource
+                  if (child.dataSource) {
+                    // @FIXME
+                    globalDataSource[child.id] = {
+                      properties: child.dataSource,
+                    };
+                  }
+                }
+              });
+            }
+          });
+
+          // 构建完整的layout-block
+          const layoutBlock = {
+            id: parent.id,
+            name: parent.name,
+            component: parent.component,
+            config: {
+              ...parent.config,
+              gridSettings,
+            },
+            sections: children,
+          };
+
+          sections.push(layoutBlock);
+        } else {
+          // 处理独立的custom-component
+          const section = {
+            id: parent.id,
+            name: parent.name,
+            component: parent.component,
+            config: parent.config,
+          };
+
+          // 处理dataSource
+          if (parent.dataSource) {
+            globalDataSource[parent.id] = {
+              properties: parent.dataSource,
+            };
+          }
+
+          sections.push(section);
+        }
+      });
+    });
+
+    return { sections, globalDataSource };
   }
 
   try {
@@ -127,7 +181,10 @@ export default async function assemblePagesKitYaml(input) {
       }
     } else if (typeof structuredData === "object" && structuredData !== null) {
       // 如果是对象，检查是否有structuredData属性
-      if (structuredData.structuredData && Array.isArray(structuredData.structuredData)) {
+      if (
+        structuredData.structuredData &&
+        Array.isArray(structuredData.structuredData)
+      ) {
         parsedStructuredData = structuredData.structuredData;
       } else {
         throw new Error(
@@ -177,49 +234,22 @@ export default async function assemblePagesKitYaml(input) {
       dataSource: {},
     };
 
-    // 创建全局ID映射表
-    const globalIdMapping = new Map();
+    // 注：扁平化结构不再需要全局ID映射表
 
-    // 处理每个section
+    // 处理扁平化数据
     if (Array.isArray(parsedStructuredData)) {
-      parsedStructuredData.forEach((sectionData, index) => {
-        // 生成并替换所有ID，记录映射关系
-        const processedSection = generateIdsRecursively(
-          sectionData,
-          getNextId,
-          globalIdMapping
-        );
+      // 为每个组件生成ID
+      const { dataWithIds } = assignIdsToFlatData(
+        parsedStructuredData,
+        getNextId
+      );
 
-        // 为 custom-component 设置默认网格位置
-        if (
-          processedSection.component === "custom-component" &&
-          !processedSection.config?.gridSettings
-        ) {
-          processedSection.config = processedSection.config || {};
-          processedSection.config.gridSettings = {
-            desktop: {
-              x: 0,
-              y: index,
-              w: 12,
-              h: 1,
-            },
-          };
-        }
+      // 重建树状结构
+      const { sections, globalDataSource } = rebuildTreeStructure(dataWithIds);
 
-        // 处理dataSource的ID映射并合并到全局dataSource
-        if (processedSection.dataSource) {
-          const processedDataSource = processDataSourceIds(
-            processedSection.dataSource,
-            globalIdMapping
-          );
-          Object.assign(pagesKitData.dataSource, processedDataSource);
-          // 从 section 中移除 dataSource，因为它应该在顶层
-          delete processedSection.dataSource;
-        }
-
-        // 添加处理后的 section 到主结构
-        pagesKitData.sections.push(processedSection);
-      });
+      // 设置到Pages Kit数据
+      pagesKitData.sections = sections;
+      Object.assign(pagesKitData.dataSource, globalDataSource);
     }
 
     // 使用 yaml 库转换为YAML字符串

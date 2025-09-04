@@ -7,11 +7,11 @@ skills:
   - ./assemble-pages-kit-yaml.mjs
   - ./save-pages-kit-format.mjs
 # 调试时候，先禁用反思工作流
-reflection:
-  reviewer: ./pages-kit-format-validator.mjs
-  is_approved: isValid
-  max_iterations: 3
-  return_last_on_max_iterations: true
+# reflection:
+#   reviewer: ./pages-kit-format-validator.mjs
+#   is_approved: isValid
+#   max_iterations: 3
+#   return_last_on_max_iterations: true
 input_schema:
   type: object
   properties:

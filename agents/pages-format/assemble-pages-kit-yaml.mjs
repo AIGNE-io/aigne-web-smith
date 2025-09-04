@@ -160,10 +160,6 @@ export default async function assemblePagesKitYaml(input) {
     return {
       ...input,
       pagesKitYaml: yamlString,
-      generatedIds: ids.slice(0, idIndex),
-      idCount: idIndex,
-      meta: meta,
-      $message: `Pages Kit YAML assemble success: ${idIndex} IDs`,
     };
   } catch (error) {
     throw new Error(`Pages Kit YAML assemble failed: ${error.message}`);

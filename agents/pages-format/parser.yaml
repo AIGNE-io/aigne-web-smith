@@ -67,19 +67,6 @@ input_schema:
     additionalInformation:
       type: string
       description: 额外补充信息
-    # Pages Kit 上传验证相关参数
-    projectId:
-      type: string
-      description: Pages Kit 项目 ID
-      default: "test-project"
-    appUrl:
-      type: string
-      description: Pages Kit 应用 URL（用于鉴权）
-      default: "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io"
-    skipUpload:
-      type: boolean
-      description: 是否跳过上传验证步骤
-      default: false
 output_schema:
   type: object
   properties:

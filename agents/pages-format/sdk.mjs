@@ -135,27 +135,6 @@ export function getSchemaByComponentIds(sections, componentsList) {
 }
 
 /**
- * 生成组件的完整元数据信息
- * 包含 JSON Schema，供 AI 理解组件的具体属性结构
- * @param {Array} componentsList - 解析后的组件定义数组
- */
-export function getComponentsMetadata(componentsList) {
-  return componentsList
-    .map((component) => {
-      const jsonSchema = zodSchemaToJsonSchema(component.properties);
-      return `
-    ------------------------------------------------------------
-     组件名称：${component.name}
-     组件ID：${component.id}
-     组件描述(适用场景)：${component.description}
-     组件属性结构：${JSON.stringify(jsonSchema, null, 2)}
-    ------------------------------------------------------------`;
-    })
-    .filter(Boolean)
-    .join("\n");
-}
-
-/**
  * 从 Properties 对象创建 Zod schema
  */
 export function propertiesToZodSchema(
@@ -178,6 +157,7 @@ export function propertiesToZodSchema(
 
     // 如果key未定义，使用id
     const propKey = prop.data.key || prop.data.id || key;
+    const propId = prop.data.id;
 
     // prop llmConfig
     const propLLMConfig =
@@ -222,6 +202,10 @@ export function propertiesToZodSchema(
 
     if (propDescribe) {
       schemaObj[propKey] = schemaObj[propKey].describe(propDescribe);
+    }
+
+    if (propId) {
+      schemaObj[propKey] = schemaObj[propKey].meta({ propId: propId });
     }
   });
 

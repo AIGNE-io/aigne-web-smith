@@ -18,7 +18,36 @@ output_schema:
   type: object
   properties:
     structuredData:
-      type: string
-      description: 几乎完整的Pages Kit sections结构JSON数组，包含config、sections、dataSource等，程序只需进行ID生成和数据合并
+      type: array
+      description: 几乎完整的Pages Kit sections结构数组，包含config、sections、dataSource等，程序只需进行ID生成和数据合并
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: section名称
+          summary:
+            type: string
+            description: section用途说明
+          component:
+            type: string
+            description: 组件类型，如layout-block或custom-component
+          config:
+            type: any
+            description: 组件配置对象
+            default: {}
+          sections:
+            type: any
+            description: 子sections数组（仅 layout-block 需要）
+            default: null
+          dataSource:
+            type: any
+            description: 组件数据源对象，（仅 custom-component 需要）
+            default: null
+        required:
+          - name
+          - summary
+          - component
+          - config
   required:
     - structuredData

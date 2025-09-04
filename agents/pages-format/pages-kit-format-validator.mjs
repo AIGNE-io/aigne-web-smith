@@ -6,7 +6,6 @@ const createSectionSchema = () => {
   const baseSection = z.object({
     id: z.string().min(1, "Section ID is required"),
     name: z.string().min(1, "Section name is required"),
-    isTemplateSection: z.boolean().optional(),
     llmConfig: z.record(z.unknown()).optional(),
     component: z.string().min(1, "Component type is required"),
     config: z.record(z.unknown()).optional(),

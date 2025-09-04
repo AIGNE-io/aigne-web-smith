@@ -185,7 +185,6 @@ export default async function loadSources({
   // Separate source files from media files
   const sourceFiles = [];
   const mediaFiles = [];
-  const originalComponentFiles = [];
   const componentFiles = [];
   let allSources = "";
 

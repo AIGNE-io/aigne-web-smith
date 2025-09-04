@@ -100,7 +100,16 @@ summary: section 用途说明 - 理解业务意图，指导布局和组件组合
 上下布局规则：组件上下排列时，y 值必须递增：0, 1, 2, 3...，严禁 y 值跳跃，不允许出现断层（如 y=0, y=2），确保布局紧凑无空隙
 
 响应式设计：desktop 使用完整的 12 列网格系统，mobile 通常简化为垂直堆叠（每个组件 w=12）
-</component_selection_strategy>
+
+常见布局模式列表：
+
+- 单列布局：所有组件垂直排列，w=12，y 值递增
+- 二列布局：左右两个组件，w=6，相同 y 值，x=0 和 x=6
+- 三列布局：三个组件并排，w=4，相同 y 值，x=0、x=4、x=8
+- 四列布局：四个组件并排，w=3，相同 y 值，x=0、x=3、x=6、x=9
+- 混合布局：大组件(w=8)配小组件(w=4)，或其他组合
+- 标题+内容：标题组件在上方(y=0, w=12)，内容组件在下方(y=1)
+  </component_selection_strategy>
 
 <output_requirements>
 你必须输出以下 structuredData 字段，结构化组件数据 JSON 数组
@@ -113,29 +122,43 @@ summary: section 用途说明 - 理解业务意图，指导布局和组件组合
 
 <standard_structure>
 
+layout-block 样式配置枚举值说明：
+
+- gap: "none|small|normal|large" - 子组件间距
+- paddingX: "none|small|normal|large|xl|custom:160px" - 水平内边距，custom 支持任意 CSS 值如 custom:20px
+- paddingY: "none|small|normal|large|xl|custom:160px" - 垂直内边距，custom 支持任意 CSS 值如 custom:80px
+- alignContent: "start|center|end|space-between|space-around|space-evenly" - 垂直对齐方式
+- justifyContent: "start|center|end|space-between|space-around|space-evenly" - 水平对齐方式
+- background: "image_path_or_color" - 背景图片路径或颜色值
+- backgroundFullWidth: boolean - 背景是否全宽显示
+- maxWidth: "full|none|sm|md|lg|xl|custom:1560px" - 最大宽度，custom 支持任意 CSS 值如 custom:1200px
+- border: "none|solid|dashed|dotted|chrome|safari|terminal|shadow-sm|shadow-md|shadow-lg|shadow-xl|shadow-max|macbook|phone|custom" - 边框样式，包含设备框架和阴影效果，custom 支持任意 CSS 边框值
+- borderRadius: "none|small|medium|large|xl|rounded|custom" - 边框圆角，rounded=50%圆形，custom 支持任意 CSS 值如 custom:10px
+- height: "auto|100%|unset|inherit|initial|fit-content|max-content|min-content|custom:500px" - 高度设置，custom 支持任意 CSS 值如 custom:400px
+
+layout-block 配置示例：
+
 ```json
 [
   {
+    "id": "unique_id",
     "name": "hero",
     "summary": "页面主标题区域，展示产品核心价值主张和主要行动按钮",
-    "component": "layout-block|custom-component",
+    "component": "layout-block",
     "config": {
-      // layout-block 配置示例
       "gridSettings": {
         "desktop": {
           "text_section": {
             "x": 0,
             "y": 0,
             "w": 8,
-            "h": 1,
-            "minH": 1
+            "h": 1
           },
           "action_section": {
             "x": 0,
             "y": 1,
             "w": 12,
-            "h": 1,
-            "minH": 1
+            "h": 1
           }
         },
         "mobile": {
@@ -153,48 +176,87 @@ summary: section 用途说明 - 理解业务意图，指导布局和组件组合
           }
         }
       },
-      // layout-block 样式配置枚举值说明：
-      "gap": "none|small|normal|large", // 子组件间距
-      "paddingX": "none|small|normal|large|xl|custom:160px", // 水平内边距，custom 支持任意 CSS 值如 custom:20px
-      "paddingY": "none|small|normal|large|xl|custom:160px", // 垂直内边距，custom 支持任意 CSS 值如 custom:80px
-      "alignContent": "start|center|end|space-between|space-around|space-evenly", // 垂直对齐方式
-      "justifyContent": "start|center|end|space-between|space-around|space-evenly", // 水平对齐方式
-      "background": "image_path_or_color", // 背景图片路径或颜色值
-      "backgroundFullWidth": false, // 背景是否全宽显示
-      "maxWidth": "full|none|sm|md|lg|xl|custom:1560px", // 最大宽度，custom 支持任意 CSS 值如 custom:1200px
-      "border": "none|solid|dashed|dotted|chrome|safari|terminal|shadow-sm|shadow-md|shadow-lg|shadow-xl|shadow-max|macbook|phone|custom", // 边框样式，包含设备框架和阴影效果，custom 支持任意 CSS 边框值
-      "borderRadius": "none|small|medium|large|xl|rounded|custom", // 边框圆角，rounded=50%圆形，custom 支持任意 CSS 值如 custom:10px
-      "height": "auto|100%|unset|inherit|initial|fit-content|max-content|min-content|custom:500px", // 高度设置，custom 支持任意 CSS 值如 custom:400px
-
-      // custom-component 配置示例
-      "componentId": "xoHu0J44322kDYc-",
-      "componentName": "RichText",
-      "useCache": true,
-      "cacheDuration": 3600
+      "gap": "normal",
+      "paddingX": "normal",
+      "paddingY": "large",
+      "alignContent": "center",
+      "justifyContent": "center",
+      "maxWidth": "lg"
     },
     "sections": [
-      // 仅当 component = "layout-block" 时需要，嵌套子 sections
       {
         "name": "text_section",
         "component": "custom-component",
         "config": {
           "componentId": "xoHu0J44322kDYc-",
-          "componentName": "RichText",
-          "useCache": true,
-          "cacheDuration": 3600
+          "componentName": "RichText"
+        },
+        "sections": []
+      },
+      {
+        "name": "action_section",
+        "component": "custom-component",
+        "config": {
+          "componentId": "a44r0SiGV9AFn2Fj",
+          "componentName": "Action"
         },
         "sections": []
       }
     ],
     "dataSource": {
-      // 组件数据，key 为 componentId
-      "xoHu0J44322kDYc-": {
+      "text_section": {
         "properties": {
-          "property_id_1": {
+          "title": {
             "value": {
-              // 严格符合组件 JSON Schema 的数据结构
-              "text": "Hello World",
-              "style": { "variant": "h1", "color": "primary" }
+              "text": "Hello World"
+            }
+          },
+          "align": {
+            "value": "center"
+          }
+        }
+      },
+      "action_section": {
+        "properties": {
+          "buttons": {
+            "value": [
+              {
+                "text": "Get Started",
+                "url": "/signup",
+                "variant": "contained"
+              }
+            ]
+          },
+          "align": {
+            "value": "center"
+          }
+        }
+      }
+    }
+  }
+]
+```
+
+custom-component 配置示例：
+
+```json
+[
+  {
+    "id": "unique_id",
+    "name": "simple_text",
+    "summary": "简单的文本显示组件",
+    "component": "custom-component",
+    "config": {
+      "componentId": "xoHu0J44322kDYc-",
+      "componentName": "RichText"
+    },
+    "sections": [],
+    "dataSource": {
+      "unique_id": {
+        "properties": {
+          "component_properties_id": {
+            "value": {
+              "text": "Welcome"
             }
           }
         }
@@ -212,12 +274,14 @@ summary: section 用途说明 - 理解业务意图，指导布局和组件组合
 字段类型必须与 schema 中定义的类型完全一致（string、number、boolean、array、object）
 数组类型字段的子对象结构也必须符合 schema 中的 items 定义
 可选字段如果没有对应内容可以省略
+
 </data_mapping_rules>
 
 <custom_value_format>
 layout-block 配置中的 custom 值格式说明：
 
 所有支持 custom 的属性都使用 "custom:数值" 格式：
+
 - paddingX/paddingY: "custom:20px", "custom:2rem", "custom:40px"
 - maxWidth: "custom:1200px", "custom:80%", "custom:50rem"
 - height: "custom:400px", "custom:100vh", "custom:50rem"
@@ -256,6 +320,39 @@ data 字段必须完全按照组件 schema.properties 的定义结构构建
 根据中间格式的 section 类型（name 字段）匹配最合适的组件
 参考组件的适用场景描述来判断最佳匹配
 </component_selection_accuracy>
-</validation_rules>
+
+<quality_checklist>
+输出前必须检查的质量要点：
+
+JSON 格式检查：
+
+- 输出必须是有效的 JSON 数组
+- 不包含注释或多余文本
+- 所有字符串用双引号包围
+- 对象和数组语法正确
+
+结构完整性检查：
+
+- 每个 section 都有 name、summary、component、config
+- layout-block 必须有 sections 数组
+- custom-component 必须有 dataSource 对象
+- gridSettings 中 y 值连续无断层
+- x+w 值不超过 12
+
+数据一致性检查：
+
+- dataSource 的 key 与 section 的 name 匹配
+- 组件属性符合对应的 JSON Schema
+- 必需字段不为空或 null
+- 数据类型与 schema 定义一致
+
+布局逻辑检查：
+
+- 网格布局符合 12 列系统规则
+- y 值按顺序递增(0,1,2,3...)
+- mobile 布局通常为垂直堆叠
+- h 值固定为 1
+  </quality_checklist>
+  </validation_rules>
 
 </rules>

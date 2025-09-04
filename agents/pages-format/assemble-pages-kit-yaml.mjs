@@ -37,10 +37,12 @@ export default async function assemblePagesKitYaml(input) {
     }
   }
 
-  // 递归生成并替换所有ID
-  function generateIdsRecursively(obj, idGenerator) {
+  // 递归生成并替换所有ID，同时建立ID映射关系
+  function generateIdsRecursively(obj, idGenerator, idMapping = new Map()) {
     if (Array.isArray(obj)) {
-      return obj.map((item) => generateIdsRecursively(item, idGenerator));
+      return obj.map((item) =>
+        generateIdsRecursively(item, idGenerator, idMapping)
+      );
     } else if (obj && typeof obj === "object") {
       const result = {};
 
@@ -51,34 +53,15 @@ export default async function assemblePagesKitYaml(input) {
 
       for (const [key, value] of Object.entries(obj)) {
         if (key === "id" && (!value || typeof value === "string")) {
-          result[key] = idGenerator();
-        } else if (key === "dataSource" && typeof value === "object") {
-          // 为 dataSource 中的每个组件和属性生成ID
-          result[key] = {};
-          for (const [componentId, componentData] of Object.entries(value)) {
-            const actualComponentId =
-              componentId === "PLACEHOLDER_COMPONENT_ID"
-                ? idGenerator()
-                : componentId;
-            result[key][actualComponentId] = {
-              properties: {},
-            };
-
-            if (componentData.properties) {
-              for (const [propKey, propValue] of Object.entries(
-                componentData.properties
-              )) {
-                const propertyId =
-                  propKey === "PLACEHOLDER_PROPERTY_ID"
-                    ? idGenerator()
-                    : propKey.startsWith("property_")
-                    ? idGenerator()
-                    : propKey;
-                result[key][actualComponentId].properties[propertyId] =
-                  propValue;
-              }
-            }
+          const newId = idGenerator();
+          result[key] = newId;
+          // 如果有原始ID，记录映射关系
+          if (value && typeof value === "string") {
+            idMapping.set(value, newId);
           }
+        } else if (key === "dataSource" && typeof value === "object") {
+          // dataSource先暂存，稍后统一处理ID映射
+          result[key] = value;
         } else if (key === "gridSettings" && typeof value === "object") {
           // 处理 gridSettings 中的子section ID引用
           result[key] = {};
@@ -91,7 +74,7 @@ export default async function assemblePagesKitYaml(input) {
             }
           }
         } else {
-          result[key] = generateIdsRecursively(value, idGenerator);
+          result[key] = generateIdsRecursively(value, idGenerator, idMapping);
         }
       }
 
@@ -101,10 +84,38 @@ export default async function assemblePagesKitYaml(input) {
     return obj;
   }
 
+  // 单独处理dataSource的ID映射
+  function processDataSourceIds(dataSource, idMapping) {
+    const result = {};
+
+    for (const [componentId, componentData] of Object.entries(dataSource)) {
+      // 使用映射后的ID，如果没有映射则保持原ID
+      const actualComponentId = idMapping.get(componentId) || componentId;
+
+      result[actualComponentId] = {
+        properties: {},
+      };
+
+      if (componentData.properties) {
+        for (const [propKey, propValue] of Object.entries(
+          componentData.properties
+        )) {
+          // 属性名保持原始名称，不生成新的ID
+          result[actualComponentId].properties[propKey] = propValue;
+        }
+      }
+    }
+
+    return result;
+  }
+
   try {
     // 解析结构化数据
     let parsedStructuredData;
-    if (typeof structuredData === "string") {
+    if (Array.isArray(structuredData)) {
+      // 直接使用数组
+      parsedStructuredData = structuredData;
+    } else if (typeof structuredData === "string") {
       try {
         parsedStructuredData = JSON.parse(structuredData);
       } catch (parseError) {
@@ -114,11 +125,18 @@ export default async function assemblePagesKitYaml(input) {
           }. Content: ${structuredData.substring(0, 200)}...`
         );
       }
-    } else if (Array.isArray(structuredData)) {
-      parsedStructuredData = structuredData;
+    } else if (typeof structuredData === "object" && structuredData !== null) {
+      // 如果是对象，检查是否有structuredData属性
+      if (structuredData.structuredData && Array.isArray(structuredData.structuredData)) {
+        parsedStructuredData = structuredData.structuredData;
+      } else {
+        throw new Error(
+          `Invalid structuredData object: expected array in structuredData property, got ${typeof structuredData.structuredData}`
+        );
+      }
     } else {
       throw new Error(
-        `Invalid structuredData type: expected array or JSON string, got ${typeof structuredData}`
+        `Invalid structuredData type: expected array, JSON string, or object with structuredData array, got ${typeof structuredData}`
       );
     }
 
@@ -142,11 +160,6 @@ export default async function assemblePagesKitYaml(input) {
       updatedAt: now,
       publishedAt: now,
       isPublic: true,
-      // templateConfig: {
-      //   isTemplate: true,
-      //   dataSourceParameters: {},
-      //   enabledGenerate: false,
-      // },
       meta: {
         backgroundColor: "",
         style: {
@@ -164,16 +177,18 @@ export default async function assemblePagesKitYaml(input) {
       dataSource: {},
     };
 
+    // 创建全局ID映射表
+    const globalIdMapping = new Map();
+
     // 处理每个section
     if (Array.isArray(parsedStructuredData)) {
       parsedStructuredData.forEach((sectionData, index) => {
-        // 生成并替换所有ID
-        const processedSection = generateIdsRecursively(sectionData, getNextId);
-
-        // 设置默认的 isTemplateSection 和基本网格位置
-        if (!processedSection.hasOwnProperty("isTemplateSection")) {
-          processedSection.isTemplateSection = true;
-        }
+        // 生成并替换所有ID，记录映射关系
+        const processedSection = generateIdsRecursively(
+          sectionData,
+          getNextId,
+          globalIdMapping
+        );
 
         // 为 custom-component 设置默认网格位置
         if (
@@ -191,15 +206,19 @@ export default async function assemblePagesKitYaml(input) {
           };
         }
 
-        // 添加处理后的 section 到主结构
-        pagesKitData.sections.push(processedSection);
-
-        // 合并 dataSource
+        // 处理dataSource的ID映射并合并到全局dataSource
         if (processedSection.dataSource) {
-          Object.assign(pagesKitData.dataSource, processedSection.dataSource);
+          const processedDataSource = processDataSourceIds(
+            processedSection.dataSource,
+            globalIdMapping
+          );
+          Object.assign(pagesKitData.dataSource, processedDataSource);
           // 从 section 中移除 dataSource，因为它应该在顶层
           delete processedSection.dataSource;
         }
+
+        // 添加处理后的 section 到主结构
+        pagesKitData.sections.push(processedSection);
       });
     }
 

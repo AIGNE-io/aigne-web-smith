@@ -4,13 +4,27 @@ import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../utils/constants.mjs";
+import {
+  PAGES_KIT_STORE_URL,
+  TMP_DIR,
+  TMP_PAGES_DIR,
+} from "../utils/constants.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import {
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
-const publishPagesFn = async ({ pagesKitYaml, locale, projectId, appUrl, accessToken }) => {
+const publishPagesFn = async ({
+  pagesKitYaml,
+  locale,
+  projectId,
+  appUrl,
+  accessToken,
+}) => {
   // 构建请求头
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -32,14 +46,14 @@ const publishPagesFn = async ({ pagesKitYaml, locale, projectId, appUrl, accessT
 
   // 发送请求到 Pages Kit 接口
   const response = await fetch(
-    "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io/pages-kit/api/sdk/upload-page",
+    join(appUrl, "pages-kit/api/sdk/upload-data"),
     requestOptions
   );
 
   // 处理响应
   let result;
   const responseText = await response.text();
-  
+
   try {
     result = JSON.parse(responseText);
   } catch {
@@ -47,7 +61,9 @@ const publishPagesFn = async ({ pagesKitYaml, locale, projectId, appUrl, accessT
   }
 
   if (!response.ok) {
-    throw new Error(`Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`);
+    throw new Error(
+      `Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`
+    );
   }
 
   return {
@@ -56,7 +72,12 @@ const publishPagesFn = async ({ pagesKitYaml, locale, projectId, appUrl, accessT
   };
 };
 // New function specifically for Pages Kit YAML upload
-export async function uploadPagesKitYaml({ pagesKitYaml, locale = "zh", projectId, appUrl }) {
+export async function uploadPagesKitYaml({
+  pagesKitYaml,
+  locale = "en",
+  projectId,
+  appUrl,
+}) {
   try {
     // 使用现有的鉴权逻辑获取访问令牌
     const accessToken = await getAccessToken(appUrl);
@@ -72,9 +93,10 @@ export async function uploadPagesKitYaml({ pagesKitYaml, locale = "zh", projectI
     return {
       uploadResult: result.result,
       uploadStatus: "success",
-      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(result.result)}`,
+      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(
+        result.result
+      )}`,
     };
-
   } catch (error) {
     return {
       uploadResult: null,
@@ -86,8 +108,15 @@ export async function uploadPagesKitYaml({ pagesKitYaml, locale = "zh", projectI
 }
 
 export default async function publishPages(
-  { pagesDir: rawPagesDir, appUrl, boardId, projectName, projectDesc, projectLogo },
-  options,
+  {
+    pagesDir: rawPagesDir,
+    appUrl,
+    boardId,
+    projectName,
+    projectDesc,
+    projectLogo,
+  },
+  options
 ) {
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
@@ -129,14 +158,18 @@ export default async function publishPages(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `Start here to run your own website:\n${chalk.cyan(PAGES_KIT_STORE_URL)}\n`,
+          `Start here to run your own website:\n${chalk.cyan(
+            PAGES_KIT_STORE_URL
+          )}\n`
       );
       const userInput = await options.prompts.input({
         message: "Please enter your Pages Kit platform URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
+            const urlWithProtocol = input.includes("://")
+              ? input
+              : `https://${input}`;
             new URL(urlWithProtocol);
             return true;
           } catch {

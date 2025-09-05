@@ -75,7 +75,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       name: "generateComponentLibraryTeam",
       skills: [
         options.context.agents["analyzeComponentPatterns"],
-        options.context.agents["generateComponentLibrary"],
+        // options.context.agents["generateComponentLibrary"],
         options.context.agents["saveComponentLibrary"],
       ],
     });

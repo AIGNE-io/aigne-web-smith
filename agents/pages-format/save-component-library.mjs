@@ -2,6 +2,7 @@ import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify } from "yaml";
 import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
+import { generateRandomId } from "./sdk.mjs";
 
 /**
  * 保存组件库定义到文件
@@ -11,7 +12,7 @@ import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
  * @returns {Promise<Object>}
  */
 export default async function saveComponentLibrary({
-  componentLibrary,
+  componentLibrary: _componentLibrary,
   middleFormatFiles,
   outputDir,
 }) {
@@ -23,6 +24,16 @@ export default async function saveComponentLibrary({
 
     // 计算 middleFormatFiles 的 hash
     const middleFormatHash = calculateMiddleFormatHash(middleFormatFiles);
+
+    const componentLibrary = _componentLibrary?.map((item) => {
+      if (item.type === "composite") {
+        return {
+          ...item,
+          componentId: generateRandomId(),
+        };
+      }
+      return item;
+    });
 
     // 添加时间戳和 hash 到组件库定义
     const finalComponentLibrary = {

@@ -1,5 +1,5 @@
 name: analyzeComponentPatterns
-description: 分析中间格式文件，自动提取组件模式和字段映射关系，生成统一的组件库定义
+description: 分析中间格式文件，只提取字符串字段的组件模式和映射关系，生成纯净的组件库定义（排除数组字段）
 instructions:
   url: ../../prompts/pages-format/analyze-component-patterns.md
 input_schema:
@@ -27,7 +27,7 @@ output_schema:
   properties:
     componentLibrary:
       type: array
-      description: 统一组件库定义，是一个数组，每个元素是一个组件的定义
+      description: 纯净的组件库定义数组，只包含字符串字段的组件模式，不包含数组字段处理
       default: []
       items:
         type: object
@@ -37,17 +37,15 @@ output_schema:
             description: 组件名称
           type:
             type: string
-            description: 组件类型 "atomic" 或 "composite"
+            description: 组件类型 "atomic" （原子组件） 或 "composite"（复合组件）
           componentId:
             type: string
-            description: 组件ID（原子组件需要记录真实的组件 ID，复合组件可以生成一个 16 位随机 ID）
+            description: 组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）
           fieldCombinations:
             type: array
-            description: 支持的字段组合
+            description: 该组件最适合处理的字符串字段组合（单一数组，不包含数组类型字段）
             items:
-              type: array
-              items:
-                type: string
+              type: string
           relatedComponents:
             type: array
             description: 相关组件 ID（仅复合组件需要），如果是原子组件则为 [] 空数组

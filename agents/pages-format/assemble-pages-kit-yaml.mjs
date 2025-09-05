@@ -2,7 +2,13 @@ import { stringify } from "yaml";
 import { generateRandomId } from "./sdk.mjs";
 
 export default async function assemblePagesKitYaml(input) {
-  const { structuredData, middleFormatContent, componentsList, locale } = input;
+  const {
+    structuredData,
+    middleFormatContent,
+    // componentsList,
+    moreContentsComponentsList,
+    locale,
+  } = input;
 
   // 生成唯一ID集合
   function generateUniqueIds(count) {
@@ -63,16 +69,51 @@ export default async function assemblePagesKitYaml(input) {
   // 处理dataSource的通用函数
   function processDataSource(dataSource, componentsList, componentId) {
     const properties = {};
-    Object.entries(dataSource).forEach(([key, value]) => {
+    Object.entries(dataSource).forEach(([key, _value]) => {
       let mappedId = key;
+      let mappedType = "";
+      let value = _value;
 
-      // 如果是 customComponent，通过 componentId 找到对应组件的 propKeyToIdMap
+      // 如果是 customComponent，通过 componentId 找到对应组件的 propKeyToInfoMap
       if (componentId && componentsList?.length) {
         const currentComponent = componentsList.find(
           (comp) => comp.content?.id === componentId
         );
         if (currentComponent) {
-          mappedId = currentComponent.content?.propKeyToIdMap?.[key] || key;
+          const propInfo = currentComponent.content?.propKeyToInfoMap?.[key];
+          mappedId = propInfo?.id || key;
+          mappedType = propInfo?.type;
+        }
+      }
+
+      // 修复 type 和 value 不匹配的问题
+      if (
+        ["array", "object", "json"].includes(mappedType) &&
+        typeof value === "string"
+      ) {
+        try {
+          value = JSON.parse(value);
+        } catch (error) {
+          // ignore error
+          // console.error(`Failed to parse JSON for key ${key}:`, error);
+        }
+
+        if (mappedType === "array") {
+          value = value.map((item) => {
+            if (
+              typeof item === "string" &&
+              item.startsWith("{") &&
+              item.endsWith("}")
+            ) {
+              try {
+                return JSON.parse(item);
+              } catch (error) {
+                // ignore error
+                // console.error(`Failed to parse JSON for key ${key}:`, error);
+              }
+            }
+            return item;
+          });
         }
       }
 
@@ -141,7 +182,7 @@ export default async function assemblePagesKitYaml(input) {
                     globalDataSource[child.id] = {
                       [locale]: processDataSource(
                         child.dataSource,
-                        componentsList,
+                        moreContentsComponentsList,
                         componentId
                       ),
                     };
@@ -177,9 +218,8 @@ export default async function assemblePagesKitYaml(input) {
             const componentId = item.config?.componentId;
             globalDataSource[item.id] = processDataSource(
               item.dataSource,
-              componentsList,
-              componentId,
-              locale
+              moreContentsComponentsList,
+              componentId
             );
           }
         }

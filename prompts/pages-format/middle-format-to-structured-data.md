@@ -218,16 +218,6 @@ layout-block config 配置枚举值说明：
 
 </standard_structure>
 
-<data_mapping_rules>
-
-- 必须根据选中组件的 content.schema 定义来构建 data 对象，俗称 schema
-- 检查 schema.required 数组，确保所有必需字段都包含在 data 中
-- 字段类型必须与 schema 中定义的类型完全一致（string、number、boolean、array、object）
-- 数组类型字段的子对象结构也必须符合 schema 中的 items 定义
-- 可选字段如果没有对应内容可以省略
-
-</data_mapping_rules>
-
 <custom_value_format>
 layout-block 配置中的 custom 值格式说明：
 
@@ -261,7 +251,6 @@ Components List 每一项 item 的配置枚举值如下：
   - name: 组件的名称
   - description: 组件的描述
   - schema: 组件属性的 JSON Schema 定义，输出的 dataSource 内容必须符合这个 schema 定义
-  - propKeyToIdMap: 组件属性 key 到组件属性 id 的映射，用于后续的属性映射，无需关注
 
 <components_list_item>
 
@@ -270,21 +259,14 @@ Components List 每一项 item 的配置枚举值如下：
 <critical_requirements>
 每个组件都有明确定义的属性结构。你必须严格按照上述 <components_list> 中每一项的 content.schema 来映射中间格式的内容到组件属性。
 
-组件选择策略：
-
-- 根据中间格式的 name 字段（如 hero、features、pricing）选择对应的组件 ID
-- 根据组件的适用场景描述判断最佳匹配
-- 检查组件的 schema.properties 和 schema.required，确保能容纳所有需要的内容字段
-- 如果内容无法完全匹配某个组件的 schema，优先选择字段覆盖度最高的组件
-
 属性映射原则：
 
-- 严格按照组件 schema 中定义的字段类型和结构进行映射，必须遵循 schema 的定义
-- 必需字段（schema.required）必须有对应的内容映射，不能为空或 null
-- 数组类型字段必须按照 schema.properties[field].items 定义构建每个子对象
-- 嵌套对象必须按照相应的子 schema 结构构建所有属性
+- 严格按照组件 content.schema 中定义的字段类型和结构进行映射，必须遵循 content.schema 的定义
+- 必需字段（content.schema.required）必须有对应的内容映射，不能为空或 null
+- 数组类型字段必须按照 content.schema.properties[field].items 定义构建每个子对象
+- 嵌套对象必须按照相应的子 content.schema 结构构建所有属性
 - 可选字段在没有对应内容时可以省略
-- 数据类型转换：确保字符串、数字、布尔值等类型与 schema 定义一致
+- 数据类型转换：确保字符串、数字、布尔值等类型与 content.schema 定义一致
 
 </critical_requirements>
 

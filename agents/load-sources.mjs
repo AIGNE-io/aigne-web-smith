@@ -16,7 +16,7 @@ import {
   propertiesToZodSchema,
 } from "./pages-format/sdk.mjs";
 
-const formatComponentContent = ({ content }) => {
+const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);
 
   if (component.properties && !component.properties._def) {
@@ -33,28 +33,35 @@ const formatComponentContent = ({ content }) => {
     // 添加元数据到组件中
     component.schema = jsonSchema;
 
-    // propKeyToIdMap, 用于映射属性key到id
-    component.propKeyToIdMap = {};
-    Object.entries(component.properties || {}).forEach(([key, prop]) => {
-      if (!prop.data) return;
+    if (moreContents) {
+      // propKeyToInfoMap, 用于映射属性key到id
+      component.propKeyToInfoMap = {};
+      Object.entries(component.properties || {}).forEach(([key, prop]) => {
+        if (!prop.data) return;
 
-      // 如果key未定义，使用id
-      const propKey = prop.data.key || prop.data.id || key;
-      const propId = prop.data.id;
+        // 如果key未定义，使用id
+        const propKey = prop.data.key || prop.data.id || key;
+        const propId = prop.data.id;
+        const type = prop.data.type;
 
-      if (propId) {
-        component.propKeyToIdMap[propKey] = propId;
-      }
-    });
+        component.propKeyToInfoMap[propKey] = {
+          id: propId,
+          type,
+          key: propKey,
+        };
+      });
+    }
   }
 
-  // 移除无用的信息
-  delete component.renderer;
-  delete component.llmConfig;
-  delete component.properties;
-  delete component.createdAt;
-  delete component.updatedAt;
-  delete component.version;
+  if (!moreContents) {
+    // 移除无用的信息
+    delete component.renderer;
+    delete component.llmConfig;
+    delete component.properties;
+    delete component.createdAt;
+    delete component.updatedAt;
+    delete component.version;
+  }
 
   return component;
 };
@@ -200,6 +207,7 @@ export default async function loadSources({
   const sourceFiles = [];
   const mediaFiles = [];
   const componentFiles = [];
+  const moreContentsComponentFiles = [];
   let allSources = "";
 
   await Promise.all(
@@ -224,14 +232,27 @@ export default async function loadSources({
 
         // if it is components-list, format it and enhance with structured data
         if (relativePath.includes("components-list")) {
-          content = formatComponentContent({
+          // componentFiles to ai
+          const simpleContent = formatComponentContent({
             content,
           });
 
           componentFiles.push({
             sourceId: relativePath,
-            content, // json content
+            content: simpleContent, // json content
           });
+
+          // moreContentsComponentFiles to js sdk
+          const moreContentsComponentFile = formatComponentContent({
+            content,
+            moreContents: true,
+          });
+
+          moreContentsComponentFiles.push({
+            sourceId: relativePath,
+            content: moreContentsComponentFile,
+          });
+
           return;
         }
 
@@ -374,6 +395,7 @@ export default async function loadSources({
     datasourcesList: sourceFiles,
     datasources: allSources,
     componentsList: componentFiles,
+    moreContentsComponentsList: moreContentsComponentFiles,
     content,
     originalStructurePlan,
     files,

@@ -344,7 +344,7 @@ export default async function publishPages(
           };
         }
       },
-      { concurrency: 4 }
+      { concurrency: 3 }
     );
 
     // 使用整体结果判断成功状态

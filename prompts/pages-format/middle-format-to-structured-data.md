@@ -175,15 +175,10 @@ layout-block config 配置枚举值说明：
         "mobile": { "x": 0, "y": 0, "w": 12, "h": 1 }
       }
     },
+    // dataSource 必须符合组件 content.schema 定义，此处仅为示例
     "dataSource": {
-      "title": {
-        "value": {
-          "text": "Hello World"
-        }
-      },
-      "align": {
-        "value": "center"
-      }
+      "title": {},
+      "align": {}
     }
   },
   {
@@ -198,19 +193,10 @@ layout-block config 配置枚举值说明：
         "mobile": { "x": 0, "y": 1, "w": 12, "h": 1 }
       }
     },
+    // dataSource 必须符合组件 content.schema 定义，此处仅为示例
     "dataSource": {
-      "buttons": {
-        "value": [
-          {
-            "text": "Get Started",
-            "url": "/signup",
-            "variant": "contained"
-          }
-        ]
-      },
-      "align": {
-        "value": "center"
-      }
+      "buttons": {},
+      "align": {}
     }
   },
   {
@@ -221,21 +207,10 @@ layout-block config 配置枚举值说明：
       "componentId": "ContentCards123",
       "componentName": "ContentCards"
     },
+    // dataSource 必须符合组件 content.schema 定义，此处仅为示例
     "dataSource": {
-      "title": {
-        "value": {
-          "text": "核心功能"
-        }
-      },
-      "cards": {
-        "value": [
-          {
-            "title": "功能一",
-            "description": "功能描述",
-            "icon": "icon-name"
-          }
-        ]
-      }
+      "title": {},
+      "cards": {}
     }
   }
 ]

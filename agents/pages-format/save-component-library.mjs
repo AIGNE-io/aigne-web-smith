@@ -40,8 +40,7 @@ export default async function saveComponentLibrary({
     );
 
     return {
-      componentLibraryPath,
-      componentLibrary: finalComponentLibrary,
+      componentLibrary: componentLibrary,
     };
   } catch (error) {
     throw new Error(`Failed to save component library: ${error.message}`);

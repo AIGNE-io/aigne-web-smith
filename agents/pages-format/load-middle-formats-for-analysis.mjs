@@ -11,11 +11,9 @@ import { TeamAgent } from "@aigne/core";
  * @param {string} [input.outputDir] - 输出目录路径，用于检查缓存
  * @returns {Promise<Object>}
  */
-export default async function loadMiddleFormatsForAnalysis({
-  pagesDir,
-  componentList,
-  outputDir = "./aigne-pages/analysis",
-}) {
+export default async function loadMiddleFormatsForAnalysis(input, options) {
+  const { pagesDir, outputDir } = input;
+
   try {
     const middleFormatFiles = [];
 
@@ -39,10 +37,10 @@ export default async function loadMiddleFormatsForAnalysis({
           });
         }
       } catch (error) {
-        console.warn(
-          `Failed to read middle format file ${file}:`,
-          error.message
-        );
+        // console.warn(
+        //   `Failed to read middle format file ${file}:`,
+        //   error.message
+        // );
       }
     }
 
@@ -58,29 +56,38 @@ export default async function loadMiddleFormatsForAnalysis({
       const existingContent = await readFile(componentLibraryPath, "utf8");
       const existingLibrary = parse(existingContent);
 
-      // 检查 hash 是否匹配
-      if (existingLibrary && existingLibrary.hash === currentHash) {
-        const teamAgent = TeamAgent.from({
-          name: "generateComponentLibrary",
-          skills: [options.context.agents["generateComponentLibrary"]],
-        });
+      const libraryNotChanged =
+        existingLibrary && existingLibrary.hash === currentHash;
 
-        const result = await options.context.invoke(teamAgent, {
-          componentLibraryPath: componentLibraryPath,
-          componentLibrary: {
-            componentLibrary: existingLibrary.componentLibrary,
-          },
-          middleFormatFiles,
-        });
-
-        return result;
-      }
+      // if (libraryNotChanged) {
+      //   return {
+      //     middleFormatFiles,
+      //     componentLibrary: existingLibrary.componentLibrary,
+      //   };
+      // }
     } catch (error) {
       // ignore error
+      throw error;
     }
+
+    // 如果组件库有变化， 调度到 generateComponentLibrary，不再执行 analyze-component-patterns 和 save-component-library
+    const teamAgent = TeamAgent.from({
+      name: "generateComponentLibraryTeam",
+      skills: [
+        options.context.agents["analyzeComponentPatterns"],
+        options.context.agents["generateComponentLibrary"],
+        options.context.agents["saveComponentLibrary"],
+      ],
+    });
+
+    const result = await options.context.invoke(teamAgent, {
+      ...input,
+      middleFormatFiles,
+    });
 
     return {
       middleFormatFiles,
+      componentLibrary: result.componentLibrary,
     };
   } catch (error) {
     throw new Error(`Failed to load middle format files: ${error.message}`);

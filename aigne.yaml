@@ -42,6 +42,10 @@ agents:
   - ./agents/manage-prefs.mjs
   # pages format
   - ./agents/pages-format/parser.yaml
+  - ./agents/pages-format/component-library-analyzer.yaml
+  - ./agents/pages-format/analyze-component-patterns.yaml
+  - ./agents/pages-format/generate-component-library.mjs
+  - ./agents/pages-format/save-component-library.mjs
 cli:
   chat: ./agents/chat.yaml
   agents:

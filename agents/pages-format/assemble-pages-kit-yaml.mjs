@@ -5,8 +5,8 @@ export default async function assemblePagesKitYaml(input) {
   const {
     structuredData,
     middleFormatContent,
-    // componentsList,
-    moreContentsComponentsList,
+    // componentList,
+    moreContentscomponentList,
     locale,
   } = input;
 
@@ -67,7 +67,7 @@ export default async function assemblePagesKitYaml(input) {
   }
 
   // 处理dataSource的通用函数
-  function processDataSource(dataSource, componentsList, componentId) {
+  function processDataSource(dataSource, componentList, componentId) {
     const properties = {};
     Object.entries(dataSource).forEach(([key, _value]) => {
       let mappedId = key;
@@ -75,8 +75,8 @@ export default async function assemblePagesKitYaml(input) {
       let value = _value;
 
       // 如果是 customComponent，通过 componentId 找到对应组件的 propKeyToInfoMap
-      if (componentId && componentsList?.length) {
-        const currentComponent = componentsList.find(
+      if (componentId && componentList?.length) {
+        const currentComponent = componentList.find(
           (comp) => comp.content?.id === componentId
         );
         if (currentComponent) {
@@ -151,7 +151,7 @@ export default async function assemblePagesKitYaml(input) {
                     globalDataSource[child.id] = {
                       [locale]: processDataSource(
                         child.dataSource,
-                        moreContentsComponentsList,
+                        moreContentscomponentList,
                         componentId
                       ),
                     };
@@ -187,7 +187,7 @@ export default async function assemblePagesKitYaml(input) {
             const componentId = item.config?.componentId;
             globalDataSource[item.id] = processDataSource(
               item.dataSource,
-              moreContentsComponentsList,
+              moreContentscomponentList,
               componentId
             );
           }

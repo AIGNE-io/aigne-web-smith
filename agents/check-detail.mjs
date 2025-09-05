@@ -96,11 +96,20 @@ export default async function checkDetail(input, options) {
     }
   }
 
+  if (detailGenerated) {
+    return {
+      path,
+      pagesDir,
+      ...rest,
+      detailGenerated,
+    };
+  }
+
   const teamAgent = TeamAgent.from({
     name: "generateDetail",
     skills: [
       !detailGenerated && options.context.agents["detailGeneratorAndTranslate"],
-      options.context.agents["pagesFormatParser"],
+      // options.context.agents["pagesFormatParser"],
     ].filter(Boolean),
   });
 

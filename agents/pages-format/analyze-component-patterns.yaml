@@ -1,0 +1,63 @@
+name: analyzeComponentPatterns
+description: 分析中间格式文件，自动提取组件模式和字段映射关系，生成统一的组件库定义
+instructions:
+  url: ../../prompts/pages-format/analyze-component-patterns.md
+input_schema:
+  type: object
+  properties:
+    middleFormatFiles:
+      type: array
+      description: 中间格式YAML文件内容数组
+      items:
+        type: object
+        properties:
+          filePath:
+            type: string
+            description: 文件路径
+          content:
+            type: string
+            description: 文件内容
+        required:
+          - filePath
+          - content
+  required:
+    - middleFormatFiles
+output_schema:
+  type: object
+  properties:
+    componentLibrary:
+      type: array
+      description: 统一组件库定义，是一个数组，每个元素是一个组件的定义
+      default: []
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 组件名称
+          type:
+            type: string
+            description: 组件类型 "atomic" 或 "composite"
+          componentId:
+            type: string
+            description: 组件ID（原子组件需要记录真实的组件 ID，复合组件可以生成一个 16 位随机 ID）
+          fieldCombinations:
+            type: array
+            description: 支持的字段组合
+            items:
+              type: array
+              items:
+                type: string
+          relatedComponents:
+            type: array
+            description: 相关组件 ID（仅复合组件需要），如果是原子组件则为 [] 空数组
+            items:
+              type: string
+              description: 子组件的 ID
+            default: []
+        required:
+          - name
+          - type
+          - fieldCombinations
+required:
+  - componentLibrary

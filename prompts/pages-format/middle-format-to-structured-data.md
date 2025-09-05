@@ -239,7 +239,7 @@ layout-block 配置中的 custom 值格式说明：
 <components_list>
 
 ```json
-{{componentsList}}
+{{componentList}}
 ```
 
 <components_list_item_rules>

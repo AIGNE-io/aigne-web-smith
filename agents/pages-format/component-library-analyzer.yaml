@@ -1,0 +1,30 @@
+type: team
+name: componentLibraryAnalyzer
+description: 自动分析中间格式文件，提取组件模式并生成统一的组件库定义，支持缓存机制
+skills:
+  - ./load-middle-formats-for-analysis.mjs
+  - ./analyze-component-patterns.yaml
+  - ./save-component-library.mjs
+input_schema:
+  type: object
+  properties:
+    pagesDir:
+      type: string
+      description: 页面目录路径，包含中间格式文件
+      default: "./.aigne/web-smith/aigne/pages"
+    outputDir:
+      type: string
+      description: 分析结果输出目录
+      default: "./aigne-pages/analysis"
+output_schema:
+  type: object
+  properties:
+    componentLibraryPath:
+      type: string
+      description: 组件库定义文件路径
+    componentLibrary:
+      type: object
+      description: 生成的组件库定义
+  required:
+    - componentLibrary
+mode: sequential

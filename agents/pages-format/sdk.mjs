@@ -117,13 +117,13 @@ export function zodSchemaToJsonSchema(schema) {
 /**
  * 根据组件ID列表生成组合的 Zod Schema
  * @param {Array} sections - section 配置数组
- * @param {Array} componentsList - 解析后的组件定义数组
+ * @param {Array} componentList - 解析后的组件定义数组
  */
-export function getSchemaByComponentIds(sections, componentsList) {
+export function getSchemaByComponentIds(sections, componentList) {
   const schemaObject = {};
 
   sections.forEach((section) => {
-    const component = componentsList.find(
+    const component = componentList.find(
       (comp) => comp.id === section.componentId
     );
     if (component) {

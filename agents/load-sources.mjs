@@ -394,8 +394,8 @@ export default async function loadSources({
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
-    componentsList: componentFiles,
-    moreContentsComponentsList: moreContentsComponentFiles,
+    componentList: componentFiles,
+    moreContentscomponentList: moreContentsComponentFiles,
     content,
     originalStructurePlan,
     files,

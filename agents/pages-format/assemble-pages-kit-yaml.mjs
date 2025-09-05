@@ -107,7 +107,6 @@ export default async function assemblePagesKitYaml(input) {
     topLevelKeys.forEach((levelKey) => {
       levelGroups[levelKey].forEach((item) => {
         if (item.component === "layout-block") {
-          // 处理layout-block
           const childSections = {};
           const childSectionIds = [];
           const gridSettings = { desktop: {}, mobile: {} };

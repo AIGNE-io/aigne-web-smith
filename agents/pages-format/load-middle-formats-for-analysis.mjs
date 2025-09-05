@@ -47,6 +47,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     // 计算当前 middleFormatFiles 的 hash
     const currentHash = calculateMiddleFormatHash(middleFormatFiles);
 
+    let existingLibrary;
     // 检查是否存在缓存文件
     const componentLibraryPath = join(outputDir, "component-library.yaml");
     try {
@@ -54,7 +55,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
 
       // 读取已存在的组件库文件
       const existingContent = await readFile(componentLibraryPath, "utf8");
-      const existingLibrary = parse(existingContent);
+      existingLibrary = parse(existingContent);
 
       const libraryNotChanged =
         existingLibrary && existingLibrary.hash === currentHash;
@@ -74,8 +75,8 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     const teamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
       skills: [
-        options.context.agents["analyzeComponentPatterns"],
-        // options.context.agents["generateComponentLibrary"],
+        // options.context.agents["analyzeComponentPatterns"],
+        options.context.agents["generateComponentLibrary"],
         options.context.agents["saveComponentLibrary"],
       ],
     });
@@ -83,6 +84,8 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     const result = await options.context.invoke(teamAgent, {
       ...input,
       middleFormatFiles,
+      // test code
+      componentLibrary: existingLibrary?.componentLibrary,
     });
 
     return {

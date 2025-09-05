@@ -6,7 +6,7 @@ export default async function assemblePagesKitYaml(input) {
     structuredData,
     middleFormatContent,
     // componentList,
-    moreContentscomponentList,
+    moreContentsComponentList,
     locale,
   } = input;
 
@@ -151,7 +151,7 @@ export default async function assemblePagesKitYaml(input) {
                     globalDataSource[child.id] = {
                       [locale]: processDataSource(
                         child.dataSource,
-                        moreContentscomponentList,
+                        moreContentsComponentList,
                         componentId
                       ),
                     };
@@ -187,7 +187,7 @@ export default async function assemblePagesKitYaml(input) {
             const componentId = item.config?.componentId;
             globalDataSource[item.id] = processDataSource(
               item.dataSource,
-              moreContentscomponentList,
+              moreContentsComponentList,
               componentId
             );
           }

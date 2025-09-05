@@ -155,13 +155,12 @@ export function propertiesToZodSchema(
   Object.entries(properties || {}).forEach(([key, prop]) => {
     if (!prop.data) return;
 
-    // 如果key未定义，使用id
-    const propKey = prop.data.key || prop.data.id || key;
     const propId = prop.data.id;
+    const propKey = prop.data.key || propId || key;
 
     // prop llmConfig
     const propLLMConfig =
-      llmConfig?.properties?.[prop.data.id] || llmConfig?.[prop.data.id];
+      llmConfig?.properties?.[propId] || llmConfig?.[propId];
 
     // 是否不需要 LLM 处理
     if (
@@ -204,9 +203,10 @@ export function propertiesToZodSchema(
       schemaObj[propKey] = schemaObj[propKey].describe(propDescribe);
     }
 
-    if (propId) {
-      schemaObj[propKey] = schemaObj[propKey].meta({ propId: propId });
-    }
+    schemaObj[propKey] = schemaObj[propKey].meta({
+      propId: propId,
+      propKey: propKey,
+    });
   });
 
   return z.object(schemaObj);

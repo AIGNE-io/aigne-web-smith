@@ -21,17 +21,18 @@ const formatComponentContent = ({ content, moreContents = false }) => {
 
   if (component.properties && !component.properties._def) {
     // 基于属性结构生成 Zod Schema
-    const zodProperties = propertiesToZodSchema(component.properties || {}, {
+    const zodSchema = propertiesToZodSchema(component.properties || {}, {
       // webSmith 的组件， 不需要检查是否需要生成， 默认都需要生成
       skipCheckNeedGenerate: true,
       llmConfig: component.llmConfig,
     });
 
     // 生成 JSON Schema 用于 AI 理解
-    const jsonSchema = zodSchemaToJsonSchema(zodProperties);
+    const jsonSchema = zodSchemaToJsonSchema(zodSchema);
 
     // 添加元数据到组件中
     component.schema = jsonSchema;
+    component.zodSchema = zodSchema;
 
     if (moreContents) {
       // propKeyToInfoMap, 用于映射属性key到id
@@ -50,6 +51,8 @@ const formatComponentContent = ({ content, moreContents = false }) => {
           key: propKey,
         };
       });
+
+      component.zodSchema = zodSchema;
     }
   }
 
@@ -395,7 +398,7 @@ export default async function loadSources({
     datasourcesList: sourceFiles,
     datasources: allSources,
     componentList: componentFiles,
-    moreContentscomponentList: moreContentsComponentFiles,
+    moreContentsComponentList: moreContentsComponentFiles,
     content,
     originalStructurePlan,
     files,

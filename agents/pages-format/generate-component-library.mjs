@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
+import { z } from "zod/v3";
 import { TeamAgent, AIAgent, TransformAgent } from "@aigne/core";
 
 /**
@@ -28,6 +29,12 @@ export default async function generateComponentLibrary(input, options) {
       (item) => item.type === "composite"
     );
 
+    const atomicComponentsSchema = z.object({
+      template: z
+        .record(z.any())
+        .describe("模板对象，包含所有 propId 作为 key"),
+    });
+
     const atomicComponentsTeamAgent = TeamAgent.from({
       type: "team",
       name: "atomicComponentsParserTeamAgent",
@@ -39,14 +46,41 @@ export default async function generateComponentLibrary(input, options) {
 
         return AIAgent.from({
           name: `atomicComponentsParserAgent-${item.name}`,
-          instructions: `
-这是一个原子组件，需要输出这个组件的属性
-${JSON.stringify(component)}          
-`,
-          outputSchema: component.schema,
           outputKey: `atomicComponents.${index}`,
+          // outputSchema: atomicComponentsSchema,
+          instructions: `
+你是一个 Pages Kit 组件 dataSource 生成器。你需要完成两个步骤：
+
+## 第一步：根据 JSON Schema 生成完整的 dataSource 结构
+
+组件名称: ${item.name}
+JSON Schema: ${JSON.stringify(component.content.schema || {}, null, 2)}
+
+请根据 JSON Schema 生成一个完整且合理的 dataSource 对象，包含：
+- 所有必需的 propId 字段
+- 符合 schema 定义的数据类型和结构
+- 合理的示例值（文本内容、样式配置等）
+
+## 第二步：根据 fieldCombinations 替换为模板语法
+
+fieldCombinations: ${JSON.stringify(item.fieldCombinations)}
+
+在第一步生成的 dataSource 中，找到与 fieldCombinations 语义相关的文本字段，将其替换为胡子语法 {{fieldName}}：
+
+- 如果 fieldCombinations 包含 "title"，找到标题相关的文本字段，替换为 {{title}}
+- 如果 fieldCombinations 包含 "description"，找到描述相关的文本字段，替换为 {{description}}  
+- 如果 fieldCombinations 包含 "code"，找到代码相关的文本字段，替换为 {{code}}
+
+## 输出要求
+
+直接输出最终的 dataSource，不要包装在代码块中，不要添加解释文字。
+
+示例输出格式：
+{"propId1": {"text": "{{title}}", "style": {...}}, "propId2": {"value": "{{description}}"}}
+`,
         });
       }),
+
       mode: "parallel",
     });
 

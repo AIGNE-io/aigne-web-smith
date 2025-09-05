@@ -86,33 +86,6 @@ export default async function assemblePagesKitYaml(input) {
         }
       }
 
-      // // 修复 type 和 value 不匹配的问题
-      // if (
-      //   ["array", "object", "json"].includes(mappedType) &&
-      //   typeof value === "string"
-      // ) {
-      //   try {
-      //     value = JSON.parse(value);
-      //   } catch (error) {
-      //     // ignore error
-      //     // console.error(`Failed to parse JSON for key ${key}:`, error);
-      //   }
-
-      //   if (mappedType === "array") {
-      //     value = value.map((item) => {
-      //       if (typeof item === "string") {
-      //         try {
-      //           return JSON.parse(item);
-      //         } catch (error) {
-      //           // ignore error
-      //           // console.error(`Failed to parse JSON for key ${key}:`, error);
-      //         }
-      //       }
-      //       return item;
-      //     });
-      //   }
-      // }
-
       properties[mappedId] = {
         value: value,
       };

@@ -83,28 +83,38 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
     );
 
     const compositeComponentsParserAgents = compositeComponents.map((item) => {
-      const gridSettingsSchema = z.object({
-        x: z.number(),
-        y: z.number(),
-        w: z.number(),
-        h: z.number().default(1),
-      });
+      const getGridSettingsSchema = () =>
+        z.object({
+          x: z.number(),
+          y: z.number(),
+          w: z.number(),
+          h: z.number().default(1),
+        });
 
       // 基于 relatedComponents 创建固定的对象结构
       const desktopGridSettings = {};
       const mobileGridSettings = {};
 
       item.relatedComponents.forEach((componentId) => {
-        desktopGridSettings[componentId] = gridSettingsSchema;
-        mobileGridSettings[componentId] = gridSettingsSchema;
+        desktopGridSettings[componentId] = getGridSettingsSchema();
+        mobileGridSettings[componentId] = getGridSettingsSchema();
       });
 
       // 定义输出 schema - config 对象
+      const gridSettingsConfig =
+        item.relatedComponents.length > 0
+          ? {
+              gridSettings: z
+                .object({
+                  desktop: z.object(desktopGridSettings),
+                  mobile: z.object(mobileGridSettings),
+                })
+                .optional(),
+            }
+          : {};
+
       const configSchema = z.object({
-        // gridSettings: z.object({
-        //   desktop: z.object(desktopGridSettings),
-        //   mobile: z.object(mobileGridSettings),
-        // }),
+        ...gridSettingsConfig,
         gap: z.string().optional(),
         padding: z.string().optional(),
         paddingX: z.string().optional(),
@@ -119,6 +129,8 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
         borderRadius: z.string().optional(),
         height: z.string().optional(),
       });
+
+      console.warn(222222, configSchema);
 
       return AIAgent.from({
         name: `compositeComponentsParserAgent-${item.name}`,

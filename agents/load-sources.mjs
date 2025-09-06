@@ -30,10 +30,6 @@ const formatComponentContent = ({ content, moreContents = false }) => {
     // 生成 JSON Schema 用于 AI 理解
     const jsonSchema = zodSchemaToJsonSchema(zodSchema);
 
-    // 添加元数据到组件中
-    component.schema = jsonSchema;
-    component.zodSchema = zodSchema;
-
     if (moreContents) {
       // propKeyToInfoMap, 用于映射属性key到id
       component.propKeyToInfoMap = {};
@@ -52,6 +48,8 @@ const formatComponentContent = ({ content, moreContents = false }) => {
         };
       });
 
+      // 添加元数据到组件中
+      component.schema = jsonSchema;
       component.zodSchema = zodSchema;
     }
   }

@@ -21,7 +21,8 @@
 字段类型分离原则
 
 - 数组类型（array）的字段（如 list、items、cards 等）用于布局控制，不记录在组件库中
-- 其它类型（string、object 等）的字段可用于组件库分析
+- 对象类型（object）的字段（如 config 等）的字段，需要集合 object 里面的字段对组件进行分析
+- 其它类型（string、number、boolean 等）的字段可直接用于组件库分析
 
 原子组件分析
 

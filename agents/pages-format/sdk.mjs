@@ -4,6 +4,7 @@
  */
 import { z } from "zod";
 import { nanoid } from "nanoid";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 // 从 Pages Kit 迁移的核心转换工具
 
@@ -111,7 +112,15 @@ export const PROPERTIES_TYPE_SCHEMA = {
  * 支持 Zod 4.x 的 toJSONSchema 方法
  */
 export function zodSchemaToJsonSchema(schema) {
-  return z.toJSONSchema(schema);
+  // @ts-ignore zod 4.x support toJSONSchema
+  if (typeof z?.toJSONSchema === "function") {
+    // @ts-ignore
+    return z.toJSONSchema(schema, {
+      target: "draft-7",
+    });
+  }
+
+  return zodToJsonSchema(schema, { $refStrategy: "none" });
 }
 
 /**
@@ -191,10 +200,11 @@ export function propertiesToZodSchema(
     schemaObj[propKey] = schema;
 
     if (isOptional) {
+      // WebSmith 现在不太需要这个逻辑，会导致 genimi
       // array 类型生成的 jsonschema 存在 anyof ，LLM 格式校验会报错
-      if (propType !== "array") {
-        schemaObj[propKey] = schemaObj[propKey].nullable();
-      }
+      // if (propType !== "array") {
+      //   schemaObj[propKey] = schemaObj[propKey].nullable();
+      // }
     }
 
     let propDescribe = propLLMConfig?.describe;
@@ -203,10 +213,10 @@ export function propertiesToZodSchema(
       schemaObj[propKey] = schemaObj[propKey].describe(propDescribe);
     }
 
-    schemaObj[propKey] = schemaObj[propKey].meta({
-      propId: propId,
-      propKey: propKey,
-    });
+    // schemaObj[propKey] = schemaObj[propKey].meta({
+    //   propId: propId,
+    //   propKey: propKey,
+    // });
   });
 
   return z.object(schemaObj);

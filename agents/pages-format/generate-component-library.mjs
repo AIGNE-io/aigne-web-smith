@@ -1,8 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
-import { z } from "zod/v3";
-import { TeamAgent, AIAgent, TransformAgent } from "@aigne/core";
+import { z } from "zod";
+import { TeamAgent, AIAgent } from "@aigne/core";
 
 /**
  * 生成组件库 - 基于中间格式文件分析和现有组件列表
@@ -29,12 +29,6 @@ export default async function generateComponentLibrary(input, options) {
       (item) => item.type === "composite"
     );
 
-    const atomicComponentsSchema = z.object({
-      template: z
-        .record(z.any())
-        .describe("模板对象，包含所有 propId 作为 key"),
-    });
-
     const atomicComponentsTeamAgent = TeamAgent.from({
       type: "team",
       name: "atomicComponentsParserTeamAgent",
@@ -44,39 +38,47 @@ export default async function generateComponentLibrary(input, options) {
           (item) => item.content.id === componentId
         );
 
+        const fieldCombinationsWithMustache = item.fieldCombinations.map(
+          (fieldName) => {
+            return `{{${fieldName}}}`;
+          }
+        );
+
         return AIAgent.from({
           name: `atomicComponentsParserAgent-${item.name}`,
-          outputKey: `atomicComponents.${index}`,
-          // outputSchema: atomicComponentsSchema,
+          outputKey: item.componentId,
+          outputSchema: z.object({
+            [item.componentId]: component.content.zodSchema,
+          }),
           instructions: `
-你是一个 Pages Kit 组件 dataSource 生成器。你需要完成两个步骤：
+你是 Pages Kit 组件 dataSource 模板生成器，请严格遵守 <rules> 中的规则，帮助用户生成合理的 dataSource 模板。
 
-## 第一步：根据 JSON Schema 生成完整的 dataSource 结构
+<component-props-json-schema>
+${JSON.stringify(component.content.schema || {})}
+</component-props-json-schema>
 
-组件名称: ${item.name}
-JSON Schema: ${JSON.stringify(component.content.schema || {}, null, 2)}
+<field-combinations>
+${JSON.stringify(fieldCombinationsWithMustache || [])}
+</field-combinations>
 
-请根据 JSON Schema 生成一个完整且合理的 dataSource 对象，包含：
-- 所有必需的 propId 字段
-- 符合 schema 定义的数据类型和结构
-- 合理的示例值（文本内容、样式配置等）
+<rules>
+根据 <component-props-json-schema> 生成完整的 dataSource 模板：
+- 包含 <component-props-json-schema> 中所有字段，保持数据结构完整性
+- 仅将 dataSource 模板中与 <field-combinations> 里面相关的字段，替换为相关的字段
+  - 在后续使用中，会把 {[fileName]: value} 中的 value 值替换到 dataSource 模板中，value 会是个简单类型，如 string, number, boolean 等
+  - 必须保证 <field-combinations> 里面所有字段都在 dataSource 模板中
+- 其他字段使用合理默认值
+- 转换详情请参考示例 <examples>
+</rules>
 
-## 第二步：根据 fieldCombinations 替换为模板语法
+<examples>
+输入: field-combinations ["{{title}}", "{{description}}"]
+输出: {"title":{"text":"{{title}}","style":{"color":"common.black"}},"description":{"list":[{"type":"text","text":"{{description}}"}]},"align":"center"}
 
-fieldCombinations: ${JSON.stringify(item.fieldCombinations)}
+输入: field-combinations ["{{code}}"] 
+输出: {"code":"{{code}}","filename":"example.js","showLineNumbers":true}
+</examples>
 
-在第一步生成的 dataSource 中，找到与 fieldCombinations 语义相关的文本字段，将其替换为胡子语法 {{fieldName}}：
-
-- 如果 fieldCombinations 包含 "title"，找到标题相关的文本字段，替换为 {{title}}
-- 如果 fieldCombinations 包含 "description"，找到描述相关的文本字段，替换为 {{description}}  
-- 如果 fieldCombinations 包含 "code"，找到代码相关的文本字段，替换为 {{code}}
-
-## 输出要求
-
-直接输出最终的 dataSource，不要包装在代码块中，不要添加解释文字。
-
-示例输出格式：
-{"propId1": {"text": "{{title}}", "style": {...}}, "propId2": {"value": "{{description}}"}}
 `,
         });
       }),

@@ -68,7 +68,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       // }
     } catch (error) {
       // ignore error
-      throw error;
+      // throw error;
     }
 
     // 如果组件库有变化， 调度到 generateComponentLibrary，不再执行 analyze-component-patterns 和 save-component-library
@@ -76,6 +76,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       name: "generateComponentLibraryTeam",
       skills: [
         // options.context.agents["analyzeComponentPatterns"],
+        // options.context.agents["saveComponentLibrary"],
         options.context.agents["generateComponentLibrary"],
         options.context.agents["saveComponentLibrary"],
       ],

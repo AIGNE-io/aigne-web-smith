@@ -1,4 +1,4 @@
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, access } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify } from "yaml";
 import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
@@ -22,6 +22,17 @@ export default async function saveComponentLibrary({
 
     const timestamp = new Date().toISOString();
 
+    const componentLibraryPath = join(outputDir, "component-library.yaml");
+
+    // 检查文件是否存在
+    let fileExists = false;
+    try {
+      await access(componentLibraryPath);
+      fileExists = true;
+    } catch {
+      fileExists = false;
+    }
+
     // 计算 middleFormatFiles 的 hash
     const middleFormatHash = calculateMiddleFormatHash(middleFormatFiles);
 
@@ -29,7 +40,11 @@ export default async function saveComponentLibrary({
       if (item.type === "composite") {
         return {
           ...item,
-          // componentId: generateRandomId(),
+          // 如果组件没有ID，或者是第一次生成，则生成随机ID
+          componentId:
+            !item.componentId || !fileExists
+              ? generateRandomId()
+              : item.componentId,
         };
       }
       return item;
@@ -43,7 +58,7 @@ export default async function saveComponentLibrary({
     };
 
     // 保存组件库定义
-    const componentLibraryPath = join(outputDir, "component-library.yaml");
+
     await writeFile(
       componentLibraryPath,
       stringify(finalComponentLibrary, {

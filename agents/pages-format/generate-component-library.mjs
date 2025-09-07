@@ -85,10 +85,21 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
     const compositeComponentsParserAgents = compositeComponents.map((item) => {
       const getGridSettingsSchema = () =>
         z.object({
-          x: z.number(),
-          y: z.number(),
-          w: z.number(),
-          h: z.number().default(1),
+          x: z.number().describe("水平位置，从0开始，在12列网格中的起始列"),
+          y: z
+            .number()
+            .describe(
+              "垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"
+            ),
+          w: z
+            .number()
+            .describe("宽度，占用的列数，在12列网格系统中，x + w 不能超过12"),
+          h: z
+            .number()
+            .default(1)
+            .describe(
+              "高度，永远固定为1，不可修改，组件实际高度由内容自动计算"
+            ),
         });
 
       // 基于 relatedComponents 创建固定的对象结构
@@ -104,33 +115,61 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
       const gridSettingsConfig =
         item.relatedComponents.length > 0
           ? {
-              gridSettings: z
-                .object({
-                  desktop: z.object(desktopGridSettings),
-                  mobile: z.object(mobileGridSettings),
-                })
-                .optional(),
+              gridSettings: z.object({
+                desktop: z.object(desktopGridSettings),
+                mobile: z.object(mobileGridSettings),
+              }),
             }
           : {};
 
       const configSchema = z.object({
         ...gridSettingsConfig,
-        gap: z.string().optional(),
-        padding: z.string().optional(),
-        paddingX: z.string().optional(),
-        paddingY: z.string().optional(),
-        alignContent: z.string().optional(),
-        justifyContent: z.string().optional(),
-        background: z.string().optional(),
-        backgroundFullWidth: z.boolean().optional(),
-        ignoreMaxWidth: z.boolean().optional(),
-        maxWidth: z.string().optional(),
-        border: z.string().optional(),
-        borderRadius: z.string().optional(),
-        height: z.string().optional(),
+        gap: z
+          .enum(["none", "small", "normal", "large"])
+          .default("none")
+          .describe("布局间距"),
+        paddingX: z
+          .string()
+          .default("none")
+          .describe(
+            "水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+          ),
+        paddingY: z
+          .string()
+          .default("none")
+          .describe(
+            "垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+          ),
+        alignContent: z
+          .enum([
+            "start",
+            "center",
+            "end",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ])
+          .default("center"),
+        justifyContent: z
+          .enum([
+            "start",
+            "center",
+            "end",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ])
+          .default("start"),
+        background: z.string().default("transparent"), // 背景图片路径或颜色值
+        backgroundFullWidth: z.boolean().default(false),
+        ignoreMaxWidth: z.boolean().default(false),
+        maxWidth: z.string().default("full"), // 支持 custom:XXXpx 格式
+        border: z.string().default("none"), // 支持多种边框样式
+        borderRadius: z
+          .enum(["none", "small", "medium", "large", "xl", "rounded", "custom"])
+          .default("none"),
+        height: z.string().default("100%"), // 支持 custom:XXXpx 格式
       });
-
-      console.warn(222222, configSchema);
 
       return AIAgent.from({
         name: `compositeComponentsParserAgent-${item.name}`,
@@ -145,30 +184,9 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
 组件名称: ${item.name}
 </composite-component-info>
 
-
-<rules>
-生成 layout-block 的 config 配置对象：
-
-1. gridSettings 配置：
-   - desktop: 每个相关组件一个键值对，键为组件ID，值为网格位置
-   - mobile: 可选，移动端布局配置
-   - 使用12列网格系统，h值固定为1
-   - 上下布局：y值递增(0,1,2...)，不能跳跃
-   - 左右布局：相同y值，不同x值
-
-2. 布局配置枚举值：
-   - gap/padding: "none|small|normal|large"
-   - paddingX/paddingY: "none|small|normal|large|xl|custom:XXXpx"
-   - alignContent/justifyContent: "start|center|end|space-between|space-around|space-evenly"
-   - maxWidth: "full|none|sm|md|lg|xl|custom:XXXpx"
-   - background: 背景图片路径或颜色值
-   - backgroundFullWidth: boolean - 背景是否全宽显示
-   - ignoreMaxWidth: boolean - 是否忽略最大宽度限制
-   - border: "none|solid|dashed|dotted|chrome|safari|terminal|shadow-sm|shadow-md|shadow-lg|shadow-xl|shadow-max|macbook|phone|custom"
-   - borderRadius: "none|small|medium|large|xl|rounded|custom"
-   - height: "auto|100%|unset|inherit|initial|fit-content|max-content|min-content|custom:XXXpx"
-
-</rules>
+<related-components>
+${JSON.stringify(item.relatedComponents)}
+</related-components>
 
 <examples>
 输入 HeroSection (title, description, action):

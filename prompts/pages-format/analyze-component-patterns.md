@@ -88,6 +88,7 @@
     {
       "name": "RichText",
       "type": "atomic",
+      "summary": "富文本组件，用于展示标题和描述",
       "componentId": "xoHu0J44322kDYc-",
       "fieldCombinations": ["title", "description"],
       "relatedComponents": []
@@ -95,6 +96,7 @@
     {
       "name": "Action",
       "type": "atomic",
+      "summary": "行动组件，用于展示行动按钮",
       "componentId": "a44r0SiGV9AFn2Fj",
       "fieldCombinations": ["action"],
       "relatedComponents": []
@@ -102,6 +104,7 @@
     {
       "name": "CodeBlock",
       "type": "atomic",
+      "summary": "代码块组件，用于展示代码示例",
       "componentId": "2EHGy3vwxlS9JGr2",
       "fieldCombinations": ["title", "description", "code"],
       "relatedComponents": []
@@ -109,6 +112,7 @@
     {
       "name": "HeroSection",
       "type": "composite",
+      "summary": "英雄区组件，用于展示标题、描述和行动按钮，是个复合组件",
       "componentId": "PLACEHOLDER_RANDOM_ID",
       "fieldCombinations": ["title", "description", "action"],
       "relatedComponents": ["xoHu0J44322kDYc-", "a44r0SiGV9AFn2Fj"]
@@ -123,6 +127,7 @@
 - 通过 type 字段区分原子组件（atomic）和复合组件（composite）
 - 原子组件：使用真实的组件 ID 作为 componentId
 - 复合组件：生成 16 位随机 ID 作为 componentId
+- summary 用于描述组件的用途和特点，尽可能具体
 - fieldCombinations 是一维数组，只包含字符串类型的字段名
 - 数组字段（list、items、cards 等）不记录在 fieldCombinations 中
 - 每个组件只定义一个最佳的字符串字段组合，避免选择歧义

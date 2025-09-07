@@ -38,6 +38,9 @@ output_schema:
           type:
             type: string
             description: 组件类型 "atomic" （原子组件） 或 "composite"（复合组件）
+          summary:
+            type: string
+            description: 组件的用途和特点，尽可能具体
           componentId:
             type: string
             description: 组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）

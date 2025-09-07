@@ -1,33 +1,14 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { parse } from "yaml";
 import { z } from "zod";
 import { TeamAgent, AIAgent } from "@aigne/core";
 
-/**
- * 生成组件库 - 基于中间格式文件分析和现有组件列表
- * @param {Object} input
- * @param {Object} input.componentLibrary - 现有组件库定义
- * @param {Array} input.middleFormatFiles - 中间格式文件数组
- * @returns {Promise<Object>}
- */
-
 export default async function generateComponentLibrary(input, options) {
-  const { componentLibrary, middleFormatFiles, moreContentsComponentList } =
-    input;
+  const { componentLibrary, moreContentsComponentList } = input;
   try {
-    // 分析中间格式文件，提取组件模式
-    // const analysisResult = await analyzeMiddleFormatFiles(middleFormatFiles);
+    const atomicComponents =
+      componentLibrary?.filter((item) => item.type === "atomic") || [];
 
-    // console.warn(2222, componentLibrary, moreContentsComponentList);
-
-    const atomicComponents = componentLibrary.filter(
-      (item) => item.type === "atomic"
-    );
-
-    const atomicComponentsNeedParse = atomicComponents.filter(
-      (item) => !item.dataSourceTemplate
-    );
+    const atomicComponentsNeedParse =
+      atomicComponents?.filter((item) => !item.dataSourceTemplate) || [];
 
     const atomicComponentsParserAgents = atomicComponentsNeedParse.map(
       (item, index) => {
@@ -84,13 +65,11 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
       }
     );
 
-    const compositeComponents = componentLibrary.filter(
-      (item) => item.type === "composite"
-    );
+    const compositeComponents =
+      componentLibrary?.filter((item) => item.type === "composite") || [];
 
-    const compositeComponentsNeedParse = compositeComponents.filter(
-      (item) => !item.configTemplate
-    );
+    const compositeComponentsNeedParse =
+      compositeComponents?.filter((item) => !item.configTemplate) || [];
 
     // 构建 componentId map 减少查找复杂度
     const componentIdMap = {};

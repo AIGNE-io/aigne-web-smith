@@ -29,7 +29,7 @@ export default async function saveComponentLibrary({
       if (item.type === "composite") {
         return {
           ...item,
-          componentId: generateRandomId(),
+          // componentId: generateRandomId(),
         };
       }
       return item;
@@ -46,7 +46,9 @@ export default async function saveComponentLibrary({
     const componentLibraryPath = join(outputDir, "component-library.yaml");
     await writeFile(
       componentLibraryPath,
-      stringify(finalComponentLibrary),
+      stringify(finalComponentLibrary, {
+        aliasDuplicateObjects: false, // 禁用锚点和别名
+      }),
       "utf8"
     );
 

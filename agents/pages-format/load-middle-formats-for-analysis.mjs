@@ -60,12 +60,12 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       const libraryNotChanged =
         existingLibrary && existingLibrary.hash === currentHash;
 
-      // if (libraryNotChanged) {
-      //   return {
-      //     middleFormatFiles,
-      //     componentLibrary: existingLibrary.componentLibrary,
-      //   };
-      // }
+      if (libraryNotChanged) {
+        return {
+          middleFormatFiles,
+          componentLibrary: existingLibrary.componentLibrary,
+        };
+      }
     } catch (error) {
       // ignore error
       // throw error;
@@ -75,8 +75,8 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     const teamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
       skills: [
-        // options.context.agents["analyzeComponentPatterns"],
-        // options.context.agents["saveComponentLibrary"],
+        options.context.agents["analyzeComponentPatterns"],
+        options.context.agents["saveComponentLibrary"],
         options.context.agents["generateComponentLibrary"],
         options.context.agents["saveComponentLibrary"],
       ],
@@ -85,7 +85,6 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     const result = await options.context.invoke(teamAgent, {
       ...input,
       middleFormatFiles,
-      // test code
       componentLibrary: existingLibrary?.componentLibrary,
     });
 

@@ -9,11 +9,20 @@
 </goal>
 
 <input_data>
-中间格式文件内容：
+所有中间格式文件内容：
+<all-middle-format-files>
 {{middleFormatFiles}}
+</all-middle-format-files>
 
 可用组件列表：
+<component-list>
 {{componentList}}
+</component-list>
+
+所有字段组合集合：
+<all-field-combinations>
+{{allFieldCombinations}}
+</all-field-combinations>
 </input_data>
 
 <analysis_principles>
@@ -69,11 +78,13 @@
   - 识别复合组件的布局特征
   - 建立标准化的组件定义
 
-- 组件库生成
-  - 原子组件：记录真实的组件 ID 和最佳字符串字段组合（单一组合）
-  - 复合组件：使用 `PLACEHOLDER_RANDOM_ID` 作为标识，后续会生成真实的组件 ID
-  - 每个组件只定义一个最适合的字符串字段组合，确保选择唯一性
-  - 确保所有字符串字段都有对应的组件映射
+- 组件库生成（基于 <all-field-combinations> 完整覆盖）
+  - 必须覆盖所有字段组合： <all-field-combinations> 中的每个 item 都必须有对应的组件
+  - 一对一映射原则：每个 <all-field-combinations> 中的字段组合数组对应生成一个组件的 fieldCombinations
+  - 原子组件优先：优先根据 <component-list> 生成原子组件，记录真实的组件 ID
+  - 复合组件补充：当字段组合复杂时生成复合组件，使用 `PLACEHOLDER_RANDOM_ID` 作为标识
+  - 不允许遗漏：确保 <all-field-combinations> 中的所有模式都有对应的组件定义
+  - 精确匹配：生成的组件的 fieldCombinations 必须与 <all-field-combinations> 中的某个 item 完全一致
   - 数组字段不记录在组件库中，交给实际处理时的 layout-block 处理
   - 输出统一的数组格式组件库定义
 
@@ -133,13 +144,24 @@
 - 每个组件只定义一个最佳的字符串字段组合，避免选择歧义
 - relatedComponents 为子组件 ID 的字符串数组
 - 组件库保持纯净，不包含任何数组字段的处理逻辑
-  </output_format>
+
+</output_format>
 
 <requirements>
+- 完整覆盖 allFieldCombinations：生成的组件库必须覆盖 allFieldCombinations 中的每一个字段组合模式
+- 一对一精确匹配：每个生成组件的 fieldCombinations 必须与 allFieldCombinations 中的某个 item 完全一致
+- 不允许遗漏组件：allFieldCombinations 中的每个 item 都必须有对应的组件定义
+- 不允许额外组件：不能生成 allFieldCombinations 中不存在的字段组合
 - 必须基于实际的中间格式数据进行分析，不能凭空创造
 - 所有的组件映射必须基于可用组件列表
 - 复合组件模式必须有明确的业务语义
 - 只处理字符串类型字段，数组字段不记录在组件库中
 - 输出的组件库定义必须完整可执行
 - 组件库保持纯净，只包含字符串字段的组合模式
+
+验证要求：
+
+- 生成完成后，必须确认生成的组件数量等于 allFieldCombinations 的长度
+- 每个 allFieldCombinations[i] 都能在生成的组件中找到完全匹配的 fieldCombinations
+
 </requirements>

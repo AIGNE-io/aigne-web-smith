@@ -7,7 +7,7 @@ import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 import _ from "lodash";
 
 function convertToSection({ componentInstance }) {
-  if (componentInstance.type === "atomic") {
+  if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
 
     return {
@@ -19,17 +19,17 @@ function convertToSection({ componentInstance }) {
         useCache: true,
       },
     };
-  } else if (componentInstance.type === "composite") {
-    const { config, id, relatedInstances } = componentInstance;
+  } else if (componentInstance?.type === "composite") {
+    const { config, id, relatedInstances, name } = componentInstance;
 
-    const sections = relatedInstances.map(({ instance, section }) => {
+    const sections = relatedInstances.map(({ instance }) => {
       return convertToSection({ componentInstance: instance });
     });
 
     return {
       id,
-      name,
       component: "layout-block",
+      name,
       config: config,
       sections: _.keyBy(sections, "id"),
       sectionIds: sections.map(({ id }) => id),
@@ -483,16 +483,13 @@ export default async function composePagesKitYaml(input) {
 
       // 组装 sections 到 pagesKitData
       composedSections.forEach((section) => {
-        const { component, componentInstance, arrayComponentInstances } =
-          section;
+        const { componentInstance, arrayComponentInstances } = section;
 
         if (componentInstance) {
           pagesKitData.sections = {
             ...pagesKitData.sections,
             [componentInstance.id]: convertToSection({
               componentInstance,
-              component,
-              section,
             }),
           };
           pagesKitData.sectionIds.push(componentInstance.id);
@@ -508,7 +505,7 @@ export default async function composePagesKitYaml(input) {
         }
 
         if (arrayComponentInstances.length > 0) {
-          pagesKitData.sections.push(...arrayComponentInstances);
+          // pagesKitData.sections.push(...arrayComponentInstances);
         }
       });
 

@@ -2,8 +2,9 @@ import { readdir, readFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
 import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
-import { TeamAgent } from "@aigne/core";
+import { TeamAgent, AIGNE } from "@aigne/core";
 import { getAllFieldCombinations } from "./sdk.mjs";
+import { OpenAIChatModel } from "@aigne/openai";
 
 /**
  * 加载所有中间格式文件用于组件模式分析
@@ -58,10 +59,18 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       const existingContent = await readFile(componentLibraryPath, "utf8");
       existingLibrary = parse(existingContent);
 
-      const libraryNotChanged =
-        existingLibrary && existingLibrary.hash === currentHash;
+      const canUseExistingLibrary =
+        existingLibrary &&
+        existingLibrary.hash === currentHash &&
+        // 包括里面的 dataSourceTemplate 和 configTemplate
+        existingLibrary.componentLibrary?.every((item) => {
+          return (
+            (item.type === "atomic" && item.dataSourceTemplate) ||
+            (item.type === "composite" && item.configTemplate)
+          );
+        });
 
-      if (libraryNotChanged) {
+      if (canUseExistingLibrary) {
         return {
           middleFormatFiles,
           componentLibrary: existingLibrary.componentLibrary,
@@ -74,27 +83,52 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
 
     const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
 
-    // 如果组件库有变化， 调度到 generateComponentLibrary，不再执行 analyze-component-patterns 和 save-component-library
-    const teamAgent = TeamAgent.from({
+    // 如果组件库有变化， 重新分析处理
+    const analyzeTeamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
       skills: [
         options.context.agents["analyzeComponentPatterns"],
         options.context.agents["saveComponentLibrary"],
-        options.context.agents["generateComponentLibrary"],
-        options.context.agents["saveComponentLibrary"],
       ],
     });
 
-    const result = await options.context.invoke(teamAgent, {
+    const analyzeResult = await options.context.invoke(analyzeTeamAgent, {
       ...input,
       middleFormatFiles,
       componentLibrary: existingLibrary?.componentLibrary,
       allFieldCombinations,
     });
 
+    const generateTeamAgent = TeamAgent.from({
+      name: "generateComponentLibraryTeam",
+      skills: [
+        options.context.agents["generateComponentLibrary"],
+        options.context.agents["saveComponentLibrary"],
+      ],
+    });
+
+    // @FIXME: 临时使用 OpenAI，后续需要改成 AIGNEHub
+    const openaiModel = new OpenAIChatModel({
+      apiKey: process.env.OPENAI_API_KEY,
+      model: "gpt-4o-mini", // Optional, defaults to "gpt-4o-mini"
+    });
+
+    const engine = new AIGNE({
+      model: openaiModel,
+    });
+
+    // gemini model 的处理 output schema 的功能很差 400 [{"error":{"code":400,"message":"The specified schema produces a constraint that has too many states for serving. Typical causes of this error are schemas with lots of text (for example, very long property or enum names), schemas with long array length limits (especially when nested), or schemas using complex value matchers (for example, integers or numbers with minimum/maximum bounds or strings with complex formats like date-time)","status":"INVALID_ARGUMENT"}}])
+    // 换成 gpt 处理
+    const generateResult = await engine.invoke(generateTeamAgent, {
+      ...input,
+      middleFormatFiles,
+      componentLibrary: analyzeResult?.componentLibrary,
+      allFieldCombinations,
+    });
+
     return {
       middleFormatFiles,
-      componentLibrary: result.componentLibrary,
+      componentLibrary: generateResult.componentLibrary,
     };
   } catch (error) {
     throw new Error(`Failed to load middle format files: ${error.message}`);

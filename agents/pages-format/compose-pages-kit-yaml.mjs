@@ -6,6 +6,54 @@ import { getFileName } from "../../utils/utils.mjs";
 import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 import _ from "lodash";
 
+function convertToSection({ section, componentInstance }) {
+  if (componentInstance.type === "atomic") {
+    const { componentId, id } = componentInstance;
+    const { name } = section;
+    return {
+      id,
+      name,
+      component: "custom-component",
+      config: {
+        componentId,
+        useCache: true,
+      },
+    };
+  }
+}
+
+function createPagesKitInstance({ meta, locale }) {
+  const now = new Date().toISOString();
+
+  const pagesKitData = {
+    id: generateRandomId(),
+    createdAt: now,
+    updatedAt: now,
+    publishedAt: now,
+    isPublic: true,
+    locales: {
+      [locale]: {
+        backgroundColor: "",
+        style: {
+          maxWidth: "custom:1560px",
+          paddingX: "large",
+        },
+        title: meta.title,
+        description: meta.description,
+        image: meta.image,
+        header: {
+          sticky: true,
+        },
+      },
+    },
+    sections: {},
+    sectionIds: [],
+    dataSource: {},
+  };
+
+  return pagesKitData;
+}
+
 /**
  * 组合 Pages Kit YAML 的完整流程
  * 集成组装和保存逻辑，直接打印输出结果
@@ -180,7 +228,10 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
 
   try {
     // 解析中间格式内容
-    const parsedData = parse(middleFormatContent);
+    const parsedData =
+      typeof middleFormatContent === "string"
+        ? parse(middleFormatContent)
+        : middleFormatContent;
     if (!parsedData || !parsedData.sections) {
       console.log(`⚠️  中间格式内容没有sections字段`);
       return [];
@@ -383,23 +434,71 @@ export default async function composePagesKitYaml(input) {
 
   // 处理中间格式文件，匹配组件
   const allComposedSections = [];
+  const allPagesKitYamlList = [];
 
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     console.log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
     middleFormatFiles.forEach((file, index) => {
+      const middleFormatContent =
+        typeof file.content === "string" ? parse(file.content) : file.content;
+
       console.log(
         `\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`
       );
 
       // 使用复用函数匹配sections和组件
       const composedSections = composeSectionsWithComponents(
-        file.content,
+        middleFormatContent,
         componentLibrary
       );
 
       // 收集所有匹配结果
       allComposedSections.push(...composedSections);
+
+      // 创建Pages Kit实例
+      const pageKitData = createPagesKitInstance({
+        meta: middleFormatContent.meta,
+        locale,
+      });
+
+      // 组装 sections 到 pageKitData
+      composedSections.forEach((section) => {
+        const { component, componentInstance, arrayComponentInstances } =
+          section;
+
+        if (componentInstance) {
+          pageKitData.sections = {
+            ...pageKitData.sections,
+            [componentInstance.id]: convertToSection({
+              componentInstance,
+              component,
+              section,
+            }),
+          };
+          pageKitData.sectionIds.push(componentInstance.id);
+
+          pagesKitData.dataSource = {
+            ...pageKitData.dataSource,
+            [componentInstance.id]: {
+              [locale]: {
+                properties: componentInstance.dataSource,
+              },
+            },
+          };
+        }
+
+        if (arrayComponentInstances.length > 0) {
+          pageKitData.sections.push(...arrayComponentInstances);
+        }
+      });
+
+      console.warn(22222, JSON.stringify(pageKitData));
+
+      allPagesKitYamlList.push({
+        filePath: file.filePath,
+        content: yaml.stringify(pageKitData),
+      });
     });
 
     console.log(`\n📊 总计处理结果:`);

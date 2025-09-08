@@ -6,10 +6,10 @@ import { getFileName } from "../../utils/utils.mjs";
 import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 import _ from "lodash";
 
-function convertToSection({ section, componentInstance }) {
+function convertToSection({ componentInstance }) {
   if (componentInstance.type === "atomic") {
-    const { componentId, id } = componentInstance;
-    const { name } = section;
+    const { componentId, id, name } = componentInstance;
+
     return {
       id,
       name,
@@ -18,6 +18,21 @@ function convertToSection({ section, componentInstance }) {
         componentId,
         useCache: true,
       },
+    };
+  } else if (componentInstance.type === "composite") {
+    const { config, id, relatedInstances } = componentInstance;
+
+    const sections = relatedInstances.map(({ instance, section }) => {
+      return convertToSection({ componentInstance: instance });
+    });
+
+    return {
+      id,
+      name,
+      component: "layout-block",
+      config: config,
+      sections: _.keyBy(sections, "id"),
+      sectionIds: sections.map(({ id }) => id),
     };
   }
 }
@@ -98,6 +113,7 @@ function createComponentInstance(section, component, componentLibrary = []) {
       return {
         id: instanceId,
         type: "atomic",
+        name: section.name || component.name,
         componentId: component.componentId,
         dataSource,
         config: null,
@@ -107,6 +123,7 @@ function createComponentInstance(section, component, componentLibrary = []) {
       return {
         id: instanceId,
         type: "atomic",
+        name: section.name || component.name,
         componentId: component.componentId,
         dataSource: dataSourceTemplate, // 使用原始模板作为fallback
         config: null,
@@ -124,6 +141,7 @@ function createComponentInstance(section, component, componentLibrary = []) {
       return {
         id: instanceId,
         type: "composite",
+        name: section.name || component.name,
         componentId: component.componentId,
         dataSource: null,
         config: null,
@@ -170,6 +188,7 @@ function createComponentInstance(section, component, componentLibrary = []) {
           originalComponentId: relatedComponentId,
           instanceId: childInstance.id, // 使用子实例的ID保证一致性
           instance: childInstance,
+          section,
         };
       }
     );
@@ -457,29 +476,29 @@ export default async function composePagesKitYaml(input) {
       allComposedSections.push(...composedSections);
 
       // 创建Pages Kit实例
-      const pageKitData = createPagesKitInstance({
+      const pagesKitData = createPagesKitInstance({
         meta: middleFormatContent.meta,
         locale,
       });
 
-      // 组装 sections 到 pageKitData
+      // 组装 sections 到 pagesKitData
       composedSections.forEach((section) => {
         const { component, componentInstance, arrayComponentInstances } =
           section;
 
         if (componentInstance) {
-          pageKitData.sections = {
-            ...pageKitData.sections,
+          pagesKitData.sections = {
+            ...pagesKitData.sections,
             [componentInstance.id]: convertToSection({
               componentInstance,
               component,
               section,
             }),
           };
-          pageKitData.sectionIds.push(componentInstance.id);
+          pagesKitData.sectionIds.push(componentInstance.id);
 
           pagesKitData.dataSource = {
-            ...pageKitData.dataSource,
+            ...pagesKitData.dataSource,
             [componentInstance.id]: {
               [locale]: {
                 properties: componentInstance.dataSource,
@@ -489,15 +508,15 @@ export default async function composePagesKitYaml(input) {
         }
 
         if (arrayComponentInstances.length > 0) {
-          pageKitData.sections.push(...arrayComponentInstances);
+          pagesKitData.sections.push(...arrayComponentInstances);
         }
       });
 
-      console.warn(22222, JSON.stringify(pageKitData));
+      console.warn(22222, JSON.stringify(pagesKitData));
 
       allPagesKitYamlList.push({
         filePath: file.filePath,
-        content: yaml.stringify(pageKitData),
+        content: yaml.stringify(pagesKitData),
       });
     });
 

@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { parse } from "yaml";
 import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
 import { TeamAgent } from "@aigne/core";
+import { getAllFieldCombinations } from "./sdk.mjs";
 
 /**
  * 加载所有中间格式文件用于组件模式分析
@@ -71,6 +72,8 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       // throw error;
     }
 
+    const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
+
     // 如果组件库有变化， 调度到 generateComponentLibrary，不再执行 analyze-component-patterns 和 save-component-library
     const teamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
@@ -86,6 +89,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       ...input,
       middleFormatFiles,
       componentLibrary: existingLibrary?.componentLibrary,
+      allFieldCombinations,
     });
 
     return {

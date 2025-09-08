@@ -82,147 +82,137 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
       moreContentsComponentMap[comp.content.id] = comp;
     });
 
-    const compositeComponentsParserAgents = compositeComponentsNeedParse.map(
-      (item) => {
-        // 提取相关组件信息
-        const relatedComponentsInfo = item.relatedComponents.map(
-          (componentId) => {
-            const atomicComponent = componentIdMap[componentId];
-            const component = moreContentsComponentMap[componentId];
-            return {
-              componentId,
-              name:
-                atomicComponent?.name || component?.content?.name || "Unknown",
-              summary: atomicComponent?.summary || "无描述",
-            };
-          }
-        );
+    const compositeComponentsParserAgents = compositeComponents.map((item) => {
+      // 提取相关组件信息
+      const relatedComponentsInfo = item.relatedComponents.map(
+        (componentId) => {
+          const atomicComponent = componentIdMap[componentId];
+          const component = moreContentsComponentMap[componentId];
+          return {
+            componentId,
+            name:
+              atomicComponent?.name || component?.content?.name || "Unknown",
+            summary: atomicComponent?.summary || "无描述",
+          };
+        }
+      );
 
-        const getGridSettingsSchema = () =>
-          z.object({
-            x: z.number().describe("水平位置，从0开始，在12列网格中的起始列"),
-            y: z
-              .number()
-              .describe(
-                "垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"
-              ),
-            w: z
-              .number()
-              .describe("宽度，占用的列数，在12列网格系统中，x + w 不能超过12"),
-            h: z
-              .number()
-              .default(1)
-              .describe(
-                "高度，永远固定为1，不可修改，组件实际高度由内容自动计算"
-              ),
-          });
-
-        // 基于 relatedComponents 创建固定的对象结构
-        const desktopGridSettings = {};
-        const mobileGridSettings = {};
-
-        item.relatedComponents.forEach((componentId) => {
-          desktopGridSettings[componentId] = getGridSettingsSchema();
-          mobileGridSettings[componentId] = getGridSettingsSchema();
+      const getGridSettingsSchema = () =>
+        z.object({
+          x: z.number().describe("水平位置，从0开始，在12列网格中的起始列"),
+          y: z
+            .number()
+            .describe(
+              "垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"
+            ),
+          w: z
+            .number()
+            .describe("宽度，占用的列数，在12列网格系统中，x + w 不能超过12"),
+          h: z
+            .number()
+            .default(1)
+            .describe(
+              "高度，永远固定为1，不可修改，组件实际高度由内容自动计算"
+            ),
         });
 
-        // 定义输出 schema - config 对象
-        const gridSettingsConfig =
-          item.relatedComponents.length > 0
-            ? {
-                gridSettings: z.object({
-                  desktop: z.object(desktopGridSettings),
-                  mobile: z.object(mobileGridSettings),
-                }),
-              }
-            : {};
+      // 基于 relatedComponents 创建固定的对象结构
+      const desktopGridSettings = {};
+      const mobileGridSettings = {};
 
-        const configSchema = z.object({
-          ...gridSettingsConfig,
-          gap: z
-            .enum(["none", "small", "normal", "large"])
-            .default("none")
-            .describe("布局间距"),
-          paddingX: z
-            .string()
-            .default("none")
-            .describe(
-              "水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
-            ),
-          paddingY: z
-            .string()
-            .default("none")
-            .describe(
-              "垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
-            ),
-          alignContent: z
-            .enum([
-              "start",
-              "center",
-              "end",
-              "space-between",
-              "space-around",
-              "space-evenly",
-            ])
-            .default("center")
-            .describe("内容对齐方式"),
-          justifyContent: z
-            .enum([
-              "start",
-              "center",
-              "end",
-              "space-between",
-              "space-around",
-              "space-evenly",
-            ])
-            .default("start")
-            .describe("内容对齐方式"),
-          background: z
-            .string()
-            .default("transparent")
-            .describe("背景图片路径或颜色值，默认 transparent")
-            .nullable(),
-          backgroundFullWidth: z
-            .boolean()
-            .default(false)
-            .describe("是否背景全宽，默认 false"),
-          ignoreMaxWidth: z
-            .boolean()
-            .default(false)
-            .describe("是否忽略最大宽度，使得背景最大"),
-          maxWidth: z
-            .string()
-            .default("full")
-            .describe("最大宽度，支持 custom:XXXpx 格式"),
-          border: z.string().default("none").describe("边框样式"),
-          borderRadius: z
-            .enum([
-              "none",
-              "small",
-              "medium",
-              "large",
-              "xl",
-              "rounded",
-              "custom",
-            ])
-            .default("none")
-            .describe(
-              "边框圆角，枚举类型 none|small|medium|large|xl|rounded|custom"
-            ),
-          height: z
-            .string()
-            .default("100%")
-            .describe("组件高度，支持 custom:XXXpx 格式，默认 100%")
-            .nullable(),
-        });
+      item.relatedComponents.forEach((componentId) => {
+        desktopGridSettings[componentId] = getGridSettingsSchema();
+        mobileGridSettings[componentId] = getGridSettingsSchema();
+      });
 
-        return AIAgent.from({
-          name: `compositeComponentsParserAgent-${item.name}`,
-          outputKey: item.componentId,
-          outputSchema: z.object({
-            [item.componentId]: configSchema,
-          }),
-          instructions: `
+      // 定义输出 schema - config 对象
+      const gridSettingsConfig =
+        item.relatedComponents.length > 0
+          ? {
+              gridSettings: z.object({
+                desktop: z.object(desktopGridSettings),
+                mobile: z.object(mobileGridSettings),
+              }),
+            }
+          : {};
+
+      const configSchema = z.object({
+        ...gridSettingsConfig,
+        gap: z
+          .enum(["none", "small", "normal", "large"])
+          .default("none")
+          .describe("布局间距"),
+        paddingX: z
+          .string()
+          .default("none")
+          .describe(
+            "水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+          ),
+        paddingY: z
+          .string()
+          .default("none")
+          .describe(
+            "垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+          ),
+        alignContent: z
+          .enum([
+            "start",
+            "center",
+            "end",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ])
+          .default("center")
+          .describe("内容对齐方式"),
+        justifyContent: z
+          .enum([
+            "start",
+            "center",
+            "end",
+            "space-between",
+            "space-around",
+            "space-evenly",
+          ])
+          .default("start")
+          .describe("内容对齐方式"),
+        background: z
+          .string()
+          .default("transparent")
+          .describe("背景图片路径或颜色值，默认 transparent")
+          .nullable(),
+        backgroundFullWidth: z
+          .boolean()
+          .default(false)
+          .describe("是否背景全宽，默认 false"),
+        ignoreMaxWidth: z
+          .boolean()
+          .default(false)
+          .describe("是否忽略最大宽度，使得背景最大"),
+        maxWidth: z
+          .string()
+          .default("full")
+          .describe("最大宽度，支持 custom:XXXpx 格式"),
+        border: z.string().default("none").describe("边框样式"),
+        borderRadius: z
+          .enum(["none", "small", "medium", "large", "xl", "rounded", "custom"])
+          .default("none")
+          .describe(
+            "边框圆角，枚举类型 none|small|medium|large|xl|rounded|custom"
+          ),
+        height: z
+          .string()
+          .default("100%")
+          .describe("组件高度，支持 custom:XXXpx 格式，默认 100%"),
+      });
+
+      return AIAgent.from({
+        name: `compositeComponentsParserAgent-${item.name}`,
+        outputKey: item.componentId,
+        outputSchema: z.object({
+          [item.componentId]: configSchema,
+        }),
+        instructions: `
 你是 Pages Kit composite 组件 config 生成器，请严格遵守 <rules> 中的规则，生成复合组件的 layout-block 的配置内容。
 
 <composite-component-info>
@@ -283,9 +273,8 @@ ${relatedComponentsInfo
 }
 </examples>
 `,
-        });
-      }
-    );
+      });
+    });
 
     const skills = [
       ...atomicComponentsParserAgents,

@@ -1,4 +1,4 @@
-import { stringify } from "yaml";
+import { stringify, parse } from "yaml";
 import { generateRandomId } from "./sdk.mjs";
 
 export default async function assemblePagesKitYaml(input) {
@@ -10,34 +10,12 @@ export default async function assemblePagesKitYaml(input) {
     locale,
   } = input;
 
-  // 生成唯一ID集合
-  function generateUniqueIds(count) {
-    const ids = new Set();
-    while (ids.size < count) {
-      ids.add(generateRandomId());
-    }
-    return Array.from(ids);
-  }
-
   // 解析中间格式获取meta信息
   function extractMeta(middleFormatContent) {
     try {
-      const yamlData = middleFormatContent;
-      const metaMatch = yamlData.match(/meta:\s*\n([\s\S]*?)(?=\n\w|\n$)/);
+      const yamlData = parse(middleFormatContent);
 
-      if (metaMatch) {
-        const metaSection = metaMatch[1];
-        const title =
-          metaSection.match(/title:\s*['"]?(.*?)['"]?\s*$/m)?.[1] || "";
-        const description =
-          metaSection.match(/description:\s*['"]?(.*?)['"]?\s*$/m)?.[1] || "";
-        const image =
-          metaSection.match(/image:\s*['"]?(.*?)['"]?\s*$/m)?.[1] || "";
-
-        return { title, description, image };
-      }
-
-      return { title: "", description: "", image: "" };
+      return yamlData.meta;
     } catch (error) {
       return { title: "", description: "", image: "" };
     }
@@ -234,13 +212,6 @@ export default async function assemblePagesKitYaml(input) {
       );
     }
 
-    // 估算并生成所需ID（页面ID + sections中的所有ID需求）
-    const estimatedIdCount = Math.max(50, parsedStructuredData.length * 10);
-    const ids = generateUniqueIds(estimatedIdCount);
-    let idIndex = 0;
-
-    const getNextId = () => ids[idIndex++] || generateRandomId();
-
     // 提取meta信息
     const meta = extractMeta(middleFormatContent);
 
@@ -249,7 +220,7 @@ export default async function assemblePagesKitYaml(input) {
 
     // 构建完整的Pages Kit YAML结构
     const pagesKitData = {
-      id: getNextId(),
+      id: generateRandomId(),
       createdAt: now,
       updatedAt: now,
       publishedAt: now,

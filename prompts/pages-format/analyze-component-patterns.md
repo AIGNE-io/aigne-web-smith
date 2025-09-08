@@ -104,7 +104,7 @@
     {
       "name": "CodeBlock",
       "type": "atomic",
-      "summary": "代码块组件，用于展示代码示例",
+      "summary": "代码块组件，用于展示代码示例，组件间上下布局",
       "componentId": "2EHGy3vwxlS9JGr2",
       "fieldCombinations": ["title", "description", "code"],
       "relatedComponents": []

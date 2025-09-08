@@ -112,11 +112,12 @@ parentId: {{parentId}}
 
 <content_guidelines>
 内容生成指导原则：
+
 - 专注于描述页面的语义结构和内容意图
 - 每个 section 的 summary 字段用于说明该区块的作用和目标
 - 内容描述要具体、有吸引力，便于后续技术实现
 - 合理组织信息层次，确保用户能够顺畅获取信息
-</content_guidelines>
+  </content_guidelines>
 
 <common_section>
 下面一些常见的网页 section 内容的要求和特点
@@ -210,7 +211,6 @@ parentId: {{parentId}}
 
 </common_section>
 
-
 {% include "page/detail-example.md" %}
 
 <output_schema>
@@ -224,7 +224,7 @@ meta: # 必需 - 页面元信息
 
 sections: # 必需 - 页面内容区块
   - name: string # 必需 - section 的功能标识，如 hero、features、content 等
-    summary: string # 必需 - section 的概括说明，描述其用途和内容意图，这是最重要的字段
+    summary: string # 必需 - section 的概括说明，描述其用途和内容意图，可以提及一下布局特征，这是最重要的字段
     title: string # 区块标题（可选）
     description: string # 区块描述/副标题（可选）
     image: # 单张图片（可选）

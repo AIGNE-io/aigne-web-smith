@@ -41,6 +41,7 @@ skills:
     default_input:
       stage: structure_planning
   - ./pages-format/component-library-analyzer.yaml
+  - ./pages-format/test-smart-field-mapping.mjs
   - ./save-pages.mjs
 
 input_schema:

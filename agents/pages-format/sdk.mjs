@@ -5,6 +5,8 @@
 import { z } from "zod";
 import { nanoid } from "nanoid";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { parse } from "yaml";
+import _ from "lodash";
 
 // 从 Pages Kit 迁移的核心转换工具
 
@@ -200,7 +202,7 @@ export function propertiesToZodSchema(
     schemaObj[propKey] = schema;
 
     if (isOptional) {
-      // WebSmith 现在不太需要这个逻辑，会导致 genimi
+      // WebSmith 现在不太需要这个逻辑，会导致 gemini
       // array 类型生成的 jsonschema 存在 anyof ，LLM 格式校验会报错
       // if (propType !== "array") {
       //   schemaObj[propKey] = schemaObj[propKey].nullable();
@@ -220,4 +222,138 @@ export function propertiesToZodSchema(
   });
 
   return z.object(schemaObj);
+}
+
+/**
+ * 从中间格式文件中提取每个section的fieldCombinations
+ * 基于现有的字段提取规则：只提取非数组、非元数据字段
+ * @param {Object|string} middleFormatContent - 中间格式文件内容（对象或YAML字符串）
+ * @returns {Array} 每个section的字段组合信息
+ */
+export function extractFieldCombinations(middleFormatContent) {
+  // 如果是字符串，先解析为对象
+  let parsedContent = middleFormatContent;
+  if (typeof middleFormatContent === "string") {
+    try {
+      // 假设是YAML格式，需要在调用处先解析
+      parsedContent = parse(middleFormatContent);
+    } catch (error) {
+      console.error("parse middle format content error:", error.message);
+      return [];
+    }
+  }
+
+  if (!parsedContent || !parsedContent.sections) {
+    console.warn("middle format content missing sections field");
+    return [];
+  }
+
+  const metaFields = ["name", "summary"];
+  const results = [];
+
+  parsedContent.sections.forEach((section, index) => {
+    // 提取字段，使用路径格式表示嵌套字段
+    function extractContentFields(obj, prefix = "") {
+      const fields = new Set();
+
+      Object.keys(obj).forEach((key) => {
+        if (metaFields.includes(key)) return;
+
+        const currentPath = prefix ? `${prefix}.${key}` : key;
+        const value = obj[key];
+
+        if (Array.isArray(value)) {
+          // 数组字段：只包含数组字段本身的路径
+          fields.add(currentPath);
+        } else if (typeof value === "object" && value !== null && !value.url) {
+          // 对象字段：递归提取子字段，使用路径格式
+          const subFields = extractContentFields(value, currentPath);
+          subFields.forEach((field) => fields.add(field));
+        } else {
+          // 普通字段（string、number、boolean等）
+          fields.add(currentPath);
+        }
+      });
+
+      return Array.from(fields);
+    }
+
+    const fieldCombinations = extractContentFields(section).sort();
+
+    // 收集数组字段信息（用于参考，但不作为主要fieldCombinations）
+    const arrayFields = [];
+    Object.keys(section).forEach((key) => {
+      if (metaFields.includes(key)) return;
+      const value = section[key];
+      if (Array.isArray(value)) {
+        arrayFields.push({
+          fieldName: key,
+          // 分析数组中item的字段类型，使用统一的字段提取逻辑
+          fieldCombinationsList: value.map((item) =>
+            typeof item === "object" && item !== null
+              ? extractContentFields(item).sort()
+              : []
+          ),
+        });
+      }
+    });
+
+    results.push({
+      sectionIndex: index,
+      sectionName: section.name,
+      summary: section.summary || "",
+      // 主要的字段组合（用于组件匹配）
+      fieldCombinations,
+      // 数组字段信息（用于参考）
+      arrayFields,
+      // 原始section引用
+      originalSection: section,
+    });
+  });
+
+  return results;
+}
+
+/**
+ * 从多个中间格式文件中获取所有唯一的fieldCombinations
+ * @param {Array} middleFormatFiles - 中间格式文件数组 [{content: string|object}, ...]
+ * @returns {Array} 去重后的所有字段组合数组
+ */
+export function getAllFieldCombinations(
+  middleFormatFiles,
+  { includeArrayFields = true } = {}
+) {
+  if (!Array.isArray(middleFormatFiles)) {
+    console.warn("middleFormatFiles should be an array");
+    return [];
+  }
+
+  const allFields = [];
+
+  // 处理每个文件
+  middleFormatFiles.forEach((file) => {
+    const sectionsAnalysis = extractFieldCombinations(file.content);
+
+    sectionsAnalysis.forEach((sectionAnalysis) => {
+      // 收集每个section的字段组合
+      if (
+        sectionAnalysis.fieldCombinations &&
+        sectionAnalysis.fieldCombinations.length > 0
+      ) {
+        allFields.push(sectionAnalysis.fieldCombinations);
+      }
+
+      // 收集数组字段中的字段组合
+      if (includeArrayFields) {
+        sectionAnalysis.arrayFields?.forEach((arrayField) => {
+          arrayField.fieldCombinationsList?.forEach((itemFields) => {
+            allFields.push(itemFields);
+          });
+        });
+      }
+    });
+  });
+
+  // 使用lodash深度去重（基于数组内容而不是引用）并排序
+  return _.uniqWith(allFields, _.isEqual).sort();
 }

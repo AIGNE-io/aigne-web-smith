@@ -180,9 +180,6 @@ function createComponentInstance(section, component, componentLibrary = []) {
       }, obj);
     }
 
-    console.warn("模板数据:", section);
-    console.warn("模板定义:", JSON.stringify(dataSourceTemplate, null, 2));
-
     try {
       const dataSource = processTemplate(dataSourceTemplate, section);
       console.log(`    ✅ DataSource 生成成功`);

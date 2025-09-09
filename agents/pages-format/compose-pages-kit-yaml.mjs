@@ -6,6 +6,13 @@ import { getFileName } from "../../utils/utils.mjs";
 import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
 import _ from "lodash";
+import { readFileSync } from "node:fs";
+
+const DEFAULT_FLAG = true;
+const DEFAULT_TEST_FILE = readFileSync(
+  "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/cli-reference-create.zh.yaml",
+  "utf-8"
+);
 
 function convertToSection({
   componentInstance,
@@ -132,11 +139,37 @@ function createComponentInstance(section, component, componentLibrary = []) {
 
     // 2. 使用 lodash template 处理数据
     console.log(`    🔨 使用模板处理 section 数据...`);
-    const templateString = JSON.stringify(dataSourceTemplate);
-    const compiled = _.template(templateString);
+
+    // 安全的模板替换函数，只处理 <%= xxx %> 模式
+    function processTemplate(obj, data) {
+      if (typeof obj === "string") {
+        return obj.replace(/<%=\s*([^%]+)\s*%>/g, (match, key) => {
+          const value = getNestedValue(data, key.trim());
+          return value !== undefined ? value : ""; // 如果找不到值，返回空字符串
+        });
+      } else if (Array.isArray(obj)) {
+        return obj.map((item) => processTemplate(item, data));
+      } else if (obj && typeof obj === "object") {
+        const result = {};
+        for (const [key, value] of Object.entries(obj)) {
+          result[key] = processTemplate(value, data);
+        }
+        return result;
+      }
+      return obj;
+    }
+
+    // 获取嵌套对象的值，支持 a.b.c 格式
+    function getNestedValue(obj, path) {
+      return path.split(".").reduce((current, key) => {
+        return current && current[key] !== undefined ? current[key] : undefined;
+      }, obj);
+    }
+
+    console.warn(2222222, section, dataSourceTemplate);
 
     try {
-      const dataSource = JSON.parse(compiled(section));
+      const dataSource = processTemplate(dataSourceTemplate, section);
       console.log(`    ✅ DataSource 生成成功`);
 
       return {
@@ -509,7 +542,16 @@ export default async function composePagesKitYaml(input) {
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     console.log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    [...middleFormatFiles].forEach((file, index) => {
+    [
+      ...(DEFAULT_FLAG
+        ? [
+            {
+              filePath: "test.yaml",
+              content: DEFAULT_TEST_FILE,
+            },
+          ]
+        : middleFormatFiles),
+    ].forEach((file, index) => {
       const middleFormatContent =
         typeof file.content === "string" ? parse(file.content) : file.content;
 

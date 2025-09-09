@@ -85,7 +85,7 @@ export async function uploadPagesKitYaml({
   locale = "en",
   projectId,
   appUrl,
-  force = false,
+  force = true,
 }) {
   try {
     // 使用现有的鉴权逻辑获取访问令牌
@@ -322,7 +322,7 @@ export default async function publishPages(
             projectId,
             appUrl,
             accessToken,
-            force: false,
+            force: true,
             pageTemplateData,
             routeData,
             // dataSourceData 暂时不需要，可以后续添加

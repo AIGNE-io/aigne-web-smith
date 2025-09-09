@@ -53,8 +53,8 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     // 检查是否存在缓存文件
     const componentLibraryPath = join(outputDir, "component-library.yaml");
 
-    let existingLibraryShouldRegenerate = false;
-    let existingLibraryShouldParsed = false;
+    let existingLibraryShouldRegenerate = true;
+    let existingLibraryShouldParsed = true;
     try {
       await access(componentLibraryPath);
 

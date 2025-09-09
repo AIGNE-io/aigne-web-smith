@@ -132,7 +132,8 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
         item.fieldCombinations.forEach((fieldCombination) => {
           const [key, index] = fieldCombination.split(".");
           if (Number.isNaN(Number(index))) return;
-          desktopGridSettings[`${key}.${index}`];
+          desktopGridSettings[`${key}.${index}`] = getGridSettingsSchema();
+          mobileGridSettings[`${key}.${index}`] = getGridSettingsSchema();
         });
 
         // 定义输出 schema - config 对象

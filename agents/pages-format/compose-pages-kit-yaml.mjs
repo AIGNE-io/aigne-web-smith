@@ -6,7 +6,11 @@ import { getFileName } from "../../utils/utils.mjs";
 import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 import _ from "lodash";
 
-function convertToSection({ componentInstance }) {
+function convertToSection({
+  componentInstance,
+  arrayComponentInstances,
+  locale,
+}) {
   if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
 
@@ -22,17 +26,40 @@ function convertToSection({ componentInstance }) {
   } else if (componentInstance?.type === "composite") {
     const { config, id, relatedInstances, name } = componentInstance;
 
-    const sections = relatedInstances.map(({ instance }) => {
-      return convertToSection({ componentInstance: instance });
+    const sections =
+      relatedInstances?.map(({ instance }) => {
+        return convertToSection({ componentInstance: instance, locale });
+      }) || [];
+
+    const oldKeyToIdMap = {};
+
+    const arraySections =
+      arrayComponentInstances?.map(({ fieldName, itemIndex, instance }) => {
+        const oldKey = `${fieldName}.${itemIndex}`;
+        const section = convertToSection({
+          componentInstance: instance,
+          locale,
+        });
+        oldKeyToIdMap[oldKey] = section.id;
+
+        return section;
+      }) || [];
+
+    const allSections = [...sections, ...arraySections];
+
+    let newConfig = JSON.stringify(config);
+
+    Object.keys(oldKeyToIdMap).forEach((oldKey) => {
+      newConfig = newConfig.replaceAll(oldKey, oldKeyToIdMap[oldKey]);
     });
 
     return {
       id,
       component: "layout-block",
       name,
-      config: config,
-      sections: _.keyBy(sections, "id"),
-      sectionIds: sections.map(({ id }) => id),
+      config: JSON.parse(newConfig),
+      sections: _.keyBy(allSections, "id"),
+      sectionIds: allSections.map(({ id }) => id),
     };
   }
 }
@@ -327,94 +354,95 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
             );
 
             // 为数组中的每个item匹配组件并创建实例
-            // const arrayItemInstances = fieldCombinationsList.map(
-            //   (itemFieldCombinations, itemIndex) => {
-            //     console.log(
-            //       `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
-            //         itemFieldCombinations
-            //       )}`
-            //     );
+            const arrayItemInstances = fieldCombinationsList.map(
+              (itemFieldCombinations, itemIndex) => {
+                console.log(
+                  `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
+                    itemFieldCombinations
+                  )}`
+                );
 
-            //     // 匹配组件
-            //     const itemComponent = componentLibrary.find((component) => {
-            //       const componentFields = component.fieldCombinations || [];
-            //       return _.isEqual(componentFields, itemFieldCombinations);
-            //     });
+                // 匹配组件
+                const itemComponent = componentLibrary.find((component) => {
+                  const componentFields = component.fieldCombinations || [];
+                  return _.isEqual(componentFields, itemFieldCombinations);
+                });
 
-            //     if (itemComponent) {
-            //       console.log(
-            //         `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
-            //       );
+                if (itemComponent) {
+                  console.log(
+                    `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
+                  );
 
-            //       // 获取数组中对应的实际数据
-            //       const itemData = section[fieldName]?.[itemIndex];
-            //       if (itemData) {
-            //         const itemInstance = createComponentInstance(
-            //           itemData,
-            //           itemComponent,
-            //           componentLibrary
-            //         );
-            //         return {
-            //           itemIndex,
-            //           component: itemComponent,
-            //           instance: itemInstance,
-            //           matched: true,
-            //         };
-            //       } else {
-            //         console.log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
-            //         return {
-            //           itemIndex,
-            //           component: itemComponent,
-            //           instance: null,
-            //           matched: false,
-            //         };
-            //       }
-            //     } else {
-            //       console.log(`        ❌ 未找到匹配的组件`);
-            //       return {
-            //         itemIndex,
-            //         component: null,
-            //         instance: null,
-            //         matched: false,
-            //       };
-            //     }
-            //   }
-            // );
+                  // 获取数组中对应的实际数据
+                  const itemData = section[fieldName]?.[itemIndex];
 
-            // // 创建数组字段的容器组件
-            // const matchedItems = arrayItemInstances.filter(
-            //   (item) => item.matched
-            // ).length;
-            // console.log(
-            //   `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
-            // );
+                  if (itemData) {
+                    const itemInstance = createComponentInstance(
+                      itemData,
+                      itemComponent,
+                      componentLibrary
+                    );
+                    return {
+                      itemIndex,
+                      component: itemComponent,
+                      instance: itemInstance,
+                      matched: true,
+                    };
+                  } else {
+                    console.log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
+                    return {
+                      itemIndex,
+                      component: itemComponent,
+                      instance: null,
+                      matched: false,
+                    };
+                  }
+                } else {
+                  console.log(`        ❌ 未找到匹配的组件`);
+                  return {
+                    itemIndex,
+                    component: null,
+                    instance: null,
+                    matched: false,
+                  };
+                }
+              }
+            );
 
-            // // 收集数组字段的组件和实例
-            // const fieldComponents = [];
-            // const fieldInstances = [];
+            // 创建数组字段的容器组件
+            const matchedItems = arrayItemInstances.filter(
+              (item) => item.matched
+            ).length;
+            console.log(
+              `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
+            );
 
-            // arrayItemInstances.forEach((result) => {
-            //   if (result.matched && result.component) {
-            //     fieldComponents.push(result.component);
-            //   }
-            //   if (result.matched && result.instance) {
-            //     fieldInstances.push({
-            //       fieldName,
-            //       itemIndex: result.itemIndex,
-            //       component: result.component,
-            //       instance: result.instance,
-            //     });
-            //   }
-            // });
+            // 收集数组字段的组件和实例
+            const fieldComponents = [];
+            const fieldInstances = [];
 
-            // // 去重组件（同一类型的组件只需要记录一次）
-            // const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
-            // arrayComponents.push(...uniqueComponents);
-            // arrayComponentInstances.push(...fieldInstances);
+            arrayItemInstances.forEach((result) => {
+              if (result.matched && result.component) {
+                fieldComponents.push(result.component);
+              }
+              if (result.matched && result.instance) {
+                fieldInstances.push({
+                  fieldName,
+                  itemIndex: result.itemIndex,
+                  component: result.component,
+                  instance: result.instance,
+                });
+              }
+            });
 
-            // console.log(
-            //   `      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`
-            // );
+            // 去重组件（同一类型的组件只需要记录一次）
+            const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
+            arrayComponents.push(...uniqueComponents);
+            arrayComponentInstances.push(...fieldInstances);
+
+            console.log(
+              `      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`
+            );
           });
         }
 
@@ -468,7 +496,7 @@ export default async function composePagesKitYaml(input) {
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     console.log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    [middleFormatFiles[0]].forEach((file, index) => {
+    [...middleFormatFiles].forEach((file, index) => {
       const middleFormatContent =
         typeof file.content === "string" ? parse(file.content) : file.content;
 
@@ -500,26 +528,35 @@ export default async function composePagesKitYaml(input) {
             ...pagesKitData.sections,
             [componentInstance.id]: convertToSection({
               componentInstance,
+              arrayComponentInstances,
+              locale,
             }),
           };
+
           pagesKitData.sectionIds.push(componentInstance.id);
 
-          pagesKitData.dataSource = {
-            ...pagesKitData.dataSource,
-            [componentInstance.id]: {
-              [locale]: {
-                properties: componentInstance.dataSource,
-              },
-            },
-          };
-        }
+          const allInstances = [
+            componentInstance,
+            ...(componentInstance?.relatedInstances || []),
+            ...(arrayComponentInstances || []),
+          ];
 
-        if (arrayComponentInstances.length > 0) {
-          // pagesKitData.sections.push(...arrayComponentInstances);
+          allInstances.forEach(({ instance }) => {
+            if (instance?.dataSource) {
+              pagesKitData.dataSource = {
+                ...pagesKitData.dataSource,
+                [instance.id]: {
+                  [locale]: {
+                    properties: instance.dataSource,
+                  },
+                },
+              };
+            }
+          });
         }
       });
 
-      console.warn(22222, JSON.stringify(pagesKitData));
+      // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
 
       allPagesKitYamlList.push({
         filePath: file.filePath,

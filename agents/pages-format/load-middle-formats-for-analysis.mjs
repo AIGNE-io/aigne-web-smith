@@ -52,6 +52,9 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     let existingLibrary;
     // 检查是否存在缓存文件
     const componentLibraryPath = join(outputDir, "component-library.yaml");
+
+    let existingLibraryShouldRegenerate = false;
+    let existingLibraryShouldParsed = false;
     try {
       await access(componentLibraryPath);
 
@@ -59,18 +62,19 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       const existingContent = await readFile(componentLibraryPath, "utf8");
       existingLibrary = parse(existingContent);
 
-      const canUseExistingLibrary =
-        existingLibrary &&
-        existingLibrary.hash === currentHash &&
-        // 包括里面的 dataSourceTemplate 和 configTemplate
-        existingLibrary.componentLibrary?.every((item) => {
+      existingLibraryShouldRegenerate =
+        !existingLibrary || existingLibrary?.hash !== currentHash;
+
+      existingLibraryShouldParsed = !existingLibrary?.componentLibrary?.every(
+        (item) => {
           return (
             (item.type === "atomic" && item.dataSourceTemplate) ||
             (item.type === "composite" && item.configTemplate)
           );
-        });
+        }
+      );
 
-      if (canUseExistingLibrary) {
+      if (!existingLibraryShouldRegenerate && !existingLibraryShouldParsed) {
         return {
           middleFormatFiles,
           componentLibrary: existingLibrary.componentLibrary,
@@ -87,9 +91,11 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
     const analyzeTeamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
       skills: [
-        options.context.agents["analyzeComponentPatterns"],
-        options.context.agents["saveComponentLibrary"],
-      ],
+        existingLibraryShouldRegenerate &&
+          options.context.agents["analyzeComponentPatterns"],
+        existingLibraryShouldParsed &&
+          options.context.agents["saveComponentLibrary"],
+      ].filter(Boolean),
     });
 
     const analyzeResult = await options.context.invoke(analyzeTeamAgent, {

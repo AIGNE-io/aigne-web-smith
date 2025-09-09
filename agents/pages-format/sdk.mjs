@@ -264,8 +264,11 @@ export function extractFieldCombinations(middleFormatContent) {
 
         if (Array.isArray(value)) {
           // 数组字段：只包含数组字段本身的路径
-          fields.add(currentPath);
-        } else if (typeof value === "object" && value !== null && !value.url) {
+          // fields.add(`${currentPath}`);
+          value.forEach((item, index) => {
+            fields.add(`${currentPath}.${index}`);
+          });
+        } else if (typeof value === "object" && value !== null) {
           // 对象字段：递归提取子字段，使用路径格式
           const subFields = extractContentFields(value, currentPath);
           subFields.forEach((field) => fields.add(field));

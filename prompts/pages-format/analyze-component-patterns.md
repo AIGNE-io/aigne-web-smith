@@ -82,7 +82,9 @@
   - 一对一映射原则：每个 <all-field-combinations> 中的字段组合数组对应生成一个组件的 fieldCombinations
   - 原子组件优先：优先根据 <component-list> 生成原子组件，记录真实的组件 ID
   - 复合组件补充：当字段组合复杂时生成复合组件，使用 `PLACEHOLDER_RANDOM_ID` 作为标识
-  - 不允许遗漏：确保 <all-field-combinations> 中的所有模式都有对应的组件定义
+  - 不允许遗漏
+    - 确保 <all-field-combinations> 中的所有模式都有对应的组件定义
+    - 确保 <component-list> 中的每个组件都有对应的组件定义
   - 精确匹配：生成的组件的 fieldCombinations 必须与 <all-field-combinations> 中的某个 item 完全一致
   - 数组字段不记录在组件库中，交给实际处理时的 layout-block 处理
   - 输出统一的数组格式组件库定义
@@ -159,7 +161,7 @@
 
 验证要求：
 
-- 生成完成后，必须确认生成的组件数量等于 allFieldCombinations 的长度
+- 生成完成后，必须确认生成的组件数量大于或等于 allFieldCombinations 的长度
 - 每个 allFieldCombinations[i] 都能在生成的组件中找到完全匹配的 fieldCombinations
 
 </requirements>

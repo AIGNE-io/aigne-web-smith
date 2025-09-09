@@ -257,14 +257,53 @@ export default async function publishPages(
     let sidebarContent = null;
     try {
       sidebarContent = await fs.readFile(sidebarPath, "utf-8");
+
+      sidebarContent = parse(sidebarContent);
     } catch {
       // sidebar 文件不存在时忽略
     }
 
+    // 从 sidebar 中提取所有路径的递归函数
+    function extractAllPaths(sidebarItems) {
+      const paths = [];
+      if (!Array.isArray(sidebarItems)) return paths;
+
+      sidebarItems.forEach((item) => {
+        if (item.path) {
+          // 移除前导斜杠，因为文件名不需要斜杠
+          const cleanPath = item.path.startsWith("/")
+            ? item.path.slice(1)
+            : item.path;
+          paths.push({
+            path: item.path,
+            cleanPath,
+            title: item.title,
+          });
+        }
+        // 递归处理子项
+        if (item.children && Array.isArray(item.children)) {
+          paths.push(...extractAllPaths(item.children));
+        }
+      });
+
+      return paths;
+    }
+
+    // 提取所有 sidebar 路径
+    const sidebarPaths = sidebarContent
+      ? extractAllPaths(sidebarContent.sidebar || sidebarContent)
+      : [];
+    console.log(`📋 从 sidebar 中提取到 ${sidebarPaths.length} 个路径`);
+    sidebarPaths.forEach(({ path, title }) => {
+      console.log(`  - ${path} (${title})`);
+    });
+
     // 读取 pagesDir 中的所有 .yaml 文件
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
-      (file) => file.endsWith(".yaml") || file.endsWith(".yml")
+      (file) =>
+        (file.endsWith(".yaml") || file.endsWith(".yml")) &&
+        file !== "_sidebar.yaml"
     );
 
     // 使用 p-map 并发处理页面文件，限制并发数为4
@@ -302,14 +341,29 @@ export default async function publishPages(
           },
         };
 
+        // 查找对应的 sidebar 路径信息
+        const fileBaseName = basename(file, ".yaml");
+        const matchingSidebarItem = sidebarPaths.find(
+          (item) =>
+            item.cleanPath === fileBaseName ||
+            item.cleanPath.endsWith(`/${fileBaseName}`) ||
+            item.cleanPath.replace(/\//g, "-") === fileBaseName
+        );
+
         // 构造路由数据
         const routeData = {
-          path: `/${basename(file, ".yaml")}`,
-          displayName: `${projectInfo.name} - ${basename(file, ".yaml")}`,
+          path: matchingSidebarItem
+            ? matchingSidebarItem.path
+            : `/${fileBaseName}`,
+          displayName: matchingSidebarItem
+            ? `${projectInfo.name} - ${matchingSidebarItem.title}`
+            : `${projectInfo.name} - ${fileBaseName}`,
           description: projectInfo.description,
           meta: {
             ...boardMeta,
             sourceFile: file,
+            sidebarTitle: matchingSidebarItem?.title,
+            sidebarPath: matchingSidebarItem?.path,
           },
         };
 

@@ -2,6 +2,7 @@ import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as yamlStringify } from "yaml";
 import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
+import { PAGES_OUTPUT_DIR } from "../utils/constants.mjs";
 
 /**
  * @param {Object} params
@@ -29,7 +30,7 @@ export default async function savePages({
   // Generate _sidebar.yaml
   try {
     const sidebar = generateSidebarYaml(structurePlan);
-    const sidebarPath = join(pagesDir, "_sidebar.yaml");
+    const sidebarPath = join(pagesDir, PAGES_OUTPUT_DIR, "_sidebar.yaml");
     await writeFile(sidebarPath, sidebar, "utf8");
   } catch (err) {
     console.error("Failed to save _sidebar.yaml:", err.message);
@@ -200,7 +201,9 @@ function generateSidebarYaml(structurePlan) {
     for (const key of Object.keys(node)) {
       const item = node[key];
       const fullSegments = [...parentSegments, key];
-      const flatFile = `${fullSegments.join("-")}.yaml`;
+      // const flatFile = `${fullSegments.join("-")}.yaml`;
+
+      const flatFile = fullSegments.join("/");
       if (item.__title) {
         const sidebarItem = {
           title: item.__title,

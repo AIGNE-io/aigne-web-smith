@@ -80,8 +80,7 @@
 - 组件库生成（基于 <all-field-combinations> 完整覆盖）
   - 必须覆盖所有字段组合： <all-field-combinations> 中的每个 item 都必须有对应的组件
   - 一对一映射原则：每个 <all-field-combinations> 中的字段组合数组对应生成一个组件的 fieldCombinations
-  - 原子组件优先：优先根据 <component-list> 生成原子组件，记录真实的组件 ID
-  - 复合组件补充：当字段组合复杂时生成复合组件，使用 `PLACEHOLDER_RANDOM_ID` 作为标识
+  - 原子组件优先：根据 <component-list> 生成原子组件，记录真实的组件 ID
   - 不允许遗漏
     - 确保 <all-field-combinations> 中的所有模式都有对应的组件定义
     - 确保 <component-list> 中的每个组件都有对应的组件定义
@@ -125,7 +124,7 @@
       "name": "HeroSection",
       "type": "composite",
       "summary": "英雄区组件，用于展示标题、描述和行动按钮，是个复合组件",
-      "componentId": "PLACEHOLDER_RANDOM_ID",
+      "componentId": "tkgmq93kl01-h0ql",
       "fieldCombinations": ["title", "description", "action"],
       "relatedComponents": ["xoHu0J44322kDYc-", "a44r0SiGV9AFn2Fj"]
     }
@@ -161,7 +160,7 @@
 
 验证要求：
 
-- 生成完成后，必须确认生成的组件数量大于或等于 allFieldCombinations 的长度
+- 生成完成后，必须确认生成的组件数量等于 allFieldCombinations 和 componentList 的长度之和
 - 每个 allFieldCombinations[i] 都能在生成的组件中找到完全匹配的 fieldCombinations
 
 </requirements>

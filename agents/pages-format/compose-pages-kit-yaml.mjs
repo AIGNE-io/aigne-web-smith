@@ -301,94 +301,94 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
             );
 
             // 为数组中的每个item匹配组件并创建实例
-            const arrayItemInstances = fieldCombinationsList.map(
-              (itemFieldCombinations, itemIndex) => {
-                console.log(
-                  `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
-                    itemFieldCombinations
-                  )}`
-                );
+            // const arrayItemInstances = fieldCombinationsList.map(
+            //   (itemFieldCombinations, itemIndex) => {
+            //     console.log(
+            //       `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
+            //         itemFieldCombinations
+            //       )}`
+            //     );
 
-                // 匹配组件
-                const itemComponent = componentLibrary.find((component) => {
-                  const componentFields = component.fieldCombinations || [];
-                  return _.isEqual(componentFields, itemFieldCombinations);
-                });
+            //     // 匹配组件
+            //     const itemComponent = componentLibrary.find((component) => {
+            //       const componentFields = component.fieldCombinations || [];
+            //       return _.isEqual(componentFields, itemFieldCombinations);
+            //     });
 
-                if (itemComponent) {
-                  console.log(
-                    `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
-                  );
+            //     if (itemComponent) {
+            //       console.log(
+            //         `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
+            //       );
 
-                  // 获取数组中对应的实际数据
-                  const itemData = section[fieldName]?.[itemIndex];
-                  if (itemData) {
-                    const itemInstance = createComponentInstance(
-                      itemData,
-                      itemComponent,
-                      componentLibrary
-                    );
-                    return {
-                      itemIndex,
-                      component: itemComponent,
-                      instance: itemInstance,
-                      matched: true,
-                    };
-                  } else {
-                    console.log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
-                    return {
-                      itemIndex,
-                      component: itemComponent,
-                      instance: null,
-                      matched: false,
-                    };
-                  }
-                } else {
-                  console.log(`        ❌ 未找到匹配的组件`);
-                  return {
-                    itemIndex,
-                    component: null,
-                    instance: null,
-                    matched: false,
-                  };
-                }
-              }
-            );
+            //       // 获取数组中对应的实际数据
+            //       const itemData = section[fieldName]?.[itemIndex];
+            //       if (itemData) {
+            //         const itemInstance = createComponentInstance(
+            //           itemData,
+            //           itemComponent,
+            //           componentLibrary
+            //         );
+            //         return {
+            //           itemIndex,
+            //           component: itemComponent,
+            //           instance: itemInstance,
+            //           matched: true,
+            //         };
+            //       } else {
+            //         console.log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
+            //         return {
+            //           itemIndex,
+            //           component: itemComponent,
+            //           instance: null,
+            //           matched: false,
+            //         };
+            //       }
+            //     } else {
+            //       console.log(`        ❌ 未找到匹配的组件`);
+            //       return {
+            //         itemIndex,
+            //         component: null,
+            //         instance: null,
+            //         matched: false,
+            //       };
+            //     }
+            //   }
+            // );
 
-            // 创建数组字段的容器组件
-            const matchedItems = arrayItemInstances.filter(
-              (item) => item.matched
-            ).length;
-            console.log(
-              `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
-            );
+            // // 创建数组字段的容器组件
+            // const matchedItems = arrayItemInstances.filter(
+            //   (item) => item.matched
+            // ).length;
+            // console.log(
+            //   `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
+            // );
 
-            // 收集数组字段的组件和实例
-            const fieldComponents = [];
-            const fieldInstances = [];
+            // // 收集数组字段的组件和实例
+            // const fieldComponents = [];
+            // const fieldInstances = [];
 
-            arrayItemInstances.forEach((result) => {
-              if (result.matched && result.component) {
-                fieldComponents.push(result.component);
-              }
-              if (result.matched && result.instance) {
-                fieldInstances.push({
-                  fieldName,
-                  itemIndex: result.itemIndex,
-                  component: result.component,
-                  instance: result.instance,
-                });
-              }
-            });
+            // arrayItemInstances.forEach((result) => {
+            //   if (result.matched && result.component) {
+            //     fieldComponents.push(result.component);
+            //   }
+            //   if (result.matched && result.instance) {
+            //     fieldInstances.push({
+            //       fieldName,
+            //       itemIndex: result.itemIndex,
+            //       component: result.component,
+            //       instance: result.instance,
+            //     });
+            //   }
+            // });
 
-            // 去重组件（同一类型的组件只需要记录一次）
-            const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
-            arrayComponents.push(...uniqueComponents);
-            arrayComponentInstances.push(...fieldInstances);
+            // // 去重组件（同一类型的组件只需要记录一次）
+            // const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
+            // arrayComponents.push(...uniqueComponents);
+            // arrayComponentInstances.push(...fieldInstances);
 
-            console.log(
-              `      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`
-            );
+            // console.log(
+            //   `      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`
+            // );
           });
         }
 
@@ -455,7 +455,7 @@ export default async function composePagesKitYaml(input) {
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     console.log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    middleFormatFiles.forEach((file, index) => {
+    [middleFormatFiles[0]].forEach((file, index) => {
       const middleFormatContent =
         typeof file.content === "string" ? parse(file.content) : file.content;
 
@@ -510,7 +510,7 @@ export default async function composePagesKitYaml(input) {
 
       allPagesKitYamlList.push({
         filePath: file.filePath,
-        content: yaml.stringify(pagesKitData),
+        content: stringify(pagesKitData),
       });
     });
 

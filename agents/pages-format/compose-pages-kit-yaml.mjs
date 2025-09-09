@@ -153,21 +153,21 @@ function createComponentInstance(section, component, componentLibrary = []) {
 
     // 2. 为每个 relatedComponent 生成完整的实例
     const relatedInstances = relatedComponents.map(
-      (relatedComponentId, index) => {
+      ({ componentId, fieldCombinations }, index) => {
         console.log(
-          `      🔍 处理 Related component ${index + 1}: ${relatedComponentId}`
+          `      🔍 处理 Related component ${index + 1}: ${componentId}`
         );
 
         // 查找组件库中对应的组件
         const relatedComponent = componentLibrary.find(
-          (comp) => comp.componentId === relatedComponentId
+          (comp) => comp.componentId === componentId
         );
 
         if (!relatedComponent) {
-          console.log(`      ❌ 未找到组件: ${relatedComponentId}`);
+          console.log(`      ❌ 未找到组件: ${componentId}`);
           const fallbackInstanceId = generateRandomId();
           return {
-            originalComponentId: relatedComponentId,
+            originalComponentId: componentId,
             instanceId: fallbackInstanceId,
             instance: null,
           };
@@ -177,15 +177,41 @@ function createComponentInstance(section, component, componentLibrary = []) {
           `      ✅ 找到组件: ${relatedComponent.name} (${relatedComponent.type})`
         );
 
+        const childrenSection = _.pick(section, fieldCombinations);
+
+        // 去掉顶层键，提取内部属性
+        const flattenedChildren = (() => {
+          const entries = Object.entries(childrenSection);
+          // 如果所有值都是对象，则展开这些对象的属性
+          if (
+            entries.length > 0 &&
+            entries.every(
+              ([key, value]) =>
+                typeof value === "object" &&
+                value !== null &&
+                !Array.isArray(value)
+            )
+          ) {
+            return entries.reduce((acc, [key, value]) => {
+              return { ...acc, ...value };
+            }, {});
+          }
+          // 否则返回原对象
+          return childrenSection;
+        })();
+
         // 递归创建子组件实例，使用相同的 section 数据
         const childInstance = createComponentInstance(
-          section,
+          {
+            ...section,
+            ...flattenedChildren,
+          },
           relatedComponent,
           componentLibrary
         );
 
         return {
-          originalComponentId: relatedComponentId,
+          originalComponentId: componentId,
           instanceId: childInstance.id, // 使用子实例的ID保证一致性
           instance: childInstance,
           section,
@@ -391,19 +417,6 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
             // );
           });
         }
-
-        console.warn(
-          222222222,
-          JSON.stringify({
-            section,
-            component: matchedComponent,
-            componentInstance,
-            arrayComponents,
-            arrayComponentInstances,
-            fieldCombinations,
-            matched: true,
-          })
-        );
 
         return {
           section,

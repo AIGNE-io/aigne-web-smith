@@ -126,7 +126,16 @@
       "summary": "英雄区组件，用于展示标题、描述和行动按钮，是个复合组件",
       "componentId": "tkgmq93kl01-h0ql",
       "fieldCombinations": ["title", "description", "action"],
-      "relatedComponents": ["xoHu0J44322kDYc-", "a44r0SiGV9AFn2Fj"]
+      "relatedComponents": [
+        {
+          "componentId": "xoHu0J44322kDYc-",
+          "fieldCombinations": ["title", "description"]
+        },
+        {
+          "componentId": "a44r0SiGV9AFn2Fj",
+          "fieldCombinations": ["action"]
+        }
+      ]
     }
   ]
 }
@@ -142,7 +151,7 @@
 - fieldCombinations 是一维数组，只包含字符串类型的字段名
 - 数组字段（list、items、cards 等）不记录在 fieldCombinations 中
 - 每个组件只定义一个最佳的字符串字段组合，避免选择歧义
-- relatedComponents 为子组件 ID 的字符串数组
+- relatedComponents 为子组件 ID 和对应字段组合的数组
 - 组件库保持纯净，不包含任何数组字段的处理逻辑
 
 </output_format>

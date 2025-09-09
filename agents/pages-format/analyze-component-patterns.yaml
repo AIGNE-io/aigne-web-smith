@@ -61,9 +61,17 @@ output_schema:
             type: array
             description: 相关组件 ID（仅复合组件需要），如果是原子组件则为 [] 空数组
             items:
-              type: string
-              description: 子组件的 ID
-            default: []
+              type: object
+              properties:
+                componentId:
+                  type: string
+                  description: 子组件的 ID
+                fieldCombinations:
+                  type: array
+                  description: 子组件能使用的字段组合
+                  items:
+                    type: string
+              default: []
         required:
           - name
           - type

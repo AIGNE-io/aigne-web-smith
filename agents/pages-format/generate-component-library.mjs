@@ -86,7 +86,8 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
       (item) => {
         // 提取相关组件信息
         const relatedComponentsInfo = item.relatedComponents.map(
-          (componentId) => {
+          (relatedComponentItem) => {
+            const { componentId, fieldCombinations } = relatedComponentItem;
             const atomicComponent = componentIdMap[componentId];
             const component = moreContentsComponentMap[componentId];
             return {
@@ -122,7 +123,7 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
         const mobileGridSettings = {};
 
         // 处理 relatedComponents 的布局
-        item.relatedComponents.forEach((componentId) => {
+        item.relatedComponents.forEach(({ componentId }) => {
           desktopGridSettings[componentId] = getGridSettingsSchema();
           mobileGridSettings[componentId] = getGridSettingsSchema();
         });
@@ -131,8 +132,7 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
         item.fieldCombinations.forEach((fieldCombination) => {
           const [key, index] = fieldCombination.split(".");
           if (Number.isNaN(Number(index))) return;
-          desktopGridSettings[`${key}.${index}`] = getGridSettingsSchema();
-          mobileGridSettings[`${key}.${index}`] = getGridSettingsSchema();
+          desktopGridSettings[`${key}.${index}`];
         });
 
         // 定义输出 schema - config 对象

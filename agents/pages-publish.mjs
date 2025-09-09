@@ -26,7 +26,7 @@ const publishPagesFn = async ({
   projectId,
   appUrl,
   accessToken,
-  force = false,
+  force = true,
   pageTemplateData,
   routeData,
   dataSourceData,

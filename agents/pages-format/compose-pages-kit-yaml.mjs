@@ -1,15 +1,17 @@
 import { stringify, parse } from "yaml";
 import { writeFile, mkdir } from "node:fs/promises";
-import { join, dirname } from "node:path";
+import { join, dirname, basename } from "node:path";
 import { generateRandomId, extractFieldCombinations } from "./sdk.mjs";
 import { getFileName } from "../../utils/utils.mjs";
 import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
+import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
 import _ from "lodash";
 
 function convertToSection({
   componentInstance,
   arrayComponentInstances,
   locale,
+  pagesDir,
 }) {
   if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
@@ -482,8 +484,19 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
 }
 
 export default async function composePagesKitYaml(input) {
-  const { middleFormatFiles, componentLibrary, locale, path, pagesDir } = input;
+  const {
+    middleFormatFiles,
+    componentLibrary,
+    locale,
+    path,
+    pagesDir,
+    moreContentsComponentList,
+  } = input;
 
+  const moreContentsComponentMap = {};
+  moreContentsComponentList.forEach((comp) => {
+    moreContentsComponentMap[comp.content.id] = comp;
+  });
   console.log(`🔧 开始组合 Pages Kit YAML: ${path}`);
   console.log(`🧩 组件库数量: ${componentLibrary?.length || 0}`);
   console.log(`🌐 语言环境: ${locale}`);
@@ -541,13 +554,28 @@ export default async function composePagesKitYaml(input) {
             ...(arrayComponentInstances || []),
           ];
 
-          allInstances.forEach(({ instance }) => {
+          allInstances?.forEach(({ instance }) => {
             if (instance?.dataSource) {
+              const { componentId } = instance;
+              const currentComponentInfo =
+                moreContentsComponentMap[componentId];
+
+              const propKeyToInfoMap =
+                currentComponentInfo?.content?.propKeyToInfoMap;
+
+              const properties = {};
+              Object.entries(instance.dataSource).forEach(([key, value]) => {
+                const mappedId = propKeyToInfoMap?.[key]?.id || key;
+                properties[mappedId] = {
+                  value,
+                };
+              });
+
               pagesKitData.dataSource = {
                 ...pagesKitData.dataSource,
                 [instance.id]: {
                   [locale]: {
-                    properties: instance.dataSource,
+                    properties,
                   },
                 },
               };
@@ -578,10 +606,19 @@ export default async function composePagesKitYaml(input) {
     );
   }
 
+  allPagesKitYamlList?.forEach((item) => {
+    const { filePath, content } = item;
+    savePagesKitYaml({
+      path: basename(filePath).split(".")?.[0] || filePath,
+      locale,
+      pagesDir,
+      pagesKitYaml: content,
+    });
+  });
+
   return {
     ...input,
-    $message: `Pages Kit YAML 组合开始处理: ${path}`,
   };
 }
 
-composePagesKitYaml.taskTitle = "组合 Pages Kit YAML '{{ path }}'";
+composePagesKitYaml.taskTitle = "Compose Pages Kit YAML '{{ path }}'";

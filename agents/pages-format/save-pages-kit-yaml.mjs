@@ -9,7 +9,6 @@ export default async function savePagesKitYaml(input) {
   // 构建输出文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
   const fileFullName = getFileName({
-    locale,
     fileName: flatName,
   });
 

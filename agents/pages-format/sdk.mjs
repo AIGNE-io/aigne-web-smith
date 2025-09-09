@@ -278,7 +278,7 @@ export function extractFieldCombinations(middleFormatContent) {
       return Array.from(fields);
     }
 
-    const fieldCombinations = extractContentFields(section).sort();
+    const fieldCombinations = extractContentFields(section);
 
     // 收集数组字段信息（用于参考，但不作为主要fieldCombinations）
     const arrayFields = [];
@@ -291,7 +291,7 @@ export function extractFieldCombinations(middleFormatContent) {
           // 分析数组中item的字段类型，使用统一的字段提取逻辑
           fieldCombinationsList: value.map((item) =>
             typeof item === "object" && item !== null
-              ? extractContentFields(item).sort()
+              ? extractContentFields(item)
               : []
           ),
         });
@@ -355,5 +355,5 @@ export function getAllFieldCombinations(
   });
 
   // 使用lodash深度去重（基于数组内容而不是引用）并排序
-  return _.uniqWith(allFields, _.isEqual).sort();
+  return _.uniqWith(allFields, _.isEqual);
 }

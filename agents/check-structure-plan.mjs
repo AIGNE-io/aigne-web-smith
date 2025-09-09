@@ -62,7 +62,8 @@ export default async function checkStructurePlan(
           currentGitHead
         );
         if (hasChanges) {
-          shouldRegenerate = true;
+          // @FIXME: 临时禁用
+          shouldRegenerate = false;
         }
       }
     }

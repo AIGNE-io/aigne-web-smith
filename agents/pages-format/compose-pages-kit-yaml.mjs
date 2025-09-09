@@ -271,7 +271,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
       // 匹配组件
       const matchedComponent = componentLibrary.find((component) => {
         const componentFields = component.fieldCombinations || [];
-        return _.isEqual(componentFields.sort(), fieldCombinations.sort());
+        return _.isEqual(componentFields, fieldCombinations);
       });
 
       if (matchedComponent) {
@@ -312,10 +312,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
                 // 匹配组件
                 const itemComponent = componentLibrary.find((component) => {
                   const componentFields = component.fieldCombinations || [];
-                  return _.isEqual(
-                    componentFields.sort(),
-                    itemFieldCombinations.sort()
-                  );
+                  return _.isEqual(componentFields, itemFieldCombinations);
                 });
 
                 if (itemComponent) {

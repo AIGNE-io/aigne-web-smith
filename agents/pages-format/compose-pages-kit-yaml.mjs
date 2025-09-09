@@ -8,7 +8,7 @@ import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
 import _ from "lodash";
 import { readFileSync } from "node:fs";
 
-const DEFAULT_FLAG = true;
+const DEFAULT_FLAG = false;
 const DEFAULT_TEST_FILE = readFileSync(
   "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/cli-reference-create.zh.yaml",
   "utf-8"
@@ -148,6 +148,20 @@ function createComponentInstance(section, component, componentLibrary = []) {
           return value !== undefined ? value : ""; // 如果找不到值，返回空字符串
         });
       } else if (Array.isArray(obj)) {
+        // 特殊处理：如果是数组且只有一个模板元素，检查数据中是否有对应的数组字段
+        if (obj.length === 1) {
+          // 查找数据中的数组字段
+          const arrayField = Object.keys(data).find((key) =>
+            Array.isArray(data[key])
+          );
+          if (arrayField && data[arrayField].length > 0) {
+            // 这是一个模板数组，需要为每个数据项复制模板
+            const template = obj[0];
+            return data[arrayField].map((arrayItem) =>
+              processTemplate(template, arrayItem)
+            );
+          }
+        }
         return obj.map((item) => processTemplate(item, data));
       } else if (obj && typeof obj === "object") {
         const result = {};
@@ -166,7 +180,8 @@ function createComponentInstance(section, component, componentLibrary = []) {
       }, obj);
     }
 
-    console.warn(2222222, section, dataSourceTemplate);
+    console.warn("模板数据:", section);
+    console.warn("模板定义:", JSON.stringify(dataSourceTemplate, null, 2));
 
     try {
       const dataSource = processTemplate(dataSourceTemplate, section);
@@ -590,10 +605,37 @@ export default async function composePagesKitYaml(input) {
 
           pagesKitData.sectionIds.push(componentInstance.id);
 
+          // 递归提取所有实例，包括嵌套的 relatedInstances
+          function extractAllInstances(instances) {
+            const result = [];
+            instances.forEach((instance) => {
+              if (instance?.instance) {
+                // 这是 arrayComponentInstances 的格式：{ fieldName, itemIndex, instance }
+                result.push({ instance: instance.instance });
+                // 如果这个实例也有 relatedInstances，递归提取
+                if (instance.instance?.relatedInstances) {
+                  result.push(
+                    ...extractAllInstances(instance.instance.relatedInstances)
+                  );
+                }
+              } else if (instance) {
+                // 这是直接的实例格式
+                result.push({ instance });
+                // 如果有 relatedInstances，递归提取
+                if (instance.relatedInstances) {
+                  result.push(
+                    ...extractAllInstances(instance.relatedInstances)
+                  );
+                }
+              }
+            });
+            return result;
+          }
+
           const allInstances = [
-            componentInstance,
-            ...(componentInstance?.relatedInstances || []),
-            ...(arrayComponentInstances || []),
+            { instance: componentInstance },
+            ...extractAllInstances(componentInstance?.relatedInstances || []),
+            ...extractAllInstances(arrayComponentInstances || []),
           ];
 
           allInstances?.forEach(({ instance }) => {

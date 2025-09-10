@@ -2,17 +2,9 @@ import { readdir, readFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
 import { calculateMiddleFormatHash } from "../../sdk/hash-utils.mjs";
-import { TeamAgent, AIGNE } from "@aigne/core";
+import { TeamAgent } from "@aigne/core";
 import { getAllFieldCombinations } from "./sdk.mjs";
-import { OpenAIChatModel } from "@aigne/openai";
 
-/**
- * 加载所有中间格式文件用于组件模式分析
- * @param {Object} input
- * @param {string} input.pagesDir - pages目录路径
- * @param {string} [input.tmpDir] - 输出目录路径，用于检查缓存
- * @returns {Promise<Object>}
- */
 // 格式化组件库，合并 base-component-library.yaml 的内容
 const formatComponentLibrary = async (componentLibrary, tmpDir) => {
   try {
@@ -33,10 +25,13 @@ const formatComponentLibrary = async (componentLibrary, tmpDir) => {
         }
       });
 
+      // 处理新格式的组件库
+      let atomicComponents = componentLibrary.atomic || [];
+      let compositeComponents = componentLibrary.composite || [];
+
       // 替换现有组件库中的原子组件
-      const updatedLibrary = componentLibrary.map((component) => {
+      const updatedAtomicComponents = atomicComponents.map((component) => {
         if (
-          component.type === "atomic" &&
           component.componentId &&
           baseComponentMap.has(component.componentId)
         ) {
@@ -47,11 +42,9 @@ const formatComponentLibrary = async (componentLibrary, tmpDir) => {
 
       // 添加不存在的新原子组件
       const existingComponentIds = new Set(
-        componentLibrary
-          .filter(
-            (component) => component.type === "atomic" && component.componentId
-          )
+        atomicComponents
           .map((component) => component.componentId)
+          .filter(Boolean)
       );
 
       baseLibrary.componentLibrary.forEach((component) => {
@@ -60,11 +53,14 @@ const formatComponentLibrary = async (componentLibrary, tmpDir) => {
           component.componentId &&
           !existingComponentIds.has(component.componentId)
         ) {
-          updatedLibrary.push(component);
+          updatedAtomicComponents.push(component);
         }
       });
 
-      return updatedLibrary;
+      return {
+        atomic: updatedAtomicComponents,
+        composite: compositeComponents,
+      };
     }
   } catch (error) {
     // 如果读取失败，返回原始组件库
@@ -79,7 +75,6 @@ export default async function loadComponentLibrary(input, options) {
 
   try {
     const middleFormatFiles = [];
-
     const middleFormatDir = join(tmpDir, locale);
 
     // 加载中间格式文件
@@ -102,75 +97,55 @@ export default async function loadComponentLibrary(input, options) {
           });
         }
       } catch (error) {
-        // console.warn(
-        //   `Failed to read middle format file ${file}:`,
-        //   error.message
-        // );
+        // 忽略读取错误的文件
       }
     }
 
     // 计算当前 middleFormatFiles 的 hash
     const currentHash = calculateMiddleFormatHash(middleFormatFiles);
 
-    let existingLibrary;
     // 检查是否存在缓存文件
     const componentLibraryPath = join(tmpDir, "component-library.yaml");
+    let existingLibrary;
+    let shouldRegenerate = true;
 
-    let existingLibraryShouldRegenerate = true;
-    let existingLibraryShouldParsed = true;
     try {
       await access(componentLibraryPath);
-
-      // 读取已存在的组件库文件
       const existingContent = await readFile(componentLibraryPath, "utf8");
       existingLibrary = parse(existingContent);
 
-      existingLibraryShouldRegenerate =
+      // 检查 hash 是否匹配
+      shouldRegenerate =
         !existingLibrary || existingLibrary?.hash !== currentHash;
 
-      existingLibraryShouldParsed = !existingLibrary?.componentLibrary?.every(
-        (item) => {
-          return (
-            (item.type === "atomic" && item.dataSourceTemplate) ||
-            (item.type === "composite" && item.configTemplate)
-          );
-        }
-      );
+      // 检查组件是否需要重新解析（是否有完整的模板）
+      if (!shouldRegenerate && existingLibrary?.componentLibrary) {
+        const { atomic = [], composite = [] } =
+          existingLibrary.componentLibrary;
+        const allComponents = [...atomic, ...composite];
 
-      if (!existingLibraryShouldRegenerate && !existingLibraryShouldParsed) {
-        return {
-          middleFormatFiles,
-          componentLibrary: await formatComponentLibrary(
-            existingLibrary.componentLibrary,
-            tmpDir
-          ),
-        };
+        const needsParsing = allComponents.some(
+          (item) =>
+            (item.type === "atomic" && !item.dataSourceTemplate) ||
+            (item.type === "composite" && !item.configTemplate)
+        );
+
+        if (!needsParsing) {
+          // 缓存有效，直接返回
+          return {
+            middleFormatFiles,
+            componentLibrary: await formatComponentLibrary(
+              existingLibrary.componentLibrary,
+              tmpDir
+            ),
+          };
+        }
       }
     } catch (error) {
-      // ignore error
-      // throw error;
+      // 缓存文件不存在或读取失败，需要重新生成
     }
 
-    const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
-
-    // 如果组件库有变化， 重新分析处理
-    const analyzeTeamAgent = TeamAgent.from({
-      name: "generateComponentLibraryTeam",
-      skills: [
-        existingLibraryShouldRegenerate &&
-          options.context.agents["analyzeComponentPatterns"],
-        existingLibraryShouldParsed &&
-          options.context.agents["saveComponentLibrary"],
-      ].filter(Boolean),
-    });
-
-    const analyzeResult = await options.context.invoke(analyzeTeamAgent, {
-      ...input,
-      middleFormatFiles,
-      componentLibrary: existingLibrary?.componentLibrary,
-      allFieldCombinations,
-    });
-
+    // 生成组件库
     const generateTeamAgent = TeamAgent.from({
       name: "generateComponentLibraryTeam",
       skills: [
@@ -179,23 +154,10 @@ export default async function loadComponentLibrary(input, options) {
       ],
     });
 
-    // @FIXME: 临时使用 OpenAI，后续需要改成 AIGNEHub
-    const openaiModel = new OpenAIChatModel({
-      apiKey: process.env.OPENAI_API_KEY,
-      model: "gpt-4o-mini", // Optional, defaults to "gpt-4o-mini"
-    });
-
-    const engine = new AIGNE({
-      model: openaiModel,
-    });
-
-    // gemini model 的处理 output schema 的功能很差 400 [{"error":{"code":400,"message":"The specified schema produces a constraint that has too many states for serving. Typical causes of this error are schemas with lots of text (for example, very long property or enum names), schemas with long array length limits (especially when nested), or schemas using complex value matchers (for example, integers or numbers with minimum/maximum bounds or strings with complex formats like date-time)","status":"INVALID_ARGUMENT"}}])
-    // 换成 gpt 处理
-    const generateResult = await engine.invoke(generateTeamAgent, {
+    // 传入 middleFormatFiles 直接生成组件库
+    const generateResult = await options.context.invoke(generateTeamAgent, {
       ...input,
       middleFormatFiles,
-      componentLibrary: analyzeResult?.componentLibrary,
-      allFieldCombinations,
     });
 
     return {

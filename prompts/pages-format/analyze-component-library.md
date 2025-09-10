@@ -9,10 +9,10 @@
 </goal>
 
 <input_data>
-所有中间格式文件内容：
-<all-middle-format-files>
-{{middleFormatFiles}}
-</all-middle-format-files>
+中间格式文件内容：
+<middle-format-content>
+{{middleFormatContent}}
+</middle-format-content>
 
 可用组件列表：
 <component-list>
@@ -169,7 +169,6 @@
 
 验证要求：
 
-- 生成完成后，必须确认生成的组件数量等于 allFieldCombinations 和 componentList 的长度之和
-- 每个 allFieldCombinations[i] 都能在生成的组件中找到完全匹配的 fieldCombinations
+- 生成完成后，必须确认 <all-field-combinations> 中的每个 item 都能在生成的组件中找到完全匹配的 fieldCombinations
 
 </requirements>

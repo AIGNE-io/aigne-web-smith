@@ -1,9 +1,106 @@
 import { z } from "zod";
-import { TeamAgent, AIAgent } from "@aigne/core";
+import { TeamAgent, AIAgent, AIGNE, PromptBuilder } from "@aigne/core";
+import { OpenAIChatModel } from "@aigne/openai";
+import { getAllFieldCombinations } from "./sdk.mjs";
+import fs from "node:fs";
+import { join } from "node:path";
+
+// 组件库的 Zod Schema
+const getComponentZodSchema = () => {
+  return z.object({
+    componentLibrary: z
+      .array(
+        z.object({
+          name: z.string().describe("组件名称"),
+          summary: z
+            .string()
+            .describe(
+              "组件的用途和特点，尽可能具体，如果是复合组件，需要说明布局特征"
+            ),
+          type: z
+            .enum(["atomic", "composite"])
+            .describe("组件类型 atomic（原子组件）或 composite（复合组件）"),
+          componentId: z
+            .string()
+            .describe(
+              "组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）"
+            ),
+          fieldCombinations: z
+            .array(z.string())
+            .describe(
+              "该组件处理的字符串字段组合（单一数组，不包含数组类型字段）"
+            ),
+          relatedComponents: z
+            .array(
+              z.object({
+                componentId: z.string().describe("子组件的 ID"),
+                fieldCombinations: z
+                  .array(z.string())
+                  .describe("子组件使用的字段组合"),
+              })
+            )
+            .default([])
+            .describe(
+              "相关组件 ID（仅复合组件需要，如果是原子组件则为 [] 空数组）"
+            ),
+        })
+      )
+      .default([])
+      .describe(
+        "纯净的组件库定义数组，只包含字符串字段的组件模式，不包含数组字段处理"
+      ),
+  });
+};
 
 export default async function generateComponentLibrary(input, options) {
-  const { componentLibrary, moreContentsComponentList } = input;
+  const {
+    componentLibrary,
+    moreContentsComponentList,
+    componentList,
+    middleFormatFiles,
+  } = input;
   try {
+    const analyzeComponentLibraryAgent = TeamAgent.from({
+      name: "analyzeComponentLibraryAgent",
+      skills: middleFormatFiles.map((item, index) => {
+        const { content, filePath } = item;
+        const allFieldCombinations = getAllFieldCombinations(content);
+
+        return AIAgent.from({
+          name: `analyzeComponentLibraryAgent-${filePath}`,
+          inputKey: filePath,
+          outputKey: filePath,
+          outputSchema: z.object({
+            [filePath]: getComponentZodSchema(),
+          }),
+          instructions: PromptBuilder.from({
+            path: join(
+              // 当前文件的目录
+              import.meta.dirname,
+              "../../prompts/pages-format/analyze-component-library.md"
+            ),
+          })
+            .instructions.replace(
+              "{{middleFormatContent}}",
+              JSON.stringify(content)
+            )
+            .replace("{{componentList}}", JSON.stringify(componentList))
+            .replace(
+              "{{allFieldCombinations}}",
+              JSON.stringify(allFieldCombinations)
+            ),
+        });
+      }),
+      mode: "parallel",
+    });
+
+    const analyzeMiddleFormatComponentResult = await options.context.invoke(
+      analyzeComponentLibraryAgent,
+      {}
+    );
+
+    console.warn(22222, JSON.stringify(analyzeMiddleFormatComponentResult));
+
     const atomicComponents =
       componentLibrary?.filter((item) => item.type === "atomic") || [];
 
@@ -32,35 +129,23 @@ export default async function generateComponentLibrary(input, options) {
           outputSchema: z.object({
             [item.componentId]: component.content.zodSchema,
           }),
-          instructions: `
-你是 Pages Kit 组件 dataSource 模板生成器，请严格遵守 <rules> 中的规则，帮助用户生成合理的 dataSource 模板。
-
-<component-props-json-schema>
-${JSON.stringify(component.content.schema || {})}
-</component-props-json-schema>
-
-<field-combinations>
-${JSON.stringify(fieldCombinationsWithMustache || [])}
-</field-combinations>
-
-<rules>
-根据 <component-props-json-schema> 生成完整的 dataSource 模板：
-- 包含 <component-props-json-schema> 中所有字段，保持数据结构完整性
-- 将 dataSource 模板中与 <field-combinations> 相关的字段替换为 value 值，替换详情请参考示例 <examples>
-  - 在后续使用中，会使用 lodash 的 _.template 包裹 dataSource 模板，把 {[fileName]: value} 中的 value 值替换到 dataSource 模板中，value 会是个简单类型，如 string, number, boolean 等
-  - 必须保证 <field-combinations> 里面所有字段都在 dataSource 模板中
-- 其他字段使用合理默认值
-</rules>
-
-<examples>
-输入: field-combinations ["${titleFieldName}", "${descriptionFieldName}"]
-输出: {"title":{"text":"${titleFieldName}","style":{"color":"common.black"}},"description":{"list":[{"type":"text","text":"${descriptionFieldName}"}]},"align":"center"}
-
-输入: field-combinations ["${codeFieldName}"] 
-输出: {"code":"${codeFieldName}","filename":"example.js","showLineNumbers":true}
-</examples>
-
-`,
+          instructions: PromptBuilder.from({
+            path: join(
+              import.meta.dirname,
+              "../../prompts/pages-format/atomic-component-datasource-template.md"
+            ),
+          })
+            .instructions.replace(
+              "{{componentSchema}}",
+              JSON.stringify(component.content.schema || {})
+            )
+            .replace(
+              "{{fieldCombinations}}",
+              JSON.stringify(fieldCombinationsWithMustache || [])
+            )
+            .replace("{{titleFieldName}}", titleFieldName)
+            .replace("{{descriptionFieldName}}", descriptionFieldName)
+            .replace("{{codeFieldName}}", codeFieldName),
         });
       }
     );
@@ -232,67 +317,31 @@ ${JSON.stringify(fieldCombinationsWithMustache || [])}
           outputSchema: z.object({
             [item.componentId]: configSchema,
           }),
-          instructions: `
-你是 Pages Kit composite 组件 config 生成器，请严格遵守 <rules> 中的规则，生成复合组件的 layout-block 的配置内容。
-
-<composite-component-info>
-组件名称: ${item.name}
-组件描述: ${item.summary || "无描述"}
-字段组合: ${JSON.stringify(item.fieldCombinations)}
-相关组件: ${JSON.stringify(item.relatedComponents)}
-</composite-component-info>
-
-<related-components>
-${relatedComponentsInfo
-  .map(
-    (comp) =>
-      `组件ID: ${comp.componentId}
-组件名称: ${comp.name}
-组件描述: ${comp.summary}`
-  )
-  .join("\n\n---------\n")}
-</related-components>
-
-<rules>
-- 请根据 <composite-component-info> 生成合理的 layout-block 配置内容
-- 在生成过程中，需要参考 <related-components> 中的子组件信息，确保 layout-block 的配置内容合理，尤其是 gridSettings 的配置
-  - gridSettings 的配置，需要考虑在 desktop 和 mobile 两个设备尺寸下的布局，确保布局合理
-- 需要仔细思考什么样的配置是最合理的，<examples> 中的示例仅供参考，不要盲目照搬
-</rules>
-
-<examples>
-输入:
-- HeroSection，字段组合: ['title', 'description', 'action']，需要展示标题、描述和行动按钮
-- 相关组件信息: ['xoHu0J44322kDYc-', 'a44r0SiGV9AFn2Fj']
-- 思考：应该采取上下布局，标题和描述在上，行动按钮在下，并且保持宽度一致
-
-输出:
-{
-  "gridSettings": {
-    "desktop": {
-      "xoHu0J44322kDYc-": {"x": 0, "y": 0, "w": 12, "h": 1},
-      "a44r0SiGV9AFn2Fj": {"x": 0, "y": 1, "w": 12, "h": 1}
-    },
-    "mobile": {
-      "xoHu0J44322kDYc-": {"x": 0, "y": 0, "w": 12, "h": 1},
-      "a44r0SiGV9AFn2Fj": {"x": 0, "y": 1, "w": 12, "h": 1}
-    }
-  },
-  "gap": "normal",
-  "paddingX": "normal",
-  "paddingY": "large",
-  "alignContent": "center",
-  "justifyContent": "center",
-  "background": "transparent",
-  "backgroundFullWidth": false,
-  "ignoreMaxWidth": false,
-  "maxWidth": "lg",
-  "border": "none",
-  "borderRadius": "none",
-  "height": "100%"
-}
-</examples>
-`,
+          instructions: PromptBuilder.from({
+            path: join(
+              import.meta.dirname,
+              "../../prompts/pages-format/composite-component-config-template.md"
+            ),
+          })
+            .instructions.replace("{{componentName}}", item.name)
+            .replace("{{componentSummary}}", item.summary || "无描述")
+            .replace(
+              "{{fieldCombinations}}",
+              JSON.stringify(item.fieldCombinations)
+            )
+            .replace(
+              "{{relatedComponents}}",
+              JSON.stringify(item.relatedComponents)
+            )
+            .replace(
+              "{{relatedComponentsInfo}}",
+              relatedComponentsInfo
+                .map(
+                  (comp) =>
+                    `组件ID: ${comp.componentId}\n组件名称: ${comp.name}\n组件描述: ${comp.summary}`
+                )
+                .join("\n\n---------\n")
+            ),
         });
       }
     );
@@ -315,7 +364,17 @@ ${relatedComponentsInfo
       mode: "parallel",
     });
 
-    const parserComponentsTeamAgentResult = await options.context.invoke(
+    // 使用 OpenAI 引擎
+    const openaiModel = new OpenAIChatModel({
+      apiKey: process.env.OPENAI_API_KEY,
+      model: "gpt-4o-mini",
+    });
+
+    const engine = new AIGNE({
+      model: openaiModel,
+    });
+
+    const parserComponentsTeamAgentResult = await engine.invoke(
       parserComponentsTeamAgent,
       {}
     );

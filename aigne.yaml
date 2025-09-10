@@ -41,8 +41,7 @@ agents:
   - ./agents/feedback-refiner.yaml
   - ./agents/manage-prefs.mjs
   # pages format
-  - ./agents/pages-format/load-middle-formats-for-analysis.mjs
-  - ./agents/pages-format/analyze-component-patterns.yaml
+  - ./agents/pages-format/load-component-library.mjs
   - ./agents/pages-format/generate-component-library.mjs
   - ./agents/pages-format/save-component-library.mjs
 cli:

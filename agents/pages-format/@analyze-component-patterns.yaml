@@ -1,7 +1,7 @@
 name: analyzeComponentPatterns
 description: 分析中间格式文件，只提取字符串字段的组件模式和映射关系，生成纯净的组件库定义（排除数组字段）
 instructions:
-  url: ../../prompts/pages-format/analyze-component-patterns.md
+  url: ../../prompts/pages-format/@analyze-component-patterns.md
 input_schema:
   type: object
   properties:

@@ -74,7 +74,7 @@ const formatComponentLibrary = async (componentLibrary, tmpDir) => {
   return componentLibrary;
 };
 
-export default async function loadMiddleFormatsForAnalysis(input, options) {
+export default async function loadComponentLibrary(input, options) {
   const { tmpDir, locale } = input;
 
   try {
@@ -210,5 +210,4 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
   }
 }
 
-loadMiddleFormatsForAnalysis.taskTitle =
-  "Loading middle format files for component analysis";
+loadComponentLibrary.taskTitle = "Loading component library";

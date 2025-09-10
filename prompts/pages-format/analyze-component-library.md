@@ -6,10 +6,10 @@
 {{middleFormatContent}}
 </middle_format_content>
 
-可用组件列表：
-<component_list>
+可用原子组件列表：
+<atomic_component_list>
 {{componentList}}
-</component_list>
+</atomic_component_list>
 
 字段组合集合：
 <all_field_combinations>
@@ -17,21 +17,22 @@
 </all_field_combinations>
 </input_data>
 
-<core_generation_requirements>
+<rules>
 
 关键要求：
 
-- 通过 <middle_format_content> 描述的内容和 <component_list> 中的组件信息，分析出组件库
-- 如果 <all_field_combinations> 中的 item 比较复杂，原子组件无法覆盖场景，请标记为复合组件
-- 输出结果不允许遗漏
-  - 确保 <all_field_combinations> 中的每个 item 都有对应的组件，保存在 fieldCombinations 字段中
-  - 确保复合组件 relatedComponents 中 componentId，都有对应的原子组件记录在组件库中
+- 通过 <input_data> 的内容，分析出组件库，组件库中包含所有字段组合
+- 如果遇到单个原子组件无法覆盖的字段组合，请标记为复合组件，并且在 relatedComponents 中记录相关组件信息
+- 确保组件库中包含所有字段组合
+  - 确保 <all_field_combinations> 中的每个字段组合都有对应的组件，可能是原子组件，也可能是复合组件
+  - 确保 <atomic_component_list> 中的每个原子组件都有对应的组件
+- 生成完成后，请校验组件库的正确性和完整性
 
-</core_generation_requirements>
+</rules>
 
 <output_format>
 
-输出：（仅作参考）：
+输出示例：（仅作参考）：
 
 ```json
 {

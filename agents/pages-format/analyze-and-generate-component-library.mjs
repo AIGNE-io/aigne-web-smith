@@ -28,23 +28,19 @@ const getComponentZodSchema = ({ allFieldCombinations }) => {
             .describe(
               "组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）"
             ),
-          fieldCombinations: z
-            .array(z.string())
-            .describe(
-              "该组件处理的字符串字段组合（单一数组，不包含数组类型字段）"
-            ),
+          fieldCombinations: z.array(z.string()).describe("组件处理的字段组合"),
           relatedComponents: z
             .array(
               z.object({
-                componentId: z.string().describe("子组件的 ID"),
+                componentId: z.string().describe("关联的原子组件的 ID"),
                 fieldCombinations: z
                   .array(z.string())
-                  .describe("管理组件使用的字段组合"),
+                  .describe("关联的原子组件使用的字段组合"),
               })
             )
             .default([])
             .describe(
-              "相关组件 ID（仅复合组件需要，如果是原子组件则为 [] 空数组）"
+              "关联的原子组件内容（仅复合组件需要，如果是原子组件则为 [] 空数组）"
             ),
         })
       )
@@ -135,9 +131,8 @@ ${JSON.stringify(schema)}
             )
             .replace(
               "{{allFieldCombinations}}",
-              `// 共 ${allFieldCombinations.length} 个字段组合
-              ${allFieldCombinations
-                .map((item, index) => `${index + 1}. ${JSON.stringify(item)}`)
+              `${allFieldCombinations
+                .map((item, index) => `${JSON.stringify(item)}`)
                 .join("\n")}`
             ),
         });

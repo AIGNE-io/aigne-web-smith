@@ -48,10 +48,11 @@ const formatComponentContent = ({ content, moreContents = false }) => {
         };
       });
 
-      // 添加元数据到组件中
-      component.schema = jsonSchema;
       component.zodSchema = zodSchema;
     }
+
+    // 添加元数据到组件中
+    component.schema = jsonSchema;
   }
 
   if (!moreContents) {

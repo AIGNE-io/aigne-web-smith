@@ -107,7 +107,20 @@ export default async function analyzeAndGenerateComponentLibrary(
               "{{middleFormatContent}}",
               JSON.stringify(parse(content))
             )
-            .replace("{{componentList}}", JSON.stringify(componentList))
+            .replace(
+              "{{componentList}}",
+              componentList
+                .map((item) => {
+                  const { content } = item;
+                  const { id, name, description, schema } = content;
+                  return `// ${name}(${id}): ${description}
+<component-${id}>
+${JSON.stringify(schema)}
+</component-${id}>
+              `;
+                })
+                .join("\n")
+            )
             .replace(
               "{{allFieldCombinations}}",
               JSON.stringify(allFieldCombinations)

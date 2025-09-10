@@ -43,6 +43,7 @@ agents:
   # pages format
   - ./agents/pages-format/load-component-library.mjs
   - ./agents/pages-format/analyze-and-generate-component-library.mjs
+  - ./agents/pages-format/check-generate-component-library.mjs
 cli:
   chat: ./agents/chat.yaml
   agents:

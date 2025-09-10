@@ -17,6 +17,10 @@
 </all_field_combinations>
 </input_data>
 
+<review_feedback>
+{{ detailFeedback }}
+</review_feedback>
+
 <rules>
 
 关键要求：

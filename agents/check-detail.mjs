@@ -112,7 +112,6 @@ export default async function checkDetail(input, options) {
     name: "generateDetail",
     skills: [
       !detailGenerated && options.context.agents["detailGeneratorAndTranslate"],
-      // options.context.agents["pagesFormatParser"],
     ].filter(Boolean),
   });
 

@@ -10,8 +10,8 @@ import { parse, stringify } from "yaml";
 
 // 组件库的 Zod Schema
 const getComponentZodSchema = ({ allFieldCombinations }) => {
-  return z.object({
-    componentLibrary: z
+  const getComponentLibrarySchema = () =>
+    z
       .array(
         z.object({
           name: z.string().describe("组件名称"),
@@ -47,7 +47,10 @@ const getComponentZodSchema = ({ allFieldCombinations }) => {
       .default([])
       .describe(
         "组件库定义数组，如果复合组件中的 relatedComponents 中的 componentId，确保对应的原子组件记录在组件库中"
-      ),
+      );
+
+  return z.object({
+    componentLibrary: getComponentLibrarySchema(),
   });
 };
 
@@ -95,46 +98,62 @@ export default async function analyzeAndGenerateComponentLibrary(
           return;
         }
 
-        return AIAgent.from({
-          name: `analyzeComponentLibraryAgent-${filePath}`,
-          inputKey: filePath,
-          outputKey: filePath,
-          outputSchema: z.object({
-            [filePath]: getComponentZodSchema({
-              allFieldCombinations,
+        const getComponentLibraryAgent = ({ name } = {}) => {
+          return AIAgent.from({
+            name: `${name}-${filePath}`,
+            outputKey: filePath,
+            outputSchema: z.object({
+              [filePath]: getComponentZodSchema({
+                allFieldCombinations,
+              }),
             }),
-          }),
-          instructions: PromptBuilder.from({
-            path: join(
-              // 当前文件的目录
-              import.meta.dirname,
-              "../../prompts/pages-format/analyze-component-library.md"
-            ),
-          })
-            .instructions.replace(
-              "{{middleFormatContent}}",
-              JSON.stringify(parse(content))
-            )
-            .replace(
-              "{{componentList}}",
-              componentList
-                .map((item) => {
-                  const { content } = item;
-                  const { id, name, description, schema } = content;
-                  return `// ${name}(${id}): ${description}
+            instructions: PromptBuilder.from({
+              path: join(
+                // 当前文件的目录
+                import.meta.dirname,
+                "../../prompts/pages-format/analyze-component-library.md"
+              ),
+            })
+              .instructions.replace(
+                "{{middleFormatContent}}",
+                JSON.stringify(parse(content))
+              )
+              .replace(
+                "{{componentList}}",
+                componentList
+                  .map((item) => {
+                    const { content } = item;
+                    const { id, name, description, schema } = content;
+                    return `// ${name}(${id}): ${description}
 <component-${id}>
 ${JSON.stringify(schema)}
 </component-${id}>
               `;
-                })
-                .join("\n")
-            )
-            .replace(
-              "{{allFieldCombinations}}",
-              `${allFieldCombinations
-                .map((item, index) => `${JSON.stringify(item)}`)
-                .join("\n")}`
-            ),
+                  })
+                  .join("\n")
+              )
+              .replace(
+                "{{allFieldCombinations}}",
+                `${allFieldCombinations
+                  .map((item, index) => `${JSON.stringify(item)}`)
+                  .join("\n")}`
+              ),
+          });
+        };
+
+        return TeamAgent.from({
+          name: `analyzeComponentLibraryAgent-${filePath}`,
+          skills: [
+            getComponentLibraryAgent({ name: "generateComponentLibraryAgent" }),
+          ],
+          reflection: {
+            reviewer: options.context.agents["checkGenerateComponentLibrary"],
+            isApproved: ({ isApproved }) => {
+              return isApproved;
+            },
+            maxIterations: 3,
+            returnLastOnMaxIterations: true,
+          },
         });
       })
       .filter(Boolean);
@@ -149,7 +168,9 @@ ${JSON.stringify(schema)}
 
       const analyzeMiddleFormatComponentResult = await engine.invoke(
         analyzeComponentLibraryAgent,
-        {}
+        {
+          ...input,
+        }
       );
 
       // 保存组件库
@@ -454,7 +475,7 @@ ${JSON.stringify(schema)}
 
         const parserComponentsTeamAgentResult = await engine.invoke(
           parserComponentsTeamAgent,
-          {}
+          { ...input }
         );
 
         // 更新到 componentLibrary 里面

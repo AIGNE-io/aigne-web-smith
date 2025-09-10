@@ -40,7 +40,7 @@ skills:
   - url: ./check-feedback-refiner.mjs
     default_input:
       stage: structure_planning
-  - ./pages-format/component-library-analyzer.yaml
+  - ./pages-format/load-middle-formats-for-analysis.mjs
   - ./pages-format/compose-pages-kit-yaml.mjs
   - ./save-pages.mjs
 

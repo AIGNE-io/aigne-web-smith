@@ -22,7 +22,6 @@ function convertToSection({
   componentInstance,
   arrayComponentInstances,
   locale,
-  pagesDir,
 }) {
   if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
@@ -539,6 +538,7 @@ export default async function composePagesKitYaml(input) {
     locale,
     path,
     pagesDir,
+    outputDir,
     moreContentsComponentList,
   } = input;
 
@@ -698,6 +698,7 @@ export default async function composePagesKitYaml(input) {
       locale,
       pagesDir,
       pagesKitYaml: content,
+      outputDir,
     });
   });
 

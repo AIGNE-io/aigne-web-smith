@@ -4,16 +4,18 @@ export default async function saveSinglePage({
   path,
   content,
   pagesDir,
+  tmpDir,
   translates,
   labels,
   locale,
   isTranslate = false,
   isShowMessage = false,
 }) {
-  const _results = await savePageWithTranslations({
+  await savePageWithTranslations({
     path,
     content,
     pagesDir,
+    tmpDir,
     translates,
     labels,
     locale,

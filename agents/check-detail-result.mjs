@@ -4,6 +4,7 @@ export default async function checkDetailResult({
   structurePlan,
   // reviewContent,
   // pagesDir,
+  // tmpDir,
   locale,
 }) {
   let isApproved = true;

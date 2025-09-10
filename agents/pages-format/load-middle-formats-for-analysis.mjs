@@ -75,20 +75,22 @@ const formatComponentLibrary = async (componentLibrary, tmpDir) => {
 };
 
 export default async function loadMiddleFormatsForAnalysis(input, options) {
-  const { pagesDir, tmpDir } = input;
+  const { tmpDir, locale } = input;
 
   try {
     const middleFormatFiles = [];
 
+    const middleFormatDir = join(tmpDir, locale);
+
     // 加载中间格式文件
-    const files = await readdir(pagesDir);
+    const files = await readdir(middleFormatDir);
     const yamlFiles = files.filter(
       (file) => file.endsWith(".yaml") && !file.startsWith("_")
     );
 
     for (const file of yamlFiles) {
       try {
-        const filePath = join(pagesDir, file);
+        const filePath = join(middleFormatDir, file);
         const content = await readFile(filePath, "utf8");
 
         // 验证是中间格式文件（含有sections字段）

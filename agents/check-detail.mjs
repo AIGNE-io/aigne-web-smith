@@ -12,6 +12,7 @@ export default async function checkDetail(input, options) {
   const {
     path,
     pagesDir,
+    tmpDir,
     sourceIds,
     originalStructurePlan,
     structurePlan,
@@ -25,7 +26,7 @@ export default async function checkDetail(input, options) {
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
   const fileFullName = getFileName({ locale, fileName: flatName });
 
-  const filePath = join(pagesDir, fileFullName);
+  const filePath = join(tmpDir, locale, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
 
@@ -89,6 +90,8 @@ export default async function checkDetail(input, options) {
       structurePlan,
       reviewContent: fileContent,
       pagesDir,
+      tmpDir,
+      locale,
     });
 
     if (!validationResult.isApproved) {

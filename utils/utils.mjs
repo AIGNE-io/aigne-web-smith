@@ -90,11 +90,13 @@ export function processContent({ content }) {
 }
 // Helper function to generate filename based on language
 export const getFileName = ({ locale, fileName }) => {
-  const isEnglish = locale === "en" || !locale;
+  // const isEnglish = locale === "en" || !locale;
 
-  return isEnglish
-    ? `${fileName}${PAGE_FILE_EXTENSION}`
-    : `${fileName}.${locale}${PAGE_FILE_EXTENSION}`;
+  // return isEnglish
+  //   ? `${fileName}${PAGE_FILE_EXTENSION}`
+  //   : `${fileName}.${locale}${PAGE_FILE_EXTENSION}`;
+
+  return `${fileName}${PAGE_FILE_EXTENSION}`;
 };
 
 /**
@@ -103,6 +105,7 @@ export const getFileName = ({ locale, fileName }) => {
  * @param {string} params.path - Relative path (without extension)
  * @param {string} params.content - Main page content
  * @param {string} params.pagesDir - Root directory
+ * @param {string} params.tmpDir - Temporary directory
  * @param {string} params.locale - Main content language (e.g., 'en', 'zh', 'fr')
  * @param {Array<{language: string, translation: string}>} [params.translates] - Translation content
  * @param {Array<string>} [params.labels] - Page labels for front matter
@@ -112,6 +115,7 @@ export async function savePageWithTranslations({
   path: pagePath,
   content,
   pagesDir,
+  tmpDir,
   locale,
   translates = [],
   labels,
@@ -122,11 +126,14 @@ export async function savePageWithTranslations({
     // Flatten path: remove leading /, replace all / with -
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
     await fs.mkdir(pagesDir, { recursive: true });
+    await fs.mkdir(tmpDir, { recursive: true });
 
     // Save main content with appropriate filename based on locale (skip if isTranslate is true)
     if (!isTranslate) {
       const mainFileName = getFileName({ locale, fileName: flatName });
-      const mainFilePath = path.join(pagesDir, mainFileName);
+      const mainFilePath = path.join(tmpDir, locale, mainFileName);
+
+      await fs.mkdir(path.dirname(mainFilePath), { recursive: true });
 
       // Add labels front matter if labels are provided
       let finalContent = processContent({ content });
@@ -146,7 +153,13 @@ export async function savePageWithTranslations({
         locale: translate.language,
         fileName: flatName,
       });
-      const translatePath = path.join(pagesDir, translateFileName);
+      const translatePath = path.join(
+        tmpDir,
+        translate.language,
+        translateFileName
+      );
+
+      await fs.mkdir(path.dirname(translatePath), { recursive: true });
 
       // Add labels front matter to translation content if labels are provided
       let finalTranslationContent = processContent({

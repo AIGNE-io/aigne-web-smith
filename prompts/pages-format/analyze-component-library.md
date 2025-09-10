@@ -17,9 +17,15 @@
 </all_field_combinations>
 </input_data>
 
+{% if detailFeedback %}
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
+
+<latest_component_library>
+{{latestComponentLibrary}}
+</latest_component_library>
+{% endif %}
 
 <rules>
 
@@ -31,6 +37,7 @@
   - 确保 <all_field_combinations> 中的每个字段组合都有对应的组件，可能是原子组件，也可能是复合组件
   - 确保 <atomic_component_list> 中的每个原子组件都有对应的组件
 - 生成完成后，请校验组件库的正确性和完整性
+- 如果存在 <review_feedback>，请根据 <review_feedback> 的内容，修改 <latest_component_library> 中的组件库内容
 
 </rules>
 

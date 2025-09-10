@@ -7,6 +7,8 @@ import { nanoid } from "nanoid";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { parse } from "yaml";
 import _ from "lodash";
+import { createHash } from "node:crypto";
+import { join } from "node:path";
 
 // 从 Pages Kit 迁移的核心转换工具
 
@@ -359,4 +361,24 @@ export function getAllFieldCombinations(
 
   // 使用lodash深度去重（基于数组内容而不是引用）并排序
   return _.uniqWith(allFields, _.isEqual);
+}
+
+/**
+ * 计算中间格式文件的 hash 值
+ * 基于字段组合模式而不是文件内容，避免不相关的变化导致重新生成
+ * @param {Array} middleFormatFiles - 中间格式文件数组
+ * @returns {string} - MD5 hash 值
+ */
+export function calculateMiddleFormatHash(middleFormatFiles) {
+  // 获取所有字段组合模式
+  const fieldCombinations = getAllFieldCombinations(middleFormatFiles);
+
+  // 基于字段组合计算哈希
+  return createHash("md5")
+    .update(JSON.stringify(fieldCombinations, null, 0))
+    .digest("hex");
+}
+
+export function getComponentLibraryDir(tmpDir) {
+  return join(tmpDir, "components");
 }

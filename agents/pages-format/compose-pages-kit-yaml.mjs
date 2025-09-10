@@ -534,7 +534,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
 export default async function composePagesKitYaml(input) {
   const {
     middleFormatFiles,
-    componentLibrary,
+    componentLibraryMap,
     locale,
     path,
     pagesDir,
@@ -543,11 +543,15 @@ export default async function composePagesKitYaml(input) {
   } = input;
 
   const moreContentsComponentMap = {};
+
   moreContentsComponentList.forEach((comp) => {
     moreContentsComponentMap[comp.content.id] = comp;
   });
+
   console.log(`🔧 开始组合 Pages Kit YAML: ${path}`);
-  console.log(`🧩 组件库数量: ${componentLibrary?.length || 0}`);
+  console.log(
+    `🧩 组件库数量: ${Object.keys(componentLibraryMap)?.length || 0}`
+  );
   console.log(`🌐 语言环境: ${locale}`);
   console.log(`📁 输出目录: ${pagesDir}`);
 
@@ -570,6 +574,10 @@ export default async function composePagesKitYaml(input) {
     ].forEach((file, index) => {
       const middleFormatContent =
         typeof file.content === "string" ? parse(file.content) : file.content;
+
+      const filePath = file.filePath;
+
+      const componentLibrary = componentLibraryMap[filePath];
 
       console.log(
         `\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`

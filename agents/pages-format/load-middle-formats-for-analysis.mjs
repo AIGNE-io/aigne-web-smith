@@ -13,6 +13,67 @@ import { OpenAIChatModel } from "@aigne/openai";
  * @param {string} [input.outputDir] - 输出目录路径，用于检查缓存
  * @returns {Promise<Object>}
  */
+// 格式化组件库，合并 base-component-library.yaml 的内容
+const formatComponentLibrary = async (componentLibrary, outputDir) => {
+  try {
+    const baseLibraryPath = join(outputDir, "base-component-library.yaml");
+    const baseLibraryContent = await readFile(baseLibraryPath, "utf8");
+    const baseLibrary = parse(baseLibraryContent);
+
+    if (
+      baseLibrary &&
+      baseLibrary.componentLibrary &&
+      Array.isArray(baseLibrary.componentLibrary)
+    ) {
+      // 创建一个 componentId 到基础组件的映射
+      const baseComponentMap = new Map();
+      baseLibrary.componentLibrary.forEach((component) => {
+        if (component.type === "atomic" && component.componentId) {
+          baseComponentMap.set(component.componentId, component);
+        }
+      });
+
+      // 替换现有组件库中的原子组件
+      const updatedLibrary = componentLibrary.map((component) => {
+        if (
+          component.type === "atomic" &&
+          component.componentId &&
+          baseComponentMap.has(component.componentId)
+        ) {
+          return baseComponentMap.get(component.componentId);
+        }
+        return component;
+      });
+
+      // 添加不存在的新原子组件
+      const existingComponentIds = new Set(
+        componentLibrary
+          .filter(
+            (component) => component.type === "atomic" && component.componentId
+          )
+          .map((component) => component.componentId)
+      );
+
+      baseLibrary.componentLibrary.forEach((component) => {
+        if (
+          component.type === "atomic" &&
+          component.componentId &&
+          !existingComponentIds.has(component.componentId)
+        ) {
+          updatedLibrary.push(component);
+        }
+      });
+
+      return updatedLibrary;
+    }
+  } catch (error) {
+    // 如果读取失败，返回原始组件库
+    console.warn("Failed to load base-component-library.yaml:", error.message);
+  }
+
+  return componentLibrary;
+};
+
 export default async function loadMiddleFormatsForAnalysis(input, options) {
   const { pagesDir, outputDir } = input;
 
@@ -77,7 +138,10 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       if (!existingLibraryShouldRegenerate && !existingLibraryShouldParsed) {
         return {
           middleFormatFiles,
-          componentLibrary: existingLibrary.componentLibrary,
+          componentLibrary: await formatComponentLibrary(
+            existingLibrary.componentLibrary,
+            outputDir
+          ),
         };
       }
     } catch (error) {
@@ -134,7 +198,10 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
 
     return {
       middleFormatFiles,
-      componentLibrary: generateResult.componentLibrary,
+      componentLibrary: await formatComponentLibrary(
+        generateResult.componentLibrary,
+        outputDir
+      ),
     };
   } catch (error) {
     throw new Error(`Failed to load middle format files: ${error.message}`);

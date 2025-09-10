@@ -9,7 +9,7 @@ import { calculateMiddleFormatHash, getComponentLibraryDir } from "./sdk.mjs";
 import { parse, stringify } from "yaml";
 
 // 组件库的 Zod Schema
-const getComponentZodSchema = () => {
+const getComponentZodSchema = ({ allFieldCombinations }) => {
   return z.object({
     componentLibrary: z
       .array(
@@ -39,7 +39,7 @@ const getComponentZodSchema = () => {
                 componentId: z.string().describe("子组件的 ID"),
                 fieldCombinations: z
                   .array(z.string())
-                  .describe("子组件使用的字段组合"),
+                  .describe("管理组件使用的字段组合"),
               })
             )
             .default([])
@@ -50,7 +50,7 @@ const getComponentZodSchema = () => {
       )
       .default([])
       .describe(
-        "纯净的组件库定义数组，只包含字符串字段的组件模式，不包含数组字段处理"
+        "组件库定义数组，如果复合组件中的 relatedComponents 中的 componentId，确保对应的原子组件记录在组件库中"
       ),
   });
 };
@@ -67,6 +67,16 @@ export default async function analyzeAndGenerateComponentLibrary(
   } = input;
 
   const componentLibraryDir = getComponentLibraryDir(tmpDir);
+
+  // 使用 OpenAI 引擎
+  const openaiModel = new OpenAIChatModel({
+    apiKey: process.env.OPENAI_API_KEY,
+    model: "gpt-4o-mini",
+  });
+
+  const engine = new AIGNE({
+    model: openaiModel,
+  });
 
   try {
     const analyzeComponentLibraryAgentSkills = middleFormatFiles
@@ -94,7 +104,9 @@ export default async function analyzeAndGenerateComponentLibrary(
           inputKey: filePath,
           outputKey: filePath,
           outputSchema: z.object({
-            [filePath]: getComponentZodSchema(),
+            [filePath]: getComponentZodSchema({
+              allFieldCombinations,
+            }),
           }),
           instructions: PromptBuilder.from({
             path: join(
@@ -123,7 +135,10 @@ ${JSON.stringify(schema)}
             )
             .replace(
               "{{allFieldCombinations}}",
-              JSON.stringify(allFieldCombinations)
+              `// 共 ${allFieldCombinations.length} 个字段组合
+              ${allFieldCombinations
+                .map((item, index) => `${index + 1}. ${JSON.stringify(item)}`)
+                .join("\n")}`
             ),
         });
       })
@@ -137,7 +152,7 @@ ${JSON.stringify(schema)}
         mode: "parallel",
       });
 
-      const analyzeMiddleFormatComponentResult = await options.context.invoke(
+      const analyzeMiddleFormatComponentResult = await engine.invoke(
         analyzeComponentLibraryAgent,
         {}
       );
@@ -440,16 +455,6 @@ ${JSON.stringify(schema)}
           name: "parserComponentsTeamAgent",
           skills,
           mode: "parallel",
-        });
-
-        // 使用 OpenAI 引擎
-        const openaiModel = new OpenAIChatModel({
-          apiKey: process.env.OPENAI_API_KEY,
-          model: "gpt-4o-mini",
-        });
-
-        const engine = new AIGNE({
-          model: openaiModel,
         });
 
         const parserComponentsTeamAgentResult = await engine.invoke(

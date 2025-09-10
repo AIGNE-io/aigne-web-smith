@@ -54,10 +54,10 @@ export const PROPERTIES_TYPE_SCHEMA = {
     color: () => z.string(),
     url: () =>
       z.object({
-        url: z.string().nullable(),
-        mediaKitUrl: z.string().nullable(),
-        width: z.number().nullable(),
-        height: z.number().nullable(),
+        url: z.string().optional(),
+        mediaKitUrl: z.string().optional(),
+        width: z.number().optional(),
+        height: z.number().optional(),
       }),
     json: (properties, { skipAnyType, addZodDescribe, propLLMConfig } = {}) => {
       const { subProperties } = properties;
@@ -206,9 +206,9 @@ export function propertiesToZodSchema(
     if (isOptional) {
       // WebSmith 现在不太需要这个逻辑，会导致 gemini
       // array 类型生成的 jsonschema 存在 anyof ，LLM 格式校验会报错
-      // if (propType !== "array") {
-      //   schemaObj[propKey] = schemaObj[propKey].nullable();
-      // }
+      if (propType !== "array") {
+        schemaObj[propKey] = schemaObj[propKey].optional();
+      }
     }
 
     let propDescribe = propLLMConfig?.describe;

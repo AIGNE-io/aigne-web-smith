@@ -27,6 +27,7 @@ export default async function checkGenerateComponentLibrary(input) {
     );
 
     if (!exist) {
+      // fieldCombinations
       missingFieldCombinations.push(fieldCombinations);
     }
   });
@@ -48,6 +49,7 @@ export default async function checkGenerateComponentLibrary(input) {
         component.componentId === item && component.type === "atomic"
     );
     if (!exist) {
+      // id
       missingAtomicComponents.push(item);
     }
   });
@@ -61,15 +63,19 @@ export default async function checkGenerateComponentLibrary(input) {
   if (!isApproved) {
     if (missingFieldCombinations.length > 0) {
       detailFeedback.push(
-        `Missing field combinations: ${missingFieldCombinations.join(", ")}`
+        `Missing field combinations: ${JSON.stringify(
+          missingFieldCombinations
+        )}`
       );
     }
     if (missingAtomicComponents.length > 0) {
       detailFeedback.push(
-        `Missing atomic components: ${missingAtomicComponents.join(", ")}`
+        `Missing atomic components: ${JSON.stringify(missingAtomicComponents)}`
       );
     }
   }
+
+  console.warn(detailFeedback);
 
   return {
     isApproved,

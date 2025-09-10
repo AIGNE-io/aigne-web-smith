@@ -35,16 +35,19 @@ export default async function loadComponentLibrary(input, options) {
     }
 
     // 生成组件库
-    const generateTeamAgent = TeamAgent.from({
-      name: "generateComponentLibraryTeam",
-      skills: [options.context.agents["generateComponentLibrary"]],
+    const analyzeAndGenerateComponentLibraryTeamAgent = TeamAgent.from({
+      name: "analyzeAndGenerateComponentLibraryTeam",
+      skills: [options.context.agents["analyzeAndGenerateComponentLibrary"]],
     });
 
     // 传入 middleFormatFiles 直接生成组件库
-    const generateResult = await options.context.invoke(generateTeamAgent, {
-      ...input,
-      middleFormatFiles,
-    });
+    const generateResult = await options.context.invoke(
+      analyzeAndGenerateComponentLibraryTeamAgent,
+      {
+        ...input,
+        middleFormatFiles,
+      }
+    );
 
     return {
       middleFormatFiles,

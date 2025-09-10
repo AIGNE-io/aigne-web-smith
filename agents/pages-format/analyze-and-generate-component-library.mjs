@@ -55,7 +55,10 @@ const getComponentZodSchema = () => {
   });
 };
 
-export default async function generateComponentLibrary(input, options) {
+export default async function analyzeAndGenerateComponentLibrary(
+  input,
+  options
+) {
   const {
     moreContentsComponentList,
     componentList,
@@ -496,4 +499,5 @@ export default async function generateComponentLibrary(input, options) {
   }
 }
 
-generateComponentLibrary.taskTitle = "Generating component library definition";
+analyzeAndGenerateComponentLibrary.taskTitle =
+  "Analyzing and generating component library definition";

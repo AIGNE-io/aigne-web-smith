@@ -11,7 +11,6 @@ import {
   PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
-  PAGES_OUTPUT_DIR,
 } from "../utils/constants.mjs";
 
 import {
@@ -129,14 +128,7 @@ export async function uploadPagesKitYaml({
 }
 
 export default async function publishPages(
-  {
-    pagesDir: rawPagesDir,
-    appUrl,
-    projectId,
-    projectName,
-    projectDesc,
-    projectLogo,
-  },
+  { appUrl, projectId, projectName, projectDesc, projectLogo, outputDir },
   options
 ) {
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
@@ -144,7 +136,7 @@ export default async function publishPages(
   await fs.mkdir(pagesDir, {
     recursive: true,
   });
-  await fs.cp(join(rawPagesDir, PAGES_OUTPUT_DIR), pagesDir, {
+  await fs.cp(outputDir, pagesDir, {
     recursive: true,
   });
 

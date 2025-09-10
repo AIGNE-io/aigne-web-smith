@@ -10,13 +10,13 @@ import { OpenAIChatModel } from "@aigne/openai";
  * 加载所有中间格式文件用于组件模式分析
  * @param {Object} input
  * @param {string} input.pagesDir - pages目录路径
- * @param {string} [input.outputDir] - 输出目录路径，用于检查缓存
+ * @param {string} [input.tmpDir] - 输出目录路径，用于检查缓存
  * @returns {Promise<Object>}
  */
 // 格式化组件库，合并 base-component-library.yaml 的内容
-const formatComponentLibrary = async (componentLibrary, outputDir) => {
+const formatComponentLibrary = async (componentLibrary, tmpDir) => {
   try {
-    const baseLibraryPath = join(outputDir, "base-component-library.yaml");
+    const baseLibraryPath = join(tmpDir, "base-component-library.yaml");
     const baseLibraryContent = await readFile(baseLibraryPath, "utf8");
     const baseLibrary = parse(baseLibraryContent);
 
@@ -75,7 +75,7 @@ const formatComponentLibrary = async (componentLibrary, outputDir) => {
 };
 
 export default async function loadMiddleFormatsForAnalysis(input, options) {
-  const { pagesDir, outputDir } = input;
+  const { pagesDir, tmpDir } = input;
 
   try {
     const middleFormatFiles = [];
@@ -112,7 +112,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
 
     let existingLibrary;
     // 检查是否存在缓存文件
-    const componentLibraryPath = join(outputDir, "component-library.yaml");
+    const componentLibraryPath = join(tmpDir, "component-library.yaml");
 
     let existingLibraryShouldRegenerate = true;
     let existingLibraryShouldParsed = true;
@@ -140,7 +140,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
           middleFormatFiles,
           componentLibrary: await formatComponentLibrary(
             existingLibrary.componentLibrary,
-            outputDir
+            tmpDir
           ),
         };
       }
@@ -200,7 +200,7 @@ export default async function loadMiddleFormatsForAnalysis(input, options) {
       middleFormatFiles,
       componentLibrary: await formatComponentLibrary(
         generateResult.componentLibrary,
-        outputDir
+        tmpDir
       ),
     };
   } catch (error) {

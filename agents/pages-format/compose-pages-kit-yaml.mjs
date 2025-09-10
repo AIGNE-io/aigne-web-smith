@@ -3,7 +3,7 @@ import { writeFile, mkdir } from "node:fs/promises";
 import { join, dirname, basename } from "node:path";
 import { generateRandomId, extractFieldCombinations } from "./sdk.mjs";
 import { getFileName } from "../../utils/utils.mjs";
-import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
+
 import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
 import _ from "lodash";
 import { readFileSync } from "node:fs";

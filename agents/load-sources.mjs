@@ -72,7 +72,7 @@ export default async function loadSources({
   sourcesPath = [],
   includePatterns,
   excludePatterns,
-  outputDir,
+  tmpDir,
   docsDir,
   pagePath,
   projectId,
@@ -269,7 +269,7 @@ export default async function loadSources({
 
   // Get the last structure plan result
   let originalStructurePlan;
-  const structurePlanPath = path.join(outputDir, "structure-plan.json");
+  const structurePlanPath = path.join(tmpDir, "structure-plan.json");
   try {
     await access(structurePlanPath);
     const structurePlanResult = await readFile(structurePlanPath, "utf8");

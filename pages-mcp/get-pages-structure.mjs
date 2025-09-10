@@ -1,11 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { PAGES_OUTPUT_DIR } from "../utils/constants.mjs";
 
 const structureDir = path.join(
   process.cwd(),
   "./.aigne/web-smith",
-  "output",
-  "structure-plan.json",
+  PAGES_OUTPUT_DIR,
+  "structure-plan.json"
 );
 
 export default async function getPagesStructure() {

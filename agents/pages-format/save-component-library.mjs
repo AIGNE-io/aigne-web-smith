@@ -8,21 +8,21 @@ import { generateRandomId } from "./sdk.mjs";
  * 保存组件库定义到文件
  * @param {Object} input
  * @param {Object} input.componentLibrary - 组件库定义
- * @param {string} [input.outputDir] - 输出目录
+ * @param {string} [input.tmpDir] - 输出目录
  * @returns {Promise<Object>}
  */
 export default async function saveComponentLibrary({
   componentLibrary: _componentLibrary,
   middleFormatFiles,
-  outputDir,
+  tmpDir,
 }) {
   try {
     // 确保输出目录存在
-    await mkdir(outputDir, { recursive: true });
+    await mkdir(tmpDir, { recursive: true });
 
     const timestamp = new Date().toISOString();
 
-    const componentLibraryPath = join(outputDir, "component-library.yaml");
+    const componentLibraryPath = join(tmpDir, "component-library.yaml");
 
     // 检查文件是否存在
     let fileExists = false;

@@ -584,3 +584,5 @@ export const TMP_ASSETS_DIR = "assets";
 export const PAGE_FILE_EXTENSION = ".yaml";
 
 export const PAGES_OUTPUT_DIR = "output";
+
+export const PAGES_TMP_DIR = "tmp";

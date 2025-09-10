@@ -15,7 +15,7 @@ skills:
     default_input:
       saveKey: structurePlan
       savePath:
-        $get: outputDir
+        $get: tmpDir
       fileName: structure-plan.json
   - type: transform
     name: transformData

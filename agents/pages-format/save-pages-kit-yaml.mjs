@@ -1,10 +1,9 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
-import { PAGES_OUTPUT_DIR } from "../../utils/constants.mjs";
 
 export default async function savePagesKitYaml(input) {
-  const { path, locale, pagesDir, pagesKitYaml } = input;
+  const { path, locale, pagesDir, pagesKitYaml, outputDir } = input;
 
   // 构建输出文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
@@ -12,7 +11,7 @@ export default async function savePagesKitYaml(input) {
     fileName: flatName,
   });
 
-  const outputPath = join(pagesDir, PAGES_OUTPUT_DIR, fileFullName);
+  const outputPath = join(outputDir, fileFullName);
 
   // ensure dir exists
   try {

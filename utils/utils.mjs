@@ -25,6 +25,8 @@ import {
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  PAGES_OUTPUT_DIR,
+  PAGES_TMP_DIR,
 } from "./constants.mjs";
 
 /**
@@ -949,6 +951,7 @@ export function processConfigFields(config) {
     locale: "en",
     sourcesPath: ["./"],
     pagesDir: "./.aigne/web-smith/pages",
+    tmpDir: "./.aigne/web-smith/tmp",
     outputDir: "./.aigne/web-smith/output",
     translateLanguages: [],
     rules: "",
@@ -1070,6 +1073,11 @@ export function processConfigFields(config) {
   // Combine all content into rules field
   if (allRulesContent.length > 0) {
     processed.rules = allRulesContent.join("\n\n");
+  }
+
+  if (config.pagesDir) {
+    processed.tmpDir = join(config.pagesDir, PAGES_TMP_DIR);
+    processed.outputDir = join(config.pagesDir, PAGES_OUTPUT_DIR);
   }
 
   return processed;

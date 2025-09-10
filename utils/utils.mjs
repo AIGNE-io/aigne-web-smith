@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
+import { join } from "node:path";
 import {
   accessSync,
   constants,
@@ -951,8 +952,8 @@ export function processConfigFields(config) {
     locale: "en",
     sourcesPath: ["./"],
     pagesDir: "./.aigne/web-smith/pages",
-    tmpDir: "./.aigne/web-smith/tmp",
     outputDir: "./.aigne/web-smith/output",
+    tmpDir: "./.aigne/web-smith/tmp",
     translateLanguages: [],
     rules: "",
     targetAudience: "",

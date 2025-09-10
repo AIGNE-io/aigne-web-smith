@@ -3,7 +3,7 @@ import { join, dirname } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
 
 export default async function savePagesKitYaml(input) {
-  const { path, locale, pagesDir, pagesKitYaml, outputDir } = input;
+  const { path, pagesKitYaml, outputDir } = input;
 
   // 构建输出文件路径
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");

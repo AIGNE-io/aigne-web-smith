@@ -9,10 +9,14 @@ import _ from "lodash";
 import { readFileSync } from "node:fs";
 
 const DEFAULT_FLAG = false;
-const DEFAULT_TEST_FILE = readFileSync(
-  "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/cli-reference-create.zh.yaml",
-  "utf-8"
-);
+try {
+  const DEFAULT_TEST_FILE = readFileSync(
+    "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/cli-reference-create.zh.yaml",
+    "utf-8"
+  );
+} catch (error) {
+  // ignore error
+}
 
 function convertToSection({
   componentInstance,

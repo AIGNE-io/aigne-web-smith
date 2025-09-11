@@ -8,8 +8,16 @@ import {
 } from "../utils/pages-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { page, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },
-  options,
+  {
+    page,
+    structurePlanResult,
+    projectId,
+    pagesDir,
+    isTranslate,
+    feedback,
+    locale,
+  },
+  options
 ) {
   let foundItem = null;
   let selectedFileContent = null;
@@ -19,7 +27,11 @@ export default async function findItemByPath(
   if (!pagePath) {
     try {
       // Get all main language page files in pagesDir
-      const mainLanguageFiles = await getMainLanguageFiles(pagesDir, locale, structurePlanResult);
+      const mainLanguageFiles = await getMainLanguageFiles(
+        pagesDir,
+        locale,
+        structurePlanResult
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No pages found in the pages directory");
@@ -38,7 +50,7 @@ export default async function findItemByPath(
 
           const searchTerm = input.trim().toLowerCase();
           const filteredFiles = mainLanguageFiles.filter((file) =>
-            file.toLowerCase().includes(searchTerm),
+            file.toLowerCase().includes(searchTerm)
           );
 
           return filteredFiles.map((file) => ({
@@ -71,17 +83,25 @@ export default async function findItemByPath(
       throw new Error(
         getActionText(
           isTranslate,
-          "Please run 'aigne page generate' first to generate pages, then select which page to {action}",
-        ),
+          "Please run 'aigne web generate' first to generate pages, then select which page to {action}"
+        )
       );
     }
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(structurePlanResult, pagePath, projectId, pagesDir, locale);
+  foundItem = await findItemByPathUtil(
+    structurePlanResult,
+    pagePath,
+    projectId,
+    pagesDir,
+    locale
+  );
 
   if (!foundItem) {
-    throw new Error(`Item with path "${pagePath}" not found in structurePlanResult`);
+    throw new Error(
+      `Item with path "${pagePath}" not found in structurePlanResult`
+    );
   }
 
   // Prompt for feedback if not provided
@@ -89,7 +109,7 @@ export default async function findItemByPath(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "Please provide feedback for the {action} (press Enter to skip):"
     );
 
     userFeedback = await options.prompts.input({

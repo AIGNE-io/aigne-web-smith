@@ -5,6 +5,7 @@ import {
   generateRandomId,
   extractFieldCombinations,
   getChildFieldCombinationsKey,
+  generateDeterministicId,
 } from "./sdk.mjs";
 import { getFileName } from "../../utils/utils.mjs";
 
@@ -218,13 +219,12 @@ function convertToSection({
 
     const allowSectionKey = Object.keys({
       ...config?.gridSettings?.desktop,
-
       ...config?.gridSettings?.mobile,
     });
 
     // 过滤复合组件的不存在的 section
     // const allSections = [...sections, ...arraySections].filter((section) => {
-    //   return allowSectionKey.includes(section.id);
+    // return allowSectionKey.includes(section.id);
     // });
 
     const allSections = [...sections, ...arraySections];
@@ -240,11 +240,11 @@ function convertToSection({
   }
 }
 
-function createPagesKitInstance({ meta, locale }) {
+function createPagesKitInstance({ meta, locale, filePath }) {
   const now = new Date().toISOString();
 
   const pagesKitData = {
-    id: generateRandomId(),
+    id: generateDeterministicId(filePath),
     createdAt: now,
     updatedAt: now,
     publishedAt: now,
@@ -533,10 +533,117 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
           componentLibrary
         );
 
+        // 处理数组字段
+        const arrayComponents = [];
+        const arrayComponentInstances = [];
+        // const arrayFields = sectionAnalysis[0]?.arrayFields || [];
+
+        // if (arrayFields.length > 0) {
+        //   log(`    🔍 处理 ${arrayFields.length} 个数组字段...`);
+
+        //   arrayFields.forEach((arrayField) => {
+        //     const { fieldName, fieldCombinationsList } = arrayField;
+        //     log(
+        //       `      📋 处理数组字段 "${fieldName}": ${fieldCombinationsList.length} 个items`
+        //     );
+
+        //     // 为数组中的每个item匹配组件并创建实例
+        //     const arrayItemInstances = fieldCombinationsList.map(
+        //       (itemFieldCombinations, itemIndex) => {
+        //         log(
+        //           `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
+        //             itemFieldCombinations
+        //           )}`
+        //         );
+
+        //         // 匹配组件
+        //         const itemComponent = componentLibrary.find((component) => {
+        //           const componentFields = component.fieldCombinations || [];
+        //           return _.isEqual(componentFields, itemFieldCombinations);
+        //         });
+
+        //         if (itemComponent) {
+        //           log(
+        //             `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
+        //           );
+
+        //           // 获取数组中对应的实际数据
+        //           const itemData = section[fieldName]?.[itemIndex];
+
+        //           if (itemData) {
+        //             const itemInstance = createComponentInstance(
+        //               itemData,
+        //               itemComponent,
+        //               componentLibrary
+        //             );
+        //             return {
+        //               itemIndex,
+        //               component: itemComponent,
+        //               instance: itemInstance,
+        //               matched: true,
+        //             };
+        //           } else {
+        //             log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
+        //             return {
+        //               itemIndex,
+        //               component: itemComponent,
+        //               instance: null,
+        //               matched: false,
+        //             };
+        //           }
+        //         } else {
+        //           log(`        ❌ 未找到匹配的组件`);
+        //           return {
+        //             itemIndex,
+        //             component: null,
+        //             instance: null,
+        //             matched: false,
+        //           };
+        //         }
+        //       }
+        //     );
+
+        //     // 创建数组字段的容器组件
+        //     const matchedItems = arrayItemInstances.filter(
+        //       (item) => item.matched
+        //     ).length;
+        //     log(
+        //       `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
+        //     );
+
+        //     // 收集数组字段的组件和实例
+        //     const fieldComponents = [];
+        //     const fieldInstances = [];
+
+        //     arrayItemInstances.forEach((result) => {
+        //       if (result.matched && result.component) {
+        //         fieldComponents.push(result.component);
+        //       }
+        //       if (result.matched && result.instance) {
+        //         fieldInstances.push({
+        //           fieldName,
+        //           itemIndex: result.itemIndex,
+        //           component: result.component,
+        //           instance: result.instance,
+        //         });
+        //       }
+        //     });
+
+        //     // 去重组件（同一类型的组件只需要记录一次）
+        //     const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
+        //     arrayComponents.push(...uniqueComponents);
+        //     arrayComponentInstances.push(...fieldInstances);
+
+        //     log(`      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`);
+        //   });
+        // }
+
         return {
           section,
           component: matchedComponent,
           componentInstance,
+          arrayComponents,
+          arrayComponentInstances,
           fieldCombinations,
           matched: true,
         };
@@ -546,6 +653,8 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
           section,
           component: null,
           componentInstance: null,
+          arrayComponents: [],
+          arrayComponentInstances: [],
           fieldCombinations,
           matched: false,
         };
@@ -617,6 +726,7 @@ export default async function composePagesKitYaml(input) {
 
         // 创建Pages Kit实例
         const pagesKitData = createPagesKitInstance({
+          filePath,
           meta: middleFormatContent.meta,
           locale,
         });

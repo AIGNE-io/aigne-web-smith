@@ -20,6 +20,24 @@ export function generateRandomId(length = 16) {
 }
 
 /**
+ * 从文本生成确定的16位16进制ID
+ * 相同的文本内容总是产生相同的ID
+ * @param {string} text - 输入文本
+ * @returns {string} 16位16进制ID
+ */
+export function generateDeterministicId(text, length = 16) {
+  if (typeof text !== "string") {
+    if (typeof text === "object") {
+      text = JSON.stringify(text);
+    } else {
+      text = String(text);
+    }
+  }
+
+  return createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
+}
+
+/**
  * LLM配置属性类型定义
  */
 export const LLMConfigPropertySchema = z.object({

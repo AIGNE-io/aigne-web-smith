@@ -56,7 +56,7 @@ export default async function savePages({
   1. Publish Pages
 
      \`\`\`bash
-     aigne page publish
+     aigne web publish
      \`\`\`
 
      Get an online preview link to share with your team
@@ -66,14 +66,14 @@ export default async function savePages({
   1. Update Specific Pages
 
      \`\`\`bash
-     aigne page update
+     aigne web update
      \`\`\`
 
      Regenerate content for specific pages
 
   2. Provide Structure Feedback
      \`\`\`bash
-     aigne page generate --feedback "Your feedback on page structure"
+     aigne web generate --feedback "Your feedback on page structure"
      \`\`\`
      Improve the overall page structure
 

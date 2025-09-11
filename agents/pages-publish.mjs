@@ -30,12 +30,12 @@ const publishPagesFn = async ({
   routeData,
   dataSourceData,
 }) => {
-  // 构建请求头
+  // Build request headers
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
 
-  // 构建请求体 - 使用 /upload-data SDK 接口格式
+  // Build request body - using /upload-data SDK interface format
   const requestBody = JSON.stringify({
     projectId,
     force,
@@ -51,13 +51,13 @@ const publishPagesFn = async ({
     redirect: "follow",
   };
 
-  // 发送请求到 Pages Kit 接口
+  // Send request to Pages Kit API
   const response = await fetch(
     join(appUrl, "/api/sdk/upload-data"),
     requestOptions
   );
 
-  // 处理响应
+  // Handle response
   let result;
   const responseText = await response.text();
 
@@ -87,13 +87,13 @@ export async function uploadPagesKitYaml({
   force = true,
 }) {
   try {
-    // 使用现有的鉴权逻辑获取访问令牌
+    // Use existing authentication logic to get access token
     const accessToken = await getAccessToken(appUrl);
 
-    // 将 pagesKitYaml 转换为 SDK 格式
-    // 这里需要根据 pagesKitYaml 的结构来构造 pageTemplateData
+    // Convert pagesKitYaml to SDK format
+    // Need to construct pageTemplateData based on pagesKitYaml structure
     const pageTemplateData = {
-      // 将 YAML 内容作为模板数据
+      // Use YAML content as template data
       content: pagesKitYaml,
       locale,
       templateConfig: {
@@ -107,7 +107,7 @@ export async function uploadPagesKitYaml({
       accessToken,
       force,
       pageTemplateData,
-      // routeData 和 dataSourceData 可以根据需要添加
+      // routeData and dataSourceData can be added as needed
     });
 
     return {
@@ -245,24 +245,24 @@ export default async function publishPages(
   let message;
 
   try {
-    // 读取 sidebar 内容作为页面数据（如果存在）
+    // Read sidebar content as page data (if exists)
     let sidebarContent = null;
     try {
       sidebarContent = await fs.readFile(sidebarPath, "utf-8");
 
       sidebarContent = parse(sidebarContent);
     } catch {
-      // sidebar 文件不存在时忽略
+      // Ignore when sidebar file doesn't exist
     }
 
-    // 从 sidebar 中提取所有路径的递归函数
+    // Recursive function to extract all paths from sidebar
     function extractAllPaths(sidebarItems) {
       const paths = [];
       if (!Array.isArray(sidebarItems)) return paths;
 
       sidebarItems.forEach((item) => {
         if (item.path) {
-          // 移除前导斜杠，因为文件名不需要斜杠
+          // Remove leading slash as filenames don't need slashes
           const cleanPath = item.path.startsWith("/")
             ? item.path.slice(1)
             : item.path;
@@ -272,7 +272,7 @@ export default async function publishPages(
             title: item.title,
           });
         }
-        // 递归处理子项
+        // Recursively process child items
         if (item.children && Array.isArray(item.children)) {
           paths.push(...extractAllPaths(item.children));
         }
@@ -281,16 +281,16 @@ export default async function publishPages(
       return paths;
     }
 
-    // 提取所有 sidebar 路径
+    // Extract all sidebar paths
     const sidebarPaths = sidebarContent
       ? extractAllPaths(sidebarContent.sidebar || sidebarContent)
       : [];
-    console.log(`📋 从 sidebar 中提取到 ${sidebarPaths.length} 个路径`);
+    console.log(`📋 Extracted ${sidebarPaths.length} paths from sidebar`);
     sidebarPaths.forEach(({ path, title }) => {
       console.log(`  - ${path} (${title})`);
     });
 
-    // 读取 pagesDir 中的所有 .yaml 文件
+    // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
       (file) =>
@@ -298,7 +298,7 @@ export default async function publishPages(
         file !== "_sidebar.yaml"
     );
 
-    // 使用 p-map 并发处理页面文件，限制并发数为4
+    // Use p-map to process page files concurrently, limit concurrency to 4
     const publishResults = await pMap(
       yamlFiles,
       async (file) => {
@@ -316,7 +316,7 @@ export default async function publishPages(
           };
         }
 
-        // 查找对应的 sidebar 路径信息
+        // Find corresponding sidebar path information
         const fileBaseName = basename(file, ".yaml");
         const matchingSidebarItem = sidebarPaths.find(
           (item) =>
@@ -329,11 +329,11 @@ export default async function publishPages(
           ? matchingSidebarItem.path
           : `/${fileBaseName}`;
 
-        // 构造每个页面的模板数据 - 直接使用解析后的 YAML 作为完整模板对象
+        // Construct template data for each page - directly use parsed YAML as complete template object
         const parsedPageContent = parse(pageContent);
         const pageTemplateData = {
           ...parsedPageContent,
-          // 添加项目相关的元信息
+          // Add project-related metadata
           slug: path,
           templateConfig: {
             isTemplate: true,
@@ -342,7 +342,7 @@ export default async function publishPages(
           },
         };
 
-        // 构造路由数据
+        // Construct route data
         const routeData = {
           path,
           displayName: path,
@@ -366,7 +366,7 @@ export default async function publishPages(
             force: true,
             pageTemplateData,
             routeData,
-            // dataSourceData 暂时不需要，可以后续添加
+            // dataSourceData not needed for now, can be added later
           });
 
           console.log(`✅ Successfully published: ${file}`);
@@ -388,7 +388,7 @@ export default async function publishPages(
       { concurrency: 3 }
     );
 
-    // 使用整体结果判断成功状态
+    // Use overall results to determine success status
     const overallSuccess = publishResults.every((result) => result.success);
     const success = overallSuccess;
     const newProjectId =

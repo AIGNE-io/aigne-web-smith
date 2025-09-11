@@ -166,7 +166,7 @@ ${JSON.stringify(schema)}
         mode: "parallel",
       });
 
-      const analyzeMiddleFormatComponentResult = await engine.invoke(
+      const analyzeMiddleFormatComponentResult = await options.context.invoke(
         analyzeComponentLibraryAgent,
         {
           ...input,

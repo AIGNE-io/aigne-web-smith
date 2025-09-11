@@ -113,7 +113,8 @@ chmod +x aigne.yaml
 # Content generation for specific page
 ./aigne.yaml run content-detail-generator
 
-
+# Template generation
+./aigne.yaml run page-template-generator
 ```
 
 ### Example Input

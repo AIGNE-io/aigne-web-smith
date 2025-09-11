@@ -277,7 +277,6 @@ export const TARGET_AUDIENCES = {
   },
 };
 
-
 // Website scale - how many pages and sections should be generated?
 export const WEBSITE_SCALE = {
   minimal: {

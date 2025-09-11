@@ -2,10 +2,9 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
-import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
+import { validateSelection } from "../utils/conflict-detector.mjs";
 import {
   PAGE_STYLES,
-  PURPOSE_TO_SCALE_MAPPING,
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
@@ -50,8 +49,7 @@ export default async function init(
 
   // 1. Primary purpose - what type of website are you building?
   const purposeChoices = await options.prompts.checkbox({
-    message:
-      "📝 [1/7]: What type of website are you building? (Select all that apply)",
+    message: "📝 [1/7]: What type of website are you building? (Select all that apply)",
     choices: Object.entries(PAGE_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({

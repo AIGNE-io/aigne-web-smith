@@ -181,8 +181,12 @@ ${JSON.stringify(schema)}
         const atomicComponentsParserAgents = atomicComponentsNeedParse.map((item, _index) => {
           const { componentId } = item;
           const component = moreContentsComponentList.find(
-            (item) => item.content.id === componentId,
+            (item) => item?.content?.id === componentId,
           );
+
+          if (!component) {
+            return;
+          }
 
           const wrapperFieldName = (fieldName) => `<%= ${fieldName} %>`;
 
@@ -192,7 +196,7 @@ ${JSON.stringify(schema)}
             name: `atomicComponentsParserAgent-${item.name}`,
             outputKey: item.componentId,
             outputSchema: z.object({
-              [item.componentId]: component.content.zodSchema,
+              [item.componentId]: component?.content?.zodSchema,
             }),
             instructions: PromptBuilder.from({
               path: join(
@@ -202,7 +206,7 @@ ${JSON.stringify(schema)}
             })
               .instructions.replace(
                 "{{componentSchema}}",
-                JSON.stringify(component.content.schema || {}),
+                JSON.stringify(component?.content?.schema || {}),
               )
               .replace(
                 "{{fieldCombinations}}",
@@ -225,7 +229,10 @@ ${JSON.stringify(schema)}
 
         const moreContentsComponentMap = {};
         moreContentsComponentList.forEach((comp) => {
-          moreContentsComponentMap[comp.content.id] = comp;
+          if (!comp?.content?.id) {
+            return;
+          }
+          moreContentsComponentMap[comp?.content?.id] = comp;
         });
 
         const compositeComponentsParserAgents = compositeComponentsNeedParse.map((item) => {

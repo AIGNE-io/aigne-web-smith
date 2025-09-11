@@ -15,13 +15,26 @@
 - 请根据 <composite-component-info> 生成合理的 layout-block 配置内容
 - 在生成过程中，需要参考 <related-components> 中的子组件信息，确保 layout-block 的配置内容合理，尤其是 gridSettings 的配置
   - gridSettings 的配置，需要考虑在 desktop 和 mobile 两个设备尺寸下的布局，确保布局合理
-- 需要仔细思考什么样的配置是最合理的，<examples> 中的示例仅供参考，不要盲目照搬
+  - gridSettings 的配置，注意元素不要重叠
+- 仔细思考什么样的配置是最合理的，<examples> 中的示例仅供参考，不要盲目照搬
 </rules>
 
 <examples>
 输入:
 - HeroSection，字段组合: ['title', 'description', 'action']，需要展示标题、描述和行动按钮
-- 相关组件信息: ['xoHu0J44322kDYc-', 'a44r0SiGV9AFn2Fj']
+- 相关组件信息: 
+  ```json
+  [
+    {
+      "componentId": "xoHu0J44322kDYc-",
+      "fieldCombinations": ["title", "description"]
+    },
+    {
+      "componentId": "a44r0SiGV9AFn2Fj",
+      "fieldCombinations": ["action"]
+    }
+  ]
+  ```
 - 思考：应该采取上下布局，标题和描述在上，行动按钮在下，并且保持宽度一致
 
 输出:

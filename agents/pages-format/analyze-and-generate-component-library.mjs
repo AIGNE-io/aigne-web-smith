@@ -5,7 +5,11 @@ import { getAllFieldCombinations } from "./sdk.mjs";
 import fs, { readFileSync, readdirSync } from "node:fs";
 import saveComponentLibrary from "./save-component-library.mjs";
 import { join } from "node:path";
-import { calculateMiddleFormatHash, getComponentLibraryDir } from "./sdk.mjs";
+import {
+  calculateMiddleFormatHash,
+  getComponentLibraryDir,
+  getChildFieldCombinationsKey,
+} from "./sdk.mjs";
 import { parse, stringify } from "yaml";
 
 // 组件库的 Zod Schema
@@ -40,7 +44,7 @@ const getComponentZodSchema = ({ allFieldCombinations }) => {
             )
             .default([])
             .describe(
-              "关联的原子组件内容（仅复合组件需要，如果是原子组件则为 [] 空数组）"
+              "复合组件关联的原子组件内容，标记 componentId 为原子组件 ID，fieldCombinations 为原子组件使用的字段组合"
             ),
         })
       )
@@ -166,7 +170,7 @@ ${JSON.stringify(schema)}
         mode: "parallel",
       });
 
-      const analyzeMiddleFormatComponentResult = await options.context.invoke(
+      const analyzeMiddleFormatComponentResult = await engine.invoke(
         analyzeComponentLibraryAgent,
         {
           ...input,
@@ -309,18 +313,13 @@ ${JSON.stringify(schema)}
             const mobileGridSettings = {};
 
             // 处理 relatedComponents 的布局
-            item.relatedComponents.forEach(({ componentId }) => {
-              desktopGridSettings[componentId] = getGridSettingsSchema();
-              mobileGridSettings[componentId] = getGridSettingsSchema();
-            });
-
-            // 处理 list 的布局
-            item.fieldCombinations.forEach((fieldCombination) => {
-              const [key, index] = fieldCombination.split(".");
-              if (Number.isNaN(Number(index))) return;
-              desktopGridSettings[`${key}.${index}`] = getGridSettingsSchema();
-              mobileGridSettings[`${key}.${index}`] = getGridSettingsSchema();
-            });
+            item.relatedComponents?.forEach(
+              ({ componentId, fieldCombinations }) => {
+                const key = getChildFieldCombinationsKey(fieldCombinations);
+                desktopGridSettings[key] = getGridSettingsSchema();
+                mobileGridSettings[key] = getGridSettingsSchema();
+              }
+            );
 
             // 定义输出 schema - config 对象
             const gridSettingsConfig =

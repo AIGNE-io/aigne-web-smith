@@ -382,3 +382,7 @@ export function calculateMiddleFormatHash(middleFormatFiles) {
 export function getComponentLibraryDir(tmpDir) {
   return join(tmpDir, "components");
 }
+
+export const getChildFieldCombinationsKey = (fieldCombinations) => {
+  return fieldCombinations.join(",");
+};

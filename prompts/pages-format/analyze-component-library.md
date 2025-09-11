@@ -38,7 +38,7 @@
 - 确保组件库中包含所有字段组合
   - 确保 <all_field_combinations> 中的每个字段组合都有对应的组件，可能是原子组件，也可能是复合组件
   - 确保 <atomic_component_list> 中的每个原子组件都有对应的组件
-  - 确保原子组件的 relatedComponents 中的 componentId 都有对应的原子组件
+  - 确保复合组件的 relatedComponents 完整，包含所有相关的原子组件（componentId）和对应的字段组合（fieldCombinations）
 - 请校验组件库的正确性和完整性
   {% if detailFeedback %}
 - 请根据 <review_feedback> 的反馈，基于 <latest_component_library> 中的内容修改组件库，使其符合要求
@@ -72,17 +72,21 @@ componentLibrary 输出示例（仅作参考）：
     {
       "name": "HeroSection",
       "type": "composite",
-      "summary": "英雄区组件，用于展示标题、描述和行动按钮，是个复合组件",
+      "summary": "英雄区组件，用于展示标题、描述和 2 个行动按钮，是个复合组件",
       "componentId": "abc123def456ghi7",
-      "fieldCombinations": ["title", "description", "action"],
+      "fieldCombinations": ["title", "description", "action.0", "action.1"],
       "relatedComponents": [
         {
           "componentId": "xoHu0J44322kDYc-",
           "fieldCombinations": ["title", "description"]
         },
         {
-          "componentId": "a44r0SiGV9AFn2Fj",
-          "fieldCombinations": ["action"]
+          "componentId": "a44r0SiGV9AFn2Fj", // 第一个行动按钮
+          "fieldCombinations": ["action.0"]
+        },
+        {
+          "componentId": "a44r0SiGV9AFn2Fj", // 第二个行动按钮
+          "fieldCombinations": ["action.1"]
         }
       ]
     }

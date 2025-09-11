@@ -203,13 +203,16 @@ function convertToSection({
 
     const allowSectionKey = Object.keys({
       ...config?.gridSettings?.desktop,
+
       ...config?.gridSettings?.mobile,
     });
 
-    // 过滤复合组件的不存在的 section，同时也避免重复
-    const allSections = [...sections, ...arraySections].filter((section) => {
-      return allowSectionKey.includes(section.id);
-    });
+    // 过滤复合组件的不存在的 section
+    // const allSections = [...sections, ...arraySections].filter((section) => {
+    //   return allowSectionKey.includes(section.id);
+    // });
+
+    const allSections = [...sections, ...arraySections];
 
     return {
       id,

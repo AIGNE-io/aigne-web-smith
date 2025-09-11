@@ -25,15 +25,17 @@
 - 思考：应该采取上下布局，标题和描述在上，行动按钮在下，并且保持宽度一致
 
 输出:
+
+```json
 {
   "gridSettings": {
     "desktop": {
-      "xoHu0J44322kDYc-": {"x": 0, "y": 0, "w": 12, "h": 1},
-      "a44r0SiGV9AFn2Fj": {"x": 0, "y": 1, "w": 12, "h": 1}
+      "xoHu0J44322kDYc-": { "x": 0, "y": 0, "w": 12, "h": 1 },
+      "a44r0SiGV9AFn2Fj": { "x": 0, "y": 1, "w": 12, "h": 1 }
     },
     "mobile": {
-      "xoHu0J44322kDYc-": {"x": 0, "y": 0, "w": 12, "h": 1},
-      "a44r0SiGV9AFn2Fj": {"x": 0, "y": 1, "w": 12, "h": 1}
+      "xoHu0J44322kDYc-": { "x": 0, "y": 0, "w": 12, "h": 1 },
+      "a44r0SiGV9AFn2Fj": { "x": 0, "y": 1, "w": 12, "h": 1 }
     }
   },
   "gap": "normal",
@@ -49,4 +51,6 @@
   "borderRadius": "none",
   "height": "100%"
 }
+```
+
 </examples>

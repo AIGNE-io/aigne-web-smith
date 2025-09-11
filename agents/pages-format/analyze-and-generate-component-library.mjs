@@ -221,10 +221,6 @@ ${JSON.stringify(schema)}
             const fieldCombinationsWithMustache =
               item.fieldCombinations.map(wrapperFieldName);
 
-            const titleFieldName = wrapperFieldName("title");
-            const descriptionFieldName = wrapperFieldName("description");
-            const codeFieldName = wrapperFieldName("code");
-
             return AIAgent.from({
               name: `atomicComponentsParserAgent-${item.name}`,
               outputKey: item.componentId,
@@ -244,10 +240,7 @@ ${JSON.stringify(schema)}
                 .replace(
                   "{{fieldCombinations}}",
                   JSON.stringify(fieldCombinationsWithMustache || [])
-                )
-                .replace("{{titleFieldName}}", titleFieldName)
-                .replace("{{descriptionFieldName}}", descriptionFieldName)
-                .replace("{{codeFieldName}}", codeFieldName),
+                ),
             });
           }
         );

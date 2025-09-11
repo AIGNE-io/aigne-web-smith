@@ -151,7 +151,7 @@ ${JSON.stringify(schema)}
             isApproved: ({ isApproved }) => {
               return isApproved;
             },
-            maxIterations: 3,
+            maxIterations: 5,
             returnLastOnMaxIterations: true,
           },
         });

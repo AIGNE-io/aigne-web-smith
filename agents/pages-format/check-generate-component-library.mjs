@@ -78,6 +78,8 @@ export default async function checkGenerateComponentLibrary(input) {
   return {
     isApproved,
     detailFeedback: detailFeedback.join("\n"),
-    latestComponentLibrary: componentLibrary,
+    latestComponentLibrary: {
+      componentLibrary,
+    },
   };
 }

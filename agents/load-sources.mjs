@@ -74,7 +74,7 @@ export default async function loadSources({
   includePatterns,
   excludePatterns,
   tmpDir,
-  docsDir,
+  pagesDir,
   pagePath,
   projectId,
   useDefaultPatterns = true,
@@ -84,6 +84,10 @@ export default async function loadSources({
 
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
+
+    // @FIXME: 强制添加 components-list，后续需要修改为通过远程加载
+    paths.push(path.join(import.meta.dirname, "../assets/components-list"));
+
     let allFiles = [];
 
     for (const dir of paths) {
@@ -218,7 +222,7 @@ export default async function loadSources({
 
       if (mediaExtensions.includes(ext)) {
         // This is a media file
-        const relativePath = path.relative(docsDir, file);
+        const relativePath = path.relative(pagesDir, file);
         const fileName = path.basename(file);
         const description = path.parse(fileName).name;
 
@@ -293,7 +297,7 @@ export default async function loadSources({
     // First try direct path matching (original format)
     const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
     fileFullName = `${flatName}.md`;
-    let filePath = path.join(docsDir, fileFullName);
+    let filePath = path.join(pagesDir, fileFullName);
 
     try {
       await access(filePath);
@@ -304,7 +308,7 @@ export default async function loadSources({
         // Extract the flattened path part after projectId-
         const flattenedPath = pagePath.substring(projectId.length + 1);
         fileFullName = `${flattenedPath}.md`;
-        filePath = path.join(docsDir, fileFullName);
+        filePath = path.join(pagesDir, fileFullName);
 
         try {
           await access(filePath);

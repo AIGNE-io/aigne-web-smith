@@ -6,7 +6,7 @@ const structureDir = path.join(
   process.cwd(),
   "./.aigne/web-smith",
   PAGES_OUTPUT_DIR,
-  "structure-plan.json"
+  "structure-plan.json",
 );
 
 export default async function getPagesStructure() {

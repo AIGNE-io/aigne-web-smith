@@ -1,5 +1,5 @@
-import { writeFile, mkdir } from "node:fs/promises";
-import { join, dirname } from "node:path";
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { getFileName } from "../../utils/utils.mjs";
 
 export default async function savePagesKitYaml(input) {
@@ -16,7 +16,7 @@ export default async function savePagesKitYaml(input) {
   // ensure dir exists
   try {
     await mkdir(dirname(outputPath), { recursive: true });
-  } catch (error) {
+  } catch (_error) {
     // ignore error
   }
 
@@ -30,9 +30,7 @@ export default async function savePagesKitYaml(input) {
       $message: `save pages kit format success ${outputPath}`,
     };
   } catch (error) {
-    throw new Error(
-      `save pages kit format failed ${outputPath}: ${error.message}`
-    );
+    throw new Error(`save pages kit format failed ${outputPath}: ${error.message}`);
   }
 }
 

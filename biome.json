@@ -42,6 +42,9 @@
       "complexity": {
         "noForEach": "off",
         "useLiteralKeys": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off"
       }
     }
   },

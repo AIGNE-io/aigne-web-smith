@@ -1,7 +1,7 @@
-import { readdir, readFile, access } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { parse } from "yaml";
 import { TeamAgent } from "@aigne/core";
+import { parse } from "yaml";
 
 export default async function loadComponentLibrary(input, options) {
   const { tmpDir, locale } = input;
@@ -12,9 +12,7 @@ export default async function loadComponentLibrary(input, options) {
 
     // 加载中间格式文件
     const files = await readdir(middleFormatDir);
-    const yamlFiles = files.filter(
-      (file) => file.endsWith(".yaml") && !file.startsWith("_")
-    );
+    const yamlFiles = files.filter((file) => file.endsWith(".yaml") && !file.startsWith("_"));
 
     for (const file of yamlFiles) {
       try {
@@ -23,13 +21,13 @@ export default async function loadComponentLibrary(input, options) {
 
         // 验证是中间格式文件（含有sections字段）
         const parsed = parse(content);
-        if (parsed && parsed.sections && Array.isArray(parsed.sections)) {
+        if (parsed?.sections && Array.isArray(parsed.sections)) {
           middleFormatFiles.push({
             filePath: file,
             content: content,
           });
         }
-      } catch (error) {
+      } catch (_error) {
         // 忽略读取错误的文件
       }
     }
@@ -46,7 +44,7 @@ export default async function loadComponentLibrary(input, options) {
       {
         ...input,
         middleFormatFiles,
-      }
+      },
       // options
     );
 

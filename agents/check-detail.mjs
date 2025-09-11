@@ -17,7 +17,7 @@ export default async function checkDetail(input, options) {
     originalStructurePlan,
     structurePlan,
     modifiedFiles,
-    forceRegenerate,
+    // forceRegenerate,
     locale,
     ...rest
   } = input;
@@ -39,12 +39,10 @@ export default async function checkDetail(input, options) {
   }
 
   // Check if sourceIds have changed by comparing with original structure plan
-  let sourceIdsChanged = false;
+  let _sourceIdsChanged = false;
   if (originalStructurePlan && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find(
-      (node) => node.path === path
-    );
+    const originalNode = originalStructurePlan.find((node) => node.path === path);
 
     if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
@@ -52,19 +50,19 @@ export default async function checkDetail(input, options) {
 
       // Compare arrays (order doesn't matter, but content does)
       if (originalSourceIds.length !== currentSourceIds.length) {
-        sourceIdsChanged = true;
+        _sourceIdsChanged = true;
       } else {
         // Check if any sourceId is different
         const originalSet = new Set(originalSourceIds);
         const currentSet = new Set(currentSourceIds);
 
         if (originalSet.size !== currentSet.size) {
-          sourceIdsChanged = true;
+          _sourceIdsChanged = true;
         } else {
           // Check if any element is different
           for (const sourceId of originalSourceIds) {
             if (!currentSet.has(sourceId)) {
-              sourceIdsChanged = true;
+              _sourceIdsChanged = true;
               break;
             }
           }
@@ -84,7 +82,7 @@ export default async function checkDetail(input, options) {
   }
 
   // If file exists, check content validation
-  let contentValidationFailed = false;
+  let _contentValidationFailed = false;
   if (detailGenerated && fileContent && structurePlan) {
     const validationResult = await checkDetailResult({
       structurePlan,
@@ -95,7 +93,7 @@ export default async function checkDetail(input, options) {
     });
 
     if (!validationResult.isApproved) {
-      contentValidationFailed = true;
+      _contentValidationFailed = true;
     }
   }
 
@@ -110,9 +108,9 @@ export default async function checkDetail(input, options) {
 
   const teamAgent = TeamAgent.from({
     name: "generateDetail",
-    skills: [
-      !detailGenerated && options.context.agents["detailGeneratorAndTranslate"],
-    ].filter(Boolean),
+    skills: [!detailGenerated && options.context.agents["detailGeneratorAndTranslate"]].filter(
+      Boolean,
+    ),
   });
 
   const result = await options.context.invoke(teamAgent, {

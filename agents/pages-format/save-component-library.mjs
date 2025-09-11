@@ -1,12 +1,8 @@
-import { writeFile, mkdir, access } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify } from "yaml";
 
-import {
-  generateRandomId,
-  calculateMiddleFormatHash,
-  getComponentLibraryDir,
-} from "./sdk.mjs";
+import { calculateMiddleFormatHash, generateRandomId, getComponentLibraryDir } from "./sdk.mjs";
 
 /**
  * 保存组件库定义到文件
@@ -47,10 +43,7 @@ export default async function saveComponentLibrary({
         return {
           ...item,
           // 如果组件没有ID，或者是第一次生成，则生成随机ID
-          componentId:
-            !item.componentId || !fileExists
-              ? generateRandomId()
-              : item.componentId,
+          componentId: !item.componentId || !fileExists ? generateRandomId() : item.componentId,
         };
       }
       return item;
@@ -70,7 +63,7 @@ export default async function saveComponentLibrary({
       stringify(finalComponentLibrary, {
         aliasDuplicateObjects: false, // 禁用锚点和别名
       }),
-      "utf8"
+      "utf8",
     );
 
     return {

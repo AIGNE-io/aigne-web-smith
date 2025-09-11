@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { parse } from "yaml";
+import { z } from "zod";
 
 // 简化的递归 Section Schema，兼容 Zod 4.x
 const createSectionSchema = () => {
@@ -58,9 +58,9 @@ const pagesKitSchema = z.object({
       properties: z.record(
         z.object({
           value: z.unknown(), // 使用 z.unknown() 替代 z.any()
-        })
+        }),
       ),
-    })
+    }),
   ),
 });
 
@@ -105,9 +105,7 @@ export default async function validatePagesKitFormat(input) {
         const zodErrors = zodError?.errors || zodError?.issues || [];
 
         const errors = zodErrors.map((error) => ({
-          path: Array.isArray(error.path)
-            ? error.path.join(".")
-            : String(error.path || "unknown"),
+          path: Array.isArray(error.path) ? error.path.join(".") : String(error.path || "unknown"),
           message: error.message || "Validation failed",
           code: error.code || "VALIDATION_ERROR",
         }));
@@ -119,9 +117,7 @@ export default async function validatePagesKitFormat(input) {
             : `Found ${errors.length} validation errors:`;
 
         const errorDetails = errors
-          .map(
-            (error, index) => `${index + 1}. ${error.path}: ${error.message}`
-          )
+          .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
           .join("\n");
 
         return {

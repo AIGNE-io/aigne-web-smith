@@ -7,17 +7,9 @@ import { parse } from "yaml";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
 
-import {
-  PAGES_KIT_STORE_URL,
-  TMP_DIR,
-  TMP_PAGES_DIR,
-} from "../utils/constants.mjs";
+import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../utils/constants.mjs";
 
-import {
-  getGithubRepoUrl,
-  loadConfigFromFile,
-  saveValueToConfig,
-} from "../utils/utils.mjs";
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
@@ -52,10 +44,7 @@ const publishPagesFn = async ({
   };
 
   // Send request to Pages Kit API
-  const response = await fetch(
-    join(appUrl, "/api/sdk/upload-data"),
-    requestOptions
-  );
+  const response = await fetch(join(appUrl, "/api/sdk/upload-data"), requestOptions);
 
   // Handle response
   let result;
@@ -69,7 +58,7 @@ const publishPagesFn = async ({
 
   if (!response.ok) {
     throw new Error(
-      `Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`
+      `Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`,
     );
   }
 
@@ -113,9 +102,7 @@ export async function uploadPagesKitYaml({
     return {
       uploadResult: result.result,
       uploadStatus: "success",
-      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(
-        result.result
-      )}`,
+      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(result.result)}`,
     };
   } catch (error) {
     return {
@@ -129,7 +116,7 @@ export async function uploadPagesKitYaml({
 
 export default async function publishPages(
   { appUrl, projectId, projectName, projectDesc, projectLogo, outputDir },
-  options
+  options,
 ) {
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
@@ -173,18 +160,14 @@ export default async function publishPages(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `Start here to run your own website:\n${chalk.cyan(
-            PAGES_KIT_STORE_URL
-          )}\n`
+          `Start here to run your own website:\n${chalk.cyan(PAGES_KIT_STORE_URL)}\n`,
       );
       const userInput = await options.prompts.input({
         message: "Please enter your Pages Kit platform URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://")
-              ? input
-              : `https://${input}`;
+            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
             new URL(urlWithProtocol);
             return true;
           } catch {
@@ -225,7 +208,7 @@ export default async function publishPages(
   const sidebarPath = join(pagesDir, "_sidebar.yaml");
 
   // Get project info from config
-  const projectInfo = {
+  const _projectInfo = {
     name: projectName || config?.projectName || basename(process.cwd()),
     description: projectDesc || config?.projectDesc || "",
     icon: projectLogo || config?.projectLogo || "",
@@ -263,9 +246,7 @@ export default async function publishPages(
       sidebarItems.forEach((item) => {
         if (item.path) {
           // Remove leading slash as filenames don't need slashes
-          const cleanPath = item.path.startsWith("/")
-            ? item.path.slice(1)
-            : item.path;
+          const cleanPath = item.path.startsWith("/") ? item.path.slice(1) : item.path;
           paths.push({
             path: item.path,
             cleanPath,
@@ -293,9 +274,7 @@ export default async function publishPages(
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
-      (file) =>
-        (file.endsWith(".yaml") || file.endsWith(".yml")) &&
-        file !== "_sidebar.yaml"
+      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sidebar.yaml",
     );
 
     // Use p-map to process page files concurrently, limit concurrency to 4
@@ -322,12 +301,10 @@ export default async function publishPages(
           (item) =>
             item.cleanPath === fileBaseName ||
             item.cleanPath.endsWith(`/${fileBaseName}`) ||
-            item.cleanPath.replace(/\//g, "-") === fileBaseName
+            item.cleanPath.replace(/\//g, "-") === fileBaseName,
         );
 
-        const path = matchingSidebarItem
-          ? matchingSidebarItem.path
-          : `/${fileBaseName}`;
+        const path = matchingSidebarItem ? matchingSidebarItem.path : `/${fileBaseName}`;
 
         // Construct template data for each page - directly use parsed YAML as complete template object
         const parsedPageContent = parse(pageContent);
@@ -385,14 +362,13 @@ export default async function publishPages(
           };
         }
       },
-      { concurrency: 3 }
+      { concurrency: 3 },
     );
 
     // Use overall results to determine success status
     const overallSuccess = publishResults.every((result) => result.success);
     const success = overallSuccess;
-    const newProjectId =
-      publishResults.find((r) => r.projectId)?.projectId || projectId;
+    const newProjectId = publishResults.find((r) => r.projectId)?.projectId || projectId;
 
     // Save values to config.yaml if publish was successful
     if (success) {
@@ -402,8 +378,7 @@ export default async function publishPages(
       }
 
       // Save projectId to config if it was provided by user input or auto-created
-      const shouldSaveProjectId =
-        !hasProjectIdInConfig || projectId !== newProjectId;
+      const shouldSaveProjectId = !hasProjectIdInConfig || projectId !== newProjectId;
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
       }

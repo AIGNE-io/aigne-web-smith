@@ -28,7 +28,7 @@ export async function findItemByPath(
   pagePath,
   projectId,
   pagesDir,
-  locale = "en"
+  locale = "en",
 ) {
   let foundItem = null;
   let fileName = null;
@@ -52,9 +52,7 @@ export async function findItemByPath(
         // Find item by comparing flattened paths
         foundItem = structurePlanResult.find((item) => {
           // Convert item.path to flattened format (replace / with -)
-          const itemFlattenedPath = item.path
-            .replace(/^\//, "")
-            .replace(/\//g, "-");
+          const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
           return itemFlattenedPath === flattenedPath;
         });
       }
@@ -62,9 +60,7 @@ export async function findItemByPath(
 
     // Generate filename from found item path
     if (foundItem) {
-      const itemFlattenedPath = foundItem.path
-        .replace(/^\//, "")
-        .replace(/\//g, "-");
+      const itemFlattenedPath = foundItem.path.replace(/^\//, "").replace(/\//g, "-");
       fileName = getFileName({ locale, fileName: itemFlattenedPath });
     }
   }
@@ -102,10 +98,7 @@ export async function readFileContent(pagesDir, fileName) {
     const filePath = join(pagesDir, fileName);
     return await readFile(filePath, "utf-8");
   } catch (readError) {
-    console.warn(
-      `⚠️  Could not read content from ${fileName}:`,
-      readError.message
-    );
+    console.warn(`⚠️  Could not read content from ${fileName}:`, readError.message);
     return null;
   }
 }
@@ -117,20 +110,13 @@ export async function readFileContent(pagesDir, fileName) {
  * @param {Array} structurePlanResult - Array of structure plan items to determine file order
  * @returns {Promise<string[]>} Array of main language page files ordered by structurePlanResult
  */
-export async function getMainLanguageFiles(
-  pagesDir,
-  locale,
-  structurePlanResult = null
-) {
+export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult = null) {
   const files = await readdir(pagesDir);
 
   // Filter for main language page files (exclude _sidebar file)
   const filteredFiles = files.filter((file) => {
     // Skip non-page files and _sidebar file
-    if (
-      !file.endsWith(PAGE_FILE_EXTENSION) ||
-      file === `_sidebar${PAGE_FILE_EXTENSION}`
-    ) {
+    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sidebar${PAGE_FILE_EXTENSION}`) {
       return false;
     }
 
@@ -138,15 +124,11 @@ export async function getMainLanguageFiles(
     if (locale === "en") {
       // Return files that don't have language suffixes (e.g., overview.yaml, not overview.zh.yaml)
       return !file.match(
-        new RegExp(
-          `\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`
-        )
+        new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`),
       );
     } else {
       // For non-English main language, return files with the exact locale suffix
-      const localePattern = new RegExp(
-        `\\.${locale}\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`
-      );
+      const localePattern = new RegExp(`\\.${locale}\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`);
       return localePattern.test(file);
     }
   });
@@ -156,9 +138,7 @@ export async function getMainLanguageFiles(
     // Create a map from flat file name to structure plan order
     const orderMap = new Map();
     structurePlanResult.forEach((item, index) => {
-      const itemFlattenedPath = item.path
-        .replace(/^\//, "")
-        .replace(/\//g, "-");
+      const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
       const expectedFileName = getFileName({
         locale,
         fileName: itemFlattenedPath,
@@ -196,10 +176,7 @@ export async function getMainLanguageFiles(
  */
 export function fileNameToFlatPath(fileName) {
   // Remove page extension first
-  let flatName = fileName.replace(
-    new RegExp(`\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`),
-    ""
-  );
+  let flatName = fileName.replace(new RegExp(`\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`), "");
 
   // Remove language suffix if present (e.g., .zh, .zh-CN, .fr, etc.)
   flatName = flatName.replace(/\.\w+(-\w+)?$/, "");
@@ -227,11 +204,7 @@ export function findItemByFlatName(structurePlanResult, flatName) {
  * @param {string} pagesDir - Pages directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
-export async function processSelectedFiles(
-  selectedFiles,
-  structurePlanResult,
-  pagesDir
-) {
+export async function processSelectedFiles(selectedFiles, structurePlanResult, pagesDir) {
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
@@ -256,9 +229,7 @@ export async function processSelectedFiles(
 
       foundItems.push(result);
     } else {
-      console.warn(
-        `⚠️  No structure plan item found for file: ${selectedFile}`
-      );
+      console.warn(`⚠️  No structure plan item found for file: ${selectedFile}`);
     }
   }
 

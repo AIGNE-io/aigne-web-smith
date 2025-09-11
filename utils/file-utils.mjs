@@ -52,11 +52,7 @@ function gitignoreToGlobPatterns(pattern) {
 
   // If pattern doesn't contain wildcards and doesn't end with /
   // it could match both files and directories
-  if (
-    !cleanPattern.includes("*") &&
-    !cleanPattern.includes("?") &&
-    !cleanPattern.endsWith("/")
-  ) {
+  if (!cleanPattern.includes("*") && !cleanPattern.includes("?") && !cleanPattern.endsWith("/")) {
     // Add patterns to match both file and directory
     patterns.push(cleanPattern); // Exact match
     patterns.push(`${cleanPattern}/**`); // Directory contents
@@ -162,12 +158,7 @@ export async function loadGitignore(dir) {
  * @param {string[]} gitignorePatterns - .gitignore patterns
  * @returns {Promise<string[]>} Array of file paths
  */
-export async function getFilesWithGlob(
-  dir,
-  includePatterns,
-  excludePatterns,
-  gitignorePatterns
-) {
+export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gitignorePatterns) {
   // Prepare all ignore patterns
   const allIgnorePatterns = [];
 
@@ -208,9 +199,7 @@ export async function getFilesWithGlob(
 
     return files;
   } catch (error) {
-    console.warn(
-      `Warning: Error during glob search in ${dir}: ${error.message}`
-    );
+    console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
     return [];
   }
 }

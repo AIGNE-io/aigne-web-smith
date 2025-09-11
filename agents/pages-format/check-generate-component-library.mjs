@@ -1,16 +1,14 @@
-import { getAllFieldCombinations } from "./sdk.mjs";
 import _ from "lodash";
+import { getAllFieldCombinations } from "./sdk.mjs";
 
 export default async function checkGenerateComponentLibrary(input) {
   const { middleFormatFiles } = input;
-  const [filePath, { componentLibrary }] = Object.entries(input)?.find(
+  const [filePath, { componentLibrary }] = Object.entries(input || {}).find(
     // 寻找存在 componentLibrary 的项，就是当前正在检测的文件
-    (item) => item[1].componentLibrary
+    (item) => item[1].componentLibrary,
   );
 
-  const middleFormatFile = middleFormatFiles.find(
-    (item) => item.filePath === filePath
-  );
+  const middleFormatFile = middleFormatFiles.find((item) => item.filePath === filePath);
 
   const allFieldCombinations = getAllFieldCombinations([middleFormatFile]);
 
@@ -25,7 +23,7 @@ export default async function checkGenerateComponentLibrary(input) {
 
   allFieldCombinations.forEach((fieldCombinations) => {
     const exist = componentLibrary.find((component) =>
-      _.isEqual(fieldCombinations, component.fieldCombinations)
+      _.isEqual(fieldCombinations, component.fieldCombinations),
     );
 
     if (!exist) {
@@ -37,9 +35,7 @@ export default async function checkGenerateComponentLibrary(input) {
   componentLibrary.forEach((item) => {
     if (item.type === "composite") {
       const relatedComponents = item.relatedComponents;
-      relatedComponentIds.push(
-        ...relatedComponents.map((item) => item.componentId)
-      );
+      relatedComponentIds.push(...relatedComponents.map((item) => item.componentId));
 
       // 检查复合组件的每个字段组合是否都有对应的 relatedComponents 处理
       const allRelatedFieldCombinations = new Set();
@@ -50,7 +46,7 @@ export default async function checkGenerateComponentLibrary(input) {
       });
 
       const missingFields = item.fieldCombinations.filter(
-        (field) => !allRelatedFieldCombinations.has(field)
+        (field) => !allRelatedFieldCombinations.has(field),
       );
 
       if (missingFields.length > 0) {
@@ -67,8 +63,7 @@ export default async function checkGenerateComponentLibrary(input) {
 
   uniqueAtomicComponentIds.forEach((item) => {
     const exist = componentLibrary.find(
-      (component) =>
-        component.componentId === item && component.type === "atomic"
+      (component) => component.componentId === item && component.type === "atomic",
     );
     if (!exist) {
       // id
@@ -76,7 +71,7 @@ export default async function checkGenerateComponentLibrary(input) {
     }
   });
 
-  let isApproved =
+  const isApproved =
     missingFieldCombinations.length === 0 &&
     missingAtomicComponents.length === 0 &&
     missingRelatedFieldCombinations.length === 0;
@@ -87,22 +82,22 @@ export default async function checkGenerateComponentLibrary(input) {
     if (missingFieldCombinations.length > 0) {
       detailFeedback.push(
         `Missing field combinations, please add component mapping: ${JSON.stringify(
-          missingFieldCombinations
-        )}`
+          missingFieldCombinations,
+        )}`,
       );
     }
     if (missingAtomicComponents.length > 0) {
       detailFeedback.push(
         `Missing atomic components, please add atomic component mapping: ${JSON.stringify(
-          missingAtomicComponents
-        )}`
+          missingAtomicComponents,
+        )}`,
       );
     }
     if (missingRelatedFieldCombinations.length > 0) {
       detailFeedback.push(
         `Missing relatedComponents for field combinations, please add component mapping: ${JSON.stringify(
-          missingRelatedFieldCombinations
-        )}`
+          missingRelatedFieldCombinations,
+        )}`,
       );
     }
   }

@@ -2,13 +2,14 @@
  * Pages Kit SDK - 组件处理和转换工具集
  * 基于 Pages Kit 项目的成熟架构，提供组件定义、Schema转换和验证功能
  */
-import { z } from "zod";
-import { nanoid } from "nanoid";
-import { zodToJsonSchema } from "zod-to-json-schema";
-import { parse } from "yaml";
-import _ from "lodash";
+
 import { createHash } from "node:crypto";
 import { join } from "node:path";
+import _ from "lodash";
+import { nanoid } from "nanoid";
+import { parse } from "yaml";
+import { z } from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 // 从 Pages Kit 迁移的核心转换工具
 
@@ -56,9 +57,7 @@ export const CustomComponentPropertySchema = z.object({
   type: z.string(),
   visible: z.boolean().optional(),
   key: z.string().optional(),
-  subProperties: z
-    .record(z.lazy(() => CustomComponentPropertySchema))
-    .optional(),
+  subProperties: z.record(z.lazy(() => CustomComponentPropertySchema)).optional(),
 });
 
 // 属性类型到 Zod Schema 的映射关系
@@ -100,10 +99,7 @@ export const PROPERTIES_TYPE_SCHEMA = {
       }
       return z.object({});
     },
-    array: (
-      properties,
-      { skipAnyType, addZodDescribe, propLLMConfig } = {}
-    ) => {
+    array: (properties, { skipAnyType, addZodDescribe, propLLMConfig } = {}) => {
       const { subProperties } = properties;
       if (subProperties && Object.keys(subProperties)?.length > 0) {
         return z.array(
@@ -111,7 +107,7 @@ export const PROPERTIES_TYPE_SCHEMA = {
             skipAnyType,
             addZodDescribe,
             llmConfig: propLLMConfig?.subProperties,
-          })
+          }),
         );
       }
       if (skipAnyType) return null;
@@ -154,9 +150,7 @@ export function getSchemaByComponentIds(sections, componentList) {
   const schemaObject = {};
 
   sections.forEach((section) => {
-    const component = componentList.find(
-      (comp) => comp.id === section.componentId
-    );
+    const component = componentList.find((comp) => comp.id === section.componentId);
     if (component) {
       schemaObject[section.sectionName] = component.properties;
     }
@@ -179,7 +173,7 @@ export function propertiesToZodSchema(
     // 这个目前来说都是可选的，避免用户在使用的过程中疯狂报错，并且目前 setting 中没有必填标识符
     isOptional = true,
     llmConfig,
-  } = {}
+  } = {},
 ) {
   const schemaObj = {};
 
@@ -190,15 +184,10 @@ export function propertiesToZodSchema(
     const propKey = prop.data.key || propId || key;
 
     // prop llmConfig
-    const propLLMConfig =
-      llmConfig?.properties?.[propId] || llmConfig?.[propId];
+    const propLLMConfig = llmConfig?.properties?.[propId] || llmConfig?.[propId];
 
     // 是否不需要 LLM 处理
-    if (
-      propLLMConfig &&
-      !skipCheckNeedGenerate &&
-      !propLLMConfig.isNeedGenerate
-    ) {
+    if (propLLMConfig && !skipCheckNeedGenerate && !propLLMConfig.isNeedGenerate) {
       return;
     }
 
@@ -229,7 +218,7 @@ export function propertiesToZodSchema(
       }
     }
 
-    let propDescribe = propLLMConfig?.describe;
+    const propDescribe = propLLMConfig?.describe;
 
     if (propDescribe) {
       schemaObj[propKey] = schemaObj[propKey].describe(propDescribe);
@@ -285,7 +274,7 @@ export function extractFieldCombinations(middleFormatContent) {
         if (Array.isArray(value)) {
           // 数组字段：只包含数组字段本身的路径
           // fields.add(`${currentPath}`);
-          value.forEach((item, index) => {
+          value.forEach((_item, index) => {
             fields.add(`${currentPath}.${index}`);
           });
         } else if (typeof value === "object" && value !== null) {
@@ -313,9 +302,7 @@ export function extractFieldCombinations(middleFormatContent) {
           fieldName: key,
           // 分析数组中item的字段类型，使用统一的字段提取逻辑
           fieldCombinationsList: value.map((item) =>
-            typeof item === "object" && item !== null
-              ? extractContentFields(item)
-              : []
+            typeof item === "object" && item !== null ? extractContentFields(item) : [],
           ),
         });
       }
@@ -342,10 +329,7 @@ export function extractFieldCombinations(middleFormatContent) {
  * @param {Array} middleFormatFiles - 中间格式文件数组 [{content: string|object}, ...]
  * @returns {Array} 去重后的所有字段组合数组
  */
-export function getAllFieldCombinations(
-  middleFormatFiles,
-  { includeArrayFields = true } = {}
-) {
+export function getAllFieldCombinations(middleFormatFiles, { includeArrayFields = true } = {}) {
   if (!Array.isArray(middleFormatFiles)) {
     console.warn("middleFormatFiles should be an array");
     return [];
@@ -359,10 +343,7 @@ export function getAllFieldCombinations(
 
     sectionsAnalysis.forEach((sectionAnalysis) => {
       // 收集每个section的字段组合
-      if (
-        sectionAnalysis.fieldCombinations &&
-        sectionAnalysis.fieldCombinations.length > 0
-      ) {
+      if (sectionAnalysis.fieldCombinations && sectionAnalysis.fieldCombinations.length > 0) {
         allFields.push(sectionAnalysis.fieldCombinations);
       }
 

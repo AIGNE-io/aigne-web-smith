@@ -1,17 +1,14 @@
-import { stringify, parse } from "yaml";
-import { writeFile, mkdir } from "node:fs/promises";
-import { join, dirname, basename } from "node:path";
-import {
-  generateRandomId,
-  extractFieldCombinations,
-  getChildFieldCombinationsKey,
-  generateDeterministicId,
-} from "./sdk.mjs";
-import { getFileName } from "../../utils/utils.mjs";
-
-import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
-import _ from "lodash";
 import { readFileSync } from "node:fs";
+import { basename } from "node:path";
+import _ from "lodash";
+import { parse, stringify } from "yaml";
+import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
+import {
+  extractFieldCombinations,
+  generateDeterministicId,
+  generateRandomId,
+  getChildFieldCombinationsKey,
+} from "./sdk.mjs";
 
 // ============= 日志控制 =============
 const ENABLE_LOGS = true; // 设置为 false 可以关闭所有日志输出
@@ -33,7 +30,7 @@ function logError(...args) {
 /**
  * 根据字段组合查找匹配的组件
  */
-function findComponentByFields(fieldCombinations, componentLibrary = []) {
+function _findComponentByFields(fieldCombinations, componentLibrary = []) {
   return componentLibrary.find((component) => {
     const componentFields = component.fieldCombinations || [];
     return _.isEqual(componentFields, fieldCombinations);
@@ -54,7 +51,7 @@ function getNestedValue(obj, path) {
  */
 function processSimpleTemplate(obj, data) {
   if (typeof obj === "string") {
-    return obj.replace(/<%=\s*([^%]+)\s*%>/g, (match, key) => {
+    return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_match, key) => {
       const value = getNestedValue(data, key.trim());
       return value !== undefined ? value : "";
     });
@@ -86,9 +83,7 @@ function processArrayTemplate(templateArray, data) {
   if (arrayField && data[arrayField]?.length > 0) {
     // 这是一个模板数组，需要为每个数据项复制模板
     const template = templateArray[0];
-    return data[arrayField].map((arrayItem) =>
-      processSimpleTemplate(template, arrayItem)
-    );
+    return data[arrayField].map((arrayItem) => processSimpleTemplate(template, arrayItem));
   }
 
   // 否则正常处理数组
@@ -165,18 +160,14 @@ try {
     filePath: "getting-started.yaml",
     content: readFileSync(
       "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
-      "utf-8"
+      "utf-8",
     ),
   };
-} catch (error) {
+} catch (_error) {
   // ignore error
 }
 
-function convertToSection({
-  componentInstance,
-  arrayComponentInstances,
-  locale,
-}) {
+function convertToSection({ componentInstance, arrayComponentInstances, locale }) {
   if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
 
@@ -217,7 +208,7 @@ function convertToSection({
       newConfig = newConfig.replaceAll(oldKey, oldKeyToIdMap[oldKey]);
     });
 
-    const allowSectionKey = Object.keys({
+    const _allowSectionKey = Object.keys({
       ...config?.gridSettings?.desktop,
       ...config?.gridSettings?.mobile,
     });
@@ -328,12 +319,7 @@ function createAtomicInstance(section, component, instanceId) {
 }
 
 // 创建复合组件实例
-function createCompositeInstance(
-  section,
-  component,
-  componentLibrary,
-  instanceId
-) {
+function createCompositeInstance(section, component, componentLibrary, instanceId) {
   log(`    📦 处理 composite 组件...`);
 
   const relatedComponents = component.relatedComponents || [];
@@ -355,74 +341,67 @@ function createCompositeInstance(
   log(`    🔗 Related components 数量: ${relatedComponents.length}`);
 
   // 为每个 relatedComponent 生成完整的实例
-  const relatedInstances = relatedComponents.map(
-    ({ componentId, fieldCombinations }, index) => {
-      log(`      🔍 处理 Related component ${index + 1}: ${componentId}`);
+  const relatedInstances = relatedComponents.map(({ componentId, fieldCombinations }, index) => {
+    log(`      🔍 处理 Related component ${index + 1}: ${componentId}`);
 
-      // 查找组件库中对应的组件
-      const relatedComponent = componentLibrary.find(
-        (comp) => comp.componentId === componentId
-      );
+    // 查找组件库中对应的组件
+    const relatedComponent = componentLibrary.find((comp) => comp.componentId === componentId);
 
-      if (!relatedComponent) {
-        log(`      ❌ 未找到组件: ${componentId}`);
-        return {
-          originalComponentId: componentId,
-          instanceId: generateRandomId(),
-          instance: null,
-        };
-      }
-
-      log(
-        `      ✅ 找到组件: ${relatedComponent.name} (${relatedComponent.type})`
-      );
-
-      const childrenSection = _.pick(section, fieldCombinations);
-
-      // 去掉顶层键，提取内部属性
-      const flattenedChildren = (() => {
-        const entries = Object.entries(childrenSection);
-        if (entries.length > 0) {
-          return entries.reduce((acc, [, value]) => {
-            if (typeof value === "object" && value !== null) {
-              if (Array.isArray(value)) {
-                // 提取数组中的对象内容
-                value.forEach((item) => {
-                  if (typeof item === "object" && item !== null) {
-                    Object.assign(acc, item);
-                  }
-                });
-              } else {
-                // 提取对象内容
-                Object.assign(acc, value);
-              }
-            }
-            return acc;
-          }, {});
-        }
-        return childrenSection;
-      })();
-
-      // 递归创建子组件实例
-      const childInstance = createComponentInstance(
-        {
-          ...section,
-          ...flattenedChildren,
-        },
-        relatedComponent,
-        componentLibrary
-      );
-
+    if (!relatedComponent) {
+      log(`      ❌ 未找到组件: ${componentId}`);
       return {
         originalComponentId: componentId,
-        originalGridSettingsKey:
-          getChildFieldCombinationsKey(fieldCombinations),
-        instanceId: childInstance.id,
-        instance: childInstance,
-        section,
+        instanceId: generateRandomId(),
+        instance: null,
       };
     }
-  );
+
+    log(`      ✅ 找到组件: ${relatedComponent.name} (${relatedComponent.type})`);
+
+    const childrenSection = _.pick(section, fieldCombinations);
+
+    // 去掉顶层键，提取内部属性
+    const flattenedChildren = (() => {
+      const entries = Object.entries(childrenSection);
+      if (entries.length > 0) {
+        return entries.reduce((acc, [, value]) => {
+          if (typeof value === "object" && value !== null) {
+            if (Array.isArray(value)) {
+              // 提取数组中的对象内容
+              value.forEach((item) => {
+                if (typeof item === "object" && item !== null) {
+                  Object.assign(acc, item);
+                }
+              });
+            } else {
+              // 提取对象内容
+              Object.assign(acc, value);
+            }
+          }
+          return acc;
+        }, {});
+      }
+      return childrenSection;
+    })();
+
+    // 递归创建子组件实例
+    const childInstance = createComponentInstance(
+      {
+        ...section,
+        ...flattenedChildren,
+      },
+      relatedComponent,
+      componentLibrary,
+    );
+
+    return {
+      originalComponentId: componentId,
+      originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
+      instanceId: childInstance.id,
+      instance: childInstance,
+      section,
+    };
+  });
 
   // 替换 configTemplate 中的 relatedComponents 值
   log(`    🔄 替换 configTemplate 中的组件 ID...`);
@@ -470,12 +449,7 @@ function createComponentInstance(section, component, componentLibrary = []) {
   if (component.type === "atomic") {
     return createAtomicInstance(section, component, instanceId);
   } else if (component.type === "composite") {
-    return createCompositeInstance(
-      section,
-      component,
-      componentLibrary,
-      instanceId
-    );
+    return createCompositeInstance(section, component, componentLibrary, instanceId);
   }
 
   log(`    ⚠️  未知的组件类型: ${component.type}`);
@@ -495,9 +469,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   try {
     // 解析中间格式内容
     const parsedData =
-      typeof middleFormatContent === "string"
-        ? parse(middleFormatContent)
-        : middleFormatContent;
+      typeof middleFormatContent === "string" ? parse(middleFormatContent) : middleFormatContent;
     if (!parsedData || !parsedData.sections) {
       log(`⚠️  中间格式内容没有sections字段`);
       return [];
@@ -522,15 +494,13 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
       });
 
       if (matchedComponent) {
-        log(
-          `    ✅ 匹配到组件: ${matchedComponent.name} (${matchedComponent.type})`
-        );
+        log(`    ✅ 匹配到组件: ${matchedComponent.name} (${matchedComponent.type})`);
 
         // 生成主组件实例
         const componentInstance = createComponentInstance(
           section,
           matchedComponent,
-          componentLibrary
+          componentLibrary,
         );
 
         // 处理数组字段
@@ -662,9 +632,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
     });
 
     const matchedCount = composedSections.filter((item) => item.matched).length;
-    log(
-      `✅ 匹配完成: ${matchedCount}/${composedSections.length} 个sections找到了匹配的组件`
-    );
+    log(`✅ 匹配完成: ${matchedCount}/${composedSections.length} 个sections找到了匹配的组件`);
 
     return composedSections;
   } catch (error) {
@@ -702,98 +670,83 @@ export default async function composePagesKitYaml(input) {
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    [...(DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles)].forEach(
-      (file, index) => {
-        const middleFormatContent =
-          typeof file.content === "string" ? parse(file.content) : file.content;
+    [...(DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles)].forEach((file, index) => {
+      const middleFormatContent =
+        typeof file.content === "string" ? parse(file.content) : file.content;
 
-        const filePath = file.filePath;
+      const filePath = file.filePath;
 
-        const componentLibrary = componentLibraryMap[filePath];
+      const componentLibrary = componentLibraryMap[filePath];
 
-        log(
-          `\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`
-        );
+      log(`\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`);
 
-        // 使用复用函数匹配sections和组件
-        const composedSections = composeSectionsWithComponents(
-          middleFormatContent,
-          componentLibrary
-        );
+      // 使用复用函数匹配sections和组件
+      const composedSections = composeSectionsWithComponents(middleFormatContent, componentLibrary);
 
-        // 收集所有匹配结果
-        allComposedSections.push(...composedSections);
+      // 收集所有匹配结果
+      allComposedSections.push(...composedSections);
 
-        // 创建Pages Kit实例
-        const pagesKitData = createPagesKitInstance({
-          filePath,
-          meta: middleFormatContent.meta,
-          locale,
-        });
+      // 创建Pages Kit实例
+      const pagesKitData = createPagesKitInstance({
+        filePath,
+        meta: middleFormatContent.meta,
+        locale,
+      });
 
-        // 使用重构后的函数组装 sections
-        composedSections.forEach((section) => {
-          const { componentInstance, arrayComponentInstances } = section;
+      // 使用重构后的函数组装 sections
+      composedSections.forEach((section) => {
+        const { componentInstance, arrayComponentInstances } = section;
 
-          if (componentInstance) {
-            // 转换为 section 格式
-            pagesKitData.sections = {
-              ...pagesKitData.sections,
-              [componentInstance.id]: convertToSection({
-                componentInstance,
-                arrayComponentInstances,
-                locale,
-              }),
-            };
+        if (componentInstance) {
+          // 转换为 section 格式
+          pagesKitData.sections = {
+            ...pagesKitData.sections,
+            [componentInstance.id]: convertToSection({
+              componentInstance,
+              arrayComponentInstances,
+              locale,
+            }),
+          };
 
-            pagesKitData.sectionIds.push(componentInstance.id);
+          pagesKitData.sectionIds.push(componentInstance.id);
 
-            // 使用公共函数提取所有实例
-            const allInstances = [
-              { instance: componentInstance },
-              ...extractAllInstances(componentInstance?.relatedInstances || []),
-              ...extractAllInstances(arrayComponentInstances || []),
-            ];
+          // 使用公共函数提取所有实例
+          const allInstances = [
+            { instance: componentInstance },
+            ...extractAllInstances(componentInstance?.relatedInstances || []),
+            ...extractAllInstances(arrayComponentInstances || []),
+          ];
 
-            // 处理每个实例的数据源
-            allInstances.forEach(({ instance }) => {
-              const dataSourceResult = transformDataSource(
-                instance,
-                moreContentsComponentMap,
-                locale
-              );
+          // 处理每个实例的数据源
+          allInstances.forEach(({ instance }) => {
+            const dataSourceResult = transformDataSource(
+              instance,
+              moreContentsComponentMap,
+              locale,
+            );
 
-              if (dataSourceResult) {
-                pagesKitData.dataSource = {
-                  ...pagesKitData.dataSource,
-                  ...dataSourceResult,
-                };
-              }
-            });
-          }
-        });
+            if (dataSourceResult) {
+              pagesKitData.dataSource = {
+                ...pagesKitData.dataSource,
+                ...dataSourceResult,
+              };
+            }
+          });
+        }
+      });
 
-        // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
+      // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
 
-        allPagesKitYamlList.push({
-          filePath: file.filePath,
-          content: stringify(pagesKitData),
-        });
-      }
-    );
+      allPagesKitYamlList.push({
+        filePath: file.filePath,
+        content: stringify(pagesKitData),
+      });
+    });
 
     log(`\n📊 总计处理结果:`);
     log(`  - 总sections数量: ${allComposedSections.length}`);
-    log(
-      `  - 成功匹配数量: ${
-        allComposedSections.filter((item) => item.matched).length
-      }`
-    );
-    log(
-      `  - 未匹配数量: ${
-        allComposedSections.filter((item) => !item.matched).length
-      }`
-    );
+    log(`  - 成功匹配数量: ${allComposedSections.filter((item) => item.matched).length}`);
+    log(`  - 未匹配数量: ${allComposedSections.filter((item) => !item.matched).length}`);
   }
 
   allPagesKitYamlList?.forEach((item) => {

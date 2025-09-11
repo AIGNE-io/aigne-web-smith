@@ -24,9 +24,7 @@ export default async function loadConfig({ config, appUrl }) {
     parsedConfig = await resolveFileReferences(parsedConfig);
 
     if (appUrl) {
-      parsedConfig.appUrl = appUrl.includes("://")
-        ? appUrl
-        : `https://${appUrl}`;
+      parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;
     }
 
     // Parse new configuration fields and convert keys to actual content

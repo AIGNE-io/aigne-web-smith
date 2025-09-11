@@ -14,8 +14,8 @@ export default async function savePages({
   structurePlanResult: structurePlan,
   pagesDir,
   outputDir,
-  translateLanguages = [],
-  locale,
+  // translateLanguages = [],
+  // locale,
   projectInfoMessage,
 }) {
   const _results = [];
@@ -37,18 +37,16 @@ export default async function savePages({
   }
 
   // Clean up invalid .yaml files that are no longer in the structure plan
-  try {
-    // @FIXME
-    // await cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale);
-  } catch (err) {
-    console.error("Failed to cleanup invalid .yaml files:", err.message);
-  }
+  // try {
+  //   // @FIXME
+  //   // await cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale);
+  // } catch (err) {
+  //   console.error("Failed to cleanup invalid .yaml files:", err.message);
+  // }
 
   const message = `## ✅ Pages Generated Successfully!
 
-  Successfully generated **${
-    structurePlan.length
-  }** page templates and saved to:
+  Successfully generated **${structurePlan.length}** page templates and saved to:
   \`${pagesDir}\`
   ${projectInfoMessage || ""}
   ### 🚀 Next Steps
@@ -104,12 +102,7 @@ function generateFileName(flatName, language) {
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function cleanupInvalidFiles(
-  structurePlan,
-  pagesDir,
-  translateLanguages,
-  locale
-) {
+async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale) {
   const results = [];
 
   try {
@@ -137,7 +130,7 @@ async function cleanupInvalidFiles(
 
     // Find files to delete (files that are not in expectedFiles and not _sidebar.yaml)
     const filesToDelete = yamlFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sidebar.yaml"
+      (file) => !expectedFiles.has(file) && file !== "_sidebar.yaml",
     );
 
     // Delete invalid files
@@ -160,9 +153,7 @@ async function cleanupInvalidFiles(
     }
 
     if (filesToDelete.length > 0) {
-      console.log(
-        `Cleaned up ${filesToDelete.length} invalid .yaml files from ${pagesDir}`
-      );
+      console.log(`Cleaned up ${filesToDelete.length} invalid .yaml files from ${pagesDir}`);
     }
   } catch (err) {
     // If pagesDir doesn't exist or can't be read, that's okay

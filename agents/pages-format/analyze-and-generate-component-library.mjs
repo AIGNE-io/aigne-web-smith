@@ -164,8 +164,8 @@ ${JSON.stringify(schema)}
         analyzeComponentLibraryAgent,
         {
           ...input,
-        },
-        options
+        }
+        // options
       );
 
       // 保存组件库
@@ -454,15 +454,12 @@ ${JSON.stringify(schema)}
           name: "parserComponentsTeamAgent",
           skills,
           mode: "parallel",
-          model: "gpt-4o-mini",
         });
-
-        parserComponentsTeamAgent.model = "gpt-4o-mini";
 
         const parserComponentsTeamAgentResult = await options.context.invoke(
           parserComponentsTeamAgent,
-          { ...input },
-          options
+          { ...input }
+          // options
         );
 
         // 更新到 componentLibrary 里面

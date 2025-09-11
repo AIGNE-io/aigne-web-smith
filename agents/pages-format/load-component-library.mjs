@@ -46,8 +46,8 @@ export default async function loadComponentLibrary(input, options) {
       {
         ...input,
         middleFormatFiles,
-      },
-      options
+      }
+      // options
     );
 
     return {

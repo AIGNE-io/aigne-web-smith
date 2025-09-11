@@ -812,4 +812,4 @@ export default async function composePagesKitYaml(input) {
   };
 }
 
-composePagesKitYaml.taskTitle = "Compose Pages Kit YAML '{{ path }}'";
+composePagesKitYaml.taskTitle = "Compose Pages Kit YAML";

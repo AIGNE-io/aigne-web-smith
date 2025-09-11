@@ -9,11 +9,15 @@ import _ from "lodash";
 import { readFileSync } from "node:fs";
 
 const DEFAULT_FLAG = false;
+let DEFAULT_TEST_FILE = {};
 try {
-  const DEFAULT_TEST_FILE = readFileSync(
-    "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/cli-reference-create.zh.yaml",
-    "utf-8"
-  );
+  DEFAULT_TEST_FILE = {
+    filePath: "getting-started.yaml",
+    content: readFileSync(
+      "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
+      "utf-8"
+    ),
+  };
 } catch (error) {
   // ignore error
 }
@@ -562,128 +566,121 @@ export default async function composePagesKitYaml(input) {
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     console.log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    [
-      ...(DEFAULT_FLAG
-        ? [
-            {
-              filePath: "test.yaml",
-              content: DEFAULT_TEST_FILE,
-            },
-          ]
-        : middleFormatFiles),
-    ].forEach((file, index) => {
-      const middleFormatContent =
-        typeof file.content === "string" ? parse(file.content) : file.content;
+    [...(DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles)].forEach(
+      (file, index) => {
+        const middleFormatContent =
+          typeof file.content === "string" ? parse(file.content) : file.content;
 
-      const filePath = file.filePath;
+        const filePath = file.filePath;
 
-      const componentLibrary = componentLibraryMap[filePath];
+        const componentLibrary = componentLibraryMap[filePath];
 
-      console.log(
-        `\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`
-      );
+        console.log(
+          `\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`
+        );
 
-      // 使用复用函数匹配sections和组件
-      const composedSections = composeSectionsWithComponents(
-        middleFormatContent,
-        componentLibrary
-      );
+        // 使用复用函数匹配sections和组件
+        const composedSections = composeSectionsWithComponents(
+          middleFormatContent,
+          componentLibrary
+        );
 
-      // 收集所有匹配结果
-      allComposedSections.push(...composedSections);
+        // 收集所有匹配结果
+        allComposedSections.push(...composedSections);
 
-      // 创建Pages Kit实例
-      const pagesKitData = createPagesKitInstance({
-        meta: middleFormatContent.meta,
-        locale,
-      });
+        // 创建Pages Kit实例
+        const pagesKitData = createPagesKitInstance({
+          meta: middleFormatContent.meta,
+          locale,
+        });
 
-      // 组装 sections 到 pagesKitData
-      composedSections.forEach((section) => {
-        const { componentInstance, arrayComponentInstances } = section;
+        // 组装 sections 到 pagesKitData
+        composedSections.forEach((section) => {
+          const { componentInstance, arrayComponentInstances } = section;
 
-        if (componentInstance) {
-          pagesKitData.sections = {
-            ...pagesKitData.sections,
-            [componentInstance.id]: convertToSection({
-              componentInstance,
-              arrayComponentInstances,
-              locale,
-            }),
-          };
+          if (componentInstance) {
+            pagesKitData.sections = {
+              ...pagesKitData.sections,
+              [componentInstance.id]: convertToSection({
+                componentInstance,
+                arrayComponentInstances,
+                locale,
+              }),
+            };
 
-          pagesKitData.sectionIds.push(componentInstance.id);
+            pagesKitData.sectionIds.push(componentInstance.id);
 
-          // 递归提取所有实例，包括嵌套的 relatedInstances
-          function extractAllInstances(instances) {
-            const result = [];
-            instances.forEach((instance) => {
-              if (instance?.instance) {
-                // 这是 arrayComponentInstances 的格式：{ fieldName, itemIndex, instance }
-                result.push({ instance: instance.instance });
-                // 如果这个实例也有 relatedInstances，递归提取
-                if (instance.instance?.relatedInstances) {
-                  result.push(
-                    ...extractAllInstances(instance.instance.relatedInstances)
-                  );
+            // 递归提取所有实例，包括嵌套的 relatedInstances
+            function extractAllInstances(instances) {
+              const result = [];
+              instances.forEach((instance) => {
+                if (instance?.instance) {
+                  // 这是 arrayComponentInstances 的格式：{ fieldName, itemIndex, instance }
+                  result.push({ instance: instance.instance });
+                  // 如果这个实例也有 relatedInstances，递归提取
+                  if (instance.instance?.relatedInstances) {
+                    result.push(
+                      ...extractAllInstances(instance.instance.relatedInstances)
+                    );
+                  }
+                } else if (instance) {
+                  // 这是直接的实例格式
+                  result.push({ instance });
+                  // 如果有 relatedInstances，递归提取
+                  if (instance.relatedInstances) {
+                    result.push(
+                      ...extractAllInstances(instance.relatedInstances)
+                    );
+                  }
                 }
-              } else if (instance) {
-                // 这是直接的实例格式
-                result.push({ instance });
-                // 如果有 relatedInstances，递归提取
-                if (instance.relatedInstances) {
-                  result.push(
-                    ...extractAllInstances(instance.relatedInstances)
-                  );
-                }
+              });
+              return result;
+            }
+
+            const allInstances = [
+              { instance: componentInstance },
+              ...extractAllInstances(componentInstance?.relatedInstances || []),
+              ...extractAllInstances(arrayComponentInstances || []),
+            ];
+
+            allInstances?.forEach(({ instance }) => {
+              if (instance?.dataSource) {
+                const { componentId } = instance;
+                const currentComponentInfo =
+                  moreContentsComponentMap[componentId];
+
+                const propKeyToInfoMap =
+                  currentComponentInfo?.content?.propKeyToInfoMap;
+
+                const properties = {};
+                Object.entries(instance.dataSource).forEach(([key, value]) => {
+                  const mappedId = propKeyToInfoMap?.[key]?.id || key;
+                  properties[mappedId] = {
+                    value,
+                  };
+                });
+
+                pagesKitData.dataSource = {
+                  ...pagesKitData.dataSource,
+                  [instance.id]: {
+                    [locale]: {
+                      properties,
+                    },
+                  },
+                };
               }
             });
-            return result;
           }
+        });
 
-          const allInstances = [
-            { instance: componentInstance },
-            ...extractAllInstances(componentInstance?.relatedInstances || []),
-            ...extractAllInstances(arrayComponentInstances || []),
-          ];
+        // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
 
-          allInstances?.forEach(({ instance }) => {
-            if (instance?.dataSource) {
-              const { componentId } = instance;
-              const currentComponentInfo =
-                moreContentsComponentMap[componentId];
-
-              const propKeyToInfoMap =
-                currentComponentInfo?.content?.propKeyToInfoMap;
-
-              const properties = {};
-              Object.entries(instance.dataSource).forEach(([key, value]) => {
-                const mappedId = propKeyToInfoMap?.[key]?.id || key;
-                properties[mappedId] = {
-                  value,
-                };
-              });
-
-              pagesKitData.dataSource = {
-                ...pagesKitData.dataSource,
-                [instance.id]: {
-                  [locale]: {
-                    properties,
-                  },
-                },
-              };
-            }
-          });
-        }
-      });
-
-      // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
-
-      allPagesKitYamlList.push({
-        filePath: file.filePath,
-        content: stringify(pagesKitData),
-      });
-    });
+        allPagesKitYamlList.push({
+          filePath: file.filePath,
+          content: stringify(pagesKitData),
+        });
+      }
+    );
 
     console.log(`\n📊 总计处理结果:`);
     console.log(`  - 总sections数量: ${allComposedSections.length}`);

@@ -316,23 +316,6 @@ export default async function publishPages(
           };
         }
 
-        // 构造每个页面的模板数据 - 直接使用解析后的 YAML 作为完整模板对象
-        const parsedPageContent = parse(pageContent);
-        const pageTemplateData = {
-          ...parsedPageContent,
-          // 添加项目相关的元信息
-          name:
-            parsedPageContent.name ||
-            `${projectInfo.name} - ${basename(file, ".yaml")}`,
-          description: parsedPageContent.description || projectInfo.description,
-          icon: parsedPageContent.icon || projectInfo.icon,
-          templateConfig: {
-            isTemplate: true,
-            ...boardMeta,
-            sourceFile: file,
-          },
-        };
-
         // 查找对应的 sidebar 路径信息
         const fileBaseName = basename(file, ".yaml");
         const matchingSidebarItem = sidebarPaths.find(
@@ -342,15 +325,27 @@ export default async function publishPages(
             item.cleanPath.replace(/\//g, "-") === fileBaseName
         );
 
+        const path = matchingSidebarItem
+          ? matchingSidebarItem.path
+          : `/${fileBaseName}`;
+
+        // 构造每个页面的模板数据 - 直接使用解析后的 YAML 作为完整模板对象
+        const parsedPageContent = parse(pageContent);
+        const pageTemplateData = {
+          ...parsedPageContent,
+          // 添加项目相关的元信息
+          slug: path,
+          templateConfig: {
+            isTemplate: true,
+            ...boardMeta,
+            sourceFile: file,
+          },
+        };
+
         // 构造路由数据
         const routeData = {
-          path: matchingSidebarItem
-            ? matchingSidebarItem.path
-            : `/${fileBaseName}`,
-          displayName: matchingSidebarItem
-            ? `${projectInfo.name} - ${matchingSidebarItem.title}`
-            : `${projectInfo.name} - ${fileBaseName}`,
-          description: projectInfo.description,
+          path,
+          displayName: path,
           meta: {
             ...boardMeta,
             sourceFile: file,

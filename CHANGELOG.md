@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.1...v1.0.2) (2025-09-11)
+
+
+### Bug Fixes
+
+* **cli:** resolve the bug of content error ([28b61e7](https://github.com/AIGNE-io/aigne-web-smith/commit/28b61e7ad95ddcc0ce113a6cb177471f9f12b330))
+
 ## [1.0.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.0...v1.0.1) (2025-09-11)
 
 

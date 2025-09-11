@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { TeamAgent, AIAgent, AIGNE, PromptBuilder } from "@aigne/core";
-import { OpenAIChatModel } from "@aigne/openai";
+import { TeamAgent, AIAgent, PromptBuilder } from "@aigne/core";
+
 import { getAllFieldCombinations } from "./sdk.mjs";
 import fs, { readFileSync, readdirSync } from "node:fs";
 import saveComponentLibrary from "./save-component-library.mjs";
@@ -70,16 +70,6 @@ export default async function analyzeAndGenerateComponentLibrary(
   } = input;
 
   const componentLibraryDir = getComponentLibraryDir(tmpDir);
-
-  // 使用 OpenAI 引擎
-  const openaiModel = new OpenAIChatModel({
-    apiKey: process.env.OPENAI_API_KEY,
-    model: "gpt-4o-mini",
-  });
-
-  const engine = new AIGNE({
-    model: openaiModel,
-  });
 
   try {
     const analyzeComponentLibraryAgentSkills = middleFormatFiles
@@ -170,11 +160,12 @@ ${JSON.stringify(schema)}
         mode: "parallel",
       });
 
-      const analyzeMiddleFormatComponentResult = await engine.invoke(
+      const analyzeMiddleFormatComponentResult = await options.context.invoke(
         analyzeComponentLibraryAgent,
         {
           ...input,
-        }
+        },
+        options
       );
 
       // 保存组件库
@@ -463,11 +454,15 @@ ${JSON.stringify(schema)}
           name: "parserComponentsTeamAgent",
           skills,
           mode: "parallel",
+          model: "gpt-4o-mini",
         });
 
-        const parserComponentsTeamAgentResult = await engine.invoke(
+        parserComponentsTeamAgent.model = "gpt-4o-mini";
+
+        const parserComponentsTeamAgentResult = await options.context.invoke(
           parserComponentsTeamAgent,
-          { ...input }
+          { ...input },
+          options
         );
 
         // 更新到 componentLibrary 里面

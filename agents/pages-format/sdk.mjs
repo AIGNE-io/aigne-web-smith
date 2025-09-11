@@ -285,7 +285,7 @@ export function extractFieldCombinations(middleFormatContent) {
 
     const fieldCombinations = extractContentFields(section);
 
-    // 收集数组字段信息（用于参考，但不作为主要fieldCombinations）
+    // 收集数组字段信息（用于参考，但不作为主要 fieldCombinations）
     const arrayFields = [];
     Object.keys(section).forEach((key) => {
       if (metaFields.includes(key)) return;
@@ -384,5 +384,5 @@ export function getComponentLibraryDir(tmpDir) {
 }
 
 export const getChildFieldCombinationsKey = (fieldCombinations) => {
-  return fieldCombinations.join(",");
+  return `FIELD_COMBINATIONS:${fieldCombinations.join(",")}`;
 };

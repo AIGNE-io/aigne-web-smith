@@ -237,7 +237,7 @@ export default async function loadSources({
         const relativePath = path.relative(process.cwd(), file);
 
         // if it is components-list, format it and enhance with structured data
-        if (relativePath.includes("components-list")) {
+        if (relativePath.includes("components-list") && !file.startsWith("_")) {
           // componentFiles to ai
           const simpleContent = formatComponentContent({
             content,

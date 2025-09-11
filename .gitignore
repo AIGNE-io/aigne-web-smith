@@ -1,0 +1,12 @@
+*.local
+node_modules
+
+.DS_Store
+.vscode
+
+examples
+test-temp
+migrate-todos.md
+.aigne
+
+!pnpm-lock.yaml

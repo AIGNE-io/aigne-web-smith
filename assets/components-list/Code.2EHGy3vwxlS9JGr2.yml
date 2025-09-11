@@ -1,0 +1,3656 @@
+id: 2EHGy3vwxlS9JGr2
+createdAt: 2023-06-15T10:01:56.655Z
+updatedAt: 2025-08-12T08:44:49.314Z
+name: Code
+description: 代码展示组件
+properties:
+  a7frn5jmx5vpxpt3:
+    index: 0
+    data:
+      id: a7frn5jmx5vpxpt3
+      key: code
+      type: multiline
+      visible: true
+      locales:
+        zh:
+          name: 代码
+          defaultValue: ""
+        en:
+          name: Code
+          defaultValue: console.log('Hello, World!');
+  b2jrz12ik7esf93z:
+    index: 1
+    data:
+      id: b2jrz12ik7esf93z
+      key: filename
+      type: string
+      visible: true
+      locales:
+        zh:
+          name: 文件名
+          defaultValue: example.tsx
+        en:
+          name: Filename
+          defaultValue: example.tsx
+  c4kvf6b7zyskk8m:
+    index: 2
+    data:
+      id: c4kvf6b7zyskk8m
+      key: showIndex
+      type: boolean
+      visible: true
+      locales:
+        zh:
+          name: 显示行号
+          defaultValue: true
+        en:
+          name: Show Line Numbers
+          defaultValue: true
+  d8hvf7cxz93jk5p:
+    index: 4
+    data:
+      id: d8hvf7cxz93jk5p
+      key: fontSize
+      type: string
+      visible: true
+      locales:
+        zh:
+          name: 字体大小
+          defaultValue: 1rem
+        en:
+          name: Font Size
+          defaultValue: 0.875rem
+  e9kvx5d7y82lm3n:
+    index: 6
+    data:
+      id: e9kvx5d7y82lm3n
+      key: codeTheme
+      type: string
+      visible: false
+      locales:
+        zh:
+          name: 代码主题
+          defaultValue: default
+        en:
+          name: Code Theme
+          defaultValue: default
+  7mp2u9tibl03thp6:
+    index: 7
+    data:
+      id: 7mp2u9tibl03thp6
+      key: language
+      locales:
+        zh:
+          defaultValue: typescript
+      visible: false
+  qvxiyadgn5bj6oq8:
+    index: 3
+    data:
+      id: qvxiyadgn5bj6oq8
+      key: showHeader
+      type: boolean
+      locales:
+        zh:
+          defaultValue: true
+          name: 显示头部
+  3uqbvyqzsluuv5hs:
+    index: 5
+    data:
+      id: 3uqbvyqzsluuv5hs
+      key: fontWeight
+      locales:
+        zh:
+          defaultValue: "500"
+llmConfig:
+  properties:
+    a7frn5jmx5vpxpt3:
+      key: code
+      isNeedGenerate: true
+      describe: 要显示的代码内容，支持多行文本
+      displayName: 代码
+    b2jrz12ik7esf93z:
+      key: filename
+      isNeedGenerate: false
+      describe: 代码对应的文件名，将显示在代码块顶部
+      displayName: 文件名
+    c4kvf6b7zyskk8m:
+      key: showIndex
+      isNeedGenerate: false
+      describe: 是否显示代码行号
+      displayName: 显示行号
+    d8hvf7cxz93jk5p:
+      key: fontSize
+      isNeedGenerate: false
+      describe: 代码字体大小，支持CSS字体大小值，如'0.875rem'、'14px'等
+      displayName: 字体大小
+    e9kvx5d7y82lm3n:
+      key: codeTheme
+      isNeedGenerate: false
+      describe: 代码高亮主题，可选值：auto(自动)、a11yDark、atomDark、base16AteliersulphurpoolLight、cb、coldarkCold、coldarkDark、coy、darcula、dracula、duotoneDark、duotoneLight、funky、ghcolors、hopscotch、materialDark、materialLight、materialOceanic、nord、okaidia、oneDark、oneLight、pojoaque、prism、shadesOfPurple、solarizedlight、synthwave84、twilight、vs、vscDarkPlus、xonokai
+      displayName: 代码主题
+version: 2
+renderer:
+  script: |
+    const { Icon: z } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/iconify/react");
+    const W = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/markdown/index").default;
+    const { useTheme: B, Box: v, Typography: N, Stack: A, Skeleton: F, IconButton: L } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const D = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react").default;
+    const { useState: I, Suspense: V } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { _: P } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/extends-hS2Bh-Yp.js");
+    const { _: E } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/defineProperty-j2pm37l6.js");
+    const { a: _ } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/hooks-BF2Vtc2Z.js");
+    const { jsxs: p, jsx: r } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { F: q } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/material-dark-DilR89YE.js");
+    const $ = {
+        'code[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#2a2734",
+            color: "#9a86fd"
+        },
+        'pre[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#2a2734",
+            color: "#9a86fd",
+            padding: "1em",
+            margin: ".5em 0",
+            overflow: "auto"
+        },
+        'pre > code[class*="language-"]': {
+            fontSize: "1em"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: ".1em",
+            borderRadius: ".3em"
+        },
+        comment: {
+            color: "#6c6783"
+        },
+        prolog: {
+            color: "#6c6783"
+        },
+        doctype: {
+            color: "#6c6783"
+        },
+        cdata: {
+            color: "#6c6783"
+        },
+        punctuation: {
+            color: "#6c6783"
+        },
+        namespace: {
+            Opacity: ".7"
+        },
+        tag: {
+            color: "#e09142"
+        },
+        operator: {
+            color: "#e09142"
+        },
+        number: {
+            color: "#e09142"
+        },
+        property: {
+            color: "#9a86fd"
+        },
+        function: {
+            color: "#9a86fd"
+        },
+        "tag-id": {
+            color: "#eeebff"
+        },
+        selector: {
+            color: "#eeebff"
+        },
+        "atrule-id": {
+            color: "#eeebff"
+        },
+        "code.language-javascript": {
+            color: "#c4b9fe"
+        },
+        "attr-name": {
+            color: "#c4b9fe"
+        },
+        "code.language-css": {
+            color: "#ffcc99"
+        },
+        "code.language-scss": {
+            color: "#ffcc99"
+        },
+        boolean: {
+            color: "#ffcc99"
+        },
+        string: {
+            color: "#ffcc99"
+        },
+        entity: {
+            color: "#ffcc99",
+            cursor: "help"
+        },
+        url: {
+            color: "#ffcc99"
+        },
+        ".language-css .token.string": {
+            color: "#ffcc99"
+        },
+        ".language-scss .token.string": {
+            color: "#ffcc99"
+        },
+        ".style .token.string": {
+            color: "#ffcc99"
+        },
+        "attr-value": {
+            color: "#ffcc99"
+        },
+        keyword: {
+            color: "#ffcc99"
+        },
+        control: {
+            color: "#ffcc99"
+        },
+        directive: {
+            color: "#ffcc99"
+        },
+        unit: {
+            color: "#ffcc99"
+        },
+        statement: {
+            color: "#ffcc99"
+        },
+        regex: {
+            color: "#ffcc99"
+        },
+        atrule: {
+            color: "#ffcc99"
+        },
+        placeholder: {
+            color: "#ffcc99"
+        },
+        variable: {
+            color: "#ffcc99"
+        },
+        deleted: {
+            textDecoration: "line-through"
+        },
+        inserted: {
+            borderBottom: "1px dotted #eeebff",
+            textDecoration: "none"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        important: {
+            fontWeight: "bold",
+            color: "#c4b9fe"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        "pre > code.highlight": {
+            Outline: ".4em solid #8a75f5",
+            OutlineOffset: ".4em"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "#2c2937"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "#3c3949"
+        },
+        ".line-highlight.line-highlight": {
+            background: "linear-gradient(to right, rgba(224, 145, 66, 0.2) 70%, rgba(224, 145, 66, 0))"
+        }
+    }, G = {
+        'code[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#faf8f5",
+            color: "#728fcb"
+        },
+        'pre[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#faf8f5",
+            color: "#728fcb",
+            padding: "1em",
+            margin: ".5em 0",
+            overflow: "auto"
+        },
+        'pre > code[class*="language-"]': {
+            fontSize: "1em"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: ".1em",
+            borderRadius: ".3em"
+        },
+        comment: {
+            color: "#b6ad9a"
+        },
+        prolog: {
+            color: "#b6ad9a"
+        },
+        doctype: {
+            color: "#b6ad9a"
+        },
+        cdata: {
+            color: "#b6ad9a"
+        },
+        punctuation: {
+            color: "#b6ad9a"
+        },
+        namespace: {
+            Opacity: ".7"
+        },
+        tag: {
+            color: "#063289"
+        },
+        operator: {
+            color: "#063289"
+        },
+        number: {
+            color: "#063289"
+        },
+        property: {
+            color: "#b29762"
+        },
+        function: {
+            color: "#b29762"
+        },
+        "tag-id": {
+            color: "#2d2006"
+        },
+        selector: {
+            color: "#2d2006"
+        },
+        "atrule-id": {
+            color: "#2d2006"
+        },
+        "code.language-javascript": {
+            color: "#896724"
+        },
+        "attr-name": {
+            color: "#896724"
+        },
+        "code.language-css": {
+            color: "#728fcb"
+        },
+        "code.language-scss": {
+            color: "#728fcb"
+        },
+        boolean: {
+            color: "#728fcb"
+        },
+        string: {
+            color: "#728fcb"
+        },
+        entity: {
+            color: "#728fcb",
+            cursor: "help"
+        },
+        url: {
+            color: "#728fcb"
+        },
+        ".language-css .token.string": {
+            color: "#728fcb"
+        },
+        ".language-scss .token.string": {
+            color: "#728fcb"
+        },
+        ".style .token.string": {
+            color: "#728fcb"
+        },
+        "attr-value": {
+            color: "#728fcb"
+        },
+        keyword: {
+            color: "#728fcb"
+        },
+        control: {
+            color: "#728fcb"
+        },
+        directive: {
+            color: "#728fcb"
+        },
+        unit: {
+            color: "#728fcb"
+        },
+        statement: {
+            color: "#728fcb"
+        },
+        regex: {
+            color: "#728fcb"
+        },
+        atrule: {
+            color: "#728fcb"
+        },
+        placeholder: {
+            color: "#93abdc"
+        },
+        variable: {
+            color: "#93abdc"
+        },
+        deleted: {
+            textDecoration: "line-through"
+        },
+        inserted: {
+            borderBottom: "1px dotted #2d2006",
+            textDecoration: "none"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        important: {
+            fontWeight: "bold",
+            color: "#896724"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        "pre > code.highlight": {
+            Outline: ".4em solid #896724",
+            OutlineOffset: ".4em"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "#ece8de"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "#cdc4b1"
+        },
+        ".line-highlight.line-highlight": {
+            background: "linear-gradient(to right, rgba(45, 32, 6, 0.2) 70%, rgba(45, 32, 6, 0))"
+        }
+    }, K = {
+        'code[class*="language-"]': {
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            wordWrap: "normal",
+            color: "#90a4ae",
+            background: "#fafafa",
+            fontFamily: "Roboto Mono, monospace",
+            fontSize: "1em",
+            lineHeight: "1.5em",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            wordWrap: "normal",
+            color: "#90a4ae",
+            background: "#fafafa",
+            fontFamily: "Roboto Mono, monospace",
+            fontSize: "1em",
+            lineHeight: "1.5em",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            overflow: "auto",
+            position: "relative",
+            margin: "0.5em 0",
+            padding: "1.25em 1em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"]::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"]::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"] ::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"] ::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            whiteSpace: "normal",
+            borderRadius: "0.2em",
+            padding: "0.1em"
+        },
+        ".language-css > code": {
+            color: "#f76d47"
+        },
+        ".language-sass > code": {
+            color: "#f76d47"
+        },
+        ".language-scss > code": {
+            color: "#f76d47"
+        },
+        '[class*="language-"] .namespace': {
+            Opacity: "0.7"
+        },
+        atrule: {
+            color: "#7c4dff"
+        },
+        "attr-name": {
+            color: "#39adb5"
+        },
+        "attr-value": {
+            color: "#f6a434"
+        },
+        attribute: {
+            color: "#f6a434"
+        },
+        boolean: {
+            color: "#7c4dff"
+        },
+        builtin: {
+            color: "#39adb5"
+        },
+        cdata: {
+            color: "#39adb5"
+        },
+        char: {
+            color: "#39adb5"
+        },
+        class: {
+            color: "#39adb5"
+        },
+        "class-name": {
+            color: "#6182b8"
+        },
+        comment: {
+            color: "#aabfc9"
+        },
+        constant: {
+            color: "#7c4dff"
+        },
+        deleted: {
+            color: "#e53935"
+        },
+        doctype: {
+            color: "#aabfc9"
+        },
+        entity: {
+            color: "#e53935"
+        },
+        function: {
+            color: "#7c4dff"
+        },
+        hexcode: {
+            color: "#f76d47"
+        },
+        id: {
+            color: "#7c4dff",
+            fontWeight: "bold"
+        },
+        important: {
+            color: "#7c4dff",
+            fontWeight: "bold"
+        },
+        inserted: {
+            color: "#39adb5"
+        },
+        keyword: {
+            color: "#7c4dff"
+        },
+        number: {
+            color: "#f76d47"
+        },
+        operator: {
+            color: "#39adb5"
+        },
+        prolog: {
+            color: "#aabfc9"
+        },
+        property: {
+            color: "#39adb5"
+        },
+        "pseudo-class": {
+            color: "#f6a434"
+        },
+        "pseudo-element": {
+            color: "#f6a434"
+        },
+        punctuation: {
+            color: "#39adb5"
+        },
+        regex: {
+            color: "#6182b8"
+        },
+        selector: {
+            color: "#e53935"
+        },
+        string: {
+            color: "#f6a434"
+        },
+        symbol: {
+            color: "#7c4dff"
+        },
+        tag: {
+            color: "#e53935"
+        },
+        unit: {
+            color: "#f76d47"
+        },
+        url: {
+            color: "#e53935"
+        },
+        variable: {
+            color: "#e53935"
+        }
+    }, J = {
+        'code[class*="language-"]': {
+            background: "hsl(220, 13%, 18%)",
+            color: "hsl(220, 14%, 71%)",
+            textShadow: "0 1px rgba(0, 0, 0, 0.3)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            background: "hsl(220, 13%, 18%)",
+            color: "hsl(220, 14%, 71%)",
+            textShadow: "0 1px rgba(0, 0, 0, 0.3)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            padding: "1em",
+            margin: "0.5em 0",
+            overflow: "auto",
+            borderRadius: "0.3em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"] *::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'pre[class*="language-"] *::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"]::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"] *::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'pre[class*="language-"] *::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: "0.2em 0.3em",
+            borderRadius: "0.3em",
+            whiteSpace: "normal"
+        },
+        comment: {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        prolog: {
+            color: "hsl(220, 10%, 40%)"
+        },
+        cdata: {
+            color: "hsl(220, 10%, 40%)"
+        },
+        doctype: {
+            color: "hsl(220, 14%, 71%)"
+        },
+        punctuation: {
+            color: "hsl(220, 14%, 71%)"
+        },
+        entity: {
+            color: "hsl(220, 14%, 71%)",
+            cursor: "help"
+        },
+        "attr-name": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        "class-name": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        boolean: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        constant: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        number: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        atrule: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        keyword: {
+            color: "hsl(286, 60%, 67%)"
+        },
+        property: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        tag: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        symbol: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        deleted: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        important: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        selector: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        string: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        char: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        builtin: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        inserted: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        regex: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        "attr-value": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        "attr-value > .token.punctuation": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        variable: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        operator: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        function: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        url: {
+            color: "hsl(187, 47%, 55%)"
+        },
+        "attr-value > .token.punctuation.attr-equals": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        "special-attr > .token.attr-value > .token.value.css": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-css .token.selector": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-css .token.property": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-css .token.function": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-css .token.url > .token.function": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-css .token.url > .token.string.url": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".language-css .token.important": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-css .token.atrule .token.rule": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-javascript .token.operator": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-javascript .token.template-string > .token.interpolation > .token.interpolation-punctuation.punctuation": {
+            color: "hsl(5, 48%, 51%)"
+        },
+        ".language-json .token.operator": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-json .token.null.keyword": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        ".language-markdown .token.url": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url > .token.operator": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url-reference.url > .token.string": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url > .token.content": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".language-markdown .token.url > .token.url": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-markdown .token.url-reference.url": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-markdown .token.blockquote.punctuation": {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.hr.punctuation": {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.code-snippet": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".language-markdown .token.bold .token.content": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        ".language-markdown .token.italic .token.content": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-markdown .token.strike .token.content": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.strike .token.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.list.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.title.important > .token.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        namespace: {
+            Opacity: "0.8"
+        },
+        "token.tab:not(:empty):before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.cr:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.lf:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.space:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item": {
+            marginRight: "0.4em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".line-highlight.line-highlight": {
+            background: "hsla(220, 100%, 80%, 0.04)"
+        },
+        ".line-highlight.line-highlight:before": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 14%, 71%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        ".line-highlight.line-highlight[data-end]:after": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 14%, 71%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        "pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows > span:hover:before": {
+            backgroundColor: "hsla(220, 100%, 80%, 0.04)"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "hsla(220, 14%, 71%, 0.15)"
+        },
+        ".command-line .command-line-prompt": {
+            borderRightColor: "hsla(220, 14%, 71%, 0.15)"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "hsl(220, 14%, 45%)"
+        },
+        ".command-line .command-line-prompt > span:before": {
+            color: "hsl(220, 14%, 45%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-1": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-5": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-9": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-2": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-6": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-10": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-3": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-7": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-11": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-4": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-8": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-12": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        ".prism-previewer.prism-previewer:before": {
+            borderColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-gradient.prism-previewer-gradient div": {
+            borderColor: "hsl(224, 13%, 17%)",
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-color.prism-previewer-color:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-easing.prism-previewer-easing:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer.prism-previewer:after": {
+            borderTopColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-flipped.prism-previewer-flipped.after": {
+            borderBottomColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle:before": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-time.prism-previewer-time:before": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-time.prism-previewer-time circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-easing.prism-previewer-easing circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            fill: "transparent"
+        },
+        ".prism-previewer-easing.prism-previewer-easing path": {
+            stroke: "hsl(220, 14%, 71%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing line": {
+            stroke: "hsl(220, 14%, 71%)"
+        }
+    }, Q = {
+        'code[class*="language-"]': {
+            background: "hsl(230, 1%, 98%)",
+            color: "hsl(230, 8%, 24%)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            background: "hsl(230, 1%, 98%)",
+            color: "hsl(230, 8%, 24%)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            padding: "1em",
+            margin: "0.5em 0",
+            overflow: "auto",
+            borderRadius: "0.3em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"] *::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'pre[class*="language-"] *::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"]::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"] *::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'pre[class*="language-"] *::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: "0.2em 0.3em",
+            borderRadius: "0.3em",
+            whiteSpace: "normal"
+        },
+        comment: {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        prolog: {
+            color: "hsl(230, 4%, 64%)"
+        },
+        cdata: {
+            color: "hsl(230, 4%, 64%)"
+        },
+        doctype: {
+            color: "hsl(230, 8%, 24%)"
+        },
+        punctuation: {
+            color: "hsl(230, 8%, 24%)"
+        },
+        entity: {
+            color: "hsl(230, 8%, 24%)",
+            cursor: "help"
+        },
+        "attr-name": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        "class-name": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        boolean: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        constant: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        number: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        atrule: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        keyword: {
+            color: "hsl(301, 63%, 40%)"
+        },
+        property: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        tag: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        symbol: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        deleted: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        important: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        selector: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        string: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        char: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        builtin: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        inserted: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        regex: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        "attr-value": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        "attr-value > .token.punctuation": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        variable: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        operator: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        function: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        url: {
+            color: "hsl(198, 99%, 37%)"
+        },
+        "attr-value > .token.punctuation.attr-equals": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        "special-attr > .token.attr-value > .token.value.css": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-css .token.selector": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-css .token.property": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-css .token.function": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-css .token.url > .token.function": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-css .token.url > .token.string.url": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".language-css .token.important": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-css .token.atrule .token.rule": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-javascript .token.operator": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-javascript .token.template-string > .token.interpolation > .token.interpolation-punctuation.punctuation": {
+            color: "hsl(344, 84%, 43%)"
+        },
+        ".language-json .token.operator": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-json .token.null.keyword": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        ".language-markdown .token.url": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url > .token.operator": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url-reference.url > .token.string": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url > .token.content": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".language-markdown .token.url > .token.url": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-markdown .token.url-reference.url": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-markdown .token.blockquote.punctuation": {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.hr.punctuation": {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.code-snippet": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".language-markdown .token.bold .token.content": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        ".language-markdown .token.italic .token.content": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-markdown .token.strike .token.content": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.strike .token.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.list.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.title.important > .token.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        namespace: {
+            Opacity: "0.8"
+        },
+        "token.tab:not(:empty):before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.cr:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.lf:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.space:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item": {
+            marginRight: "0.4em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".line-highlight.line-highlight": {
+            background: "hsla(230, 8%, 24%, 0.05)"
+        },
+        ".line-highlight.line-highlight:before": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 8%, 24%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        ".line-highlight.line-highlight[data-end]:after": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 8%, 24%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        "pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows > span:hover:before": {
+            backgroundColor: "hsla(230, 8%, 24%, 0.05)"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "hsla(230, 8%, 24%, 0.2)"
+        },
+        ".command-line .command-line-prompt": {
+            borderRightColor: "hsla(230, 8%, 24%, 0.2)"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "hsl(230, 1%, 62%)"
+        },
+        ".command-line .command-line-prompt > span:before": {
+            color: "hsl(230, 1%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-1": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-5": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-9": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-2": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-6": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-10": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-3": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-7": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-11": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-4": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-8": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-12": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        ".prism-previewer.prism-previewer:before": {
+            borderColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-gradient.prism-previewer-gradient div": {
+            borderColor: "hsl(0, 0, 95%)",
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-color.prism-previewer-color:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-easing.prism-previewer-easing:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer.prism-previewer:after": {
+            borderTopColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-flipped.prism-previewer-flipped.after": {
+            borderBottomColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle:before": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-time.prism-previewer-time:before": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-time.prism-previewer-time circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-easing.prism-previewer-easing circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            fill: "transparent"
+        },
+        ".prism-previewer-easing.prism-previewer-easing path": {
+            stroke: "hsl(230, 8%, 24%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing line": {
+            stroke: "hsl(230, 8%, 24%)"
+        }
+    };
+    function H(o, e) {
+        var t = Object.keys(o);
+        if (Object.getOwnPropertySymbols) {
+            var n = Object.getOwnPropertySymbols(o);
+            e && (n = n.filter(function (a) {
+                return Object.getOwnPropertyDescriptor(o, a).enumerable;
+            })), t.push.apply(t, n);
+        }
+        return t;
+    }
+    function g(o) {
+        for (var e = 1; e < arguments.length; e++) {
+            var t = arguments[e] != null ? arguments[e] : {};
+            e % 2 ? H(Object(t), !0).forEach(function (n) {
+                E(o, n, t[n]);
+            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(o, Object.getOwnPropertyDescriptors(t)) : H(Object(t)).forEach(function (n) {
+                Object.defineProperty(o, n, Object.getOwnPropertyDescriptor(t, n));
+            });
+        }
+        return o;
+    }
+    function U(o) {
+        var e = o.length;
+        if (e === 0 || e === 1)
+            return o;
+        if (e === 2)
+            return [o[0], o[1], "".concat(o[0], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0])];
+        if (e === 3)
+            return [o[0], o[1], o[2], "".concat(o[0], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2]), "".concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0])];
+        if (e >= 4)
+            return [o[0], o[1], o[2], o[3], "".concat(o[0], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2]), "".concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2]), "".concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1]), "".concat(o[2], ".").concat(o[3]), "".concat(o[3], ".").concat(o[0]), "".concat(o[3], ".").concat(o[1]), "".concat(o[3], ".").concat(o[2]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[1], ".").concat(o[3]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2], ".").concat(o[3]), "".concat(o[0], ".").concat(o[3], ".").concat(o[1]), "".concat(o[0], ".").concat(o[3], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2], ".").concat(o[3]), "".concat(o[1], ".").concat(o[3], ".").concat(o[0]), "".concat(o[1], ".").concat(o[3], ".").concat(o[2]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[0], ".").concat(o[3]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[3], ".").concat(o[0]), "".concat(o[2], ".").concat(o[3], ".").concat(o[1]), "".concat(o[3], ".").concat(o[0], ".").concat(o[1]), "".concat(o[3], ".").concat(o[0], ".").concat(o[2]), "".concat(o[3], ".").concat(o[1], ".").concat(o[0]), "".concat(o[3], ".").concat(o[1], ".").concat(o[2]), "".concat(o[3], ".").concat(o[2], ".").concat(o[0]), "".concat(o[3], ".").concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2], ".").concat(o[3]), "".concat(o[0], ".").concat(o[1], ".").concat(o[3], ".").concat(o[2]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1], ".").concat(o[3]), "".concat(o[0], ".").concat(o[2], ".").concat(o[3], ".").concat(o[1]), "".concat(o[0], ".").concat(o[3], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[3], ".").concat(o[2], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2], ".").concat(o[3]), "".concat(o[1], ".").concat(o[0], ".").concat(o[3], ".").concat(o[2]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[2], ".").concat(o[3], ".").concat(o[0]), "".concat(o[1], ".").concat(o[3], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[3], ".").concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[0], ".").concat(o[3], ".").concat(o[1]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0], ".").concat(o[3]), "".concat(o[2], ".").concat(o[1], ".").concat(o[3], ".").concat(o[0]), "".concat(o[2], ".").concat(o[3], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[3], ".").concat(o[1], ".").concat(o[0]), "".concat(o[3], ".").concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[3], ".").concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[3], ".").concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[3], ".").concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[3], ".").concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[3], ".").concat(o[2], ".").concat(o[1], ".").concat(o[0])];
+    }
+    var C = {};
+    function X(o) {
+        if (o.length === 0 || o.length === 1)
+            return o;
+        var e = o.join(".");
+        return C[e] || (C[e] = U(o)), C[e];
+    }
+    function Y(o) {
+        var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, t = arguments.length > 2 ? arguments[2] : void 0, n = o.filter(function (l) {
+            return l !== "token";
+        }), a = X(n);
+        return a.reduce(function (l, d) {
+            return g(g({}, l), t[d]);
+        }, e);
+    }
+    function O(o) {
+        return o.join(" ");
+    }
+    function Z(o, e) {
+        var t = 0;
+        return function (n) {
+            return t += 1, n.map(function (a, l) {
+                return R({
+                    node: a,
+                    stylesheet: o,
+                    useInlineStyles: e,
+                    key: "code-segment-".concat(t, "-").concat(l)
+                });
+            });
+        };
+    }
+    function R(o) {
+        var e = o.node, t = o.stylesheet, n = o.style, a = n === void 0 ? {} : n, l = o.useInlineStyles, d = o.key, c = e.properties, h = e.type, b = e.tagName, m = e.value;
+        if (h === "text")
+            return m;
+        if (b) {
+            var k = Z(t, l), u;
+            if (!l)
+                u = g(g({}, c), {}, {
+                    className: O(c.className)
+                });
+            else {
+                var y = Object.keys(t).reduce(function (s, x) {
+                    return x.split(".").forEach(function (w) {
+                        s.includes(w) || s.push(w);
+                    }), s;
+                }, []), f = c.className && c.className.includes("token") ? ["token"] : [], i = c.className && f.concat(c.className.filter(function (s) {
+                    return !y.includes(s);
+                }));
+                u = g(g({}, c), {}, {
+                    className: O(i) || void 0,
+                    style: Y(c.className, Object.assign({}, c.style, a), t)
+                });
+            }
+            var S = k(e.children);
+            return /* @__PURE__ */ D.createElement(b, P({
+                key: d
+            }, u), S);
+        }
+    }
+    const j = { default: { dark: J, light: Q }, material: { dark: q, light: K }, duotone: { dark: $, light: G } };
+    function so({ code: o = "console.log('Hello, World!');", filename: e = "example.tsx", showIndex: t = !0, fontSize: n = "1rem", codeTheme: a = "default", language: l = "typescript", showHeader: d = !0, fontWeight: c = "500" }) {
+        const h = B(), b = _(), [m, k] = I(!1), u = () => {
+            navigator.clipboard.writeText(o).then(() => {
+                k(!0), setTimeout(() => {
+                    k(!1);
+                }, 2e3);
+            }, () => {
+                console.error("Failed to copy code");
+            });
+        }, y = () => {
+            const i = j[a] || j.default;
+            return b ? i.dark : i.light;
+        }, f = () => p(L, { size: "small", onClick: u, children: [r(z, { icon: "mdi:check", width: "16", height: "16", style: { display: m ? "block" : "none" } }), r(z, { icon: "mdi:content-copy", width: "16", height: "16", style: { display: m ? "none" : "block" } })] });
+        return p(v, { className: "code-component", sx: { overflow: "hidden" }, children: [d && p(v, { sx: { px: 2, py: 1.5, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: 1, borderBottomColor: h.palette.divider, bgcolor: h.palette.background.paper }, children: [p(v, { sx: { display: "flex", alignItems: "center", gap: 2 }, children: [r(z, { icon: "mdi:code-json", width: n, height: "16", style: { color: h.palette.text.primary, marginRight: "4px", lineHeight: 1, height: n } }), r(N, { variant: "body2", sx: { display: "flex", alignItems: "center", fontSize: n, lineHeight: 1 }, children: e })] }), f()] }), r(v, { sx: { flex: "1", p: 0, borderRadius: 0, "& pre": { px: 2, margin: "0 !important", overflow: "auto", maxHeight: "500px", "&::-webkit-scrollbar": { width: "8px", height: "8px" }, "&::-webkit-scrollbar-track": { background: "rgba(255, 255, 255, 0.05)" }, "&::-webkit-scrollbar-thumb": { background: "rgba(255, 255, 255, 0.1)", borderRadius: "4px" }, borderRadius: "0px !important" }, "& code": { lineHeight: 1.5 }, "& .custom-highlight": { color: "primary.main" } }, children: r(V, { fallback: r(F, { variant: "rectangular", width: "100%", height: 60 }), children: r(W, { codeOptions: { showLineNumbers: t, showActionButton: !1, theme: y(), renderer: ({ rows: i, stylesheet: S, useInlineStyles: s }) => {
+                                    const x = i.length === 1;
+                                    return i.map((w, M) => {
+                                        const T = R({ node: w, stylesheet: S, useInlineStyles: s, style: {}, key: M });
+                                        return p(A, { direction: "row", alignItems: "center", justifyContent: "space-between", gap: 2, sx: { fontSize: n, fontWeight: c }, children: [T, x && !d && f()] }, M);
+                                    });
+                                } }, children: `\`\`\`${l}
+    ${o}
+    \`\`\`` }) }) })] });
+    }
+    export { so as default };
+  type: react-component
+  chunks:
+    - index-Bx0DIN7z.js
+  cjsScript: |
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.default = so;
+    const { Icon: z } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/iconify/react");
+    const W = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/markdown/index").default;
+    const { useTheme: B, Box: v, Typography: N, Stack: A, Skeleton: F, IconButton: L } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const D = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react").default;
+    const { useState: I, Suspense: V } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { _: P } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/extends-hS2Bh-Yp.js");
+    const { _: E } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/defineProperty-j2pm37l6.js");
+    const { a: _ } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/hooks-BF2Vtc2Z.js");
+    const { jsxs: p, jsx: r } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { F: q } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/material-dark-DilR89YE.js");
+    const $ = {
+        'code[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#2a2734",
+            color: "#9a86fd"
+        },
+        'pre[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#2a2734",
+            color: "#9a86fd",
+            padding: "1em",
+            margin: ".5em 0",
+            overflow: "auto"
+        },
+        'pre > code[class*="language-"]': {
+            fontSize: "1em"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'pre[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        'code[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#6a51e6"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: ".1em",
+            borderRadius: ".3em"
+        },
+        comment: {
+            color: "#6c6783"
+        },
+        prolog: {
+            color: "#6c6783"
+        },
+        doctype: {
+            color: "#6c6783"
+        },
+        cdata: {
+            color: "#6c6783"
+        },
+        punctuation: {
+            color: "#6c6783"
+        },
+        namespace: {
+            Opacity: ".7"
+        },
+        tag: {
+            color: "#e09142"
+        },
+        operator: {
+            color: "#e09142"
+        },
+        number: {
+            color: "#e09142"
+        },
+        property: {
+            color: "#9a86fd"
+        },
+        function: {
+            color: "#9a86fd"
+        },
+        "tag-id": {
+            color: "#eeebff"
+        },
+        selector: {
+            color: "#eeebff"
+        },
+        "atrule-id": {
+            color: "#eeebff"
+        },
+        "code.language-javascript": {
+            color: "#c4b9fe"
+        },
+        "attr-name": {
+            color: "#c4b9fe"
+        },
+        "code.language-css": {
+            color: "#ffcc99"
+        },
+        "code.language-scss": {
+            color: "#ffcc99"
+        },
+        boolean: {
+            color: "#ffcc99"
+        },
+        string: {
+            color: "#ffcc99"
+        },
+        entity: {
+            color: "#ffcc99",
+            cursor: "help"
+        },
+        url: {
+            color: "#ffcc99"
+        },
+        ".language-css .token.string": {
+            color: "#ffcc99"
+        },
+        ".language-scss .token.string": {
+            color: "#ffcc99"
+        },
+        ".style .token.string": {
+            color: "#ffcc99"
+        },
+        "attr-value": {
+            color: "#ffcc99"
+        },
+        keyword: {
+            color: "#ffcc99"
+        },
+        control: {
+            color: "#ffcc99"
+        },
+        directive: {
+            color: "#ffcc99"
+        },
+        unit: {
+            color: "#ffcc99"
+        },
+        statement: {
+            color: "#ffcc99"
+        },
+        regex: {
+            color: "#ffcc99"
+        },
+        atrule: {
+            color: "#ffcc99"
+        },
+        placeholder: {
+            color: "#ffcc99"
+        },
+        variable: {
+            color: "#ffcc99"
+        },
+        deleted: {
+            textDecoration: "line-through"
+        },
+        inserted: {
+            borderBottom: "1px dotted #eeebff",
+            textDecoration: "none"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        important: {
+            fontWeight: "bold",
+            color: "#c4b9fe"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        "pre > code.highlight": {
+            Outline: ".4em solid #8a75f5",
+            OutlineOffset: ".4em"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "#2c2937"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "#3c3949"
+        },
+        ".line-highlight.line-highlight": {
+            background: "linear-gradient(to right, rgba(224, 145, 66, 0.2) 70%, rgba(224, 145, 66, 0))"
+        }
+    }, G = {
+        'code[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#faf8f5",
+            color: "#728fcb"
+        },
+        'pre[class*="language-"]': {
+            fontFamily: 'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
+            fontSize: "14px",
+            lineHeight: "1.375",
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            background: "#faf8f5",
+            color: "#728fcb",
+            padding: "1em",
+            margin: ".5em 0",
+            overflow: "auto"
+        },
+        'pre > code[class*="language-"]': {
+            fontSize: "1em"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'pre[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"]::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        'code[class*="language-"] ::selection': {
+            textShadow: "none",
+            background: "#faf8f5"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: ".1em",
+            borderRadius: ".3em"
+        },
+        comment: {
+            color: "#b6ad9a"
+        },
+        prolog: {
+            color: "#b6ad9a"
+        },
+        doctype: {
+            color: "#b6ad9a"
+        },
+        cdata: {
+            color: "#b6ad9a"
+        },
+        punctuation: {
+            color: "#b6ad9a"
+        },
+        namespace: {
+            Opacity: ".7"
+        },
+        tag: {
+            color: "#063289"
+        },
+        operator: {
+            color: "#063289"
+        },
+        number: {
+            color: "#063289"
+        },
+        property: {
+            color: "#b29762"
+        },
+        function: {
+            color: "#b29762"
+        },
+        "tag-id": {
+            color: "#2d2006"
+        },
+        selector: {
+            color: "#2d2006"
+        },
+        "atrule-id": {
+            color: "#2d2006"
+        },
+        "code.language-javascript": {
+            color: "#896724"
+        },
+        "attr-name": {
+            color: "#896724"
+        },
+        "code.language-css": {
+            color: "#728fcb"
+        },
+        "code.language-scss": {
+            color: "#728fcb"
+        },
+        boolean: {
+            color: "#728fcb"
+        },
+        string: {
+            color: "#728fcb"
+        },
+        entity: {
+            color: "#728fcb",
+            cursor: "help"
+        },
+        url: {
+            color: "#728fcb"
+        },
+        ".language-css .token.string": {
+            color: "#728fcb"
+        },
+        ".language-scss .token.string": {
+            color: "#728fcb"
+        },
+        ".style .token.string": {
+            color: "#728fcb"
+        },
+        "attr-value": {
+            color: "#728fcb"
+        },
+        keyword: {
+            color: "#728fcb"
+        },
+        control: {
+            color: "#728fcb"
+        },
+        directive: {
+            color: "#728fcb"
+        },
+        unit: {
+            color: "#728fcb"
+        },
+        statement: {
+            color: "#728fcb"
+        },
+        regex: {
+            color: "#728fcb"
+        },
+        atrule: {
+            color: "#728fcb"
+        },
+        placeholder: {
+            color: "#93abdc"
+        },
+        variable: {
+            color: "#93abdc"
+        },
+        deleted: {
+            textDecoration: "line-through"
+        },
+        inserted: {
+            borderBottom: "1px dotted #2d2006",
+            textDecoration: "none"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        important: {
+            fontWeight: "bold",
+            color: "#896724"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        "pre > code.highlight": {
+            Outline: ".4em solid #896724",
+            OutlineOffset: ".4em"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "#ece8de"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "#cdc4b1"
+        },
+        ".line-highlight.line-highlight": {
+            background: "linear-gradient(to right, rgba(45, 32, 6, 0.2) 70%, rgba(45, 32, 6, 0))"
+        }
+    }, K = {
+        'code[class*="language-"]': {
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            wordWrap: "normal",
+            color: "#90a4ae",
+            background: "#fafafa",
+            fontFamily: "Roboto Mono, monospace",
+            fontSize: "1em",
+            lineHeight: "1.5em",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            wordWrap: "normal",
+            color: "#90a4ae",
+            background: "#fafafa",
+            fontFamily: "Roboto Mono, monospace",
+            fontSize: "1em",
+            lineHeight: "1.5em",
+            MozTabSize: "4",
+            OTabSize: "4",
+            tabSize: "4",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            overflow: "auto",
+            position: "relative",
+            margin: "0.5em 0",
+            padding: "1.25em 1em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"]::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"] ::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"] ::-moz-selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"]::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"]::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'code[class*="language-"] ::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        'pre[class*="language-"] ::selection': {
+            background: "#cceae7",
+            color: "#263238"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            whiteSpace: "normal",
+            borderRadius: "0.2em",
+            padding: "0.1em"
+        },
+        ".language-css > code": {
+            color: "#f76d47"
+        },
+        ".language-sass > code": {
+            color: "#f76d47"
+        },
+        ".language-scss > code": {
+            color: "#f76d47"
+        },
+        '[class*="language-"] .namespace': {
+            Opacity: "0.7"
+        },
+        atrule: {
+            color: "#7c4dff"
+        },
+        "attr-name": {
+            color: "#39adb5"
+        },
+        "attr-value": {
+            color: "#f6a434"
+        },
+        attribute: {
+            color: "#f6a434"
+        },
+        boolean: {
+            color: "#7c4dff"
+        },
+        builtin: {
+            color: "#39adb5"
+        },
+        cdata: {
+            color: "#39adb5"
+        },
+        char: {
+            color: "#39adb5"
+        },
+        class: {
+            color: "#39adb5"
+        },
+        "class-name": {
+            color: "#6182b8"
+        },
+        comment: {
+            color: "#aabfc9"
+        },
+        constant: {
+            color: "#7c4dff"
+        },
+        deleted: {
+            color: "#e53935"
+        },
+        doctype: {
+            color: "#aabfc9"
+        },
+        entity: {
+            color: "#e53935"
+        },
+        function: {
+            color: "#7c4dff"
+        },
+        hexcode: {
+            color: "#f76d47"
+        },
+        id: {
+            color: "#7c4dff",
+            fontWeight: "bold"
+        },
+        important: {
+            color: "#7c4dff",
+            fontWeight: "bold"
+        },
+        inserted: {
+            color: "#39adb5"
+        },
+        keyword: {
+            color: "#7c4dff"
+        },
+        number: {
+            color: "#f76d47"
+        },
+        operator: {
+            color: "#39adb5"
+        },
+        prolog: {
+            color: "#aabfc9"
+        },
+        property: {
+            color: "#39adb5"
+        },
+        "pseudo-class": {
+            color: "#f6a434"
+        },
+        "pseudo-element": {
+            color: "#f6a434"
+        },
+        punctuation: {
+            color: "#39adb5"
+        },
+        regex: {
+            color: "#6182b8"
+        },
+        selector: {
+            color: "#e53935"
+        },
+        string: {
+            color: "#f6a434"
+        },
+        symbol: {
+            color: "#7c4dff"
+        },
+        tag: {
+            color: "#e53935"
+        },
+        unit: {
+            color: "#f76d47"
+        },
+        url: {
+            color: "#e53935"
+        },
+        variable: {
+            color: "#e53935"
+        }
+    }, J = {
+        'code[class*="language-"]': {
+            background: "hsl(220, 13%, 18%)",
+            color: "hsl(220, 14%, 71%)",
+            textShadow: "0 1px rgba(0, 0, 0, 0.3)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            background: "hsl(220, 13%, 18%)",
+            color: "hsl(220, 14%, 71%)",
+            textShadow: "0 1px rgba(0, 0, 0, 0.3)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            padding: "1em",
+            margin: "0.5em 0",
+            overflow: "auto",
+            borderRadius: "0.3em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"] *::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'pre[class*="language-"] *::-moz-selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"]::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'code[class*="language-"] *::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        'pre[class*="language-"] *::selection': {
+            background: "hsl(220, 13%, 28%)",
+            color: "inherit",
+            textShadow: "none"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: "0.2em 0.3em",
+            borderRadius: "0.3em",
+            whiteSpace: "normal"
+        },
+        comment: {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        prolog: {
+            color: "hsl(220, 10%, 40%)"
+        },
+        cdata: {
+            color: "hsl(220, 10%, 40%)"
+        },
+        doctype: {
+            color: "hsl(220, 14%, 71%)"
+        },
+        punctuation: {
+            color: "hsl(220, 14%, 71%)"
+        },
+        entity: {
+            color: "hsl(220, 14%, 71%)",
+            cursor: "help"
+        },
+        "attr-name": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        "class-name": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        boolean: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        constant: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        number: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        atrule: {
+            color: "hsl(29, 54%, 61%)"
+        },
+        keyword: {
+            color: "hsl(286, 60%, 67%)"
+        },
+        property: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        tag: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        symbol: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        deleted: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        important: {
+            color: "hsl(355, 65%, 65%)"
+        },
+        selector: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        string: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        char: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        builtin: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        inserted: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        regex: {
+            color: "hsl(95, 38%, 62%)"
+        },
+        "attr-value": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        "attr-value > .token.punctuation": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        variable: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        operator: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        function: {
+            color: "hsl(207, 82%, 66%)"
+        },
+        url: {
+            color: "hsl(187, 47%, 55%)"
+        },
+        "attr-value > .token.punctuation.attr-equals": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        "special-attr > .token.attr-value > .token.value.css": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-css .token.selector": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-css .token.property": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-css .token.function": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-css .token.url > .token.function": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-css .token.url > .token.string.url": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".language-css .token.important": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-css .token.atrule .token.rule": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-javascript .token.operator": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-javascript .token.template-string > .token.interpolation > .token.interpolation-punctuation.punctuation": {
+            color: "hsl(5, 48%, 51%)"
+        },
+        ".language-json .token.operator": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-json .token.null.keyword": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        ".language-markdown .token.url": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url > .token.operator": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url-reference.url > .token.string": {
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".language-markdown .token.url > .token.content": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".language-markdown .token.url > .token.url": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-markdown .token.url-reference.url": {
+            color: "hsl(187, 47%, 55%)"
+        },
+        ".language-markdown .token.blockquote.punctuation": {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.hr.punctuation": {
+            color: "hsl(220, 10%, 40%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.code-snippet": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".language-markdown .token.bold .token.content": {
+            color: "hsl(29, 54%, 61%)"
+        },
+        ".language-markdown .token.italic .token.content": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".language-markdown .token.strike .token.content": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.strike .token.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.list.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".language-markdown .token.title.important > .token.punctuation": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        namespace: {
+            Opacity: "0.8"
+        },
+        "token.tab:not(:empty):before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.cr:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.lf:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "token.space:before": {
+            color: "hsla(220, 14%, 71%, 0.15)",
+            textShadow: "none"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item": {
+            marginRight: "0.4em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 9%, 55%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus": {
+            background: "hsl(220, 13%, 28%)",
+            color: "hsl(220, 14%, 71%)"
+        },
+        ".line-highlight.line-highlight": {
+            background: "hsla(220, 100%, 80%, 0.04)"
+        },
+        ".line-highlight.line-highlight:before": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 14%, 71%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        ".line-highlight.line-highlight[data-end]:after": {
+            background: "hsl(220, 13%, 26%)",
+            color: "hsl(220, 14%, 71%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        "pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows > span:hover:before": {
+            backgroundColor: "hsla(220, 100%, 80%, 0.04)"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "hsla(220, 14%, 71%, 0.15)"
+        },
+        ".command-line .command-line-prompt": {
+            borderRightColor: "hsla(220, 14%, 71%, 0.15)"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "hsl(220, 14%, 45%)"
+        },
+        ".command-line .command-line-prompt > span:before": {
+            color: "hsl(220, 14%, 45%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-1": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-5": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-9": {
+            color: "hsl(355, 65%, 65%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-2": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-6": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-10": {
+            color: "hsl(95, 38%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-3": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-7": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-11": {
+            color: "hsl(207, 82%, 66%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-4": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-8": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-12": {
+            color: "hsl(286, 60%, 67%)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        ".prism-previewer.prism-previewer:before": {
+            borderColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-gradient.prism-previewer-gradient div": {
+            borderColor: "hsl(224, 13%, 17%)",
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-color.prism-previewer-color:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-easing.prism-previewer-easing:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer.prism-previewer:after": {
+            borderTopColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-flipped.prism-previewer-flipped.after": {
+            borderBottomColor: "hsl(224, 13%, 17%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle:before": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-time.prism-previewer-time:before": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing": {
+            background: "hsl(219, 13%, 22%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-time.prism-previewer-time circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-easing.prism-previewer-easing circle": {
+            stroke: "hsl(220, 14%, 71%)",
+            fill: "transparent"
+        },
+        ".prism-previewer-easing.prism-previewer-easing path": {
+            stroke: "hsl(220, 14%, 71%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing line": {
+            stroke: "hsl(220, 14%, 71%)"
+        }
+    }, Q = {
+        'code[class*="language-"]': {
+            background: "hsl(230, 1%, 98%)",
+            color: "hsl(230, 8%, 24%)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none"
+        },
+        'pre[class*="language-"]': {
+            background: "hsl(230, 1%, 98%)",
+            color: "hsl(230, 8%, 24%)",
+            fontFamily: '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            direction: "ltr",
+            textAlign: "left",
+            whiteSpace: "pre",
+            wordSpacing: "normal",
+            wordBreak: "normal",
+            lineHeight: "1.5",
+            MozTabSize: "2",
+            OTabSize: "2",
+            tabSize: "2",
+            WebkitHyphens: "none",
+            MozHyphens: "none",
+            msHyphens: "none",
+            hyphens: "none",
+            padding: "1em",
+            margin: "0.5em 0",
+            overflow: "auto",
+            borderRadius: "0.3em"
+        },
+        'code[class*="language-"]::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"] *::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'pre[class*="language-"] *::-moz-selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"]::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'code[class*="language-"] *::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        'pre[class*="language-"] *::selection': {
+            background: "hsl(230, 1%, 90%)",
+            color: "inherit"
+        },
+        ':not(pre) > code[class*="language-"]': {
+            padding: "0.2em 0.3em",
+            borderRadius: "0.3em",
+            whiteSpace: "normal"
+        },
+        comment: {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        prolog: {
+            color: "hsl(230, 4%, 64%)"
+        },
+        cdata: {
+            color: "hsl(230, 4%, 64%)"
+        },
+        doctype: {
+            color: "hsl(230, 8%, 24%)"
+        },
+        punctuation: {
+            color: "hsl(230, 8%, 24%)"
+        },
+        entity: {
+            color: "hsl(230, 8%, 24%)",
+            cursor: "help"
+        },
+        "attr-name": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        "class-name": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        boolean: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        constant: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        number: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        atrule: {
+            color: "hsl(35, 99%, 36%)"
+        },
+        keyword: {
+            color: "hsl(301, 63%, 40%)"
+        },
+        property: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        tag: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        symbol: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        deleted: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        important: {
+            color: "hsl(5, 74%, 59%)"
+        },
+        selector: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        string: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        char: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        builtin: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        inserted: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        regex: {
+            color: "hsl(119, 34%, 47%)"
+        },
+        "attr-value": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        "attr-value > .token.punctuation": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        variable: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        operator: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        function: {
+            color: "hsl(221, 87%, 60%)"
+        },
+        url: {
+            color: "hsl(198, 99%, 37%)"
+        },
+        "attr-value > .token.punctuation.attr-equals": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        "special-attr > .token.attr-value > .token.value.css": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-css .token.selector": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-css .token.property": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-css .token.function": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-css .token.url > .token.function": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-css .token.url > .token.string.url": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".language-css .token.important": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-css .token.atrule .token.rule": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-javascript .token.operator": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-javascript .token.template-string > .token.interpolation > .token.interpolation-punctuation.punctuation": {
+            color: "hsl(344, 84%, 43%)"
+        },
+        ".language-json .token.operator": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-json .token.null.keyword": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        ".language-markdown .token.url": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url > .token.operator": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url-reference.url > .token.string": {
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".language-markdown .token.url > .token.content": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".language-markdown .token.url > .token.url": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-markdown .token.url-reference.url": {
+            color: "hsl(198, 99%, 37%)"
+        },
+        ".language-markdown .token.blockquote.punctuation": {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.hr.punctuation": {
+            color: "hsl(230, 4%, 64%)",
+            fontStyle: "italic"
+        },
+        ".language-markdown .token.code-snippet": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".language-markdown .token.bold .token.content": {
+            color: "hsl(35, 99%, 36%)"
+        },
+        ".language-markdown .token.italic .token.content": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".language-markdown .token.strike .token.content": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.strike .token.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.list.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".language-markdown .token.title.important > .token.punctuation": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        bold: {
+            fontWeight: "bold"
+        },
+        italic: {
+            fontStyle: "italic"
+        },
+        namespace: {
+            Opacity: "0.8"
+        },
+        "token.tab:not(:empty):before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.cr:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.lf:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "token.space:before": {
+            color: "hsla(230, 8%, 24%, 0.2)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item": {
+            marginRight: "0.4em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 6%, 44%)",
+            padding: "0.1em 0.4em",
+            borderRadius: "0.3em"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        "div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus": {
+            background: "hsl(230, 1%, 78%)",
+            color: "hsl(230, 8%, 24%)"
+        },
+        ".line-highlight.line-highlight": {
+            background: "hsla(230, 8%, 24%, 0.05)"
+        },
+        ".line-highlight.line-highlight:before": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 8%, 24%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        ".line-highlight.line-highlight[data-end]:after": {
+            background: "hsl(230, 1%, 90%)",
+            color: "hsl(230, 8%, 24%)",
+            padding: "0.1em 0.6em",
+            borderRadius: "0.3em",
+            boxShadow: "0 2px 0 0 rgba(0, 0, 0, 0.2)"
+        },
+        "pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows > span:hover:before": {
+            backgroundColor: "hsla(230, 8%, 24%, 0.05)"
+        },
+        ".line-numbers.line-numbers .line-numbers-rows": {
+            borderRightColor: "hsla(230, 8%, 24%, 0.2)"
+        },
+        ".command-line .command-line-prompt": {
+            borderRightColor: "hsla(230, 8%, 24%, 0.2)"
+        },
+        ".line-numbers .line-numbers-rows > span:before": {
+            color: "hsl(230, 1%, 62%)"
+        },
+        ".command-line .command-line-prompt > span:before": {
+            color: "hsl(230, 1%, 62%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-1": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-5": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-9": {
+            color: "hsl(5, 74%, 59%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-2": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-6": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-10": {
+            color: "hsl(119, 34%, 47%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-3": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-7": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-11": {
+            color: "hsl(221, 87%, 60%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-4": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-8": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        ".rainbow-braces .token.token.punctuation.brace-level-12": {
+            color: "hsl(301, 63%, 40%)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)": {
+            backgroundColor: "hsla(353, 100%, 66%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(353, 95%, 66%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)": {
+            backgroundColor: "hsla(137, 100%, 55%, 0.15)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        "pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection": {
+            backgroundColor: "hsla(135, 73%, 55%, 0.25)"
+        },
+        ".prism-previewer.prism-previewer:before": {
+            borderColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-gradient.prism-previewer-gradient div": {
+            borderColor: "hsl(0, 0, 95%)",
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-color.prism-previewer-color:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer-easing.prism-previewer-easing:before": {
+            borderRadius: "0.3em"
+        },
+        ".prism-previewer.prism-previewer:after": {
+            borderTopColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-flipped.prism-previewer-flipped.after": {
+            borderBottomColor: "hsl(0, 0, 95%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle:before": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-time.prism-previewer-time:before": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing": {
+            background: "hsl(0, 0%, 100%)"
+        },
+        ".prism-previewer-angle.prism-previewer-angle circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-time.prism-previewer-time circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            strokeOpacity: "1"
+        },
+        ".prism-previewer-easing.prism-previewer-easing circle": {
+            stroke: "hsl(230, 8%, 24%)",
+            fill: "transparent"
+        },
+        ".prism-previewer-easing.prism-previewer-easing path": {
+            stroke: "hsl(230, 8%, 24%)"
+        },
+        ".prism-previewer-easing.prism-previewer-easing line": {
+            stroke: "hsl(230, 8%, 24%)"
+        }
+    };
+    function H(o, e) {
+        var t = Object.keys(o);
+        if (Object.getOwnPropertySymbols) {
+            var n = Object.getOwnPropertySymbols(o);
+            e && (n = n.filter(function (a) {
+                return Object.getOwnPropertyDescriptor(o, a).enumerable;
+            })), t.push.apply(t, n);
+        }
+        return t;
+    }
+    function g(o) {
+        for (var e = 1; e < arguments.length; e++) {
+            var t = arguments[e] != null ? arguments[e] : {};
+            e % 2 ? H(Object(t), !0).forEach(function (n) {
+                E(o, n, t[n]);
+            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(o, Object.getOwnPropertyDescriptors(t)) : H(Object(t)).forEach(function (n) {
+                Object.defineProperty(o, n, Object.getOwnPropertyDescriptor(t, n));
+            });
+        }
+        return o;
+    }
+    function U(o) {
+        var e = o.length;
+        if (e === 0 || e === 1)
+            return o;
+        if (e === 2)
+            return [o[0], o[1], "".concat(o[0], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0])];
+        if (e === 3)
+            return [o[0], o[1], o[2], "".concat(o[0], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2]), "".concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0])];
+        if (e >= 4)
+            return [o[0], o[1], o[2], o[3], "".concat(o[0], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2]), "".concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2]), "".concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1]), "".concat(o[2], ".").concat(o[3]), "".concat(o[3], ".").concat(o[0]), "".concat(o[3], ".").concat(o[1]), "".concat(o[3], ".").concat(o[2]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[1], ".").concat(o[3]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[2], ".").concat(o[3]), "".concat(o[0], ".").concat(o[3], ".").concat(o[1]), "".concat(o[0], ".").concat(o[3], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[1], ".").concat(o[2], ".").concat(o[3]), "".concat(o[1], ".").concat(o[3], ".").concat(o[0]), "".concat(o[1], ".").concat(o[3], ".").concat(o[2]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[0], ".").concat(o[3]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0]), "".concat(o[2], ".").concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[3], ".").concat(o[0]), "".concat(o[2], ".").concat(o[3], ".").concat(o[1]), "".concat(o[3], ".").concat(o[0], ".").concat(o[1]), "".concat(o[3], ".").concat(o[0], ".").concat(o[2]), "".concat(o[3], ".").concat(o[1], ".").concat(o[0]), "".concat(o[3], ".").concat(o[1], ".").concat(o[2]), "".concat(o[3], ".").concat(o[2], ".").concat(o[0]), "".concat(o[3], ".").concat(o[2], ".").concat(o[1]), "".concat(o[0], ".").concat(o[1], ".").concat(o[2], ".").concat(o[3]), "".concat(o[0], ".").concat(o[1], ".").concat(o[3], ".").concat(o[2]), "".concat(o[0], ".").concat(o[2], ".").concat(o[1], ".").concat(o[3]), "".concat(o[0], ".").concat(o[2], ".").concat(o[3], ".").concat(o[1]), "".concat(o[0], ".").concat(o[3], ".").concat(o[1], ".").concat(o[2]), "".concat(o[0], ".").concat(o[3], ".").concat(o[2], ".").concat(o[1]), "".concat(o[1], ".").concat(o[0], ".").concat(o[2], ".").concat(o[3]), "".concat(o[1], ".").concat(o[0], ".").concat(o[3], ".").concat(o[2]), "".concat(o[1], ".").concat(o[2], ".").concat(o[0], ".").concat(o[3]), "".concat(o[1], ".").concat(o[2], ".").concat(o[3], ".").concat(o[0]), "".concat(o[1], ".").concat(o[3], ".").concat(o[0], ".").concat(o[2]), "".concat(o[1], ".").concat(o[3], ".").concat(o[2], ".").concat(o[0]), "".concat(o[2], ".").concat(o[0], ".").concat(o[1], ".").concat(o[3]), "".concat(o[2], ".").concat(o[0], ".").concat(o[3], ".").concat(o[1]), "".concat(o[2], ".").concat(o[1], ".").concat(o[0], ".").concat(o[3]), "".concat(o[2], ".").concat(o[1], ".").concat(o[3], ".").concat(o[0]), "".concat(o[2], ".").concat(o[3], ".").concat(o[0], ".").concat(o[1]), "".concat(o[2], ".").concat(o[3], ".").concat(o[1], ".").concat(o[0]), "".concat(o[3], ".").concat(o[0], ".").concat(o[1], ".").concat(o[2]), "".concat(o[3], ".").concat(o[0], ".").concat(o[2], ".").concat(o[1]), "".concat(o[3], ".").concat(o[1], ".").concat(o[0], ".").concat(o[2]), "".concat(o[3], ".").concat(o[1], ".").concat(o[2], ".").concat(o[0]), "".concat(o[3], ".").concat(o[2], ".").concat(o[0], ".").concat(o[1]), "".concat(o[3], ".").concat(o[2], ".").concat(o[1], ".").concat(o[0])];
+    }
+    var C = {};
+    function X(o) {
+        if (o.length === 0 || o.length === 1)
+            return o;
+        var e = o.join(".");
+        return C[e] || (C[e] = U(o)), C[e];
+    }
+    function Y(o) {
+        var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, t = arguments.length > 2 ? arguments[2] : void 0, n = o.filter(function (l) {
+            return l !== "token";
+        }), a = X(n);
+        return a.reduce(function (l, d) {
+            return g(g({}, l), t[d]);
+        }, e);
+    }
+    function O(o) {
+        return o.join(" ");
+    }
+    function Z(o, e) {
+        var t = 0;
+        return function (n) {
+            return t += 1, n.map(function (a, l) {
+                return R({
+                    node: a,
+                    stylesheet: o,
+                    useInlineStyles: e,
+                    key: "code-segment-".concat(t, "-").concat(l)
+                });
+            });
+        };
+    }
+    function R(o) {
+        var e = o.node, t = o.stylesheet, n = o.style, a = n === void 0 ? {} : n, l = o.useInlineStyles, d = o.key, c = e.properties, h = e.type, b = e.tagName, m = e.value;
+        if (h === "text")
+            return m;
+        if (b) {
+            var k = Z(t, l), u;
+            if (!l)
+                u = g(g({}, c), {}, {
+                    className: O(c.className)
+                });
+            else {
+                var y = Object.keys(t).reduce(function (s, x) {
+                    return x.split(".").forEach(function (w) {
+                        s.includes(w) || s.push(w);
+                    }), s;
+                }, []), f = c.className && c.className.includes("token") ? ["token"] : [], i = c.className && f.concat(c.className.filter(function (s) {
+                    return !y.includes(s);
+                }));
+                u = g(g({}, c), {}, {
+                    className: O(i) || void 0,
+                    style: Y(c.className, Object.assign({}, c.style, a), t)
+                });
+            }
+            var S = k(e.children);
+            return /* @__PURE__ */ D.createElement(b, P({
+                key: d
+            }, u), S);
+        }
+    }
+    const j = { default: { dark: J, light: Q }, material: { dark: q, light: K }, duotone: { dark: $, light: G } };
+    function so({ code: o = "console.log('Hello, World!');", filename: e = "example.tsx", showIndex: t = !0, fontSize: n = "1rem", codeTheme: a = "default", language: l = "typescript", showHeader: d = !0, fontWeight: c = "500" }) {
+        const h = B(), b = _(), [m, k] = I(!1), u = () => {
+            navigator.clipboard.writeText(o).then(() => {
+                k(!0), setTimeout(() => {
+                    k(!1);
+                }, 2e3);
+            }, () => {
+                console.error("Failed to copy code");
+            });
+        }, y = () => {
+            const i = j[a] || j.default;
+            return b ? i.dark : i.light;
+        }, f = () => p(L, { size: "small", onClick: u, children: [r(z, { icon: "mdi:check", width: "16", height: "16", style: { display: m ? "block" : "none" } }), r(z, { icon: "mdi:content-copy", width: "16", height: "16", style: { display: m ? "none" : "block" } })] });
+        return p(v, { className: "code-component", sx: { overflow: "hidden" }, children: [d && p(v, { sx: { px: 2, py: 1.5, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: 1, borderBottomColor: h.palette.divider, bgcolor: h.palette.background.paper }, children: [p(v, { sx: { display: "flex", alignItems: "center", gap: 2 }, children: [r(z, { icon: "mdi:code-json", width: n, height: "16", style: { color: h.palette.text.primary, marginRight: "4px", lineHeight: 1, height: n } }), r(N, { variant: "body2", sx: { display: "flex", alignItems: "center", fontSize: n, lineHeight: 1 }, children: e })] }), f()] }), r(v, { sx: { flex: "1", p: 0, borderRadius: 0, "& pre": { px: 2, margin: "0 !important", overflow: "auto", maxHeight: "500px", "&::-webkit-scrollbar": { width: "8px", height: "8px" }, "&::-webkit-scrollbar-track": { background: "rgba(255, 255, 255, 0.05)" }, "&::-webkit-scrollbar-thumb": { background: "rgba(255, 255, 255, 0.1)", borderRadius: "4px" }, borderRadius: "0px !important" }, "& code": { lineHeight: 1.5 }, "& .custom-highlight": { color: "primary.main" } }, children: r(V, { fallback: r(F, { variant: "rectangular", width: "100%", height: 60 }), children: r(W, { codeOptions: { showLineNumbers: t, showActionButton: !1, theme: y(), renderer: ({ rows: i, stylesheet: S, useInlineStyles: s }) => {
+                                    const x = i.length === 1;
+                                    return i.map((w, M) => {
+                                        const T = R({ node: w, stylesheet: S, useInlineStyles: s, style: {}, key: M });
+                                        return p(A, { direction: "row", alignItems: "center", justifyContent: "space-between", gap: 2, sx: { fontSize: n, fontWeight: c }, children: [T, x && !d && f()] }, M);
+                                    });
+                                } }, children: `\`\`\`${l}
+    ${o}
+    \`\`\`` }) }) })] });
+    }
+  editComponent: |
+    const { Stack: o, FormControl: r, InputLabel: d, Select: i, MenuItem: u } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const { e: g } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/index-Bx0DIN7z.js");
+    const { jsx: l, jsxs: a } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const p = [{ value: "default", label: "Default" }, { value: "material", label: "Material" }, { value: "duotone", label: "Duotone" }], C = ({ onChange: t, codeTheme: c = "default", language: h = "typescript" }) => {
+        const m = (e) => {
+            t === null || t === void 0 ? void 0 : t({ codeTheme: e.target.value });
+        }, b = (e) => {
+            t === null || t === void 0 ? void 0 : t({ language: e.target.value });
+        };
+        return l(o, { spacing: 3, children: a(o, { direction: "column", spacing: 2, children: [a(r, { fullWidth: !0, variant: "outlined", children: [l(d, { id: "code-theme-label", children: "代码主题" }), l(i, { labelId: "code-theme-label", value: c || "default", label: "代码主题", onChange: m, children: p.map((e) => l(u, { value: e.value, children: e.label }, e.value)) })] }), a(r, { fullWidth: !0, variant: "outlined", children: [l(d, { id: "code-theme-label", children: "代码语言" }), l(i, { labelId: "code-theme-label", value: h || "default", label: "代码语言", onChange: b, children: Object.entries(g).map(([e, n]) => l(u, { value: n, children: n }, e)) })] })] }) });
+    };
+    export { C as EditComponent };

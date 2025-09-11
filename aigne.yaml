@@ -1,0 +1,59 @@
+#!/usr/bin/env aigne
+
+chat_model:
+  provider: google
+  name: gemini-2.5-pro
+  # name: gemini-2.5-flash
+  temperature: 0.8
+agents:
+  - ./agents/structure-planning.yaml
+  - ./agents/batch-pages-detail-generator.yaml
+  - ./agents/load-sources.mjs
+  - ./agents/save-pages.mjs
+  - ./agents/translate.yaml
+  - ./agents/detail-generator-and-translate.yaml
+  - ./agents/check-detail.mjs
+  - ./agents/transform-detail-datasources.mjs
+  - ./agents/batch-translate.yaml
+  - ./agents/save-single-page.mjs
+  - ./agents/save-output.mjs
+  - ./agents/check-structure-plan.mjs
+  - ./agents/content-detail-generator.yaml
+  - ./agents/reflective-structure-planner.yaml
+  - ./agents/check-structure-planning-result.yaml
+  - ./agents/input-generator.mjs
+  - ./agents/pages-generate.yaml
+  - ./agents/pages-update.yaml
+  - ./agents/pages-publish.mjs
+  - ./agents/format-structure-plan.mjs
+  - ./agents/load-config.mjs
+  - ./agents/team-publish-pages.yaml
+  - ./agents/find-item-by-path.mjs
+  - ./agents/retranslate.yaml
+  - ./agents/language-selector.mjs
+  - ./pages-mcp/get-pages-structure.mjs
+  - ./pages-mcp/get-page-detail.mjs
+  - ./pages-mcp/pages-search.yaml
+  - ./pages-mcp/analyze-pages-relevance.yaml
+  - ./pages-mcp/read-page-content.mjs
+  - ./pages-mcp/analyze-content-relevance.yaml
+  - ./agents/check-feedback-refiner.mjs
+  - ./agents/feedback-refiner.yaml
+  - ./agents/manage-prefs.mjs
+  # pages format
+  - ./agents/pages-format/load-component-library.mjs
+  - ./agents/pages-format/analyze-and-generate-component-library.mjs
+  - ./agents/pages-format/check-generate-component-library.mjs
+cli:
+  chat: ./agents/chat.yaml
+  agents:
+    - ./agents/input-generator.mjs
+    - ./agents/pages-generate.yaml
+    - ./agents/pages-update.yaml
+    - ./agents/team-publish-pages.yaml
+    - ./agents/retranslate.yaml
+    - ./agents/manage-prefs.mjs
+mcp_server:
+  agents:
+    - ./pages-mcp/get-pages-structure.mjs
+    - ./pages-mcp/get-page-detail.mjs

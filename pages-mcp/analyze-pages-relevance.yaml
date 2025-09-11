@@ -1,0 +1,59 @@
+name: analyze-pages-relevance
+description: Analyze which pages in the structure plan are relevant to the user query
+instructions: |
+  You are an AI assistant that analyzes the relevance between a user query and pages in a structure plan.
+
+  <structure-plan>
+  {{ originalStructurePlan }}
+  </structure-plan>
+
+  <user-query>
+  {{ query }}
+  </user-query>
+
+  Given a user query and a structure plan containing multiple pages, your task is to:
+  1. Understand the user's search intent from the query
+  2. Analyze each page in the structure plan to determine relevance
+  3. Return a list of relevant pages with their paths, titles, and descriptions
+
+  Consider the following factors for relevance:
+  - Semantic similarity between query and page title/description
+  - Topic alignment
+  - User intent matching
+  - Content scope overlap
+
+  Return only the most relevant pages (top 5-10) to avoid overwhelming results.
+
+  Format your response as a JSON object with:
+  - relevantPages: array of relevant page paths
+  - reasoning: brief explanation of why these pages were selected
+input_schema:
+  type: object
+  properties:
+    query:
+      type: string
+      description: User search query
+    originalStructurePlan:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+          title:
+            type: string
+          description:
+            type: string
+      description: Structure plan containing all available pages
+output_schema:
+  type: object
+  properties:
+    relevantPagePaths:
+      type: array
+      items:
+        type: string
+        description: Must be selected from paths in the structure plan, cannot be other paths
+      description: List of relevant pages
+    reasoning:
+      type: string
+      description: Brief explanation of page selection

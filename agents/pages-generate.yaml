@@ -1,0 +1,61 @@
+type: team
+name: generate
+alias:
+  - gen
+  - g
+description: Automatically generates comprehensive project pages
+skills:
+  - url: ./input-generator.mjs
+    default_input:
+      skipIfExists: true
+  - ./load-config.mjs
+  - ./load-sources.mjs
+  - ./check-structure-plan.mjs
+  - url: ./save-output.mjs
+    default_input:
+      saveKey: structurePlan
+      savePath:
+        $get: tmpDir
+      fileName: structure-plan.json
+  - type: transform
+    name: transformData
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'structurePlanResult': $map(structurePlan, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          }),
+          "datasources": ""
+        }
+      ])
+  - ./format-structure-plan.mjs
+  - ./batch-pages-detail-generator.yaml
+  - url: ./check-feedback-refiner.mjs
+    default_input:
+      stage: structure_planning
+  - ./pages-format/load-component-library.mjs
+  - ./pages-format/compose-pages-kit-yaml.mjs
+  - ./save-pages.mjs
+
+input_schema:
+  type: object
+  properties:
+    glossary:
+      type: string
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    feedback:
+      type: string
+      description: Feedback for structure planning adjustments
+    forceRegenerate:
+      type: boolean
+      description: Force regenerate all pages
+  required:
+    - config
+mode: sequential

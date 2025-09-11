@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          release-type: node
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v3
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          version: 10
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 23
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Publish to NPM
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
+          pnpm publish --access public --no-git-checks

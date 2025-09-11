@@ -1,0 +1,77 @@
+id: AwkO9eKiUWeU7Z8u
+createdAt: 2025-08-11T14:47:37.492Z
+updatedAt: 2025-08-13T08:36:57.024Z
+name: Terminal
+description: Simple terminal player component using @arcblock/terminal
+properties:
+  n802svpu2aj3ecnm:
+    index: 0
+    data:
+      id: n802svpu2aj3ecnm
+      key: data
+      type: json
+  25yixkmhx7digq3a:
+    index: 1
+    data:
+      id: 25yixkmhx7digq3a
+      key: height
+      locales:
+        zh:
+          defaultValue: 400px
+llmConfig:
+  properties:
+    k8m2p4r9xqw5z7n3:
+      key: frames
+      isNeedGenerate: true
+      describe: asciinema 录制数据，转换后用于 @arcblock/terminal 播放器
+      displayName: 录制数据
+version: 2
+renderer:
+  script: |
+    const l = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react").default;
+    const { useRef: d, Suspense: s } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { Box: i, Skeleton: p } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const { g: h } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/_commonjsHelpers-DaMA6jEr.js");
+    const { r: m } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/cloneDeep-BfCa_4vz.js");
+    const { jsx: e } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    var c = m();
+    const f = /* @__PURE__ */ h(c), u = l.lazy(() => __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/index-D8SZCZlh.js").then((t) => ({ default: t.TerminalPlayer })));
+    function w({ data: t = {}, height: o = "400px" }) {
+        const { records: r = [], config: a = {} } = f(t), n = d(null);
+        return !r || r.length === 0 ? e(i, { sx: { display: "flex", alignItems: "center", justifyContent: "center", height: o, color: "text.primary", fontSize: "14px", border: "1px dashed", borderColor: "divider", p: 2 }, children: "No terminal data provided. Please check the usage guide below." }) : e(i, { sx: { position: "relative", overflow: "hidden", width: "100%", height: o, "& .terminal-player, & .terminal,  & .terminal-body, & .react-xterm": { width: "100% !important", height: "100% !important" }, "& .terminal-frame": { width: "100%", height: "100%", borderRadius: 0, position: "relative" } }, children: e(s, { fallback: e(p, { variant: "rectangular", width: "100%", height: "100%" }), children: e(i, { ref: n, sx: { display: "contents" }, children: e(u, { frames: r, options: a }) }) }) });
+    }
+    export { w as default };
+  type: react-component
+  chunks:
+    - index-D8SZCZlh.js
+    - index-Dq0UqkX6.js
+    - _commonjsHelpers-DaMA6jEr.js
+    - index-xuotMAFm.js
+    - debounce-Dugda2GW.js
+    - isObjectLike-C9HuXahv.js
+    - isSymbol-Bl43PihD.js
+    - emotion-styled.browser.esm-CH9caefh.js
+    - extends-hS2Bh-Yp.js
+  cjsScript: |
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.default = w;
+    const l = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react").default;
+    const { useRef: d, Suspense: s } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    const { Box: i, Skeleton: p } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const { g: h } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/_commonjsHelpers-DaMA6jEr.js");
+    const { r: m } = await __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/cloneDeep-BfCa_4vz.js");
+    const { jsx: e } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    var c = m();
+    const f = /* @__PURE__ */ h(c), u = l.lazy(() => __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/index-D8SZCZlh.js").then((t) => ({ default: t.TerminalPlayer })));
+    function w({ data: t = {}, height: o = "400px" }) {
+        const { records: r = [], config: a = {} } = f(t), n = d(null);
+        return !r || r.length === 0 ? e(i, { sx: { display: "flex", alignItems: "center", justifyContent: "center", height: o, color: "text.primary", fontSize: "14px", border: "1px dashed", borderColor: "divider", p: 2 }, children: "No terminal data provided. Please check the usage guide below." }) : e(i, { sx: { position: "relative", overflow: "hidden", width: "100%", height: o, "& .terminal-player, & .terminal,  & .terminal-body, & .react-xterm": { width: "100% !important", height: "100% !important" }, "& .terminal-frame": { width: "100%", height: "100%", borderRadius: 0, position: "relative" } }, children: e(s, { fallback: e(p, { variant: "rectangular", width: "100%", height: "100%" }), children: e(i, { ref: n, sx: { display: "contents" }, children: e(u, { frames: r, options: a }) }) }) });
+    }
+  editComponent: |
+    const o = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react").default;
+    const { Box: i, Typography: e, Link: n } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/mui/material");
+    const { jsxs: a, jsx: r } = __PAGES_KIT_BUILTIN_MODULES__.require("@blocklet/pages-kit/builtin/react");
+    o.lazy(() => __PAGES_KIT_BUILTIN_MODULES__.require("./chunks/index-D8SZCZlh.js").then((t) => ({ default: t.TerminalPlayer })));
+    const c = () => a(i, { sx: { p: 2 }, children: [r(e, { variant: "h6", gutterBottom: !0, children: "Terminal Player Usage" }), r(e, { variant: "body2", color: "text.secondary", paragraph: !0, children: "This component uses @arcblock/terminal to play back terminal recordings." }), a(e, { variant: "body2", color: "text.secondary", sx: { mt: 2 }, children: ["📖 For detailed recording guide and examples, visit:", " ", r(n, { href: "https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide", target: "_blank", rel: "noopener noreferrer", children: "Terminal Player Recording Guide" })] }), r(e, { variant: "body2", color: "warning.main", sx: { mt: 1 }, children: "* Please ensure that the Data provided is preferably less than 80kb, otherwise the page will load slowly." })] });
+    export { c as EditComponent };

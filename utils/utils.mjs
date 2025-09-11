@@ -11,15 +11,14 @@ import {
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
-  PAGE_CONTENT_DEPTH,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
   PAGES_OUTPUT_DIR,
   PAGES_TMP_DIR,
-  READER_KNOWLEDGE_LEVELS,
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  WEBSITE_SCALE,
 } from "./constants.mjs";
 
 /**
@@ -985,23 +984,13 @@ export function processConfigFields(config) {
     }
   }
 
-  // Process reader knowledge level (single value)
-  let knowledgeContent = "";
-  if (config.readerKnowledgeLevel) {
-    knowledgeContent = READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel]?.content;
-    if (knowledgeContent) {
-      processed.readerKnowledgeContent = knowledgeContent;
-      allRulesContent.push(`Reader Knowledge Level:\n${knowledgeContent}`);
-    }
-  }
-
-  // Process page depth (single value)
-  let depthContent = "";
-  if (config.pageContentDepth) {
-    depthContent = PAGE_CONTENT_DEPTH[config.pageContentDepth]?.content;
-    if (depthContent) {
-      processed.pageContentDepthContent = depthContent;
-      allRulesContent.push(`Page Content Depth:\n${depthContent}`);
+  // Process website scale (single value)
+  let scaleContent = "";
+  if (config.websiteScale) {
+    scaleContent = WEBSITE_SCALE[config.websiteScale]?.content;
+    if (scaleContent) {
+      processed.websiteScaleContent = scaleContent;
+      allRulesContent.push(`Website Scale:\n${scaleContent}`);
     }
   }
 

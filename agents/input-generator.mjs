@@ -4,13 +4,12 @@ import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
-  DEPTH_RECOMMENDATION_LOGIC,
-  PAGE_CONTENT_DEPTH,
   PAGE_STYLES,
-  PURPOSE_TO_KNOWLEDGE_MAPPING,
-  READER_KNOWLEDGE_LEVELS,
+  PURPOSE_TO_SCALE_MAPPING,
+  SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  WEBSITE_SCALE,
 } from "../utils/constants.mjs";
 import {
   detectSystemLanguage,
@@ -44,15 +43,15 @@ export default async function init(
   }
 
   console.log("🚀 Welcome to AIGNE WebSmith!");
-  console.log("Let's create your website page configuration.\n");
+  console.log("Let's create your website configuration.\n");
 
   // Collect user information
   const input = {};
 
-  // 1. Primary purpose - what's the main outcome you want visitors to achieve?
+  // 1. Primary purpose - what type of website are you building?
   const purposeChoices = await options.prompts.checkbox({
     message:
-      "📝 [1/8]: What is the primary goal for your website visitors? (Select all that apply)",
+      "📝 [1/7]: What type of website are you building? (Select all that apply)",
     choices: Object.entries(PAGE_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -98,9 +97,9 @@ export default async function init(
   // Save page purpose choices as keys
   input.pagePurpose = prioritizedPurposes;
 
-  // 2. Target audience - who will be reading this most often?
+  // 2. Target audience - who will visit your website most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/8]: Who is the primary audience for these pages?",
+    message: "👥 [2/7]: Who is the primary audience for your website?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -119,88 +118,46 @@ export default async function init(
   // Save target audience choices as keys
   input.targetAudienceTypes = audienceChoices;
 
-  // 3. Reader knowledge level - what do readers typically know when they arrive?
-  // Determine default based on selected purposes using mapping
-  const mappedPurpose = prioritizedPurposes.find(
-    (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose],
-  );
-  const defaultKnowledge = mappedPurpose ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose] : null;
-
-  // Filter knowledge level options based on previous selections
-  const { filteredOptions: filteredKnowledgeOptions } = getFilteredOptions(
-    "readerKnowledgeLevel",
-    {
-      pagePurpose: prioritizedPurposes,
-      targetAudienceTypes: audienceChoices,
-    },
-    READER_KNOWLEDGE_LEVELS,
-  );
-
-  const knowledgeChoice = await options.prompts.select({
-    message: "🧠 [3/8]: What is your reader's typical starting knowledge level?",
-    choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
-      name: `${level.name}`,
-      description: level.description,
-      value: key,
-    })),
-    default: defaultKnowledge,
-  });
-
-  // Save reader knowledge level choice as key
-  input.readerKnowledgeLevel = knowledgeChoice;
-
-  // 4. Page content depth - how comprehensive should the page content be?
-  // Determine default based on priority: Purpose > Audience > Knowledge Level
-  const getDepthDefault = () => {
-    // Check priority order: purposes -> audiences -> knowledgeLevels
+  // 3. Website scale - how many pages should be generated?
+  // Determine default based on priority: Purpose > Audience
+  const getScaleDefault = () => {
+    // Check priority order: purposes -> audiences
     const checks = [
       () => {
-        const purpose = prioritizedPurposes.find((p) => DEPTH_RECOMMENDATION_LOGIC.purposes[p]);
-        return purpose ? DEPTH_RECOMMENDATION_LOGIC.purposes[purpose] : null;
+        const purpose = prioritizedPurposes.find((p) => SCALE_RECOMMENDATION_LOGIC.purposes[p]);
+        return purpose ? SCALE_RECOMMENDATION_LOGIC.purposes[purpose] : null;
       },
       () => {
-        const audience = audienceChoices.find((a) => DEPTH_RECOMMENDATION_LOGIC.audiences[a]);
-        return audience ? DEPTH_RECOMMENDATION_LOGIC.audiences[audience] : null;
+        const audience = audienceChoices.find((a) => SCALE_RECOMMENDATION_LOGIC.audiences[a]);
+        return audience ? SCALE_RECOMMENDATION_LOGIC.audiences[audience] : null;
       },
-      () => DEPTH_RECOMMENDATION_LOGIC.knowledgeLevels[knowledgeChoice] || null,
     ];
 
-    return checks.find((check) => check())?.() || null;
+    return checks.find((check) => check())?.() || "standard";
   };
 
-  const defaultDepth = getDepthDefault();
+  const defaultScale = getScaleDefault();
 
-  // Filter page content depth options based on all previous selections
-  const { filteredOptions: filteredDepthOptions } = getFilteredOptions(
-    "pageContentDepth",
-    {
-      pagePurpose: prioritizedPurposes,
-      targetAudienceTypes: audienceChoices,
-      readerKnowledgeLevel: knowledgeChoice,
-    },
-    PAGE_CONTENT_DEPTH,
-  );
-
-  const depthChoice = await options.prompts.select({
-    message: "📊 [4/8]: How comprehensive should the page content be?",
-    choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
-      name: `${depth.name}`,
-      description: depth.description,
+  const scaleChoice = await options.prompts.select({
+    message: "📊 [3/7]: How many pages should your website have?",
+    choices: Object.entries(WEBSITE_SCALE).map(([key, scale]) => ({
+      name: `${scale.name}`,
+      description: scale.description,
       value: key,
     })),
-    default: defaultDepth,
+    default: defaultScale,
   });
 
-  // Save page content depth choice as key
-  input.pageContentDepth = depthChoice;
+  // Save website scale choice as key
+  input.websiteScale = scaleChoice;
 
-  // 5. Language settings
+  // 4. Language settings
   // Detect system language and use as default
   const systemLanguage = detectSystemLanguage();
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/8]: Choose primary page language:",
+    message: "🌐 [4/7]: Choose primary website language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -210,14 +167,14 @@ export default async function init(
 
   input.locale = primaryLanguageChoice;
 
-  // 6. Translation languages
+  // 5. Translation languages
   // Filter out the primary language from available choices
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
     (lang) => lang.code !== primaryLanguageChoice,
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [6/8]: Select translation languages:",
+    message: "🔄 [5/7]: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -226,16 +183,16 @@ export default async function init(
 
   input.translateLanguages = translateLanguageChoices;
 
-  // 7. Page directory
+  // 6. Website pages directory
   const pagesDirInput = await options.prompts.input({
-    message: `📁 [7/8]: Where to save generated pages:`,
+    message: `📁 [6/7]: Where to save generated website pages:`,
     default: `${outputPath}/pages`,
   });
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
-  // 8. Source code paths
-  console.log("\n🔍 [8/8]: Source Code Paths");
-  console.log("Enter paths to analyze for page generation (e.g., ./src, ./lib)");
+  // 7. Source code paths
+  console.log("\n🔍 [7/7]: Source Code Paths");
+  console.log("Enter paths to analyze for website generation (e.g., ./src, ./components)");
   console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
@@ -340,7 +297,7 @@ export default async function init(
     console.log(chalk.cyan(yamlContent));
     console.log(chalk.cyan("---"));
     console.log("💡 You can edit the configuration file anytime to modify settings.\n");
-    console.log(`🚀 Run ${chalk.cyan("'aigne web generate'")} to start page generation!\n`);
+    console.log(`🚀 Run ${chalk.cyan("'aigne web generate'")} to start website generation!\n`);
 
     return {};
   } catch (error) {
@@ -368,8 +325,7 @@ export function generateYAML(input) {
     // Page configuration
     pagePurpose: input.pagePurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
-    readerKnowledgeLevel: input.readerKnowledgeLevel || "",
-    pageContentDepth: input.pageContentDepth || "",
+    websiteScale: input.websiteScale || "",
 
     // Custom rules and target audience (empty for user to fill)
     rules: "",
@@ -434,35 +390,19 @@ export function generateYAML(input) {
     "targetAudienceTypes:",
   )}\n\n`;
 
-  // Reader Knowledge Level with all available options
-  yaml += "# Reader Knowledge Level: What do readers typically know when they arrive?\n";
+  // Website Scale with all available options
+  yaml += "# Website Scale: How many pages should your website have?\n";
   yaml += "# Available options (uncomment and modify as needed):\n";
-  Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
-    yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
+  Object.entries(WEBSITE_SCALE).forEach(([key, scale]) => {
+    yaml += `#   ${key.padEnd(18)} - ${scale.name}: ${scale.description}\n`;
   });
 
-  // Safely serialize readerKnowledgeLevel
-  const readerKnowledgeLevelSection = yamlStringify({
-    readerKnowledgeLevel: config.readerKnowledgeLevel,
-  }).trim();
-  yaml += `${readerKnowledgeLevelSection.replace(
-    /^readerKnowledgeLevel:/,
-    "readerKnowledgeLevel:",
-  )}\n\n`;
-
-  // Page Content Depth with all available options
-  yaml += "# Page Content Depth: How comprehensive should the page content be?\n";
-  yaml += "# Available options (uncomment and modify as needed):\n";
-  Object.entries(PAGE_CONTENT_DEPTH).forEach(([key, depth]) => {
-    yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
-  });
-
-  if (config.pageContentDepth) {
-    // Safely serialize pageContentDepth
-    const pageContentDepthSection = yamlStringify({
-      pageContentDepth: config.pageContentDepth,
+  if (config.websiteScale) {
+    // Safely serialize websiteScale
+    const websiteScaleSection = yamlStringify({
+      websiteScale: config.websiteScale,
     }).trim();
-    yaml += `${pageContentDepthSection.replace(/^pageContentDepth:/, "pageContentDepth:")}\n\n`;
+    yaml += `${websiteScaleSection.replace(/^websiteScale:/, "websiteScale:")}\n\n`;
   }
 
   // Custom Page Rules and Requirements
@@ -517,4 +457,4 @@ export function generateYAML(input) {
   return yaml;
 }
 
-init.description = "Generate a configuration file for the page generation process";
+init.description = "Generate a configuration file for the website generation process";

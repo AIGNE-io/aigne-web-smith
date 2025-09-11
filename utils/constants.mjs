@@ -169,35 +169,47 @@ export const PAGE_STYLES = {
     content:
       "Optimizes for: Clear value proposition, compelling CTAs, social proof.\nSkips: Technical details, lengthy explanations.",
   },
-  productShowcase: {
-    name: "Product showcase",
-    description: "Highlight features and benefits of your product",
+  ecommerce: {
+    name: "E-commerce / Online store",
+    description: "Sell products or services online",
     content:
-      "Optimizes for: Feature demonstrations, use cases, visual examples.\nSkips: Implementation details, getting started guides.",
+      "Optimizes for: Product catalogs, shopping cart, payment flow, customer reviews.\nSkips: Corporate information, technical documentation.",
   },
-  servicePages: {
-    name: "Service pages",
-    description: "Explain what you offer and how it helps customers",
+  portfolio: {
+    name: "Portfolio / Showcase",
+    description: "Display creative work, projects, or achievements",
     content:
-      "Optimizes for: Service descriptions, benefits, pricing, testimonials.\nSkips: Technical specifications, detailed processes.",
+      "Optimizes for: Visual presentations, project galleries, case studies.\nSkips: Complex navigation, text-heavy content.",
   },
-  aboutCompany: {
-    name: "About / Company pages",
-    description: "Build trust and tell your company story",
+  corporate: {
+    name: "Corporate / Business",
+    description: "Professional business website with company information",
     content:
-      "Optimizes for: Company story, team, values, achievements.\nSkips: Product details, technical information.",
+      "Optimizes for: Company overview, services, team, contact information.\nSkips: Personal elements, informal content.",
   },
-  blogContent: {
-    name: "Blog / Content pages",
-    description: "Engage audience with valuable content and insights",
+  blog: {
+    name: "Blog / Content site",
+    description: "Share articles, news, and regular content updates",
     content:
-      "Optimizes for: Engaging content, SEO optimization, shareability.\nSkips: Sales pitches, technical pages.",
+      "Optimizes for: Content organization, SEO, social sharing, archives.\nSkips: Complex interactions, e-commerce features.",
   },
-  contactSupport: {
-    name: "Contact / Support pages",
-    description: "Help visitors get in touch or find help",
+  saas: {
+    name: "SaaS / Software product",
+    description: "Promote and onboard users to software services",
     content:
-      "Optimizes for: Clear contact methods, FAQ, support resources.\nSkips: Marketing content, detailed explanations.",
+      "Optimizes for: Feature explanations, pricing, demos, user onboarding.\nSkips: Physical product details, offline services.",
+  },
+  nonprofit: {
+    name: "Non-profit / Community",
+    description: "Promote causes, accept donations, engage volunteers",
+    content:
+      "Optimizes for: Mission statements, donation flows, volunteer sign-ups.\nSkips: Commercial sales, profit-driven content.",
+  },
+  education: {
+    name: "Educational / Learning",
+    description: "Provide courses, tutorials, or educational content",
+    content:
+      "Optimizes for: Course listings, learning paths, progress tracking.\nSkips: Commercial sales, non-educational content.",
   },
   mixedPurpose: {
     name: "Multi-purpose website",
@@ -209,127 +221,113 @@ export const PAGE_STYLES = {
 
 // Predefined target audiences based on who will visit the pages most often
 export const TARGET_AUDIENCES = {
-  endUsers: {
-    name: "End users (non-technical)",
-    description: "People who use the product but don't code",
+  customers: {
+    name: "Customers / End users",
+    description: "People who buy or use your products/services",
     content:
-      "Writing: Plain language, UI-focused, avoid technical terms.\nExamples: Screenshots, step-by-step clicks, business outcomes.",
+      "Writing: Clear benefits, simple language, trust signals.\nExamples: Success stories, testimonials, easy navigation.",
+  },
+  businessOwners: {
+    name: "Business owners / Entrepreneurs",
+    description: "People running businesses looking for solutions",
+    content:
+      "Writing: ROI-focused, time-saving benefits, professional tone.\nExamples: Case studies, pricing, business outcomes.",
+  },
+  marketers: {
+    name: "Marketing teams",
+    description: "People promoting products or managing campaigns",
+    content:
+      "Writing: Campaign-focused, metrics-driven, brand-aware.\nExamples: Marketing tools, analytics, content strategies.",
+  },
+  designers: {
+    name: "Designers / Creative professionals",
+    description: "People focused on visual design and user experience",
+    content:
+      "Writing: Visual-first, aesthetic considerations, inspiration-driven.\nExamples: Design showcases, visual tools, creative workflows.",
   },
   developers: {
-    name: "Developers integrating your product/API",
-    description: "Engineers adding this to their projects",
+    name: "Developers / Technical users",
+    description: "People building or integrating technical solutions",
     content:
-      "Writing: Code-first, copy-paste ready, technical accuracy.\nExamples: SDK usage, API calls, configuration snippets.",
+      "Writing: Code-first, technical accuracy, implementation-focused.\nExamples: APIs, documentation, technical specifications.",
   },
-  devops: {
-    name: "DevOps / SRE / Infrastructure teams",
-    description: "Teams deploying, monitoring, maintaining systems",
+  investors: {
+    name: "Investors / Stakeholders",
+    description: "People evaluating business potential and growth",
     content:
-      "Writing: Operations-focused, troubleshooting emphasis.\nExamples: Deployment configs, monitoring setup, scaling guides.",
+      "Writing: Growth metrics, market opportunity, financial projections.\nExamples: Business plans, market data, investment highlights.",
   },
-  decisionMakers: {
-    name: "Technical decision makers",
-    description: "Architects, leads evaluating or planning implementation",
+  jobSeekers: {
+    name: "Job seekers / Potential employees",
+    description: "People looking for career opportunities",
     content:
-      "Writing: High-level first, drill-down details available.\nExamples: Architecture diagrams, comparison tables, trade-offs.",
+      "Writing: Culture-focused, career growth, benefits-oriented.\nExamples: Job listings, company culture, employee testimonials.",
   },
-  supportTeams: {
-    name: "Support teams",
-    description: "People helping others use the product",
+  students: {
+    name: "Students / Learners",
+    description: "People seeking educational content or resources",
     content:
-      "Writing: Diagnostic-focused, common issues prominent.\nExamples: Troubleshooting flows, FAQ format, escalation paths.",
+      "Writing: Educational tone, step-by-step guidance, progress tracking.\nExamples: Tutorials, courses, learning materials.",
   },
-  mixedTechnical: {
-    name: "Mixed technical audience",
-    description: "Developers, DevOps, and technical users",
+  generalPublic: {
+    name: "General public / Mixed audience",
+    description: "Broad audience with varied interests and backgrounds",
     content:
-      "Writing: Layered complexity, multiple entry points.\nExamples: Progressive disclosure, role-based navigation.",
-  },
-};
-
-// Reader knowledge level - what do readers typically know when they arrive?
-export const READER_KNOWLEDGE_LEVELS = {
-  completeBeginners: {
-    name: "Is a total beginner, starting from scratch",
-    description: "New to this domain/technology entirely",
-    content:
-      "Content: Define terms, explain concepts, assume nothing.\nStructure: Linear progression, prerequisite checks.\nTone: Patient, educational, confidence-building.",
-  },
-  domainFamiliar: {
-    name: "Has used similar tools before",
-    description: "Know the problem space, new to this specific solution",
-    content:
-      'Content: Focus on differences, migration, unique features.\nStructure: Comparison-heavy, "coming from X" sections.\nTone: Efficient, highlight advantages, skip basics.',
-  },
-  experiencedUsers: {
-    name: "Is an expert trying to do something specific",
-    description: "Regular users needing reference/advanced topics",
-    content:
-      "Content: Dense information, edge cases, performance tips.\nStructure: Reference-style, searchable, task-oriented.\nTone: Concise, technical precision, assume competence.",
-  },
-  emergencyTroubleshooting: {
-    name: "Emergency/troubleshooting",
-    description: "Something's broken, need to fix it quickly",
-    content:
-      "Content: Symptom → diagnosis → solution format.\nStructure: Problem-first, solution-prominent, escalation paths.\nTone: Clear, actionable, confidence-inspiring.",
-  },
-  exploringEvaluating: {
-    name: "Is evaluating this tool against others",
-    description: "Trying to understand if this fits their needs",
-    content:
-      "Content: Use cases, comparisons, getting started quickly.\nStructure: Multiple entry points, progressive commitment.\nTone: Persuasive but honest, show value quickly.",
+      "Writing: Accessible language, multiple entry points, broad appeal.\nExamples: Clear navigation, varied content types, universal design.",
   },
 };
 
-// Page content depth - how comprehensive should the page content be?
-export const PAGE_CONTENT_DEPTH = {
-  essentialOnly: {
-    name: "Essential only",
-    description: "Cover the 80% use cases, keep it concise",
+
+// Website scale - how many pages and sections should be generated?
+export const WEBSITE_SCALE = {
+  minimal: {
+    name: "Minimal (5-8 pages)",
+    description: "Core pages only - quick to launch",
     content:
-      "Scope: Core features, happy paths, common patterns.\nLength: Shorter sections, key examples only.\nMaintenance: Easier to keep current.",
+      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\nTime to launch: 1-2 weeks.",
   },
-  balancedCoverage: {
-    name: "Balanced coverage",
-    description: "Good depth with practical examples [RECOMMENDED]",
+  standard: {
+    name: "Standard (10-15 pages)",
+    description: "Complete website with main sections [RECOMMENDED]",
     content:
-      "Scope: Most features, some edge cases, multiple examples.\nLength: Moderate sections, varied example types.\nMaintenance: Reasonable update burden.",
+      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\nTime to launch: 2-4 weeks.",
   },
   comprehensive: {
-    name: "Comprehensive",
-    description: "Cover all features, edge cases, and advanced scenarios",
+    name: "Comprehensive (20+ pages)",
+    description: "Full-featured website with detailed sections",
     content:
-      "Scope: Everything, all parameters, extensive examples.\nLength: Detailed sections, comprehensive coverage.\nMaintenance: Higher update complexity.",
+      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\nTime to launch: 4-8 weeks.",
   },
   aiDecide: {
     name: "Let AI decide",
-    description: "Analyze code complexity and suggest appropriate depth",
+    description: "Analyze project complexity and suggest appropriate scale",
     content:
-      "Scope: Adaptive based on codebase analysis.\nAI considers: API surface area, complexity, existing patterns.",
+      "Scope: Adaptive based on website type, audience, and codebase analysis.\nAI considers: Business needs, content volume, maintenance capacity.",
   },
 };
 
-// Purpose to Knowledge Level mapping for default suggestions
-export const PURPOSE_TO_KNOWLEDGE_MAPPING = {
-  getStarted: "completeBeginners", // Get started → Complete beginners
-  findAnswers: "experiencedUsers", // Find answers → Experienced users
-  solveProblems: "emergencyTroubleshooting", // Solve problems → Emergency/troubleshooting
-  exploringEvaluating: "exploringEvaluating", // Exploring → Exploring/evaluating
+// Purpose to Website Scale mapping for default suggestions
+export const PURPOSE_TO_SCALE_MAPPING = {
+  landingPage: "minimal", // Landing page → Minimal
+  portfolio: "standard", // Portfolio → Standard
+  corporate: "comprehensive", // Corporate → Comprehensive
+  ecommerce: "comprehensive", // E-commerce → Comprehensive
 };
 
-// Page Content Depth recommendation logic
-export const DEPTH_RECOMMENDATION_LOGIC = {
+// Website Scale recommendation logic
+export const SCALE_RECOMMENDATION_LOGIC = {
   // Purpose-based recommendations (highest priority)
   purposes: {
-    getStarted: "essentialOnly", // Get started → Essential
+    landingPage: "minimal", // Landing page → Minimal
+    portfolio: "standard", // Portfolio → Standard
+    corporate: "comprehensive", // Corporate → Comprehensive
+    ecommerce: "comprehensive", // E-commerce → Comprehensive
   },
   // Audience-based recommendations (medium priority)
   audiences: {
-    decisionMakers: "balancedCoverage", // Decision makers → Balanced
-  },
-  // Knowledge level-based recommendations (lowest priority)
-  knowledgeLevels: {
-    experiencedUsers: "comprehensive", // Experienced users → Comprehensive
+    customers: "standard", // Customers → Standard
+    businessOwners: "comprehensive", // Business owners → Comprehensive
+    investors: "comprehensive", // Investors → Comprehensive
   },
 };
 
@@ -356,69 +354,8 @@ export const CONFLICT_RULES = {
 
   // Cross-question conflicts (conflicts between different questions)
   crossConflicts: [
-    {
-      conditions: {
-        pagePurpose: ["getStarted"],
-        readerKnowledgeLevel: ["experiencedUsers"],
-      },
-      severity: "severe",
-      reason:
-        "Quick start tutorials are not suitable for experienced users who need advanced features and best practices",
-      action: "filter",
-      conflictingOptions: {
-        readerKnowledgeLevel: ["experiencedUsers"],
-      },
-    },
-    {
-      conditions: {
-        pagePurpose: ["findAnswers"],
-        readerKnowledgeLevel: ["completeBeginners"],
-      },
-      severity: "severe",
-      reason:
-        "API reference pages skips beginner explanations and is not suitable for complete beginners",
-      action: "filter",
-      conflictingOptions: {
-        readerKnowledgeLevel: ["completeBeginners"],
-      },
-    },
-    {
-      conditions: {
-        pagePurpose: ["understandSystem"],
-        readerKnowledgeLevel: ["emergencyTroubleshooting"],
-      },
-      severity: "severe",
-      reason:
-        "System architecture explanations are not suitable for emergency troubleshooting scenarios",
-      action: "filter",
-      conflictingOptions: {
-        readerKnowledgeLevel: ["emergencyTroubleshooting"],
-      },
-    },
-    {
-      conditions: {
-        targetAudienceTypes: ["endUsers"],
-        readerKnowledgeLevel: ["experiencedUsers"],
-      },
-      severity: "severe",
-      reason: "Non-technical users are typically not experienced technical users",
-      action: "filter",
-      conflictingOptions: {
-        readerKnowledgeLevel: ["experiencedUsers"],
-      },
-    },
-    {
-      conditions: {
-        targetAudienceTypes: ["decisionMakers"],
-        readerKnowledgeLevel: ["emergencyTroubleshooting"],
-      },
-      severity: "severe",
-      reason: "Decision makers typically do not directly handle emergency technical failures",
-      action: "filter",
-      conflictingOptions: {
-        readerKnowledgeLevel: ["emergencyTroubleshooting"],
-      },
-    },
+    // Most conflicts are now resolved through intelligent page structure planning
+    // Only keeping fundamental incompatibilities for web-focused configurations
   ],
 };
 

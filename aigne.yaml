@@ -7,7 +7,7 @@ chat_model:
   temperature: 0.8
   # provider: openai
   # name: gpt-5-nano
-  temperature: 1
+  # temperature: 1
 agents:
   - ./agents/structure-planning.yaml
   - ./agents/batch-pages-detail-generator.yaml

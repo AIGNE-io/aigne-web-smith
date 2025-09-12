@@ -1,9 +1,9 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { TeamAgent } from "@aigne/core";
 import { parse } from "yaml";
+import { getComponentLibraryData } from "./sdk.mjs";
 
-export default async function loadComponentLibrary(input, options) {
+export default async function loadComponentLibrary(input) {
   const { tmpDir, locale } = input;
 
   try {
@@ -32,25 +32,12 @@ export default async function loadComponentLibrary(input, options) {
       }
     }
 
-    // 生成组件库
-    const analyzeAndGenerateComponentLibraryTeamAgent = TeamAgent.from({
-      name: "analyzeAndGenerateComponentLibraryTeam",
-      skills: [options.context.agents["analyzeAndGenerateComponentLibrary"]],
-    });
-
-    // 传入 middleFormatFiles 直接生成组件库
-    const generateResult = await options.context.invoke(
-      analyzeAndGenerateComponentLibraryTeamAgent,
-      {
-        ...input,
-        middleFormatFiles,
-      },
-      // options
-    );
+    const componentLibraryData = getComponentLibraryData(tmpDir);
 
     return {
       middleFormatFiles,
-      componentLibraryMap: generateResult.componentLibraryMap,
+      componentLibraryData,
+      componentLibrary: componentLibraryData?.componentLibrary || [],
     };
   } catch (error) {
     throw new Error(`Failed to load middle format files: ${error.message}`);

@@ -1,8 +1,12 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 import { stringify } from "yaml";
 
-import { calculateMiddleFormatHash, generateRandomId, getComponentLibraryDir } from "./sdk.mjs";
+import {
+  calculateMiddleFormatHash,
+  generateRandomId,
+  getComponentLibraryDataPath,
+} from "./sdk.mjs";
+import { dirname } from "node:path";
 
 /**
  * 保存组件库定义到文件
@@ -15,16 +19,13 @@ export default async function saveComponentLibrary({
   componentLibrary: _componentLibrary,
   middleFormatFiles,
   tmpDir,
-  filePath,
 }) {
   try {
-    const componentLibraryDir = getComponentLibraryDir(tmpDir);
+    const componentLibraryPath = getComponentLibraryDataPath(tmpDir);
 
-    await mkdir(componentLibraryDir, { recursive: true });
+    await mkdir(dirname(componentLibraryPath), { recursive: true });
 
     const timestamp = new Date().toISOString();
-
-    const componentLibraryPath = join(componentLibraryDir, filePath);
 
     // 检查文件是否存在
     let fileExists = false;

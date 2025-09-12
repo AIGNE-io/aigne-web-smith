@@ -42,8 +42,9 @@ agents:
   - ./agents/manage-prefs.mjs
   # pages format
   - ./agents/pages-format/load-component-library.mjs
+  - ./agents/pages-format/analyze-component-library.yaml
   - ./agents/pages-format/analyze-and-generate-component-library.mjs
-  - ./agents/pages-format/check-generate-component-library.mjs
+  - ./agents/pages-format/validate-component-library.mjs
 cli:
   chat: ./agents/chat.yaml
   agents:

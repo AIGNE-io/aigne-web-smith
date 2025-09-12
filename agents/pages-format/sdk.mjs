@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 import { parse } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { readFileSync } from "node:fs";
 
 // 从 Pages Kit 迁移的核心转换工具
 
@@ -378,10 +379,21 @@ export function calculateMiddleFormatHash(middleFormatFiles) {
     .digest("hex");
 }
 
-export function getComponentLibraryDir(tmpDir) {
-  return join(tmpDir, "components");
+export function getComponentLibraryDataPath(tmpDir) {
+  return join(tmpDir, "component-library.yaml");
 }
 
 export const getChildFieldCombinationsKey = (fieldCombinations) => {
   return `FIELD_COMBINATIONS:${fieldCombinations.join(",")}`;
+};
+
+export const getComponentLibraryData = (tmpDir) => {
+  const componentLibraryPath = join(tmpDir, "component-library.yaml");
+
+  try {
+    const content = readFileSync(componentLibraryPath, "utf8");
+    return parse(content);
+  } catch (_error) {
+    return { componentLibrary: [] };
+  }
 };

@@ -1,12 +1,12 @@
 #!/usr/bin/env aigne
 
 chat_model:
-  # provider: google
-  # name: gemini-2.5-pro
+  provider: google
+  name: gemini-2.5-pro
   # name: gemini-2.5-flash
-  # temperature: 0.8
-  provider: openai
-  name: gpt-5-nano
+  temperature: 0.8
+  # provider: openai
+  # name: gpt-5-nano
   temperature: 1
 agents:
   - ./agents/structure-planning.yaml

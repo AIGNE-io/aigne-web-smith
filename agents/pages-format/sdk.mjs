@@ -4,13 +4,13 @@
  */
 
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import _ from "lodash";
 import { nanoid } from "nanoid";
 import { parse } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { readFileSync } from "node:fs";
 
 // 从 Pages Kit 迁移的核心转换工具
 

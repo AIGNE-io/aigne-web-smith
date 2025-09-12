@@ -1,12 +1,11 @@
 import { access, mkdir, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { stringify } from "yaml";
-
 import {
   calculateMiddleFormatHash,
   generateRandomId,
   getComponentLibraryDataPath,
 } from "./sdk.mjs";
-import { dirname } from "node:path";
 
 /**
  * 保存组件库定义到文件

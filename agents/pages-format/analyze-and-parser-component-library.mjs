@@ -1,5 +1,6 @@
 import { join } from "node:path";
 import { AIAgent, PromptBuilder, TeamAgent } from "@aigne/core";
+import { parse } from "yaml";
 import { z } from "zod";
 import saveComponentLibrary from "./save-component-library.mjs";
 import {
@@ -8,7 +9,6 @@ import {
   getChildFieldCombinationsKey,
   getComponentLibraryData,
 } from "./sdk.mjs";
-import { parse } from "yaml";
 
 export default async function analyzeAndParserComponentLibrary(input, options) {
   const {

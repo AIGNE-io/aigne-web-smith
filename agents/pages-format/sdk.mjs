@@ -4,6 +4,7 @@
  */
 
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import _ from "lodash";
 import { nanoid } from "nanoid";
@@ -378,10 +379,21 @@ export function calculateMiddleFormatHash(middleFormatFiles) {
     .digest("hex");
 }
 
-export function getComponentLibraryDir(tmpDir) {
-  return join(tmpDir, "components");
+export function getComponentLibraryDataPath(tmpDir) {
+  return join(tmpDir, "component-library.yaml");
 }
 
 export const getChildFieldCombinationsKey = (fieldCombinations) => {
   return `FIELD_COMBINATIONS:${fieldCombinations.join(",")}`;
+};
+
+export const getComponentLibraryData = (tmpDir) => {
+  const componentLibraryPath = join(tmpDir, "component-library.yaml");
+
+  try {
+    const content = readFileSync(componentLibraryPath, "utf8");
+    return parse(content);
+  } catch (_error) {
+    return { componentLibrary: [] };
+  }
 };

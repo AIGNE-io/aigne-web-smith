@@ -10,8 +10,19 @@ import {
   getChildFieldCombinationsKey,
 } from "./sdk.mjs";
 
+const DEFAULT_FLAG = false;
+let DEFAULT_TEST_FILE = {};
+try {
+  DEFAULT_TEST_FILE = {
+    filePath: "getting-started.yaml",
+    content: readFileSync("getting-started.yaml", "utf-8"),
+  };
+} catch (_error) {
+  // ignore error
+}
+
 // ============= 日志控制 =============
-const ENABLE_LOGS = true; // 设置为 false 可以关闭所有日志输出
+const ENABLE_LOGS = process.env.ENABLE_LOGS === "true"; // 设置为 false 可以关闭所有日志输出
 
 function log(...args) {
   if (ENABLE_LOGS) {
@@ -26,16 +37,6 @@ function logError(...args) {
 }
 
 // ============= 公共工具函数 =============
-
-/**
- * 根据字段组合查找匹配的组件
- */
-function _findComponentByFields(fieldCombinations, componentLibrary = []) {
-  return componentLibrary.find((component) => {
-    const componentFields = component.fieldCombinations || [];
-    return _.isEqual(componentFields, fieldCombinations);
-  });
-}
 
 /**
  * 获取嵌套对象的值，支持 a.b.c 格式
@@ -151,20 +152,6 @@ function extractAllInstances(instances) {
   });
 
   return result;
-}
-
-const DEFAULT_FLAG = false;
-let DEFAULT_TEST_FILE = {};
-try {
-  DEFAULT_TEST_FILE = {
-    filePath: "getting-started.yaml",
-    content: readFileSync(
-      "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
-      "utf-8",
-    ),
-  };
-} catch (_error) {
-  // ignore error
 }
 
 function convertToSection({ componentInstance, arrayComponentInstances, locale }) {
@@ -644,7 +631,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
 export default async function composePagesKitYaml(input) {
   const {
     middleFormatFiles,
-    componentLibraryMap,
+    componentLibrary,
     locale,
     path,
     pagesDir,
@@ -659,7 +646,7 @@ export default async function composePagesKitYaml(input) {
   });
 
   log(`🔧 开始组合 Pages Kit YAML: ${path}`);
-  log(`🧩 组件库数量: ${Object.keys(componentLibraryMap)?.length || 0}`);
+  log(`🧩 组件库数量: ${componentLibrary?.length || 0}`);
   log(`🌐 语言环境: ${locale}`);
   log(`📁 输出目录: ${pagesDir}`);
 
@@ -675,8 +662,6 @@ export default async function composePagesKitYaml(input) {
         typeof file.content === "string" ? parse(file.content) : file.content;
 
       const filePath = file.filePath;
-
-      const componentLibrary = componentLibraryMap[filePath];
 
       log(`\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`);
 

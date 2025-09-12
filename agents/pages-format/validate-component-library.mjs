@@ -1,16 +1,10 @@
 import _ from "lodash";
 import { getAllFieldCombinations } from "./sdk.mjs";
 
-export default async function checkGenerateComponentLibrary(input) {
-  const { middleFormatFiles } = input;
-  const [filePath, { componentLibrary }] = Object.entries(input || {}).find(
-    // 寻找存在 componentLibrary 的项，就是当前正在检测的文件
-    (item) => item[1].componentLibrary,
-  );
+export default async function validateComponentLibrary(input) {
+  const { middleFormatFiles, componentLibrary } = input;
 
-  const middleFormatFile = middleFormatFiles.find((item) => item.filePath === filePath);
-
-  const allFieldCombinations = getAllFieldCombinations([middleFormatFile]);
+  const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
 
   const relatedComponentIds = [];
 
@@ -105,8 +99,5 @@ export default async function checkGenerateComponentLibrary(input) {
   return {
     isApproved,
     detailFeedback: detailFeedback.join("\n"),
-    latestComponentLibrary: {
-      componentLibrary,
-    },
   };
 }

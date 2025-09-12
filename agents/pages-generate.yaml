@@ -41,6 +41,7 @@ skills:
     default_input:
       stage: structure_planning
   - ./pages-format/load-component-library.mjs
+  - ./pages-format/analyze-and-parser-component-library.mjs
   - ./pages-format/compose-pages-kit-yaml.mjs
   - ./save-pages.mjs
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.2...v1.0.3) (2025-09-12)
+
+
+### Bug Fixes
+
+* **cli:** eslint error ([7efd1d6](https://github.com/AIGNE-io/aigne-web-smith/commit/7efd1d63adc791803b2ee940c0a6776e7852f5ff))
+* **cli:** resolve the bug of name not defined ([966e86d](https://github.com/AIGNE-io/aigne-web-smith/commit/966e86d81172476a73e1aa6d3d18fdc51baee1d2))
+
 ## [1.0.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.1...v1.0.2) (2025-09-11)
 
 

@@ -15,10 +15,7 @@ let DEFAULT_TEST_FILE = {};
 try {
   DEFAULT_TEST_FILE = {
     filePath: "getting-started.yaml",
-    content: readFileSync(
-      "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
-      "utf-8",
-    ),
+    content: readFileSync("getting-started.yaml", "utf-8"),
   };
 } catch (_error) {
   // ignore error

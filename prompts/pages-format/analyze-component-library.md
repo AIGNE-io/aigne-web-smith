@@ -8,7 +8,7 @@
 {% endif %}
 
 {% if componentLibrary %}
-最近的组件库：
+最新的组件库定义：
 <latest_component_library>
 {{componentLibrary}}
 </latest_component_library>

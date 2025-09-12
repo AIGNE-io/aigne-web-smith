@@ -1,10 +1,13 @@
 #!/usr/bin/env aigne
 
 chat_model:
-  provider: google
-  name: gemini-2.5-pro
+  # provider: google
+  # name: gemini-2.5-pro
   # name: gemini-2.5-flash
-  temperature: 0.8
+  # temperature: 0.8
+  provider: openai
+  name: gpt-5-nano
+  temperature: 1
 agents:
   - ./agents/structure-planning.yaml
   - ./agents/batch-pages-detail-generator.yaml
@@ -42,8 +45,8 @@ agents:
   - ./agents/manage-prefs.mjs
   # pages format
   - ./agents/pages-format/load-component-library.mjs
+  - ./agents/pages-format/analyze-and-parser-component-library.mjs
   - ./agents/pages-format/analyze-component-library.yaml
-  - ./agents/pages-format/analyze-and-generate-component-library.mjs
   - ./agents/pages-format/validate-component-library.mjs
 cli:
   chat: ./agents/chat.yaml

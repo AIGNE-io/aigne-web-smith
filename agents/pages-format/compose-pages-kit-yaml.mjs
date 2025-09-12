@@ -11,7 +11,7 @@ import {
 } from "./sdk.mjs";
 
 // ============= 日志控制 =============
-const ENABLE_LOGS = true; // 设置为 false 可以关闭所有日志输出
+const ENABLE_LOGS = process.env.ENABLE_LOGS === "true"; // 设置为 false 可以关闭所有日志输出
 
 function log(...args) {
   if (ENABLE_LOGS) {

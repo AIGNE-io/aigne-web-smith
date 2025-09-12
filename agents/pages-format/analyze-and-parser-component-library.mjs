@@ -10,7 +10,7 @@ import {
 } from "./sdk.mjs";
 import { parse } from "yaml";
 
-export default async function analyzeAndGenerateComponentLibrary(input, options) {
+export default async function analyzeAndParserComponentLibrary(input, options) {
   const {
     moreContentsComponentList,
     componentList,
@@ -93,9 +93,9 @@ ${JSON.stringify(schema)}
     }
 
     // 构建 componentId map 减少查找复杂度
-    const componentIdMap = {};
+    const componentLibraryIdMap = {};
     componentLibrary.forEach((comp) => {
-      componentIdMap[comp.componentId] = comp;
+      componentLibraryIdMap[comp.componentId] = comp;
     });
 
     const moreContentsComponentMap = {};
@@ -118,19 +118,18 @@ ${JSON.stringify(schema)}
 
       const fieldCombinationsWithMustache = item.fieldCombinations.map(wrapperFieldName);
 
+      const { instructions } = PromptBuilder.from({
+        path: join(import.meta.dirname, "../../prompts/pages-format/atomic-component-parser.md"),
+      });
+
       return AIAgent.from({
         name: `atomicComponentsParserAgent-${item.name}`,
         outputKey: item.componentId,
         outputSchema: z.object({
           [item.componentId]: component?.content?.zodSchema,
         }),
-        instructions: PromptBuilder.from({
-          path: join(import.meta.dirname, "../../prompts/pages-format/atomic-component-parser.md"),
-        })
-          .instructions.replace(
-            "{{componentSchema}}",
-            JSON.stringify(component?.content?.schema || {}),
-          )
+        instructions: instructions
+          .replace("{{componentSchema}}", JSON.stringify(component?.content?.schema || {}))
           .replace("{{fieldCombinations}}", JSON.stringify(fieldCombinationsWithMustache || [])),
       });
     });
@@ -139,7 +138,7 @@ ${JSON.stringify(schema)}
       // 提取相关组件信息
       const relatedComponentsInfo = item.relatedComponents.map((relatedComponentItem) => {
         const { componentId } = relatedComponentItem;
-        const atomicComponent = componentIdMap[componentId];
+        const atomicComponent = componentLibraryIdMap[componentId];
         const component = moreContentsComponentMap[componentId];
         return {
           componentId,
@@ -220,19 +219,18 @@ ${JSON.stringify(schema)}
           .nullable(),
       });
 
+      const { instructions } = PromptBuilder.from({
+        path: join(import.meta.dirname, "../../prompts/pages-format/composite-component-parser.md"),
+      });
+
       return AIAgent.from({
         name: `compositeComponentsParserAgent-${item.name}`,
         outputKey: item.componentId,
         outputSchema: z.object({
           [item.componentId]: configSchema,
         }),
-        instructions: PromptBuilder.from({
-          path: join(
-            import.meta.dirname,
-            "../../prompts/pages-format/composite-component-parser.md",
-          ),
-        })
-          .instructions.replace("{{componentName}}", item.name)
+        instructions: instructions
+          .replace("{{componentName}}", item.name)
           .replace("{{componentSummary}}", item.summary || "无描述")
           .replace("{{fieldCombinations}}", JSON.stringify(item.fieldCombinations))
           .replace("{{relatedComponents}}", JSON.stringify(item.relatedComponents))
@@ -248,10 +246,15 @@ ${JSON.stringify(schema)}
       });
     });
 
+    const parserComponentsAgents = [
+      ...atomicComponentsParserAgents,
+      ...compositeComponentsParserAgents,
+    ].filter(Boolean);
+
     const parserComponentsTeamAgent = TeamAgent.from({
       type: "team",
       name: "parserComponentsTeamAgent",
-      skills: [...atomicComponentsParserAgents, ...compositeComponentsParserAgents],
+      skills: parserComponentsAgents,
       mode: "parallel",
     });
 
@@ -299,5 +302,5 @@ ${JSON.stringify(schema)}
   }
 }
 
-analyzeAndGenerateComponentLibrary.taskTitle =
+analyzeAndParserComponentLibrary.taskTitle =
   "Analyzing and generating component library definition";

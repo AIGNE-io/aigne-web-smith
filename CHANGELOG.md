@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.3...v1.0.4) (2025-09-12)
+
+
+### Bug Fixes
+
+* **cli:** resolve the bug of duplicate temperature key ([9288905](https://github.com/AIGNE-io/aigne-web-smith/commit/928890579f8238cdfa0644ada77a67161ceb0509))
+
 ## [1.0.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.2...v1.0.3) (2025-09-12)
 
 

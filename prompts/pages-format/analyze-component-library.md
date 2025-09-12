@@ -5,9 +5,7 @@
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
-{% endif %}
 
-{% if componentLibrary %}
 最新的组件库定义：
 <latest_component_library>
 {{componentLibrary}}

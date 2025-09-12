@@ -10,6 +10,20 @@ import {
   getChildFieldCombinationsKey,
 } from "./sdk.mjs";
 
+const DEFAULT_FLAG = false;
+let DEFAULT_TEST_FILE = {};
+try {
+  DEFAULT_TEST_FILE = {
+    filePath: "getting-started.yaml",
+    content: readFileSync(
+      "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
+      "utf-8",
+    ),
+  };
+} catch (_error) {
+  // ignore error
+}
+
 // ============= 日志控制 =============
 const ENABLE_LOGS = process.env.ENABLE_LOGS === "true"; // 设置为 false 可以关闭所有日志输出
 
@@ -26,16 +40,6 @@ function logError(...args) {
 }
 
 // ============= 公共工具函数 =============
-
-/**
- * 根据字段组合查找匹配的组件
- */
-function _findComponentByFields(fieldCombinations, componentLibrary = []) {
-  return componentLibrary.find((component) => {
-    const componentFields = component.fieldCombinations || [];
-    return _.isEqual(componentFields, fieldCombinations);
-  });
-}
 
 /**
  * 获取嵌套对象的值，支持 a.b.c 格式
@@ -151,20 +155,6 @@ function extractAllInstances(instances) {
   });
 
   return result;
-}
-
-const DEFAULT_FLAG = false;
-let DEFAULT_TEST_FILE = {};
-try {
-  DEFAULT_TEST_FILE = {
-    filePath: "getting-started.yaml",
-    content: readFileSync(
-      "/Users/FireTable/Code/ArcBlock/aigne-web-smith/.aigne/web-smith/aigne/pages/tmp/zh/getting-started.yaml",
-      "utf-8",
-    ),
-  };
-} catch (_error) {
-  // ignore error
 }
 
 function convertToSection({ componentInstance, arrayComponentInstances, locale }) {

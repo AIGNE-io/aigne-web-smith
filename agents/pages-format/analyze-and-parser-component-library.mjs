@@ -34,7 +34,7 @@ export default async function analyzeAndParserComponentLibrary(input, options) {
             .map((item) => {
               const { content, filePath } = item;
               const parsedContent = parse(content);
-              return `# sourcePath: ${filePath}
+              return `# sourceFile: ${filePath}
 ${JSON.stringify(parsedContent)}
           `;
             })

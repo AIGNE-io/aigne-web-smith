@@ -43,10 +43,8 @@ ${JSON.stringify(parsedContent)}
             .map((item) => {
               const { content } = item;
               const { id, name, description, schema } = content;
-              return `// ${name}(${id}): ${description}
-<component-${id}>
+              return `# ${name}(${id}): ${description}
 ${JSON.stringify(schema)}
-</component-${id}>
               `;
             })
             .join("\n"),

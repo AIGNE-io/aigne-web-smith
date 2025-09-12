@@ -20,30 +20,36 @@ const getComponentZodSchema = () => {
           name: z.string().describe("组件名称"),
           summary: z
             .string()
-            .describe("组件的用途和特点，尽可能具体，如果是复合组件，需要说明布局特征"),
+            .describe(
+              "组件的用途和特点，尽可能具体，如果是复合组件，需要说明布局特征"
+            ),
           type: z
             .enum(["atomic", "composite"])
             .describe("组件类型 atomic（原子组件）或 composite（复合组件）"),
           componentId: z
             .string()
-            .describe("组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）"),
+            .describe(
+              "组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）"
+            ),
           fieldCombinations: z.array(z.string()).describe("组件处理的字段组合"),
           relatedComponents: z
             .array(
               z.object({
                 componentId: z.string().describe("关联的原子组件的 ID"),
-                fieldCombinations: z.array(z.string()).describe("关联的原子组件使用的字段组合"),
-              }),
+                fieldCombinations: z
+                  .array(z.string())
+                  .describe("关联的原子组件使用的字段组合"),
+              })
             )
             .default([])
             .describe(
-              "复合组件关联的原子组件内容，标记 componentId 为原子组件 ID，fieldCombinations 为原子组件使用的字段组合",
+              "复合组件关联的原子组件内容，标记 componentId 为原子组件 ID，fieldCombinations 为原子组件使用的字段组合"
             ),
-        }),
+        })
       )
       .default([])
       .describe(
-        "组件库定义数组，如果复合组件中的 relatedComponents 中的 componentId，确保对应的原子组件记录在组件库中",
+        "组件库定义数组，如果复合组件中的 relatedComponents 中的 componentId，确保对应的原子组件记录在组件库中"
       );
 
   return z.object({
@@ -51,8 +57,16 @@ const getComponentZodSchema = () => {
   });
 };
 
-export default async function analyzeAndGenerateComponentLibrary(input, options) {
-  const { moreContentsComponentList, componentList, middleFormatFiles, tmpDir } = input;
+export default async function analyzeAndGenerateComponentLibrary(
+  input,
+  options
+) {
+  const {
+    moreContentsComponentList,
+    componentList,
+    middleFormatFiles,
+    tmpDir,
+  } = input;
 
   const componentLibraryDir = getComponentLibraryDir(tmpDir);
 
@@ -90,10 +104,13 @@ export default async function analyzeAndGenerateComponentLibrary(input, options)
               path: join(
                 // 当前文件的目录
                 import.meta.dirname,
-                "../../prompts/pages-format/analyze-component-library.md",
+                "../../prompts/pages-format/analyze-component-library.md"
               ),
             })
-              .instructions.replace("{{middleFormatContent}}", JSON.stringify(parse(content)))
+              .instructions.replace(
+                "{{middleFormatContent}}",
+                JSON.stringify(parse(content))
+              )
               .replace(
                 "{{componentList}}",
                 componentList
@@ -106,20 +123,22 @@ ${JSON.stringify(schema)}
 </component-${id}>
               `;
                   })
-                  .join("\n"),
+                  .join("\n")
               )
               .replace(
                 "{{allFieldCombinations}}",
                 `${allFieldCombinations
                   .map((item, _index) => `${JSON.stringify(item)}`)
-                  .join("\n")}`,
+                  .join("\n")}`
               ),
           });
         };
 
         return TeamAgent.from({
           name: `analyzeComponentLibraryAgent-${filePath}`,
-          skills: [getComponentLibraryAgent({ name: "generateComponentLibraryAgent" })],
+          skills: [
+            getComponentLibraryAgent({ name: "generateComponentLibraryAgent" }),
+          ],
           reflection: {
             reviewer: options.context.agents["checkGenerateComponentLibrary"],
             isApproved: ({ isApproved }) => {
@@ -144,7 +163,7 @@ ${JSON.stringify(schema)}
         analyzeComponentLibraryAgent,
         {
           ...input,
-        },
+        }
         // options
       );
 
@@ -156,10 +175,12 @@ ${JSON.stringify(schema)}
               componentLibrary,
               tmpDir,
               filePath,
-              middleFormatFiles: middleFormatFiles.filter((item) => item.filePath === filePath),
+              middleFormatFiles: middleFormatFiles.filter(
+                (item) => item.filePath === filePath
+              ),
             });
-          },
-        ),
+          }
+        )
       );
     }
 
@@ -170,50 +191,57 @@ ${JSON.stringify(schema)}
     const parserComponentLibraryResult = await Promise.all(
       componentLibraryFiles.map(async (filePath) => {
         const componentLibraryPath = join(componentLibraryDir, filePath);
-        const componentLibraryContent = readFileSync(componentLibraryPath, "utf8");
+        const componentLibraryContent = readFileSync(
+          componentLibraryPath,
+          "utf8"
+        );
         const { componentLibrary } = parse(componentLibraryContent);
 
-        const atomicComponents = componentLibrary?.filter((item) => item.type === "atomic") || [];
+        const atomicComponents =
+          componentLibrary?.filter((item) => item.type === "atomic") || [];
 
         const atomicComponentsNeedParse =
           atomicComponents?.filter((item) => !item.dataSourceTemplate) || [];
 
-        const atomicComponentsParserAgents = atomicComponentsNeedParse.map((item, _index) => {
-          const { componentId } = item;
-          const component = moreContentsComponentList.find(
-            (item) => item?.content?.id === componentId,
-          );
+        const atomicComponentsParserAgents = atomicComponentsNeedParse.map(
+          (item, _index) => {
+            const { componentId } = item;
+            const component = moreContentsComponentList.find(
+              (item) => item?.content?.id === componentId
+            );
 
-          if (!component) {
-            return;
+            if (!component) {
+              return;
+            }
+
+            const wrapperFieldName = (fieldName) => `<%= ${fieldName} %>`;
+
+            const fieldCombinationsWithMustache =
+              item.fieldCombinations.map(wrapperFieldName);
+
+            return AIAgent.from({
+              name: `atomicComponentsParserAgent-${item.name}`,
+              outputKey: item.componentId,
+              outputSchema: z.object({
+                [item.componentId]: component?.content?.zodSchema,
+              }),
+              instructions: PromptBuilder.from({
+                path: join(
+                  import.meta.dirname,
+                  "../../prompts/pages-format/atomic-component-parser.md"
+                ),
+              })
+                .instructions.replace(
+                  "{{componentSchema}}",
+                  JSON.stringify(component?.content?.schema || {})
+                )
+                .replace(
+                  "{{fieldCombinations}}",
+                  JSON.stringify(fieldCombinationsWithMustache || [])
+                ),
+            });
           }
-
-          const wrapperFieldName = (fieldName) => `<%= ${fieldName} %>`;
-
-          const fieldCombinationsWithMustache = item.fieldCombinations.map(wrapperFieldName);
-
-          return AIAgent.from({
-            name: `atomicComponentsParserAgent-${item.name}`,
-            outputKey: item.componentId,
-            outputSchema: z.object({
-              [item.componentId]: component?.content?.zodSchema,
-            }),
-            instructions: PromptBuilder.from({
-              path: join(
-                import.meta.dirname,
-                "../../prompts/pages-format/atomic-component-parser.md",
-              ),
-            })
-              .instructions.replace(
-                "{{componentSchema}}",
-                JSON.stringify(component?.content?.schema || {}),
-              )
-              .replace(
-                "{{fieldCombinations}}",
-                JSON.stringify(fieldCombinationsWithMustache || []),
-              ),
-          });
-        });
+        );
 
         const compositeComponents =
           componentLibrary?.filter((item) => item.type === "composite") || [];
@@ -235,124 +263,187 @@ ${JSON.stringify(schema)}
           moreContentsComponentMap[comp?.content?.id] = comp;
         });
 
-        const compositeComponentsParserAgents = compositeComponentsNeedParse.map((item) => {
-          // 提取相关组件信息
-          const relatedComponentsInfo = item.relatedComponents.map((relatedComponentItem) => {
-            const { componentId } = relatedComponentItem;
-            const atomicComponent = componentIdMap[componentId];
-            const component = moreContentsComponentMap[componentId];
-            return {
-              componentId,
-              name: atomicComponent?.name || component?.content?.name || "Unknown",
-              summary: atomicComponent?.summary || "无描述",
-            };
-          });
+        const compositeComponentsParserAgents =
+          compositeComponentsNeedParse.map((item) => {
+            // 提取相关组件信息
+            const relatedComponentsInfo = item.relatedComponents.map(
+              (relatedComponentItem) => {
+                const { componentId } = relatedComponentItem;
+                const atomicComponent = componentIdMap[componentId];
+                const component = moreContentsComponentMap[componentId];
+                return {
+                  componentId,
+                  name:
+                    atomicComponent?.name ||
+                    component?.content?.name ||
+                    "Unknown",
+                  summary: atomicComponent?.summary || "无描述",
+                };
+              }
+            );
 
-          const getGridSettingsSchema = () =>
-            z.object({
-              x: z.number().describe("水平位置，从0开始，在12列网格中的起始列"),
-              y: z.number().describe("垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"),
-              w: z.number().describe("宽度，占用的列数，在12列网格系统中，x + w 不能超过12"),
-              h: z
-                .number()
-                .default(1)
-                .describe("高度，永远固定为1，不可修改，组件实际高度由内容自动计算"),
+            const getGridSettingsSchema = () =>
+              z.object({
+                x: z
+                  .number()
+                  .describe("水平位置，从0开始，在12列网格中的起始列"),
+                y: z
+                  .number()
+                  .describe(
+                    "垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"
+                  ),
+                w: z
+                  .number()
+                  .describe(
+                    "宽度，占用的列数，在12列网格系统中，x + w 不能超过12"
+                  ),
+                h: z
+                  .number()
+                  .default(1)
+                  .describe(
+                    "高度，永远固定为1，不可修改，组件实际高度由内容自动计算"
+                  ),
+              });
+
+            // 基于 relatedComponents 创建固定的对象结构
+            const desktopGridSettings = {};
+            const mobileGridSettings = {};
+
+            // 处理 relatedComponents 的布局
+            item.relatedComponents?.forEach(({ fieldCombinations }) => {
+              const key = getChildFieldCombinationsKey(fieldCombinations);
+              desktopGridSettings[key] = getGridSettingsSchema();
+              mobileGridSettings[key] = getGridSettingsSchema();
             });
 
-          // 基于 relatedComponents 创建固定的对象结构
-          const desktopGridSettings = {};
-          const mobileGridSettings = {};
+            // 定义输出 schema - config 对象
+            const gridSettingsConfig =
+              item.relatedComponents.length > 0
+                ? {
+                    gridSettings: z.object({
+                      desktop: z.object(desktopGridSettings),
+                      mobile: z.object(mobileGridSettings),
+                    }),
+                  }
+                : {};
 
-          // 处理 relatedComponents 的布局
-          item.relatedComponents?.forEach(({ fieldCombinations }) => {
-            const key = getChildFieldCombinationsKey(fieldCombinations);
-            desktopGridSettings[key] = getGridSettingsSchema();
-            mobileGridSettings[key] = getGridSettingsSchema();
+            const configSchema = z.object({
+              ...gridSettingsConfig,
+              gap: z
+                .enum(["none", "small", "normal", "large"])
+                .default("none")
+                .describe("布局间距"),
+              paddingX: z
+                .string()
+                .default("none")
+                .describe(
+                  "水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+                ),
+              paddingY: z
+                .string()
+                .default("none")
+                .describe(
+                  "垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"
+                ),
+              alignContent: z
+                .enum([
+                  "start",
+                  "center",
+                  "end",
+                  "space-between",
+                  "space-around",
+                  "space-evenly",
+                ])
+                .default("center")
+                .describe("内容对齐方式"),
+              justifyContent: z
+                .enum([
+                  "start",
+                  "center",
+                  "end",
+                  "space-between",
+                  "space-around",
+                  "space-evenly",
+                ])
+                .default("start")
+                .describe("内容对齐方式"),
+              background: z
+                .string()
+                .default("transparent")
+                .describe("背景图片路径或颜色值，默认 transparent")
+                .nullable(),
+              backgroundFullWidth: z
+                .boolean()
+                .default(false)
+                .describe("是否背景全宽，默认 false"),
+              ignoreMaxWidth: z
+                .boolean()
+                .default(false)
+                .describe("是否忽略最大宽度，使得背景最大"),
+              maxWidth: z
+                .string()
+                .default("full")
+                .describe("最大宽度，支持 custom:XXXpx 格式"),
+              border: z.string().default("none").describe("边框样式"),
+              borderRadius: z
+                .enum([
+                  "none",
+                  "small",
+                  "medium",
+                  "large",
+                  "xl",
+                  "rounded",
+                  "custom",
+                ])
+                .default("none")
+                .describe(
+                  "边框圆角，枚举类型 none|small|medium|large|xl|rounded|custom"
+                ),
+              height: z
+                .string()
+                .default("100%")
+                .describe("组件高度，支持 custom:XXXpx 格式，默认 100%")
+                .nullable(),
+            });
+
+            return AIAgent.from({
+              name: `compositeComponentsParserAgent-${item.name}`,
+              outputKey: item.componentId,
+              outputSchema: z.object({
+                [item.componentId]: configSchema,
+              }),
+              instructions: PromptBuilder.from({
+                path: join(
+                  import.meta.dirname,
+                  "../../prompts/pages-format/composite-component-parser.md"
+                ),
+              })
+                .instructions.replace("{{componentName}}", item.name)
+                .replace("{{componentSummary}}", item.summary || "无描述")
+                .replace(
+                  "{{fieldCombinations}}",
+                  JSON.stringify(item.fieldCombinations)
+                )
+                .replace(
+                  "{{relatedComponents}}",
+                  JSON.stringify(item.relatedComponents)
+                )
+                .replace(
+                  "{{relatedComponentsInfo}}",
+                  relatedComponentsInfo
+                    .map(
+                      (comp) =>
+                        `组件ID: ${comp?.componentId}\n组件名称: ${comp?.name}\n组件描述: ${comp?.summary}`
+                    )
+                    .join("\n\n---------\n")
+                ),
+            });
           });
 
-          // 定义输出 schema - config 对象
-          const gridSettingsConfig =
-            item.relatedComponents.length > 0
-              ? {
-                  gridSettings: z.object({
-                    desktop: z.object(desktopGridSettings),
-                    mobile: z.object(mobileGridSettings),
-                  }),
-                }
-              : {};
-
-          const configSchema = z.object({
-            ...gridSettingsConfig,
-            gap: z.enum(["none", "small", "normal", "large"]).default("none").describe("布局间距"),
-            paddingX: z
-              .string()
-              .default("none")
-              .describe(
-                "水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式",
-              ),
-            paddingY: z
-              .string()
-              .default("none")
-              .describe(
-                "垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式",
-              ),
-            alignContent: z
-              .enum(["start", "center", "end", "space-between", "space-around", "space-evenly"])
-              .default("center")
-              .describe("内容对齐方式"),
-            justifyContent: z
-              .enum(["start", "center", "end", "space-between", "space-around", "space-evenly"])
-              .default("start")
-              .describe("内容对齐方式"),
-            background: z
-              .string()
-              .default("transparent")
-              .describe("背景图片路径或颜色值，默认 transparent")
-              .nullable(),
-            backgroundFullWidth: z.boolean().default(false).describe("是否背景全宽，默认 false"),
-            ignoreMaxWidth: z.boolean().default(false).describe("是否忽略最大宽度，使得背景最大"),
-            maxWidth: z.string().default("full").describe("最大宽度，支持 custom:XXXpx 格式"),
-            border: z.string().default("none").describe("边框样式"),
-            borderRadius: z
-              .enum(["none", "small", "medium", "large", "xl", "rounded", "custom"])
-              .default("none")
-              .describe("边框圆角，枚举类型 none|small|medium|large|xl|rounded|custom"),
-            height: z
-              .string()
-              .default("100%")
-              .describe("组件高度，支持 custom:XXXpx 格式，默认 100%")
-              .nullable(),
-          });
-
-          return AIAgent.from({
-            name: `compositeComponentsParserAgent-${item.name}`,
-            outputKey: item.componentId,
-            outputSchema: z.object({
-              [item.componentId]: configSchema,
-            }),
-            instructions: PromptBuilder.from({
-              path: join(
-                import.meta.dirname,
-                "../../prompts/pages-format/composite-component-parser.md",
-              ),
-            })
-              .instructions.replace("{{componentName}}", item.name)
-              .replace("{{componentSummary}}", item.summary || "无描述")
-              .replace("{{fieldCombinations}}", JSON.stringify(item.fieldCombinations))
-              .replace("{{relatedComponents}}", JSON.stringify(item.relatedComponents))
-              .replace(
-                "{{relatedComponentsInfo}}",
-                relatedComponentsInfo
-                  .map(
-                    (comp) =>
-                      `组件ID: ${comp.componentId}\n组件名称: ${comp.name}\n组件描述: ${comp.summary}`,
-                  )
-                  .join("\n\n---------\n"),
-              ),
-          });
-        });
-
-        const skills = [...atomicComponentsParserAgents, ...compositeComponentsParserAgents];
+        const skills = [
+          ...atomicComponentsParserAgents,
+          ...compositeComponentsParserAgents,
+        ];
 
         // 都生成过了，直接返回
         if (skills.length === 0) {
@@ -371,13 +462,16 @@ ${JSON.stringify(schema)}
 
         const parserComponentsTeamAgentResult = await options.context.invoke(
           parserComponentsTeamAgent,
-          { ...input },
+          { ...input }
           // options
         );
 
         // 更新到 componentLibrary 里面
         const updatedComponentLibrary = componentLibrary.map((item) => {
-          if (item.type === "atomic" && item.componentId in parserComponentsTeamAgentResult) {
+          if (
+            item.type === "atomic" &&
+            item.componentId in parserComponentsTeamAgentResult
+          ) {
             const template = parserComponentsTeamAgentResult[item.componentId];
             return {
               ...item,
@@ -387,7 +481,8 @@ ${JSON.stringify(schema)}
             item.type === "composite" &&
             item.componentId in parserComponentsTeamAgentResult
           ) {
-            const configTemplate = parserComponentsTeamAgentResult[item.componentId];
+            const configTemplate =
+              parserComponentsTeamAgentResult[item.componentId];
             return {
               ...item,
               configTemplate: configTemplate,
@@ -400,14 +495,16 @@ ${JSON.stringify(schema)}
           componentLibrary: updatedComponentLibrary,
           tmpDir,
           filePath,
-          middleFormatFiles: middleFormatFiles.filter((item) => item.filePath === filePath),
+          middleFormatFiles: middleFormatFiles.filter(
+            (item) => item.filePath === filePath
+          ),
         });
 
         return {
           filePath,
           componentLibrary: updatedComponentLibrary,
         };
-      }),
+      })
     );
 
     const componentLibraryMap = {};

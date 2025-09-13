@@ -108,13 +108,13 @@ ${JSON.stringify(schema)}
       const { componentId } = item;
       const component = moreContentsComponentList.find((item) => item?.content?.id === componentId);
 
-      if (!component) {
-        return;
-      }
-
       const wrapperFieldName = (fieldName) => `<%= ${fieldName} %>`;
 
-      const fieldCombinationsWithMustache = item.fieldCombinations.map(wrapperFieldName);
+      const fieldCombinationsWithMustache = item.fieldCombinations?.map(wrapperFieldName);
+
+      if (!component || !fieldCombinationsWithMustache) {
+        return;
+      }
 
       const { instructions } = PromptBuilder.from({
         path: join(import.meta.dirname, "../../prompts/pages-format/atomic-component-parser.md"),
@@ -133,8 +133,12 @@ ${JSON.stringify(schema)}
     });
 
     const compositeComponentsParserAgents = compositeComponentsNeedParse.map((item) => {
+      if (!item?.relatedComponents?.length) {
+        return;
+      }
+
       // 提取相关组件信息
-      const relatedComponentsInfo = item.relatedComponents.map((relatedComponentItem) => {
+      const relatedComponentsInfo = item.relatedComponents?.map((relatedComponentItem) => {
         const { componentId } = relatedComponentItem;
         const atomicComponent = componentLibraryIdMap[componentId];
         const component = moreContentsComponentMap[componentId];

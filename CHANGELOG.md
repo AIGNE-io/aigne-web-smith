@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.4...v1.0.5) (2025-09-13)
+
+
+### Bug Fixes
+
+* **cli:** ignore component parser error ([005d78f](https://github.com/AIGNE-io/aigne-web-smith/commit/005d78fa0883c2ae30a8c345803281e47f592ac1))
+
 ## [1.0.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.3...v1.0.4) (2025-09-12)
 
 

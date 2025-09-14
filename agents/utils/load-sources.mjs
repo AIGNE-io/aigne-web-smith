@@ -80,7 +80,7 @@ export default async function loadSources({
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
 
     // @FIXME: 强制添加 component-list，后续需要修改为通过远程加载
-    paths.push(path.join(import.meta.dirname, "../assets/component-list"));
+    paths.push(path.join(import.meta.dirname, "../../assets/component-list"));
 
     let allFiles = [];
 

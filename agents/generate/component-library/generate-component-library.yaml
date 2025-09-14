@@ -25,7 +25,7 @@ skills:
                 description: 组件类型 atomic（原子组件）或 composite（复合组件）
               componentId:
                 type: string
-                description: 组件ID（原子组件需要记录真实的组件 ID，复合组件使用随机生成的 ID）
+                description: 组件ID（原子组件需要使用真实的 ComponentId，复合组件使用随机生成的 ID）
               fieldCombinations:
                 type: array
                 items:

@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
+import { v4 as uuidv4 } from "uuid";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -14,7 +15,7 @@ import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../u
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
 const publishPageFn = async ({
-  projectId,
+  projectData,
   appUrl,
   accessToken,
   force = true,
@@ -29,7 +30,7 @@ const publishPageFn = async ({
 
   // Build request body - using /upload-data SDK interface format
   const requestBody = JSON.stringify({
-    projectId,
+    projectData,
     force,
     pageTemplateData,
     routeData,
@@ -144,15 +145,7 @@ export default async function publishWebsite(
 
   // Prompt for projectId if still not available
   if (!projectId) {
-    projectId = await options.prompts.input({
-      message: "Please enter your Pages Kit project ID:",
-      validate: (input) => {
-        if (!input || input.trim() === "") {
-          return "Project ID is required";
-        }
-        return true;
-      },
-    });
+    projectId = uuidv4();
   }
 
   const accessToken = await getAccessToken(appUrl);
@@ -285,13 +278,19 @@ export default async function publishWebsite(
           },
         };
 
+        const projectData = {
+          id: projectId,
+          name: projectName,
+          description: projectDesc,
+        };
+
         try {
           const {
             success: pageSuccess,
             result,
             projectId: newProjectId,
           } = await publishPageFn({
-            projectId,
+            projectData,
             appUrl,
             accessToken,
             force: true,

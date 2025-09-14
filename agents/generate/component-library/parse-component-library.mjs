@@ -204,45 +204,50 @@ export default async function parseComponentLibrary(input, options) {
       ...compositeComponentsParserAgents,
     ].filter(Boolean);
 
-    const parserComponentsTeamAgent = TeamAgent.from({
-      type: "team",
-      name: "parserComponentsTeamAgent",
-      skills: parserComponentsAgents,
-      mode: "parallel",
-    });
+    if (parserComponentsAgents.length) {
+      const parseComponentsTeamAgent = TeamAgent.from({
+        type: "team",
+        name: "parseComponentsTeamAgent",
+        skills: parserComponentsAgents,
+        mode: "parallel",
+      });
 
-    const parserComponentsTeamAgentResult = await options.context.invoke(
-      parserComponentsTeamAgent,
-      { ...input },
-      {
-        ...options,
-        streaming: false,
-      },
-    );
+      const parseComponentsTeamAgentResult = await options.context.invoke(
+        parseComponentsTeamAgent,
+        { ...input },
+        {
+          ...options,
+          streaming: false,
+        },
+      );
 
-    // 更新到 componentLibrary 里面
-    const updatedComponentLibrary = componentLibrary.map((item) => {
-      if (item.type === "atomic" && item.componentId in parserComponentsTeamAgentResult) {
-        const template = parserComponentsTeamAgentResult[item.componentId];
-        return {
-          ...item,
-          dataSourceTemplate: template,
-        };
-      } else if (item.type === "composite" && item.componentId in parserComponentsTeamAgentResult) {
-        const configTemplate = parserComponentsTeamAgentResult[item.componentId];
-        return {
-          ...item,
-          configTemplate: configTemplate,
-        };
-      }
-      return item;
-    });
+      // 更新到 componentLibrary 里面
+      const updatedComponentLibrary = componentLibrary.map((item) => {
+        if (item.type === "atomic" && item.componentId in parseComponentsTeamAgentResult) {
+          const template = parseComponentsTeamAgentResult[item.componentId];
+          return {
+            ...item,
+            dataSourceTemplate: template,
+          };
+        } else if (
+          item.type === "composite" &&
+          item.componentId in parseComponentsTeamAgentResult
+        ) {
+          const configTemplate = parseComponentsTeamAgentResult[item.componentId];
+          return {
+            ...item,
+            configTemplate: configTemplate,
+          };
+        }
+        return item;
+      });
 
-    await saveComponentLibrary({
-      componentLibrary: updatedComponentLibrary,
-      tmpDir,
-      middleFormatFiles: middleFormatFiles,
-    });
+      await saveComponentLibrary({
+        componentLibrary: updatedComponentLibrary,
+        tmpDir,
+        middleFormatFiles: middleFormatFiles,
+      });
+    }
 
     const newComponentLibraryData = getComponentLibraryData(tmpDir);
 

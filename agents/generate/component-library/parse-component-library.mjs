@@ -1,11 +1,11 @@
 import { join } from "node:path";
 import { AIAgent, PromptBuilder, TeamAgent } from "@aigne/core";
 import { z } from "zod";
-import saveComponentLibrary from "./save-component-library.mjs";
 import {
   getChildFieldCombinationsKey,
   getComponentLibraryData,
 } from "../../utils/generate-helper.mjs";
+import saveComponentLibrary from "./save-component-library.mjs";
 
 export default async function parseComponentLibrary(input, options) {
   const { moreContentsComponentList, middleFormatFiles, tmpDir } = input;

@@ -5,11 +5,11 @@ import fs from "fs-extra";
 import pMap from "p-map";
 import { parse } from "yaml";
 
-import { getAccessToken } from "../utils/auth-utils.mjs";
+import { getAccessToken } from "../../utils/auth-utils.mjs";
 
-import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../utils/constants.mjs";
+import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 

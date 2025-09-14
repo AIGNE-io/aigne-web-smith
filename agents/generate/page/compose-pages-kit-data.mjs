@@ -2,13 +2,13 @@ import { readFileSync } from "node:fs";
 import { basename } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
-import savePagesKitYaml from "./save-pages-kit-data.mjs";
 import {
   extractFieldCombinations,
   generateDeterministicId,
   generateRandomId,
   getChildFieldCombinationsKey,
 } from "../../utils/generate-helper.mjs";
+import savePagesKitYaml from "./save-pages-kit-data.mjs";
 
 const DEFAULT_FLAG = false;
 let DEFAULT_TEST_FILE = {};

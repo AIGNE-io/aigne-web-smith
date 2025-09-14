@@ -2,21 +2,21 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
-import { validateSelection } from "../utils/conflict-detector.mjs";
+import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
   PAGE_STYLES,
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
   WEBSITE_SCALE,
-} from "../utils/constants.mjs";
+} from "../../utils/constants.mjs";
 import {
   detectSystemLanguage,
   getAvailablePaths,
   getProjectInfo,
   isGlobPattern,
   validatePath,
-} from "../utils/utils.mjs";
+} from "../../utils/utils.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";

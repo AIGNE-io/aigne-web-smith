@@ -5,7 +5,7 @@ skills:
   - type: ai
     name: generateComponentLibrary
     instructions:
-      url: ../../../prompts/component-library/generate-component-library.md
+      url: ../../../prompts/generate/component-library/generate-component-library.md
     output_schema:
       type: object
       properties:

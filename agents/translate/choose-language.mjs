@@ -1,5 +1,5 @@
-import { SUPPORTED_LANGUAGES } from "../utils/constants.mjs";
-import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import { SUPPORTED_LANGUAGES } from "../../utils/constants.mjs";
+import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 /**
  * Interactive language selector for translation from configured languages

@@ -16,22 +16,22 @@ agents:
   - ./agents/generate/index.yaml
   # generate component library
   - ./agents/generate/component-library/load-component-library.mjs
-  - ./agents/generate/component-library/analyze-component-library.yaml
+  - ./agents/generate/component-library/analyze-component-library.mjs
   - ./agents/generate/component-library/generate-component-library.yaml
   - ./agents/generate/component-library/parse-component-library.mjs
   - ./agents/generate/component-library/save-component-library.mjs
-  - ./agents/generate/component-library/validate-component-library.yaml
+  - ./agents/generate/component-library/validate-component-library.mjs
   # generate page
-  - ./agents/generate/page/compose-page-kit-data.yaml
-  - ./agents/generate/page/save-page-kit-data.yaml
-  - ./agents/generate/page/validate-page-kit-data.yaml
+  - ./agents/generate/page/compose-pages-kit-data.mjs
+  - ./agents/generate/page/save-pages-kit-data.mjs
+  - ./agents/generate/page/validate-pages-kit-data.mjs
 
   # init
   - ./agents/init/index.mjs
 
   # plan
   - ./agents/plan/index.yaml
-  - ./agents/plan/analyze-website-structure.yaml
+  - ./agents/plan/analyze-website-structure.mjs
   - ./agents/plan/generate-website-structure.yaml
   - ./agents/plan/validate-website-structure.yaml
   
@@ -46,14 +46,14 @@ agents:
   - ./agents/translate/index.yaml
   - ./agents/translate/translate-page-detail.yaml
   - ./agents/translate/choose-language.mjs
-  - ./agents/translate/batch-generate-page-detail.yaml
+  - ./agents/translate/batch-translate-page-detail.yaml
   
   # update
   - ./agents/update/index.yaml
   - ./agents/update/batch-generate-page-detail.yaml
   - ./agents/update/generate-page-detail.yaml
   - ./agents/update/generate-and-translate-page-detail.yaml
-  - ./agents/update/analyze-page-detail.yaml
+  - ./agents/update/analyze-page-detail.mjs
   
 cli:
   chat: ./agents/chat/index.yaml

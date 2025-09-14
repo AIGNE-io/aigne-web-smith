@@ -24,10 +24,10 @@ skills:
           })
         }
       ])
-  - url: ../utils/find-items-by-paths.mjs
+  - url: ../utils/choose-pages.mjs
     default_input:
       isTranslate: true
-  - ../utils/choose-language.mjs
+  - ./choose-language.mjs
   - type: team
     name: batchPagesTranslate
     skills:

@@ -42,7 +42,7 @@ skills:
       stage: structure_planning
   - ./component-library/load-component-library.mjs
   - ./component-library/analyze-component-library.mjs
-  - ./page/compose-pages-kit-data.yaml
+  - ./compose-pages-kit-data.mjs
   - ../utils/save-pages.mjs
 
 input_schema:

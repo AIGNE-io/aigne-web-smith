@@ -1,6 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
-import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
+import { PAGE_FILE_EXTENSION } from "../../utils/constants.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
@@ -8,7 +8,7 @@ import {
   hasFileChangesBetweenCommits,
   loadConfigFromFile,
   saveValueToConfig,
-} from "../utils/utils.mjs";
+} from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
   { originalStructurePlan, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },

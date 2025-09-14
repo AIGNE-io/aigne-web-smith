@@ -26,8 +26,8 @@ skills:
           })
         }
       ])
-  - ../utils/find-items-by-paths.mjs
-  - ../utils/format-structure-plan.mjs
+  - ../utils/choose-pages.mjs
+  - ../utils/format-website-structure.mjs
   - type: team
     name: batchPagesUpdate
     skills:

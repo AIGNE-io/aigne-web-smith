@@ -1,4 +1,4 @@
-import { readPreferences, removeRule, writePreferences } from "../utils/preferences-utils.mjs";
+import { readPreferences, removeRule, writePreferences } from "../../utils/preferences-utils.mjs";
 
 /**
  * List all user preferences with formatted display

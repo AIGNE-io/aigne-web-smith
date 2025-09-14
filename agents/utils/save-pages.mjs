@@ -1,7 +1,7 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { stringify as yamlStringify } from "yaml";
-import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
+import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
 
 /**
  * @param {Object} params

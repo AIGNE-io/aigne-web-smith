@@ -1,4 +1,4 @@
-import { getFileName } from "../utils/utils.mjs";
+import { getFileName } from "../../utils/utils.mjs";
 
 export default async function checkDetailResult({
   structurePlan,

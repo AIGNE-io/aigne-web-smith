@@ -1,4 +1,4 @@
-import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
+import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
 export default async function findUserPreferencesByPath({ path, scope }) {
   // Get global rules (always applicable)

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
-import { processConfigFields, resolveFileReferences } from "../utils/utils.mjs";
+import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);

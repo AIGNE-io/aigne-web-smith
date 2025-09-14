@@ -4,7 +4,7 @@ import {
   getActionText,
   getMainLanguageFiles,
   processSelectedFiles,
-} from "../utils/pages-finder-utils.mjs";
+} from "../../utils/pages-finder-utils.mjs";
 
 export default async function choosePages(
   { pages, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },

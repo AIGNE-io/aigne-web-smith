@@ -1,14 +1,14 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
-import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
+import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../../utils/constants.mjs";
+import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
   isGlobPattern,
-} from "../utils/utils.mjs";
-import { propertiesToZodSchema, zodSchemaToJsonSchema } from "./pages-format/sdk.mjs";
+} from "../../utils/utils.mjs";
+import { propertiesToZodSchema, zodSchemaToJsonSchema } from "./generate-helper.mjs";
 
 const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);

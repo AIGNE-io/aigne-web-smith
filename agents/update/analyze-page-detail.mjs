@@ -2,8 +2,8 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
-import { getFileName, hasSourceFilesChanged } from "../utils/utils.mjs";
-import checkDetailResult from "./check-detail-result.mjs";
+import { getFileName, hasSourceFilesChanged } from "../../utils/utils.mjs";
+import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));

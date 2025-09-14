@@ -1,5 +1,5 @@
 import { stringify } from "yaml";
-import { addPreferenceRule, readPreferences } from "../utils/preferences-utils.mjs";
+import { addPreferenceRule, readPreferences } from "../../utils/preferences-utils.mjs";
 
 export default async function checkFeedbackRefiner(
   { feedback, stage, selectedPaths, structurePlanFeedback },

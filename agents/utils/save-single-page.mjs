@@ -1,4 +1,4 @@
-import { savePageWithTranslations } from "../utils/utils.mjs";
+import { savePageWithTranslations } from "../../utils/utils.mjs";
 
 export default async function saveSinglePage({
   path,

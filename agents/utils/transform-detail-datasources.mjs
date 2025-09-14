@@ -1,4 +1,4 @@
-import { normalizePath, toRelativePath } from "../utils/utils.mjs";
+import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
 export default function transformDetailDatasources({ sourceIds, datasourcesList }) {
   // Build a map for fast lookup, with path normalization for compatibility

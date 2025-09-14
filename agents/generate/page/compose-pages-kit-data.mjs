@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { basename } from "node:path";
+import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import {
@@ -8,7 +8,7 @@ import {
   generateRandomId,
   getChildFieldCombinationsKey,
 } from "../../utils/generate-helper.mjs";
-import savePagesKitYaml from "./save-pages-kit-data.mjs";
+import savePagesKitData from "./save-pages-kit-data.mjs";
 
 const DEFAULT_FLAG = false;
 let DEFAULT_TEST_FILE = {};
@@ -37,6 +37,26 @@ function logError(...args) {
 }
 
 // ============= 公共工具函数 =============
+
+/**
+ * 读取指定语言的中间格式文件
+ * @param {string} tmpDir - 临时目录
+ * @param {string} locale - 语言代码
+ * @param {string} fileName - 文件名
+ * @returns {Promise<Object|null>} 解析后的文件内容
+ */
+async function readMiddleFormatFile(tmpDir, locale, fileName) {
+  try {
+    const filePath = join(tmpDir, locale, fileName);
+
+    const content = readFileSync(filePath, "utf8");
+
+    return parse(content);
+  } catch (error) {
+    log(`⚠️  无法读取文件 ${locale}/${fileName}: ${error.message}`);
+    return null;
+  }
+}
 
 /**
  * 获取嵌套对象的值，支持 a.b.c 格式
@@ -195,16 +215,6 @@ function convertToSection({ componentInstance, arrayComponentInstances, locale }
       newConfig = newConfig.replaceAll(oldKey, oldKeyToIdMap[oldKey]);
     });
 
-    const _allowSectionKey = Object.keys({
-      ...config?.gridSettings?.desktop,
-      ...config?.gridSettings?.mobile,
-    });
-
-    // 过滤复合组件的不存在的 section
-    // const allSections = [...sections, ...arraySections].filter((section) => {
-    // return allowSectionKey.includes(section.id);
-    // });
-
     const allSections = [...sections, ...arraySections];
 
     return {
@@ -216,38 +226,6 @@ function convertToSection({ componentInstance, arrayComponentInstances, locale }
       sectionIds: allSections.map(({ id }) => id),
     };
   }
-}
-
-function createPagesKitInstance({ meta, locale, filePath }) {
-  const now = new Date().toISOString();
-
-  const pagesKitData = {
-    id: generateDeterministicId(filePath),
-    createdAt: now,
-    updatedAt: now,
-    publishedAt: now,
-    isPublic: true,
-    locales: {
-      [locale]: {
-        backgroundColor: "",
-        style: {
-          maxWidth: "custom:1560px",
-          paddingX: "large",
-        },
-        title: meta.title,
-        description: meta.description,
-        image: meta.image,
-        header: {
-          sticky: true,
-        },
-      },
-    },
-    sections: {},
-    sectionIds: [],
-    dataSource: {},
-  };
-
-  return pagesKitData;
 }
 
 /**
@@ -379,6 +357,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       },
       relatedComponent,
       componentLibrary,
+      index, // 传递相同的section索引
     );
 
     return {
@@ -429,8 +408,16 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 }
 
 // 创建组件实例的统一函数
-function createComponentInstance(section, component, componentLibrary = []) {
-  const instanceId = generateRandomId();
+function createComponentInstance(section, component, componentLibrary = [], sectionIndex = 0) {
+  // 使用确定性ID生成，基于组件ID和section内容
+  const contentHash = JSON.stringify({
+    componentId: component.componentId,
+    sectionName: section.name,
+    sectionIndex,
+    // 使用关键字段的哈希来确保相同内容生成相同ID
+    keys: Object.keys(section).sort(),
+  });
+  const instanceId = generateDeterministicId(contentHash);
   log(`    🔧 生成组件实例 ID: ${instanceId}`);
 
   if (component.type === "atomic") {
@@ -488,6 +475,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
           section,
           matchedComponent,
           componentLibrary,
+          index, // 传递section索引
         );
 
         // 处理数组字段
@@ -638,6 +626,7 @@ export default async function composePagesKitData(input) {
     pagesDir,
     outputDir,
     moreContentsComponentList,
+    tmpDir,
   } = input;
 
   const moreContentsComponentMap = {};
@@ -655,16 +644,63 @@ export default async function composePagesKitData(input) {
   const allComposedSections = [];
   const allPagesKitYamlList = [];
 
+  // 用于按 filePath 组织不同语言的数据
+  const fileDataMap = new Map();
+
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
 
-    [...(DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles)].forEach((file, index) => {
-      const middleFormatContent =
-        typeof file.content === "string" ? parse(file.content) : file.content;
+    // 构建包含所有语言文件的处理列表
+    const filesToProcess = [];
+
+    // 添加主语言文件
+    const mainFiles = DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles;
+    mainFiles.forEach((file) => {
+      filesToProcess.push({
+        ...file,
+        language: locale,
+        isMainLanguage: true,
+      });
+    });
+
+    // 添加翻译语言文件
+    if (translateLanguages && translateLanguages.length > 0 && tmpDir) {
+      for (const translateLang of translateLanguages) {
+        mainFiles.forEach((file) => {
+          const translateFile = {
+            filePath: file.filePath,
+            content: null, // 稍后读取
+            language: translateLang,
+            isMainLanguage: false,
+          };
+          filesToProcess.push(translateFile);
+        });
+      }
+    }
+
+    log(
+      `📄 总处理文件数量: ${filesToProcess.length} (包含 ${translateLanguages?.length || 0} 种翻译语言)`,
+    );
+
+    for (const [index, file] of filesToProcess.entries()) {
+      // 为非主语言文件读取内容
+      let middleFormatContent;
+      if (file.isMainLanguage) {
+        middleFormatContent = typeof file.content === "string" ? parse(file.content) : file.content;
+      } else {
+        // 读取翻译语言文件
+        const translateContent = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
+        if (!translateContent) {
+          log(`⚠️  跳过无法读取的翻译文件: ${file.language}/${file.filePath}`);
+          continue;
+        }
+        middleFormatContent = translateContent;
+      }
 
       const filePath = file.filePath;
+      const currentLanguage = file.language;
 
-      log(`\n📋 处理文件 ${index + 1}: 长度 ${file.content?.length || 0} 字符`);
+      log(`\n📋 处理文件 ${index + 1}/${filesToProcess.length}: ${currentLanguage}/${filePath}`);
 
       // 使用复用函数匹配sections和组件
       const composedSections = composeSectionsWithComponents(middleFormatContent, componentLibrary);
@@ -672,49 +708,56 @@ export default async function composePagesKitData(input) {
       // 收集所有匹配结果
       allComposedSections.push(...composedSections);
 
-      // 创建Pages Kit实例
-      const pagesKitData = createPagesKitInstance({
-        filePath,
-        meta: middleFormatContent.meta,
-        locale,
-      });
-
-      // 为每个 translateLanguage 创建额外的 locales
-      if (translateLanguages && translateLanguages.length > 0) {
-        translateLanguages.forEach((translateLang) => {
-          pagesKitData.locales[translateLang] = {
-            backgroundColor: "",
-            style: {
-              maxWidth: "custom:1560px",
-              paddingX: "large",
-            },
-            title: middleFormatContent.meta.title,
-            description: middleFormatContent.meta.description,
-            image: middleFormatContent.meta.image,
-            header: {
-              sticky: true,
-            },
-          };
+      // 确保 fileDataMap 中有该文件的条目
+      if (!fileDataMap.has(filePath)) {
+        fileDataMap.set(filePath, {
+          filePath,
+          meta: middleFormatContent.meta,
+          locales: {},
+          sections: {},
+          sectionIds: [],
+          dataSource: {},
         });
       }
 
-      // 使用重构后的函数组装 sections
+      const fileData = fileDataMap.get(filePath);
+
+      // 添加当前语言的 locale 信息
+      fileData.locales[currentLanguage] = {
+        backgroundColor: "",
+        style: {
+          maxWidth: "custom:1560px",
+          paddingX: "large",
+        },
+        title: middleFormatContent.meta.title,
+        description: middleFormatContent.meta.description,
+        image: middleFormatContent.meta.image,
+        header: {
+          sticky: true,
+        },
+      };
+
+      // 如果是主语言，设置sections和sectionIds
+      if (file.isMainLanguage) {
+        composedSections.forEach((section) => {
+          const { componentInstance, arrayComponentInstances } = section;
+
+          if (componentInstance) {
+            fileData.sections[componentInstance.id] = convertToSection({
+              componentInstance,
+              arrayComponentInstances,
+              locale: currentLanguage,
+            });
+            fileData.sectionIds.push(componentInstance.id);
+          }
+        });
+      }
+
+      // 为当前语言生成所有实例的 dataSource
       composedSections.forEach((section) => {
         const { componentInstance, arrayComponentInstances } = section;
 
         if (componentInstance) {
-          // 转换为 section 格式
-          pagesKitData.sections = {
-            ...pagesKitData.sections,
-            [componentInstance.id]: convertToSection({
-              componentInstance,
-              arrayComponentInstances,
-              locale,
-            }),
-          };
-
-          pagesKitData.sectionIds.push(componentInstance.id);
-
           // 使用公共函数提取所有实例
           const allInstances = [
             { instance: componentInstance },
@@ -724,52 +767,50 @@ export default async function composePagesKitData(input) {
 
           // 处理每个实例的数据源
           allInstances.forEach(({ instance }) => {
-            // 为主语言生成数据源
             const dataSourceResult = transformDataSource(
               instance,
               moreContentsComponentMap,
-              locale,
+              currentLanguage,
             );
 
             if (dataSourceResult) {
-              pagesKitData.dataSource = {
-                ...pagesKitData.dataSource,
-                ...dataSourceResult,
-              };
-            }
-
-            // 为每个翻译语言也生成数据源
-            if (translateLanguages && translateLanguages.length > 0) {
-              translateLanguages.forEach((translateLang) => {
-                const translateDataSourceResult = transformDataSource(
-                  instance,
-                  moreContentsComponentMap,
-                  translateLang,
-                );
-
-                if (translateDataSourceResult) {
-                  // 合并到现有的 dataSource 中
-                  Object.keys(translateDataSourceResult).forEach((instanceId) => {
-                    if (!pagesKitData.dataSource[instanceId]) {
-                      pagesKitData.dataSource[instanceId] = {};
-                    }
-                    pagesKitData.dataSource[instanceId] = {
-                      ...pagesKitData.dataSource[instanceId],
-                      ...translateDataSourceResult[instanceId],
-                    };
-                  });
+              // 合并到文件数据中
+              Object.keys(dataSourceResult).forEach((instanceId) => {
+                if (!fileData.dataSource[instanceId]) {
+                  fileData.dataSource[instanceId] = {};
                 }
+                fileData.dataSource[instanceId] = {
+                  ...fileData.dataSource[instanceId],
+                  ...dataSourceResult[instanceId],
+                };
               });
             }
           });
         }
       });
+    }
 
-      // console.warn("compose the pages kit data", JSON.stringify(pagesKitData));
+    // 将 fileDataMap 中的数据转换为最终的 Pages Kit YAML
+    fileDataMap.forEach((fileData) => {
+      const now = new Date().toISOString();
+
+      const pagesKitData = {
+        id: generateDeterministicId(fileData.filePath),
+        createdAt: now,
+        updatedAt: now,
+        publishedAt: now,
+        isPublic: true,
+        locales: fileData.locales,
+        sections: fileData.sections,
+        sectionIds: fileData.sectionIds,
+        dataSource: fileData.dataSource,
+      };
 
       allPagesKitYamlList.push({
-        filePath: file.filePath,
-        content: stringify(pagesKitData),
+        filePath: fileData.filePath,
+        content: stringify(pagesKitData, {
+          aliasDuplicateObjects: false,
+        }),
       });
     });
 
@@ -777,11 +818,12 @@ export default async function composePagesKitData(input) {
     log(`  - 总sections数量: ${allComposedSections.length}`);
     log(`  - 成功匹配数量: ${allComposedSections.filter((item) => item.matched).length}`);
     log(`  - 未匹配数量: ${allComposedSections.filter((item) => !item.matched).length}`);
+    log(`  - 生成文件数量: ${fileDataMap.size}`);
   }
 
   allPagesKitYamlList?.forEach((item) => {
     const { filePath, content } = item;
-    savePagesKitYaml({
+    savePagesKitData({
       path: basename(filePath).split(".")?.[0] || filePath,
       locale,
       pagesDir,

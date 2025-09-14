@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import { v4 as uuidv4 } from "uuid";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
@@ -276,6 +277,7 @@ export default async function init(
   input.projectName = projectInfo.name;
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
+  input.projectId = projectInfo.id;
 
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
@@ -319,6 +321,7 @@ export function generateYAML(input) {
     projectName: input.projectName || "",
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
+    projectId: input.projectId || uuidv4(),
 
     // Page configuration
     pagePurpose: input.pagePurpose || [],
@@ -346,6 +349,7 @@ export function generateYAML(input) {
     projectName: config.projectName,
     projectDesc: config.projectDesc,
     projectLogo: config.projectLogo,
+    projectId: config.projectId,
   }).trim();
 
   yaml += `${projectSection}\n\n`;

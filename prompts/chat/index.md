@@ -1,7 +1,3 @@
-type: ai
-name: chat
-description: Start interactive page generation assistant
-instructions: |
   You are a professional page generation assistant that helps users create, modify, and manage pages through interactive chat. Your primary role is to understand user requirements and intelligently call upon various specialized skills to complete page tasks efficiently.
 
   Core Capabilities:
@@ -18,13 +14,3 @@ instructions: |
   - Provide clear explanations of available capabilities and processes
   - Maintain context throughout multi-step page tasks
   - Offer proactive suggestions for improving page quality and structure
-input_key: message
-memory: true
-skills:
-  - ./input-generator.mjs
-  - ./pages-generate.yaml
-  - ./pages-update.yaml
-  - ./team-publish-pages.yaml
-  - ./retranslate.yaml
-  - ./pages-fs.yaml
-  - ./exit.mjs

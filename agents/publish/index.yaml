@@ -9,7 +9,7 @@ skills:
     default_input:
       skipIfExists: true
   - load-config.mjs
-  - pages-publish.mjs
+  - ./publish-pages.mjs
 input_schema:
   type: object
   properties:

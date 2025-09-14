@@ -9,6 +9,7 @@ chat_model:
   # name: gpt-5-nano
   # temperature: 1
 agents:
+  - ./agents/init/index.mjs
   - ./agents/structure-planning.yaml
   - ./agents/batch-pages-detail-generator.yaml
   - ./agents/load-sources.mjs
@@ -24,7 +25,6 @@ agents:
   - ./agents/content-detail-generator.yaml
   - ./agents/reflective-structure-planner.yaml
   - ./agents/check-structure-planning-result.yaml
-  - ./agents/input-generator.mjs
   - ./agents/pages-generate.yaml
   - ./agents/pages-update.yaml
   - ./agents/pages-publish.mjs
@@ -51,7 +51,7 @@ agents:
 cli:
   chat: ./agents/chat.yaml
   agents:
-    - ./agents/input-generator.mjs
+    - ./agents/init/index.mjs
     - ./agents/pages-generate.yaml
     - ./agents/pages-update.yaml
     - ./agents/team-publish-pages.yaml

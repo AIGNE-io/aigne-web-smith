@@ -104,9 +104,8 @@ parentId: {{parentId}}
 
 </media_rules>
 
-{% include "page/detail-generator.md" %}
+{% include "page/middle-content-rule.md" %}
 
-{% include "page/custom-components.md" %}
 
 </rules>
 
@@ -211,7 +210,7 @@ parentId: {{parentId}}
 
 </common_section>
 
-{% include "page/detail-example.md" %}
+{% include "./middle-content-structure.md" %}
 
 <output_schema>
 完整的页面语义结构，输出为中间格式的 YAML：

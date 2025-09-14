@@ -79,8 +79,8 @@ export default async function loadSources({
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
 
-    // @FIXME: 强制添加 components-list，后续需要修改为通过远程加载
-    paths.push(path.join(import.meta.dirname, "../assets/components-list"));
+    // @FIXME: 强制添加 component-list，后续需要修改为通过远程加载
+    paths.push(path.join(import.meta.dirname, "../assets/component-list"));
 
     let allFiles = [];
 
@@ -222,8 +222,8 @@ export default async function loadSources({
         const content = await readFile(file, "utf8");
         const relativePath = path.relative(process.cwd(), file);
 
-        // if it is components-list, format it and enhance with structured data
-        if (relativePath.includes("components-list")) {
+        // if it is component-list, format it and enhance with structured data
+        if (relativePath.includes("component-list")) {
           // ignore _component
           if (path.basename(file).startsWith("_")) {
             return;

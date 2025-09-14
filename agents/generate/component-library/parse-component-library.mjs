@@ -55,7 +55,16 @@ export default async function parseComponentLibrary(input, options) {
 
       const wrapperFieldName = (fieldName) => `<%= ${fieldName} %>`;
 
-      const fieldCombinationsWithMustache = item.fieldCombinations?.map(wrapperFieldName);
+      const fieldCombinationsWithMustache = item.fieldCombinations
+        ?.filter((item) => {
+          const [, index] = item.split(".");
+          // 原子组件不应该支持数组字段组合
+          if (Number.isNaN(Number(index))) {
+            return false;
+          }
+          return true;
+        })
+        ?.map(wrapperFieldName);
 
       if (!component || !fieldCombinationsWithMustache) {
         return;

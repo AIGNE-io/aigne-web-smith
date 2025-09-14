@@ -15,6 +15,7 @@ export default async function analyzeComponentLibrary(input, options) {
     if (componentLibraryData?.hash !== hash) {
       const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
 
+      // 通过中间格式生成组件库
       await options.context.invoke(
         options.context.agents["generateComponentLibrary"],
         {

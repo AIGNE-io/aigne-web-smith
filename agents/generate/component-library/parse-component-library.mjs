@@ -62,7 +62,10 @@ export default async function parseComponentLibrary(input, options) {
       }
 
       const { instructions } = PromptBuilder.from({
-        path: join(import.meta.dirname, "../../../prompts/pages-format/parse-atomic-component.md"),
+        path: join(
+          import.meta.dirname,
+          "../../../prompts/generate/component-library/parse-atomic-component.md",
+        ),
       });
 
       return AIAgent.from({
@@ -169,7 +172,7 @@ export default async function parseComponentLibrary(input, options) {
       const { instructions } = PromptBuilder.from({
         path: join(
           import.meta.dirname,
-          "../../../prompts/pages-format/parse-composite-component.md",
+          "../../../prompts/generate/component-library/parse-composite-component.md",
         ),
       });
 

@@ -107,10 +107,8 @@ export default async function analyzePageDetail(input, options) {
   }
 
   const teamAgent = TeamAgent.from({
-    name: "generateDetail",
-    skills: [!detailGenerated && options.context.agents["generateAndTranslatePageDetail"]].filter(
-      Boolean,
-    ),
+    name: "generateAndTranslatePageDetail",
+    skills: [options.context.agents["generateAndTranslatePageDetail"]],
   });
 
   const result = await options.context.invoke(teamAgent, {
@@ -130,4 +128,4 @@ export default async function analyzePageDetail(input, options) {
     detailGenerated,
   };
 }
-analyzePageDetail.taskTitle = "Analyze if '{{ title }}' needs regeneration";
+analyzePageDetail.taskTitle = "Analyze if '{{ title }}' needs generation";

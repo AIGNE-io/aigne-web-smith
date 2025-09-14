@@ -633,6 +633,7 @@ export default async function composePagesKitData(input) {
     middleFormatFiles,
     componentLibrary,
     locale,
+    translateLanguages = [],
     path,
     pagesDir,
     outputDir,
@@ -678,6 +679,25 @@ export default async function composePagesKitData(input) {
         locale,
       });
 
+      // 为每个 translateLanguage 创建额外的 locales
+      if (translateLanguages && translateLanguages.length > 0) {
+        translateLanguages.forEach((translateLang) => {
+          pagesKitData.locales[translateLang] = {
+            backgroundColor: "",
+            style: {
+              maxWidth: "custom:1560px",
+              paddingX: "large",
+            },
+            title: middleFormatContent.meta.title,
+            description: middleFormatContent.meta.description,
+            image: middleFormatContent.meta.image,
+            header: {
+              sticky: true,
+            },
+          };
+        });
+      }
+
       // 使用重构后的函数组装 sections
       composedSections.forEach((section) => {
         const { componentInstance, arrayComponentInstances } = section;
@@ -704,6 +724,7 @@ export default async function composePagesKitData(input) {
 
           // 处理每个实例的数据源
           allInstances.forEach(({ instance }) => {
+            // 为主语言生成数据源
             const dataSourceResult = transformDataSource(
               instance,
               moreContentsComponentMap,
@@ -715,6 +736,30 @@ export default async function composePagesKitData(input) {
                 ...pagesKitData.dataSource,
                 ...dataSourceResult,
               };
+            }
+
+            // 为每个翻译语言也生成数据源
+            if (translateLanguages && translateLanguages.length > 0) {
+              translateLanguages.forEach((translateLang) => {
+                const translateDataSourceResult = transformDataSource(
+                  instance,
+                  moreContentsComponentMap,
+                  translateLang,
+                );
+
+                if (translateDataSourceResult) {
+                  // 合并到现有的 dataSource 中
+                  Object.keys(translateDataSourceResult).forEach((instanceId) => {
+                    if (!pagesKitData.dataSource[instanceId]) {
+                      pagesKitData.dataSource[instanceId] = {};
+                    }
+                    pagesKitData.dataSource[instanceId] = {
+                      ...pagesKitData.dataSource[instanceId],
+                      ...translateDataSourceResult[instanceId],
+                    };
+                  });
+                }
+              });
             }
           });
         }

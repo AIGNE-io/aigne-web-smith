@@ -1,7 +1,7 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
 import { PAGE_FILE_EXTENSION } from "../utils/constants.mjs";
-import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
+import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
   getProjectInfo,
@@ -10,7 +10,7 @@ import {
   saveValueToConfig,
 } from "../utils/utils.mjs";
 
-export default async function checkStructurePlan(
+export default async function analyzeWebsiteStructure(
   { originalStructurePlan, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },
   options,
 ) {
@@ -22,7 +22,7 @@ export default async function checkStructurePlan(
   // Prompt for feedback if originalStructurePlan exists and no feedback provided
   if (originalStructurePlan && !feedback) {
     const userFeedback = await options.prompts.input({
-      message: "Please provide feedback for structure planning (press Enter to skip):",
+      message: "Please provide feedback for website structure (press Enter to skip):",
     });
 
     if (userFeedback?.trim()) {
@@ -164,5 +164,4 @@ export default async function checkStructurePlan(
       : JSON.parse(JSON.stringify(result.structurePlan || [])),
   };
 }
-
-checkStructurePlan.taskTitle = "Check if structure plan needs regeneration";
+analyzeWebsiteStructure.taskTitle = "Analyze website structure need generate or update";

@@ -1,8 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { getFileName } from "../../utils/utils.mjs";
+import { getFileName } from "../../../utils/utils.mjs";
 
-export default async function savePagesKitYaml(input) {
+export default async function savePagesKitData(input) {
   const { path, pagesKitYaml, outputDir } = input;
 
   // 构建输出文件路径
@@ -34,4 +34,4 @@ export default async function savePagesKitYaml(input) {
   }
 }
 
-savePagesKitYaml.taskTitle = "Save Pages Kit format for '{{ path }}'";
+savePagesKitData.taskTitle = "Save Pages Kit Data";

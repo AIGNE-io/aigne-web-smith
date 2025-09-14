@@ -1,7 +1,7 @@
-name: structurePlanGenerator
+name: generateWebsiteStructure
 description: 通用结构规划生成器，支持网站、文档、书籍、演示文稿等多种场景
 instructions:
-  url: ../prompts/structure-planning.md
+  url: ../../prompts/plan/generate-website-structure.md
 input_schema:
   type: object
   properties:
@@ -45,7 +45,7 @@ output_schema:
     projectDesc:
       type: string
       description: 根据 DataSources 分析生成当前项目描述，为原始项目生成描述，描述简洁，不超过 50 个单词
-    structurePlan: ./schema/structure-plan.yaml
+    structurePlan: ../schema/website-structure.yaml
     structurePlanTree:
       type: string
       description: |

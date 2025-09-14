@@ -1,71 +1,16 @@
 import { join } from "node:path";
 import { AIAgent, PromptBuilder, TeamAgent } from "@aigne/core";
-import { parse } from "yaml";
 import { z } from "zod";
 import saveComponentLibrary from "./save-component-library.mjs";
 import {
-  calculateMiddleFormatHash,
-  getAllFieldCombinations,
   getChildFieldCombinationsKey,
   getComponentLibraryData,
-} from "./sdk.mjs";
+} from "../../utils/generate-helper.mjs";
 
-export default async function analyzeAndParserComponentLibrary(input, options) {
-  const {
-    moreContentsComponentList,
-    componentList,
-    componentLibraryData,
-    middleFormatFiles,
-    tmpDir,
-  } = input;
+export default async function parseComponentLibrary(input, options) {
+  const { moreContentsComponentList, middleFormatFiles, tmpDir } = input;
 
   try {
-    const hash = calculateMiddleFormatHash(middleFormatFiles);
-
-    // hash 不一样，说明内容有变化，需要重新分析
-    if (componentLibraryData?.hash !== hash) {
-      const allFieldCombinations = getAllFieldCombinations(middleFormatFiles);
-
-      const analyzeComponentLibraryTeamResult = await options.context.invoke(
-        options.context.agents["analyzeComponentLibraryTeam"],
-        {
-          ...input,
-          middleFormatContent: middleFormatFiles
-            .map((item) => {
-              const { content, filePath } = item;
-              const parsedContent = parse(content);
-              return `# sourceFile: ${filePath}
-${JSON.stringify(parsedContent)}
-          `;
-            })
-            .join("\n"),
-          componentList: componentList
-            .map((item) => {
-              const { content } = item;
-              const { id, name, description, schema } = content;
-              return `# ${name}(${id}): ${description}
-${JSON.stringify(schema)}
-              `;
-            })
-            .join("\n"),
-          allFieldCombinations: `${allFieldCombinations
-            .map((item, _index) => `${JSON.stringify(item)}`)
-            .join("\n")}`,
-        },
-        {
-          ...options,
-          streaming: false,
-        },
-      );
-
-      // 保存组件库
-      await saveComponentLibrary({
-        componentLibrary: analyzeComponentLibraryTeamResult?.componentLibrary,
-        tmpDir,
-        middleFormatFiles: middleFormatFiles,
-      });
-    }
-
     // 进一步 parser 每个组件库
     const tempComponentLibraryData = getComponentLibraryData(tmpDir);
     const { componentLibrary } = tempComponentLibraryData;
@@ -117,7 +62,7 @@ ${JSON.stringify(schema)}
       }
 
       const { instructions } = PromptBuilder.from({
-        path: join(import.meta.dirname, "../../prompts/pages-format/atomic-component-parser.md"),
+        path: join(import.meta.dirname, "../../../prompts/pages-format/parse-atomic-component.md"),
       });
 
       return AIAgent.from({
@@ -222,7 +167,10 @@ ${JSON.stringify(schema)}
       });
 
       const { instructions } = PromptBuilder.from({
-        path: join(import.meta.dirname, "../../prompts/pages-format/composite-component-parser.md"),
+        path: join(
+          import.meta.dirname,
+          "../../../prompts/pages-format/parse-composite-component.md",
+        ),
       });
 
       return AIAgent.from({
@@ -300,9 +248,8 @@ ${JSON.stringify(schema)}
       componentLibrary: newComponentLibraryData.componentLibrary,
     };
   } catch (error) {
-    throw new Error(`Failed to generate component library: ${error.message}`);
+    throw new Error(`Failed to parse component library: ${error.message}`);
   }
 }
 
-analyzeAndParserComponentLibrary.taskTitle =
-  "Analyzing and generating component library definition";
+parseComponentLibrary.taskTitle = "Parse component library";

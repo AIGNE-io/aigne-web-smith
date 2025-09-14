@@ -8,7 +8,7 @@ import checkDetailResult from "./check-detail-result.mjs";
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default async function checkDetail(input, options) {
+export default async function analyzePageDetail(input, options) {
   const {
     path,
     pagesDir,
@@ -108,7 +108,7 @@ export default async function checkDetail(input, options) {
 
   const teamAgent = TeamAgent.from({
     name: "generateDetail",
-    skills: [!detailGenerated && options.context.agents["detailGeneratorAndTranslate"]].filter(
+    skills: [!detailGenerated && options.context.agents["generateAndTranslatePageDetail"]].filter(
       Boolean,
     ),
   });
@@ -130,5 +130,4 @@ export default async function checkDetail(input, options) {
     detailGenerated,
   };
 }
-
-checkDetail.taskTitle = "Check if '{{ title }}' needs regeneration";
+analyzePageDetail.taskTitle = "Analyze if '{{ title }}' needs regeneration";

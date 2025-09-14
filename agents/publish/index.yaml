@@ -3,13 +3,13 @@ name: publish
 alias:
   - pub
   - p
-description: Publish the pages to Pages Kit
+description: Publish the website to Pages Kit
 skills:
-  - url: ./input-generator.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
-  - load-config.mjs
-  - ./publish-pages.mjs
+  - ../utils/load-config.mjs
+  - ./publish-website.mjs
 input_schema:
   type: object
   properties:

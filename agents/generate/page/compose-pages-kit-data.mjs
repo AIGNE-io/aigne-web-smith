@@ -2,13 +2,13 @@ import { readFileSync } from "node:fs";
 import { basename } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
-import savePagesKitYaml from "./save-pages-kit-yaml.mjs";
+import savePagesKitYaml from "./save-pages-kit-data.mjs";
 import {
   extractFieldCombinations,
   generateDeterministicId,
   generateRandomId,
   getChildFieldCombinationsKey,
-} from "./sdk.mjs";
+} from "../../utils/generate-helper.mjs";
 
 const DEFAULT_FLAG = false;
 let DEFAULT_TEST_FILE = {};
@@ -628,7 +628,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   }
 }
 
-export default async function composePagesKitYaml(input) {
+export default async function composePagesKitData(input) {
   const {
     middleFormatFiles,
     componentLibrary,
@@ -750,4 +750,4 @@ export default async function composePagesKitYaml(input) {
   };
 }
 
-composePagesKitYaml.taskTitle = "Compose Pages Kit YAML";
+composePagesKitData.taskTitle = "Compose Pages Kit Data";

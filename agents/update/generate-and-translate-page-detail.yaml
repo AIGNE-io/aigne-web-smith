@@ -1,16 +1,16 @@
 type: team
-name: detailGeneratorAndTranslate
+name: generateAndTranslatePageDetail
 description: 生成页面详情并翻译
 skills:
-  - ./transform-detail-datasources.mjs
+  - ../utils/transform-detail-datasources.mjs
   - type: team
     task_render_mode: collapse
     name: detailGenerate
     skills:
-      - url: ./find-user-preferences-by-path.mjs
+      - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: page
-      - ./content-detail-generator.yaml
+      - ./generate-page-detail.yaml
       - type: transform
         jsonata: |
           $merge([
@@ -18,7 +18,7 @@ skills:
             { "reviewContent": content }
           ])
     reflection:
-      reviewer: ./check-detail-result.mjs
+      reviewer: ../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
@@ -30,8 +30,8 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ./batch-translate.yaml
-  - ./save-single-page.mjs
+  - ./batch-generate-page-detail.yaml
+  - ../utils/save-single-page.mjs
 input_schema:
   type: object
   properties:

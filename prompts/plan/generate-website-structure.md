@@ -147,9 +147,9 @@ DataSources 使用规则：
 
 </other_rules>
 
-{% ifAsync pagesType == 'general' %}
-{% include "page/structure-example.md" %}
-{% endif %}
+
+{% include "./generate-website-structure-example.md" %}
+
 
 <output_rules>
 

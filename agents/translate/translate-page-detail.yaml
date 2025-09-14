@@ -1,13 +1,13 @@
-name: translatePage
-description: Translate the wiki article to another language
+name: translatePageDetail
+description: Translate the page detail to another language
 instructions:
-  url: ../prompts/translator.md
+  url: ../../prompts/translate/translate-page-detail.md
 input_schema:
   type: object
   properties:
     language:
       type: string
-      description: Language to translate the article into (e.g., 'zh_CN' for Chinese)
+      description: Language to translate the page detail into (e.g., 'zh_CN' for Chinese)
     content:
       type: string
       description: Content to translate
@@ -25,7 +25,7 @@ output_schema:
   properties:
     translation:
       type: string
-      description: Translation of the content
+      description: Translation of the page detail
     language:
       type: string
       description: Language of the translation

@@ -1,15 +1,15 @@
 type: team
-name: batchPagesDetailGenerate
+name: batchGeneratePageDetail
 description: 批量生成页面详情
 skills:
-  - ./check-detail.mjs
+  - ./analyze-page-detail.mjs
 input_schema:
   type: object
   properties:
     datasources:
       type: string
       description: 结构规划的上下文，用于辅助结构规划
-    structurePlanResult: ./schema/structure-plan-result.yaml
+    structurePlanResult: ../schema/website-structure-with-translates.yaml
     modifiedFiles:
       type: array
       items: { type: string }

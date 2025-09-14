@@ -1,11 +1,11 @@
 type: team
-name: analyzeComponentLibraryTeam
-description: 多个中间格式 YAML 文件分析组件库
+name: generateComponentLibrary
+description: 分析多个中间格式 YAML 文件生成组件库
 skills:
   - type: ai
-    name: analyzeComponentLibrary
+    name: generateComponentLibrary
     instructions:
-      url: ../../prompts/pages-format/analyze-component-library.md
+      url: ../../../prompts/component-library/generate-component-library.md
     output_schema:
       type: object
       properties:
@@ -45,10 +45,11 @@ skills:
                         type: string
                         description: 关联的原子组件使用的字段组合
                       description: 复合组件关联的原子组件内容，标记 componentId 为原子组件 ID，fieldCombinations 为原子组件使用的字段组合
+  - ./save-component-library.mjs
 reflection:
   reviewer: ./validate-component-library.mjs
   is_approved: isApproved
   max_iterations: 3
   return_last_on_max_iterations: true
-task_title: Analyze component library and validate it
+task_title: Generate component library
 mode: sequential

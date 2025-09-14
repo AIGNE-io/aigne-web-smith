@@ -1,12 +1,12 @@
 type: team
 name: translate
-description: Translate page content to selected languages
+description: Translate page content to chosen languages
 skills:
-  - url: ./input-generator.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
-  - ./load-config.mjs
-  - ./load-sources.mjs
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
   - type: transform
     task_render_mode: hide
     jsonata: |
@@ -24,20 +24,20 @@ skills:
           })
         }
       ])
-  - url: ./find-items-by-paths.mjs
+  - url: ../utils/find-items-by-paths.mjs
     default_input:
       isTranslate: true
-  - ./language-selector.mjs
+  - ../utils/choose-language.mjs
   - type: team
     name: batchPagesTranslate
     skills:
-      - ./batch-translate.yaml
-      - url: ./save-single-page.mjs
+      - ./batch-translate-page-detail.yaml
+      - url: ../utils/save-single-page.mjs
         default_input:
           isTranslate: true
     iterate_on: selectedPages
     concurrency: 3
-  - url: ./check-feedback-refiner.mjs
+  - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine
 input_schema:

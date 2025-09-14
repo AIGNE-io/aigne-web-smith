@@ -4,11 +4,11 @@ alias:
   - up
 description: Optimize and regenerate individual page content and translations
 skills:
-  - url: ./input-generator.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
-  - ./load-config.mjs
-  - ./load-sources.mjs
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
   - type: transform
     task_render_mode: hide
     jsonata: |
@@ -26,15 +26,15 @@ skills:
           })
         }
       ])
-  - ./find-items-by-paths.mjs
-  - ./format-structure-plan.mjs
+  - ../utils/find-items-by-paths.mjs
+  - ../utils/format-structure-plan.mjs
   - type: team
     name: batchPagesUpdate
     skills:
-      - ./detail-generator-and-translate.yaml
+      - ./generate-and-translate-page-detail.yaml
     iterate_on: selectedPages
     concurrency: 3
-  - url: ./check-feedback-refiner.mjs
+  - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: page_refine
 

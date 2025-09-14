@@ -1,15 +1,15 @@
-name: checkStructurePlanResult
-description: 对 structure-planning agent 生成的结果进行检查，确保其符合预期，特别是在有上一轮生成结果和用户反馈的场景下。
+name: validateWebsiteStructure
+description: 对 generate-website-structure agent 生成的结果进行检查，确保其符合预期，特别是在有上一轮生成结果和用户反馈的场景下。
 instructions:
-  url: ../prompts/check-structure-planning-result.md
+  url: ../../prompts/plan/validate-website-structure.md
 input_schema:
   type: object
   properties:
     structurePlan:
-      $ref: ./schema/structure-plan.yaml
+      $ref: ../schema/website-structure.yaml
       description: 新一轮生成的结构规划。
     originalStructurePlan:
-      $ref: ./schema/structure-plan.yaml
+      $ref: ../schema/website-structure.yaml
       description: 上一轮生成的结构规划，用于对比。如果不存在，则检查默认通过。
     feedback:
       type: string

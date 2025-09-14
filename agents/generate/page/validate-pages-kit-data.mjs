@@ -64,7 +64,7 @@ const pagesKitSchema = z.object({
   ),
 });
 
-export default async function validatePagesKitFormat(input) {
+export default async function validatePagesKitData(input) {
   const { pagesKitYaml } = input;
 
   try {
@@ -160,4 +160,4 @@ export default async function validatePagesKitFormat(input) {
   }
 }
 
-validatePagesKitFormat.taskTitle = "Validate Pages Kit format '{{ path }}'";
+validatePagesKitData.taskTitle = "Validate Pages Kit Data";

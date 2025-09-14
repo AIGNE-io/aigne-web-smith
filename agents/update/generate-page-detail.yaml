@@ -1,7 +1,7 @@
-name: contentDetailGenerator
+name: generatePageDetail
 description: 通用内容详情生成器，支持网站、文档、书籍、演示文稿等多种场景
 instructions:
-  url: ../prompts/content-detail-generator.md
+  url: ../../prompts/update/generate-page-detail.md
 input_schema:
   type: object
   properties:
@@ -20,7 +20,7 @@ input_schema:
     nodeName:
       type: string
       description: 结构规划的节点名称
-    originalStructurePlan: ./schema/structure-plan.yaml
+    originalStructurePlan: ../schema/website-structure.yaml
     title:
       type: string
     description:

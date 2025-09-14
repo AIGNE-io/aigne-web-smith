@@ -13,7 +13,7 @@ import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../util
 
 const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
-const publishPagesFn = async ({
+const publishPageFn = async ({
   projectId,
   appUrl,
   accessToken,
@@ -67,54 +67,8 @@ const publishPagesFn = async ({
     result: result,
   };
 };
-// New function specifically for Pages Kit YAML upload
-export async function uploadPagesKitYaml({
-  pagesKitYaml,
-  locale = "en",
-  projectId,
-  appUrl,
-  force = true,
-}) {
-  try {
-    // Use existing authentication logic to get access token
-    const accessToken = await getAccessToken(appUrl);
 
-    // Convert pagesKitYaml to SDK format
-    // Need to construct pageTemplateData based on pagesKitYaml structure
-    const pageTemplateData = {
-      // Use YAML content as template data
-      content: pagesKitYaml,
-      locale,
-      templateConfig: {
-        isTemplate: true,
-      },
-    };
-
-    const result = await publishPagesFn({
-      projectId,
-      appUrl,
-      accessToken,
-      force,
-      pageTemplateData,
-      // routeData and dataSourceData can be added as needed
-    });
-
-    return {
-      uploadResult: result.result,
-      uploadStatus: "success",
-      $message: `Successfully uploaded to Pages Kit: ${JSON.stringify(result.result)}`,
-    };
-  } catch (error) {
-    return {
-      uploadResult: null,
-      uploadStatus: "failed",
-      uploadError: error.message,
-      $message: `Failed to upload to Pages Kit: ${error.message}`,
-    };
-  }
-}
-
-export default async function publishPages(
+export default async function publishWebsite(
   { appUrl, projectId, projectName, projectDesc, projectLogo, outputDir },
   options,
 ) {
@@ -336,7 +290,7 @@ export default async function publishPages(
             success: pageSuccess,
             result,
             projectId: newProjectId,
-          } = await publishPagesFn({
+          } = await publishPageFn({
             projectId,
             appUrl,
             accessToken,
@@ -395,7 +349,7 @@ export default async function publishPages(
   return message ? { message } : {};
 }
 
-publishPages.input_schema = {
+publishWebsite.input_schema = {
   type: "object",
   properties: {
     pagesDir: {
@@ -427,4 +381,4 @@ publishPages.input_schema = {
   },
 };
 
-publishPages.description = "Publish the pages to Pages Kit";
+publishWebsite.description = "Publish the pages to Pages Kit";

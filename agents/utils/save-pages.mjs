@@ -18,7 +18,6 @@ export default async function savePages({
   // locale,
   projectInfoMessage,
 }) {
-  const _results = [];
   // Save current git HEAD to config.yaml for change detection
   try {
     const gitHead = getCurrentGitHead();

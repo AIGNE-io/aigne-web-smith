@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { getAllFieldCombinations } from "./sdk.mjs";
+import { getAllFieldCombinations } from "../../utils/generate-helper.mjs";
 
 export default async function validateComponentLibrary(input) {
   const { middleFormatFiles, componentLibrary } = input;
@@ -101,3 +101,5 @@ export default async function validateComponentLibrary(input) {
     detailFeedback: detailFeedback.join("\n"),
   };
 }
+
+validateComponentLibrary.taskTitle = "Validate component library";

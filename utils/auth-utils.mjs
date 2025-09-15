@@ -90,7 +90,7 @@ export async function getAccessToken(appUrl) {
     const result = await createConnect({
       connectUrl: connectUrl,
       connectAction: "gen-simple-access-key",
-      source: `AIGNE WebSmith connect to Pages Kit`,
+      source: `AIGNE WebSmith connect to website`,
       closeOnSuccess: true,
       appName: "AIGNE WebSmith",
       appLogo: "https://websmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",

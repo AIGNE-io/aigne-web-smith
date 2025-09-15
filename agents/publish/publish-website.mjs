@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import { basename, join } from "node:path";
+import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
 import { parse } from "yaml";
@@ -57,7 +58,7 @@ const publishPageFn = async ({
 
   if (!response.ok) {
     throw new Error(
-      `Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`,
+      `Page upload failed: ${response.status} ${response.statusText} - ${responseText}`,
     );
   }
 
@@ -100,11 +101,11 @@ export default async function publishWebsite(
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: "Publish to websmith.aigne.io - free, but your pages will be public accessible, recommended for open-source projects",
+          name: `${chalk.blue("WebSmith Cloud (websmith.aigne.io)")} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
-          name: "Publish to your own website - you will need to run Pages Kit by yourself ",
+          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
       ],
@@ -112,7 +113,7 @@ export default async function publishWebsite(
 
     if (choice === "custom") {
       const userInput = await options.prompts.input({
-        message: "Please enter your Pages Kit platform URL:",
+        message: "Please enter your website URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
@@ -338,8 +339,6 @@ ${publishedUrls.map((url) => `- ${url}`).join("\n")}
 1. Share your published website with your team
 2. Update website as needed using \`aigne web update\`
 
-
----
 `;
     }
   } catch (error) {
@@ -382,4 +381,4 @@ publishWebsite.input_schema = {
   },
 };
 
-publishWebsite.taskTitle = "Publish the website to Pages Kit";
+publishWebsite.taskTitle = "Publish the pages to website";

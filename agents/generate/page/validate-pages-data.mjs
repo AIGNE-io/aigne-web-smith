@@ -64,7 +64,7 @@ const pagesKitSchema = z.object({
   ),
 });
 
-export default async function validatePagesKitData(input) {
+export default async function validatePagesData(input) {
   const { pagesKitYaml } = input;
 
   try {
@@ -96,7 +96,7 @@ export default async function validatePagesKitData(input) {
         return {
           ...input,
           isValid: true,
-          validationFeedback: "Pages Kit YAML format validation passed",
+          validationFeedback: "Pages YAML format validation passed",
           parsedData: validationResult.data,
         };
       } else {
@@ -160,4 +160,4 @@ export default async function validatePagesKitData(input) {
   }
 }
 
-validatePagesKitData.taskTitle = "Validate Pages Kit Data";
+validatePagesData.taskTitle = "Validate Pages Data";

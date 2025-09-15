@@ -3,7 +3,7 @@ name: publish
 alias:
   - pub
   - p
-description: Publish the website to Pages Kit
+description: Publish the pages to website
 skills:
   - url: ../init/index.mjs
     default_input:

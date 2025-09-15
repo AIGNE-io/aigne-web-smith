@@ -46,7 +46,7 @@ skills:
     model: openai/gpt-5
     skills:
       - ./component-library/analyze-component-library.mjs
-  - ./page/compose-pages-kit-data.mjs
+  - ./page/compose-pages-data.mjs
   - ../utils/save-pages.mjs
 
 input_schema:

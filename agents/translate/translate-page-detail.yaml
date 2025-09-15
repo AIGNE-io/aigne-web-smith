@@ -1,0 +1,31 @@
+name: translatePageDetail
+description: Translate the page detail to another language
+instructions:
+  url: ../../prompts/translate/translate-page-detail.md
+input_schema:
+  type: object
+  properties:
+    language:
+      type: string
+      description: Language to translate the page detail into (e.g., 'zh_CN' for Chinese)
+    content:
+      type: string
+      description: Content to translate
+    glossary:
+      type: string
+      description: 术语表
+    feedback:
+      type: string
+      description: Feedback for translation improvement
+  required:
+    - language
+    - content
+output_schema:
+  type: object
+  properties:
+    translation:
+      type: string
+      description: Translation of the page detail
+    language:
+      type: string
+      description: Language of the translation

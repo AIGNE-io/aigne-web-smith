@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.4...v1.0.6) (2025-09-15)
+
+
+### Features
+
+* allow publish website without projectId ([737aaf3](https://github.com/AIGNE-io/aigne-web-smith/commit/737aaf34822f861d2d6d9dc3baddf8f03336b288))
+* allow publish website without projectId ([5c9a2e2](https://github.com/AIGNE-io/aigne-web-smith/commit/5c9a2e225f400dc5aed21ca50ae3491f50fcdc74))
+
+
+### Bug Fixes
+
+* **cli:** add error handling for component parser ([22a5752](https://github.com/AIGNE-io/aigne-web-smith/commit/22a575228023a08270815cf92edf37a7a6c17d83))
+* **cli:** ignore component parser error ([005d78f](https://github.com/AIGNE-io/aigne-web-smith/commit/005d78fa0883c2ae30a8c345803281e47f592ac1))
+
+
+### Miscellaneous Chores
+
+* release 1.0.6 ([b9a7d82](https://github.com/AIGNE-io/aigne-web-smith/commit/b9a7d82ad273fd4eb93d16b64cca790faef1c4fe))
+
 ## [1.0.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.4...v1.0.5) (2025-09-13)
 
 

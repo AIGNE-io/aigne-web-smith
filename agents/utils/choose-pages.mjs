@@ -1,3 +1,4 @@
+import { join } from "node:path";
 import {
   addFeedbackToItems,
   findItemByPath,
@@ -7,17 +8,23 @@ import {
 } from "../../utils/pages-finder-utils.mjs";
 
 export default async function choosePages(
-  { pages, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },
+  { pages, structurePlanResult, projectId, tmpDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItems = [];
   let selectedFiles = [];
 
+  const mainFileTmpDir = join(tmpDir, locale);
+
   // If pages is empty or not provided, let user select multiple pages
   if (!pages || pages.length === 0) {
     try {
-      // Get all main language page files in pagesDir
-      const mainLanguageFiles = await getMainLanguageFiles(pagesDir, locale, structurePlanResult);
+      // Get all main language page files in tmpDir
+      const mainLanguageFiles = await getMainLanguageFiles(
+        mainFileTmpDir,
+        locale,
+        structurePlanResult,
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No pages found in the pages directory");
@@ -49,7 +56,7 @@ export default async function choosePages(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, structurePlanResult, pagesDir);
+      foundItems = await processSelectedFiles(selectedFiles, structurePlanResult, mainFileTmpDir);
     } catch (error) {
       console.error(error);
       throw new Error(
@@ -66,7 +73,7 @@ export default async function choosePages(
         structurePlanResult,
         pagePath,
         projectId,
-        pagesDir,
+        mainFileTmpDir,
         locale,
       );
 

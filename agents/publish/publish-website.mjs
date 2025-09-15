@@ -335,9 +335,9 @@ ${publishedUrls.map((url) => `- ${url}`).join("\n")}
 
 ### 🚀 Next Steps
 
-1. Share your published pages with your team
-2. Update content as needed using \`aigne web update\`
-3. Monitor page performance and user engagement
+1. Share your published website with your team
+2. Update website as needed using \`aigne web update\`
+
 
 ---
 `;

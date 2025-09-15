@@ -73,7 +73,6 @@ async function batchUploadMediaFiles({
 
   // 如果没有需要上传的文件，返回空映射
   if (filesToUpload.length === 0) {
-    console.warn("Found mediaKit URLs but no matching files:", Array.from(allUsedMediaKitUrls));
     return {};
   }
 
@@ -492,7 +491,7 @@ export default async function publishWebsite(
       message = `✅ Pages Published Successfully!
 
 Successfully published **${successCount}/${totalCount}** pages to your website.
-${uploadedMediaCount > 0 ? `📁 Uploaded **${uploadedMediaCount}** media files to CDN.` : ""}
+${uploadedMediaCount > 0 ? `📁 Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
 
 🔗 Published URLs
 

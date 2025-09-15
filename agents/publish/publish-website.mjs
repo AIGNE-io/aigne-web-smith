@@ -116,8 +116,7 @@ function replacePageMediaKitUrls(pageData, mediaKitToUrlMap) {
       if (obj.startsWith(MEDIA_KIT_PROTOCOL)) {
         const mappedUrl = mediaKitToUrlMap[obj];
         if (mappedUrl) {
-          // hashFileName
-          return basename(mappedUrl);
+          return mappedUrl;
         } else {
           return obj;
         }

@@ -120,17 +120,7 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
       return false;
     }
 
-    // If main language is English, return files without language suffix
-    if (locale === "en") {
-      // Return files that don't have language suffixes (e.g., overview.yaml, not overview.zh.yaml)
-      return !file.match(
-        new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`),
-      );
-    } else {
-      // For non-English main language, return files with the exact locale suffix
-      const localePattern = new RegExp(`\\.${locale}\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`);
-      return localePattern.test(file);
-    }
+    return !file.match(new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`));
   });
 
   // If structurePlanResult is provided, sort files according to the order in structurePlanResult

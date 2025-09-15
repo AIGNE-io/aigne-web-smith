@@ -5,7 +5,7 @@ import {
   getActionText,
   getMainLanguageFiles,
   readFileContent,
-} from "../utils/pages-finder-utils.mjs";
+} from "../../utils/pages-finder-utils.mjs";
 
 export default async function findItemByPath(
   { page, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },

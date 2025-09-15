@@ -1,10 +1,11 @@
 import { join } from "node:path";
 import { AIAgent, PromptBuilder, TeamAgent } from "@aigne/core";
+import _ from "lodash";
 import { z } from "zod";
 import {
   getChildFieldCombinationsKey,
   getComponentLibraryData,
-} from "../../utils/generate-helper.mjs";
+} from "../../../utils/generate-helper.mjs";
 import saveComponentLibrary from "./save-component-library.mjs";
 
 export default async function parseComponentLibrary(input, options) {
@@ -58,8 +59,8 @@ export default async function parseComponentLibrary(input, options) {
       const fieldCombinationsWithMustache = item.fieldCombinations
         ?.filter((item) => {
           const [, index] = item.split(".");
-          // 原子组件不应该支持数组字段组合
-          if (Number.isNaN(Number(index))) {
+          // 原子组件不应该支持数组索引字段组合
+          if (!_.isNil(index) && !Number.isNaN(Number(index))) {
             return false;
           }
           return true;

@@ -332,12 +332,12 @@ llmConfig:
                 jbh416xxusl7pcu1:
                   key: color
                   isNeedGenerate: false
-                  describe: ""
+                  describe: "字体颜色，一般使用 mui 的色板颜色，比如 text.primary、text.secondary 等"
                   displayName: color
                 tzvz969aitqewobj:
                   key: fontSize
                   isNeedGenerate: false
-                  describe: ""
+                  describe: "字体大小"
                   displayName: fontSize
             eojjrcdp3zh8661y:
               key: text
@@ -347,7 +347,7 @@ llmConfig:
     hcv3t3d2mscgvw3b:
       key: defaultTextColor
       isNeedGenerate: false
-      describe: 字体颜色，使用十六进制，或者 mui 的色板
+      describe: 字体颜色，一般使用 mui 的色板颜色，比如 text.primary、text.secondary 等
       displayName: 默认字体颜色
     v5utpm7bu9yvdpnq:
       key: align

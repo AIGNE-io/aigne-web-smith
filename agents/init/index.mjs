@@ -1,7 +1,7 @@
+import crypto from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
-import { v4 as uuidv4 } from "uuid";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
@@ -321,7 +321,7 @@ export function generateYAML(input) {
     projectName: input.projectName || "",
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
-    projectId: input.projectId || uuidv4(),
+    projectId: input.projectId || crypto.randomUUID(),
 
     // Page configuration
     pagePurpose: input.pagePurpose || [],

@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
-import { getComponentLibraryData } from "../../utils/generate-helper.mjs";
+import { getComponentLibraryData } from "../../../utils/generate-helper.mjs";
 
 export default async function loadComponentLibrary(input) {
   const { tmpDir, locale } = input;

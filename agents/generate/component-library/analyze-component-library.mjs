@@ -3,7 +3,7 @@ import {
   calculateMiddleFormatHash,
   getAllFieldCombinations,
   getComponentLibraryData,
-} from "../../utils/generate-helper.mjs";
+} from "../../../utils/generate-helper.mjs";
 
 export default async function analyzeComponentLibrary(input, options) {
   const { componentList, componentLibraryData, middleFormatFiles, tmpDir } = input;

@@ -3,7 +3,7 @@ description: Analyzes a user's specific feedback on generated pages and refines 
 
 # The instructions file contains the core logic (the prompt) for this Agent.
 instructions:
-  url: ../prompts/feedback-refiner.md
+  url: ../../prompts/utils/feedback-refiner.md
 
 input_schema:
   type: object

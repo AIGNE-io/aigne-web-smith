@@ -43,39 +43,39 @@ export default async function savePages({
   //   console.error("Failed to cleanup invalid .yaml files:", err.message);
   // }
 
-  const message = `## ✅ Pages Generated Successfully!
+  const message = `✅ Pages Generated Successfully!
 
-  Successfully generated **${structurePlan.length}** page templates and saved to:
+Successfully generated **${structurePlan.length}** page templates and saved to:
   \`${pagesDir}\`
   ${projectInfoMessage || ""}
-  ### 🚀 Next Steps
+🚀 Next Steps
 
-  1. Publish Pages
+1. Publish Pages
 
-     \`\`\`bash
-     aigne web publish
-     \`\`\`
+    \`\`\`bash
+    aigne web publish
+    \`\`\`
 
-     Get an online preview link to share with your team
+Get an online preview link to share with your team
 
-  ### 🔧 Optional Improvements
+🔧 Optional Improvements
 
-  1. Update Specific Pages
+1. Update Specific Pages
 
-     \`\`\`bash
-     aigne web update
-     \`\`\`
+    \`\`\`bash
+    aigne web update
+    \`\`\`
 
-     Regenerate content for specific pages
+Regenerate content for specific pages
 
-  2. Provide Structure Feedback
-     \`\`\`bash
-     aigne web generate --feedback "Your feedback on page structure"
-     \`\`\`
-     Improve the overall page structure
+2. Provide Structure Feedback
 
-  ---
-  `;
+    \`\`\`bash
+    aigne web generate --feedback "Your feedback on page structure"
+    \`\`\`
+    Improve the overall page structure
+
+    `;
 
   return {
     message,

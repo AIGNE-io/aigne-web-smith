@@ -327,20 +327,20 @@ export default async function publishWebsite(
 
       message = `## ✅ Pages Published Successfully!
 
-  Successfully published **${successCount}/${totalCount}** pages to your website.
+Successfully published **${successCount}/${totalCount}** pages to your website.
 
-  ### 🔗 Published URLs
+### 🔗 Published URLs
 
-${publishedUrls.map((url) => `  - ${url}`).join("\n")}
+${publishedUrls.map((url) => `- ${url}`).join("\n")}
 
-  ### 🚀 Next Steps
+### 🚀 Next Steps
 
-  1. Share your published pages with your team
-  2. Update content as needed using \`aigne web update\`
-  3. Monitor page performance and user engagement
+1. Share your published pages with your team
+2. Update content as needed using \`aigne web update\`
+3. Monitor page performance and user engagement
 
-  ---
-  `;
+---
+`;
     }
   } catch (error) {
     message = `❌ Failed to publish pages: ${error.message}`;

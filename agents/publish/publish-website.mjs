@@ -382,4 +382,4 @@ publishWebsite.input_schema = {
   },
 };
 
-publishWebsite.description = "Publish the pages to Pages Kit";
+publishWebsite.taskTitle = "Publish the website to Pages Kit";

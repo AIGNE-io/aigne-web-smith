@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.6...v1.1.0) (2025-09-15)
+
+
+### Features
+
+* optimize website publish logic ([#11](https://github.com/AIGNE-io/aigne-web-smith/issues/11)) ([54952c8](https://github.com/AIGNE-io/aigne-web-smith/commit/54952c8885eb57b20c14a58983e0859b1ece6ee0))
+
 ## [1.0.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.4...v1.0.6) (2025-09-15)
 
 

@@ -1,0 +1,12 @@
+type: team
+name: plan
+description: A team of agents that generate the structure of the website.
+skills:
+  - generate-website-structure.yaml
+task_title: Generate the structure of the website
+task_render_mode: collapse
+reflection:
+  reviewer: validate-website-structure.yaml
+  is_approved: isValid
+  max_iterations: 3
+  return_last_on_max_iterations: true

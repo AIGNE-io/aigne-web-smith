@@ -325,15 +325,15 @@ export default async function publishWebsite(
         .filter((result) => result.success && result.result?.data?.url)
         .map((result) => result.result.data.url);
 
-      message = `## ✅ Pages Published Successfully!
+      message = `✅ Pages Published Successfully!
 
 Successfully published **${successCount}/${totalCount}** pages to your website.
 
-### 🔗 Published URLs
+🔗 Published URLs
 
 ${publishedUrls.map((url) => `- ${url}`).join("\n")}
 
-### 🚀 Next Steps
+🚀 Next Steps
 
 1. Share your published website with your team
 2. Update website as needed using \`aigne web update\`

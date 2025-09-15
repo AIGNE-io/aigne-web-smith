@@ -1,14 +1,12 @@
+import crypto from "node:crypto";
 import { basename, join } from "node:path";
-
-import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
-import { v4 as uuidv4 } from "uuid";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 
-import { PAGES_KIT_STORE_URL, TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
+import { TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
@@ -113,10 +111,6 @@ export default async function publishWebsite(
     });
 
     if (choice === "custom") {
-      console.log(
-        `${chalk.bold("\n💡 Tips")}\n\n` +
-          `Start here to run your own website:\n${chalk.cyan(PAGES_KIT_STORE_URL)}\n`,
-      );
       const userInput = await options.prompts.input({
         message: "Please enter your Pages Kit platform URL:",
         validate: (input) => {
@@ -145,7 +139,7 @@ export default async function publishWebsite(
 
   // Prompt for projectId if still not available
   if (!projectId) {
-    projectId = uuidv4();
+    projectId = crypto.randomUUID();
   }
 
   const accessToken = await getAccessToken(appUrl);
@@ -153,13 +147,6 @@ export default async function publishWebsite(
   process.env.PAGES_ROOT_DIR = pagesDir;
 
   const sidebarPath = join(pagesDir, "_sidebar.yaml");
-
-  // Get project info from config
-  const _projectInfo = {
-    name: projectName || config?.projectName || basename(process.cwd()),
-    description: projectDesc || config?.projectDesc || "",
-    icon: projectLogo || config?.projectLogo || "",
-  };
 
   // Construct boardMeta object
   const boardMeta = {
@@ -213,10 +200,6 @@ export default async function publishWebsite(
     const sidebarPaths = sidebarContent
       ? extractAllPaths(sidebarContent.sidebar || sidebarContent)
       : [];
-    console.log(`📋 Extracted ${sidebarPaths.length} paths from sidebar`);
-    sidebarPaths.forEach(({ path, title }) => {
-      console.log(`  - ${path} (${title})`);
-    });
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
@@ -234,7 +217,6 @@ export default async function publishWebsite(
         try {
           pageContent = await fs.readFile(filePath, "utf-8");
         } catch (error) {
-          console.warn(`Failed to read file ${file}: ${error.message}`);
           return {
             file,
             success: false,
@@ -282,6 +264,7 @@ export default async function publishWebsite(
           id: projectId,
           name: projectName,
           description: projectDesc,
+          logo: projectLogo,
         };
 
         try {
@@ -299,7 +282,6 @@ export default async function publishWebsite(
             // dataSourceData not needed for now, can be added later
           });
 
-          console.log(`✅ Successfully published: ${file}`);
           return {
             file,
             success: pageSuccess,
@@ -307,7 +289,6 @@ export default async function publishWebsite(
             projectId: newProjectId,
           };
         } catch (error) {
-          console.error(`❌ Failed to publish ${file}: ${error.message}`);
           return {
             file,
             success: false,
@@ -338,7 +319,28 @@ export default async function publishWebsite(
 
       const successCount = publishResults.filter((r) => r.success).length;
       const totalCount = publishResults.length;
-      message = `✅ Pages Published Successfully! (${successCount}/${totalCount} pages)`;
+
+      // Extract URLs from successful results
+      const publishedUrls = publishResults
+        .filter((result) => result.success && result.result?.data?.url)
+        .map((result) => result.result.data.url);
+
+      message = `## ✅ Pages Published Successfully!
+
+  Successfully published **${successCount}/${totalCount}** pages to your website.
+
+  ### 🔗 Published URLs
+
+${publishedUrls.map((url) => `  - ${url}`).join("\n")}
+
+  ### 🚀 Next Steps
+
+  1. Share your published pages with your team
+  2. Update content as needed using \`aigne web update\`
+  3. Monitor page performance and user engagement
+
+  ---
+  `;
     }
   } catch (error) {
     message = `❌ Failed to publish pages: ${error.message}`;

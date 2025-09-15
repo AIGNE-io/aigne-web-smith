@@ -296,7 +296,7 @@ export default async function publishWebsite(
           };
         }
       },
-      { concurrency: 3 },
+      { concurrency: 1 },
     );
 
     // Use overall results to determine success status

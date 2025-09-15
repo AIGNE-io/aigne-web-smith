@@ -6,6 +6,7 @@ import pMap from "p-map";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { uploadFiles } from "../../utils/upload-files.mjs";
 
 import { DEFAULT_APP_URL, TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
 
@@ -145,7 +146,7 @@ export default async function publishWebsite(
 
   process.env.PAGES_ROOT_DIR = pagesDir;
 
-  const sidebarPath = join(pagesDir, "_sitemap.yaml");
+  const sitemapPath = join(pagesDir, "_sitemap.yaml");
 
   // Construct boardMeta object
   const boardMeta = {
@@ -161,22 +162,22 @@ export default async function publishWebsite(
   let message;
 
   try {
-    // Read sidebar content as page data (if exists)
-    let sidebarContent = null;
+    // Read sitemap content as page data (if exists)
+    let sitemapContent = null;
     try {
-      sidebarContent = await fs.readFile(sidebarPath, "utf-8");
+      sitemapContent = await fs.readFile(sitemapPath, "utf-8");
 
-      sidebarContent = parse(sidebarContent);
+      sitemapContent = parse(sitemapContent);
     } catch {
-      // Ignore when sidebar file doesn't exist
+      // Ignore when sitemap file doesn't exist
     }
 
-    // Recursive function to extract all paths from sidebar
-    function extractAllPaths(sidebarItems) {
+    // Recursive function to extract all paths from sitemap
+    function extractAllPaths(sitemapItems) {
       const paths = [];
-      if (!Array.isArray(sidebarItems)) return paths;
+      if (!Array.isArray(sitemapItems)) return paths;
 
-      sidebarItems.forEach((item) => {
+      sitemapItems.forEach((item) => {
         if (item.path) {
           // Remove leading slash as filenames don't need slashes
           const cleanPath = item.path.startsWith("/") ? item.path.slice(1) : item.path;
@@ -195,9 +196,9 @@ export default async function publishWebsite(
       return paths;
     }
 
-    // Extract all sidebar paths
-    const sidebarPaths = sidebarContent
-      ? extractAllPaths(sidebarContent.sidebar || sidebarContent)
+    // Extract all sitemap paths
+    const sitemapPaths = sitemapContent
+      ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
     // Read all .yaml files in pagesDir
@@ -223,16 +224,16 @@ export default async function publishWebsite(
           };
         }
 
-        // Find corresponding sidebar path information
+        // Find corresponding sitemap path information
         const fileBaseName = basename(file, ".yaml");
-        const matchingSidebarItem = sidebarPaths.find(
+        const matchingSitemapItem = sitemapPaths.find(
           (item) =>
             item.cleanPath === fileBaseName ||
             item.cleanPath.endsWith(`/${fileBaseName}`) ||
             item.cleanPath.replace(/\//g, "-") === fileBaseName,
         );
 
-        const path = matchingSidebarItem ? matchingSidebarItem.path : `/${fileBaseName}`;
+        const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
 
         // Construct template data for each page - directly use parsed YAML as complete template object
         const parsedPageContent = parse(pageContent);
@@ -254,8 +255,8 @@ export default async function publishWebsite(
           meta: {
             ...boardMeta,
             sourceFile: file,
-            sidebarTitle: matchingSidebarItem?.title,
-            sidebarPath: matchingSidebarItem?.path,
+            sitemapTitle: matchingSitemapItem?.title,
+            sitemapPath: matchingSitemapItem?.path,
           },
         };
 

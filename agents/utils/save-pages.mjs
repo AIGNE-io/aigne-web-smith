@@ -28,9 +28,9 @@ export default async function savePages({
 
   // Generate _sitemap.yaml
   try {
-    const sidebar = generateSidebarYaml(structurePlan);
-    const sidebarPath = join(outputDir, "_sitemap.yaml");
-    await writeFile(sidebarPath, sidebar, "utf8");
+    const sitemap = generateSitemapYaml(structurePlan);
+    const sitemapPath = join(outputDir, "_sitemap.yaml");
+    await writeFile(sitemapPath, sitemap, "utf8");
   } catch (err) {
     console.error("Failed to save _sitemap.yaml:", err.message);
   }
@@ -164,8 +164,8 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
   return results;
 }
 
-// Generate sidebar YAML content, support nested structure, and the order is consistent with structurePlan
-function generateSidebarYaml(structurePlan) {
+// Generate sitemap YAML content, support nested structure, and the order is consistent with structurePlan
+function generateSitemapYaml(structurePlan) {
   // Build tree structure
   const root = {};
   for (const { path, title, parentId } of structurePlan) {
@@ -185,7 +185,7 @@ function generateSidebarYaml(structurePlan) {
       node = node[seg].__children;
     }
   }
-  // Recursively generate YAML sidebar structure
+  // Recursively generate YAML sitemap structure
   function walk(node, parentSegments = []) {
     const items = [];
     for (const key of Object.keys(node)) {
@@ -195,23 +195,23 @@ function generateSidebarYaml(structurePlan) {
 
       const flatFile = fullSegments.join("/");
       if (item.__title) {
-        const sidebarItem = {
+        const sitemapItem = {
           title: item.__title,
           path: `/${flatFile}`,
         };
         const children = item.__children;
         if (Object.keys(children).length > 0) {
-          sidebarItem.children = walk(children, fullSegments);
+          sitemapItem.children = walk(children, fullSegments);
         }
-        items.push(sidebarItem);
+        items.push(sitemapItem);
       }
     }
     return items;
   }
 
-  const sidebarData = {
-    sidebar: walk(root),
+  const sitemapData = {
+    sitemap: walk(root),
   };
 
-  return yamlStringify(sidebarData);
+  return yamlStringify(sitemapData);
 }

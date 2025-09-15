@@ -37,8 +37,8 @@ export default async function analyzeWebsiteStructure(
     if (!lastGitHead) {
       try {
         // Check if _sitemap file exists in pagesDir
-        const sidebarPath = join(pagesDir, `_sitemap${PAGE_FILE_EXTENSION}`);
-        await access(sidebarPath);
+        const sitemapPath = join(pagesDir, `_sitemap${PAGE_FILE_EXTENSION}`);
+        await access(sitemapPath);
         // If _sitemap file exists, it means last execution was completed, need to regenerate
         shouldRegenerate = true;
       } catch {

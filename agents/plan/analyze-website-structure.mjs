@@ -33,16 +33,16 @@ export default async function analyzeWebsiteStructure(
 
   // If no feedback and originalStructurePlan exists, check for git changes
   if (originalStructurePlan) {
-    // If no lastGitHead, check if _sidebar file exists to determine if we should regenerate
+    // If no lastGitHead, check if _sitemap file exists to determine if we should regenerate
     if (!lastGitHead) {
       try {
-        // Check if _sidebar file exists in pagesDir
-        const sidebarPath = join(pagesDir, `_sidebar${PAGE_FILE_EXTENSION}`);
+        // Check if _sitemap file exists in pagesDir
+        const sidebarPath = join(pagesDir, `_sitemap${PAGE_FILE_EXTENSION}`);
         await access(sidebarPath);
-        // If _sidebar file exists, it means last execution was completed, need to regenerate
+        // If _sitemap file exists, it means last execution was completed, need to regenerate
         shouldRegenerate = true;
       } catch {
-        // If _sidebar file doesn't exist, it means last execution was interrupted, no need to regenerate
+        // If _sitemap file doesn't exist, it means last execution was interrupted, no need to regenerate
         shouldRegenerate = false;
       }
     } else {

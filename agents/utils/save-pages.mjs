@@ -26,13 +26,13 @@ export default async function savePages({
     console.warn("Failed to save git HEAD:", err.message);
   }
 
-  // Generate _sidebar.yaml
+  // Generate _sitemap.yaml
   try {
     const sidebar = generateSidebarYaml(structurePlan);
-    const sidebarPath = join(outputDir, "_sidebar.yaml");
+    const sidebarPath = join(outputDir, "_sitemap.yaml");
     await writeFile(sidebarPath, sidebar, "utf8");
   } catch (err) {
-    console.error("Failed to save _sidebar.yaml:", err.message);
+    console.error("Failed to save _sitemap.yaml:", err.message);
   }
 
   // Clean up invalid .yaml files that are no longer in the structure plan
@@ -127,9 +127,9 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
       }
     }
 
-    // Find files to delete (files that are not in expectedFiles and not _sidebar.yaml)
+    // Find files to delete (files that are not in expectedFiles and not _sitemap.yaml)
     const filesToDelete = yamlFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sidebar.yaml",
+      (file) => !expectedFiles.has(file) && file !== "_sitemap.yaml",
     );
 
     // Delete invalid files

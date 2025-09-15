@@ -12,7 +12,12 @@ import {
   getComponentMountPoint,
   InvalidBlockletError,
 } from "./blocklet.mjs";
-import { BLOCKLET_ADD_COMPONENT_PAGES, PAGES_KIT_DID, PAGES_KIT_STORE_URL } from "./constants.mjs";
+import {
+  BLOCKLET_ADD_COMPONENT_PAGES,
+  DEFAULT_APP_LOGO,
+  PAGES_KIT_DID,
+  PAGES_KIT_STORE_URL,
+} from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -93,7 +98,7 @@ export async function getAccessToken(appUrl) {
       source: `AIGNE WebSmith connect to website`,
       closeOnSuccess: true,
       appName: "AIGNE WebSmith",
-      appLogo: "https://websmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
+      appLogo: DEFAULT_APP_LOGO,
       openPage: (pageUrl) => open(pageUrl),
     });
 

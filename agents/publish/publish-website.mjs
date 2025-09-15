@@ -7,11 +7,9 @@ import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 
-import { TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
+import { DEFAULT_APP_URL, TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-
-const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
 const publishPageFn = async ({
   projectData,
@@ -101,7 +99,7 @@ export default async function publishWebsite(
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: `${chalk.blue("WebSmith Cloud (websmith.aigne.io)")} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          name: `${chalk.blue(`WebSmith Cloud (${DEFAULT_APP_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
@@ -147,7 +145,7 @@ export default async function publishWebsite(
 
   process.env.PAGES_ROOT_DIR = pagesDir;
 
-  const sidebarPath = join(pagesDir, "_sidebar.yaml");
+  const sidebarPath = join(pagesDir, "_sitemap.yaml");
 
   // Construct boardMeta object
   const boardMeta = {
@@ -205,7 +203,7 @@ export default async function publishWebsite(
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
-      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sidebar.yaml",
+      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sitemap.yaml",
     );
 
     // Use p-map to process page files concurrently, limit concurrency to 4

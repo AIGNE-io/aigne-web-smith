@@ -113,10 +113,10 @@ export async function readFileContent(pagesDir, fileName) {
 export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult = null) {
   const files = await readdir(pagesDir);
 
-  // Filter for main language page files (exclude _sidebar file)
+  // Filter for main language page files (exclude _sitemap file)
   const filteredFiles = files.filter((file) => {
-    // Skip non-page files and _sidebar file
-    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sidebar${PAGE_FILE_EXTENSION}`) {
+    // Skip non-page files and _sitemap file
+    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sitemap${PAGE_FILE_EXTENSION}`) {
       return false;
     }
 

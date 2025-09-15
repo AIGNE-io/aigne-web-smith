@@ -330,8 +330,15 @@ export const SCALE_RECOMMENDATION_LOGIC = {
   },
 };
 
+export const DEFAULT_APP_LOGO =
+  "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";
+
+export const DEFAULT_APP_URL = "https://staging.websmith.aigne.io";
+
 // Pages Kit DID for web-smith
 export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
+
+export const MEDIA_KIT_DID = "z8ia1mAXo8ZE7ytGF36L5uBf9kD2kenhqFGp9";
 
 // Pages Kit store URL
 export const PAGES_KIT_STORE_URL =

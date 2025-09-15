@@ -54,6 +54,24 @@ agents:
   - ./agents/update/generate-page-detail.yaml
   - ./agents/update/generate-and-translate-page-detail.yaml
   - ./agents/update/analyze-page-detail.mjs
+
+  # utils
+  - ./agents/utils/check-detail-result.mjs
+  - ./agents/utils/check-feedback-refiner.mjs
+  - ./agents/utils/choose-pages.mjs
+  - ./agents/utils/exit.mjs
+  - ./agents/utils/feedback-refiner.yaml
+  - ./agents/utils/find-item-by-path.mjs
+  - ./agents/utils/find-user-preferences-by-path.mjs
+  - ./agents/utils/format-website-structure.mjs
+  - ./agents/utils/fs.mjs
+  - ./agents/utils/load-config.mjs
+  - ./agents/utils/load-sources.mjs
+  - ./agents/utils/pages-fs-actor.yaml
+  - ./agents/utils/save-output.mjs
+  - ./agents/utils/save-pages.mjs
+  - ./agents/utils/save-single-page.mjs
+  - ./agents/utils/transform-detail-datasources.mjs
   
 cli:
   chat: ./agents/chat/index.yaml

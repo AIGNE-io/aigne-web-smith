@@ -5,7 +5,7 @@ import { z } from "zod";
 import {
   getChildFieldCombinationsKey,
   getComponentLibraryData,
-} from "../../utils/generate-helper.mjs";
+} from "../../../utils/generate-helper.mjs";
 import saveComponentLibrary from "./save-component-library.mjs";
 
 export default async function parseComponentLibrary(input, options) {

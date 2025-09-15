@@ -7,7 +7,7 @@ import {
   generateDeterministicId,
   generateRandomId,
   getChildFieldCombinationsKey,
-} from "../../utils/generate-helper.mjs";
+} from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-kit-data.mjs";
 
 const DEFAULT_FLAG = false;

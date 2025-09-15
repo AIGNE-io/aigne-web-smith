@@ -5,7 +5,7 @@ import {
   calculateMiddleFormatHash,
   generateRandomId,
   getComponentLibraryDataPath,
-} from "../../utils/generate-helper.mjs";
+} from "../../../utils/generate-helper.mjs";
 
 /**
  * 保存组件库定义到文件

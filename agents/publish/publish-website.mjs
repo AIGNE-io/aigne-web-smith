@@ -6,11 +6,138 @@ import pMap from "p-map";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
+import {
+  DEFAULT_APP_URL,
+  MEDIA_KIT_PROTOCOL,
+  TMP_DIR,
+  TMP_PAGES_DIR,
+} from "../../utils/constants.mjs";
 import { uploadFiles } from "../../utils/upload-files.mjs";
 
-import { DEFAULT_APP_URL, TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
-
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+
+/**
+ * 递归扫描对象中的 mediakit:// 协议值
+ * @param {any} obj - 要扫描的对象
+ * @param {Set} foundUrls - 找到的 mediakit:// URL 集合
+ */
+function scanForMediaKitUrls(obj, foundUrls) {
+  if (typeof obj === "string") {
+    if (obj.startsWith(MEDIA_KIT_PROTOCOL)) {
+      foundUrls.add(obj);
+    }
+  } else if (Array.isArray(obj)) {
+    obj.forEach((item) => scanForMediaKitUrls(item, foundUrls));
+  } else if (obj && typeof obj === "object") {
+    Object.values(obj).forEach((value) => scanForMediaKitUrls(value, foundUrls));
+  }
+}
+
+/**
+ * 批量上传所有需要的媒体文件
+ * @param {Object} input - 输入参数对象
+ * @param {Array} input.allUsedMediaKitUrls - 所有页面使用的 mediakit:// URL
+ * @param {Array} input.mediaFiles - 媒体文件映射数组
+ * @param {string} input.appUrl - 应用 URL
+ * @param {string} input.accessToken - 访问令牌
+ * @param {string} input.rootDir - 根目录
+ * @param {string} input.outputDir - 输出目录
+ * @returns {Promise<Object>} URL 映射对象
+ */
+async function batchUploadMediaFiles({
+  allUsedMediaKitUrls,
+  mediaFiles = [],
+  appUrl,
+  accessToken,
+  rootDir,
+  outputDir,
+}) {
+  // 如果没有需要上传的URL，返回空映射
+  if (allUsedMediaKitUrls.size === 0) {
+    return {};
+  }
+
+  // 根据使用的 URL 找到对应的文件路径
+  const filesToUpload = [];
+
+  mediaFiles.forEach((media) => {
+    if (
+      media.mediaKitPath &&
+      media.path &&
+      media.type === "image" &&
+      allUsedMediaKitUrls.has(media.mediaKitPath)
+    ) {
+      filesToUpload.push(media);
+    }
+  });
+
+  // 如果没有需要上传的文件，返回空映射
+  if (filesToUpload.length === 0) {
+    console.warn("Found mediaKit URLs but no matching files:", Array.from(allUsedMediaKitUrls));
+    return {};
+  }
+
+  try {
+    // 批量上传文件
+    const uploadFilePaths = filesToUpload.map((file) => join(rootDir, file.path));
+
+    const uploadResults = await uploadFiles({
+      appUrl,
+      filePaths: uploadFilePaths,
+      accessToken,
+      concurrency: 3,
+      cacheFilePath: join(outputDir, "_upload-cache.yaml"),
+    });
+
+    // 创建 mediaKitPath 到上传URL的映射
+    const mediaKitToUrlMap = {};
+    uploadResults.results.forEach((result, index) => {
+      if (result.url) {
+        const mediaFile = filesToUpload[index];
+        mediaKitToUrlMap[mediaFile.mediaKitPath] = result.url;
+      }
+    });
+
+    return mediaKitToUrlMap;
+  } catch (error) {
+    console.warn(`Failed to batch upload media files: ${error.message}`);
+    return {};
+  }
+}
+
+/**
+ * 使用全局URL映射替换页面数据中的 mediakit:// 协议
+ * @param {Object} pageData - 页面数据对象
+ * @param {Object} mediaKitToUrlMap - mediakit:// 到 URL 的映射
+ * @returns {Object} 处理后的页面数据对象
+ */
+function replacePageMediaKitUrls(pageData, mediaKitToUrlMap) {
+  function replaceUrls(obj) {
+    if (typeof obj === "string") {
+      if (obj.startsWith(MEDIA_KIT_PROTOCOL)) {
+        const mappedUrl = mediaKitToUrlMap[obj];
+        if (mappedUrl) {
+          // hashFileName
+          return basename(mappedUrl);
+        } else {
+          return obj;
+        }
+      }
+      return obj;
+    } else if (Array.isArray(obj)) {
+      return obj.map((item) => replaceUrls(item));
+    } else if (obj && typeof obj === "object") {
+      const result = {};
+      for (const [key, value] of Object.entries(obj)) {
+        result[key] = replaceUrls(value);
+      }
+      return result;
+    }
+    return obj;
+  }
+
+  return replaceUrls(pageData);
+}
 
 const publishPageFn = async ({
   projectData,
@@ -68,7 +195,16 @@ const publishPageFn = async ({
 };
 
 export default async function publishWebsite(
-  { appUrl, projectId, projectName, projectDesc, projectLogo, outputDir },
+  {
+    appUrl,
+    projectId,
+    projectName,
+    projectDesc,
+    projectLogo,
+    outputDir,
+    mediaFiles,
+    pagesDir: rootDir,
+  },
   options,
 ) {
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
@@ -207,20 +343,45 @@ export default async function publishWebsite(
       (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sitemap.yaml",
     );
 
-    // Use p-map to process page files concurrently, limit concurrency to 4
+    // Step 1: 扫描所有页面，收集需要上传的 mediakit:// URL
+    const allUsedMediaKitUrls = new Set();
+    const pageContents = new Map();
+
+    for (const file of yamlFiles) {
+      try {
+        const filePath = join(pagesDir, file);
+        const pageContent = await fs.readFile(filePath, "utf-8");
+        const parsedPageContent = parse(pageContent);
+
+        pageContents.set(file, parsedPageContent);
+
+        // 扫描这个页面中的 mediakit:// URL
+        scanForMediaKitUrls(parsedPageContent, allUsedMediaKitUrls);
+      } catch (error) {
+        console.warn(`Failed to read file ${file}: ${error.message}`);
+      }
+    }
+
+    // Step 2: 批量上传所有需要的文件
+    const mediaKitToUrlMap = await batchUploadMediaFiles({
+      allUsedMediaKitUrls,
+      mediaFiles,
+      appUrl,
+      accessToken,
+      rootDir,
+      outputDir,
+    });
+
+    // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
       yamlFiles,
       async (file) => {
-        const filePath = join(pagesDir, file);
-        let pageContent = null;
-
-        try {
-          pageContent = await fs.readFile(filePath, "utf-8");
-        } catch (error) {
+        const parsedPageContent = pageContents.get(file);
+        if (!parsedPageContent) {
           return {
             file,
             success: false,
-            error: `Failed to read file: ${error.message}`,
+            error: "Failed to parse page content",
           };
         }
 
@@ -235,10 +396,11 @@ export default async function publishWebsite(
 
         const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
 
-        // Construct template data for each page - directly use parsed YAML as complete template object
-        const parsedPageContent = parse(pageContent);
+        // Replace mediakit:// URLs with uploaded URLs
+        const processedPageContent = replacePageMediaKitUrls(parsedPageContent, mediaKitToUrlMap);
+
         const pageTemplateData = {
-          ...parsedPageContent,
+          ...processedPageContent,
           // Add project-related metadata
           slug: path,
           templateConfig: {
@@ -300,7 +462,7 @@ export default async function publishWebsite(
     );
 
     // Use overall results to determine success status
-    const overallSuccess = publishResults.every((result) => result.success);
+    const overallSuccess = publishResults.every((result) => result?.success);
     const success = overallSuccess;
     const newProjectId = publishResults.find((r) => r.projectId)?.projectId || projectId;
 
@@ -317,17 +479,20 @@ export default async function publishWebsite(
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
 
-      const successCount = publishResults.filter((r) => r.success).length;
+      const successCount = publishResults.filter((r) => r?.success).length;
       const totalCount = publishResults.length;
 
       // Extract URLs from successful results
       const publishedUrls = publishResults
-        .filter((result) => result.success && result.result?.data?.url)
+        .filter((result) => result?.success && result?.result?.data?.url)
         .map((result) => result.result.data.url);
+
+      const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 
       message = `✅ Pages Published Successfully!
 
 Successfully published **${successCount}/${totalCount}** pages to your website.
+${uploadedMediaCount > 0 ? `📁 Uploaded **${uploadedMediaCount}** media files to CDN.` : ""}
 
 🔗 Published URLs
 

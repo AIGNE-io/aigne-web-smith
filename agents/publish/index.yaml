@@ -9,6 +9,7 @@ skills:
     default_input:
       skipIfExists: true
   - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
   - ./publish-website.mjs
 input_schema:
   type: object

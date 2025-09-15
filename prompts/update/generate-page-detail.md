@@ -18,9 +18,9 @@
 
 {{ additionalInformation }}
 
-<media_list>
+<available_media_assets>
 {{ assetsContent }}
-</media_list>
+</available_media_assets>
 
 </datasources>
 
@@ -97,9 +97,8 @@ parentId: {{parentId}}
 <media_rules>
 媒体资源使用规则：
 
-- <datasources> 中如果包含媒体资源文件，在生成的结果需要合理的使用
-- 媒体资源以 markdown 格式提供，示例：![资源描述](https://xxxx)
-- 在生成结果中以 markdown 格式展示图片
+- <datasources> 中如果包含媒体资源文件 <available_media_assets>，请在生成的结果需要合理的使用
+- 媒体资源的值，请使用 mediaKitPath 中的值，方便后续识别
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
 
 </media_rules>

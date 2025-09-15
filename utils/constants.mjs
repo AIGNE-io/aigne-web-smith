@@ -283,19 +283,19 @@ export const WEBSITE_SCALE = {
     name: "Minimal (5-8 pages)",
     description: "Core pages only - quick to launch",
     content:
-      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\nTime to launch: 1-2 weeks.",
+      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\n Expected pages: 5-8 pages.",
   },
   standard: {
     name: "Standard (10-15 pages)",
     description: "Complete website with main sections [RECOMMENDED]",
     content:
-      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\nTime to launch: 2-4 weeks.",
+      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\n Expected pages: 10-15 pages.",
   },
   comprehensive: {
     name: "Comprehensive (20+ pages)",
     description: "Full-featured website with detailed sections",
     content:
-      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\nTime to launch: 4-8 weeks.",
+      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\n Expected pages: 20+ pages.",
   },
   aiDecide: {
     name: "Let AI decide",
@@ -329,6 +329,8 @@ export const SCALE_RECOMMENDATION_LOGIC = {
     investors: "comprehensive", // Investors → Comprehensive
   },
 };
+
+export const MEDIA_KIT_PROTOCOL = "mediakit://";
 
 export const DEFAULT_APP_LOGO =
   "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";

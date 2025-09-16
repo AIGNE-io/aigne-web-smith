@@ -20,12 +20,14 @@
 </context>
 
 <goal>
-你的主要目标是验证三条关键规则：
+你的主要目标是验证三条关键规则： 
+
 1.  **反馈的实现**：新的结构规划**必须**正确地实现用户反馈中要求的所有变更。
 2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path、sourcesIds 属性不能被修改 **
   - `path`、`sourcesIds` 是关联现有内容的关键标识符，其稳定性至关重要。
   - 对于用户要求新增节点的场景，新增的节点可能会影响原来节点的顺序，这是允许的。
-4.  **数据有效性**: 所有 {{ nodeName }} 都有关联数据源，sourceIds 中都有值。
+3.  **数据有效性**: 所有 {{ nodeName }} 都有关联数据源，sourceIds 中都有值。
+  - 确认是否有首页，且首页的 path 为 '/' 路径
 </goal>
 
 <rules>
@@ -43,6 +45,7 @@
 3.  **验证无关节点的稳定性**：这是最关键的检查。遍历 `websiteStructure` 中的所有节点。对于每一个在 `originalWebsiteStructure` 中也存在、但并未在反馈中被提及的节点：
     *   **至关重要**：其 `path`、`sourcesIds` 属性**必须**与 `originalWebsiteStructure` 中的完全相同。
     *   理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
+
 </rules>
 
 <output>
@@ -76,6 +79,7 @@
     ```
 
 *  ** 如果数据无效 **：
+
     ```json
     {
       "isValid": false,
@@ -90,5 +94,6 @@
       "isValid": true,
       "reason": "First structure plan generation, no previous version to compare with."
     }
+  
     ```
 </output>

@@ -492,14 +492,14 @@ export default async function publishWebsite(
 Successfully published **${successCount}/${totalCount}** pages to your website.
 ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
 
-🔗 Published URLs
+🔗 Published Pages
 
 ${publishedUrls.map((url) => `- ${url}`).join("\n")}
 
 🚀 Next Steps
 
-1. Share your published website with your team
-2. Update website as needed using \`aigne web update\`
+1. Share your published pages with your team
+2. Update pages as needed using \`aigne web update\`
 
 `;
     }

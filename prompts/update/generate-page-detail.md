@@ -22,6 +22,10 @@
 {{ assetsContent }}
 </available_media_assets>
 
+<available_links>
+{{ linksContent }}
+</available_links>
+
 </datasources>
 
 <terms>
@@ -97,11 +101,20 @@ parentId: {{parentId}}
 <media_rules>
 媒体资源使用规则：
 
-- <datasources> 中如果包含媒体资源文件 <available_media_assets>，请在生成的结果需要合理的使用
-- 媒体资源的值，请使用 mediaKitPath 中的值，方便后续识别
+- <datasources> 中如果包含媒体资源内容 <available_media_assets>，请在生成的结果需要合理的使用
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
+- 如果确定需要使用媒体资源，请使用 mediaKitPath 中的值，方便后续识别
 
 </media_rules>
+
+<link_rules>
+链接使用规则：
+
+- <datasources> 中如果包含链接内容 <available_links>，请在生成的结果需要合理的使用
+- 根据链接的关系，在上下文相关的位置，合理的展示链接，让结果展示效果更丰富
+- 如果确定需要使用链接，请使用 linkPath 中的值，方便后续识别
+
+</link_rules>
 
 {% include "./page-detail-rule.md" %}
 

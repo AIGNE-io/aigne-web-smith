@@ -279,6 +279,12 @@ export const TARGET_AUDIENCES = {
 
 // Website scale - how many pages and sections should be generated?
 export const WEBSITE_SCALE = {
+  singlePage: {
+    name: "Single Page (1 page)",
+    description: "All content consolidated into one comprehensive page",
+    content:
+      "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\nExpected pages: 1 page with multiple sections.",
+  },
   minimal: {
     name: "Minimal (5-8 pages)",
     description: "Core pages only - quick to launch",
@@ -307,7 +313,7 @@ export const WEBSITE_SCALE = {
 
 // Purpose to Website Scale mapping for default suggestions
 export const PURPOSE_TO_SCALE_MAPPING = {
-  landingPage: "minimal", // Landing page → Minimal
+  landingPage: "singlePage", // Landing page → Single Page
   portfolio: "standard", // Portfolio → Standard
   corporate: "comprehensive", // Corporate → Comprehensive
   ecommerce: "comprehensive", // E-commerce → Comprehensive
@@ -317,7 +323,7 @@ export const PURPOSE_TO_SCALE_MAPPING = {
 export const SCALE_RECOMMENDATION_LOGIC = {
   // Purpose-based recommendations (highest priority)
   purposes: {
-    landingPage: "minimal", // Landing page → Minimal
+    landingPage: "singlePage", // Landing page → Single Page
     portfolio: "standard", // Portfolio → Standard
     corporate: "comprehensive", // Corporate → Comprehensive
     ecommerce: "comprehensive", // E-commerce → Comprehensive
@@ -329,6 +335,8 @@ export const SCALE_RECOMMENDATION_LOGIC = {
     investors: "comprehensive", // Investors → Comprehensive
   },
 };
+
+export const LINK_PROTOCOL = "link://";
 
 export const MEDIA_KIT_PROTOCOL = "mediakit://";
 

@@ -5,17 +5,17 @@ instructions:
 input_schema:
   type: object
   properties:
-    structurePlan:
+    websiteStructure:
       $ref: ../schema/website-structure.yaml
       description: 新一轮生成的结构规划。
-    originalStructurePlan:
+    originalWebsiteStructure:
       $ref: ../schema/website-structure.yaml
       description: 上一轮生成的结构规划，用于对比。如果不存在，则检查默认通过。
     feedback:
       type: string
       description: 用户针对上一轮结果提供的反馈。
   required:
-    - structurePlan
+    - websiteStructure
 output_schema:
   type: object
   properties:

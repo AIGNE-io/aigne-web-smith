@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import slugify from "slugify";
+import { transliterate } from "transliteration";
 import { parse } from "yaml";
 import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
 
@@ -26,6 +28,15 @@ export default async function loadConfig({ config, appUrl }) {
     if (appUrl) {
       parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;
     }
+
+    // ensure projectSlug is generated
+    parsedConfig.projectSlug = slugify(
+      transliterate(parsedConfig?.projectSlug || parsedConfig.projectName),
+      {
+        lower: true,
+        strict: true,
+      },
+    );
 
     // Parse new configuration fields and convert keys to actual content
     const processedConfig = processConfigFields(parsedConfig);

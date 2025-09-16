@@ -15,8 +15,8 @@ skills:
       $merge([
         $,
         {
-          'structurePlan': originalStructurePlan,
-          'structurePlanResult': $map(originalStructurePlan, function($item) {
+          'websiteStructure': originalWebsiteStructure,
+          'websiteStructureResult': $map(originalWebsiteStructure, function($item) {
             $merge([
               $item,
               {
@@ -37,6 +37,8 @@ skills:
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: page_refine
+  # re-trigger generate agent
+  - url: ../generate/index.yaml
 
 input_schema:
   type: object

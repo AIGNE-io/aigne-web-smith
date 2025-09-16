@@ -5,13 +5,13 @@ import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
 
 /**
  * @param {Object} params
- * @param {Array<{path: string, content: string, title: string}>} params.structurePlan
+ * @param {Array<{path: string, content: string, title: string}>} params.websiteStructure
  * @param {string} params.pagesDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function savePages({
-  structurePlanResult: structurePlan,
+  websiteStructureResult: websiteStructure,
   pagesDir,
   outputDir,
   // translateLanguages = [],
@@ -26,26 +26,26 @@ export default async function savePages({
     console.warn("Failed to save git HEAD:", err.message);
   }
 
-  // Generate _sidebar.yaml
+  // Generate _sitemap.yaml
   try {
-    const sidebar = generateSidebarYaml(structurePlan);
-    const sidebarPath = join(outputDir, "_sidebar.yaml");
-    await writeFile(sidebarPath, sidebar, "utf8");
+    const sitemap = generateSitemapYaml(websiteStructure);
+    const sitemapPath = join(outputDir, "_sitemap.yaml");
+    await writeFile(sitemapPath, sitemap, "utf8");
   } catch (err) {
-    console.error("Failed to save _sidebar.yaml:", err.message);
+    console.error("Failed to save _sitemap.yaml:", err.message);
   }
 
   // Clean up invalid .yaml files that are no longer in the structure plan
   // try {
   //   // @FIXME
-  //   // await cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale);
+  //   // await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
   // } catch (err) {
   //   console.error("Failed to cleanup invalid .yaml files:", err.message);
   // }
 
   const message = `✅ Pages Generated Successfully!
 
-Successfully generated **${structurePlan.length}** page templates and saved to:
+Successfully generated **${websiteStructure.length}** page templates and saved to:
   \`${pagesDir}\`
   ${projectInfoMessage || ""}
 🚀 Next Steps
@@ -95,13 +95,13 @@ function generateFileName(flatName, language) {
 
 /**
  * Clean up .yaml files that are no longer in the structure plan
- * @param {Array<{path: string, title: string}>} structurePlan
+ * @param {Array<{path: string, title: string}>} websiteStructure
  * @param {string} pagesDir
  * @param {Array<string>} translateLanguages
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale) {
+async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
   const results = [];
 
   try {
@@ -113,7 +113,7 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
     const expectedFiles = new Set();
 
     // Add main page files
-    for (const { path } of structurePlan) {
+    for (const { path } of websiteStructure) {
       const flatName = path.replace(/^\//, "").replace(/\//g, "-");
 
       // Main language file
@@ -127,9 +127,9 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
       }
     }
 
-    // Find files to delete (files that are not in expectedFiles and not _sidebar.yaml)
+    // Find files to delete (files that are not in expectedFiles and not _sitemap.yaml)
     const filesToDelete = yamlFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sidebar.yaml",
+      (file) => !expectedFiles.has(file) && !file.startsWith("_"),
     );
 
     // Delete invalid files
@@ -164,11 +164,11 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
   return results;
 }
 
-// Generate sidebar YAML content, support nested structure, and the order is consistent with structurePlan
-function generateSidebarYaml(structurePlan) {
+// Generate sitemap YAML content, support nested structure, and the order is consistent with websiteStructure
+function generateSitemapYaml(websiteStructure) {
   // Build tree structure
   const root = {};
-  for (const { path, title, parentId } of structurePlan) {
+  for (const { path, title, parentId } of websiteStructure) {
     const relPath = path.replace(/^\//, "");
     const segments = relPath.split("/");
     let node = root;
@@ -185,7 +185,7 @@ function generateSidebarYaml(structurePlan) {
       node = node[seg].__children;
     }
   }
-  // Recursively generate YAML sidebar structure
+  // Recursively generate YAML sitemap structure
   function walk(node, parentSegments = []) {
     const items = [];
     for (const key of Object.keys(node)) {
@@ -195,23 +195,23 @@ function generateSidebarYaml(structurePlan) {
 
       const flatFile = fullSegments.join("/");
       if (item.__title) {
-        const sidebarItem = {
+        const sitemapItem = {
           title: item.__title,
           path: `/${flatFile}`,
         };
         const children = item.__children;
         if (Object.keys(children).length > 0) {
-          sidebarItem.children = walk(children, fullSegments);
+          sitemapItem.children = walk(children, fullSegments);
         }
-        items.push(sidebarItem);
+        items.push(sitemapItem);
       }
     }
     return items;
   }
 
-  const sidebarData = {
-    sidebar: walk(root),
+  const sitemapData = {
+    sitemap: walk(root),
   };
 
-  return yamlStringify(sidebarData);
+  return yamlStringify(sitemapData);
 }

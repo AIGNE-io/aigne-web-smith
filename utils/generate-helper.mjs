@@ -12,8 +12,6 @@ import { parse } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
-// 从 Pages Kit 迁移的核心转换工具
-
 /**
  * ID 生成工具
  */

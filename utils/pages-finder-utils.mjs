@@ -16,7 +16,7 @@ export function getActionText(isTranslate, baseText) {
 
 /**
  * Find a single item by path in structure plan result and read its content
- * @param {Array} structurePlanResult - Array of structure plan items
+ * @param {Array} websiteStructureResult - Array of structure plan items
  * @param {string} pagePath - Page path to find (supports page filenames)
  * @param {string} projectId - Project ID for fallback matching
  * @param {string} pagesDir - Pages directory path for reading content
@@ -24,7 +24,7 @@ export function getActionText(isTranslate, baseText) {
  * @returns {Promise<Object|null>} Found item with content or null
  */
 export async function findItemByPath(
-  structurePlanResult,
+  websiteStructureResult,
   pagePath,
   projectId,
   pagesDir,
@@ -37,10 +37,10 @@ export async function findItemByPath(
   if (pagePath.endsWith(PAGE_FILE_EXTENSION)) {
     fileName = pagePath;
     const flatName = fileNameToFlatPath(pagePath);
-    foundItem = findItemByFlatName(structurePlanResult, flatName);
+    foundItem = findItemByFlatName(websiteStructureResult, flatName);
   } else {
     // First try direct path matching
-    foundItem = structurePlanResult.find((item) => item.path === pagePath);
+    foundItem = websiteStructureResult.find((item) => item.path === pagePath);
 
     // If not found and projectId is provided, try projectId-flattenedPath format matching
     if (!foundItem && projectId) {
@@ -50,7 +50,7 @@ export async function findItemByPath(
         const flattenedPath = pagePath.substring(projectId.length + 1);
 
         // Find item by comparing flattened paths
-        foundItem = structurePlanResult.find((item) => {
+        foundItem = websiteStructureResult.find((item) => {
           // Convert item.path to flattened format (replace / with -)
           const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
           return itemFlattenedPath === flattenedPath;
@@ -107,27 +107,27 @@ export async function readFileContent(pagesDir, fileName) {
  * Get main language markdown files from pages directory
  * @param {string} pagesDir - Pages directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
- * @param {Array} structurePlanResult - Array of structure plan items to determine file order
- * @returns {Promise<string[]>} Array of main language page files ordered by structurePlanResult
+ * @param {Array} websiteStructureResult - Array of structure plan items to determine file order
+ * @returns {Promise<string[]>} Array of main language page files ordered by websiteStructureResult
  */
-export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult = null) {
+export async function getMainLanguageFiles(pagesDir, locale, websiteStructureResult = null) {
   const files = await readdir(pagesDir);
 
-  // Filter for main language page files (exclude _sidebar file)
+  // Filter for main language page files (exclude _sitemap file)
   const filteredFiles = files.filter((file) => {
-    // Skip non-page files and _sidebar file
-    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sidebar${PAGE_FILE_EXTENSION}`) {
+    // Skip non-page files and _sitemap file
+    if (!file.endsWith(PAGE_FILE_EXTENSION) || file === `_sitemap${PAGE_FILE_EXTENSION}`) {
       return false;
     }
 
     return !file.match(new RegExp(`\\.\\w+(-\\w+)?\\${PAGE_FILE_EXTENSION.replace(".", "\\.")}$`));
   });
 
-  // If structurePlanResult is provided, sort files according to the order in structurePlanResult
-  if (structurePlanResult && Array.isArray(structurePlanResult)) {
+  // If websiteStructureResult is provided, sort files according to the order in websiteStructureResult
+  if (websiteStructureResult && Array.isArray(websiteStructureResult)) {
     // Create a map from flat file name to structure plan order
     const orderMap = new Map();
-    structurePlanResult.forEach((item, index) => {
+    websiteStructureResult.forEach((item, index) => {
       const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
       const expectedFileName = getFileName({
         locale,
@@ -136,7 +136,7 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
       orderMap.set(expectedFileName, index);
     });
 
-    // Sort filtered files based on their order in structurePlanResult
+    // Sort filtered files based on their order in websiteStructureResult
     return filteredFiles.sort((a, b) => {
       const orderA = orderMap.get(a);
       const orderB = orderMap.get(b);
@@ -155,7 +155,7 @@ export async function getMainLanguageFiles(pagesDir, locale, structurePlanResult
     });
   }
 
-  // If no structurePlanResult provided, return files in alphabetical order
+  // If no websiteStructureResult provided, return files in alphabetical order
   return filteredFiles.sort();
 }
 
@@ -176,12 +176,12 @@ export function fileNameToFlatPath(fileName) {
 
 /**
  * Find structure plan item by flattened file name
- * @param {Array} structurePlanResult - Array of structure plan items
+ * @param {Array} websiteStructureResult - Array of structure plan items
  * @param {string} flatName - Flattened file name
  * @returns {Object|null} Found item or null
  */
-export function findItemByFlatName(structurePlanResult, flatName) {
-  return structurePlanResult.find((item) => {
+export function findItemByFlatName(websiteStructureResult, flatName) {
+  return websiteStructureResult.find((item) => {
     const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
     return itemFlattenedPath === flatName;
   });
@@ -190,11 +190,11 @@ export function findItemByFlatName(structurePlanResult, flatName) {
 /**
  * Process selected files and convert to found items with content
  * @param {string[]} selectedFiles - Array of selected file names
- * @param {Array} structurePlanResult - Array of structure plan items
+ * @param {Array} websiteStructureResult - Array of structure plan items
  * @param {string} pagesDir - Pages directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
-export async function processSelectedFiles(selectedFiles, structurePlanResult, pagesDir) {
+export async function processSelectedFiles(selectedFiles, websiteStructureResult, pagesDir) {
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
@@ -205,7 +205,7 @@ export async function processSelectedFiles(selectedFiles, structurePlanResult, p
     const flatName = fileNameToFlatPath(selectedFile);
 
     // Try to find matching item by comparing flattened paths
-    const foundItemByFile = findItemByFlatName(structurePlanResult, flatName);
+    const foundItemByFile = findItemByFlatName(websiteStructureResult, flatName);
 
     if (foundItemByFile) {
       const result = {

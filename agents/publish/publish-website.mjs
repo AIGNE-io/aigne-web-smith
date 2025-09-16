@@ -1,16 +1,96 @@
 import crypto from "node:crypto";
 import { basename, join } from "node:path";
+import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
-
-import { TMP_DIR, TMP_PAGES_DIR } from "../../utils/constants.mjs";
+import {
+  DEFAULT_APP_URL,
+  LINK_PROTOCOL,
+  MEDIA_KIT_PROTOCOL,
+  TMP_DIR,
+  TMP_PAGES_DIR,
+} from "../../utils/constants.mjs";
+import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
-const DEFAULT_APP_URL = "https://websmith.aigne.io";
+const formatRoutePath = (path) => {
+  if (path === "/home") {
+    return "/";
+  }
+  return path;
+};
+
+/**
+ * 递归扫描对象中的指定协议值
+ * @param {any} obj - 要扫描的对象
+ * @param {Set} foundUrls - 找到的协议 URL 集合
+ * @param {string} protocol - 要扫描的协议 (如 MEDIA_KIT_PROTOCOL 或 LINK_PROTOCOL)
+ */
+function scanForProtocolUrls(obj, foundUrls, protocol) {
+  if (typeof obj === "string") {
+    if (obj.startsWith(protocol)) {
+      foundUrls.add(obj);
+    }
+  } else if (Array.isArray(obj)) {
+    obj.forEach((item) => scanForProtocolUrls(item, foundUrls, protocol));
+  } else if (obj && typeof obj === "object") {
+    Object.values(obj).forEach((value) => scanForProtocolUrls(value, foundUrls, protocol));
+  }
+}
+
+/**
+ * 使用全局URL映射替换页面数据中的指定协议
+ * @param {Object} pageData - 页面数据对象
+ * @param {Object} protocolToUrlMap - 协议到 URL 的映射
+ * @param {string} protocol - 要替换的协议
+ * @returns {Object} 处理后的页面数据对象
+ */
+function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
+  function replaceUrls(obj) {
+    if (typeof obj === "string") {
+      if (obj.startsWith(protocol)) {
+        return protocolToUrlMap[obj] || obj;
+      }
+      return obj;
+    } else if (Array.isArray(obj)) {
+      return obj.map((item) => replaceUrls(item));
+    } else if (obj && typeof obj === "object") {
+      const result = {};
+      for (const [key, value] of Object.entries(obj)) {
+        result[key] = replaceUrls(value);
+      }
+      return result;
+    }
+    return obj;
+  }
+
+  return replaceUrls(pageData);
+}
+
+/**
+ * 创建链接协议到实际路径的映射
+ * @param {Array} websiteStructure - 网站结构数组
+ * @returns {Object} link:// 到实际路径的映射
+ */
+function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
+  const linkToPathMap = {};
+
+  if (websiteStructure && Array.isArray(websiteStructure)) {
+    websiteStructure.forEach((page) => {
+      if (page.path && page.linkPath) {
+        const url = new URL(appUrl);
+        url.pathname = join(projectSlug, formatRoutePath(page.path));
+        linkToPathMap[page.linkPath] = url.toString();
+      }
+    });
+  }
+
+  return linkToPathMap;
+}
 
 const publishPageFn = async ({
   projectData,
@@ -57,7 +137,7 @@ const publishPageFn = async ({
 
   if (!response.ok) {
     throw new Error(
-      `Pages Kit upload failed: ${response.status} ${response.statusText} - ${responseText}`,
+      `Page upload failed: ${response.status} ${response.statusText} - ${responseText}`,
     );
   }
 
@@ -68,7 +148,18 @@ const publishPageFn = async ({
 };
 
 export default async function publishWebsite(
-  { appUrl, projectId, projectName, projectDesc, projectLogo, outputDir },
+  {
+    appUrl,
+    projectId,
+    projectName,
+    projectDesc,
+    projectLogo,
+    projectSlug,
+    outputDir,
+    mediaFiles,
+    websiteStructure,
+    pagesDir: rootDir,
+  },
   options,
 ) {
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
@@ -100,11 +191,11 @@ export default async function publishWebsite(
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: "Publish to websmith.aigne.io - free, but your pages will be public accessible, recommended for open-source projects",
+          name: `${chalk.blue(`WebSmith Cloud (${DEFAULT_APP_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
-          name: "Publish to your own website - you will need to run Pages Kit by yourself ",
+          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
       ],
@@ -112,7 +203,7 @@ export default async function publishWebsite(
 
     if (choice === "custom") {
       const userInput = await options.prompts.input({
-        message: "Please enter your Pages Kit platform URL:",
+        message: "Please enter your website URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
@@ -146,7 +237,7 @@ export default async function publishWebsite(
 
   process.env.PAGES_ROOT_DIR = pagesDir;
 
-  const sidebarPath = join(pagesDir, "_sidebar.yaml");
+  const sitemapPath = join(pagesDir, "_sitemap.yaml");
 
   // Construct boardMeta object
   const boardMeta = {
@@ -162,22 +253,22 @@ export default async function publishWebsite(
   let message;
 
   try {
-    // Read sidebar content as page data (if exists)
-    let sidebarContent = null;
+    // Read sitemap content as page data (if exists)
+    let sitemapContent = null;
     try {
-      sidebarContent = await fs.readFile(sidebarPath, "utf-8");
+      sitemapContent = await fs.readFile(sitemapPath, "utf-8");
 
-      sidebarContent = parse(sidebarContent);
+      sitemapContent = parse(sitemapContent);
     } catch {
-      // Ignore when sidebar file doesn't exist
+      // Ignore when sitemap file doesn't exist
     }
 
-    // Recursive function to extract all paths from sidebar
-    function extractAllPaths(sidebarItems) {
+    // Recursive function to extract all paths from sitemap
+    function extractAllPaths(sitemapItems) {
       const paths = [];
-      if (!Array.isArray(sidebarItems)) return paths;
+      if (!Array.isArray(sitemapItems)) return paths;
 
-      sidebarItems.forEach((item) => {
+      sitemapItems.forEach((item) => {
         if (item.path) {
           // Remove leading slash as filenames don't need slashes
           const cleanPath = item.path.startsWith("/") ? item.path.slice(1) : item.path;
@@ -196,49 +287,97 @@ export default async function publishWebsite(
       return paths;
     }
 
-    // Extract all sidebar paths
-    const sidebarPaths = sidebarContent
-      ? extractAllPaths(sidebarContent.sidebar || sidebarContent)
+    // Extract all sitemap paths
+    const sitemapPaths = sitemapContent
+      ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
-      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sidebar.yaml",
+      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && !file.startsWith("_"),
     );
 
-    // Use p-map to process page files concurrently, limit concurrency to 4
+    // Step 1: 扫描所有页面，收集需要处理的协议 URLs
+    const allUsedMediaKitUrls = new Set();
+    const allUsedLinkUrls = new Set();
+    const pageContents = new Map();
+
+    for (const file of yamlFiles) {
+      try {
+        const filePath = join(pagesDir, file);
+        const pageContent = await fs.readFile(filePath, "utf-8");
+        const parsedPageContent = parse(pageContent);
+
+        pageContents.set(file, parsedPageContent);
+
+        // 扫描这个页面中的 mediakit:// URL
+        scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, MEDIA_KIT_PROTOCOL);
+
+        // 扫描这个页面中的 link:// URL
+        scanForProtocolUrls(parsedPageContent, allUsedLinkUrls, LINK_PROTOCOL);
+      } catch (error) {
+        console.warn(`Failed to read file ${file}: ${error.message}`);
+      }
+    }
+
+    // Step 2: 批量上传所有需要的媒体文件
+    const mediaKitToUrlMap = await batchUploadMediaFiles({
+      allUsedMediaKitUrls,
+      mediaFiles,
+      appUrl,
+      accessToken,
+      rootDir,
+      outputDir,
+    });
+
+    // Step 2.5: 创建链接协议到实际路径的映射
+    const linkToPathMap = createLinkProtocolMap({
+      websiteStructure,
+      projectSlug: projectSlug || projectId,
+      appUrl,
+    });
+
+    // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
       yamlFiles,
       async (file) => {
-        const filePath = join(pagesDir, file);
-        let pageContent = null;
-
-        try {
-          pageContent = await fs.readFile(filePath, "utf-8");
-        } catch (error) {
+        const parsedPageContent = pageContents.get(file);
+        if (!parsedPageContent) {
           return {
             file,
             success: false,
-            error: `Failed to read file: ${error.message}`,
+            error: "Failed to parse page content",
           };
         }
 
-        // Find corresponding sidebar path information
+        // Find corresponding sitemap path information
         const fileBaseName = basename(file, ".yaml");
-        const matchingSidebarItem = sidebarPaths.find(
+        const matchingSitemapItem = sitemapPaths.find(
           (item) =>
             item.cleanPath === fileBaseName ||
             item.cleanPath.endsWith(`/${fileBaseName}`) ||
             item.cleanPath.replace(/\//g, "-") === fileBaseName,
         );
 
-        const path = matchingSidebarItem ? matchingSidebarItem.path : `/${fileBaseName}`;
+        const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
 
-        // Construct template data for each page - directly use parsed YAML as complete template object
-        const parsedPageContent = parse(pageContent);
+        // Replace mediakit:// URLs with uploaded URLs
+        let processedPageContent = replacePageProtocolUrls(
+          parsedPageContent,
+          mediaKitToUrlMap,
+          MEDIA_KIT_PROTOCOL,
+        );
+
+        // Replace link:// URLs with actual paths
+        processedPageContent = replacePageProtocolUrls(
+          processedPageContent,
+          linkToPathMap,
+          LINK_PROTOCOL,
+        );
+
         const pageTemplateData = {
-          ...parsedPageContent,
+          ...processedPageContent,
           // Add project-related metadata
           slug: path,
           templateConfig: {
@@ -248,15 +387,17 @@ export default async function publishWebsite(
           },
         };
 
+        const routePath = formatRoutePath(path);
+
         // Construct route data
         const routeData = {
-          path,
-          displayName: path,
+          path: routePath,
+          displayName: routePath,
           meta: {
             ...boardMeta,
             sourceFile: file,
-            sidebarTitle: matchingSidebarItem?.title,
-            sidebarPath: matchingSidebarItem?.path,
+            sitemapTitle: matchingSitemapItem?.title,
+            sitemapPath: matchingSitemapItem?.path,
           },
         };
 
@@ -265,6 +406,7 @@ export default async function publishWebsite(
           name: projectName,
           description: projectDesc,
           logo: projectLogo,
+          slug: projectSlug,
         };
 
         try {
@@ -300,7 +442,7 @@ export default async function publishWebsite(
     );
 
     // Use overall results to determine success status
-    const overallSuccess = publishResults.every((result) => result.success);
+    const overallSuccess = publishResults.every((result) => result?.success);
     const success = overallSuccess;
     const newProjectId = publishResults.find((r) => r.projectId)?.projectId || projectId;
 
@@ -317,29 +459,30 @@ export default async function publishWebsite(
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
 
-      const successCount = publishResults.filter((r) => r.success).length;
+      const successCount = publishResults.filter((r) => r?.success).length;
       const totalCount = publishResults.length;
 
       // Extract URLs from successful results
       const publishedUrls = publishResults
-        .filter((result) => result.success && result.result?.data?.url)
+        .filter((result) => result?.success && result?.result?.data?.url)
         .map((result) => result.result.data.url);
+
+      const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 
       message = `✅ Pages Published Successfully!
 
 Successfully published **${successCount}/${totalCount}** pages to your website.
+${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
 
-🔗 Published URLs
+🔗 Published Pages
 
 ${publishedUrls.map((url) => `- ${url}`).join("\n")}
 
 🚀 Next Steps
 
-1. Share your published website with your team
-2. Update website as needed using \`aigne web update\`
+1. Share your published pages with your team
+2. Update pages as needed using \`aigne web update\`
 
-
----
 `;
     }
   } catch (error) {
@@ -382,4 +525,4 @@ publishWebsite.input_schema = {
   },
 };
 
-publishWebsite.taskTitle = "Publish the website to Pages Kit";
+publishWebsite.taskTitle = "Publish the pages to website";

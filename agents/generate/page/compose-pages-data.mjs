@@ -8,7 +8,7 @@ import {
   generateRandomId,
   getChildFieldCombinationsKey,
 } from "../../../utils/generate-helper.mjs";
-import savePagesKitData from "./save-pages-kit-data.mjs";
+import savePagesKitData from "./save-pages-data.mjs";
 
 const DEFAULT_FLAG = false;
 let DEFAULT_TEST_FILE = {};
@@ -616,7 +616,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   }
 }
 
-export default async function composePagesKitData(input) {
+export default async function composePagesData(input) {
   const {
     middleFormatFiles,
     componentLibrary,
@@ -837,4 +837,4 @@ export default async function composePagesKitData(input) {
   };
 }
 
-composePagesKitData.taskTitle = "Compose Pages Kit Data";
+composePagesData.taskTitle = "Compose Pages Data";

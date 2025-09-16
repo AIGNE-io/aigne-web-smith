@@ -8,7 +8,7 @@ import {
 } from "../../utils/pages-finder-utils.mjs";
 
 export default async function choosePages(
-  { pages, structurePlanResult, projectId, tmpDir, isTranslate, feedback, locale },
+  { pages, websiteStructureResult, projectId, tmpDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItems = [];
@@ -23,7 +23,7 @@ export default async function choosePages(
       const mainLanguageFiles = await getMainLanguageFiles(
         mainFileTmpDir,
         locale,
-        structurePlanResult,
+        websiteStructureResult,
       );
 
       if (mainLanguageFiles.length === 0) {
@@ -56,7 +56,11 @@ export default async function choosePages(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, structurePlanResult, mainFileTmpDir);
+      foundItems = await processSelectedFiles(
+        selectedFiles,
+        websiteStructureResult,
+        mainFileTmpDir,
+      );
     } catch (error) {
       console.error(error);
       throw new Error(
@@ -70,7 +74,7 @@ export default async function choosePages(
     // Process the provided pages array
     for (const pagePath of pages) {
       const foundItem = await findItemByPath(
-        structurePlanResult,
+        websiteStructureResult,
         pagePath,
         projectId,
         mainFileTmpDir,
@@ -78,7 +82,7 @@ export default async function choosePages(
       );
 
       if (!foundItem) {
-        console.warn(`⚠️  Item with path "${pagePath}" not found in structurePlanResult`);
+        console.warn(`⚠️  Item with path "${pagePath}" not found in websiteStructureResult`);
         continue;
       }
 
@@ -88,7 +92,7 @@ export default async function choosePages(
     }
 
     if (foundItems.length === 0) {
-      throw new Error("None of the specified page paths were found in structurePlanResult");
+      throw new Error("None of the specified page paths were found in websiteStructureResult");
     }
   }
 

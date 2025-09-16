@@ -18,9 +18,13 @@
 
 {{ additionalInformation }}
 
-<media_list>
+<available_media_assets>
 {{ assetsContent }}
-</media_list>
+</available_media_assets>
+
+<available_links>
+{{ linksContent }}
+</available_links>
 
 </datasources>
 
@@ -31,7 +35,7 @@
 </terms>
 
 <structure_plan>
-{{ structurePlanYaml }}
+{{ websiteStructureYaml }}
 </structure_plan>
 
 <current>
@@ -80,7 +84,7 @@ parentId: {{parentId}}
 - 仅使用 <datasources> 中的信息，不能虚构、补充未出现的内容。
 - 结合当前{{nodeName}}的标题、描述，合理规划{{nodeName}}内容结构，内容要丰富、有条理、有吸引力。
 - 内容风格需要匹配目标受众
-- 明确区分与 structurePlan 其他{{nodeName}}的内容，避免重复，突出本{{nodeName}}的独特价值。
+- 明确区分与 websiteStructure 其他{{nodeName}}的内容，避免重复，突出本{{nodeName}}的独特价值。
   {% if enforceInfoCompleteness %}
 - 如果 <datasources> 相关信息不足，直接返回错误信息，提示用户补充内容，要确保页面内容足够丰富，你可以放心的向用户提出补充信息的要求。
 - 只展示有价值、能吸引用户的信息，如信息不足，提示用户补充信息
@@ -97,12 +101,20 @@ parentId: {{parentId}}
 <media_rules>
 媒体资源使用规则：
 
-- <datasources> 中如果包含媒体资源文件，在生成的结果需要合理的使用
-- 媒体资源以 markdown 格式提供，示例：![资源描述](https://xxxx)
-- 在生成结果中以 markdown 格式展示图片
+- <datasources> 中如果包含媒体资源内容 <available_media_assets>，请在生成的结果需要合理的使用
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
+- 如果确定需要使用媒体资源，请使用 mediaKitPath 中的值，方便后续识别
 
 </media_rules>
+
+<link_rules>
+链接使用规则：
+
+- <datasources> 中如果包含链接内容 <available_links>，请在生成的结果需要合理的使用
+- 根据链接的关系，在上下文相关的位置，合理的展示链接，让结果展示效果更丰富
+- 如果确定需要使用链接，请使用 linkPath 中的值，方便后续识别
+
+</link_rules>
 
 {% include "./page-detail-rule.md" %}
 

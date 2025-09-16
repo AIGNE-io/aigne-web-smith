@@ -14,8 +14,8 @@ export default async function analyzePageDetail(input, options) {
     pagesDir,
     tmpDir,
     sourceIds,
-    originalStructurePlan,
-    structurePlan,
+    originalWebsiteStructure,
+    websiteStructure,
     modifiedFiles,
     // forceRegenerate,
     locale,
@@ -40,9 +40,9 @@ export default async function analyzePageDetail(input, options) {
 
   // Check if sourceIds have changed by comparing with original structure plan
   let _sourceIdsChanged = false;
-  if (originalStructurePlan && sourceIds) {
+  if (originalWebsiteStructure && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find((node) => node.path === path);
+    const originalNode = originalWebsiteStructure.find((node) => node.path === path);
 
     if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
@@ -83,9 +83,9 @@ export default async function analyzePageDetail(input, options) {
 
   // If file exists, check content validation
   let _contentValidationFailed = false;
-  if (detailGenerated && fileContent && structurePlan) {
+  if (detailGenerated && fileContent && websiteStructure) {
     const validationResult = await checkDetailResult({
-      structurePlan,
+      websiteStructure,
       reviewContent: fileContent,
       pagesDir,
       tmpDir,
@@ -116,8 +116,8 @@ export default async function analyzePageDetail(input, options) {
     pagesDir,
     path,
     sourceIds,
-    originalStructurePlan,
-    structurePlan,
+    originalWebsiteStructure,
+    websiteStructure,
   });
 
   return {

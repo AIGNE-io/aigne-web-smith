@@ -279,23 +279,29 @@ export const TARGET_AUDIENCES = {
 
 // Website scale - how many pages and sections should be generated?
 export const WEBSITE_SCALE = {
+  singlePage: {
+    name: "Single Page (1 page)",
+    description: "All content consolidated into one comprehensive page",
+    content:
+      "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\nExpected pages: 1 page with multiple sections.",
+  },
   minimal: {
     name: "Minimal (5-8 pages)",
     description: "Core pages only - quick to launch",
     content:
-      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\nTime to launch: 1-2 weeks.",
+      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\n Expected pages: 5-8 pages.",
   },
   standard: {
     name: "Standard (10-15 pages)",
     description: "Complete website with main sections [RECOMMENDED]",
     content:
-      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\nTime to launch: 2-4 weeks.",
+      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\n Expected pages: 10-15 pages.",
   },
   comprehensive: {
     name: "Comprehensive (20+ pages)",
     description: "Full-featured website with detailed sections",
     content:
-      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\nTime to launch: 4-8 weeks.",
+      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\n Expected pages: 20+ pages.",
   },
   aiDecide: {
     name: "Let AI decide",
@@ -307,7 +313,7 @@ export const WEBSITE_SCALE = {
 
 // Purpose to Website Scale mapping for default suggestions
 export const PURPOSE_TO_SCALE_MAPPING = {
-  landingPage: "minimal", // Landing page → Minimal
+  landingPage: "singlePage", // Landing page → Single Page
   portfolio: "standard", // Portfolio → Standard
   corporate: "comprehensive", // Corporate → Comprehensive
   ecommerce: "comprehensive", // E-commerce → Comprehensive
@@ -317,7 +323,7 @@ export const PURPOSE_TO_SCALE_MAPPING = {
 export const SCALE_RECOMMENDATION_LOGIC = {
   // Purpose-based recommendations (highest priority)
   purposes: {
-    landingPage: "minimal", // Landing page → Minimal
+    landingPage: "singlePage", // Landing page → Single Page
     portfolio: "standard", // Portfolio → Standard
     corporate: "comprehensive", // Corporate → Comprehensive
     ecommerce: "comprehensive", // E-commerce → Comprehensive
@@ -330,8 +336,19 @@ export const SCALE_RECOMMENDATION_LOGIC = {
   },
 };
 
+export const LINK_PROTOCOL = "link://";
+
+export const MEDIA_KIT_PROTOCOL = "mediakit://";
+
+export const DEFAULT_APP_LOGO =
+  "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";
+
+export const DEFAULT_APP_URL = "https://staging.websmith.aigne.io";
+
 // Pages Kit DID for web-smith
 export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
+
+export const MEDIA_KIT_DID = "z8ia1mAXo8ZE7ytGF36L5uBf9kD2kenhqFGp9";
 
 // Pages Kit store URL
 export const PAGES_KIT_STORE_URL =
@@ -510,4 +527,4 @@ export const PAGE_FILE_EXTENSION = ".yaml";
 
 export const PAGES_OUTPUT_DIR = "output";
 
-export const PAGES_TMP_DIR = "tmp";
+export const PAGES_TMP_DIR = "workspace";

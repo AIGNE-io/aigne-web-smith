@@ -2,6 +2,8 @@ import crypto from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import slugify from "slugify";
+import { transliterate } from "transliteration";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
@@ -190,9 +192,11 @@ export default async function init(
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
   // 7. Source code paths
-  console.log("\n🔍 [7/7]: Source Code Paths");
-  console.log("Enter paths to analyze for website generation (e.g., ./src, ./components)");
-  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
+  console.log("\n📁 [7/7]: DataSource Paths");
+  console.log(
+    "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content, ./src)",
+  );
+  console.log("💡 You can use glob patterns (e.g., docs/**/*.md, content/**/*.json, src/**/*.ts)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];
@@ -278,6 +282,10 @@ export default async function init(
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
   input.projectId = projectInfo.id;
+  // Generate slug from project name using transliteration and slugify
+  input.projectSlug = input.projectName
+    ? slugify(transliterate(input.projectName), { lower: true, strict: true })
+    : "";
 
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
@@ -322,6 +330,7 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
     projectId: input.projectId || crypto.randomUUID(),
+    projectSlug: input.projectSlug || "",
 
     // Page configuration
     pagePurpose: input.pagePurpose || [],
@@ -350,13 +359,14 @@ export function generateYAML(input) {
     projectDesc: config.projectDesc,
     projectLogo: config.projectLogo,
     projectId: config.projectId,
+    projectSlug: config.projectSlug,
   }).trim();
 
   yaml += `${projectSection}\n\n`;
 
   // Add page configuration with comments
   yaml += "# =============================================================================\n";
-  yaml += "# Page Configuration\n";
+  yaml += "# Website Configuration\n";
   yaml += "# =============================================================================\n\n";
 
   // Page Purpose with all available options

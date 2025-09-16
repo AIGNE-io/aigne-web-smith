@@ -1,7 +1,11 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../../utils/constants.mjs";
+import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+  MEDIA_KIT_PROTOCOL,
+} from "../../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
 import {
@@ -9,6 +13,16 @@ import {
   getModifiedFilesBetweenCommits,
   isGlobPattern,
 } from "../../utils/utils.mjs";
+
+const getFileType = (filePath) => {
+  const ext = path.extname(filePath).toLowerCase();
+  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
+  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
+
+  if (imageExts.includes(ext)) return "image";
+  if (videoExts.includes(ext)) return "video";
+  return "media";
+};
 
 const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);
@@ -215,6 +229,8 @@ export default async function loadSources({
         mediaFiles.push({
           name: fileName,
           path: relativePath,
+          type: getFileType(relativePath),
+          mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
           description,
         });
       } else {
@@ -264,20 +280,20 @@ export default async function loadSources({
   );
 
   // Get the last structure plan result
-  let originalStructurePlan;
-  const structurePlanPath = path.join(tmpDir, "structure-plan.json");
+  let originalWebsiteStructure;
+  const websiteStructurePath = path.join(tmpDir, "website-structure.yaml");
   try {
-    await access(structurePlanPath);
-    const structurePlanResult = await readFile(structurePlanPath, "utf8");
-    if (structurePlanResult) {
+    await access(websiteStructurePath);
+    const websiteStructureResult = await readFile(websiteStructurePath, "utf8");
+    if (websiteStructureResult) {
       try {
-        originalStructurePlan = JSON.parse(structurePlanResult);
+        originalWebsiteStructure = parse(websiteStructureResult);
       } catch (err) {
-        console.error(`Failed to parse structure-plan.json: ${err.message}`);
+        console.error(`Failed to parse website-structure.yaml: ${err.message}`);
       }
     }
   } catch {
-    // The file does not exist, originalStructurePlan remains undefined
+    // The file does not exist, originalWebsiteStructure remains undefined
   }
 
   // Get the last output result of the specified path
@@ -332,21 +348,8 @@ export default async function loadSources({
 
   if (mediaFiles.length > 0) {
     // Helper function to determine file type from extension
-    const getFileType = (filePath) => {
-      const ext = path.extname(filePath).toLowerCase();
-      const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-      const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
 
-      if (imageExts.includes(ext)) return "image";
-      if (videoExts.includes(ext)) return "video";
-      return "media";
-    };
-
-    const mediaYaml = mediaFiles.map((file) => ({
-      name: file.name,
-      path: file.path,
-      type: getFileType(file.path),
-    }));
+    const mediaYaml = mediaFiles;
 
     assetsContent += "```yaml\n";
     assetsContent += "assets:\n";
@@ -354,6 +357,7 @@ export default async function loadSources({
       assetsContent += `  - name: "${asset.name}"\n`;
       assetsContent += `    path: "${asset.path}"\n`;
       assetsContent += `    type: "${asset.type}"\n`;
+      assetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
     });
     assetsContent += "```\n";
   }
@@ -379,12 +383,13 @@ export default async function loadSources({
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
     content,
-    originalStructurePlan,
+    originalWebsiteStructure,
     files,
     modifiedFiles,
     totalWords,
     totalLines,
     assetsContent,
+    mediaFiles,
   };
 }
 
@@ -457,6 +462,18 @@ loadSources.output_schema = {
     assetsContent: {
       type: "string",
       description: "Markdown content for available media assets",
+    },
+    mediaFiles: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          path: { type: "string" },
+          type: { type: "string" },
+          mediaKitPath: { type: "string" },
+        },
+      },
     },
   },
 };

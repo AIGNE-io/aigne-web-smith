@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { getFileName } from "../../../utils/utils.mjs";
 
-export default async function savePagesKitData(input) {
+export default async function savePagesData(input) {
   const { path, pagesKitYaml, outputDir } = input;
 
   // 构建输出文件路径
@@ -27,11 +27,10 @@ export default async function savePagesKitData(input) {
     return {
       ...input,
       pagesKitFilePath: outputPath,
-      $message: `save pages kit format success ${outputPath}`,
     };
   } catch (error) {
-    throw new Error(`save pages kit format failed ${outputPath}: ${error.message}`);
+    throw new Error(`Failed to save pages data at ${outputPath}: ${error.message}`);
   }
 }
 
-savePagesKitData.taskTitle = "Save Pages Kit Data";
+savePagesData.taskTitle = "Save Pages Data";

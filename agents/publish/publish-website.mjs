@@ -490,7 +490,7 @@ export default async function publishWebsite(
       message = `✅ Pages Published Successfully!
 
 Successfully published **${successCount}/${totalCount}** pages to your website.
-${uploadedMediaCount > 0 ? `📁 Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
+${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
 
 🔗 Published URLs
 

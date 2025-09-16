@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.0...v1.1.1-beta) (2025-09-16)
+
+
+### Bug Fixes
+
+* **ci:** support publish beta releases ([#14](https://github.com/AIGNE-io/aigne-web-smith/issues/14)) ([19fe484](https://github.com/AIGNE-io/aigne-web-smith/commit/19fe48495f4ecf35903ea23d4a92da057e903478))
+
 ## [1.1.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.0.6...v1.1.0) (2025-09-15)
 
 

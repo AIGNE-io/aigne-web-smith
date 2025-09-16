@@ -29,7 +29,7 @@ export default async function savePagesData(input) {
       pagesKitFilePath: outputPath,
     };
   } catch (error) {
-    throw new Error(`save pages data failed ${outputPath}: ${error.message}`);
+    throw new Error(`Failed to save pages data at ${outputPath}: ${error.message}`);
   }
 }
 

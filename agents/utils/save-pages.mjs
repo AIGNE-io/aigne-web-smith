@@ -129,7 +129,7 @@ async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguag
 
     // Find files to delete (files that are not in expectedFiles and not _sitemap.yaml)
     const filesToDelete = yamlFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sitemap.yaml",
+      (file) => !expectedFiles.has(file) && !file.startsWith("_"),
     );
 
     // Delete invalid files

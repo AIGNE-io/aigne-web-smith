@@ -338,7 +338,7 @@ export default async function publishWebsite(
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
-      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && file !== "_sitemap.yaml",
+      (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && !file.startsWith("_"),
     );
 
     // Step 1: 扫描所有页面，收集需要上传的 mediakit:// URL

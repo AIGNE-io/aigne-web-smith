@@ -53,12 +53,7 @@ function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
   function replaceUrls(obj) {
     if (typeof obj === "string") {
       if (obj.startsWith(protocol)) {
-        const mappedUrl = protocolToUrlMap[obj];
-        if (mappedUrl) {
-          return mappedUrl;
-        } else {
-          return obj;
-        }
+        return protocolToUrlMap[obj] || obj;
       }
       return obj;
     } else if (Array.isArray(obj)) {

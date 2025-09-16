@@ -352,3 +352,74 @@ export async function uploadFiles(options) {
 
   return { results: uploadResults };
 }
+
+/**
+ * 批量上传所有需要的媒体文件
+ * @param {Object} input - 输入参数对象
+ * @param {Array} input.allUsedMediaKitUrls - 所有页面使用的 mediakit:// URL
+ * @param {Array} input.mediaFiles - 媒体文件映射数组
+ * @param {string} input.appUrl - 应用 URL
+ * @param {string} input.accessToken - 访问令牌
+ * @param {string} input.rootDir - 根目录
+ * @param {string} input.outputDir - 输出目录
+ * @returns {Promise<Object>} URL 映射对象
+ */
+export async function batchUploadMediaFiles({
+  allUsedMediaKitUrls,
+  mediaFiles = [],
+  appUrl,
+  accessToken,
+  rootDir,
+  outputDir,
+}) {
+  // 如果没有需要上传的URL，返回空映射
+  if (allUsedMediaKitUrls.size === 0) {
+    return {};
+  }
+
+  // 根据使用的 URL 找到对应的文件路径
+  const filesToUpload = [];
+
+  mediaFiles.forEach((media) => {
+    if (
+      media.mediaKitPath &&
+      media.path &&
+      media.type === "image" &&
+      allUsedMediaKitUrls.has(media.mediaKitPath)
+    ) {
+      filesToUpload.push(media);
+    }
+  });
+
+  // 如果没有需要上传的文件，返回空映射
+  if (filesToUpload.length === 0) {
+    return {};
+  }
+
+  try {
+    // 批量上传文件
+    const uploadFilePaths = filesToUpload.map((file) => path.join(rootDir, file.path));
+
+    const uploadResults = await uploadFiles({
+      appUrl,
+      filePaths: uploadFilePaths,
+      accessToken,
+      concurrency: 3,
+      cacheFilePath: path.join(outputDir, "_upload-cache.yaml"),
+    });
+
+    // 创建 mediaKitPath 到上传URL的映射
+    const mediaKitToUrlMap = {};
+    uploadResults.results.forEach((result, index) => {
+      if (result.url) {
+        const mediaFile = filesToUpload[index];
+        mediaKitToUrlMap[mediaFile.mediaKitPath] = result.url;
+      }
+    });
+
+    return mediaKitToUrlMap;
+  } catch (error) {
+    console.warn(`Failed to batch upload media files: ${error.message}`);
+    return {};
+  }
+}

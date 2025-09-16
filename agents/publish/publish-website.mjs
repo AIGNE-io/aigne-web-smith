@@ -8,113 +8,45 @@ import { parse } from "yaml";
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import {
   DEFAULT_APP_URL,
+  LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
   TMP_DIR,
   TMP_PAGES_DIR,
 } from "../../utils/constants.mjs";
-import { uploadFiles } from "../../utils/upload-files.mjs";
+import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 /**
- * 递归扫描对象中的 mediakit:// 协议值
+ * 递归扫描对象中的指定协议值
  * @param {any} obj - 要扫描的对象
- * @param {Set} foundUrls - 找到的 mediakit:// URL 集合
+ * @param {Set} foundUrls - 找到的协议 URL 集合
+ * @param {string} protocol - 要扫描的协议 (如 MEDIA_KIT_PROTOCOL 或 LINK_PROTOCOL)
  */
-function scanForMediaKitUrls(obj, foundUrls) {
+function scanForProtocolUrls(obj, foundUrls, protocol) {
   if (typeof obj === "string") {
-    if (obj.startsWith(MEDIA_KIT_PROTOCOL)) {
+    if (obj.startsWith(protocol)) {
       foundUrls.add(obj);
     }
   } else if (Array.isArray(obj)) {
-    obj.forEach((item) => scanForMediaKitUrls(item, foundUrls));
+    obj.forEach((item) => scanForProtocolUrls(item, foundUrls, protocol));
   } else if (obj && typeof obj === "object") {
-    Object.values(obj).forEach((value) => scanForMediaKitUrls(value, foundUrls));
+    Object.values(obj).forEach((value) => scanForProtocolUrls(value, foundUrls, protocol));
   }
 }
 
 /**
- * 批量上传所有需要的媒体文件
- * @param {Object} input - 输入参数对象
- * @param {Array} input.allUsedMediaKitUrls - 所有页面使用的 mediakit:// URL
- * @param {Array} input.mediaFiles - 媒体文件映射数组
- * @param {string} input.appUrl - 应用 URL
- * @param {string} input.accessToken - 访问令牌
- * @param {string} input.rootDir - 根目录
- * @param {string} input.outputDir - 输出目录
- * @returns {Promise<Object>} URL 映射对象
- */
-async function batchUploadMediaFiles({
-  allUsedMediaKitUrls,
-  mediaFiles = [],
-  appUrl,
-  accessToken,
-  rootDir,
-  outputDir,
-}) {
-  // 如果没有需要上传的URL，返回空映射
-  if (allUsedMediaKitUrls.size === 0) {
-    return {};
-  }
-
-  // 根据使用的 URL 找到对应的文件路径
-  const filesToUpload = [];
-
-  mediaFiles.forEach((media) => {
-    if (
-      media.mediaKitPath &&
-      media.path &&
-      media.type === "image" &&
-      allUsedMediaKitUrls.has(media.mediaKitPath)
-    ) {
-      filesToUpload.push(media);
-    }
-  });
-
-  // 如果没有需要上传的文件，返回空映射
-  if (filesToUpload.length === 0) {
-    return {};
-  }
-
-  try {
-    // 批量上传文件
-    const uploadFilePaths = filesToUpload.map((file) => join(rootDir, file.path));
-
-    const uploadResults = await uploadFiles({
-      appUrl,
-      filePaths: uploadFilePaths,
-      accessToken,
-      concurrency: 3,
-      cacheFilePath: join(outputDir, "_upload-cache.yaml"),
-    });
-
-    // 创建 mediaKitPath 到上传URL的映射
-    const mediaKitToUrlMap = {};
-    uploadResults.results.forEach((result, index) => {
-      if (result.url) {
-        const mediaFile = filesToUpload[index];
-        mediaKitToUrlMap[mediaFile.mediaKitPath] = result.url;
-      }
-    });
-
-    return mediaKitToUrlMap;
-  } catch (error) {
-    console.warn(`Failed to batch upload media files: ${error.message}`);
-    return {};
-  }
-}
-
-/**
- * 使用全局URL映射替换页面数据中的 mediakit:// 协议
+ * 使用全局URL映射替换页面数据中的指定协议
  * @param {Object} pageData - 页面数据对象
- * @param {Object} mediaKitToUrlMap - mediakit:// 到 URL 的映射
+ * @param {Object} protocolToUrlMap - 协议到 URL 的映射
+ * @param {string} protocol - 要替换的协议
  * @returns {Object} 处理后的页面数据对象
  */
-function replacePageMediaKitUrls(pageData, mediaKitToUrlMap) {
+function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
   function replaceUrls(obj) {
     if (typeof obj === "string") {
-      if (obj.startsWith(MEDIA_KIT_PROTOCOL)) {
-        const mappedUrl = mediaKitToUrlMap[obj];
+      if (obj.startsWith(protocol)) {
+        const mappedUrl = protocolToUrlMap[obj];
         if (mappedUrl) {
           return mappedUrl;
         } else {
@@ -135,6 +67,25 @@ function replacePageMediaKitUrls(pageData, mediaKitToUrlMap) {
   }
 
   return replaceUrls(pageData);
+}
+
+/**
+ * 创建链接协议到实际路径的映射
+ * @param {Array} websiteStructure - 网站结构数组
+ * @returns {Object} link:// 到实际路径的映射
+ */
+function createLinkProtocolMap(websiteStructure, projectSlug) {
+  const linkToPathMap = {};
+
+  if (websiteStructure && Array.isArray(websiteStructure)) {
+    websiteStructure.forEach((page) => {
+      if (page.path && page.linkPath) {
+        linkToPathMap[page.linkPath] = join(projectSlug, page.path);
+      }
+    });
+  }
+
+  return linkToPathMap;
 }
 
 const publishPageFn = async ({
@@ -202,6 +153,7 @@ export default async function publishWebsite(
     projectSlug,
     outputDir,
     mediaFiles,
+    websiteStructure,
     pagesDir: rootDir,
   },
   options,
@@ -342,8 +294,9 @@ export default async function publishWebsite(
       (file) => (file.endsWith(".yaml") || file.endsWith(".yml")) && !file.startsWith("_"),
     );
 
-    // Step 1: 扫描所有页面，收集需要上传的 mediakit:// URL
+    // Step 1: 扫描所有页面，收集需要处理的协议 URLs
     const allUsedMediaKitUrls = new Set();
+    const allUsedLinkUrls = new Set();
     const pageContents = new Map();
 
     for (const file of yamlFiles) {
@@ -355,13 +308,16 @@ export default async function publishWebsite(
         pageContents.set(file, parsedPageContent);
 
         // 扫描这个页面中的 mediakit:// URL
-        scanForMediaKitUrls(parsedPageContent, allUsedMediaKitUrls);
+        scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, MEDIA_KIT_PROTOCOL);
+
+        // 扫描这个页面中的 link:// URL
+        scanForProtocolUrls(parsedPageContent, allUsedLinkUrls, LINK_PROTOCOL);
       } catch (error) {
         console.warn(`Failed to read file ${file}: ${error.message}`);
       }
     }
 
-    // Step 2: 批量上传所有需要的文件
+    // Step 2: 批量上传所有需要的媒体文件
     const mediaKitToUrlMap = await batchUploadMediaFiles({
       allUsedMediaKitUrls,
       mediaFiles,
@@ -370,6 +326,9 @@ export default async function publishWebsite(
       rootDir,
       outputDir,
     });
+
+    // Step 2.5: 创建链接协议到实际路径的映射
+    const linkToPathMap = createLinkProtocolMap(websiteStructure, projectSlug || projectId);
 
     // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
@@ -396,7 +355,18 @@ export default async function publishWebsite(
         const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
 
         // Replace mediakit:// URLs with uploaded URLs
-        const processedPageContent = replacePageMediaKitUrls(parsedPageContent, mediaKitToUrlMap);
+        let processedPageContent = replacePageProtocolUrls(
+          parsedPageContent,
+          mediaKitToUrlMap,
+          MEDIA_KIT_PROTOCOL,
+        );
+
+        // Replace link:// URLs with actual paths
+        processedPageContent = replacePageProtocolUrls(
+          processedPageContent,
+          linkToPathMap,
+          LINK_PROTOCOL,
+        );
 
         const pageTemplateData = {
           ...processedPageContent,
@@ -409,10 +379,13 @@ export default async function publishWebsite(
           },
         };
 
+        // 强制把 /home 转成 /
+        const routePath = path === "/home" ? "/" : path;
+
         // Construct route data
         const routeData = {
-          path,
-          displayName: path,
+          path: routePath,
+          displayName: routePath,
           meta: {
             ...boardMeta,
             sourceFile: file,

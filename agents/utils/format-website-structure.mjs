@@ -26,9 +26,12 @@ function generateLinksContent(websiteStructure) {
   return linksContent;
 }
 
-export default async function formatWebsiteStructure({ websiteStructure }) {
+export default async function formatWebsiteStructure({
+  websiteStructure,
+  originalWebsiteStructure,
+}) {
   // Extract required fields from each item in websiteStructure
-  const formattedData = websiteStructure.map((item) => ({
+  const formattedData = (websiteStructure || originalWebsiteStructure).map((item) => ({
     title: item.title,
     path: item.path,
     parentId: item.parentId,

@@ -29,6 +29,7 @@
 </goal>
 
 <rules>
+
 ### 场景 1：首次运行（没有旧的规划）
 如果 `originalWebsiteStructure` 为 null、为空或未提供，这意味着这是第一次生成结构。没有可供比较的对象。
 你的检查自动通过。

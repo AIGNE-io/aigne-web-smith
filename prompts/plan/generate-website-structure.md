@@ -7,11 +7,14 @@
 
 结构规划需要包含设计中需要哪些{{nodeName}}，{{nodeName}}之前的关联关系是什么。
 
-这个内容的目标受众是：{{targetAudience}}
+这个站点的目标受众是：{{targetAudience}}
 
 每个{{nodeName}}需要包含：{{nodeName}}标题、一句话介绍这个{{nodeName}}展示的主要信息，信息的展示、组织方式要匹配目标受众。
 
 永远遵循一个原则：你需要确保最终的结构规划需要符合用户的要求。
+
+
+
 
 </goal>
 
@@ -28,12 +31,13 @@
 </last_structure_plan>
 
 <last_structure_plan_rule>
-如果提供了上一轮生成的结构规划(last_structure_plan)，需要遵循以下规则：
+如果提供了上一轮生成的结构规划 <last_structure_plan>，需要遵循以下规则：
 
 1.  **反馈的实现**：新的结构规划**必须**正确地实现用户反馈中要求的所有变更。
 2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path、sourcesIds 属性不能被修改 **。`path`、`sourcesIds` 是关联现有内容的关键标识符，其稳定性至关重要。
     理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
-    </last_structure_plan_rule>
+  
+</last_structure_plan_rule>
 
 <structure_plan_feedback>
 {{ feedback }}
@@ -94,7 +98,8 @@ DataSources 使用规则：
 2. 用户可能提供的 <datasources> 很少，这个时候你可以用你已知的信息进行补充，来完成结构规划
 3. 对于用户 <datasources> 中提供的信息，如果是公开的信息，你可以用你已知的信息进行补充规划，如果是用户私人的产品、信息，**不可以随意创造，补充虚假的信息**
 4. 如果 <datasources> 和目标受众不匹配，你需要对 <datasources> 进行重新描述来匹配目标受众
-   </datasources_rules>
+  
+</datasources_rules>
 
 <structure_plan_rules>
 结构规划规则：
@@ -122,6 +127,7 @@ DataSources 使用规则：
 <page_structure_rules>
 页面结构规划规则：
 
+- 必须包含首页，首页的 path 必须为 '/'
 - 对于结构规划需要生成完整的网站页面结构，提供的数据中的所有功能和页面，并提供实际使用场景的展示。
 - 基于提供的数据进行结构规划，确保规划的页面都有足够的内容展示
 - 相关的内容要聚合到同一个页面中，不要分散到多个页面中，避免内容在多个页面中重复

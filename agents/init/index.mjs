@@ -2,6 +2,8 @@ import crypto from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import slugify from "slugify";
+import { transliterate } from "transliteration";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
@@ -280,6 +282,10 @@ export default async function init(
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
   input.projectId = projectInfo.id;
+  // Generate slug from project name using transliteration and slugify
+  input.projectSlug = input.projectName
+    ? slugify(transliterate(input.projectName), { lower: true, strict: true })
+    : "";
 
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
@@ -324,6 +330,7 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
     projectId: input.projectId || crypto.randomUUID(),
+    projectSlug: input.projectSlug || "",
 
     // Page configuration
     pagePurpose: input.pagePurpose || [],
@@ -352,13 +359,14 @@ export function generateYAML(input) {
     projectDesc: config.projectDesc,
     projectLogo: config.projectLogo,
     projectId: config.projectId,
+    projectSlug: config.projectSlug,
   }).trim();
 
   yaml += `${projectSection}\n\n`;
 
   // Add page configuration with comments
   yaml += "# =============================================================================\n";
-  yaml += "# Page Configuration\n";
+  yaml += "# Website Configuration\n";
   yaml += "# =============================================================================\n\n";
 
   // Page Purpose with all available options

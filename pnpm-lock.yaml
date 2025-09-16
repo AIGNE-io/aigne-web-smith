@@ -71,9 +71,15 @@ importers:
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       terminal-link:
         specifier: ^4.0.0
         version: 4.0.0
+      transliteration:
+        specifier: ^2.3.5
+        version: 2.3.5
       ufo:
         specifier: ^1.6.1
         version: 1.6.1
@@ -3447,6 +3453,10 @@ packages:
     resolution: {integrity: sha512-bSiSngZ/jWeX93BqeIAbImyTbEihizcwNjFoRUIY/T1wWQsfsm2Vw1agPKylXvQTU7iASGdHhyqRlqQzfz+Htg==}
     engines: {node: '>=18'}
 
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
+
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
 
@@ -3596,6 +3606,11 @@ packages:
   tr46@5.1.1:
     resolution: {integrity: sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw==}
     engines: {node: '>=18'}
+
+  transliteration@2.3.5:
+    resolution: {integrity: sha512-HAGI4Lq4Q9dZ3Utu2phaWgtm3vB6PkLUFqWAScg/UW+1eZ/Tg6Exo4oC0/3VUol/w4BlefLhUUSVBr/9/ZGQOw==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
@@ -8996,6 +9011,8 @@ snapshots:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
 
+  slugify@1.6.6: {}
+
   space-separated-tokens@2.0.2: {}
 
   sqlocal@0.14.2(drizzle-orm@0.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)):
@@ -9148,6 +9165,10 @@ snapshots:
   tr46@5.1.1:
     dependencies:
       punycode: 2.3.1
+
+  transliteration@2.3.5:
+    dependencies:
+      yargs: 17.7.2
 
   trough@2.2.0: {}
 

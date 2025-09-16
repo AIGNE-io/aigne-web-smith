@@ -3,6 +3,8 @@ import crypto from "node:crypto";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path, { join } from "node:path";
+import slugify from "slugify";
+import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
 import {
   detectResolvableConflicts,
@@ -879,6 +881,8 @@ export async function getProjectInfo() {
     name: defaultName,
     description: defaultDescription,
     icon: defaultIcon,
+    id: crypto.randomUUID(),
+    slug: defaultName ? slugify(transliterate(defaultName), { lower: true, strict: true }) : "",
     fromGitHub,
   };
 }

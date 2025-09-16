@@ -199,6 +199,7 @@ export default async function publishWebsite(
     projectName,
     projectDesc,
     projectLogo,
+    projectSlug,
     outputDir,
     mediaFiles,
     pagesDir: rootDir,
@@ -425,6 +426,7 @@ export default async function publishWebsite(
           name: projectName,
           description: projectDesc,
           logo: projectLogo,
+          slug: projectSlug,
         };
 
         try {

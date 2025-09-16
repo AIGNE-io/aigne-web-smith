@@ -17,6 +17,13 @@ import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
+const formatRoutePath = (path) => {
+  if (path === "/home") {
+    return "/";
+  }
+  return path;
+};
+
 /**
  * 递归扫描对象中的指定协议值
  * @param {any} obj - 要扫描的对象
@@ -74,13 +81,15 @@ function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
  * @param {Array} websiteStructure - 网站结构数组
  * @returns {Object} link:// 到实际路径的映射
  */
-function createLinkProtocolMap(websiteStructure, projectSlug) {
+function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
   const linkToPathMap = {};
 
   if (websiteStructure && Array.isArray(websiteStructure)) {
     websiteStructure.forEach((page) => {
       if (page.path && page.linkPath) {
-        linkToPathMap[page.linkPath] = join(projectSlug, page.path);
+        const url = new URL(appUrl);
+        url.pathname = join(projectSlug, formatRoutePath(page.path));
+        linkToPathMap[page.linkPath] = url.toString();
       }
     });
   }
@@ -328,7 +337,11 @@ export default async function publishWebsite(
     });
 
     // Step 2.5: 创建链接协议到实际路径的映射
-    const linkToPathMap = createLinkProtocolMap(websiteStructure, projectSlug || projectId);
+    const linkToPathMap = createLinkProtocolMap({
+      websiteStructure,
+      projectSlug: projectSlug || projectId,
+      appUrl,
+    });
 
     // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
@@ -379,8 +392,7 @@ export default async function publishWebsite(
           },
         };
 
-        // 强制把 /home 转成 /
-        const routePath = path === "/home" ? "/" : path;
+        const routePath = formatRoutePath(path);
 
         // Construct route data
         const routeData = {

@@ -46,4 +46,8 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-          pnpm publish --access public --no-git-checks
+          if [[ "${{ steps.release.outputs.version }}" =~ -beta[.0-9]*$ ]]; then
+            pnpm publish --access public --no-git-checks --tag beta
+          else
+            pnpm publish --access public --no-git-checks
+          fi

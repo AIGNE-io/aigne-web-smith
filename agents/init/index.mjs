@@ -190,9 +190,11 @@ export default async function init(
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
   // 7. Source code paths
-  console.log("\n🔍 [7/7]: Source Code Paths");
-  console.log("Enter paths to analyze for website generation (e.g., ./src, ./components)");
-  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
+  console.log("\n📁 [7/7]: DataSource Paths");
+  console.log(
+    "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content, ./src)",
+  );
+  console.log("💡 You can use glob patterns (e.g., docs/**/*.md, content/**/*.json, src/**/*.ts)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];

@@ -899,7 +899,7 @@ export function processConfigFields(config) {
     sourcesPath: ["./"],
     pagesDir: "./.aigne/web-smith/pages",
     outputDir: "./.aigne/web-smith/output",
-    tmpDir: "./.aigne/web-smith/tmp",
+    tmpDir: "./.aigne/web-smith/workspace",
     translateLanguages: [],
     rules: "",
     targetAudience: "",

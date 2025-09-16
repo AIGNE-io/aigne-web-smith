@@ -1,7 +1,7 @@
 import { getFileName } from "../../utils/utils.mjs";
 
 export default async function checkDetailResult({
-  structurePlan,
+  websiteStructure,
   // reviewContent,
   // pagesDir,
   // tmpDir,
@@ -12,7 +12,7 @@ export default async function checkDetailResult({
 
   // Create a set of allowed links, including both original paths and processed page paths
   const allowedLinks = new Set();
-  structurePlan.forEach((item) => {
+  websiteStructure.forEach((item) => {
     // Add original path
     allowedLinks.add(item.path);
 

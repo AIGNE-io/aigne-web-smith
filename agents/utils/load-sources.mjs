@@ -280,20 +280,20 @@ export default async function loadSources({
   );
 
   // Get the last structure plan result
-  let originalStructurePlan;
-  const structurePlanPath = path.join(tmpDir, "structure-plan.json");
+  let originalWebsiteStructure;
+  const websiteStructurePath = path.join(tmpDir, "website-structure.yaml");
   try {
-    await access(structurePlanPath);
-    const structurePlanResult = await readFile(structurePlanPath, "utf8");
-    if (structurePlanResult) {
+    await access(websiteStructurePath);
+    const websiteStructureResult = await readFile(websiteStructurePath, "utf8");
+    if (websiteStructureResult) {
       try {
-        originalStructurePlan = JSON.parse(structurePlanResult);
+        originalWebsiteStructure = parse(websiteStructureResult);
       } catch (err) {
-        console.error(`Failed to parse structure-plan.json: ${err.message}`);
+        console.error(`Failed to parse website-structure.yaml: ${err.message}`);
       }
     }
   } catch {
-    // The file does not exist, originalStructurePlan remains undefined
+    // The file does not exist, originalWebsiteStructure remains undefined
   }
 
   // Get the last output result of the specified path
@@ -383,7 +383,7 @@ export default async function loadSources({
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
     content,
-    originalStructurePlan,
+    originalWebsiteStructure,
     files,
     modifiedFiles,
     totalWords,

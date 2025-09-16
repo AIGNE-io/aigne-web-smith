@@ -11,7 +11,7 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalStructurePlan, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },
+  { originalWebsiteStructure, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },
   options,
 ) {
   // Check if we need to regenerate structure plan
@@ -19,8 +19,8 @@ export default async function analyzeWebsiteStructure(
   let finalFeedback = feedback;
   let submittedFeedback = feedback;
 
-  // Prompt for feedback if originalStructurePlan exists and no feedback provided
-  if (originalStructurePlan && !feedback) {
+  // Prompt for feedback if originalWebsiteStructure exists and no feedback provided
+  if (originalWebsiteStructure && !feedback) {
     const userFeedback = await options.prompts.input({
       message: "Please provide feedback for website structure (press Enter to skip):",
     });
@@ -31,8 +31,8 @@ export default async function analyzeWebsiteStructure(
     }
   }
 
-  // If no feedback and originalStructurePlan exists, check for git changes
-  if (originalStructurePlan) {
+  // If no feedback and originalWebsiteStructure exists, check for git changes
+  if (originalWebsiteStructure) {
     // If no lastGitHead, check if _sitemap file exists to determine if we should regenerate
     if (!lastGitHead) {
       try {
@@ -81,9 +81,9 @@ export default async function analyzeWebsiteStructure(
   }
 
   // If no regeneration needed, return original structure plan
-  if (originalStructurePlan && !finalFeedback && !shouldRegenerate) {
+  if (originalWebsiteStructure && !finalFeedback && !shouldRegenerate) {
     return {
-      structurePlan: originalStructurePlan,
+      websiteStructure: originalWebsiteStructure,
     };
   }
 
@@ -102,7 +102,7 @@ export default async function analyzeWebsiteStructure(
 
   const result = await options.context.invoke(panningAgent, {
     feedback: finalFeedback || "",
-    originalStructurePlan,
+    originalWebsiteStructure,
     userPreferences,
     ...rest,
   });
@@ -157,11 +157,11 @@ export default async function analyzeWebsiteStructure(
   return {
     ...result,
     feedback: "", // clear feedback
-    structurePlanFeedback: submittedFeedback,
+    websiteStructureFeedback: submittedFeedback,
     projectInfoMessage: message,
-    originalStructurePlan: originalStructurePlan
-      ? originalStructurePlan
-      : JSON.parse(JSON.stringify(result.structurePlan || [])),
+    originalWebsiteStructure: originalWebsiteStructure
+      ? originalWebsiteStructure
+      : JSON.parse(JSON.stringify(result.websiteStructure || [])),
   };
 }
 analyzeWebsiteStructure.taskTitle = "Analyze website structure need generate or update";

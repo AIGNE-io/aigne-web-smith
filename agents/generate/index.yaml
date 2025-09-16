@@ -13,10 +13,10 @@ skills:
   - ../plan/analyze-website-structure.mjs
   - url: ../utils/save-output.mjs
     default_input:
-      saveKey: structurePlan
+      saveKey: websiteStructure
       savePath:
         $get: tmpDir
-      fileName: structure-plan.json
+      fileName: website-structure.yaml
   - type: transform
     name: transformData
     task_render_mode: hide
@@ -24,7 +24,7 @@ skills:
       $merge([
         $,
         {
-          'structurePlanResult': $map(structurePlan, function($item) {
+          'websiteStructureResult': $map(websiteStructure, function($item) {
             $merge([
               $item,
               {

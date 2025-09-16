@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
+import { stringify } from "yaml";
 
 export default async function saveOutput({ savePath, fileName, saveKey, ...rest }) {
   if (!(saveKey in rest)) {
@@ -12,7 +13,11 @@ export default async function saveOutput({ savePath, fileName, saveKey, ...rest 
 
   const value = rest[saveKey];
   const content =
-    typeof value === "object" && value !== null ? JSON.stringify(value, null, 2) : String(value);
+    typeof value === "object" && value !== null
+      ? stringify(value, {
+          aliasDuplicateObjects: false,
+        })
+      : String(value);
   await fs.mkdir(savePath, { recursive: true });
   const filePath = join(savePath, fileName);
   await fs.writeFile(filePath, content, "utf8");

@@ -24,7 +24,7 @@
 </datasources>
 
 <last_structure_plan>
-{{originalStructurePlan}}
+{{originalWebsiteStructure}}
 </last_structure_plan>
 
 <last_structure_plan_rule>
@@ -40,7 +40,7 @@
 </structure_plan_feedback>
 
 <review_structure_plan>
-{{ structurePlan }}
+{{ websiteStructure }}
 </review_structure_plan>
 
 <structure_review_feedback>

@@ -1,8 +1,8 @@
 import { stringify } from "yaml";
 
-export default async function formatStructurePlan({ structurePlan }) {
-  // Extract required fields from each item in structurePlan
-  const formattedData = structurePlan.map((item) => ({
+export default async function formatWebsiteStructure({ websiteStructure }) {
+  // Extract required fields from each item in websiteStructure
+  const formattedData = websiteStructure.map((item) => ({
     title: item.title,
     path: item.path,
     parentId: item.parentId,
@@ -17,9 +17,9 @@ export default async function formatStructurePlan({ structurePlan }) {
   });
 
   return {
-    structurePlanYaml: yamlString,
-    structurePlan,
+    websiteStructureYaml: yamlString,
+    websiteStructure,
   };
 }
 
-formatStructurePlan.task_render_mode = "hide";
+formatWebsiteStructure.task_render_mode = "hide";

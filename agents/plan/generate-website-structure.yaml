@@ -45,8 +45,8 @@ output_schema:
     projectDesc:
       type: string
       description: 根据 DataSources 分析生成当前项目描述，为原始项目生成描述，描述简洁，不超过 50 个单词
-    structurePlan: ../schema/website-structure.yaml
-    structurePlanTree:
+    websiteStructure: ../schema/website-structure.yaml
+    websiteStructureTree:
       type: string
       description: |
         结构规划的树形结构，用于展示结构规划的层级关系，参考格式：

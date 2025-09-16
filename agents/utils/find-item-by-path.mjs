@@ -8,7 +8,7 @@ import {
 } from "../../utils/pages-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { page, structurePlanResult, projectId, pagesDir, isTranslate, feedback, locale },
+  { page, websiteStructureResult, projectId, pagesDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItem = null;
@@ -19,7 +19,11 @@ export default async function findItemByPath(
   if (!pagePath) {
     try {
       // Get all main language page files in pagesDir
-      const mainLanguageFiles = await getMainLanguageFiles(pagesDir, locale, structurePlanResult);
+      const mainLanguageFiles = await getMainLanguageFiles(
+        pagesDir,
+        locale,
+        websiteStructureResult,
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No pages found in the pages directory");
@@ -59,7 +63,7 @@ export default async function findItemByPath(
       const flatName = fileNameToFlatPath(selectedFile);
 
       // Try to find matching item by comparing flattened paths
-      const foundItemByFile = findItemByFlatName(structurePlanResult, flatName);
+      const foundItemByFile = findItemByFlatName(websiteStructureResult, flatName);
 
       if (!foundItemByFile) {
         throw new Error("No page found");
@@ -78,10 +82,16 @@ export default async function findItemByPath(
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(structurePlanResult, pagePath, projectId, pagesDir, locale);
+  foundItem = await findItemByPathUtil(
+    websiteStructureResult,
+    pagePath,
+    projectId,
+    pagesDir,
+    locale,
+  );
 
   if (!foundItem) {
-    throw new Error(`Item with path "${pagePath}" not found in structurePlanResult`);
+    throw new Error(`Item with path "${pagePath}" not found in websiteStructureResult`);
   }
 
   // Prompt for feedback if not provided

@@ -13,8 +13,8 @@ skills:
       $merge([
         $,
         {
-          'structurePlan': originalStructurePlan,
-          'structurePlanResult': $map(originalStructurePlan, function($item) {
+          'websiteStructure': originalWebsiteStructure,
+          'websiteStructureResult': $map(originalWebsiteStructure, function($item) {
             $merge([
               $item,
               {

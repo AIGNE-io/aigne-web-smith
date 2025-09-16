@@ -5,13 +5,13 @@ import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
 
 /**
  * @param {Object} params
- * @param {Array<{path: string, content: string, title: string}>} params.structurePlan
+ * @param {Array<{path: string, content: string, title: string}>} params.websiteStructure
  * @param {string} params.pagesDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function savePages({
-  structurePlanResult: structurePlan,
+  websiteStructureResult: websiteStructure,
   pagesDir,
   outputDir,
   // translateLanguages = [],
@@ -28,7 +28,7 @@ export default async function savePages({
 
   // Generate _sitemap.yaml
   try {
-    const sitemap = generateSitemapYaml(structurePlan);
+    const sitemap = generateSitemapYaml(websiteStructure);
     const sitemapPath = join(outputDir, "_sitemap.yaml");
     await writeFile(sitemapPath, sitemap, "utf8");
   } catch (err) {
@@ -38,14 +38,14 @@ export default async function savePages({
   // Clean up invalid .yaml files that are no longer in the structure plan
   // try {
   //   // @FIXME
-  //   // await cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale);
+  //   // await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
   // } catch (err) {
   //   console.error("Failed to cleanup invalid .yaml files:", err.message);
   // }
 
   const message = `✅ Pages Generated Successfully!
 
-Successfully generated **${structurePlan.length}** page templates and saved to:
+Successfully generated **${websiteStructure.length}** page templates and saved to:
   \`${pagesDir}\`
   ${projectInfoMessage || ""}
 🚀 Next Steps
@@ -95,13 +95,13 @@ function generateFileName(flatName, language) {
 
 /**
  * Clean up .yaml files that are no longer in the structure plan
- * @param {Array<{path: string, title: string}>} structurePlan
+ * @param {Array<{path: string, title: string}>} websiteStructure
  * @param {string} pagesDir
  * @param {Array<string>} translateLanguages
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages, locale) {
+async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
   const results = [];
 
   try {
@@ -113,7 +113,7 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
     const expectedFiles = new Set();
 
     // Add main page files
-    for (const { path } of structurePlan) {
+    for (const { path } of websiteStructure) {
       const flatName = path.replace(/^\//, "").replace(/\//g, "-");
 
       // Main language file
@@ -164,11 +164,11 @@ async function _cleanupInvalidFiles(structurePlan, pagesDir, translateLanguages,
   return results;
 }
 
-// Generate sitemap YAML content, support nested structure, and the order is consistent with structurePlan
-function generateSitemapYaml(structurePlan) {
+// Generate sitemap YAML content, support nested structure, and the order is consistent with websiteStructure
+function generateSitemapYaml(websiteStructure) {
   // Build tree structure
   const root = {};
-  for (const { path, title, parentId } of structurePlan) {
+  for (const { path, title, parentId } of websiteStructure) {
     const relPath = path.replace(/^\//, "");
     const segments = relPath.split("/");
     let node = root;

@@ -1,6 +1,6 @@
 type: team
 name: generatePageDetailTeam
-description: 生成页面详情
+description: Team for generating page detail
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
@@ -38,56 +38,53 @@ input_schema:
   properties:
     nodeName:
       type: string
-      description: 节点名称
+      description: Node name
       default: Section
     locale:
       type: string
-      description: 语言
-    targetAudience:
-      type: string
-      description: 目标受众
+      description: Language
     glossary:
       type: string
-      description: 术语表
+      description: Glossary
     pagePath:
       type: string
-      description: 当前路径
+      description: Current path
     feedback:
       type: string
-      description: 反馈
+      description: Feedback
     sources:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code paths
     sourcesPath:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code paths
       default:
         - ./
     includePatterns:
       type: array
       items:
         type: string
-        description: 包含的文件名
+        description: Included file names
     excludePatterns:
       type: array
       items:
         type: string
-        description: 排除的文件名
+        description: Excluded file names
     tmpDir:
       type: string
-      description: 输出目录
+      description: Output directory
       default: ./aigne-pages/output
     pagesDir:
       type: string
-      description: 页面目录
+      description: Pages directory
       default: ./aigne-pages/pages
     additionalInformation:
       type: string
-      description: 额外补充信息
+      description: Additional supplementary information
 output_schema:
   type: object
   properties:

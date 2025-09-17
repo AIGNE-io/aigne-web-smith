@@ -1,6 +1,6 @@
 type: team
 name: batchTranslatePageDetail
-description: 批量翻译页面详情
+description: batch translate page detail
 
 mode: sequential
 skills:

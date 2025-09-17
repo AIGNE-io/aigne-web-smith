@@ -1,6 +1,6 @@
 type: team
 name: translatePageDetailTeam
-description: 批量翻译页面内容到多个语言
+description: Batch translate page detail to multiple languages
 skills:
   - type: team
     name: translatePageDetail

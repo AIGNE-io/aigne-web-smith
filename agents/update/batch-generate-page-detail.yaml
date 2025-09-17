@@ -1,6 +1,6 @@
 type: team
 name: batchGeneratePageDetail
-description: 批量生成页面详情
+description: Batch generate page details
 skills:
   - url: ./analyze-page-detail.mjs
 input_schema:
@@ -8,7 +8,7 @@ input_schema:
   properties:
     datasources:
       type: string
-      description: 结构规划的上下文，用于辅助结构规划
+      description: Global context for assisting detail generation
     websiteStructureResult: ../schema/website-structure-with-translates.yaml
     modifiedFiles:
       type: array

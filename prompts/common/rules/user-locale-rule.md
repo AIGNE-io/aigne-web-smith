@@ -1,8 +1,6 @@
-<user_locale_rule>
+Response Language constraints:
 
-- Respond in "{{locale}}" language only
-  - Follow the glossary defined in <follow_glossary_rule> (if provided)
+- All outputs or responses must be in "{{locale}}" language only
+  - Follow glossary constraints defined (if provided)
   - Exceptions: code names, APIs, product names, direct quotes
 - Self-check language compliance before output
-
-</user_locale_rule>

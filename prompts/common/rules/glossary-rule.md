@@ -1,8 +1,7 @@
 {% if glossary %}
-<follow_glossary_rule>
-Glossary of Proprietary Terms, Ensuring Correct Spelling:
+
+Glossary constraints:
 
 {{glossary}}
 
-</follow_glossary_rule>
 {% endif %}

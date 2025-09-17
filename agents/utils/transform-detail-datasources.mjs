@@ -18,7 +18,7 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
     .map((id) => {
       const normalizedId = normalizePath(id);
       const relativeId = toRelativePath(id);
-      return `// sourceId: ${relativeId}\n${dsMap[normalizedId]}\n`;
+      return `// sourceId: ${relativeId}\n${dsMap[normalizedId]}\n\n`;
     });
 
   return { detailDataSources: contents.join("") };

@@ -90,6 +90,7 @@ Content and Organization:
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
 - If sub-pages exist, current page should only show overview and guide navigation, avoiding duplication with other page content.
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
+- Do not include any internal page links or anchors within the content.
 
 Style and Expression:
 

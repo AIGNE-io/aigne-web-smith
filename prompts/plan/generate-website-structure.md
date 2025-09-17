@@ -75,13 +75,7 @@ When website constraints include conflicting options, resolve by:
 
 {% endif %}
 
-{% if userPreferences %}
-<user_preferences>
-
-{{userPreferences}}
-
-</user_preferences>
-{% endif %}
+{% include "../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 {% include "../common/rules/glossary-rule.md" %}

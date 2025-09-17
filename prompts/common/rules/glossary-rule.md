@@ -1,6 +1,6 @@
 {% if glossary %}
 
-Glossary constraints:
+Glossary constraints, must use the following glossary:
 
 {{glossary}}
 

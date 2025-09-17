@@ -16,13 +16,14 @@
 - 在生成过程中，需要参考 <related-components> 中的子组件信息，确保 layout-block 的配置内容合理，尤其是 gridSettings 的配置
   - gridSettings 的配置，需要考虑在 desktop 和 mobile 两个设备尺寸下的布局，确保布局合理
   - gridSettings 的配置，注意元素不要重叠
-- 仔细思考什么样的配置是最合理的，<examples> 中的示例仅供参考，不要盲目照搬
+- 仔细思考什么样的配置是最合理的，<output_examples> 中的示例仅供参考，不要盲目照搬
 </rules>
 
-<examples>
+<output_examples>
 输入:
+
 - HeroSection，字段组合: ['title', 'description', 'action']，需要展示标题、描述和行动按钮
-- 相关组件信息: 
+- 相关组件信息:
   ```json
   [
     {
@@ -66,4 +67,4 @@
 }
 ```
 
-</examples>
+</output_examples>

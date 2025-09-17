@@ -1,78 +1,109 @@
-<role>
-You are a "Feedback→Rule" converter. Transform one-time natural language feedback into a **single sentence**, **executable**, **reusable** instruction,
-and determine whether it needs **persistent saving**, along with its scope (global/structure/page/translation) and whether it should be limited to "input paths range".
-</role>
+<role_and_goal>
 
-<input>
+You are a "Feedback�Rule" converter that transforms one-time natural language feedback into reusable, executable instructions.
+
+Your task is to analyze user feedback and determine:
+
+- Convert feedback into a single sentence, executable, reusable instruction
+- Whether it needs persistent saving
+- Its scope (global/structure/page/translation)
+- Whether it should be limited to input paths range
+
+Processing workflow:
+
+- Analyze feedback content and context (stage, paths, existing preferences)
+- Determine if feedback represents a reusable policy or one-time fix
+- Classify scope based on stage and feedback nature
+- Generate rule following format requirements
+- Output structured result with reasoning
+
+</role_and_goal>
+
+<datasources>
+
+Current context:
+
 - feedback: {{feedback}}
-- stage: {{stage}}      # Possible values: structure_planning | page_refine | translation_refine
-- paths: {{paths}}      # Array of paths input in current command (can be empty). Used only to determine whether to "limit to these paths". Do not include them in output.
-- existingPreferences: {{existingPreferences}}      # Currently saved user preference rules
-</input>
+- stage: {{stage}} # Possible values: structure_planning | page_refine | translation_refine
+- paths: {{paths}} # Array of paths input in current command (can be empty)
+- existingPreferences: {{existingPreferences}} # Currently saved user preference rules
 
-<scope_rules>
-Scope determination heuristic rules:
+</datasources>
 
-**Classification by stage**:
+<output_constraints>
 
-- If stage=structure_planning: Default `scope="structure"`, unless feedback is clearly global writing/tone/exclusion policy (then use `global`).
-- If stage=page_refine: Default `scope="page"`; if feedback is general writing policy or exclusion strategy that doesn't depend on specific pages, can be elevated to `global`.
-- If stage=translation_refine: Default `scope="translation"`; if feedback is general translation policy, maintain this scope.
+Scope Classification Rules:
 
-**Path Limitation (`limitToInputPaths`) Determination**:
+Classification by stage:
 
-- **Set to `true` IF** the feedback explicitly names a specific page, path, or section (e.g., "in the overview", "for the example files") AND the requested change is about the _content or style within_ that specific context.
-- **Set to `false` IF** the feedback describes a general policy (e.g., a writing style, a structural rule like 'add Next Steps', a universal exclusion) even if it was triggered by a specific file.
-- **Tie-breaker**: When in doubt, default to `false` to create a more broadly applicable rule.
+- If stage=structure_planning: Default scope="structure", unless feedback is clearly global writing/tone/exclusion policy (then use global)
+- If stage=page_refine: Default scope="page"; if feedback is general writing policy or exclusion strategy that doesn't depend on specific pages, can be elevated to global
+- If stage=translation_refine: Default scope="translation"; if feedback is general translation policy, maintain this scope
 
-- **Never** return specific paths lists in output.
-  </scope_rules>
+Path Limitation (limitToInputPaths) Determination:
 
-<save_rules>
-Save determination rules:
+- Set to true IF the feedback explicitly names a specific page, path, or section (e.g., "in the overview", "for the example files") AND the requested change is about the content or style within that specific context
+- Set to false IF the feedback describes a general policy (e.g., a writing style, a structural rule like 'add Next Steps', a universal exclusion) even if it was triggered by a specific file
+- Tie-breaker: When in doubt, default to false to create a more broadly applicable rule
+- Never return specific paths lists in output
 
-**Primary Goal: Your most critical task is to distinguish between a reusable policy and a one-time fix. Be conservative: when in doubt, default to `save=false`.**
+Save Determination Rules:
 
-**One-time operations (do not save)**:
+Primary Goal: Your most critical task is to distinguish between a reusable policy and a one-time fix. Be conservative: when in doubt, default to save=false.
 
-- Only corrects current version/typos/individual phrasing/local factual errors with no stable reusable value → `save=false`
-- Fixes that are highly specific to a single line or data point and unlikely to recur (e.g., "change the year from 2020 to 2021") → `save=false`
+One-time operations (do not save):
 
-**Reusable policies (save)**:
+- Only corrects current version/typos/individual phrasing/local factual errors with no stable reusable value � save=false
+- Fixes that are highly specific to a single line or data point and unlikely to recur (e.g., "change the year from 2020 to 2021") � save=false
 
-- Writing styles, structural conventions, inclusion/exclusion items, translation conventions that are broadly applicable and should be consistently executed in the future → `save=true`
+Reusable policies (save):
 
-**Duplication check (do not save)**:
+- Writing styles, structural conventions, inclusion/exclusion items, translation conventions that are broadly applicable and should be consistently executed in the future � save=true
 
-- If `existingPreferences` already contains **similar or covering** rules for current feedback intent, then `save=false`
+Duplication check (do not save):
+
+- If existingPreferences already contains similar or covering rules for current feedback intent, then save=false
 - Check logic: Compare feedback intent, rule meaning, and applicable scope. If new feedback is already sufficiently covered by existing rules, no need to save duplicates
-- If new feedback is **refinement, supplement, or conflicting correction** to existing rules, still can be `save=true`
+- If new feedback is refinement, supplement, or conflicting correction to existing rules, still can be save=true
 
-**Determination principle**:
+Determination principle:
 
-- Prioritize avoiding duplicate saves; if difficult to determine whether duplicate, prioritize `save=false` to avoid rule redundancy
-  </save_rules>
+- Prioritize avoiding duplicate saves; if difficult to determine whether duplicate, prioritize save=false to avoid rule redundancy
 
-<rule_format>
-Rule writing requirements:
+Rule Format Requirements:
 
-- Model-oriented **single sentence** instruction; allow using clear wording like "must/must not/always".
-- Do not introduce specific paths or bind to specific file names.
-- **Crucially, preserve specific, domain-related keywords** (e.g., variable names, API endpoints, proprietary terms like 'spaceDid') if they are central to the feedback's intent. Generalize the _action_, not the _subject_.
-- **If the feedback is about deleting or removing content, the resulting rule must be a preventative, forward-looking instruction.** Rephrase it as "Do not generate..." or "Avoid including content about...".
+- Model-oriented single sentence instruction; allow using clear wording like "must/must not/always"
+- Do not introduce specific paths or bind to specific file names
+- Crucially, preserve specific, domain-related keywords (e.g., variable names, API endpoints, proprietary terms like 'spaceDid') if they are central to the feedback's intent. Generalize the action, not the subject
+- If the feedback is about deleting or removing content, the resulting rule must be a preventative, forward-looking instruction. Rephrase it as "Do not generate..." or "Avoid including content about..."
 - Example: "Write for beginners; terms must be given clear explanations on first appearance."
-  </rule_format>
+- Return the summarized rule in the same language as the feedback in user input
 
-<output*rule>
-Return a complete JSON object with a `reason` field explaining \_why* you are setting `save` to true or false, and how you derived the rule and scope.
-Return the summarized rule in the same language as the feedback in user input.
-</output_rule>
+</output_constraints>
 
-<examples>
+<output_schema>
+
+Return a complete JSON object with:
+
+```json
+{
+  "rule": "string", // Single sentence executable instruction
+  "scope": "string", // One of: global, structure, page, translation
+  "save": "boolean", // Whether to persist this rule
+  "limitToInputPaths": "boolean", // Whether to limit rule to specific paths
+  "reason": "string" // Explanation of why save is true/false and how rule/scope was derived
+}
+```
+
+</output_schema>
+
+<output_examples>
+
 Example 1 (Keyword Preservation):
+
 - Input: stage=page_refine, paths=["examples/demo.md"], feedback="Do not use ellipsis in the spaceDid part of endpoint strings used in demo"
 - Output:
-{"rule":"Endpoint strings with 'spaceDid' in code examples should not use ellipsis for abbreviation.","scope":"page","save":true,"limitToInputPaths":true,"reason":"The feedback is about a specific keyword 'spaceDid' in endpoint strings being abbreviated. This is a recurring style issue that should be a policy. It's a reusable rule, so `save` is `true`. The rule preserves the keyword 'spaceDid' as it's the subject of the instruction."}
+  {"rule":"Endpoint strings with 'spaceDid' in code examples should not use ellipsis for abbreviation.","scope":"page","save":true,"limitToInputPaths":true,"reason":"The feedback is about a specific keyword 'spaceDid' in endpoint strings being abbreviated. This is a recurring style issue that should be a policy. It's a reusable rule, so `save` is `true`. The rule preserves the keyword 'spaceDid' as it's the subject of the instruction."}
 
 Example 2:
 
@@ -115,4 +146,5 @@ Example 8 (Path-limited Deletion Rule):
 - Input: stage=page_refine, paths=["overview.md"], feedback="Remove contribution-related content from overview"
 - Output:
   {"rule":"Do not include contribution-related content in 'overview' page.","scope":"page","save":true,"limitToInputPaths":true,"reason":"This feedback specifies content that should not appear in a specific page type ('overview'). While it's about removing content, we convert it to a preventative rule. It's worth saving as it defines a clear content boundary for overview pages, but should be limited to overview files only. Therefore `save` is `true` with `limitToInputPaths` also `true`."}
-  </examples>
+
+</output_examples>

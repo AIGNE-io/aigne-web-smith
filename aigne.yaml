@@ -46,13 +46,14 @@ agents:
   - ./agents/translate/index.yaml
   - ./agents/translate/translate-page-detail.yaml
   - ./agents/translate/choose-language.mjs
+  - ./agents/translate/translate-page-detail-team.yaml
   - ./agents/translate/batch-translate-page-detail.yaml
 
   # update
   - ./agents/update/index.yaml
   - ./agents/update/batch-generate-page-detail.yaml
   - ./agents/update/generate-page-detail.yaml
-  - ./agents/update/generate-and-translate-page-detail.yaml
+  - ./agents/update/generate-page-detail-team.yaml
   - ./agents/update/analyze-page-detail.mjs
 
   # utils

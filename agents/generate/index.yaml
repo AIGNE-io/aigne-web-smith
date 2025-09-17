@@ -25,10 +25,12 @@ skills:
       stage: structure_planning
   - ./component-library/load-component-library.mjs
   - type: team
-    name: analyzeComponentLibrary(openai/gpt-5)
+    name: analyzeComponentLibrary and translatePageDetail
     model: openai/gpt-5
     skills:
+      - ../translate/batch-translate-page-detail.yaml
       - ./component-library/analyze-component-library.mjs
+    mode: parallel
   - ./page/compose-pages-data.mjs
   - ../utils/save-pages.mjs
 

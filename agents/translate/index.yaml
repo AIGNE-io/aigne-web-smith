@@ -13,9 +13,9 @@ skills:
       isTranslate: true
   - ./choose-language.mjs
   - type: team
-    name: batchPagesTranslate
+    name: batchTranslatePageDetail
     skills:
-      - ./batch-translate-page-detail.yaml
+      - ./translate-page-detail-team.yaml
       - url: ../utils/save-single-page.mjs
         default_input:
           isTranslate: true

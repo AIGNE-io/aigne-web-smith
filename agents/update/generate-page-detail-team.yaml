@@ -1,11 +1,11 @@
 type: team
-name: generateAndTranslatePageDetail
-description: 生成页面详情并翻译
+name: generatePageDetailTeam
+description: 生成页面详情
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
     task_render_mode: collapse
-    name: detailGenerate
+    name: generatePageDetail
     skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
@@ -30,7 +30,8 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/batch-translate-page-detail.yaml
+  # will translate page detail next workflow
+  # - ../translate/translate-page-detail-team.yaml
   - ../utils/save-single-page.mjs
 input_schema:
   type: object

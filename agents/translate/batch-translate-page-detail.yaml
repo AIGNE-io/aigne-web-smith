@@ -1,50 +1,36 @@
 type: team
 name: batchTranslatePageDetail
-description: 批量翻译页面内容到多个语言
-skills:
-  - type: team
-    task_render_mode: collapse
-    name: translate
-    skills:
-      - url: ../utils/find-user-preferences-by-path.mjs
-        default_input:
-          scope: translation
-      - ./translate-page-detail.yaml
-      - type: transform
-        jsonata: |
-          $merge([
-            $,
-            { "reviewContent": translation }
-          ])
-    reflection:
-      reviewer: ../utils/check-detail-result.mjs
-      is_approved: isApproved
-      max_iterations: 5
-      return_last_on_max_iterations: true
-    task_title: Translate '{{ title }}' to '{{ language }}'
-input_schema:
-  type: object
-  properties:
-    translates:
-      type: array
-      items:
-        type: object
-        properties:
-          language:
-            type: string
-    content:
-      type: string
-output_schema:
-  type: object
-  properties:
-    translates:
-      type: array
-      items:
-        type: object
-        properties:
-          language:
-            type: string
-          translation:
-            type: string
-iterate_on: translates
+description: 批量翻译页面详情
+
 mode: sequential
+skills:
+  - url: ../utils/transform-website-structure.yaml
+    task_render_mode: hide
+  - type: transform
+    name: analyzePagesAndLanguages
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'langs': translateLanguages,
+          'pages': [$map(websiteStructureResult, function($item) {
+            $item.path
+          })]
+        }
+      ])
+  - url: ../utils/choose-pages.mjs
+    default_input:
+      isTranslate: true
+      requiredFeedback: false
+  - url: ./choose-language.mjs
+  - type: team
+    name: batchTranslatePageDetail
+    model: openai/gpt-5-nano
+    skills:
+      - url: ./translate-page-detail-team.yaml
+      - url: ../utils/save-single-page.mjs
+        default_input:
+          isTranslate: true
+    iterate_on: selectedPages
+    concurrency: 3

@@ -13,9 +13,9 @@ skills:
   - ../utils/format-website-structure.mjs
   - ../utils/choose-pages.mjs
   - type: team
-    name: batchPagesUpdate
+    name: generatePageDetailTeam(selectedPages)
     skills:
-      - ./generate-and-translate-page-detail.yaml
+      - ./generate-page-detail-team.yaml
     iterate_on: selectedPages
     concurrency: 3
   - url: ../utils/check-feedback-refiner.mjs

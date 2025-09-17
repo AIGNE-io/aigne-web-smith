@@ -1,12 +1,7 @@
 import { access, readFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { TeamAgent } from "@aigne/core";
+import { join } from "node:path";
 import { getFileName, hasSourceFilesChanged } from "../../utils/utils.mjs";
 import checkDetailResult from "../utils/check-detail-result.mjs";
-
-// Get current script directory
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function analyzePageDetail(input, options) {
   const {
@@ -106,12 +101,7 @@ export default async function analyzePageDetail(input, options) {
     };
   }
 
-  const teamAgent = TeamAgent.from({
-    name: "generateAndTranslatePageDetail",
-    skills: [options.context.agents["generateAndTranslatePageDetail"]],
-  });
-
-  const result = await options.context.invoke(teamAgent, {
+  const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,
     pagesDir,
     path,

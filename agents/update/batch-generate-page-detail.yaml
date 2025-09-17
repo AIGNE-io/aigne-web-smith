@@ -2,7 +2,7 @@ type: team
 name: batchGeneratePageDetail
 description: 批量生成页面详情
 skills:
-  - ./analyze-page-detail.mjs
+  - url: ./analyze-page-detail.mjs
 input_schema:
   type: object
   properties:

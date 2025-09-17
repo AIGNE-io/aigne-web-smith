@@ -8,7 +8,16 @@ import {
 } from "../../utils/pages-finder-utils.mjs";
 
 export default async function choosePages(
-  { pages, websiteStructureResult, projectId, tmpDir, isTranslate, feedback, locale },
+  {
+    pages,
+    websiteStructureResult,
+    projectId,
+    tmpDir,
+    isTranslate,
+    feedback,
+    locale,
+    requiredFeedback = true,
+  },
   options,
 ) {
   let foundItems = [];
@@ -98,7 +107,7 @@ export default async function choosePages(
 
   // Prompt for feedback if not provided
   let userFeedback = feedback;
-  if (!userFeedback) {
+  if (!userFeedback && requiredFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
       "Please provide feedback for the {action} (press Enter to skip):",

@@ -46,8 +46,9 @@ skills:
           type: string
           description: |
             Tree structure of website structure, showing hierarchical relationships
-reflection:
-  reviewer: validate-website-structure.yaml
-  is_approved: isValid
-  max_iterations: 3
-  return_last_on_max_iterations: true
+
+# reflection:
+#   reviewer: validate-website-structure.yaml
+#   is_approved: isValid
+#   max_iterations: 3
+#   return_last_on_max_iterations: true

@@ -61,11 +61,9 @@ export default async function analyzeWebsiteStructure(
       finalFeedback = `
       ${finalFeedback || ""}
       
-      根据最新的 DataSources 更新结构规划：
-        1. 对于新增的内容，可以根据需要新增节点，或补充到原有节点展示
-        2. 谨慎删除节点，除非节点关联 sourceIds 都被删除了
-        3. 不能修改原有节点的 path
-        4. 根据最新的 Data Sources 可以按需要更新节点的 sourceIds。
+      Update website structure based on latest datasources:
+        1. For new content, add new nodes or supplement existing nodes as needed
+        2. Delete nodes only if all associated sourceIds are removed
       `;
     }
   }
@@ -76,7 +74,7 @@ export default async function analyzeWebsiteStructure(
     finalFeedback = `
     ${finalFeedback || ""}
 
-    用户请求强制重新生成结构规划，请根据最新的 Data Sources 和用户要求重生生成，**允许任何修改**。
+    Force regeneration requested: regenerate based on latest datasources and user requirements, any modifications allowed.
     `;
   }
 

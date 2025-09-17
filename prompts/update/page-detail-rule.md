@@ -8,7 +8,7 @@
 - Hero 区域包含关联页面的导航链接，引导用户浏览相关页面
 - Call-to-Action 区域包含下一步操作引导，引导用户进行相关操作
 - 确保页面导航链接格式正确，直接使用结构规划中的 path
-- 如果 dataSources 中包含相关的第三方链接，在页面内容中可以在相关地方关联这些第三方链接
+- 如果 datasources 中包含相关的第三方链接，在页面内容中可以在相关地方关联这些第三方链接
 - 每个 section 必须有清晰的 summary 字段，说明该区块的用途和内容意图
 - 确保页面中的内容是完整、连贯的，用户可以跟着页面内容顺利了解和使用功能
 - 说明要尽可能详细，如果存在配置选项或参数，需要解释每个选项的含义和用途
@@ -26,7 +26,6 @@
 - 忽略详情顶部的标签信息，这是程序处理的，不需要在生成时输出
 
 </page_generation_rules>
-
 
 <TONE_STYLE>
 
@@ -93,8 +92,6 @@ Do not use promotional fluff or filler emotion. Avoid the following unless quoti
 Example: “Now includes location and timestamp for each field report” is better than “a powerful new update.”
 </WORDS_PHRASES_TO_AVOID>
 
-
-
 <structure_rules>
 当生成页面中间格式时，你需要关注内容的语义组织和结构化表达。以下是内容组织的指导原则：
 
@@ -103,38 +100,43 @@ Example: “Now includes location and timestamp for each field report” is bett
 当需要展示多个相关项目时，使用 `list` 字段进行结构化描述：
 
 **适用场景**：
+
 - 功能特性列表
 - 产品优势介绍
 - 步骤说明
 - 服务项目展示
 
 **组织原则**：
+
 - 如有图片说明，可添加 `image` 字段
 - 保持列表项之间的逻辑关联和一致性
 - 按重要性或逻辑顺序排列
 
 **示例结构**：
+
 ```yaml
 sections:
   - name: features
-    summary: '产品核心功能列表，展示主要特性和优势'
-    title: '核心功能'
+    summary: "产品核心功能列表，展示主要特性和优势"
+    title: "核心功能"
     list:
-      - title: '功能一'
-        description: '详细描述功能一的作用和价值'
-      - title: '功能二'
-        description: '详细描述功能二的特点和优势'
+      - title: "功能一"
+        description: "详细描述功能一的作用和价值"
+      - title: "功能二"
+        description: "详细描述功能二的特点和优势"
 ```
 
 ### 2. 内容分组策略
 
 **语义化分组**：根据内容的用途和含义进行分组
+
 - `hero`：主要价值主张和核心信息
 - `features`：功能特性展示
 - `content`：详细说明和描述
 - `action`：行动召唤和引导
 
 **内容层次**：
+
 - 优先级高的内容放在前面
 - 相关内容归类在同一个 section
 - 每个 section 有明确的 summary 说明用途
@@ -142,14 +144,15 @@ sections:
 ### 3. 语义描述重点
 
 **重点关注**：
+
 - 描述内容的**作用和意图**，而非视觉表现
 - 说明内容的**逻辑关系**和**重要性**
 - 提供充分的**上下文信息**便于理解
 
 **避免**：
+
 - 具体的技术实现细节
 - 视觉样式和布局约束
 - 组件层面的配置要求
-
 
 </structure_rules>

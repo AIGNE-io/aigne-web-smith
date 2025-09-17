@@ -898,7 +898,7 @@ export function processConfigFields(config) {
 
   // Set default values for missing or empty fields
   const defaults = {
-    nodeName: "Section",
+    nodeName: "Page",
     locale: "en",
     sourcesPath: ["./"],
     pagesDir: "./.aigne/web-smith/pages",
@@ -938,35 +938,36 @@ export function processConfigFields(config) {
     }
   }
 
-  // Process page purpose (array)
+  // Process page purpose (array) - restructured format
   if (config.pagePurpose && Array.isArray(config.pagePurpose)) {
-    const purposeRules = config.pagePurpose
+    const purposeItems = config.pagePurpose
       .map((key) => {
         const style = PAGE_STYLES[key];
         if (!style) return null;
-        return `Page Purpose - ${style.name}:\n${style.description}\n${style.content}`;
+        const lines = style.content.split("\n").filter((line) => line.trim());
+        return `  - ${style.name}:\n    - Goal: ${style.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
       })
       .filter(Boolean);
 
-    if (purposeRules.length > 0) {
-      allRulesContent.push(purposeRules.join("\n\n"));
+    if (purposeItems.length > 0) {
+      allRulesContent.push(`- Page Purpose:\n${purposeItems.join("\n")}`);
     }
   }
 
-  // Process target audience types (array)
+  // Process target audience types (array) - restructured format
   let audienceNames = "";
   if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
-    // Get structured content for rules
-    const audienceRules = config.targetAudienceTypes
+    const audienceItems = config.targetAudienceTypes
       .map((key) => {
         const audience = TARGET_AUDIENCES[key];
         if (!audience) return null;
-        return `Target Audience - ${audience.name}:\n${audience.description}\n${audience.content}`;
+        const lines = audience.content.split("\n").filter((line) => line.trim());
+        return `  - ${audience.name}:\n    - Description: ${audience.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
       })
       .filter(Boolean);
 
-    if (audienceRules.length > 0) {
-      allRulesContent.push(audienceRules.join("\n\n"));
+    if (audienceItems.length > 0) {
+      allRulesContent.push(`- Target Audience:\n${audienceItems.join("\n")}`);
     }
 
     // Get names for targetAudience field
@@ -988,13 +989,17 @@ export function processConfigFields(config) {
     }
   }
 
-  // Process website scale (single value)
+  // Process website scale (single value) - restructured format
   let scaleContent = "";
   if (config.websiteScale) {
-    scaleContent = WEBSITE_SCALE[config.websiteScale]?.content;
-    if (scaleContent) {
+    const scale = WEBSITE_SCALE[config.websiteScale];
+    if (scale?.content) {
+      scaleContent = scale.content;
       processed.websiteScaleContent = scaleContent;
-      allRulesContent.push(`Website Scale:\n${scaleContent}`);
+
+      const lines = scale.content.split("\n").filter((line) => line.trim());
+      const scaleRule = `- Website Scale: ${scale.name}\n${lines.map((line) => `  - ${line}`).join("\n")}`;
+      allRulesContent.push(scaleRule);
     }
   }
 

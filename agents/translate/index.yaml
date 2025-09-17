@@ -7,23 +7,7 @@ skills:
       skipIfExists: true
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'websiteStructure': originalWebsiteStructure,
-          'websiteStructureResult': $map(originalWebsiteStructure, function($item) {
-            $merge([
-              $item,
-              {
-                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
-              }
-            ])
-          })
-        }
-      ])
+  - ../utils/transform-website-structure.yaml
   - url: ../utils/choose-pages.mjs
     default_input:
       isTranslate: true

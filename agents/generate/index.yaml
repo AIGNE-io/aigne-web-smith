@@ -17,24 +17,7 @@ skills:
       savePath:
         $get: tmpDir
       fileName: website-structure.yaml
-  - type: transform
-    name: transformData
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'websiteStructureResult': $map(websiteStructure, function($item) {
-            $merge([
-              $item,
-              {
-                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
-              }
-            ])
-          }),
-          "datasources": ""
-        }
-      ])
+  - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
   - ../update/batch-generate-page-detail.yaml
   - url: ../utils/check-feedback-refiner.mjs

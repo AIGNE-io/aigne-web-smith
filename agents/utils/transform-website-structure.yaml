@@ -1,0 +1,18 @@
+type: transform
+name: transformWebsiteStructure
+task_render_mode: hide
+jsonata: |
+  $merge([
+    $,
+    {
+      'websiteStructure': originalWebsiteStructure,
+      'websiteStructureResult': [$map(originalWebsiteStructure, function($item) {
+        $merge([
+          $item,
+          {
+            'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+          }
+        ])
+      })]
+    }
+  ])

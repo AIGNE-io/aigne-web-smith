@@ -9,25 +9,9 @@ skills:
       skipIfExists: true
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'websiteStructure': originalWebsiteStructure,
-          'websiteStructureResult': $map(originalWebsiteStructure, function($item) {
-            $merge([
-              $item,
-              {
-                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
-              }
-            ])
-          })
-        }
-      ])
-  - ../utils/choose-pages.mjs
+  - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
+  - ../utils/choose-pages.mjs
   - type: team
     name: batchPagesUpdate
     skills:

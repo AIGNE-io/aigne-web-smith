@@ -34,7 +34,7 @@ agents:
   - ./agents/plan/analyze-website-structure.mjs
   - ./agents/plan/generate-website-structure.yaml
   - ./agents/plan/validate-website-structure.yaml
-  
+
   # prefs
   - ./agents/prefs/index.mjs
 
@@ -47,7 +47,7 @@ agents:
   - ./agents/translate/translate-page-detail.yaml
   - ./agents/translate/choose-language.mjs
   - ./agents/translate/batch-translate-page-detail.yaml
-  
+
   # update
   - ./agents/update/index.yaml
   - ./agents/update/batch-generate-page-detail.yaml
@@ -63,6 +63,7 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/utils/find-user-preferences-by-path.mjs
+  - ./agents/utils/transform-website-structure.yaml
   - ./agents/utils/format-website-structure.mjs
   - ./agents/utils/fs.mjs
   - ./agents/utils/load-config.mjs
@@ -72,7 +73,7 @@ agents:
   - ./agents/utils/save-pages.mjs
   - ./agents/utils/save-single-page.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  
+
 cli:
   chat: ./agents/chat/index.yaml
   agents:

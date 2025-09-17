@@ -85,7 +85,7 @@ export default async function analyzeWebsiteStructure(
     };
   }
 
-  const panningAgent = options.context.agents["plan"];
+  const panningAgent = options.context.agents["generateWebsiteStructure"];
 
   // Get user preferences for structure planning and global scope
   const structureRules = getActiveRulesForScope("structure", []);

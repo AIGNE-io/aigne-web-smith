@@ -14,7 +14,9 @@ export default async function analyzeTranslatePageDetail(input, options) {
 
   if (!langs.length === 0 || !websiteStructureResult?.length) {
     // skip
-    return {};
+    return {
+      selectedPages: [],
+    };
   }
 
   const pages = websiteStructureResult?.map((item) => item.path);

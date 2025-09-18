@@ -6,6 +6,8 @@ skills:
   - url: ../utils/transform-website-structure.yaml
     task_render_mode: hide
   - url: ./analyze-translate-page-detail.mjs
+    default_input:
+      skipIfExists: true
   - type: team
     name: batchTranslatePageDetail
     model: openai/gpt-5-nano

@@ -286,22 +286,22 @@ export const WEBSITE_SCALE = {
       "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\n **Only 1 page with multiple sections.**",
   },
   minimal: {
-    name: "Minimal (5-8 pages)",
+    name: "Minimal (3-6 pages)",
     description: "Core pages only - quick to launch",
     content:
-      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\n Expected pages: 5-8 pages.",
+      "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\n ** Expected pages: 3-6 pages. **",
   },
   standard: {
-    name: "Standard (10-15 pages)",
+    name: "Standard (8-12 pages)",
     description: "Complete website with main sections [RECOMMENDED]",
     content:
-      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\n Expected pages: 10-15 pages.",
+      "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\n ** Expected pages: 8-12 pages. **",
   },
   comprehensive: {
-    name: "Comprehensive (20+ pages)",
+    name: "Comprehensive (15+ pages)",
     description: "Full-featured website with detailed sections",
     content:
-      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\n Expected pages: 20+ pages.",
+      "Includes: All standard pages plus detailed service pages, case studies, resources.\nBest for: Large businesses, complex products, content-rich sites.\n ** Expected pages: 15+ pages. **",
   },
   aiDecide: {
     name: "Let AI decide",

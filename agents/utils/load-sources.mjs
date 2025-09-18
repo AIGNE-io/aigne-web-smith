@@ -269,7 +269,7 @@ export default async function loadSources({
           return;
         }
 
-        allSources += `// sourceId: ${relativePath}\n${content}\n`;
+        allSources += `// sourceId: ${relativePath}\n${content}\n\n`;
 
         sourceFiles.push({
           sourceId: relativePath,

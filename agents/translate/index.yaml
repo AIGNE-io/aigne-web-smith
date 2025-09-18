@@ -7,36 +7,20 @@ skills:
       skipIfExists: true
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'websiteStructure': originalWebsiteStructure,
-          'websiteStructureResult': $map(originalWebsiteStructure, function($item) {
-            $merge([
-              $item,
-              {
-                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
-              }
-            ])
-          })
-        }
-      ])
+  - ../utils/transform-website-structure.yaml
   - url: ../utils/choose-pages.mjs
     default_input:
       isTranslate: true
   - ./choose-language.mjs
   - type: team
-    name: batchPagesTranslate
+    name: batchTranslatePageDetail
     skills:
-      - ./batch-translate-page-detail.yaml
+      - ./translate-page-detail-team.yaml
       - url: ../utils/save-single-page.mjs
         default_input:
           isTranslate: true
     iterate_on: selectedPages
-    concurrency: 3
+    concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine

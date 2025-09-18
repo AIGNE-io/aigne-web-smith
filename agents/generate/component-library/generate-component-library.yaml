@@ -1,6 +1,6 @@
 type: team
 name: generateComponentLibrary
-description: 分析多个中间格式 YAML 文件生成组件库
+description: Analyze all page content to generate component library
 skills:
   - type: ai
     name: generateComponentLibrary
@@ -16,35 +16,46 @@ skills:
             properties:
               name:
                 type: string
-                description: 组件名称
+                description: Component name
               summary:
                 type: string
-                description: 组件的用途和特点，尽可能具体，如果是复合组件，需要说明布局特征
+                description: Component purpose and characteristics, as specific as possible. For composite components, layout features should be described
               type:
                 type: string
-                description: 组件类型 atomic（原子组件）或 composite（复合组件）
+                description: Component type, either "atomic" (atomic component) or "composite" (composite component)
               componentId:
                 type: string
-                description: 组件ID（原子组件需要使用真实的 ComponentId，复合组件使用随机生成的 ID）
+                description: Component ID (atomic components must use real ComponentId, composite components use randomly generated ID)
               fieldCombinations:
                 type: array
                 items:
                   type: string
-                description: 组件处理的字段组合
+                description: FieldCombinations handled by the component
               relatedComponents:
                 type: array
+                description: >
+                  List of components related to this composite component.
+                  Each item represents either:
+                    1) An Atomic component mapping (with componentId and fieldCombinations), or
+                    2) An independent array element (e.g., list.0, list.1) that may not have a componentId but has fieldCombinations for layout mapping.
                 items:
                   type: object
                   properties:
                     componentId:
                       type: string
-                      description: 关联的原子组件的 ID
+                      description: >
+                        Optional. ID of the related atomic component. 
+                        Use an empty string ('') if this fieldCombination or array element
+                        does not directly correspond to an existing atomic component.
                     fieldCombinations:
                       type: array
                       items:
                         type: string
-                        description: 关联的原子组件使用的字段组合
-                      description: 复合组件关联的原子组件内容，标记 componentId 为原子组件 ID，fieldCombinations 为原子组件使用的字段组合
+                      description: >
+                        Required. List of field names used by the related component or array element.
+                        For array elements (e.g., list.0, list.1), this defines the fields to map to atomic components or for layout generation.
+                  required:
+                    - fieldCombinations
   - ./save-component-library.mjs
 reflection:
   reviewer: ./validate-component-library.mjs

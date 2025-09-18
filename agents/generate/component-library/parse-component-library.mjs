@@ -12,14 +12,14 @@ export default async function parseComponentLibrary(input, options) {
   const { moreContentsComponentList, middleFormatFiles, tmpDir } = input;
 
   try {
-    // 进一步 parser 每个组件库
+    // Further parse each component library
     const tempComponentLibraryData = getComponentLibraryData(tmpDir);
     const { componentLibrary } = tempComponentLibraryData;
 
     const atomicComponentsNeedParse = [];
     const compositeComponentsNeedParse = [];
 
-    // 提取组件库需要解析的组件
+    // Extract components that need to be parsed from component library
     componentLibrary.forEach((item) => {
       if (item.type === "atomic" && !item.dataSourceTemplate) {
         atomicComponentsNeedParse.push(item);
@@ -28,7 +28,7 @@ export default async function parseComponentLibrary(input, options) {
       }
     });
 
-    // 没有需要解析的组件，直接返回
+    // No components need parsing, return directly
     if (atomicComponentsNeedParse.length === 0 && compositeComponentsNeedParse.length === 0) {
       return {
         componentLibraryData: tempComponentLibraryData,
@@ -36,7 +36,7 @@ export default async function parseComponentLibrary(input, options) {
       };
     }
 
-    // 构建 componentId map 减少查找复杂度
+    // Build componentId map to reduce lookup complexity
     const componentLibraryIdMap = {};
     componentLibrary.forEach((comp) => {
       componentLibraryIdMap[comp.componentId] = comp;
@@ -59,7 +59,7 @@ export default async function parseComponentLibrary(input, options) {
       const fieldCombinationsWithMustache = item.fieldCombinations
         ?.filter((item) => {
           const [, index] = item.split(".");
-          // 原子组件不应该支持数组索引字段组合
+          // Atomic components should not support array index fieldCombinations
           if (!_.isNil(index) && !Number.isNaN(Number(index))) {
             return false;
           }
@@ -95,7 +95,7 @@ export default async function parseComponentLibrary(input, options) {
         return;
       }
 
-      // 提取相关组件信息
+      // Extract related component information
       const relatedComponentsInfo = item.relatedComponents?.map((relatedComponentItem) => {
         const { componentId } = relatedComponentItem;
         const atomicComponent = componentLibraryIdMap[componentId];
@@ -103,33 +103,47 @@ export default async function parseComponentLibrary(input, options) {
         return {
           componentId,
           name: atomicComponent?.name || component?.content?.name || "Unknown",
-          summary: atomicComponent?.summary || "无描述",
+          summary: atomicComponent?.summary || "No description",
         };
       });
 
       const getGridSettingsSchema = () =>
         z.object({
-          x: z.number().describe("水平位置，从0开始，在12列网格中的起始列"),
-          y: z.number().describe("垂直位置，从0开始，上下布局时y值递增(0,1,2...)，不能跳跃"),
-          w: z.number().describe("宽度，占用的列数，在12列网格系统中，x + w 不能超过12"),
+          x: z
+            .number()
+            .describe(
+              "Horizontal position, starting from 0, the starting column in a 12-column grid",
+            ),
+          y: z
+            .number()
+            .describe(
+              "Vertical position, starting from 0, y value increases in vertical layout (0,1,2...), cannot skip",
+            ),
+          w: z
+            .number()
+            .describe(
+              "Width, number of columns occupied, in a 12-column grid system, x + w cannot exceed 12",
+            ),
           h: z
             .number()
             .default(1)
-            .describe("高度，永远固定为1，不可修改，组件实际高度由内容自动计算"),
+            .describe(
+              "Height, always fixed at 1, cannot be modified, actual component height is calculated automatically by content",
+            ),
         });
 
-      // 基于 relatedComponents 创建固定的对象结构
+      // Create fixed object structure based on relatedComponents
       const desktopGridSettings = {};
       const mobileGridSettings = {};
 
-      // 处理 relatedComponents 的布局
+      // Handle layout of relatedComponents
       item.relatedComponents?.forEach(({ fieldCombinations }) => {
         const key = getChildFieldCombinationsKey(fieldCombinations);
         desktopGridSettings[key] = getGridSettingsSchema();
         mobileGridSettings[key] = getGridSettingsSchema();
       });
 
-      // 定义输出 schema - config 对象
+      // Define output schema - config object
       const gridSettingsConfig =
         item.relatedComponents.length > 0
           ? {
@@ -142,40 +156,77 @@ export default async function parseComponentLibrary(input, options) {
 
       const configSchema = z.object({
         ...gridSettingsConfig,
-        gap: z.enum(["none", "small", "normal", "large"]).default("none").describe("布局间距"),
+        gap: z
+          .enum(["none", "small", "normal", "large"])
+          .default("none")
+          .describe("Layout spacing"),
         paddingX: z
           .string()
           .default("none")
-          .describe("水平内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"),
+          .describe(
+            "Horizontal padding, enum type none|small|normal|large|xl, also supports custom:XXXpx format",
+          ),
         paddingY: z
           .string()
           .default("none")
-          .describe("垂直内边距，枚举类型 none|small|normal|large|xl， 同时支持 custom:XXXpx 格式"),
+          .describe(
+            "Vertical padding, enum type none|small|normal|large|xl, also supports custom:XXXpx format",
+          ),
         alignContent: z
           .enum(["start", "center", "end", "space-between", "space-around", "space-evenly"])
           .default("center")
-          .describe("内容对齐方式"),
+          .describe("Content alignment"),
         justifyContent: z
           .enum(["start", "center", "end", "space-between", "space-around", "space-evenly"])
           .default("start")
-          .describe("内容对齐方式"),
+          .describe("Content justification"),
         background: z
           .string()
           .default("transparent")
-          .describe("背景图片路径或颜色值，默认 transparent")
+          .describe("Background image path or color value, default transparent")
           .nullable(),
-        backgroundFullWidth: z.boolean().default(false).describe("是否背景全宽，默认 false"),
-        ignoreMaxWidth: z.boolean().default(false).describe("是否忽略最大宽度，使得背景最大"),
-        maxWidth: z.string().default("full").describe("最大宽度，支持 custom:XXXpx 格式"),
-        border: z.string().default("none").describe("边框样式"),
+        backgroundFullWidth: z
+          .boolean()
+          .default(false)
+          .describe("Whether background is full width, default false"),
+        ignoreMaxWidth: z
+          .boolean()
+          .default(false)
+          .describe("Whether to ignore max width to make background maximum"),
+        maxWidth: z
+          .string()
+          .default("full")
+          .describe("Maximum width, supports custom:XXXpx format"),
+        border: z
+          .enum([
+            "none",
+            "solid",
+            "dashed",
+            "dotted",
+            "custom",
+            "chrome",
+            "safari",
+            "macbook",
+            "phone",
+            "terminal",
+            "shadow-sm",
+            "shadow-md",
+            "shadow-lg",
+            "shadow-xl",
+            "shadow-max",
+          ])
+          .default("none")
+          .describe(
+            "Border frame type, supports border styles, browser frames, device frames, terminal frame, and shadow frames",
+          ),
         borderRadius: z
           .enum(["none", "small", "medium", "large", "xl", "rounded", "custom"])
           .default("none")
-          .describe("边框圆角，枚举类型 none|small|medium|large|xl|rounded|custom"),
+          .describe("Border radius, enum type none|small|medium|large|xl|rounded|custom"),
         height: z
           .string()
           .default("100%")
-          .describe("组件高度，支持 custom:XXXpx 格式，默认 100%")
+          .describe("Component height, supports custom:XXXpx format, default 100%")
           .nullable(),
       });
 
@@ -194,7 +245,7 @@ export default async function parseComponentLibrary(input, options) {
         }),
         instructions: instructions
           .replace("{{componentName}}", item.name)
-          .replace("{{componentSummary}}", item.summary || "无描述")
+          .replace("{{componentSummary}}", item.summary || "No description")
           .replace("{{fieldCombinations}}", JSON.stringify(item.fieldCombinations))
           .replace("{{relatedComponents}}", JSON.stringify(item.relatedComponents))
           .replace(
@@ -202,7 +253,7 @@ export default async function parseComponentLibrary(input, options) {
             relatedComponentsInfo
               .map(
                 (comp) =>
-                  `组件ID: ${comp?.componentId}\n组件名称: ${comp?.name}\n组件描述: ${comp?.summary}`,
+                  `Component ID: ${comp?.componentId}\nComponent Name: ${comp?.name}\nComponent Description: ${comp?.summary}`,
               )
               .join("\n\n---------\n"),
           ),
@@ -231,7 +282,7 @@ export default async function parseComponentLibrary(input, options) {
         },
       );
 
-      // 更新到 componentLibrary 里面
+      // Update to componentLibrary
       const updatedComponentLibrary = componentLibrary.map((item) => {
         if (item.type === "atomic" && item.componentId in parseComponentsTeamAgentResult) {
           const template = parseComponentsTeamAgentResult[item.componentId];

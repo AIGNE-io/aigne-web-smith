@@ -1,13 +1,13 @@
 type: team
-name: generateAndTranslatePageDetail
-description: 生成页面详情并翻译
+name: generatePageDetailTeam
+description: Team for generating page detail
 skills:
-  - ../utils/transform-detail-datasources.mjs
+  - ../../utils/transform-detail-datasources.mjs
   - type: team
     task_render_mode: collapse
-    name: detailGenerate
+    name: generatePageDetail
     skills:
-      - url: ../utils/find-user-preferences-by-path.mjs
+      - url: ../../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: page
       - ./generate-page-detail.yaml
@@ -18,7 +18,7 @@ skills:
             { "reviewContent": content }
           ])
     reflection:
-      reviewer: ../utils/check-detail-result.mjs
+      reviewer: ../../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
@@ -30,63 +30,57 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/batch-translate-page-detail.yaml
-  - ../utils/save-single-page.mjs
+  # will translate page detail next workflow
+  # - ../../translate/translate-page-detail-team.yaml
+  - ../../utils/save-single-page.mjs
 input_schema:
   type: object
   properties:
-    nodeName:
-      type: string
-      description: 节点名称
-      default: Section
     locale:
       type: string
-      description: 语言
-    targetAudience:
-      type: string
-      description: 目标受众
+      description: Language
     glossary:
       type: string
-      description: 术语表
+      description: Glossary
     pagePath:
       type: string
-      description: 当前路径
+      description: Current path
     feedback:
       type: string
-      description: 反馈
+      description: Feedback
     sources:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code paths
     sourcesPath:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code paths
       default:
         - ./
     includePatterns:
       type: array
       items:
         type: string
-        description: 包含的文件名
+        description: Included file names
     excludePatterns:
       type: array
       items:
         type: string
-        description: 排除的文件名
+        description: Excluded file names
     tmpDir:
       type: string
-      description: 输出目录
+      description: Output directory
       default: ./aigne-pages/output
     pagesDir:
       type: string
-      description: 页面目录
+      description: Pages directory
       default: ./aigne-pages/pages
     additionalInformation:
       type: string
-      description: 额外补充信息
+      description: Additional supplementary information
 output_schema:
   type: object
   properties:

@@ -1,0 +1,44 @@
+name: generatePageDetail
+description: Page detail generator
+instructions:
+  url: ../../../prompts/generate/page-detail/generate-page-detail.md
+input_schema:
+  type: object
+  properties:
+    rules:
+      type: string
+      description: User's website structure requirements
+    locale:
+      type: string
+      description: User language, such as zh, en
+    datasources:
+      type: string
+      description: Global context for assisting detail generation
+    originalWebsiteStructure: ../../schema/website-structure.yaml
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    parentId:
+      type:
+        - string
+        - "null"
+    glossary:
+      type: string
+      description: Glossary
+    additionalInformation:
+      type: string
+      description: Additional supplementary information
+  required:
+    - rules
+    - datasources
+    - originalWebsiteStructure
+output_schema:
+  type: object
+  properties:
+    content:
+      type: string
+  required:
+    - content

@@ -13,7 +13,7 @@ input_schema:
       description: Content to translate
     glossary:
       type: string
-      description: 术语表
+      description: Glossary
     feedback:
       type: string
       description: Feedback for translation improvement

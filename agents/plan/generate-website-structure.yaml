@@ -1,59 +1,51 @@
+type: team
 name: generateWebsiteStructure
-description: 通用结构规划生成器，支持网站、文档、书籍、演示文稿等多种场景
-instructions:
-  url: ../../prompts/plan/generate-website-structure.md
-input_schema:
-  type: object
-  properties:
-    rules:
-      type: string
-      description: 用户的结构规划的要求
-    locale:
-      type: string
-      description: 用户语言，如 zh、en
-    datasources:
-      type: string
-      description: 结构规划的上下文，用于辅助结构规划
-    targetAudience:
-      type: string
-      description: 结构规划的目标受众
-    nodeName:
-      type: string
-      description: 结构规划的节点名称
-    glossary:
-      type: string
-      description: 术语表
-    feedback:
-      type: string
-      description: 结构规划的反馈
-    userPreferences:
-      type: string
-      description: 用户偏好规则，YAML格式的结构规划和全局范围偏好
-    pagesType:
-      type: string
-      description: 页面类型，支持：general、getting-started、reference、faq
-      default: general
-  required:
-    - rules
-    - datasources
-output_schema:
-  type: object
-  properties:
-    projectName:
-      type: string
-      description: 根据 DataSources 分析项目名称，注意是原始项目名称
-    projectDesc:
-      type: string
-      description: 根据 DataSources 分析生成当前项目描述，为原始项目生成描述，描述简洁，不超过 50 个单词
-    websiteStructure: ../schema/website-structure.yaml
-    websiteStructureTree:
-      type: string
-      description: |
-        结构规划的树形结构，用于展示结构规划的层级关系，参考格式：
-        ```
-        - Overview
-        - Features
-          - Core Features
-          - Advanced Features
-        - Getting Started
-        ```
+description: The website structure generator, using rules and datasources to generate website structure
+skills:
+  - type: ai
+    instructions:
+      url: ../../prompts/plan/generate-website-structure.md
+    input_schema:
+      type: object
+      properties:
+        rules:
+          type: string
+          description: User configuration rules
+        locale:
+          type: string
+          description: User language, e.g. zh, en
+        datasources:
+          type: string
+          description: Context for website structure
+        glossary:
+          type: string
+          description: Glossary of terms
+        feedback:
+          type: string
+          description: Feedback for website structure
+        userPreferences:
+          type: string
+          description: User preference rules, YAML format for website structure and global preferences
+      required:
+        - rules
+        - datasources
+    output_schema:
+      type: object
+      properties:
+        projectName:
+          type: string
+          description: Project name analyzed from datasources, should be the original project name
+        projectDesc:
+          type: string
+          description: Project description generated from datasources analysis, concise description under 50 words
+        websiteStructure: ../schema/website-structure.yaml
+        websiteStructureTree:
+          type: string
+          description: |
+            Tree structure of website structure, showing hierarchical relationships
+
+# reflection:
+#   reviewer: validate-website-structure.yaml
+#   is_approved: isValid
+#   max_iterations: 3
+#   return_last_on_max_iterations: true

@@ -21,10 +21,15 @@ agents:
   - ./agents/generate/component-library/parse-component-library.mjs
   - ./agents/generate/component-library/save-component-library.mjs
   - ./agents/generate/component-library/validate-component-library.mjs
-  # generate page
-  - ./agents/generate/page/compose-pages-data.mjs
-  - ./agents/generate/page/save-pages-data.mjs
-  - ./agents/generate/page/validate-pages-data.mjs
+  # generate page detail
+  - ./agents/generate/page-detail/batch-generate-page-detail.yaml
+  - ./agents/generate/page-detail/generate-page-detail.yaml
+  - ./agents/generate/page-detail/generate-page-detail-team.yaml
+  - ./agents/generate/page-detail/analyze-page-detail.mjs
+  # generate page data
+  - ./agents/generate/page-data/compose-pages-data.mjs
+  - ./agents/generate/page-data/save-pages-data.mjs
+  - ./agents/generate/page-data/validate-pages-data.mjs
 
   # init
   - ./agents/init/index.mjs
@@ -34,7 +39,7 @@ agents:
   - ./agents/plan/analyze-website-structure.mjs
   - ./agents/plan/generate-website-structure.yaml
   - ./agents/plan/validate-website-structure.yaml
-  
+
   # prefs
   - ./agents/prefs/index.mjs
 
@@ -46,14 +51,12 @@ agents:
   - ./agents/translate/index.yaml
   - ./agents/translate/translate-page-detail.yaml
   - ./agents/translate/choose-language.mjs
+  - ./agents/translate/translate-page-detail-team.yaml
   - ./agents/translate/batch-translate-page-detail.yaml
-  
+  - ./agents/translate/analyze-translate-page-detail.mjs
+
   # update
   - ./agents/update/index.yaml
-  - ./agents/update/batch-generate-page-detail.yaml
-  - ./agents/update/generate-page-detail.yaml
-  - ./agents/update/generate-and-translate-page-detail.yaml
-  - ./agents/update/analyze-page-detail.mjs
 
   # utils
   - ./agents/utils/check-detail-result.mjs
@@ -63,6 +66,7 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/utils/find-user-preferences-by-path.mjs
+  - ./agents/utils/transform-website-structure.yaml
   - ./agents/utils/format-website-structure.mjs
   - ./agents/utils/fs.mjs
   - ./agents/utils/load-config.mjs
@@ -72,7 +76,7 @@ agents:
   - ./agents/utils/save-pages.mjs
   - ./agents/utils/save-single-page.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  
+
 cli:
   chat: ./agents/chat/index.yaml
   agents:

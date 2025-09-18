@@ -1,11 +1,11 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import {
+  extractContentFields,
   extractFieldCombinations,
   generateDeterministicId,
-  generateRandomId,
   getChildFieldCombinationsKey,
 } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
@@ -21,8 +21,8 @@ try {
   // ignore error
 }
 
-// ============= 日志控制 =============
-const ENABLE_LOGS = process.env.ENABLE_LOGS === "true"; // 设置为 false 可以关闭所有日志输出
+// ============= Logging Control =============
+const ENABLE_LOGS = process.env.ENABLE_LOGS === "true"; // Set to false to disable all log output
 
 function log(...args) {
   if (ENABLE_LOGS) {
@@ -36,14 +36,14 @@ function logError(...args) {
   }
 }
 
-// ============= 公共工具函数 =============
+// ============= Common Utility Functions =============
 
 /**
- * 读取指定语言的中间格式文件
- * @param {string} tmpDir - 临时目录
- * @param {string} locale - 语言代码
- * @param {string} fileName - 文件名
- * @returns {Promise<Object|null>} 解析后的文件内容
+ * Read middle format file for specified language
+ * @param {string} tmpDir - Temporary directory
+ * @param {string} locale - Language code
+ * @param {string} fileName - File name
+ * @returns {Promise<Object|null>} Parsed file content
  */
 async function readMiddleFormatFile(tmpDir, locale, fileName) {
   try {
@@ -53,13 +53,13 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
 
     return parse(content);
   } catch (error) {
-    log(`⚠️  无法读取文件 ${locale}/${fileName}: ${error.message}`);
+    log(`⚠️  Unable to read file ${locale}/${fileName}: ${error.message}`);
     return null;
   }
 }
 
 /**
- * 获取嵌套对象的值，支持 a.b.c 格式
+ * Get nested object value, supports a.b.c format
  */
 function getNestedValue(obj, path) {
   return path.split(".").reduce((current, key) => {
@@ -68,7 +68,7 @@ function getNestedValue(obj, path) {
 }
 
 /**
- * 处理简单模板替换，只处理 <%= xxx %> 模式
+ * Process simple template replacement, only handles <%= xxx %> pattern
  */
 function processSimpleTemplate(obj, data) {
   if (typeof obj === "string") {
@@ -77,7 +77,7 @@ function processSimpleTemplate(obj, data) {
       return value !== undefined ? value : "";
     });
   } else if (Array.isArray(obj)) {
-    // 递归处理数组中的每个元素
+    // Recursively process each element in the array
     return obj.map((item) => processSimpleTemplate(item, data));
   } else if (obj && typeof obj === "object") {
     const result = {};
@@ -90,42 +90,42 @@ function processSimpleTemplate(obj, data) {
 }
 
 /**
- * 处理数组模板 - 特殊情况：单元素数组作为模板处理
+ * Process array template - Special case: single-element array as template
  */
 function processArrayTemplate(templateArray, data) {
-  // 如果不是数组或不是单元素数组，正常处理
+  // If not an array or not a single-element array, process normally
   if (!Array.isArray(templateArray) || templateArray.length !== 1) {
     return templateArray.map((item) => processSimpleTemplate(item, data));
   }
 
-  // 特殊情况：单元素数组可能是模板数组，查找数据中的数组字段
+  // Special case: single-element array might be a template array, find array fields in data
   const arrayField = Object.keys(data).find((key) => Array.isArray(data[key]));
 
   if (arrayField && data[arrayField]?.length > 0) {
-    // 这是一个模板数组，需要为每个数据项复制模板
+    // This is a template array, need to copy template for each data item
     const template = templateArray[0];
     return data[arrayField].map((arrayItem) => processSimpleTemplate(template, arrayItem));
   }
 
-  // 否则正常处理数组
+  // Otherwise process array normally
   return templateArray.map((item) => processSimpleTemplate(item, data));
 }
 
 /**
- * 统一的模板处理函数
+ * Unified template processing function
  */
 function processTemplate(obj, data) {
-  // 对于数组，先检查是否为特殊的模板数组情况
+  // For arrays, first check if it's a special template array case
   if (Array.isArray(obj) && obj.length === 1) {
-    // 可能是模板数组，使用专用处理函数
+    // Might be a template array, use dedicated processing function
     return processArrayTemplate(obj, data);
   }
-  // 其他情况使用普通处理（包括普通数组和对象）
+  // Other cases use normal processing (including regular arrays and objects)
   return processSimpleTemplate(obj, data);
 }
 
 /**
- * 转换数据源到属性格式
+ * Transform data source to properties format
  */
 function transformDataSource(instance, moreContentsComponentMap, locale) {
   if (!instance?.dataSource) return null;
@@ -150,20 +150,19 @@ function transformDataSource(instance, moreContentsComponentMap, locale) {
 }
 
 /**
- * 递归提取所有实例
+ * Recursively extract all instances
  */
 function extractAllInstances(instances) {
   const result = [];
 
   instances.forEach((instance) => {
     if (instance?.instance) {
-      // arrayComponentInstances 格式：{ fieldName, itemIndex, instance }
       result.push({ instance: instance.instance });
       if (instance.instance?.relatedInstances) {
         result.push(...extractAllInstances(instance.instance.relatedInstances));
       }
     } else if (instance) {
-      // 直接的实例格式
+      // Direct instance format
       result.push({ instance });
       if (instance.relatedInstances) {
         result.push(...extractAllInstances(instance.relatedInstances));
@@ -174,7 +173,7 @@ function extractAllInstances(instances) {
   return result;
 }
 
-function convertToSection({ componentInstance, arrayComponentInstances, locale }) {
+function convertToSection({ componentInstance, locale }) {
   if (componentInstance?.type === "atomic") {
     const { componentId, id, name } = componentInstance;
 
@@ -197,25 +196,13 @@ function convertToSection({ componentInstance, arrayComponentInstances, locale }
 
     const oldKeyToIdMap = {};
 
-    const arraySections =
-      arrayComponentInstances?.map(({ fieldName, itemIndex, instance }) => {
-        const oldKey = `${fieldName}.${itemIndex}`;
-        const section = convertToSection({
-          componentInstance: instance,
-          locale,
-        });
-        oldKeyToIdMap[oldKey] = section.id;
-
-        return section;
-      }) || [];
-
     let newConfig = JSON.stringify(config);
 
     Object.keys(oldKeyToIdMap).forEach((oldKey) => {
       newConfig = newConfig.replaceAll(oldKey, oldKeyToIdMap[oldKey]);
     });
 
-    const allSections = [...sections, ...arraySections];
+    const allSections = [...sections];
 
     return {
       id,
@@ -229,23 +216,23 @@ function convertToSection({ componentInstance, arrayComponentInstances, locale }
 }
 
 /**
- * 组合 Pages Kit YAML 的完整流程
- * 集成组装和保存逻辑，直接打印输出结果
+ * Complete process for composing Pages Kit YAML
+ * Integrates assembly and save logic, directly prints output results
  * @param {Object} input
- * @param {Array} input.middleFormatFiles - 中间格式文件数组
- * @param {Array} input.componentLibrary - 组件列表
- * @param {string} input.locale - 语言环境
- * @param {string} input.path - 文件路径
- * @param {string} input.pagesDir - 页面目录
+ * @param {Array} input.middleFormatFiles - Middle format files array
+ * @param {Array} input.componentLibrary - Component list
+ * @param {string} input.locale - Language environment
+ * @param {string} input.path - File path
+ * @param {string} input.pagesDir - Pages directory
  * @returns {Promise<Object>}
  */
-// 创建原子组件实例
+// Create atomic component instance
 function createAtomicInstance(section, component, instanceId) {
-  log(`    📦 处理 atomic 组件...`);
+  log(`    📦 Processing atomic component...`);
 
   const dataSourceTemplate = component.dataSourceTemplate;
   if (!dataSourceTemplate) {
-    log(`    ⚠️  组件 ${component.name} 没有 dataSourceTemplate`);
+    log(`    ⚠️  Component ${component.name} has no dataSourceTemplate`);
     return {
       id: instanceId,
       type: "atomic",
@@ -256,11 +243,11 @@ function createAtomicInstance(section, component, instanceId) {
     };
   }
 
-  log(`    🔨 使用模板处理 section 数据...`);
+  log(`    🔨 Processing section data with template...`);
 
   try {
     const dataSource = processTemplate(dataSourceTemplate, section);
-    log(`    ✅ DataSource 生成成功`);
+    log(`    ✅ DataSource generated successfully`);
 
     return {
       id: instanceId,
@@ -271,27 +258,27 @@ function createAtomicInstance(section, component, instanceId) {
       config: null,
     };
   } catch (error) {
-    log(`    ❌ Template 编译失败:`, error.message);
+    log(`    ❌ Template compilation failed:`, error.message);
     return {
       id: instanceId,
       type: "atomic",
       name: section.name || component.name,
       componentId: component.componentId,
-      dataSource: dataSourceTemplate, // 使用原始模板作为fallback
+      dataSource: dataSourceTemplate, // Use original template as fallback
       config: null,
     };
   }
 }
 
-// 创建复合组件实例
+// Create composite component instance
 function createCompositeInstance(section, component, componentLibrary, instanceId) {
-  log(`    📦 处理 composite 组件...`);
+  log(`    📦 Processing composite component...`);
 
   const relatedComponents = component.relatedComponents || [];
   const configTemplate = component.configTemplate;
 
   if (!configTemplate) {
-    log(`    ⚠️  组件 ${component.name} 没有 configTemplate`);
+    log(`    ⚠️  Component ${component.name} has no configTemplate`);
     return {
       id: instanceId,
       type: "composite",
@@ -303,86 +290,89 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
     };
   }
 
-  log(`    🔗 Related components 数量: ${relatedComponents.length}`);
+  log(`    🔗 Related components count: ${relatedComponents.length}`);
 
-  // 为每个 relatedComponent 生成完整的实例
-  const relatedInstances = relatedComponents.map(({ componentId, fieldCombinations }, index) => {
-    log(`      🔍 处理 Related component ${index + 1}: ${componentId}`);
+  // Generate complete instances for each relatedComponent
+  const relatedInstances = relatedComponents
+    .map(({ componentId, fieldCombinations: _fieldCombinations }, index) => {
+      log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
 
-    // 查找组件库中对应的组件
-    const relatedComponent = componentLibrary.find((comp) => comp.componentId === componentId);
+      let fieldCombinations = _.cloneDeep(_fieldCombinations);
+      // first try to pick section by fieldCombinations
+      let childrenSection = _.pick(section, _fieldCombinations);
 
-    if (!relatedComponent) {
-      log(`      ❌ 未找到组件: ${componentId}`);
-      return {
-        originalComponentId: componentId,
-        instanceId: generateRandomId(),
-        instance: null,
-      };
-    }
+      // check if it is a single list item
+      const isSingleListItem =
+        fieldCombinations?.length === 1 &&
+        !Number.isNaN(Number(fieldCombinations[0].split(".")?.[1]));
 
-    log(`      ✅ 找到组件: ${relatedComponent.name} (${relatedComponent.type})`);
+      const isSingleObjectItem =
+        fieldCombinations?.length === 1 && fieldCombinations[0].includes(".");
 
-    const childrenSection = _.pick(section, fieldCombinations);
-
-    // 去掉顶层键，提取内部属性
-    const flattenedChildren = (() => {
-      const entries = Object.entries(childrenSection);
-      if (entries.length > 0) {
-        return entries.reduce((acc, [, value]) => {
-          if (typeof value === "object" && value !== null) {
-            if (Array.isArray(value)) {
-              // 提取数组中的对象内容
-              value.forEach((item) => {
-                if (typeof item === "object" && item !== null) {
-                  Object.assign(acc, item);
-                }
-              });
-            } else {
-              // 提取对象内容
-              Object.assign(acc, value);
-            }
-          }
-          return acc;
-        }, {});
+      if (isSingleListItem) {
+        // list get inside keys to match
+        fieldCombinations = _.cloneDeep(
+          extractContentFields(_.get(section, _fieldCombinations[0])),
+        );
+        childrenSection = _.get(section, _fieldCombinations[0]);
+      } else if (isSingleObjectItem) {
+        childrenSection = {
+          ...childrenSection,
+          ..._.get(section, _fieldCombinations[0]?.split(".")?.[0]),
+        };
       }
-      return childrenSection;
-    })();
 
-    // 递归创建子组件实例
-    const childInstance = createComponentInstance(
-      {
-        ...section,
-        ...flattenedChildren,
-      },
-      relatedComponent,
-      componentLibrary,
-      index, // 传递相同的section索引
-    );
+      // Find corresponding component in component library
+      const relatedComponent = componentLibrary.find((comp) => {
+        if (componentId && comp.componentId === componentId) {
+          return true;
+        }
 
-    return {
-      originalComponentId: componentId,
-      originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
-      instanceId: childInstance.id,
-      instance: childInstance,
-      section,
-    };
-  });
+        // fallback
+        return _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort());
+      });
 
-  // 替换 configTemplate 中的 relatedComponents 值
-  log(`    🔄 替换 configTemplate 中的组件 ID...`);
+      if (!relatedComponent) {
+        log(
+          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(fieldCombinations)}`,
+        );
+        return null;
+      }
+
+      log(`      ✅ Found component: ${relatedComponent.name} (${relatedComponent.type})`);
+
+      // Recursively create child component instances
+      const childInstance = createComponentInstance(
+        childrenSection,
+        relatedComponent,
+        componentLibrary,
+        index, // Pass the same section index
+      );
+
+      return {
+        originalComponentId: relatedComponent.componentId,
+        originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
+        instanceId: childInstance.id,
+        instance: childInstance,
+        childrenSection,
+      };
+    })
+    .filter(Boolean);
+
+  // Replace relatedComponents values in configTemplate
+  log(`    🔄 Replacing component IDs in configTemplate...`);
   let configString = JSON.stringify(configTemplate);
 
   relatedInstances.forEach((instance) => {
     const oldKey = instance.originalGridSettingsKey;
     const newKey = instance.instanceId;
     configString = configString.replace(new RegExp(oldKey, "g"), newKey);
-    log(`      ✅ 替换 ${oldKey} -> ${newKey}`);
+    log(`      ✅ Replaced ${oldKey} -> ${newKey}`);
   });
 
   try {
     const config = JSON.parse(configString);
-    log(`    ✅ Config 生成成功`);
+    log(`    ✅ Config generated successfully`);
 
     return {
       id: instanceId,
@@ -394,7 +384,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       relatedInstances,
     };
   } catch (error) {
-    log(`    ❌ Config 处理失败:`, error.message);
+    log(`    ❌ Config processing failed:`, error.message);
     return {
       id: instanceId,
       type: "composite",
@@ -407,18 +397,20 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
   }
 }
 
-// 创建组件实例的统一函数
+// Unified function for creating component instances
 function createComponentInstance(section, component, componentLibrary = [], sectionIndex = 0) {
-  // 使用确定性ID生成，基于组件ID和section内容
+  // Use deterministic ID generation based on component ID and section content
   const contentHash = JSON.stringify({
     componentId: component.componentId,
+    fieldCombinations: component.fieldCombinations,
     sectionName: section.name,
     sectionIndex,
-    // 使用关键字段的哈希来确保相同内容生成相同ID
+    // Use hash of key fields to ensure same content generates same ID
     keys: Object.keys(section).sort(),
+    section,
   });
   const instanceId = generateDeterministicId(contentHash);
-  log(`    🔧 生成组件实例 ID: ${instanceId}`);
+  log(`    🔧 Generated component instance ID: ${instanceId}`);
 
   if (component.type === "atomic") {
     return createAtomicInstance(section, component, instanceId);
@@ -426,7 +418,7 @@ function createComponentInstance(section, component, componentLibrary = [], sect
     return createCompositeInstance(section, component, componentLibrary, instanceId);
   }
 
-  log(`    ⚠️  未知的组件类型: ${component.type}`);
+  log(`    ⚠️  Unknown component type: ${component.type}`);
   return {
     id: instanceId,
     type: component.type,
@@ -436,170 +428,61 @@ function createComponentInstance(section, component, componentLibrary = [], sect
   };
 }
 
-// 复用函数：将中间格式的sections匹配到对应的组件
+// Reusable function: match middle format sections to corresponding components
 function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
-  log(`🔍 开始解析中间格式并匹配组件...`);
+  log(`🔍 Starting to parse middle format and match components...`);
 
   try {
-    // 解析中间格式内容
+    // Parse middle format content
     const parsedData =
       typeof middleFormatContent === "string" ? parse(middleFormatContent) : middleFormatContent;
     if (!parsedData || !parsedData.sections) {
-      log(`⚠️  中间格式内容没有sections字段`);
+      log(`⚠️  Middle format content has no sections field`);
       return [];
     }
 
-    log(`📑 找到 ${parsedData.sections.length} 个sections`);
+    log(`📑 Found ${parsedData.sections.length} sections`);
 
-    // 为每个section匹配组件
-    const composedSections = parsedData.sections.map((section, index) => {
-      log(`  🏷️  处理 Section ${index + 1}: "${section.name}"`);
+    // Match components for each section
+    const composedSections = parsedData.sections?.map((section, index) => {
+      log(`  🏷️  Processing Section ${index + 1}: "${section.name}"`);
 
-      // 使用SDK提取字段组合
+      // Use SDK to extract field combinations
       const sectionAnalysis = extractFieldCombinations({ sections: [section] });
       const fieldCombinations = sectionAnalysis[0]?.fieldCombinations || [];
 
-      log(`    📋 字段组合:`, fieldCombinations);
+      log(`    📋 Field combinations:`, JSON.stringify(fieldCombinations));
 
-      // 匹配组件
+      // Match component
       const matchedComponent = componentLibrary.find((component) => {
         const componentFields = component.fieldCombinations || [];
-        return _.isEqual(componentFields, fieldCombinations);
+        return _.isEqual(componentFields?.sort(), fieldCombinations?.sort());
       });
 
       if (matchedComponent) {
-        log(`    ✅ 匹配到组件: ${matchedComponent.name} (${matchedComponent.type})`);
+        log(`    ✅ Matched component: ${matchedComponent.name} (${matchedComponent.type})`);
 
-        // 生成主组件实例
+        // Generate main component instance
         const componentInstance = createComponentInstance(
           section,
           matchedComponent,
           componentLibrary,
-          index, // 传递section索引
+          index, // Pass section index
         );
-
-        // 处理数组字段
-        const arrayComponents = [];
-        const arrayComponentInstances = [];
-        // const arrayFields = sectionAnalysis[0]?.arrayFields || [];
-
-        // if (arrayFields.length > 0) {
-        //   log(`    🔍 处理 ${arrayFields.length} 个数组字段...`);
-
-        //   arrayFields.forEach((arrayField) => {
-        //     const { fieldName, fieldCombinationsList } = arrayField;
-        //     log(
-        //       `      📋 处理数组字段 "${fieldName}": ${fieldCombinationsList.length} 个items`
-        //     );
-
-        //     // 为数组中的每个item匹配组件并创建实例
-        //     const arrayItemInstances = fieldCombinationsList.map(
-        //       (itemFieldCombinations, itemIndex) => {
-        //         log(
-        //           `        🔍 Item ${itemIndex + 1}: ${JSON.stringify(
-        //             itemFieldCombinations
-        //           )}`
-        //         );
-
-        //         // 匹配组件
-        //         const itemComponent = componentLibrary.find((component) => {
-        //           const componentFields = component.fieldCombinations || [];
-        //           return _.isEqual(componentFields, itemFieldCombinations);
-        //         });
-
-        //         if (itemComponent) {
-        //           log(
-        //             `        ✅ 匹配到组件: ${itemComponent.name} (${itemComponent.type})`
-        //           );
-
-        //           // 获取数组中对应的实际数据
-        //           const itemData = section[fieldName]?.[itemIndex];
-
-        //           if (itemData) {
-        //             const itemInstance = createComponentInstance(
-        //               itemData,
-        //               itemComponent,
-        //               componentLibrary
-        //             );
-        //             return {
-        //               itemIndex,
-        //               component: itemComponent,
-        //               instance: itemInstance,
-        //               matched: true,
-        //             };
-        //           } else {
-        //             log(`        ⚠️  Item ${itemIndex + 1} 数据缺失`);
-        //             return {
-        //               itemIndex,
-        //               component: itemComponent,
-        //               instance: null,
-        //               matched: false,
-        //             };
-        //           }
-        //         } else {
-        //           log(`        ❌ 未找到匹配的组件`);
-        //           return {
-        //             itemIndex,
-        //             component: null,
-        //             instance: null,
-        //             matched: false,
-        //           };
-        //         }
-        //       }
-        //     );
-
-        //     // 创建数组字段的容器组件
-        //     const matchedItems = arrayItemInstances.filter(
-        //       (item) => item.matched
-        //     ).length;
-        //     log(
-        //       `      📊 数组字段 "${fieldName}": ${matchedItems}/${arrayItemInstances.length} 个items成功匹配`
-        //     );
-
-        //     // 收集数组字段的组件和实例
-        //     const fieldComponents = [];
-        //     const fieldInstances = [];
-
-        //     arrayItemInstances.forEach((result) => {
-        //       if (result.matched && result.component) {
-        //         fieldComponents.push(result.component);
-        //       }
-        //       if (result.matched && result.instance) {
-        //         fieldInstances.push({
-        //           fieldName,
-        //           itemIndex: result.itemIndex,
-        //           component: result.component,
-        //           instance: result.instance,
-        //         });
-        //       }
-        //     });
-
-        //     // 去重组件（同一类型的组件只需要记录一次）
-        //     const uniqueComponents = _.uniqBy(fieldComponents, "componentId");
-        //     arrayComponents.push(...uniqueComponents);
-        //     arrayComponentInstances.push(...fieldInstances);
-
-        //     log(`      🧩 找到 ${uniqueComponents.length} 种不同的组件类型`);
-        //   });
-        // }
 
         return {
           section,
           component: matchedComponent,
           componentInstance,
-          arrayComponents,
-          arrayComponentInstances,
           fieldCombinations,
           matched: true,
         };
       } else {
-        log(`    ❌ 未找到匹配的组件`);
+        log(`    ❌ No matching component found`);
         return {
           section,
           component: null,
           componentInstance: null,
-          arrayComponents: [],
-          arrayComponentInstances: [],
           fieldCombinations,
           matched: false,
         };
@@ -607,11 +490,13 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
     });
 
     const matchedCount = composedSections.filter((item) => item.matched).length;
-    log(`✅ 匹配完成: ${matchedCount}/${composedSections.length} 个sections找到了匹配的组件`);
+    log(
+      `✅ Matching completed: ${matchedCount}/${composedSections.length} sections found matching components`,
+    );
 
     return composedSections;
   } catch (error) {
-    logError(`❌ 解析中间格式失败:`, error.message);
+    logError(`❌ Failed to parse middle format:`, error.message);
     return [];
   }
 }
@@ -629,31 +514,38 @@ export default async function composePagesData(input) {
     tmpDir,
   } = input;
 
+  // clear outputDir data
+  try {
+    rmSync(outputDir, { recursive: true, force: true });
+  } catch (_error) {
+    // ignore error
+  }
+
   const moreContentsComponentMap = {};
 
   moreContentsComponentList.forEach((comp) => {
     moreContentsComponentMap[comp.content.id] = comp;
   });
 
-  log(`🔧 开始组合 Pages Kit YAML: ${path}`);
-  log(`🧩 组件库数量: ${componentLibrary?.length || 0}`);
-  log(`🌐 语言环境: ${locale}`);
-  log(`📁 输出目录: ${pagesDir}`);
+  log(`🔧 Starting to compose Pages Kit YAML: ${path}`);
+  log(`🧩 Component library count: ${componentLibrary?.length || 0}`);
+  log(`🌐 Locale: ${locale}`);
+  log(`📁 Output directory: ${pagesDir}`);
 
-  // 处理中间格式文件，匹配组件
+  // Process middle format files, match components
   const allComposedSections = [];
   const allPagesKitYamlList = [];
 
-  // 用于按 filePath 组织不同语言的数据
+  // Used to organize data by filePath for different languages
   const fileDataMap = new Map();
 
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
-    log(`📄 中间格式文件数量: ${middleFormatFiles.length}`);
+    log(`📄 Middle format files count: ${middleFormatFiles.length}`);
 
-    // 构建包含所有语言文件的处理列表
+    // Build processing list containing all language files
     const filesToProcess = [];
 
-    // 添加主语言文件
+    // Add main language files
     const mainFiles = DEFAULT_FLAG ? [DEFAULT_TEST_FILE] : middleFormatFiles;
     mainFiles.forEach((file) => {
       filesToProcess.push({
@@ -663,13 +555,13 @@ export default async function composePagesData(input) {
       });
     });
 
-    // 添加翻译语言文件
+    // Add translation language files
     if (translateLanguages && translateLanguages.length > 0 && tmpDir) {
       for (const translateLang of translateLanguages) {
         mainFiles.forEach((file) => {
           const translateFile = {
             filePath: file.filePath,
-            content: null, // 稍后读取
+            content: null, // Read later
             language: translateLang,
             isMainLanguage: false,
           };
@@ -679,19 +571,19 @@ export default async function composePagesData(input) {
     }
 
     log(
-      `📄 总处理文件数量: ${filesToProcess.length} (包含 ${translateLanguages?.length || 0} 种翻译语言)`,
+      `📄 Total files to process: ${filesToProcess.length} (including ${translateLanguages?.length || 0} translation languages)`,
     );
 
     for (const [index, file] of filesToProcess.entries()) {
-      // 为非主语言文件读取内容
+      // Read content for non-main language files
       let middleFormatContent;
       if (file.isMainLanguage) {
         middleFormatContent = typeof file.content === "string" ? parse(file.content) : file.content;
       } else {
-        // 读取翻译语言文件
+        // Read translation language file
         const translateContent = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
         if (!translateContent) {
-          log(`⚠️  跳过无法读取的翻译文件: ${file.language}/${file.filePath}`);
+          log(`⚠️  Skipping unreadable translation file: ${file.language}/${file.filePath}`);
           continue;
         }
         middleFormatContent = translateContent;
@@ -700,15 +592,17 @@ export default async function composePagesData(input) {
       const filePath = file.filePath;
       const currentLanguage = file.language;
 
-      log(`\n📋 处理文件 ${index + 1}/${filesToProcess.length}: ${currentLanguage}/${filePath}`);
+      log(
+        `\n📋 Processing file ${index + 1}/${filesToProcess.length}: ${currentLanguage}/${filePath}`,
+      );
 
-      // 使用复用函数匹配sections和组件
+      // Use reusable function to match sections and components
       const composedSections = composeSectionsWithComponents(middleFormatContent, componentLibrary);
 
-      // 收集所有匹配结果
+      // Collect all matching results
       allComposedSections.push(...composedSections);
 
-      // 确保 fileDataMap 中有该文件的条目
+      // Ensure file entry exists in fileDataMap
       if (!fileDataMap.has(filePath)) {
         fileDataMap.set(filePath, {
           filePath,
@@ -722,7 +616,7 @@ export default async function composePagesData(input) {
 
       const fileData = fileDataMap.get(filePath);
 
-      // 添加当前语言的 locale 信息
+      // Add locale info for current language
       fileData.locales[currentLanguage] = {
         backgroundColor: "",
         style: {
@@ -737,15 +631,14 @@ export default async function composePagesData(input) {
         },
       };
 
-      // 如果是主语言，设置sections和sectionIds
+      // If main language, set sections and sectionIds
       if (file.isMainLanguage) {
         composedSections.forEach((section) => {
-          const { componentInstance, arrayComponentInstances } = section;
+          const { componentInstance } = section;
 
           if (componentInstance) {
             fileData.sections[componentInstance.id] = convertToSection({
               componentInstance,
-              arrayComponentInstances,
               locale: currentLanguage,
             });
             fileData.sectionIds.push(componentInstance.id);
@@ -753,19 +646,18 @@ export default async function composePagesData(input) {
         });
       }
 
-      // 为当前语言生成所有实例的 dataSource
+      // Generate dataSource for all instances in current language
       composedSections.forEach((section) => {
-        const { componentInstance, arrayComponentInstances } = section;
+        const { componentInstance } = section;
 
         if (componentInstance) {
-          // 使用公共函数提取所有实例
+          // Use common function to extract all instances
           const allInstances = [
             { instance: componentInstance },
             ...extractAllInstances(componentInstance?.relatedInstances || []),
-            ...extractAllInstances(arrayComponentInstances || []),
           ];
 
-          // 处理每个实例的数据源
+          // Process data source for each instance
           allInstances.forEach(({ instance }) => {
             const dataSourceResult = transformDataSource(
               instance,
@@ -774,7 +666,7 @@ export default async function composePagesData(input) {
             );
 
             if (dataSourceResult) {
-              // 合并到文件数据中
+              // Merge into file data
               Object.keys(dataSourceResult).forEach((instanceId) => {
                 if (!fileData.dataSource[instanceId]) {
                   fileData.dataSource[instanceId] = {};
@@ -790,7 +682,7 @@ export default async function composePagesData(input) {
       });
     }
 
-    // 将 fileDataMap 中的数据转换为最终的 Pages Kit YAML
+    // Convert data in fileDataMap to final Pages Kit YAML
     fileDataMap.forEach((fileData) => {
       const now = new Date().toISOString();
 
@@ -814,11 +706,13 @@ export default async function composePagesData(input) {
       });
     });
 
-    log(`\n📊 总计处理结果:`);
-    log(`  - 总sections数量: ${allComposedSections.length}`);
-    log(`  - 成功匹配数量: ${allComposedSections.filter((item) => item.matched).length}`);
-    log(`  - 未匹配数量: ${allComposedSections.filter((item) => !item.matched).length}`);
-    log(`  - 生成文件数量: ${fileDataMap.size}`);
+    log(`\n📊 Total processing results:`);
+    log(`  - Total sections count: ${allComposedSections.length}`);
+    log(
+      `  - Successfully matched count: ${allComposedSections.filter((item) => item.matched).length}`,
+    );
+    log(`  - Unmatched count: ${allComposedSections.filter((item) => !item.matched).length}`);
+    log(`  - Generated files count: ${fileDataMap.size}`);
   }
 
   allPagesKitYamlList?.forEach((item) => {

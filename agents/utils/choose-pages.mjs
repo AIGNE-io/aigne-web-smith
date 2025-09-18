@@ -7,8 +7,31 @@ import {
   processSelectedFiles,
 } from "../../utils/pages-finder-utils.mjs";
 
+/**
+ * Choose pages for processing
+ * @param {Object} params
+ * @param {Array} params.pages - List of pages to choose from
+ * @param {Object} params.websiteStructureResult - Website structure data
+ * @param {string} params.projectId - Project identifier
+ * @param {string} params.tmpDir - Temporary directory path
+ * @param {boolean} params.isTranslate - Translation mode flag
+ * @param {string} params.feedback - User feedback
+ * @param {string} params.locale - Locale identifier
+ * @param {boolean} [params.requiredFeedback=true] - Whether feedback is required
+ * @param {Object} options - Additional options
+ */
+
 export default async function choosePages(
-  { pages, websiteStructureResult, projectId, tmpDir, isTranslate, feedback, locale },
+  {
+    pages,
+    websiteStructureResult,
+    projectId,
+    tmpDir,
+    isTranslate,
+    feedback,
+    locale,
+    requiredFeedback = true,
+  },
   options,
 ) {
   let foundItems = [];
@@ -98,7 +121,7 @@ export default async function choosePages(
 
   // Prompt for feedback if not provided
   let userFeedback = feedback;
-  if (!userFeedback) {
+  if (!userFeedback && requiredFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
       "Please provide feedback for the {action} (press Enter to skip):",

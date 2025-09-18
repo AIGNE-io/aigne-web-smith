@@ -1,19 +1,19 @@
 type: team
 name: batchGeneratePageDetail
-description: 批量生成页面详情
+description: Batch generate page details
 skills:
-  - ./analyze-page-detail.mjs
+  - url: ./analyze-page-detail.mjs
 input_schema:
   type: object
   properties:
     datasources:
       type: string
-      description: 结构规划的上下文，用于辅助结构规划
-    websiteStructureResult: ../schema/website-structure-with-translates.yaml
+      description: Global context for assisting detail generation
+    websiteStructureResult: ../../schema/website-structure-with-translates.yaml
     modifiedFiles:
       type: array
       items: { type: string }
       description: Array of modified files since last generation
 iterate_on: websiteStructureResult
-concurrency: 3
+concurrency: 10
 mode: sequential

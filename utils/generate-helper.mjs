@@ -232,6 +232,37 @@ export function propertiesToZodSchema(
   return z.object(schemaObj);
 }
 
+const metaFields = ["name", "summary"];
+
+// 提取字段，使用路径格式表示嵌套字段
+export function extractContentFields(obj, prefix = "") {
+  const fields = new Set();
+
+  Object.keys(obj).forEach((key) => {
+    if (metaFields.includes(key)) return;
+
+    const currentPath = prefix ? `${prefix}.${key}` : key;
+    const value = obj[key];
+
+    if (Array.isArray(value)) {
+      // 数组字段：只包含数组字段本身的路径
+      // fields.add(`${currentPath}`);
+      value.forEach((_item, index) => {
+        fields.add(`${currentPath}.${index}`);
+      });
+    } else if (typeof value === "object" && value !== null) {
+      // 对象字段：递归提取子字段，使用路径格式
+      const subFields = extractContentFields(value, currentPath);
+      subFields.forEach((field) => fields.add(field));
+    } else {
+      // 普通字段（string、number、boolean等）
+      fields.add(currentPath);
+    }
+  });
+
+  return Array.from(fields);
+}
+
 /**
  * 从中间格式文件中提取每个section的fieldCombinations
  * 基于现有的字段提取规则：只提取非数组、非元数据字段
@@ -256,39 +287,9 @@ export function extractFieldCombinations(middleFormatContent) {
     return [];
   }
 
-  const metaFields = ["name", "summary"];
   const results = [];
 
   parsedContent.sections.forEach((section, index) => {
-    // 提取字段，使用路径格式表示嵌套字段
-    function extractContentFields(obj, prefix = "") {
-      const fields = new Set();
-
-      Object.keys(obj).forEach((key) => {
-        if (metaFields.includes(key)) return;
-
-        const currentPath = prefix ? `${prefix}.${key}` : key;
-        const value = obj[key];
-
-        if (Array.isArray(value)) {
-          // 数组字段：只包含数组字段本身的路径
-          // fields.add(`${currentPath}`);
-          value.forEach((_item, index) => {
-            fields.add(`${currentPath}.${index}`);
-          });
-        } else if (typeof value === "object" && value !== null) {
-          // 对象字段：递归提取子字段，使用路径格式
-          const subFields = extractContentFields(value, currentPath);
-          subFields.forEach((field) => fields.add(field));
-        } else {
-          // 普通字段（string、number、boolean等）
-          fields.add(currentPath);
-        }
-      });
-
-      return Array.from(fields);
-    }
-
     const fieldCombinations = extractContentFields(section);
 
     // 收集数组字段信息（用于参考，但不作为主要 fieldCombinations）

@@ -7,6 +7,7 @@ import {
   generateDeterministicId,
   generateRandomId,
   getChildFieldCombinationsKey,
+  extractContentFields,
 } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
@@ -305,7 +306,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       if (isSingleListItem) {
         // list get inside keys to match
-        fieldCombinations = Object.keys(_.get(section, fieldCombinations[0]));
+        fieldCombinations = extractContentFields(_.get(section, fieldCombinations[0]));
       }
 
       // Find corresponding component in component library
@@ -319,7 +320,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       });
 
       if (!relatedComponent) {
-        log(`      ❌ Component not found: ${componentId}`);
+        log(`      ❌ Component not found: ${componentId} ${JSON.stringify(fieldCombinations)}`);
         return {
           originalComponentId: componentId,
           instanceId: generateRandomId(),

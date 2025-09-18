@@ -9,12 +9,12 @@ AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AI
 - **Intelligent Structure Planning**: Automatically analyze requirements and generate optimal website architecture
 - **Batch Content Generation**: Generate detailed content for all pages with one command
 - **Professional SEO Optimization**: Built-in SEO best practices and optimization recommendations
-- **Multi-language Support**: Support for Chinese and English content generation and localization
+- **Multi-language Support**: Supports Chinese and English content generation and localization
 
 ### 🎨 Professional Template System
 
 - **Pages Kit Integration**: Direct generation of Pages Kit-compatible YAML templates
-- **Component-based Design**: Support for modern components like Hero, CTA, FAQ, Content Cards
+- **Component-based Design**: Supports modern components like Hero, CTA, FAQ, Content Cards
 - **Responsive Layout**: Automatic adaptation for mobile and desktop displays
 - **Visual Editing**: Generated templates support visual editing and adjustments
 
@@ -28,7 +28,7 @@ AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AI
 ### 🚀 One-Click Publishing
 
 - **Direct Publishing**: One-click publishing to Pages Kit platform
-- **Batch Upload**: Support for batch publishing of multi-page websites
+- **Batch Upload**: Supports batch publishing of multi-page websites
 - **Status Monitoring**: Detailed publishing status and error reporting
 - **Access Links**: Get accessible website links immediately after successful publishing
 
@@ -66,7 +66,7 @@ WebSmith is built on the AIGNE framework using an Agent-based architecture:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/aigne-web-smith.git
+git clone https://github.com/AIGNE-io/aigne-web-smith.git
 cd aigne-web-smith
 
 # Install dependencies
@@ -165,9 +165,8 @@ aigne-web-smith/
 │   ├── utils.mjs          # General utilities
 │   ├── pages-kit-utils.mjs # Pages Kit integration
 │   └── constants.mjs      # Configuration constants
-├── web-mcp/               # MCP server agents
-├── tests/                 # Test suite (32+ tests)
-├── examples/inputs/           # Example inputs and configurations
+├── pages-mcp/             # MCP server agents
+├── examples/              # Example inputs and configurations
 └── aigne.yaml            # Main configuration
 ```
 

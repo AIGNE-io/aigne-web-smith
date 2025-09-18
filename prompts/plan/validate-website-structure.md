@@ -38,7 +38,7 @@ When website constraints include conflicting options, resolve by:
   - Tailor content presentation to `Target Audience` (Customers/End users, etc.)
   - When `Website Scale` is single page: organize all content into logical sections within one page
   - When `Website Scale` is multiple pages: distribute content appropriately across pages
-- Supplement with your knowledge when <datasources> content are limited:
+- Supplement with your knowledge when <datasources> content is limited:
   - Use publicly available information to enhance website structure
   - Never fabricate content for private products or data
 
@@ -81,7 +81,7 @@ Step-by-step analysis:
 2. **Verify feedback implementation**: Compare `websiteStructure` with `originalWebsiteStructure` to confirm requested changes are executed.
 3. **Verify unrelated node stability**: This is the most critical check. For each node in `websiteStructure` that exists in `originalWebsiteStructure` but was not mentioned in feedback:
    - **Critical**: `path` and `sourceIds` attributes **must** remain identical to `originalWebsiteStructure`
-   - Ideally, other attributes (`title`, `description`) should remain stable unless changes are directly caused by requested modifications or DataSource changes.
+   - Ideally, other attributes (`title`, `description`) should remain stable unless changes are directly caused by requested modifications or data source changes.
 
 </validation_rules>
 

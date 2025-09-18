@@ -48,6 +48,7 @@ agents:
   - ./agents/translate/choose-language.mjs
   - ./agents/translate/translate-page-detail-team.yaml
   - ./agents/translate/batch-translate-page-detail.yaml
+  - ./agents/translate/analyze-translate-page-detail.mjs
 
   # update
   - ./agents/update/index.yaml

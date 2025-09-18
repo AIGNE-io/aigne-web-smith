@@ -85,8 +85,6 @@ export default async function analyzeWebsiteStructure(
     };
   }
 
-  const panningAgent = options.context.agents["generateWebsiteStructure"];
-
   // Get user preferences for structure planning and global scope
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
@@ -98,7 +96,7 @@ export default async function analyzeWebsiteStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(panningAgent, {
+  const result = await options.context.invoke(options.context.agents["generateWebsiteStructure"], {
     feedback: finalFeedback || "",
     originalWebsiteStructure,
     userPreferences,

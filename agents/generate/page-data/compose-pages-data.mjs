@@ -293,41 +293,65 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
   log(`    🔗 Related components count: ${relatedComponents.length}`);
 
   // Generate complete instances for each relatedComponent
-  const relatedInstances = relatedComponents.map(({ componentId, fieldCombinations }, index) => {
-    log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
+  const relatedInstances = relatedComponents.map(
+    ({ componentId, fieldCombinations: _fieldCombinations }, index) => {
+      log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
 
-    // Find corresponding component in component library
-    const relatedComponent = componentLibrary.find((comp) => comp.componentId === componentId);
+      let fieldCombinations = _fieldCombinations;
 
-    if (!relatedComponent) {
-      log(`      ❌ Component not found: ${componentId}`);
+      const isSingleListItem =
+        fieldCombinations?.length === 1 &&
+        !Number.isNaN(Number(fieldCombinations[0].split(".")?.[1]));
+
+      if (isSingleListItem) {
+        // list get inside keys to match
+        fieldCombinations = Object.keys(_.get(section, fieldCombinations[0]));
+      }
+
+      // Find corresponding component in component library
+      const relatedComponent = componentLibrary.find((comp) => {
+        if (
+          componentId &&
+          comp.componentId === componentId &&
+          _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort())
+        ) {
+          return true;
+        }
+
+        // fallback
+        return _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort());
+      });
+
+      if (!relatedComponent) {
+        log(`      ❌ Component not found: ${componentId}`);
+        return {
+          originalComponentId: componentId,
+          instanceId: generateRandomId(),
+          instance: null,
+        };
+      }
+
+      log(`      ✅ Found component: ${relatedComponent.name} (${relatedComponent.type})`);
+
+      const childrenSection = _.pick(section, fieldCombinations);
+
+      // Recursively create child component instances
+      const childInstance = createComponentInstance(
+        childrenSection,
+        relatedComponent,
+        componentLibrary,
+        index, // Pass the same section index
+      );
+
       return {
-        originalComponentId: componentId,
-        instanceId: generateRandomId(),
-        instance: null,
+        originalComponentId: relatedComponent.componentId,
+        originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
+        instanceId: childInstance.id,
+        instance: childInstance,
+        childrenSection,
       };
-    }
-
-    log(`      ✅ Found component: ${relatedComponent.name} (${relatedComponent.type})`);
-
-    const childrenSection = _.pick(section, fieldCombinations);
-
-    // Recursively create child component instances
-    const childInstance = createComponentInstance(
-      childrenSection,
-      relatedComponent,
-      componentLibrary,
-      index, // Pass the same section index
-    );
-
-    return {
-      originalComponentId: componentId,
-      originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
-      instanceId: childInstance.id,
-      instance: childInstance,
-      childrenSection,
-    };
-  });
+    },
+  );
 
   // Replace relatedComponents values in configTemplate
   log(`    🔄 Replacing component IDs in configTemplate...`);
@@ -424,7 +448,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
       // Match component
       const matchedComponent = componentLibrary.find((component) => {
         const componentFields = component.fieldCombinations || [];
-        return _.isEqual(componentFields, fieldCombinations);
+        return _.isEqual(componentFields?.sort(), fieldCombinations?.sort());
       });
 
       if (matchedComponent) {

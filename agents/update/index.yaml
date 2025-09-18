@@ -15,7 +15,7 @@ skills:
   - type: team
     name: generatePageDetailTeam(selectedPages)
     skills:
-      - ./generate-page-detail-team.yaml
+      - ../generate/page-detail/generate-page-detail-team.yaml
     iterate_on: selectedPages
     concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs

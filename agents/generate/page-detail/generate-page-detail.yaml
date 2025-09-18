@@ -1,7 +1,7 @@
 name: generatePageDetail
 description: Page detail generator
 instructions:
-  url: ../../prompts/update/generate-page-detail.md
+  url: ../../../prompts/generate/page-detail/generate-page-detail.md
 input_schema:
   type: object
   properties:
@@ -14,7 +14,7 @@ input_schema:
     datasources:
       type: string
       description: Global context for assisting detail generation
-    originalWebsiteStructure: ../schema/website-structure.yaml
+    originalWebsiteStructure: ../../schema/website-structure.yaml
     title:
       type: string
     description:

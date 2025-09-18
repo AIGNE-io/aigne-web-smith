@@ -9,7 +9,7 @@ input_schema:
     datasources:
       type: string
       description: Global context for assisting detail generation
-    websiteStructureResult: ../schema/website-structure-with-translates.yaml
+    websiteStructureResult: ../../schema/website-structure-with-translates.yaml
     modifiedFiles:
       type: array
       items: { type: string }

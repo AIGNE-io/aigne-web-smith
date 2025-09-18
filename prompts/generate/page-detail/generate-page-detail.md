@@ -82,12 +82,12 @@ This is the website structure. You can refer to it to understand where the curre
 </feedback_and_history>
 {% endif %}
 
-{% include "../common/rules/user-preferences-rule.md" %}
+{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 
-{% include "../common/rules/glossary-rule.md" %}
-{% include "../common/rules/user-locale-rule.md" %}
+{% include "../../common/rules/glossary-rule.md" %}
+{% include "../../common/rules/user-locale-rule.md" %}
 
 Format and Structure:
 

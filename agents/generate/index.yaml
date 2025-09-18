@@ -19,7 +19,7 @@ skills:
       fileName: website-structure.yaml
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
-  - ../update/batch-generate-page-detail.yaml
+  - ../generate/page-detail/batch-generate-page-detail.yaml
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: structure_planning
@@ -31,7 +31,7 @@ skills:
       - ../translate/batch-translate-page-detail.yaml
       - ./component-library/analyze-component-library.mjs
     mode: parallel
-  - ./page/compose-pages-data.mjs
+  - ./page-data/compose-pages-data.mjs
   - ../utils/save-pages.mjs
 
 input_schema:

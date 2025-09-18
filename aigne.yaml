@@ -21,10 +21,15 @@ agents:
   - ./agents/generate/component-library/parse-component-library.mjs
   - ./agents/generate/component-library/save-component-library.mjs
   - ./agents/generate/component-library/validate-component-library.mjs
-  # generate page
-  - ./agents/generate/page/compose-pages-data.mjs
-  - ./agents/generate/page/save-pages-data.mjs
-  - ./agents/generate/page/validate-pages-data.mjs
+  # generate page detail
+  - ./agents/generate/page-detail/batch-generate-page-detail.yaml
+  - ./agents/generate/page-detail/generate-page-detail.yaml
+  - ./agents/generate/page-detail/generate-page-detail-team.yaml
+  - ./agents/generate/page-detail/analyze-page-detail.mjs
+  # generate page data
+  - ./agents/generate/page-data/compose-pages-data.mjs
+  - ./agents/generate/page-data/save-pages-data.mjs
+  - ./agents/generate/page-data/validate-pages-data.mjs
 
   # init
   - ./agents/init/index.mjs
@@ -52,10 +57,6 @@ agents:
 
   # update
   - ./agents/update/index.yaml
-  - ./agents/update/batch-generate-page-detail.yaml
-  - ./agents/update/generate-page-detail.yaml
-  - ./agents/update/generate-page-detail-team.yaml
-  - ./agents/update/analyze-page-detail.mjs
 
   # utils
   - ./agents/utils/check-detail-result.mjs

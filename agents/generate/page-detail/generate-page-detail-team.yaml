@@ -2,12 +2,12 @@ type: team
 name: generatePageDetailTeam
 description: Team for generating page detail
 skills:
-  - ../utils/transform-detail-datasources.mjs
+  - ../../utils/transform-detail-datasources.mjs
   - type: team
     task_render_mode: collapse
     name: generatePageDetail
     skills:
-      - url: ../utils/find-user-preferences-by-path.mjs
+      - url: ../../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: page
       - ./generate-page-detail.yaml
@@ -18,7 +18,7 @@ skills:
             { "reviewContent": content }
           ])
     reflection:
-      reviewer: ../utils/check-detail-result.mjs
+      reviewer: ../../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
@@ -31,8 +31,8 @@ skills:
         { "feedback": "" }
       ])
   # will translate page detail next workflow
-  # - ../translate/translate-page-detail-team.yaml
-  - ../utils/save-single-page.mjs
+  # - ../../translate/translate-page-detail-team.yaml
+  - ../../utils/save-single-page.mjs
 input_schema:
   type: object
   properties:

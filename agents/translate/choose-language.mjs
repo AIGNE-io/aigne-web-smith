@@ -1,5 +1,7 @@
+import { access } from "node:fs/promises";
+import { join } from "node:path";
 import { SUPPORTED_LANGUAGES } from "../../utils/constants.mjs";
-import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import { getFileName, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 /**
  * Interactive language selector for translation from configured languages
@@ -9,7 +11,10 @@ import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
  * @param {Object} options - Options object with prompts
  * @returns {Promise<Object>} Selected languages
  */
-export default async function chooseLanguage({ langs, locale, selectedPages }, options) {
+export default async function chooseLanguage(
+  { langs, locale, selectedPages, tmpDir, skipIfExists = false, requiredFeedback = false },
+  options,
+) {
   let selectedLanguages = [];
 
   // Load existing config to get current translation languages
@@ -42,7 +47,7 @@ export default async function chooseLanguage({ langs, locale, selectedPages }, o
   }
 
   // If no valid languages were provided, let user select from available languages
-  if (selectedLanguages.length === 0) {
+  if (selectedLanguages.length === 0 && requiredFeedback) {
     // Create choices from available translation languages with labels
     const choices = availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
@@ -77,12 +82,34 @@ export default async function chooseLanguage({ langs, locale, selectedPages }, o
     await saveValueToConfig("translateLanguages", updatedTranslateLanguages);
   }
 
-  const newSelectedPages = selectedPages.map((page) => {
-    return {
-      ...page,
-      translates: selectedLanguages.map((lang) => ({ language: lang })),
-    };
-  });
+  const newSelectedPages = await Promise.all(
+    selectedPages.map(async (page) => {
+      const translates = [];
+
+      await Promise.all(
+        selectedLanguages.map(async (lang) => {
+          if (skipIfExists) {
+            const flatName = page.path.replace(/^\//, "").replace(/\//g, "-");
+            const fileFullName = getFileName({ locale, fileName: flatName });
+            const filePath = join(tmpDir, lang, fileFullName);
+
+            try {
+              await access(filePath);
+            } catch {
+              translates.push({ language: lang });
+            }
+          } else {
+            translates.push({ language: lang });
+          }
+        }),
+      );
+
+      return {
+        ...page,
+        translates,
+      };
+    }),
+  );
 
   return {
     selectedLanguages,

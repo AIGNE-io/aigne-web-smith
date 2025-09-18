@@ -53,7 +53,7 @@ export default async function validateComponentLibrary(input) {
     }
   });
 
-  const uniqueAtomicComponentIds = _.uniq(relatedComponentIds);
+  const uniqueAtomicComponentIds = _.uniq(relatedComponentIds.filter((item) => item));
 
   uniqueAtomicComponentIds.forEach((item) => {
     const exist = componentLibrary.find(

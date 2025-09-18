@@ -312,36 +312,9 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
     const childrenSection = _.pick(section, fieldCombinations);
 
-    // Remove top-level keys, extract internal properties
-    const flattenedChildren = (() => {
-      const entries = Object.entries(childrenSection);
-      if (entries.length > 0) {
-        return entries.reduce((acc, [, value]) => {
-          if (typeof value === "object" && value !== null) {
-            if (Array.isArray(value)) {
-              // Extract object content from array
-              value.forEach((item) => {
-                if (typeof item === "object" && item !== null) {
-                  Object.assign(acc, item);
-                }
-              });
-            } else {
-              // Extract object content
-              Object.assign(acc, value);
-            }
-          }
-          return acc;
-        }, {});
-      }
-      return childrenSection;
-    })();
-
     // Recursively create child component instances
     const childInstance = createComponentInstance(
-      {
-        ...section,
-        ...flattenedChildren,
-      },
+      childrenSection,
       relatedComponent,
       componentLibrary,
       index, // Pass the same section index
@@ -352,7 +325,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
       instanceId: childInstance.id,
       instance: childInstance,
-      section,
+      childrenSection,
     };
   });
 

@@ -38,8 +38,11 @@ All fieldCombinations:
     - FieldCombinations that can be covered by a single atomic component from <component_list> based on the component's schema.
   - Composite component
     - Determine composite components strictly based on the available <component_list>: if multiple atomic components are required to cover a fieldCombination group, create a composite component.
-    - Array key exist in fieldCombinations (such as list.0, list.1) should be handled by composite component
-    - If some fieldCombinations cannot be mapped to available components, handle them as by composite component
+    - Array fields exist in fieldCombinations (such as list.0, list.1) should be handled by the composite component:
+      - Each array element (list.0, list.1, etc.) must be represented as an **independent relatedComponent entry**, to ensure separate layout generation.
+      - If an array element cannot be matched to an existing Atomic component, **componentId can be omitted**, but its fieldCombinations must be listed.
+      - If array element fields match an Atomic component schema, map the fields to that Atomic component to allow **reuse of the same layout**.
+    - If some fieldCombinations cannot be mapped to available components, handle them as a composite component, following the same array-field mapping rules.
 - Improve component library, ensure correspondence between <component_list> and <all_field_combinations>
 
 </datasources_handling_rules>

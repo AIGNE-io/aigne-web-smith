@@ -33,18 +33,28 @@ skills:
                 description: FieldCombinations handled by the component
               relatedComponents:
                 type: array
+                description: >
+                  List of components related to this composite component.
+                  Each item represents either:
+                    1) An Atomic component mapping (with componentId and fieldCombinations), or
+                    2) An independent array element (e.g., list.0, list.1) that may not have a componentId but has fieldCombinations for layout mapping.
                 items:
                   type: object
                   properties:
                     componentId:
                       type: string
-                      description: ID of the related atomic component
+                      description: >
+                        Optional. ID of the related atomic component. 
+                        Can be omitted if the array element or fieldCombination does not directly match an existing atomic component.
                     fieldCombinations:
                       type: array
                       items:
                         type: string
-                        description: FieldCombinations used by the related atomic component
-                      description: Content of atomic components related to composite component, where componentId is the atomic component ID, and fieldCombinations are the fieldCombinations used by the atomic component
+                      description: >
+                        Required. List of field names used by the related component or array element.
+                        For array elements (e.g., list.0, list.1), this defines the fields to map to atomic components or for layout generation.
+                  required:
+                    - fieldCombinations
   - ./save-component-library.mjs
 reflection:
   reviewer: ./validate-component-library.mjs

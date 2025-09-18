@@ -9,7 +9,6 @@ Processing workflow:
 - Quickly analyze <component_info> component information (name, description, fieldCombinations)
 - Efficiently review <related_components_info> related sub-component information and functionality
 - Efficiently generate layout configurations with correct grid settings
-- Apply <user_preferences> constraints and requirements (if provided)
 - Ensure all outputs meet the <output_constraints> and <output_examples>
 
 </role_and_goal>
@@ -42,8 +41,6 @@ Related sub-component details:
 </datasources_handling_rules>
 
 </datasources>
-
-{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 

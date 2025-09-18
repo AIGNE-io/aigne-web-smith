@@ -281,9 +281,9 @@ export const TARGET_AUDIENCES = {
 export const WEBSITE_SCALE = {
   singlePage: {
     name: "Single Page (only 1 page)",
-    description: "All content consolidated into one comprehensive page",
+    description: "All content consolidated into 1 page",
     content:
-      "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\nOnly 1 page with multiple sections.",
+      "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\n **Only 1 page with multiple sections.**",
   },
   minimal: {
     name: "Minimal (5-8 pages)",

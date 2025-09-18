@@ -6,7 +6,6 @@ Your goal is to generate a complete website component library through multiple p
 
 Processing workflow:
 
-- Analyze all page content <all_page_content> and extract component requirements
 - Map fieldCombinations from <all_field_combinations> to available atomic components in <component_list>
 - Identify composite components for complex fieldCombinations that cannot be handled by single atomic components
 - Generate complete component library definition with proper mapping relationships
@@ -17,13 +16,6 @@ Processing workflow:
 </role_and_goal>
 
 <datasources>
-
-<all_page_content>
-All page content:
-
-{{middleFormatContent}}
-
-</all_page_content>
 
 <component_list>
 Available component list:
@@ -41,9 +33,6 @@ All fieldCombinations:
 
 <datasources_handling_rules>
 
-- Analyze all page content <all_page_content> to infer component library structure
-  - What components are needed to cover all page content rendering
-  - FieldCombinations that each component needs to handle
 - Combine component `schema` fields in <component_list> with each fieldCombination in <all_field_combinations> to infer component types
   - Atomic component
     - FieldCombinations that a single atomic component can handle

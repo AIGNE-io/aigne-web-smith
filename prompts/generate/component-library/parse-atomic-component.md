@@ -11,7 +11,6 @@ Processing workflow:
   - Process <field_combinations> fieldCombinations and their mapping requirements
 - Generate component data source templates with correct field mappings
 - Validate data structure integrity and field mapping correctness
-- Apply <user_preferences> constraints and requirements (if provided)
 - Ensure all outputs meet the <output_constraints> and <output_examples>
 
 </role_and_goal>
@@ -40,8 +39,6 @@ FieldCombinations to be mapped:
 </datasources_handling_rules>
 
 </datasources>
-
-{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 

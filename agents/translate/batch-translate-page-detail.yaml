@@ -1,7 +1,6 @@
 type: team
 name: batchTranslatePageDetail
 description: batch translate page detail
-
 mode: sequential
 skills:
   - url: ../utils/transform-website-structure.yaml
@@ -29,6 +28,8 @@ skills:
     model: openai/gpt-5-nano
     skills:
       - url: ./translate-page-detail-team.yaml
+        default_input:
+          skipIfExists: true
       - url: ../utils/save-single-page.mjs
         default_input:
           isTranslate: true

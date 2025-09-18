@@ -17,7 +17,7 @@ skills:
     skills:
       - ./generate-page-detail-team.yaml
     iterate_on: selectedPages
-    concurrency: 3
+    concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: page_refine

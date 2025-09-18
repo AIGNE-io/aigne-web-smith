@@ -20,7 +20,7 @@ skills:
         default_input:
           isTranslate: true
     iterate_on: selectedPages
-    concurrency: 3
+    concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine

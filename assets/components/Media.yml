@@ -100,12 +100,12 @@ llmConfig:
     5fjm8opvqth7wk71:
       key: height
       isNeedGenerate: false
-      describe: 图片高度
+      describe: 图片高度，默认使用 100%
       displayName: height
     x8beiec3fxx5des1:
       key: width
       isNeedGenerate: false
-      describe: 图片高度
+      describe: 图片宽度，默认使用 100%
       displayName: width
     8k3m9xp2vw7q4n1z:
       key: previewImage

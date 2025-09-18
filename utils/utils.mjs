@@ -898,7 +898,6 @@ export function processConfigFields(config) {
 
   // Set default values for missing or empty fields
   const defaults = {
-    nodeName: "Page",
     locale: "en",
     sourcesPath: ["./"],
     pagesDir: "./.aigne/web-smith/pages",

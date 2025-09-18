@@ -36,10 +36,6 @@ skills:
 input_schema:
   type: object
   properties:
-    nodeName:
-      type: string
-      description: Node name
-      default: Section
     locale:
       type: string
       description: Language

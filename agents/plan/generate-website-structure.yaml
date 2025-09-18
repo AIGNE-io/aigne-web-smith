@@ -17,9 +17,6 @@ skills:
         datasources:
           type: string
           description: Context for website structure
-        nodeName:
-          type: string
-          description: Node name for website structure
         glossary:
           type: string
           description: Glossary of terms

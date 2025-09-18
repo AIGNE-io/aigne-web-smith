@@ -36,8 +36,8 @@ When website constraints include conflicting options, resolve by:
 - Include all relevant <datasources> content based on <website_constraints>
   - Follow `Page Purpose` requirements (Landing page, Homepage, etc.) to structure content appropriately
   - Tailor content presentation to `Target Audience` (Customers/End users, etc.)
-  - When `Website Scale` is single page: organize all content into logical sections within one page
-  - When `Website Scale` is multiple pages: distribute content appropriately across pages
+  - When `Website Scale` is `Single Page`: organize all content into logical sections within one page, and the website structure should be only 1 page
+  - When `Website Scale` expected `Multiple Pages`: distribute content appropriately across pages
 - Supplement with your knowledge when <datasources> content are limited:
   - Use publicly available information to enhance website structure
   - Never fabricate content for private products or data

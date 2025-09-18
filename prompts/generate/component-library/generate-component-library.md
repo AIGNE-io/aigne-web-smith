@@ -80,7 +80,10 @@ Component library generation constraints:
 
 - Each fieldCombination in all fieldCombinations <all_field_combinations> should have a corresponding component
 - Ensure each component in <component_list> that matches at least one fieldCombination is represented as an atomic component in the output
-- Composite components ensure relatedComponents contains all related atomic components (componentId) and corresponding fieldCombinations
+- For composite components, relatedComponents should include all relevant fieldCombinations.
+  - If a fieldCombination can be mapped to an existing atomic component, include its componentId.
+  - If a fieldCombination cannot be mapped to an atomic component, leave componentId empty ('').
+  - Each array element (e.g., list.0, list.1) should be represented as an independent relatedComponent entry, following the same rules above.
 - Validate all fieldCombinations are correctly mapped
 
 </output_constraints>
@@ -105,7 +108,7 @@ All page content:
 }
 
 All fieldCombinations:
-["title", "description", "action.0", "action.1", "image.url" ],
+["title", "description", "action.0", "action.1", "image.url", "list.0", "list.1" ],
 ["text", "link" ]
 
 All component list:
@@ -124,10 +127,11 @@ All component list:
 
 Analysis process:
 
-1. ["title","description","action.0","action.1","image.url"] → Single atomic component cannot cover, need to use composite component
+1. ["title","description","action.0","action.1","image.url","list.0","list.1"] → Single atomic component cannot cover, need to use composite component
    - ["title","description"] → Use RichText atomic component
    - ["action.0","action.1"] → Use Action atomic component
    - ["image.url"] → Use Media atomic component
+   - ["list.0","list.1"] → Cannot be mapped to an existing atomic component, componentId is empty string ''
 2. ["text","link"] → Through composite component analysis, derive Action atomic component
 
 Output example:
@@ -187,6 +191,14 @@ Output example:
         {
           "componentId": "a44r0SiGV9AFn2Fj",
           "fieldCombinations": ["action.1"]
+        },
+        {
+          "componentId": "", // cannot be mapped to an existing atomic component, componentId is empty string ''
+          "fieldCombinations": ["list.0"]
+        },
+        {
+          "componentId": "", // cannot be mapped to an existing atomic component, componentId is empty string ''
+          "fieldCombinations": ["list.1"]
         }
       ]
     }

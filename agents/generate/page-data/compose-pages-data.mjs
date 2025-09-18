@@ -310,11 +310,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       // Find corresponding component in component library
       const relatedComponent = componentLibrary.find((comp) => {
-        if (
-          componentId &&
-          comp.componentId === componentId &&
-          _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort())
-        ) {
+        if (componentId && comp.componentId === componentId) {
           return true;
         }
 

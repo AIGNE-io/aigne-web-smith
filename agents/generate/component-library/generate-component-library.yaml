@@ -45,7 +45,8 @@ skills:
                       type: string
                       description: >
                         Optional. ID of the related atomic component. 
-                        Can be omitted if the array element or fieldCombination does not directly match an existing atomic component.
+                        Use an empty string ('') if this fieldCombination or array element
+                        does not directly correspond to an existing atomic component.
                     fieldCombinations:
                       type: array
                       items:

@@ -9,9 +9,9 @@ Processing workflow:
 - Map fieldCombinations from <all_field_combinations> to available atomic components in <component_list>
 - Identify composite components for complex fieldCombinations that cannot be handled by single atomic components
 - Generate complete component library definition with proper mapping relationships
-- Modify the output according to <feedback_and_history> (if provided)
+- Apply <feedback_and_history> first (highest priority), then map remaining fieldCombinations to available components
 - Apply <user_preferences> constraints and requirements (if provided)
-- Ensure all outputs meet the <output_constraints> and <output_examples>
+- Ensure all outputs attempt to meet <output_constraints> and <output_examples>
 
 </role_and_goal>
 
@@ -35,10 +35,11 @@ All fieldCombinations:
 
 - Combine component `schema` fields in <component_list> with each fieldCombination in <all_field_combinations> to infer component types
   - Atomic component
-    - FieldCombinations that a single atomic component can handle
+    - FieldCombinations that can be covered by a single atomic component from <component_list> based on the component's schema.
   - Composite component
-    - In the semantic meaning of fieldCombinations `key`, feels like multiple components need to be combined to cover
-    - Array fieldCombinations exist (such as list.0, list.1)
+    - Determine composite components strictly based on the available <component_list>: if multiple atomic components are required to cover a fieldCombination group, create a composite component.
+    - Array key exist in fieldCombinations (such as list.0, list.1) should be handled by composite component
+    - If some fieldCombinations cannot be mapped to available components, handle them as by composite component
 - Improve component library, ensure correspondence between <component_list> and <all_field_combinations>
 
 </datasources_handling_rules>
@@ -75,7 +76,7 @@ All fieldCombinations:
 Component library generation constraints:
 
 - Each fieldCombination in all fieldCombinations <all_field_combinations> should have a corresponding component
-- Ensure each component in <component_list>, if it can handle fieldCombinations, must have a corresponding atomic component
+- Ensure each component in <component_list> that matches at least one fieldCombination is represented as an atomic component in the output
 - Composite components ensure relatedComponents contains all related atomic components (componentId) and corresponding fieldCombinations
 - Validate all fieldCombinations are correctly mapped
 

@@ -246,13 +246,13 @@ export function extractFieldCombinations(middleFormatContent) {
       // 假设是YAML格式，需要在调用处先解析
       parsedContent = parse(middleFormatContent);
     } catch (error) {
-      console.error("parse middle format content error:", error.message);
+      console.error("parse all page content error:", error.message);
       return [];
     }
   }
 
   if (!parsedContent || !parsedContent.sections) {
-    console.warn("middle format content missing sections field");
+    console.warn("all page content missing sections field");
     return [];
   }
 

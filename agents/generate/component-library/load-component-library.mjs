@@ -40,7 +40,7 @@ export default async function loadComponentLibrary(input) {
       componentLibrary: componentLibraryData?.componentLibrary || [],
     };
   } catch (error) {
-    throw new Error(`Failed to load middle format files: ${error.message}`);
+    throw new Error(`Failed to load all page content files: ${error.message}`);
   }
 }
 

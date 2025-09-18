@@ -76,11 +76,11 @@ All fieldCombinations:
 </feedback_and_history>
 {% endif %}
 
-{% include "../common/rules/user-preferences-rule.md" %}
+{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 
-{% include "../common/rules/user-locale-rule.md" %}
+{% include "../../common/rules/user-locale-rule.md" %}
 
 Component library generation constraints:
 

@@ -43,7 +43,7 @@ Related sub-component details:
 
 </datasources>
 
-{% include "../common/rules/user-preferences-rule.md" %}
+{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 

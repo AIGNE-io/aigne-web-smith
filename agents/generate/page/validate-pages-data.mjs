@@ -96,7 +96,7 @@ export default async function validatePagesData(input) {
         return {
           ...input,
           isValid: true,
-          validationFeedback: "Pages YAML format validation passed",
+          validationFeedback: "Page Data validation passed",
           parsedData: validationResult.data,
         };
       } else {

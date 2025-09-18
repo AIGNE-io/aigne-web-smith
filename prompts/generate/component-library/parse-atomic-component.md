@@ -41,7 +41,7 @@ FieldCombinations to be mapped:
 
 </datasources>
 
-{% include "../common/rules/user-preferences-rule.md" %}
+{% include "../../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
 

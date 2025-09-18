@@ -297,15 +297,29 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
     .map(({ componentId, fieldCombinations: _fieldCombinations }, index) => {
       log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
 
-      let fieldCombinations = _fieldCombinations;
+      let fieldCombinations = _.cloneDeep(_fieldCombinations);
+      // first try to pick section by fieldCombinations
+      let childrenSection = _.pick(section, _fieldCombinations);
 
+      // check if it is a single list item
       const isSingleListItem =
         fieldCombinations?.length === 1 &&
         !Number.isNaN(Number(fieldCombinations[0].split(".")?.[1]));
 
+      const isSingleObjectItem =
+        fieldCombinations?.length === 1 && fieldCombinations[0].includes(".");
+
       if (isSingleListItem) {
         // list get inside keys to match
-        fieldCombinations = extractContentFields(_.get(section, fieldCombinations[0]));
+        fieldCombinations = _.cloneDeep(
+          extractContentFields(_.get(section, _fieldCombinations[0])),
+        );
+        childrenSection = _.get(section, _fieldCombinations[0]);
+      } else if (isSingleObjectItem) {
+        childrenSection = {
+          ...childrenSection,
+          ..._.get(section, _fieldCombinations[0]?.split(".")?.[0]),
+        };
       }
 
       // Find corresponding component in component library
@@ -319,13 +333,13 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       });
 
       if (!relatedComponent) {
-        log(`      ❌ Component not found: ${componentId} ${JSON.stringify(fieldCombinations)}`);
+        log(
+          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(fieldCombinations)}`,
+        );
         return null;
       }
 
       log(`      ✅ Found component: ${relatedComponent.name} (${relatedComponent.type})`);
-
-      const childrenSection = _.pick(section, fieldCombinations);
 
       // Recursively create child component instances
       const childInstance = createComponentInstance(
@@ -388,10 +402,12 @@ function createComponentInstance(section, component, componentLibrary = [], sect
   // Use deterministic ID generation based on component ID and section content
   const contentHash = JSON.stringify({
     componentId: component.componentId,
+    fieldCombinations: component.fieldCombinations,
     sectionName: section.name,
     sectionIndex,
     // Use hash of key fields to ensure same content generates same ID
     keys: Object.keys(section).sort(),
+    section,
   });
   const instanceId = generateDeterministicId(contentHash);
   log(`    🔧 Generated component instance ID: ${instanceId}`);
@@ -428,7 +444,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
     log(`📑 Found ${parsedData.sections.length} sections`);
 
     // Match components for each section
-    const composedSections = parsedData.sections.map((section, index) => {
+    const composedSections = parsedData.sections?.map((section, index) => {
       log(`  🏷️  Processing Section ${index + 1}: "${section.name}"`);
 
       // Use SDK to extract field combinations

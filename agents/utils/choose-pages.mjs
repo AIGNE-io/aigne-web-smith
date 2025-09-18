@@ -7,6 +7,20 @@ import {
   processSelectedFiles,
 } from "../../utils/pages-finder-utils.mjs";
 
+/**
+ * Choose pages for processing
+ * @param {Object} params
+ * @param {Array} params.pages - List of pages to choose from
+ * @param {Object} params.websiteStructureResult - Website structure data
+ * @param {string} params.projectId - Project identifier
+ * @param {string} params.tmpDir - Temporary directory path
+ * @param {boolean} params.isTranslate - Translation mode flag
+ * @param {string} params.feedback - User feedback
+ * @param {string} params.locale - Locale identifier
+ * @param {boolean} [params.requiredFeedback=true] - Whether feedback is required
+ * @param {Object} options - Additional options
+ */
+
 export default async function choosePages(
   {
     pages,

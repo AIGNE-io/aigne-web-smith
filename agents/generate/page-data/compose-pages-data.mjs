@@ -3,11 +3,10 @@ import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import {
+  extractContentFields,
   extractFieldCombinations,
   generateDeterministicId,
-  generateRandomId,
   getChildFieldCombinationsKey,
-  extractContentFields,
 } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
@@ -294,8 +293,8 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
   log(`    🔗 Related components count: ${relatedComponents.length}`);
 
   // Generate complete instances for each relatedComponent
-  const relatedInstances = relatedComponents.map(
-    ({ componentId, fieldCombinations: _fieldCombinations }, index) => {
+  const relatedInstances = relatedComponents
+    .map(({ componentId, fieldCombinations: _fieldCombinations }, index) => {
       log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
 
       let fieldCombinations = _fieldCombinations;
@@ -321,11 +320,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       if (!relatedComponent) {
         log(`      ❌ Component not found: ${componentId} ${JSON.stringify(fieldCombinations)}`);
-        return {
-          originalComponentId: componentId,
-          instanceId: generateRandomId(),
-          instance: null,
-        };
+        return null;
       }
 
       log(`      ✅ Found component: ${relatedComponent.name} (${relatedComponent.type})`);
@@ -347,8 +342,8 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
         instance: childInstance,
         childrenSection,
       };
-    },
-  );
+    })
+    .filter(Boolean);
 
   // Replace relatedComponents values in configTemplate
   log(`    🔄 Replacing component IDs in configTemplate...`);

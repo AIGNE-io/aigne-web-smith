@@ -294,12 +294,12 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
   // Generate complete instances for each relatedComponent
   const relatedInstances = relatedComponents
-    .map(({ componentId, fieldCombinations: _fieldCombinations }, index) => {
+    .map(({ componentId, fieldCombinations: originalFieldCombinations }, index) => {
       log(`      🔍 Processing Related component ${index + 1}: ${componentId}`);
 
-      let fieldCombinations = _.cloneDeep(_fieldCombinations);
+      let fieldCombinations = _.cloneDeep(originalFieldCombinations);
       // first try to pick section by fieldCombinations
-      let childrenSection = _.pick(section, _fieldCombinations);
+      let childrenSection = _.pick(section, originalFieldCombinations);
 
       // check if it is a single list item
       const isSingleListItem =
@@ -312,21 +312,21 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
       if (isSingleListItem) {
         // list get inside keys to match
         fieldCombinations = _.cloneDeep(
-          extractContentFields(_.get(section, _fieldCombinations[0])),
+          extractContentFields(_.get(section, originalFieldCombinations[0])),
         );
-        childrenSection = _.get(section, _fieldCombinations[0]);
+        childrenSection = _.get(section, originalFieldCombinations[0]);
       } else if (isSingleObjectItem) {
         childrenSection = {
           ...childrenSection,
-          ..._.get(section, _fieldCombinations[0]?.split(".")?.[0]),
+          ..._.get(section, originalFieldCombinations[0]?.split(".")?.[0]),
         };
       }
 
       // Find corresponding component in component library
       const relatedComponent = componentLibrary.find((comp) => {
-        if (componentId && comp.componentId === componentId) {
-          return true;
-        }
+        // if (componentId && comp.componentId === componentId) {
+        //   return true;
+        // }
 
         // fallback
         return _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort());
@@ -334,7 +334,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       if (!relatedComponent) {
         log(
-          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(fieldCombinations)}`,
+          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(originalFieldCombinations)}`,
         );
         return null;
       }
@@ -351,7 +351,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       return {
         originalComponentId: relatedComponent.componentId,
-        originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
+        originalGridSettingsKey: getChildFieldCombinationsKey(originalFieldCombinations),
         instanceId: childInstance.id,
         instance: childInstance,
         childrenSection,

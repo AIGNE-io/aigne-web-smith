@@ -245,17 +245,11 @@ export function extractContentFields(obj, prefix = "") {
     const value = obj[key];
 
     if (Array.isArray(value)) {
-      // 数组字段：只包含数组字段本身的路径
       // fields.add(`${currentPath}`);
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
-    } else if (typeof value === "object" && value !== null) {
-      // 对象字段：递归提取子字段，使用路径格式
-      const subFields = extractContentFields(value, currentPath);
-      subFields.forEach((field) => fields.add(field));
     } else {
-      // 普通字段（string、number、boolean等）
       fields.add(currentPath);
     }
   });
@@ -383,7 +377,7 @@ export function getComponentLibraryDataPath(tmpDir) {
 }
 
 export const getChildFieldCombinationsKey = (fieldCombinations) => {
-  return `FIELD_COMBINATIONS:${fieldCombinations.join(",")}`;
+  return `${fieldCombinations.join(",")}`;
 };
 
 export const getComponentLibraryData = (tmpDir) => {

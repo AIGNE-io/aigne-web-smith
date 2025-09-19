@@ -14,6 +14,7 @@ export default async function analyzePageDetail(input, options) {
     modifiedFiles,
     // forceRegenerate,
     locale,
+    builtinComponentLibrary,
     ...rest
   } = input;
 
@@ -101,6 +102,47 @@ export default async function analyzePageDetail(input, options) {
     };
   }
 
+  // Generate field usage constraints from builtinComponentLibrary
+  const generateFieldConstraints = (componentLibrary) => {
+    if (!componentLibrary || !Array.isArray(componentLibrary)) {
+      return "";
+    }
+
+    // Extract atomic fields
+    const atomicFields = componentLibrary.filter((comp) => comp.type === "atomic");
+
+    // Extract composite field combinations
+    const compositeFields = componentLibrary.filter((comp) => comp.type === "composite");
+
+    // Build constraints text
+    let constraints = "";
+
+    // Atomic fields section
+    constraints += "<fields_information>\n";
+    atomicFields.forEach((item) => {
+      const { field, summary } = item;
+      constraints += `- \`${field}\`: ${summary}\n`;
+    });
+    constraints += "</fields_information>\n\n";
+
+    // Composite combinations section
+    constraints += "<allowed_field_combinations>\n";
+    compositeFields.forEach((item) => {
+      constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
+    });
+    constraints += "</allowed_field_combinations>\n\n";
+
+    constraints +=
+      "- You can refer to the information in <fields_information> to understand what each field defines\n";
+    constraints +=
+      "- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>\n";
+    constraints += "    - DO NOT use any other field combinations\n";
+
+    return constraints;
+  };
+
+  const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
+
   const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,
     pagesDir,
@@ -108,6 +150,7 @@ export default async function analyzePageDetail(input, options) {
     sourceIds,
     originalWebsiteStructure,
     websiteStructure,
+    fieldConstraints,
   });
 
   return {

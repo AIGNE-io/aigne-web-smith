@@ -383,7 +383,7 @@ export function getComponentLibraryDataPath(tmpDir) {
 }
 
 export const getChildFieldCombinationsKey = (fieldCombinations) => {
-  return `FIELD_COMBINATIONS:${fieldCombinations.join(",")}`;
+  return `${fieldCombinations.join(",")}`;
 };
 
 export const getComponentLibraryData = (tmpDir) => {

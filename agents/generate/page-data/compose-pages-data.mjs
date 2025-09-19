@@ -324,9 +324,9 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       // Find corresponding component in component library
       const relatedComponent = componentLibrary.find((comp) => {
-        if (componentId && comp.componentId === componentId) {
-          return true;
-        }
+        // if (componentId && comp.componentId === componentId) {
+        //   return true;
+        // }
 
         // fallback
         return _.isEqual(comp.fieldCombinations?.sort(), fieldCombinations?.sort());
@@ -334,7 +334,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       if (!relatedComponent) {
         log(
-          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(fieldCombinations)}`,
+          `      ❌ Component not found: ${componentId || "Unknown ID"} ${JSON.stringify(_fieldCombinations)}`,
         );
         return null;
       }
@@ -351,7 +351,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
 
       return {
         originalComponentId: relatedComponent.componentId,
-        originalGridSettingsKey: getChildFieldCombinationsKey(fieldCombinations),
+        originalGridSettingsKey: getChildFieldCombinationsKey(_fieldCombinations),
         instanceId: childInstance.id,
         instance: childInstance,
         childrenSection,

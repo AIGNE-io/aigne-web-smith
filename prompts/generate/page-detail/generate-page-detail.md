@@ -120,6 +120,10 @@ Resources and References:
   - Each link in the output must use its **`linkPath`** value exactly as provided.
   - Do **not** invent, paraphrase, or fabricate any link paths.
 
+** Sections Constraints（VERY IMPORTANT）:**
+
+{{ fieldConstraints }}
+
 </output_constraints>
 
 <output_examples>
@@ -134,14 +138,7 @@ meta: # Required - page metadata
 sections: # Required - page content blocks
   - name: string # Required - section functional identifier, use camelCase naming
     summary: string # Required - section purpose description, describing function and content intent
-    # Following fields are all optional, use flexibly according to page design needs:
-    title: string # Block title
-    description: string # Block description / subtitle
-    image: string # Single image
-    action: { text: string, link: string } # Primary action button
-    code: { content: string, filename: string } # Code example
-    list: # List content
-      - { ... } #  can contain any field combinations
+    # CRITICAL: Each section MUST FOLLOW ** Sections Constraints（VERY IMPORTANT）:**
 ```
 
 </output_examples>

@@ -14,6 +14,7 @@ export default async function analyzePageDetail(input, options) {
     modifiedFiles,
     // forceRegenerate,
     locale,
+    baseComponentLibrary,
     ...rest
   } = input;
 
@@ -101,6 +102,47 @@ export default async function analyzePageDetail(input, options) {
     };
   }
 
+  // Generate field usage constraints from baseComponentLibrary
+  const generateFieldConstraints = (componentLibrary) => {
+    if (!componentLibrary || !Array.isArray(componentLibrary)) {
+      return "";
+    }
+
+    // Extract atomic fields
+    const atomicFields = componentLibrary.filter((comp) => comp.type === "atomic");
+
+    // Extract composite field combinations
+    const compositeFields = componentLibrary.filter((comp) => comp.type === "composite");
+
+    // Build constraints text
+    let constraints = "";
+
+    // Atomic fields section
+    constraints += "<available_fields_information>\n";
+    atomicFields.forEach((item) => {
+      const { field, summary } = item;
+      constraints += `- \`${field}\`: ${summary}\n`;
+    });
+    constraints += "</available_fields_information>\n";
+
+    // Composite combinations section
+    constraints += "<prebuilt_field_combinations>\n";
+    compositeFields.forEach((item) => {
+      constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
+    });
+    constraints += "</prebuilt_field_combinations>\n";
+
+    constraints +=
+      "- You can refer to the information in <available_fields_information> to understand what each field defines\n";
+    constraints +=
+      "- Each section MUST strictly follow the field combinations listed in <prebuilt_field_combinations>\n";
+    constraints += "    - DO NOT use any other field combinations\n";
+
+    return constraints;
+  };
+
+  const fieldConstraints = generateFieldConstraints(baseComponentLibrary);
+
   const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,
     pagesDir,
@@ -108,6 +150,7 @@ export default async function analyzePageDetail(input, options) {
     sourceIds,
     originalWebsiteStructure,
     websiteStructure,
+    fieldConstraints,
   });
 
   return {

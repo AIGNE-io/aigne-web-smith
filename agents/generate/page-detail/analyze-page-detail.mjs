@@ -118,24 +118,24 @@ export default async function analyzePageDetail(input, options) {
     let constraints = "";
 
     // Atomic fields section
-    constraints += "<available_fields_information>\n";
+    constraints += "<fields_information>\n";
     atomicFields.forEach((item) => {
       const { field, summary } = item;
       constraints += `- \`${field}\`: ${summary}\n`;
     });
-    constraints += "</available_fields_information>\n\n";
+    constraints += "</fields_information>\n\n";
 
     // Composite combinations section
-    constraints += "<prebuilt_field_combinations>\n";
+    constraints += "<allowed_field_combinations>\n";
     compositeFields.forEach((item) => {
       constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
     });
-    constraints += "</prebuilt_field_combinations>\n\n";
+    constraints += "</allowed_field_combinations>\n\n";
 
     constraints +=
-      "- You can refer to the information in <available_fields_information> to understand what each field defines\n";
+      "- You can refer to the information in <fields_information> to understand what each field defines\n";
     constraints +=
-      "- Each section MUST strictly follow the field combinations listed in <prebuilt_field_combinations>\n";
+      "- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>\n";
     constraints += "    - DO NOT use any other field combinations\n";
 
     return constraints;

@@ -407,7 +407,6 @@ function createComponentInstance(section, component, componentLibrary = [], sect
     sectionIndex,
     // Use hash of key fields to ensure same content generates same ID
     keys: Object.keys(section).sort(),
-    section,
   });
   const instanceId = generateDeterministicId(contentHash);
   log(`    🔧 Generated component instance ID: ${instanceId}`);

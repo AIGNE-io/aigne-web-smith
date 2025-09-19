@@ -65,10 +65,10 @@ export default async function chooseLanguage(
         return true;
       },
     });
-  }
 
-  if (selectedLanguages.length === 0) {
-    throw new Error("No languages selected for translation");
+    if (selectedLanguages.length === 0) {
+      throw new Error("No languages selected for translation");
+    }
   }
 
   // Find new languages that need to be added

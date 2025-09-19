@@ -96,16 +96,18 @@ export default async function parseComponentLibrary(input, options) {
       }
 
       // Extract related component information
-      const relatedComponentsInfo = item.relatedComponents?.map((relatedComponentItem) => {
-        const { componentId } = relatedComponentItem;
-        const atomicComponent = componentLibraryIdMap[componentId];
-        const component = moreContentsComponentMap[componentId];
-        return {
-          componentId,
-          name: atomicComponent?.name || component?.content?.name || "Unknown",
-          summary: atomicComponent?.summary || "No description",
-        };
-      });
+      const relatedComponentsInfo = item.relatedComponents
+        ?.filter((item) => item?.componentId)
+        ?.map((relatedComponentItem) => {
+          const { componentId } = relatedComponentItem;
+          const atomicComponent = componentLibraryIdMap[componentId];
+          const component = moreContentsComponentMap[componentId];
+          return {
+            componentId,
+            name: atomicComponent?.name || component?.content?.name || "Unknown",
+            summary: atomicComponent?.summary || "No description",
+          };
+        });
 
       const getGridSettingsSchema = () =>
         z.object({

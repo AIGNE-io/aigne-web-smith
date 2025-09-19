@@ -167,6 +167,15 @@ export default async function publishWebsite(
   await fs.mkdir(pagesDir, {
     recursive: true,
   });
+
+  // check outputDir is exist
+  if (!fs.existsSync(outputDir)) {
+    return {
+      message:
+        "It seems that the pages does not generated. \nPlease generate the pages as needed using \`aigne web generate\`\n",
+    };
+  }
+
   await fs.cp(outputDir, pagesDir, {
     recursive: true,
   });
@@ -476,7 +485,7 @@ ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to w
 
 🔗 Published Pages
 
-${publishedUrls.map((url) => `- ${url}`).join("\n")}
+${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
 
 🚀 Next Steps
 

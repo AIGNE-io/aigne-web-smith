@@ -5,7 +5,8 @@
 # 原子组件：单字段到组件的映射 - 每个原子组件只处理一个字段
 atomic:
   # RichText 组件处理核心文本字段
-  - field: "title"
+  - name: "RichTextTitle"
+    field: "title"
     componentId: xoHu0J44322kDYc-
     summary: "标题字段使用 RichText 组件，配置为大标题样式，适合页面主标题"
     dataSourceTemplate:
@@ -19,7 +20,8 @@ atomic:
       enableAnimation: false
       alignMobile: "center"
 
-  - field: "description"
+  - name: "RichTextDescription"
+    field: "description"
     componentId: xoHu0J44322kDYc-
     summary: "描述字段使用 RichText 组件，配置为段落文本，支持长文本展示"
     dataSourceTemplate:
@@ -33,7 +35,8 @@ atomic:
       alignMobile: "center"
 
   # Code 组件处理代码类字段
-  - field: "code"
+  - name: "CodeBlock"
+    field: "code"
     componentId: 2EHGy3vwxlS9JGr2
     summary: "代码字段使用 Code 组件，支持语法高亮和行号显示"
     dataSourceTemplate:
@@ -42,7 +45,8 @@ atomic:
       showIndex: true
 
   # Media 组件处理图片和媒体类字段
-  - field: "image"
+  - name: "MediaImage"
+    field: "image"
     componentId: xoHu0JPjPs122kaaa-
     summary: "图片字段使用 Media 组件，支持响应式图片展示"
     dataSourceTemplate:
@@ -58,7 +62,8 @@ atomic:
       ratio: "auto"
 
   # Action 组件处理操作类字段
-  - field: "action"
+  - name: "ActionButton"
+    field: "action"
     componentId: a44r0SiGV9AFn2Fj
     summary: "行动按钮字段使用 Action 组件，支持按钮文字和链接"
     dataSourceTemplate:
@@ -83,6 +88,9 @@ composite:
   - name: "TitleDescription"
     fieldCombinations: ["title", "description"]
     summary: "标题描述组合：最基础的文本内容块，适合各种内容展示"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
     configTemplate:
       gridSettings:
         desktop:
@@ -99,6 +107,11 @@ composite:
   - name: "HeroSection"
     fieldCombinations: ["title", "description", "action"]
     summary: "Hero 区域：标题 + 描述 + 行动按钮的经典组合，适合页面顶部展示"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: a44r0SiGV9AFn2Fj
+        fieldCombinations: ["action"]
     configTemplate:
       gridSettings:
         desktop:
@@ -118,6 +131,13 @@ composite:
   - name: "HeroWithImage"
     fieldCombinations: ["title", "description", "image", "action"]
     summary: "带图片的 Hero 区域：文本内容 + 配图 + 行动按钮，适合产品介绍页面"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: xoHu0JPjPs122kaaa-
+        fieldCombinations: ["image"]
+      - componentId: a44r0SiGV9AFn2Fj
+        fieldCombinations: ["action"]
     configTemplate:
       gridSettings:
         desktop:
@@ -138,6 +158,11 @@ composite:
   - name: "FeatureBlock"
     fieldCombinations: ["title", "description", "image"]
     summary: "功能介绍块：标题 + 描述 + 配图，适合功能特性展示"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: xoHu0JPjPs122kaaa-
+        fieldCombinations: ["image"]
     configTemplate:
       gridSettings:
         desktop:
@@ -156,6 +181,11 @@ composite:
   - name: "CodeWithDescription"
     fieldCombinations: ["title", "description", "code"]
     summary: "代码展示块：标题 + 说明 + 代码，适合技术文档和教程"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: 2EHGy3vwxlS9JGr2
+        fieldCombinations: ["code"]
     configTemplate:
       gridSettings:
         desktop:
@@ -173,6 +203,11 @@ composite:
   - name: "ImageWithDescription"
     fieldCombinations: ["image", "description"]
     summary: "图片配描述：图片 + 详细描述，适合产品或功能介绍"
+    relatedComponents:
+      - componentId: xoHu0JPjPs122kaaa-
+        fieldCombinations: ["image"]
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["description"]
     configTemplate:
       gridSettings:
         desktop:
@@ -188,6 +223,15 @@ composite:
   - name: "TextWithList3"
     fieldCombinations: ["title", "description", "list.0", "list.1", "list.2"]
     summary: "文本 + 3项列表：标题描述配3个并列项目，适合功能介绍配要点列表"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
     configTemplate:
       gridSettings:
         desktop:
@@ -210,6 +254,17 @@ composite:
     fieldCombinations:
       ["title", "description", "list.0", "list.1", "list.2", "list.3"]
     summary: "文本 + 4项列表：标题描述配4个并列项目，适合功能介绍配详细列表"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title", "description"]
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
+      - componentId: ""
+        fieldCombinations: ["list.3"]
     configTemplate:
       gridSettings:
         desktop:
@@ -233,6 +288,15 @@ composite:
   - name: "List4Grid"
     fieldCombinations: ["list.0", "list.1", "list.2", "list.3"]
     summary: "4项网格列表：纯列表项4列展示，适合产品特性、数据指标等并列内容"
+    relatedComponents:
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
+      - componentId: ""
+        fieldCombinations: ["list.3"]
     configTemplate:
       gridSettings:
         desktop:
@@ -252,6 +316,13 @@ composite:
   - name: "List3Grid"
     fieldCombinations: ["list.0", "list.1", "list.2"]
     summary: "3项网格列表：纯列表项3列展示，适合服务项目、核心优势等并列内容"
+    relatedComponents:
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
     configTemplate:
       gridSettings:
         desktop:
@@ -270,6 +341,13 @@ composite:
   - name: "TitleWithList2"
     fieldCombinations: ["title", "list.0", "list.1"]
     summary: "标题 + 2项列表：标题配2个并列项目，桌面端2列布局，移动端纵向排列"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title"]
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
     configTemplate:
       gridSettings:
         desktop:
@@ -287,6 +365,11 @@ composite:
   - name: "List2Grid"
     fieldCombinations: ["list.0", "list.1"]
     summary: "2项网格列表：纯列表项2列展示，适合对比展示、左右并列内容"
+    relatedComponents:
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
     configTemplate:
       gridSettings:
         desktop:
@@ -303,6 +386,17 @@ composite:
   - name: "List5Grid"
     fieldCombinations: ["list.0", "list.1", "list.2", "list.3", "list.4"]
     summary: "5项网格列表：5列展示，桌面端第一行3项第二行2项，移动端纵向排列"
+    relatedComponents:
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
+      - componentId: ""
+        fieldCombinations: ["list.3"]
+      - componentId: ""
+        fieldCombinations: ["list.4"]
     configTemplate:
       gridSettings:
         desktop:
@@ -325,6 +419,19 @@ composite:
     fieldCombinations:
       ["title", "list.0", "list.1", "list.2", "list.3", "list.4"]
     summary: "标题 + 5项列表：标题配5个项目，适合详细功能列表展示"
+    relatedComponents:
+      - componentId: xoHu0J44322kDYc-
+        fieldCombinations: ["title"]
+      - componentId: ""
+        fieldCombinations: ["list.0"]
+      - componentId: ""
+        fieldCombinations: ["list.1"]
+      - componentId: ""
+        fieldCombinations: ["list.2"]
+      - componentId: ""
+        fieldCombinations: ["list.3"]
+      - componentId: ""
+        fieldCombinations: ["list.4"]
     configTemplate:
       gridSettings:
         desktop:

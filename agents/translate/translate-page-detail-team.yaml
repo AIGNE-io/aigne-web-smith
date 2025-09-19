@@ -48,3 +48,4 @@ output_schema:
             type: string
 iterate_on: translates
 mode: sequential
+concurrency: 10

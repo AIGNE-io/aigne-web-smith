@@ -250,10 +250,6 @@ export function extractContentFields(obj, prefix = "") {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
-    } else if (typeof value === "object" && value !== null) {
-      // 对象字段：递归提取子字段，使用路径格式
-      const subFields = extractContentFields(value, currentPath);
-      subFields.forEach((field) => fields.add(field));
     } else {
       // 普通字段（string、number、boolean等）
       fields.add(currentPath);

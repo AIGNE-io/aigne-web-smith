@@ -422,9 +422,9 @@ composite:
         desktop:
           title: { x: 0, y: 0, w: 12, h: 1 }
           "list.0": { x: 0, y: 1, w: 3, h: 1 }
-          "list.1": { x: 3, y: 1, w: 3, h: 1 }
-          "list.2": { x: 6, y: 1, w: 3, h: 1 }
-          "list.3": { x: 9, y: 1, w: 3, h: 1 }
+          "list.1": { x: 6, y: 1, w: 3, h: 1 }
+          "list.2": { x: 0, y: 2, w: 6, h: 1 }
+          "list.3": { x: 6, y: 2, w: 6, h: 1 }
         mobile:
           title: { x: 0, y: 0, w: 12, h: 1 }
           "list.0": { x: 0, y: 1, w: 12, h: 1 }

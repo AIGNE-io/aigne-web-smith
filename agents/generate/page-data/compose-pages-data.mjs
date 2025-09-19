@@ -346,7 +346,7 @@ function createCompositeInstance(section, component, componentLibrary, instanceI
         childrenSection,
         relatedComponent,
         componentLibrary,
-        index, // Pass the same section index
+        `${instanceId}-${index}`, // Pass the same section index
       );
 
       return {
@@ -408,6 +408,7 @@ function createComponentInstance(section, component, componentLibrary = [], sect
     // Use hash of key fields to ensure same content generates same ID
     keys: Object.keys(section).sort(),
   });
+
   const instanceId = generateDeterministicId(contentHash);
   log(`    🔧 Generated component instance ID: ${instanceId}`);
 

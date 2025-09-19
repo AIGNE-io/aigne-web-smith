@@ -485,7 +485,7 @@ ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to w
 
 🔗 Published Pages
 
-${publishedUrls.map((url) => `- ${url}`).join("\n")}
+${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
 
 🚀 Next Steps
 

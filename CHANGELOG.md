@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.5-beta...v1.2.0-beta) (2025-09-19)
+
+
+### Features
+
+* **core:** support builtin component library  ([#21](https://github.com/AIGNE-io/aigne-web-smith/issues/21)) ([6a7b69a](https://github.com/AIGNE-io/aigne-web-smith/commit/6a7b69a3b915dd32968be3e8675347db66654941))
+
 ## [1.1.5-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.4-beta...v1.1.5-beta) (2025-09-19)
 
 

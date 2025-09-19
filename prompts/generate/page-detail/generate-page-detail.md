@@ -136,14 +136,12 @@ sections: # Required - page content blocks
     summary: string # Required - section purpose description, describing function and content intent
     # Following fields are all optional, use flexibly according to page design needs:
     title: string # Block title
-    description: string # Block description/subtitle
-    image: { src: string, caption: string } # Single image
-    video: { src: string, caption: string } # Video content
+    description: string # Block description / subtitle
+    image: string # Single image
     action: { text: string, link: string } # Primary action button
-    code: { title: string, language: string, content: string } # Code example
+    code: { content: string, filename: string } # Code example
     list: # List content
       - { ... } #  can contain any field combinations
-    # Can add other fields as needed for page design
 ```
 
 </output_examples>

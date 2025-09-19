@@ -1,0 +1,617 @@
+# WebSmith 预构建组件库配置
+# 该文件定义了字段到组件的映射关系，支持原子组件和复合组件
+# 目标：将5次AI调用优化为1次AI调用 + 查表匹配，提升10-30倍性能
+
+# 原子组件：单字段到组件的映射 - 每个原子组件只处理一个字段
+atomic_components:
+  # RichText 组件处理核心文本字段
+  - field: "title"
+    componentId: xoHu0J44322kDYc-
+    summary: "标题字段使用 RichText 组件，配置为大标题样式，适合页面主标题"
+    dataSourceTemplate:
+      title:
+        text: "<%= title %>"
+        style:
+          color: "text.primary"
+          fontSize: "2rem"
+          fontWeight: "bold"
+      align: "left"
+      enableAnimation: false
+      alignMobile: "left"
+
+  - field: "description"
+    componentId: xoHu0J44322kDYc-
+    summary: "描述字段使用 RichText 组件，配置为段落文本，支持长文本展示"
+    dataSourceTemplate:
+      description:
+        list:
+          - type: "text"
+            text: "<%= description %>"
+            style: {}
+      defaultTextColor: "text.primary"
+      align: "left"
+      enableAnimation: false
+      alignMobile: "left"
+
+  - field: "price"
+    componentId: xoHu0J44322kDYc-
+    summary: "价格字段使用 RichText 组件，配置为价格显示样式"
+    dataSourceTemplate:
+      price:
+        text: "<%= price %>"
+        style:
+          color: "text.primary"
+          fontSize: "1.5rem"
+          fontWeight: "bold"
+      align: "left"
+      enableAnimation: false
+      alignMobile: "left"
+
+  - field: "stat"
+    componentId: xoHu0J44322kDYc-
+    summary: "统计数字使用 RichText 组件，配置为大号显示"
+    dataSourceTemplate:
+      stat:
+        text: "<%= stat %>"
+        style:
+          color: "text.primary"
+          fontSize: "2.5rem"
+          fontWeight: "bold"
+      align: "center"
+      enableAnimation: false
+      alignMobile: "center"
+
+  - field: "label"
+    componentId: xoHu0J44322kDYc-
+    summary: "标签字段使用 RichText 组件，配置为小字号标签样式"
+    dataSourceTemplate:
+      label:
+        text: "<%= label %>"
+        style:
+          color: "text.secondary"
+          fontSize: "0.875rem"
+      align: "center"
+      enableAnimation: false
+      alignMobile: "center"
+
+  # Code 组件处理代码类字段
+  - field: "code"
+    componentId: 2EHGy3vwxlS9JGr2
+    summary: "代码字段使用 Code 组件，支持语法高亮和行号显示"
+    dataSourceTemplate:
+      code: "<%= code %>"
+      filename: "example.js"
+      showIndex: true
+
+  # Action 组件处理操作类字段
+  - field: "action"
+    componentId: a44r0SiGV9AFn2Fj
+    summary: "行动按钮字段使用 Action 组件，支持按钮文字和链接"
+    dataSourceTemplate:
+      buttons:
+        - id: ""
+          type: "link"
+          text: "<%= action %>"
+          url: "#"
+          variant: "contained"
+          size: "medium"
+          target: "_self"
+          needLogin: false
+      align: "center"
+      direction: "row"
+      gap: 8
+      flexWrap: "nowrap"
+      alignMobile: "center"
+
+  # Media 组件处理图片和媒体类字段
+  - field: "image"
+    componentId: xoHu0JPjPs122kaaa-
+    summary: "图片字段使用 Media 组件，支持响应式图片展示"
+    dataSourceTemplate:
+      bg:
+        url: "<%= image %>"
+        mediaKitUrl: ""
+        width: 0
+        height: 0
+      backgroundColor: "transparent"
+      width: "100%"
+      height: "100%"
+      objectFit: "cover"
+      ratio: "auto"
+
+# 复合组件：常见字段组合到布局的映射
+composite_components:
+  # Hero 区域组合
+  - name: "HeroSection"
+    fieldCombinations: ["title", "description", "action"]
+    summary: "Hero 区域：标题 + 描述 + 行动按钮的经典组合，适合页面顶部展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 8, h: 1 }
+          description: { x: 0, y: 1, w: 8, h: 1 }
+          action: { x: 0, y: 2, w: 4, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          action: { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+      alignContent: "center"
+      justifyContent: "center"
+
+  - name: "HeroWithImage"
+    fieldCombinations: ["title", "description", "image", "action"]
+    summary: "带图片的 Hero 区域：文本内容 + 配图 + 行动按钮，适合产品介绍页面"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 6, h: 1 }
+          description: { x: 0, y: 1, w: 6, h: 1 }
+          action: { x: 0, y: 2, w: 6, h: 1 }
+          image: { x: 6, y: 0, w: 6, h: 3 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          image: { x: 0, y: 2, w: 12, h: 1 }
+          action: { x: 0, y: 3, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  # 内容展示组合
+  - name: "FeatureBlock"
+    fieldCombinations: ["title", "description", "image"]
+    summary: "功能介绍块：标题 + 描述 + 配图，适合功能特性展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 6, h: 1 }
+          description: { x: 0, y: 1, w: 6, h: 1 }
+          image: { x: 6, y: 0, w: 6, h: 2 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          image: { x: 0, y: 1, w: 12, h: 1 }
+          description: { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "TextWithCTA"
+    fieldCombinations: ["title", "description", "action"]
+    summary: "文本 + 行动按钮：简单的文字内容配合单个按钮，适合内容页面的CTA区域"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          action: { x: 0, y: 2, w: 12, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          action: { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+      alignContent: "center"
+      justifyContent: "center"
+
+  # 数据展示组合
+  - name: "StatWithLabel"
+    fieldCombinations: ["stat", "label"]
+    summary: "数据统计：数字 + 标签的组合，适合关键指标展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          stat: { x: 0, y: 0, w: 4, h: 1 }
+          label: { x: 0, y: 1, w: 4, h: 1 }
+        mobile:
+          stat: { x: 0, y: 0, w: 12, h: 1 }
+          label: { x: 0, y: 1, w: 12, h: 1 }
+      gap: "none"
+      paddingX: "normal"
+      paddingY: "small"
+      alignContent: "center"
+      justifyContent: "center"
+
+  # 价格相关组合
+  - name: "PricingCard"
+    fieldCombinations: ["title", "description", "price", "action"]
+    summary: "价格卡片：标题 + 描述 + 价格 + 购买按钮，适合定价页面"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 6, h: 1 }
+          description: { x: 0, y: 1, w: 6, h: 1 }
+          price: { x: 0, y: 2, w: 6, h: 1 }
+          action: { x: 0, y: 3, w: 6, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          price: { x: 0, y: 2, w: 12, h: 1 }
+          action: { x: 0, y: 3, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "PricingWithImage"
+    fieldCombinations: ["title", "description", "price", "image"]
+    summary: "带图片的价格展示：产品信息 + 价格 + 产品图片，适合产品页面"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 6, h: 1 }
+          description: { x: 0, y: 1, w: 6, h: 1 }
+          price: { x: 0, y: 2, w: 6, h: 1 }
+          image: { x: 6, y: 0, w: 6, h: 3 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          image: { x: 0, y: 2, w: 12, h: 1 }
+          price: { x: 0, y: 3, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  # 代码展示组合
+  - name: "CodeWithDescription"
+    fieldCombinations: ["title", "description", "code"]
+    summary: "代码展示块：标题 + 说明 + 代码，适合技术文档和教程"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          code: { x: 0, y: 2, w: 12, h: 2 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          code: { x: 0, y: 2, w: 12, h: 2 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  # 简单二字段组合
+  - name: "TitleDescription"
+    fieldCombinations: ["title", "description"]
+    summary: "标题描述组合：最基础的文本内容块，适合各种内容展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  - name: "ImageWithDescription"
+    fieldCombinations: ["image", "description"]
+    summary: "图片配描述：图片 + 详细描述，适合产品或功能介绍"
+    configTemplate:
+      gridSettings:
+        desktop:
+          image: { x: 0, y: 0, w: 6, h: 2 }
+          description: { x: 6, y: 0, w: 6, h: 2 }
+        mobile:
+          image: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  - name: "TitleAction"
+    fieldCombinations: ["title", "action"]
+    summary: "标题按钮组合：标题 + 行动按钮，适合简单CTA区域"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          action: { x: 0, y: 1, w: 12, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          action: { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  - name: "PriceAction"
+    fieldCombinations: ["price", "action"]
+    summary: "价格按钮组合：价格 + 购买按钮，适合简单的价格展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          price: { x: 0, y: 0, w: 12, h: 1 }
+          action: { x: 0, y: 1, w: 12, h: 1 }
+        mobile:
+          price: { x: 0, y: 0, w: 12, h: 1 }
+          action: { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  # 列表组合 - 专门处理复杂的列表布局
+  - name: "TitleWithList4"
+    fieldCombinations: ["title", "list.0", "list.1", "list.2", "list.3"]
+    summary: "标题 + 4项列表：标题配4个并列项目，桌面端4列布局，移动端纵向排列"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 3, h: 1 }
+          "list.1": { x: 3, y: 1, w: 3, h: 1 }
+          "list.2": { x: 6, y: 1, w: 3, h: 1 }
+          "list.3": { x: 9, y: 1, w: 3, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+          "list.2": { x: 0, y: 3, w: 12, h: 1 }
+          "list.3": { x: 0, y: 4, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "TitleWithList3"
+    fieldCombinations: ["title", "list.0", "list.1", "list.2"]
+    summary: "标题 + 3项列表：标题配3个并列项目，桌面端3列布局，移动端纵向排列"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 4, h: 1 }
+          "list.1": { x: 4, y: 1, w: 4, h: 1 }
+          "list.2": { x: 8, y: 1, w: 4, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+          "list.2": { x: 0, y: 3, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "TextWithList4"
+    fieldCombinations:
+      ["title", "description", "list.0", "list.1", "list.2", "list.3"]
+    summary: "文本 + 4项列表：标题描述配4个并列项目，适合功能介绍配详细列表"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          "list.0": { x: 0, y: 2, w: 3, h: 1 }
+          "list.1": { x: 3, y: 2, w: 3, h: 1 }
+          "list.2": { x: 6, y: 2, w: 3, h: 1 }
+          "list.3": { x: 9, y: 2, w: 3, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          "list.0": { x: 0, y: 2, w: 12, h: 1 }
+          "list.1": { x: 0, y: 3, w: 12, h: 1 }
+          "list.2": { x: 0, y: 4, w: 12, h: 1 }
+          "list.3": { x: 0, y: 5, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "TextWithList3"
+    fieldCombinations: ["title", "description", "list.0", "list.1", "list.2"]
+    summary: "文本 + 3项列表：标题描述配3个并列项目，适合功能介绍配要点列表"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          "list.0": { x: 0, y: 2, w: 4, h: 1 }
+          "list.1": { x: 4, y: 2, w: 4, h: 1 }
+          "list.2": { x: 8, y: 2, w: 4, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          "list.0": { x: 0, y: 2, w: 12, h: 1 }
+          "list.1": { x: 0, y: 3, w: 12, h: 1 }
+          "list.2": { x: 0, y: 4, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "List4Grid"
+    fieldCombinations: ["list.0", "list.1", "list.2", "list.3"]
+    summary: "4项网格列表：纯列表项4列展示，适合产品特性、数据指标等并列内容"
+    configTemplate:
+      gridSettings:
+        desktop:
+          "list.0": { x: 0, y: 0, w: 3, h: 1 }
+          "list.1": { x: 3, y: 0, w: 3, h: 1 }
+          "list.2": { x: 6, y: 0, w: 3, h: 1 }
+          "list.3": { x: 9, y: 0, w: 3, h: 1 }
+        mobile:
+          "list.0": { x: 0, y: 0, w: 6, h: 1 }
+          "list.1": { x: 6, y: 0, w: 6, h: 1 }
+          "list.2": { x: 0, y: 1, w: 6, h: 1 }
+          "list.3": { x: 6, y: 1, w: 6, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  - name: "List3Grid"
+    fieldCombinations: ["list.0", "list.1", "list.2"]
+    summary: "3项网格列表：纯列表项3列展示，适合服务项目、核心优势等并列内容"
+    configTemplate:
+      gridSettings:
+        desktop:
+          "list.0": { x: 0, y: 0, w: 4, h: 1 }
+          "list.1": { x: 4, y: 0, w: 4, h: 1 }
+          "list.2": { x: 8, y: 0, w: 4, h: 1 }
+        mobile:
+          "list.0": { x: 0, y: 0, w: 12, h: 1 }
+          "list.1": { x: 0, y: 1, w: 12, h: 1 }
+          "list.2": { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  # 两项列表组合
+  - name: "TitleWithList2"
+    fieldCombinations: ["title", "list.0", "list.1"]
+    summary: "标题 + 2项列表：标题配2个并列项目，桌面端2列布局，移动端纵向排列"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 6, h: 1 }
+          "list.1": { x: 6, y: 1, w: 6, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "List2Grid"
+    fieldCombinations: ["list.0", "list.1"]
+    summary: "2项网格列表：纯列表项2列展示，适合对比展示、左右并列内容"
+    configTemplate:
+      gridSettings:
+        desktop:
+          "list.0": { x: 0, y: 0, w: 6, h: 1 }
+          "list.1": { x: 6, y: 0, w: 6, h: 1 }
+        mobile:
+          "list.0": { x: 0, y: 0, w: 12, h: 1 }
+          "list.1": { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  # 图片配列表组合
+  - name: "ImageWithList3"
+    fieldCombinations: ["image", "list.0", "list.1", "list.2"]
+    summary: "图片 + 3项列表：主图配3个要点，桌面端左图右列表，移动端纵向排列"
+    configTemplate:
+      gridSettings:
+        desktop:
+          image: { x: 0, y: 0, w: 6, h: 3 }
+          "list.0": { x: 6, y: 0, w: 6, h: 1 }
+          "list.1": { x: 6, y: 1, w: 6, h: 1 }
+          "list.2": { x: 6, y: 2, w: 6, h: 1 }
+        mobile:
+          image: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+          "list.2": { x: 0, y: 3, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  - name: "ImageWithList2"
+    fieldCombinations: ["image", "list.0", "list.1"]
+    summary: "图片 + 2项列表：主图配2个要点，适合产品特性展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          image: { x: 0, y: 0, w: 6, h: 2 }
+          "list.0": { x: 6, y: 0, w: 6, h: 1 }
+          "list.1": { x: 6, y: 1, w: 6, h: 1 }
+        mobile:
+          image: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  # 数据指标配列表
+  - name: "StatWithList3"
+    fieldCombinations: ["stat", "label", "list.0", "list.1", "list.2"]
+    summary: "数据指标 + 3项列表：核心数据配详细要点，适合数据展示页面"
+    configTemplate:
+      gridSettings:
+        desktop:
+          stat: { x: 0, y: 0, w: 4, h: 1 }
+          label: { x: 0, y: 1, w: 4, h: 1 }
+          "list.0": { x: 4, y: 0, w: 4, h: 1 }
+          "list.1": { x: 8, y: 0, w: 4, h: 1 }
+          "list.2": { x: 4, y: 1, w: 8, h: 1 }
+        mobile:
+          stat: { x: 0, y: 0, w: 12, h: 1 }
+          label: { x: 0, y: 1, w: 12, h: 1 }
+          "list.0": { x: 0, y: 2, w: 12, h: 1 }
+          "list.1": { x: 0, y: 3, w: 12, h: 1 }
+          "list.2": { x: 0, y: 4, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+
+  # 单项列表（边缘情况）
+  - name: "TitleWithList1"
+    fieldCombinations: ["title", "list.0"]
+    summary: "标题 + 单项：标题配单个要点，适合简单说明"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  # 更多五项列表（偶尔使用）
+  - name: "List5Grid"
+    fieldCombinations: ["list.0", "list.1", "list.2", "list.3", "list.4"]
+    summary: "5项网格列表：5列展示，桌面端第一行3项第二行2项，移动端纵向排列"
+    configTemplate:
+      gridSettings:
+        desktop:
+          "list.0": { x: 0, y: 0, w: 4, h: 1 }
+          "list.1": { x: 4, y: 0, w: 4, h: 1 }
+          "list.2": { x: 8, y: 0, w: 4, h: 1 }
+          "list.3": { x: 2, y: 1, w: 4, h: 1 }
+          "list.4": { x: 6, y: 1, w: 4, h: 1 }
+        mobile:
+          "list.0": { x: 0, y: 0, w: 12, h: 1 }
+          "list.1": { x: 0, y: 1, w: 12, h: 1 }
+          "list.2": { x: 0, y: 2, w: 12, h: 1 }
+          "list.3": { x: 0, y: 3, w: 12, h: 1 }
+          "list.4": { x: 0, y: 4, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "normal"
+
+  - name: "TitleWithList5"
+    fieldCombinations:
+      ["title", "list.0", "list.1", "list.2", "list.3", "list.4"]
+    summary: "标题 + 5项列表：标题配5个项目，适合详细功能列表展示"
+    configTemplate:
+      gridSettings:
+        desktop:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 4, h: 1 }
+          "list.1": { x: 4, y: 1, w: 4, h: 1 }
+          "list.2": { x: 8, y: 1, w: 4, h: 1 }
+          "list.3": { x: 2, y: 2, w: 4, h: 1 }
+          "list.4": { x: 6, y: 2, w: 4, h: 1 }
+        mobile:
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          "list.0": { x: 0, y: 1, w: 12, h: 1 }
+          "list.1": { x: 0, y: 2, w: 12, h: 1 }
+          "list.2": { x: 0, y: 3, w: 12, h: 1 }
+          "list.3": { x: 0, y: 4, w: 12, h: 1 }
+          "list.4": { x: 0, y: 5, w: 12, h: 1 }
+      gap: "normal"
+      paddingX: "normal"
+      paddingY: "large"
+# 配置说明：
+# - atomic_components: 每个字段对应一个组件配置，实现 O(1) 查找复杂度
+# - composite_components: 预定义的常见字段组合，避免动态布局生成
+# - summary: 为每个配置添加说明，帮助 AI 理解使用场景
+# - fieldCombinations: 精确匹配数组，支持任意顺序比较
+# - configTemplate: 包含响应式布局（desktop/mobile）和样式配置
+# - 模板语法: 仅支持简单的 <%= fieldName %> 格式，不支持 JavaScript 表达式

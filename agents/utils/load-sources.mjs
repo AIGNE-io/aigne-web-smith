@@ -214,6 +214,7 @@ export default async function loadSources({
   const mediaFiles = [];
   const componentFiles = [];
   const moreContentsComponentFiles = [];
+  let baseComponentLibrary = null;
   let allSources = "";
 
   await Promise.all(
@@ -242,6 +243,12 @@ export default async function loadSources({
         if (relativePath.includes("assets/components")) {
           // ignore _component
           if (path.basename(file).startsWith("_")) {
+            return;
+          }
+
+          // handle base_component_library.yaml separately
+          if (path.basename(file) === "base_component_library.yaml") {
+            baseComponentLibrary = parse(content);
             return;
           }
 
@@ -382,6 +389,7 @@ export default async function loadSources({
     datasources: allSources,
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
+    baseComponentLibrary,
     content,
     originalWebsiteStructure,
     files,
@@ -448,6 +456,32 @@ loadSources.output_schema = {
           content: { type: "string" },
         },
       },
+    },
+    componentList: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          sourceId: { type: "string" },
+          content: { type: "object" },
+        },
+      },
+      description: "Array of simplified component definitions for AI",
+    },
+    moreContentsComponentList: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          sourceId: { type: "string" },
+          content: { type: "object" },
+        },
+      },
+      description: "Array of full component definitions for JS SDK",
+    },
+    baseComponentLibrary: {
+      type: ["object", "null"],
+      description: "Parsed base component library configuration",
     },
     files: {
       type: "array",

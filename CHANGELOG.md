@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.3-beta...v1.1.4-beta) (2025-09-19)
+
+
+### Miscellaneous Chores
+
+* release 1.1.4-beta ([b6a77a6](https://github.com/AIGNE-io/aigne-web-smith/commit/b6a77a64b24246877e0e9f062e2ade2452411ba8))
+
 ## [1.1.3-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.2-beta...v1.1.3-beta) (2025-09-19)
 
 

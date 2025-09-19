@@ -3,7 +3,7 @@
 # 目标：将5次AI调用优化为1次AI调用 + 查表匹配，提升10-30倍性能
 
 # 原子组件：单字段到组件的映射 - 每个原子组件只处理一个字段
-atomic_components:
+atomic:
   # RichText 组件处理核心文本字段
   - field: "title"
     componentId: xoHu0J44322kDYc-
@@ -78,7 +78,7 @@ atomic_components:
       alignMobile: "center"
 
 # 复合组件：常见字段组合到布局的映射
-composite_components:
+composite:
   # 简单二字段组合
   - name: "TitleDescription"
     fieldCombinations: ["title", "description"]

@@ -214,7 +214,7 @@ export default async function loadSources({
   const mediaFiles = [];
   const componentFiles = [];
   const moreContentsComponentFiles = [];
-  let baseComponentLibrary = null;
+  const baseComponentLibrary = [];
   let allSources = "";
 
   await Promise.all(
@@ -248,7 +248,18 @@ export default async function loadSources({
 
           // handle base_component_library.yaml separately
           if (path.basename(file) === "base_component_library.yaml") {
-            baseComponentLibrary = parse(content);
+            const baseComponentLibraryContent = parse(content);
+            Object.entries(baseComponentLibraryContent).forEach(([type, value]) => {
+              value.map((item) => {
+                const isAtomic = type === "atomic";
+                baseComponentLibrary.push({
+                  ...item,
+                  type,
+                  fieldCombinations: isAtomic ? [item.field] : item.fieldCombinations,
+                  relatedComponents: isAtomic ? [] : item.relatedComponents,
+                });
+              });
+            });
             return;
           }
 
@@ -480,7 +491,7 @@ loadSources.output_schema = {
       description: "Array of full component definitions for JS SDK",
     },
     baseComponentLibrary: {
-      type: ["object", "null"],
+      type: ["array", "null"],
       description: "Parsed base component library configuration",
     },
     files: {

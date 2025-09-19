@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.4-beta...v1.1.5-beta) (2025-09-19)
+
+
+### Bug Fixes
+
+* **core:** compose page data error and page cache ([2b70d0d](https://github.com/AIGNE-io/aigne-web-smith/commit/2b70d0d8d7275419f5de0957f778cf02b89f4052))
+
 ## [1.1.4-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.3-beta...v1.1.4-beta) (2025-09-19)
 
 

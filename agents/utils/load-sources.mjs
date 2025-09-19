@@ -214,7 +214,7 @@ export default async function loadSources({
   const mediaFiles = [];
   const componentFiles = [];
   const moreContentsComponentFiles = [];
-  const baseComponentLibrary = [];
+  const builtinComponentLibrary = [];
   let allSources = "";
 
   await Promise.all(
@@ -246,13 +246,13 @@ export default async function loadSources({
             return;
           }
 
-          // handle base_component_library.yaml separately
-          if (path.basename(file) === "base_component_library.yaml") {
-            const baseComponentLibraryContent = parse(content);
-            Object.entries(baseComponentLibraryContent).forEach(([type, value]) => {
+          // handle builtin-component-library.yaml separately
+          if (path.basename(file) === "builtin-component-library.yaml") {
+            const builtinComponentLibraryContent = parse(content);
+            Object.entries(builtinComponentLibraryContent).forEach(([type, value]) => {
               value.map((item) => {
                 const isAtomic = type === "atomic";
-                baseComponentLibrary.push({
+                builtinComponentLibrary.push({
                   ...item,
                   type,
                   fieldCombinations: isAtomic ? [item.field] : item.fieldCombinations,
@@ -400,7 +400,7 @@ export default async function loadSources({
     datasources: allSources,
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
-    baseComponentLibrary,
+    builtinComponentLibrary,
     content,
     originalWebsiteStructure,
     files,
@@ -490,7 +490,7 @@ loadSources.output_schema = {
       },
       description: "Array of full component definitions for JS SDK",
     },
-    baseComponentLibrary: {
+    builtinComponentLibrary: {
       type: ["array", "null"],
       description: "Parsed base component library configuration",
     },

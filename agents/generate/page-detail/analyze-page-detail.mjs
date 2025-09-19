@@ -14,7 +14,7 @@ export default async function analyzePageDetail(input, options) {
     modifiedFiles,
     // forceRegenerate,
     locale,
-    baseComponentLibrary,
+    builtinComponentLibrary,
     ...rest
   } = input;
 
@@ -102,7 +102,7 @@ export default async function analyzePageDetail(input, options) {
     };
   }
 
-  // Generate field usage constraints from baseComponentLibrary
+  // Generate field usage constraints from builtinComponentLibrary
   const generateFieldConstraints = (componentLibrary) => {
     if (!componentLibrary || !Array.isArray(componentLibrary)) {
       return "";
@@ -141,7 +141,7 @@ export default async function analyzePageDetail(input, options) {
     return constraints;
   };
 
-  const fieldConstraints = generateFieldConstraints(baseComponentLibrary);
+  const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
 
   const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,

@@ -245,13 +245,11 @@ export function extractContentFields(obj, prefix = "") {
     const value = obj[key];
 
     if (Array.isArray(value)) {
-      // 数组字段：只包含数组字段本身的路径
       // fields.add(`${currentPath}`);
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
     } else {
-      // 普通字段（string、number、boolean等）
       fields.add(currentPath);
     }
   });

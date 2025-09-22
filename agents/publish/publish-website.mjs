@@ -136,9 +136,7 @@ const publishPageFn = async ({
   }
 
   if (!response.ok) {
-    throw new Error(
-      `Page upload failed: ${response.status} ${response.statusText} - ${responseText}`,
-    );
+    throw new Error(result?.error || result);
   }
 
   return {
@@ -493,6 +491,9 @@ ${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
 2. Update pages as needed using \`aigne web update\`
 
 `;
+    } else {
+      const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);
+      message = `❌ Failed to publish pages: ${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "\n- " : ""}${e}`).join("")}`;
     }
   } catch (error) {
     message = `❌ Failed to publish pages: ${error.message}`;

@@ -12,6 +12,9 @@ agents:
   # chat
   - ./agents/chat/index.yaml
 
+  # clear
+  - ./agents/clear/index.yaml
+
   # generate
   - ./agents/generate/index.yaml
   # generate component library

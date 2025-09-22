@@ -118,9 +118,9 @@ composite:
     configTemplate:
       gridSettings:
         desktop:
-          title: { x: 0, y: 0, w: 8, h: 1 }
-          description: { x: 0, y: 1, w: 8, h: 1 }
-          action: { x: 0, y: 2, w: 4, h: 1 }
+          title: { x: 0, y: 0, w: 12, h: 1 }
+          description: { x: 0, y: 1, w: 12, h: 1 }
+          action: { x: 0, y: 2, w: 12, h: 1 }
         mobile:
           title: { x: 0, y: 0, w: 12, h: 1 }
           description: { x: 0, y: 1, w: 12, h: 1 }

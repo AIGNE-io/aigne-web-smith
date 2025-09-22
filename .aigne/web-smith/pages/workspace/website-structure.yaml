@@ -1,14 +1,14 @@
 - title: "AIGNE WebSmith: AI-Powered Website Generation"
-  description: A comprehensive landing page introducing AIGNE WebSmith. It covers
-    key features, the technical architecture, a quick start guide for
-    developers, detailed command references, and information on how to
-    contribute to the project.
+  description: A comprehensive one-page overview of AIGNE WebSmith. This page
+    introduces the tool, details its core features like intelligent structure
+    planning and a professional template system, explains its agent-based
+    architecture, and provides a quick start guide for installation and usage.
   path: /home
   sourceIds:
     - README.md
     - package.json
     - aigne.yaml
     - utils/utils.mjs
-    - agents/generate/index.yaml
-    - agents/publish/index.yaml
+    - utils/generate-helper.mjs
+    - CHANGELOG.md
   parentId: ""

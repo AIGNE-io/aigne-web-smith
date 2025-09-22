@@ -101,11 +101,11 @@ Content and Organization:
 
 - Content must be complete and self-contained, with no missing or truncated blocks or lists.
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
-{% ifAsync websiteScale == "singlePage" %}
-{% include "./website-scale/single-page.md" %}
-{% else %}
-{% include "./website-scale/multi-page.md" %}
-{% endif %}
+  {% ifAsync websiteScale == "singlePage" %}
+  {% include "./website-scale/single-page.md" %}
+  {% else %}
+  {% include "./website-scale/multi-page.md" %}
+  {% endif %}
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
 
 Style and Expression:
@@ -123,6 +123,7 @@ Resources and References:
 - Link Resources
   - For single-page experiences, do not create cross-page navigation.
   - When `<available_links>` is provided, use its entries only and copy each **`linkPath`** exactly.
+  - Never output anchor-style links (e.g., `#section-name`).
   - Never invent, paraphrase, or fabricate link paths.
 
 ** Sections Constraints（VERY IMPORTANT）:**

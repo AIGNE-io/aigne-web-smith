@@ -94,6 +94,7 @@ This is the website structure. You can refer to it to understand where the curre
 Format and Structure:
 
 - Output complete page semantic structure using YAML format, paying attention to indentation and hierarchy.
+- Produce strictly valid YAML: use two-space indentation, colon-space separators, and proper list markers (`-`). Reject Markdown tables, JSON, or pseudo-code structures.
 - Page must include essential fields such as `meta`, `sections`.
 - Each section must have clear `name` (camelCase), `summary` (purpose description), and specific content description.
 
@@ -101,6 +102,7 @@ Content and Organization:
 
 - Content must be complete and self-contained, with no missing or truncated blocks or lists.
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
+- Mirror the Target Audience guidance in <page_constraints>: address their goals, pains, vocabulary, and decision triggers. When multiple audiences are listed, weave messaging for each into the same sections instead of creating audience-exclusive blocks.
   {% ifAsync websiteScale == "singlePage" %}
   {% include "./website-scale/single-page.md" %}
   {% else %}
@@ -114,17 +116,16 @@ Style and Expression:
 - Use natural transitions, clear organization, and well-structured information hierarchy.
 - Avoid empty promotion, overly emotional or generic marketing language.
 
-Resources and References:
+** Resources and References（VERY IMPORTANT）:**
 
 - Media Resources
-  - All media must come **only** from `<available_media_assets>`.
+  - All media must come **ONLY** from `<available_media_assets>`.
   - Each media resource in the output must use its **`mediaKitPath`** value exactly as provided.
-  - Do **not** invent, paraphrase, or fabricate any media paths.
+  - Do **NOT** invent, paraphrase, or fabricate any media paths.
 - Link Resources
   - For single-page experiences, do not create cross-page navigation.
   - When `<available_links>` is provided, use its entries only and copy each **`linkPath`** exactly.
-  - Never output anchor-style links (e.g., `#section-name`).
-  - Never invent, paraphrase, or fabricate link paths.
+  - **NEVER** output anchor-style links (e.g., `#section-name`), invent, paraphrase, or fabricate link paths.
 
 ** Sections Constraints（VERY IMPORTANT）:**
 

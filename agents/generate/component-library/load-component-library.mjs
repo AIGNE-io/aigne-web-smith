@@ -29,6 +29,7 @@ export default async function loadComponentLibrary(input) {
         }
       } catch (_error) {
         // 忽略读取错误的文件
+        console.error(`❌ Failed to read YAML file ${file}: ${_error.message}`);
       }
     }
 

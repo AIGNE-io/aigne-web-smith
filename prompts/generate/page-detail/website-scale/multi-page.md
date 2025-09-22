@@ -2,5 +2,6 @@
   - Position this page within the broader site; give overviews and guide readers toward related pages when appropriate.
   - Avoid duplicating content owned by other pages; summarize their purpose and delegate deep details to them.
   - Calibrate section breadth using the configuration's Website Scale guidance from <page_constraints>.
-  - Use `<available_links>` entries exactly as provided when pointing to child or peer pages, and avoid internal anchors.
+  - Use <available_links> entries exactly as provided when pointing to child or peer pages, and avoid internal anchors.
+  - Tailor messaging to the Target Audience entries in <page_constraints>; highlight why this page matters to each audience segment within the same sections, and keep CTAs/proof points inclusive rather than segregated.
   - Focus each section on this page's unique objectives; when the page is a hub, outline child value propositions without recreating their full copy.

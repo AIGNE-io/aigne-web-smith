@@ -2,5 +2,6 @@
   - Treat this page as the entire experience; fold every datasource topic into its sections and never reference sibling pages.
   - Sequence the sections so readers can consume all <datasources> insights in-page, using transitions instead of pointing elsewhere.
   - Convert any would-be child page themes into subsections or stacked modules inside this page.
-  - Keep navigation in-page only—no anchors or cross-page links, and ignore `<available_links>`.
+  - Keep navigation in-page only—no anchors or cross-page links, and ignore <available_links>.
+  - Blend messaging for every Target Audience (from <page_constraints>) within shared sections—address their jobs-to-be-done, objections, and success metrics without spinning off audience-only blocks.
   - Focus summaries on how this single page satisfies all user goals described in <page_constraints> and <datasources>.

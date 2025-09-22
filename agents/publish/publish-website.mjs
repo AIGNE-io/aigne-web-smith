@@ -6,10 +6,14 @@ import pMap from "p-map";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
+
+import { getComponentMountPoint } from "../../utils/blocklet.mjs";
+
 import {
   DEFAULT_APP_URL,
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
+  PAGES_KIT_DID,
   TMP_DIR,
   TMP_PAGES_DIR,
 } from "../../utils/constants.mjs";
@@ -95,6 +99,7 @@ function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
 const publishPageFn = async ({
   projectData,
   appUrl,
+  mountPoint,
   accessToken,
   force = true,
   pageTemplateData,
@@ -123,7 +128,10 @@ const publishPageFn = async ({
   };
 
   // Send request to Pages Kit API
-  const response = await fetch(join(appUrl, "/api/sdk/upload-data"), requestOptions);
+  const response = await fetch(
+    join(appUrl, mountPoint || "/", "/api/sdk/upload-data"),
+    requestOptions,
+  );
 
   // Handle response
   let result;
@@ -241,6 +249,8 @@ export default async function publishWebsite(
   }
 
   const accessToken = await getAccessToken(appUrl);
+
+  const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
   process.env.PAGES_ROOT_DIR = pagesDir;
 
@@ -428,6 +438,7 @@ export default async function publishWebsite(
             force: true,
             pageTemplateData,
             routeData,
+            mountPoint,
             // dataSourceData not needed for now, can be added later
           });
 

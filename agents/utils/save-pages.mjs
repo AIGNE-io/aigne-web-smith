@@ -45,37 +45,28 @@ export default async function savePages({
 
   const message = `✅ Pages Generated Successfully!
 
-Successfully generated **${websiteStructure.length}** page templates and saved to:
-  \`${pagesDir}\`
+Generated **${websiteStructure.length}** page templates and saved to: \`${pagesDir}\`
   ${projectInfoMessage || ""}
 🚀 Next Steps
 
-1. Publish Pages
+**Publish Your Pages**
+Generate a shareable preview link for your team:
 
-    \`\`\`bash
-    aigne web publish
-    \`\`\`
-
-Get an online preview link to share with your team
+  \`aigne web publish\`
 
 🔧 Optional Improvements
 
-1. Update Specific Pages
+**Update Specific Pages**
+Regenerate content for individual pages:
 
-    \`\`\`bash
-    aigne web update
-    \`\`\`
+  \`aigne web update\`
 
-Regenerate content for specific pages
+**Refine Page Structure**
+Review and improve your page structure:
 
-2. Provide Structure Feedback
+  \`aigne web generate\`
 
-    \`\`\`bash
-    aigne web generate --feedback "Your feedback on page structure"
-    \`\`\`
-    Improve the overall page structure
-
-    `;
+`;
 
   return {
     message,

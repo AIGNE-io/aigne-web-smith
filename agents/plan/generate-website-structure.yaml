@@ -1,6 +1,7 @@
 type: team
 name: generateWebsiteStructure
 description: The website structure generator, using rules and datasources to generate website structure
+task_render_mode: collapse
 skills:
   - type: ai
     instructions:

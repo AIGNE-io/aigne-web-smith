@@ -1,65 +1,8 @@
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
-
-function formatWebsiteStructure(structure) {
-  // Build a tree structure for better display
-  const nodeMap = new Map();
-  const rootNodes = [];
-
-  // First pass: create node map
-  structure.forEach((node) => {
-    nodeMap.set(node.path, {
-      ...node,
-      children: [],
-    });
-  });
-
-  // Second pass: build tree structure
-  structure.forEach((node) => {
-    if (node.parentId) {
-      const parent = nodeMap.get(node.parentId);
-      if (parent) {
-        parent.children.push(nodeMap.get(node.path));
-      } else {
-        rootNodes.push(nodeMap.get(node.path));
-      }
-    } else {
-      rootNodes.push(nodeMap.get(node.path));
-    }
-  });
-
-  function printNode(node, depth = 0) {
-    const INDENT_SPACES = "  ";
-    const FOLDER_ICON = "  📁";
-    const FILE_ICON = "  📄";
-    const indent = INDENT_SPACES.repeat(depth);
-    const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
-
-    console.log(`${indent}${prefix} ${node.title}`);
-
-    if (node.children && node.children.length > 0) {
-      node.children.forEach((child) => {
-        printNode(child, depth + 1);
-      });
-    }
-  }
-
-  return { rootNodes, printNode };
-}
-
-function printWebsiteStructure(structure) {
-  console.log(`\n  ${"-".repeat(50)}`);
-  console.log("  Current Website Structure");
-  console.log(`  ${"-".repeat(50)}`);
-
-  const { rootNodes, printNode } = formatWebsiteStructure(structure);
-
-  if (rootNodes.length === 0) {
-    console.log("  No website structure found.");
-  } else {
-    rootNodes.forEach((node) => printNode(node));
-  }
-  console.log();
-}
+import {
+  printWebsiteStructure,
+  updateWebsiteScaleIfNeeded,
+} from "../../utils/website-structure-utils.mjs";
 
 export default async function userReviewWebsiteStructure({ websiteStructure, ...rest }, options) {
   // Check if website structure exists
@@ -167,7 +110,11 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     }
   }
 
-  return { websiteStructure: currentStructure };
+  const updatedWebsiteScale = await updateWebsiteScaleIfNeeded(
+    rest.websiteScale,
+    currentStructure.length,
+  );
+  return { websiteStructure: currentStructure, websiteScale: updatedWebsiteScale };
 }
 
 userReviewWebsiteStructure.taskTitle = "User review and modify website structure";

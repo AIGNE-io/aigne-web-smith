@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.0-beta...v1.2.1-beta) (2025-09-22)
+
+
+### Features
+
+* add clear command ([f47c4f0](https://github.com/AIGNE-io/aigne-web-smith/commit/f47c4f02b89239069956c0de16d03d3195618609))
+
+
+### Bug Fixes
+
+* publish website bug ([4b78416](https://github.com/AIGNE-io/aigne-web-smith/commit/4b7841672514f6c246d929241f4467766923e8e1))
+
+
+### Miscellaneous Chores
+
+* release 1.2.1-beta ([2539006](https://github.com/AIGNE-io/aigne-web-smith/commit/2539006477de0218764d43d8393dbfa0941278dd))
+
 ## [1.2.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.5-beta...v1.2.0-beta) (2025-09-19)
 
 

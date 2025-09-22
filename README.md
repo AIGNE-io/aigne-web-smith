@@ -303,7 +303,7 @@ This project is licensed under the Elastic License 2.0 - see the [LICENSE](LICEN
 ## 🔗 Links
 
 - 🌐 [AIGNE Framework](https://www.aigne.io/en/framework)
-- 📖 [Documentation](https://docs.aigne.io)
+- 📖 [WebSmith Official Website](https://www.aigne.io/web-smith)
 - 🎯 [Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
 - 🐛 [Report Issues](https://github.com/AIGNE-io/aigne-web-smith/issues)
 

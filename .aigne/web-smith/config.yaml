@@ -62,5 +62,5 @@ translateLanguages: # List of languages to translate the pages to
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./README.md
-lastGitHead: a87aa6b5176db0a1830f4a7e02669fec2139527a
+lastGitHead: 04479418b496f27a583f9f9f48add7547674983a
 appUrl: https://staging.websmith.aigne.io

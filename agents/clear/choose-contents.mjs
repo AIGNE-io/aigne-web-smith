@@ -47,7 +47,7 @@ function toDisplayPath(targetPath) {
   return rel.startsWith("..") ? targetPath : rel || ".";
 }
 
-export default async function chooseClearContent(input = {}, options = {}) {
+export default async function chooseContents(input = {}, options = {}) {
   const { targets: rawTargets, tmpDir, outputDir, pagesDir, configPath } = input;
 
   const derivedConfigPath = pagesDir ? resolvePath(pagesDir, "..", "config.yaml") : undefined;
@@ -186,19 +186,13 @@ export default async function chooseClearContent(input = {}, options = {}) {
     suggestions.push("👉 Run `aigne web init` to generate a fresh configuration file.");
   }
 
-  const messageBody = [
-    header,
-    "",
-    detailLines,
-    suggestions.length ? "" : null,
-    suggestions.join("\n"),
-  ]
+  const message = [header, "", detailLines, suggestions.length ? "" : null, suggestions.join("\n")]
     .filter(Boolean)
     .join("\n");
 
   return {
-    message: messageBody,
+    message: message,
   };
 }
 
-chooseClearContent.taskTitle = "Choose items to clear";
+chooseContents.taskTitle = "Choose contents to clear";

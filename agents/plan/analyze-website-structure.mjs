@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import chalk from "chalk";
 import { PAGE_FILE_EXTENSION } from "../../utils/constants.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
@@ -14,22 +15,44 @@ export default async function analyzeWebsiteStructure(
   { originalWebsiteStructure, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },
   options,
 ) {
+  // Check if originalWebsiteStructure is empty and prompt user
+  if (!originalWebsiteStructure) {
+    const choice = await options.prompts.select({
+      message:
+        "Your project configuration is complete. Would you like to generate the website structure now?",
+      choices: [
+        {
+          name: "Generate now - Start generating the website structure",
+          value: "generate",
+        },
+        {
+          name: "Review configuration first - Edit configuration before generating",
+          value: "later",
+        },
+      ],
+    });
+
+    if (choice === "later") {
+      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/web-smith/config.yaml")}`);
+      console.log(
+        "Review and edit your configuration as needed, then run 'aigne web generate' to continue.",
+      );
+
+      // In test environment, return a special result instead of exiting
+      if (process.env.NODE_ENV === "test") {
+        return {
+          userDeferred: true,
+          websiteStructure: null,
+        };
+      }
+
+      process.exit(0);
+    }
+  }
+
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
   let finalFeedback = feedback;
-  let submittedFeedback = feedback;
-
-  // Prompt for feedback if originalWebsiteStructure exists and no feedback provided
-  if (originalWebsiteStructure && !feedback) {
-    const userFeedback = await options.prompts.input({
-      message: "Please provide feedback for website structure (press Enter to skip):",
-    });
-
-    if (userFeedback?.trim()) {
-      finalFeedback = userFeedback.trim();
-      submittedFeedback = userFeedback.trim();
-    }
-  }
 
   // If no feedback and originalWebsiteStructure exists, check for git changes
   if (originalWebsiteStructure) {
@@ -153,7 +176,6 @@ export default async function analyzeWebsiteStructure(
   return {
     ...result,
     feedback: "", // clear feedback
-    websiteStructureFeedback: submittedFeedback,
     projectInfoMessage: message,
     originalWebsiteStructure: originalWebsiteStructure
       ? originalWebsiteStructure

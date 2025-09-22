@@ -130,6 +130,8 @@ composite:
       paddingY: "large"
       alignContent: "center"
       justifyContent: "center"
+      background: "grey.100"
+      borderRadius: "medium"
 
   - name: "HeroWithImage"
     fieldCombinations: ["title", "description", "image", "action"]

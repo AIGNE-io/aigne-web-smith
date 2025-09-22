@@ -36,7 +36,6 @@ pagePurpose:
 #   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
 targetAudienceTypes:
   - customers
-  - developers
 
 # Website Scale: How many pages should your website have?
 # Available options (uncomment and modify as needed):
@@ -62,6 +61,6 @@ translateLanguages: # List of languages to translate the pages to
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
-  - ./*.md
-lastGitHead: 5f351724499925f4fdd88ed8ccb33cbf4948d6c0
+  - ./README.md
+lastGitHead: a87aa6b5176db0a1830f4a7e02669fec2139527a
 appUrl: https://staging.websmith.aigne.io

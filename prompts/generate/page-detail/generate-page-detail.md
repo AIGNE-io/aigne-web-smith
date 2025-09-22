@@ -45,9 +45,9 @@ Current page information:
 </available_media_assets>
 
 {% ifAsync websiteScale != "singlePage" %}
-<available_links>
+<available_internal_links>
 {{ linksContent }}
-</available_links>
+</available_internal_links>
 {% endif %}
 
 <structure_plan>
@@ -94,7 +94,11 @@ This is the website structure. You can refer to it to understand where the curre
 Format and Structure:
 
 - Output complete page semantic structure using YAML format, paying attention to indentation and hierarchy.
-- Produce strictly valid YAML: use two-space indentation, colon-space separators, and proper list markers (`-`). Reject Markdown tables, JSON, or pseudo-code structures.
+- Produce strictly valid YAML:
+  - Use two-space indentation and colon-space separators.
+  - Prefix list items with `- ` and never mix maps with inline list syntax.
+  - Wrap every string scalar in double quotes, especially text containing colons, commas, or special characters.
+  - Reject Markdown tables, JSON, or pseudo-code structures.
 - Page must include essential fields such as `meta`, `sections`.
 - Each section must have clear `name` (camelCase), `summary` (purpose description), and specific content description.
 
@@ -103,11 +107,11 @@ Content and Organization:
 - Content must be complete and self-contained, with no missing or truncated blocks or lists.
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
 - Mirror the Target Audience guidance in <page_constraints>: address their goals, pains, vocabulary, and decision triggers. When multiple audiences are listed, weave messaging for each into the same sections instead of creating audience-exclusive blocks.
-  {% ifAsync websiteScale == "singlePage" %}
-  {% include "./website-scale/single-page.md" %}
-  {% else %}
-  {% include "./website-scale/multi-page.md" %}
-  {% endif %}
+{% ifAsync websiteScale == "singlePage" %}
+{% include "./website-scale/single-page.md" %}
+{% else %}
+{% include "./website-scale/multi-page.md" %}
+{% endif %}
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
 
 Style and Expression:
@@ -123,8 +127,8 @@ Style and Expression:
   - Each media resource in the output must use its **`mediaKitPath`** value exactly as provided.
   - Do **NOT** invent, paraphrase, or fabricate any media paths.
 - Link Resources
-  - For single-page experiences, do not create cross-page navigation.
-  - When `<available_links>` is provided, use its entries only and copy each **`linkPath`** exactly.
+  - Internal navigation must rely on `<available_internal_links>` entries; copy each **`linkPath`** exactly and do not fabricate new internal routes. Single-page experiences typically omit internal navigation.
+  - External URLs (starting with `http://`, `https://`, or `mailto:`) that appear in <datasources> or <page_constraints> are allowed; reproduce them verbatim and explain their destination.
   - **NEVER** output anchor-style links (e.g., `#section-name`), invent, paraphrase, or fabricate link paths.
 
 ** Sections Constraints（VERY IMPORTANT）:**

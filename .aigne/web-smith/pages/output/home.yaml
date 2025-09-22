@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-22T10:07:54.412Z
-updatedAt: 2025-09-22T10:07:54.412Z
-publishedAt: 2025-09-22T10:07:54.412Z
+createdAt: 2025-09-22T13:25:07.495Z
+updatedAt: 2025-09-22T13:25:07.495Z
+publishedAt: 2025-09-22T13:25:07.495Z
 isPublic: true
 locales:
   en:
@@ -9,10 +9,10 @@ locales:
     style:
       maxWidth: custom:1560px
       paddingX: large
-    title: AIGNE WebSmith | AI-Powered Website Generation Tool
-    description: Discover AIGNE WebSmith, the AI-driven tool that automates
-      professional, SEO-optimized website creation. Generate content, templates,
-      and publish directly with one command.
+    title: AIGNE WebSmith | AI-Powered Website Generation
+    description: Automate the creation of professional, SEO-optimized websites with
+      AIGNE WebSmith. Generate content, templates, and publish with a single
+      command.
     header:
       sticky: true
   zh:
@@ -20,9 +20,8 @@ locales:
     style:
       maxWidth: custom:1560px
       paddingX: large
-    title: AIGNE WebSmith | AI 驱动的网站生成工具
-    description: 了解 AIGNE WebSmith，这是一个 AI 驱动工具，能够实现专业且经过 SEO
-      优化的网站创建。生成内容、模板，并仅用一个命令直接发布到 Pages Kit。
+    title: AIGNE WebSmith | AI 驱动的网站生成
+    description: 使用 AIGNE WebSmith 自动化创建专业、SEO 优化的网站。生成内容、模板，并通过单条命令发布。
     header:
       sticky: true
 sections:
@@ -69,6 +68,8 @@ sections:
       paddingY: large
       alignContent: center
       justifyContent: center
+      background: grey.100
+      borderRadius: medium
     sections:
       6b685ef99c692af1:
         id: 6b685ef99c692af1
@@ -366,271 +367,510 @@ sections:
       - c919982c8989485e
       - ffae2a1fe9a3e36f
       - 63330e85f3dec4ce
-  0347bb1255126c7e:
-    id: 0347bb1255126c7e
+  cffb6a6c38b91c0a:
+    id: cffb6a6c38b91c0a
     component: layout-block
-    name: architecture
+    name: howItWorks
     config:
       gridSettings:
         desktop:
-          91a79884624d552b:
+          c50c328f6edb8d9c:
             x: 0
             y: 0
             w: 12
             h: 1
-          620c4ac25436de43:
+          0816f1caac22e8d2:
             x: 0
             y: 1
             w: 12
             h: 1
-          c208ee34c3f44597:
+          "8368482e72190829":
             x: 0
             y: 2
-            w: 12
-            h: 2
+            w: 4
+            h: 1
+          684736e08e14bcc8:
+            x: 4
+            y: 2
+            w: 4
+            h: 1
+          b8908b19754b3ac7:
+            x: 8
+            y: 2
+            w: 4
+            h: 1
         mobile:
-          91a79884624d552b:
+          c50c328f6edb8d9c:
             x: 0
             y: 0
             w: 12
             h: 1
-          620c4ac25436de43:
+          0816f1caac22e8d2:
             x: 0
             y: 1
             w: 12
             h: 1
-          c208ee34c3f44597:
+          "8368482e72190829":
             x: 0
             y: 2
             w: 12
-            h: 2
+            h: 1
+          684736e08e14bcc8:
+            x: 0
+            y: 3
+            w: 12
+            h: 1
+          b8908b19754b3ac7:
+            x: 0
+            y: 4
+            w: 12
+            h: 1
       gap: normal
       paddingX: normal
       paddingY: large
     sections:
-      91a79884624d552b:
-        id: 91a79884624d552b
+      c50c328f6edb8d9c:
+        id: c50c328f6edb8d9c
         name: RichTextTitle
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      620c4ac25436de43:
-        id: 620c4ac25436de43
+      0816f1caac22e8d2:
+        id: 0816f1caac22e8d2
         name: RichTextDescription
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      c208ee34c3f44597:
-        id: c208ee34c3f44597
-        name: CodeBlock
-        component: custom-component
+      "8368482e72190829":
+        id: "8368482e72190829"
+        component: layout-block
+        name: TitleDescription
         config:
-          componentId: 2EHGy3vwxlS9JGr2
-          useCache: true
+          gridSettings:
+            desktop:
+              91216129b36ba7f6:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              617287f2a8f8d0b9:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              91216129b36ba7f6:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              617287f2a8f8d0b9:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          91216129b36ba7f6:
+            id: 91216129b36ba7f6
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          617287f2a8f8d0b9:
+            id: 617287f2a8f8d0b9
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - 91216129b36ba7f6
+          - 617287f2a8f8d0b9
+      684736e08e14bcc8:
+        id: 684736e08e14bcc8
+        component: layout-block
+        name: TitleDescription
+        config:
+          gridSettings:
+            desktop:
+              f61788814834881a:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              c7269d94925b592d:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              f61788814834881a:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              c7269d94925b592d:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          f61788814834881a:
+            id: f61788814834881a
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          c7269d94925b592d:
+            id: c7269d94925b592d
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - f61788814834881a
+          - c7269d94925b592d
+      b8908b19754b3ac7:
+        id: b8908b19754b3ac7
+        component: layout-block
+        name: TitleDescription
+        config:
+          gridSettings:
+            desktop:
+              1ab4387fb96326e7:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              29614ba085c31e53:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              1ab4387fb96326e7:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              29614ba085c31e53:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          1ab4387fb96326e7:
+            id: 1ab4387fb96326e7
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          29614ba085c31e53:
+            id: 29614ba085c31e53
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - 1ab4387fb96326e7
+          - 29614ba085c31e53
     sectionIds:
-      - 91a79884624d552b
-      - 620c4ac25436de43
-      - c208ee34c3f44597
-  9a5426d4b5936a0f:
-    id: 9a5426d4b5936a0f
+      - c50c328f6edb8d9c
+      - 0816f1caac22e8d2
+      - "8368482e72190829"
+      - 684736e08e14bcc8
+      - b8908b19754b3ac7
+  2a65edab7afeba4b:
+    id: 2a65edab7afeba4b
     component: layout-block
     name: quickStart
     config:
       gridSettings:
         desktop:
-          1cc53d7ecec1e1de:
+          b192263572d3e3f2:
             x: 0
             y: 0
             w: 12
             h: 1
-          ccea9939052030ad:
+          088694a965e93596:
             x: 0
             y: 1
-            w: 12
+            w: 4
             h: 1
-          b2398f4be6e70cf5:
-            x: 0
-            y: 2
-            w: 12
-            h: 2
+          c34f8318eefe29e0:
+            x: 4
+            y: 1
+            w: 4
+            h: 1
+          caecbd9892f087ac:
+            x: 8
+            y: 1
+            w: 4
+            h: 1
         mobile:
-          1cc53d7ecec1e1de:
+          b192263572d3e3f2:
             x: 0
             y: 0
             w: 12
             h: 1
-          ccea9939052030ad:
+          088694a965e93596:
             x: 0
             y: 1
             w: 12
             h: 1
-          b2398f4be6e70cf5:
+          c34f8318eefe29e0:
             x: 0
             y: 2
             w: 12
-            h: 2
+            h: 1
+          caecbd9892f087ac:
+            x: 0
+            y: 3
+            w: 12
+            h: 1
       gap: normal
       paddingX: normal
       paddingY: large
     sections:
-      1cc53d7ecec1e1de:
-        id: 1cc53d7ecec1e1de
+      b192263572d3e3f2:
+        id: b192263572d3e3f2
         name: RichTextTitle
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      ccea9939052030ad:
-        id: ccea9939052030ad
-        name: RichTextDescription
-        component: custom-component
+      088694a965e93596:
+        id: 088694a965e93596
+        component: layout-block
+        name: TitleDescription
         config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      b2398f4be6e70cf5:
-        id: b2398f4be6e70cf5
-        name: CodeBlock
-        component: custom-component
+          gridSettings:
+            desktop:
+              d8ea85bbd2bb43f1:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              3d24e7039e14ccd7:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              d8ea85bbd2bb43f1:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              3d24e7039e14ccd7:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          d8ea85bbd2bb43f1:
+            id: d8ea85bbd2bb43f1
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          3d24e7039e14ccd7:
+            id: 3d24e7039e14ccd7
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - d8ea85bbd2bb43f1
+          - 3d24e7039e14ccd7
+      c34f8318eefe29e0:
+        id: c34f8318eefe29e0
+        component: layout-block
+        name: TitleDescription
         config:
-          componentId: 2EHGy3vwxlS9JGr2
-          useCache: true
+          gridSettings:
+            desktop:
+              30f7801c083ba3e8:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              f83b76a521195e4c:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              30f7801c083ba3e8:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              f83b76a521195e4c:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          30f7801c083ba3e8:
+            id: 30f7801c083ba3e8
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          f83b76a521195e4c:
+            id: f83b76a521195e4c
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - 30f7801c083ba3e8
+          - f83b76a521195e4c
+      caecbd9892f087ac:
+        id: caecbd9892f087ac
+        component: layout-block
+        name: TitleDescription
+        config:
+          gridSettings:
+            desktop:
+              6b39bba7da9298e6:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              fe3ff9714ddbdfc6:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              6b39bba7da9298e6:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              fe3ff9714ddbdfc6:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: normal
+          paddingY: normal
+        sections:
+          6b39bba7da9298e6:
+            id: 6b39bba7da9298e6
+            name: RichTextTitle
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+          fe3ff9714ddbdfc6:
+            id: fe3ff9714ddbdfc6
+            name: RichTextDescription
+            component: custom-component
+            config:
+              componentId: xoHu0J44322kDYc-
+              useCache: true
+        sectionIds:
+          - 6b39bba7da9298e6
+          - fe3ff9714ddbdfc6
     sectionIds:
-      - 1cc53d7ecec1e1de
-      - ccea9939052030ad
-      - b2398f4be6e70cf5
-  fa7ad1bd26db9699:
-    id: fa7ad1bd26db9699
+      - b192263572d3e3f2
+      - 088694a965e93596
+      - c34f8318eefe29e0
+      - caecbd9892f087ac
+  2ab66465b99efdaf:
+    id: 2ab66465b99efdaf
     component: layout-block
-    name: exampleUsage
+    name: developerTools
     config:
       gridSettings:
         desktop:
-          fe921570feb60f5d:
+          c856a16f279460b4:
             x: 0
             y: 0
             w: 12
             h: 1
-          fe3bf444f410e178:
+          8273db6bb330ebe5:
             x: 0
             y: 1
             w: 12
             h: 1
-          f43fb2d22640f3e7:
-            x: 0
-            y: 2
-            w: 12
-            h: 2
-        mobile:
-          fe921570feb60f5d:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          fe3bf444f410e178:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          f43fb2d22640f3e7:
-            x: 0
-            y: 2
-            w: 12
-            h: 2
-      gap: normal
-      paddingX: normal
-      paddingY: large
-    sections:
-      fe921570feb60f5d:
-        id: fe921570feb60f5d
-        name: RichTextTitle
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      fe3bf444f410e178:
-        id: fe3bf444f410e178
-        name: RichTextDescription
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      f43fb2d22640f3e7:
-        id: f43fb2d22640f3e7
-        name: CodeBlock
-        component: custom-component
-        config:
-          componentId: 2EHGy3vwxlS9JGr2
-          useCache: true
-    sectionIds:
-      - fe921570feb60f5d
-      - fe3bf444f410e178
-      - f43fb2d22640f3e7
-  a0fb55d2b9800727:
-    id: a0fb55d2b9800727
-    component: layout-block
-    name: apiReference
-    config:
-      gridSettings:
-        desktop:
-          9aa994e966f6f94e:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          aedad476f9cc6ce5:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          e45c79bdd2c3fe91:
+          44da8404369cfb1c:
             x: 0
             y: 2
             w: 6
             h: 1
-          1848b9102df691a0:
+          3f0cb30619f2dca1:
             x: 6
             y: 2
             w: 6
             h: 1
-          3e07b46d06c64dd7:
+          0903cbcac4103cf8:
             x: 0
             y: 3
             w: 6
             h: 1
-          4a408fc10a5834c9:
+          905c15c191bac899:
             x: 6
             y: 3
             w: 6
             h: 1
         mobile:
-          9aa994e966f6f94e:
+          c856a16f279460b4:
             x: 0
             y: 0
             w: 12
             h: 1
-          aedad476f9cc6ce5:
+          8273db6bb330ebe5:
             x: 0
             y: 1
             w: 12
             h: 1
-          e45c79bdd2c3fe91:
+          44da8404369cfb1c:
             x: 0
             y: 2
             w: 12
             h: 1
-          1848b9102df691a0:
+          3f0cb30619f2dca1:
             x: 0
             y: 3
             w: 12
             h: 1
-          3e07b46d06c64dd7:
+          0903cbcac4103cf8:
             x: 0
             y: 4
             w: 12
             h: 1
-          4a408fc10a5834c9:
+          905c15c191bac899:
             x: 0
             y: 5
             w: 12
@@ -639,44 +879,44 @@ sections:
       paddingX: normal
       paddingY: large
     sections:
-      9aa994e966f6f94e:
-        id: 9aa994e966f6f94e
+      c856a16f279460b4:
+        id: c856a16f279460b4
         name: RichTextTitle
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      aedad476f9cc6ce5:
-        id: aedad476f9cc6ce5
+      8273db6bb330ebe5:
+        id: 8273db6bb330ebe5
         name: RichTextDescription
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      e45c79bdd2c3fe91:
-        id: e45c79bdd2c3fe91
+      44da8404369cfb1c:
+        id: 44da8404369cfb1c
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              234dfff00ebc37ae:
+              9bfe82cbd154ca1d:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              b32a5eb3c5c052fe:
+              d517e5d336238162:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              234dfff00ebc37ae:
+              9bfe82cbd154ca1d:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              b32a5eb3c5c052fe:
+              d517e5d336238162:
                 x: 0
                 y: 1
                 w: 12
@@ -685,47 +925,47 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          234dfff00ebc37ae:
-            id: 234dfff00ebc37ae
+          9bfe82cbd154ca1d:
+            id: 9bfe82cbd154ca1d
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          b32a5eb3c5c052fe:
-            id: b32a5eb3c5c052fe
+          d517e5d336238162:
+            id: d517e5d336238162
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - 234dfff00ebc37ae
-          - b32a5eb3c5c052fe
-      1848b9102df691a0:
-        id: 1848b9102df691a0
+          - 9bfe82cbd154ca1d
+          - d517e5d336238162
+      3f0cb30619f2dca1:
+        id: 3f0cb30619f2dca1
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              67f0f4239f8ae32c:
+              f99225a5faa7ee40:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              b473447ff8f913ef:
+              c52bc70f7ef70184:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              67f0f4239f8ae32c:
+              f99225a5faa7ee40:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              b473447ff8f913ef:
+              c52bc70f7ef70184:
                 x: 0
                 y: 1
                 w: 12
@@ -734,47 +974,47 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          67f0f4239f8ae32c:
-            id: 67f0f4239f8ae32c
+          f99225a5faa7ee40:
+            id: f99225a5faa7ee40
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          b473447ff8f913ef:
-            id: b473447ff8f913ef
+          c52bc70f7ef70184:
+            id: c52bc70f7ef70184
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - 67f0f4239f8ae32c
-          - b473447ff8f913ef
-      3e07b46d06c64dd7:
-        id: 3e07b46d06c64dd7
+          - f99225a5faa7ee40
+          - c52bc70f7ef70184
+      0903cbcac4103cf8:
+        id: 0903cbcac4103cf8
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              6fe02e835201a92c:
+              e349776fdb7f41e8:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              66e2ed4e5f374472:
+              d81a9e8293cd38d2:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              6fe02e835201a92c:
+              e349776fdb7f41e8:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              66e2ed4e5f374472:
+              d81a9e8293cd38d2:
                 x: 0
                 y: 1
                 w: 12
@@ -783,47 +1023,47 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          6fe02e835201a92c:
-            id: 6fe02e835201a92c
+          e349776fdb7f41e8:
+            id: e349776fdb7f41e8
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          66e2ed4e5f374472:
-            id: 66e2ed4e5f374472
+          d81a9e8293cd38d2:
+            id: d81a9e8293cd38d2
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - 6fe02e835201a92c
-          - 66e2ed4e5f374472
-      4a408fc10a5834c9:
-        id: 4a408fc10a5834c9
+          - e349776fdb7f41e8
+          - d81a9e8293cd38d2
+      905c15c191bac899:
+        id: 905c15c191bac899
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              ebfa11d276df4e55:
+              9ea2fc40fc9f1333:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              954b3c2129a97849:
+              ff0506ef5e54221d:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              ebfa11d276df4e55:
+              9ea2fc40fc9f1333:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              954b3c2129a97849:
+              ff0506ef5e54221d:
                 x: 0
                 y: 1
                 w: 12
@@ -832,393 +1072,84 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          ebfa11d276df4e55:
-            id: ebfa11d276df4e55
+          9ea2fc40fc9f1333:
+            id: 9ea2fc40fc9f1333
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          954b3c2129a97849:
-            id: 954b3c2129a97849
+          ff0506ef5e54221d:
+            id: ff0506ef5e54221d
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - ebfa11d276df4e55
-          - 954b3c2129a97849
+          - 9ea2fc40fc9f1333
+          - ff0506ef5e54221d
     sectionIds:
-      - 9aa994e966f6f94e
-      - aedad476f9cc6ce5
-      - e45c79bdd2c3fe91
-      - 1848b9102df691a0
-      - 3e07b46d06c64dd7
-      - 4a408fc10a5834c9
-  dd03feaa3356f907:
-    id: dd03feaa3356f907
+      - c856a16f279460b4
+      - 8273db6bb330ebe5
+      - 44da8404369cfb1c
+      - 3f0cb30619f2dca1
+      - 0903cbcac4103cf8
+      - 905c15c191bac899
+  17944c98bbcec1d7:
+    id: 17944c98bbcec1d7
     component: layout-block
-    name: developerCorner
+    name: builtForReliability
     config:
       gridSettings:
         desktop:
-          1e09cb2cd71ed865:
+          a93a27fd1ab1c921:
             x: 0
             y: 0
             w: 12
             h: 1
-          02b43ed2035275b1:
+          001be1e0683b1c22:
             x: 0
             y: 1
+            w: 12
+            h: 1
+          e26ddd05e146971d:
+            x: 0
+            y: 2
             w: 4
             h: 1
-          b97d528afda77cca:
+          1c086ac160772f5d:
             x: 4
-            y: 1
+            y: 2
             w: 4
             h: 1
-          d1f9f2bba2ea7b2c:
+          39556245f0df85ea:
             x: 8
-            y: 1
+            y: 2
             w: 4
             h: 1
         mobile:
-          1e09cb2cd71ed865:
+          a93a27fd1ab1c921:
             x: 0
             y: 0
             w: 12
             h: 1
-          02b43ed2035275b1:
+          001be1e0683b1c22:
             x: 0
             y: 1
             w: 12
             h: 1
-          b97d528afda77cca:
+          e26ddd05e146971d:
             x: 0
             y: 2
             w: 12
             h: 1
-          d1f9f2bba2ea7b2c:
+          1c086ac160772f5d:
             x: 0
             y: 3
             w: 12
             h: 1
-      gap: normal
-      paddingX: normal
-      paddingY: large
-    sections:
-      1e09cb2cd71ed865:
-        id: 1e09cb2cd71ed865
-        name: RichTextTitle
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      02b43ed2035275b1:
-        id: 02b43ed2035275b1
-        component: layout-block
-        name: TitleDescription
-        config:
-          gridSettings:
-            desktop:
-              55c0bb09346bd895:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              3d14ef5f430d9e80:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-            mobile:
-              55c0bb09346bd895:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              3d14ef5f430d9e80:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-          gap: normal
-          paddingX: normal
-          paddingY: normal
-        sections:
-          55c0bb09346bd895:
-            id: 55c0bb09346bd895
-            name: RichTextTitle
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-          3d14ef5f430d9e80:
-            id: 3d14ef5f430d9e80
-            name: RichTextDescription
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-        sectionIds:
-          - 55c0bb09346bd895
-          - 3d14ef5f430d9e80
-      b97d528afda77cca:
-        id: b97d528afda77cca
-        component: layout-block
-        name: TitleDescription
-        config:
-          gridSettings:
-            desktop:
-              09941fae68c02b46:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              f29bb22d39d148f4:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-            mobile:
-              09941fae68c02b46:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              f29bb22d39d148f4:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-          gap: normal
-          paddingX: normal
-          paddingY: normal
-        sections:
-          09941fae68c02b46:
-            id: 09941fae68c02b46
-            name: RichTextTitle
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-          f29bb22d39d148f4:
-            id: f29bb22d39d148f4
-            name: RichTextDescription
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-        sectionIds:
-          - 09941fae68c02b46
-          - f29bb22d39d148f4
-      d1f9f2bba2ea7b2c:
-        id: d1f9f2bba2ea7b2c
-        component: layout-block
-        name: TitleDescription
-        config:
-          gridSettings:
-            desktop:
-              531ac073e506bcf8:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              e728103fc1e9294a:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-            mobile:
-              531ac073e506bcf8:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              e728103fc1e9294a:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-          gap: normal
-          paddingX: normal
-          paddingY: normal
-        sections:
-          531ac073e506bcf8:
-            id: 531ac073e506bcf8
-            name: RichTextTitle
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-          e728103fc1e9294a:
-            id: e728103fc1e9294a
-            name: RichTextDescription
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-        sectionIds:
-          - 531ac073e506bcf8
-          - e728103fc1e9294a
-    sectionIds:
-      - 1e09cb2cd71ed865
-      - 02b43ed2035275b1
-      - b97d528afda77cca
-      - d1f9f2bba2ea7b2c
-  7502c98ba0f4e57d:
-    id: 7502c98ba0f4e57d
-    component: layout-block
-    name: changelog
-    config:
-      gridSettings:
-        desktop:
-          f2ea4783782ab00f:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          ad419f8524e2eb91:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-        mobile:
-          f2ea4783782ab00f:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          ad419f8524e2eb91:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-      gap: normal
-      paddingX: normal
-      paddingY: normal
-    sections:
-      f2ea4783782ab00f:
-        id: f2ea4783782ab00f
-        name: RichTextTitle
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      ad419f8524e2eb91:
-        id: ad419f8524e2eb91
-        name: RichTextDescription
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-    sectionIds:
-      - f2ea4783782ab00f
-      - ad419f8524e2eb91
-  f2a438efe0e35139:
-    id: f2a438efe0e35139
-    component: layout-block
-    name: license
-    config:
-      gridSettings:
-        desktop:
-          e9d2c8c334db41e5:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          c2d7049f469840e4:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-        mobile:
-          e9d2c8c334db41e5:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          c2d7049f469840e4:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-      gap: normal
-      paddingX: normal
-      paddingY: normal
-    sections:
-      e9d2c8c334db41e5:
-        id: e9d2c8c334db41e5
-        name: RichTextTitle
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-      c2d7049f469840e4:
-        id: c2d7049f469840e4
-        name: RichTextDescription
-        component: custom-component
-        config:
-          componentId: xoHu0J44322kDYc-
-          useCache: true
-    sectionIds:
-      - e9d2c8c334db41e5
-      - c2d7049f469840e4
-  ffd464ed697029c0:
-    id: ffd464ed697029c0
-    component: layout-block
-    name: usefulLinks
-    config:
-      gridSettings:
-        desktop:
-          22a10b47031b0f66:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          e2f4210ff81a1f16:
-            x: 0
-            y: 1
-            w: 6
-            h: 1
-          813d051c143b6324:
-            x: 6
-            y: 1
-            w: 6
-            h: 1
-          c11b72ffbb6be99d:
-            x: 0
-            y: 2
-            w: 6
-            h: 1
-          f061dc912755f53c:
-            x: 6
-            y: 2
-            w: 6
-            h: 1
-        mobile:
-          22a10b47031b0f66:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-          e2f4210ff81a1f16:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          813d051c143b6324:
-            x: 0
-            y: 2
-            w: 12
-            h: 1
-          c11b72ffbb6be99d:
-            x: 0
-            y: 3
-            w: 12
-            h: 1
-          f061dc912755f53c:
+          39556245f0df85ea:
             x: 0
             y: 4
             w: 12
@@ -1227,37 +1158,44 @@ sections:
       paddingX: normal
       paddingY: large
     sections:
-      22a10b47031b0f66:
-        id: 22a10b47031b0f66
+      a93a27fd1ab1c921:
+        id: a93a27fd1ab1c921
         name: RichTextTitle
         component: custom-component
         config:
           componentId: xoHu0J44322kDYc-
           useCache: true
-      e2f4210ff81a1f16:
-        id: e2f4210ff81a1f16
+      001be1e0683b1c22:
+        id: 001be1e0683b1c22
+        name: RichTextDescription
+        component: custom-component
+        config:
+          componentId: xoHu0J44322kDYc-
+          useCache: true
+      e26ddd05e146971d:
+        id: e26ddd05e146971d
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              cd50065f3b71816c:
+              18bfdd4351e3636a:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              9ae6ccdb8560d533:
+              a8f952378b0934dc:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              cd50065f3b71816c:
+              18bfdd4351e3636a:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              9ae6ccdb8560d533:
+              a8f952378b0934dc:
                 x: 0
                 y: 1
                 w: 12
@@ -1266,47 +1204,47 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          cd50065f3b71816c:
-            id: cd50065f3b71816c
+          18bfdd4351e3636a:
+            id: 18bfdd4351e3636a
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          9ae6ccdb8560d533:
-            id: 9ae6ccdb8560d533
+          a8f952378b0934dc:
+            id: a8f952378b0934dc
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - cd50065f3b71816c
-          - 9ae6ccdb8560d533
-      813d051c143b6324:
-        id: 813d051c143b6324
+          - 18bfdd4351e3636a
+          - a8f952378b0934dc
+      1c086ac160772f5d:
+        id: 1c086ac160772f5d
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              0976562253f146f9:
+              b3723031cc858bb9:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              acc40a15b1ed335c:
+              73b84c774c033f32:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              0976562253f146f9:
+              b3723031cc858bb9:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              acc40a15b1ed335c:
+              73b84c774c033f32:
                 x: 0
                 y: 1
                 w: 12
@@ -1315,47 +1253,47 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          0976562253f146f9:
-            id: 0976562253f146f9
+          b3723031cc858bb9:
+            id: b3723031cc858bb9
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          acc40a15b1ed335c:
-            id: acc40a15b1ed335c
+          73b84c774c033f32:
+            id: 73b84c774c033f32
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - 0976562253f146f9
-          - acc40a15b1ed335c
-      c11b72ffbb6be99d:
-        id: c11b72ffbb6be99d
+          - b3723031cc858bb9
+          - 73b84c774c033f32
+      39556245f0df85ea:
+        id: 39556245f0df85ea
         component: layout-block
         name: TitleDescription
         config:
           gridSettings:
             desktop:
-              3d7b39e0090b37d7:
+              e5508af42cc84b9b:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              2ceebc0011f2450a:
+              4d76a3a29fa97e9a:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              3d7b39e0090b37d7:
+              e5508af42cc84b9b:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              2ceebc0011f2450a:
+              4d76a3a29fa97e9a:
                 x: 0
                 y: 1
                 w: 12
@@ -1364,96 +1302,115 @@ sections:
           paddingX: normal
           paddingY: normal
         sections:
-          3d7b39e0090b37d7:
-            id: 3d7b39e0090b37d7
+          e5508af42cc84b9b:
+            id: e5508af42cc84b9b
             name: RichTextTitle
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
-          2ceebc0011f2450a:
-            id: 2ceebc0011f2450a
+          4d76a3a29fa97e9a:
+            id: 4d76a3a29fa97e9a
             name: RichTextDescription
             component: custom-component
             config:
               componentId: xoHu0J44322kDYc-
               useCache: true
         sectionIds:
-          - 3d7b39e0090b37d7
-          - 2ceebc0011f2450a
-      f061dc912755f53c:
-        id: f061dc912755f53c
-        component: layout-block
-        name: TitleDescription
-        config:
-          gridSettings:
-            desktop:
-              b17268d03a6b39f4:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              57333084e393fb3f:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-            mobile:
-              b17268d03a6b39f4:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              57333084e393fb3f:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-          gap: normal
-          paddingX: normal
-          paddingY: normal
-        sections:
-          b17268d03a6b39f4:
-            id: b17268d03a6b39f4
-            name: RichTextTitle
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-          57333084e393fb3f:
-            id: 57333084e393fb3f
-            name: RichTextDescription
-            component: custom-component
-            config:
-              componentId: xoHu0J44322kDYc-
-              useCache: true
-        sectionIds:
-          - b17268d03a6b39f4
-          - 57333084e393fb3f
+          - e5508af42cc84b9b
+          - 4d76a3a29fa97e9a
     sectionIds:
-      - 22a10b47031b0f66
-      - e2f4210ff81a1f16
-      - 813d051c143b6324
-      - c11b72ffbb6be99d
-      - f061dc912755f53c
+      - a93a27fd1ab1c921
+      - 001be1e0683b1c22
+      - e26ddd05e146971d
+      - 1c086ac160772f5d
+      - 39556245f0df85ea
+  1ecd35e42a646ce7:
+    id: 1ecd35e42a646ce7
+    component: layout-block
+    name: finalCta
+    config:
+      gridSettings:
+        desktop:
+          aff234fc6ce00c7f:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          159788d32b8548db:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          e564e0bd562234e2:
+            x: 0
+            y: 2
+            w: 12
+            h: 1
+        mobile:
+          aff234fc6ce00c7f:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          159788d32b8548db:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          e564e0bd562234e2:
+            x: 0
+            y: 2
+            w: 12
+            h: 1
+      gap: normal
+      paddingX: normal
+      paddingY: large
+      alignContent: center
+      justifyContent: center
+      background: grey.100
+      borderRadius: medium
+    sections:
+      aff234fc6ce00c7f:
+        id: aff234fc6ce00c7f
+        name: RichTextTitle
+        component: custom-component
+        config:
+          componentId: xoHu0J44322kDYc-
+          useCache: true
+      159788d32b8548db:
+        id: 159788d32b8548db
+        name: RichTextDescription
+        component: custom-component
+        config:
+          componentId: xoHu0J44322kDYc-
+          useCache: true
+      e564e0bd562234e2:
+        id: e564e0bd562234e2
+        name: ActionButton
+        component: custom-component
+        config:
+          componentId: a44r0SiGV9AFn2Fj
+          useCache: true
+    sectionIds:
+      - aff234fc6ce00c7f
+      - 159788d32b8548db
+      - e564e0bd562234e2
 sectionIds:
   - a282db71dbe1b6c2
   - f5867f5f715daadd
-  - 0347bb1255126c7e
-  - 9a5426d4b5936a0f
-  - fa7ad1bd26db9699
-  - a0fb55d2b9800727
-  - dd03feaa3356f907
-  - 7502c98ba0f4e57d
-  - f2a438efe0e35139
-  - ffd464ed697029c0
+  - cffb6a6c38b91c0a
+  - 2a65edab7afeba4b
+  - 2ab66465b99efdaf
+  - 17944c98bbcec1d7
+  - 1ecd35e42a646ce7
 dataSource:
   6b685ef99c692af1:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Build and Launch Websites Instantly with AI
+            text: Automate Your Website Creation with AI
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1466,7 +1423,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 借助 AI 即刻构建并上线网站
+            text: 使用 AI 自动化创建网站
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1480,10 +1437,9 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: AIGNE WebSmith is a powerful, AI-driven tool that automates the creation
-              of professional, SEO-optimized websites. Generate complete content
-              and templates, then publish directly to Pages Kit with a single
-              command.
+            text: AIGNE WebSmith is a powerful, AI-driven tool that generates professional,
+              SEO-optimized websites, complete with content and templates. Go
+              from idea to a live site in minutes.
             style:
               color: text.secondary
               variant: body1
@@ -1498,8 +1454,8 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: AIGNE WebSmith 是一款强大且 AI 驱动的工具，能够自动创建专业且经过 SEO
-              优化的网站。生成完整内容和模板，然后只需一个命令即可直接发布到 Pages Kit。
+            text: AIGNE WebSmith 是一款功能强大的 AI 驱动工具，可生成专业、SEO
+              优化的网站，包含完整的内容和模板。让想法在几分钟内变为可上线的网站。
             style:
               color: text.secondary
               variant: body1
@@ -1517,8 +1473,8 @@ dataSource:
           value:
             - id: ""
               type: link
-              text: View on GitHub
-              url: https://github.com/AIGNE-io/aigne-web-smith
+              text: Explore Documentation
+              url: https://docs.aigne.io
               variant: contained
               size: medium
               target: _self
@@ -1539,8 +1495,8 @@ dataSource:
           value:
             - id: ""
               type: link
-              text: 在 GitHub 上查看
-              url: https://github.com/AIGNE-io/aigne-web-smith
+              text: 查看文档
+              url: https://docs.aigne.io
               variant: contained
               size: medium
               target: _self
@@ -1560,7 +1516,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Everything You Need to Automate Web Creation
+            text: Everything You Need to Build and Launch
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1573,7 +1529,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 自动化网页创建所需的一切
+            text: 构建与上线所需的一切
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1600,7 +1556,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: AI-Powered Generation
+            text: AI 驱动生成
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1614,8 +1570,8 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Automatically plan website architecture, generate batch content, and apply
-              SEO best practices for optimal performance.
+            text: Intelligently analyzes your requirements to automatically generate optimal
+              website architecture, detailed content, and professional SEO.
             style:
               color: text.secondary
               variant: body1
@@ -1630,7 +1586,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 自动计划网站架构、批量生成内容，并应用 SEO 最佳实践以实现最佳性能。
+            text: 智能分析您的需求，自动生成最佳的网站架构、详尽内容和专业的 SEO。
             style:
               color: text.secondary
               variant: body1
@@ -1659,7 +1615,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Professional Template System
+            text: 专业模板系统
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1673,8 +1629,8 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Leverage a component-based design with a built-in library, responsive
-              layouts, and direct integration with Pages Kit for visual editing.
+            text: Directly integrates with Pages Kit, supporting a component-based design
+              with a built-in library for modern, responsive layouts.
             style:
               color: text.secondary
               variant: body1
@@ -1689,7 +1645,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 采用基于组件的设计，内置库、响应式布局，以及直接与 Pages Kit 集成以进行可视化编辑。
+            text: 与 Pages Kit 无缝集成，支持基于组件的设计并内置现代响应式布局库。
             style:
               color: text.secondary
               variant: body1
@@ -1718,7 +1674,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Built-in Quality Assurance
+            text: 内置质量保障
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1732,8 +1688,8 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Ensure content accuracy and a great user experience with an automated
-              structure evaluation system and comprehensive test coverage.
+            text: Ensures reliability with an automatic evaluation system for architecture,
+              content quality checks, and complete test coverage.
             style:
               color: text.secondary
               variant: body1
@@ -1748,7 +1704,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 通过自动化结构评估系统和全面的测试覆盖，确保内容准确并提供出色的用户体验。
+            text: 通过自动评估体系进行架构检查、内容质量检测并提供完整的测试覆盖，确保可靠性。
             style:
               color: text.secondary
               variant: body1
@@ -1777,7 +1733,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: One-Click Publishing
+            text: 一键发布
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1791,8 +1747,9 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Deploy your website directly to the Pages Kit platform with batch
-              uploading, status monitoring, and instant access links.
+            text: Publish your entire website directly to the Pages Kit platform with a
+              single command, complete with status monitoring and instant access
+              links.
             style:
               color: text.secondary
               variant: body1
@@ -1807,7 +1764,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 将你的网站直接部署到 Pages Kit 平台，支持批量上传、状态监控，以及即时访问链接。
+            text: 使用单个命令将整个网站直接发布到 Pages Kit 平台，包含状态监控和即时访问链接。
             style:
               color: text.secondary
               variant: body1
@@ -1818,12 +1775,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  91a79884624d552b:
+  c50c328f6edb8d9c:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Agent-Based Architecture
+            text: A Simple, Powerful Workflow
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1836,7 +1793,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 基于代理的架构
+            text: 简洁且强大的工作流
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1845,14 +1802,14 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  620c4ac25436de43:
+  0816f1caac22e8d2:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: WebSmith is built on the AIGNE framework and uses a sequential,
-              agent-based architecture to streamline the website creation
-              process from planning to deployment.
+            text: WebSmith uses a streamlined, agent-based architecture to move seamlessly
+              from planning and content generation to template creation and
+              publishing.
             style:
               color: text.secondary
               variant: body1
@@ -1867,7 +1824,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: WebSmith 构建在 AIGNE 框架之上，采用顺序的基于代理的架构，以简化从规划到部署的网站创建流程。
+            text: WebSmith 使用精简的基于 agent 的架构，从规划与内容生成到模板创建和发布实现无缝衔接。
             style:
               color: text.secondary
               variant: body1
@@ -1878,48 +1835,184 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  c208ee34c3f44597:
+  91216129b36ba7f6:
     en:
       properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Structure      │    │  Content        │    │  Template       │
-            │  Planning       │───▶│  Generation     │───▶│  Generation     │
-            │  Agent          │    │  Agent          │    │  Agent          │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
-                     │                       │                       │
-                     ▼                       ▼                       ▼
-            ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Evaluation     │    │  Batch          │    │  Upload         │
-            │  Agent          │    │  Processing     │    │  Agent          │
-            │                 │    │  Agent          │    │                 │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
-        b2jrz12ik7esf93z:
-          value: Architecture Flow
-        c4kvf6b7zyskk8m:
-          value: true
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. Define Your Vision
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
     zh:
       properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Structure      │    │  Content        │    │  Template       │
-            │  Planning       │───▶│  Generation     │───▶│  Generation     │
-            │  Agent          │    │  Agent          │    │  Agent          │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
-                     │                       │                       │
-                     ▼                       ▼                       ▼
-            ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Evaluation     │    │  Batch          │    │  Upload         │
-            │  Agent          │    │  Processing     │    │  Agent          │
-            │                 │    │  Agent          │    │                 │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
-        b2jrz12ik7esf93z:
-          value: Architecture Flow
-        c4kvf6b7zyskk8m:
-          value: true
-  1cc53d7ecec1e1de:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. 定义您的愿景
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  617287f2a8f8d0b9:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Describe your website requirements, target audience, and desired style in
+              a simple YAML file. Let the AI handle the planning.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 在一个简单的 YAML 文件中描述网站需求、目标受众和期望风格。由 AI 负责规划。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  f61788814834881a:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. Generate Everything
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. 生成所有内容
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  c7269d94925b592d:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Run a single command to generate the entire website structure, page
+              content, and Pages Kit-compatible templates automatically.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 运行单个命令即可自动生成完整的网站结构、页面内容和兼容 Pages Kit 的模板。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  1ab4387fb96326e7:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. Publish Instantly
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. 立即发布
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  29614ba085c31e53:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Deploy your new website directly to the Pages Kit platform with one click
+              and get a shareable link immediately.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 一键将新网站部署到 Pages Kit 平台并立即获得可分享的链接。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  b192263572d3e3f2:
     en:
       properties:
         gs1rn5jmxfvpxptx:
@@ -1937,7 +2030,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 几分钟内开始使用
+            text: 几分钟上手
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -1946,13 +2039,40 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  ccea9939052030ad:
+  d8ea85bbd2bb43f1:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Install the AIGNE CLI and run a single command to generate your first
-              AI-powered website. It's that simple.
+            text: Install the CLI
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 安装 CLI
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  3d24e7039e14ccd7:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Get started by installing the AIGNE command-line interface from npm. `npm
+              install -g @aigne/cli`
             style:
               color: text.secondary
               variant: body1
@@ -1967,7 +2087,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 安装 AIGNE CLI，并运行一个命令即可生成你的第一個 AI 驱动的网站。就这么简单。
+            text: 通过 npm 安装 AIGNE 命令行工具开始使用。 `npm install -g @aigne/cli`
             style:
               color: text.secondary
               variant: body1
@@ -1978,39 +2098,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  b2398f4be6e70cf5:
-    en:
-      properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            # Install AIGNE CLI
-            npm install -g @aigne/cli
-
-            # Generate your website
-            aigne web generate
-        b2jrz12ik7esf93z:
-          value: Installation & Usage
-        c4kvf6b7zyskk8m:
-          value: true
-    zh:
-      properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            # Install AIGNE CLI
-            npm install -g @aigne/cli
-
-            # Generate your website
-            aigne web generate
-        b2jrz12ik7esf93z:
-          value: Installation & Usage
-        c4kvf6b7zyskk8m:
-          value: true
-  fe921570feb60f5d:
+  30f7801c083ba3e8:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Define Your Website with a Simple YAML File
+            text: Generate Your Website
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2023,7 +2116,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 用一个简单的 YAML 文件定义你的网站
+            text: 生成网站
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2032,14 +2125,13 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  fe3bf444f410e178:
+  f83b76a521195e4c:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Create an input file like `my-website.yaml` to provide the AI with rules,
-              target audience, and style preferences. Then, run the generate
-              command to bring your vision to life.
+            text: Define your site requirements in a YAML file and run the generate command.
+              `aigne web generate`
             style:
               color: text.secondary
               variant: body1
@@ -2054,8 +2146,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 创建一个类似 `my-website.yaml` 的输入文件，为 AI 提供规则、目标受众和风格偏好。然后，运行 generate
-              命令，将你的愿景变为现实。
+            text: 在 YAML 文件中定义网站需求并运行生成命令。 `aigne web generate`
             style:
               color: text.secondary
               variant: body1
@@ -2066,63 +2157,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  f43fb2d22640f3e7:
-    en:
-      properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            rules: |
-              Create a modern SaaS product website that includes:
-              1. Product introduction and core features
-              2. Pricing plan comparison
-              3. Customer success stories
-              4. Technical documentation portal
-              5. Contact and support pages
-
-              Requirements:
-              - Professional business style
-              - Highlight product advantages and differentiation
-              - Include clear CTA to guide users to trial
-
-            targetAudience: SMB owners and technical decision makers
-            locale: en
-            websiteStyle: business
-            projectId: your-pages-kit-project-id
-        b2jrz12ik7esf93z:
-          value: my-website.yaml
-        c4kvf6b7zyskk8m:
-          value: true
-    zh:
-      properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            rules: |
-              Create a modern SaaS product website that includes:
-              1. Product introduction and core features
-              2. Pricing plan comparison
-              3. Customer success stories
-              4. Technical documentation portal
-              5. Contact and support pages
-
-              Requirements:
-              - Professional business style
-              - Highlight product advantages and differentiation
-              - Include clear CTA to guide users to trial
-
-            targetAudience: 中小企业所有者与技术决策者
-            locale: en
-            websiteStyle: business
-            projectId: your-pages-kit-project-id
-        b2jrz12ik7esf93z:
-          value: my-website.yaml
-        c4kvf6b7zyskk8m:
-          value: true
-  9aa994e966f6f94e:
+  6b39bba7da9298e6:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Powerful Command-Line Interface
+            text: Publish Your Site
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2135,7 +2175,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 强大的命令行界面
+            text: 发布网站
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2144,13 +2184,13 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  aedad476f9cc6ce5:
+  fe3ff9714ddbdfc6:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Manage your entire website lifecycle from generation to updates using
-              these core commands.
+            text: Deploy your website instantly to the Pages Kit platform with the publish
+              command. `aigne web publish`
             style:
               color: text.secondary
               variant: body1
@@ -2165,7 +2205,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 使用这些核心命令，管理从生成到更新的整个网站生命周期。
+            text: 使用发布命令将网站即时部署到 Pages Kit 平台。 `aigne web publish`
             style:
               color: text.secondary
               variant: body1
@@ -2176,12 +2216,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  234dfff00ebc37ae:
+  c856a16f279460b4:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: generate
+            text: Powerful Tools for Developers
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2194,7 +2234,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: generate
+            text: 面向开发者的强大工具
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2203,71 +2243,14 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  b32a5eb3c5c052fe:
+  8273db6bb330ebe5:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Generates a complete website from your requirements file. Aliases are gen,
-              g.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 从你的需求文件生成一个完整的网站。别名为 gen, g。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  67f0f4239f8ae32c:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: publish
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: publish
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  b473447ff8f913ef:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Publishes the generated website directly to your Pages Kit project.
+            text: Access a full suite of commands for generation, publishing, translation,
+              and content updates. Integrate with our MCP server endpoints to
+              retrieve website structure and content programmatically.
             style:
               color: text.secondary
               variant: body1
@@ -2282,7 +2265,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 将生成的网站直接发布到你的 Pages Kit 项目。
+            text: 可使用一整套命令进行生成、发布、翻译和内容更新。将其与我们的 MCP server endpoints 集成，以编程方式检索网站结构和内容。
             style:
               color: text.secondary
               variant: body1
@@ -2293,12 +2276,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  6fe02e835201a92c:
+  9bfe82cbd154ca1d:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: translate
+            text: Generate
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2311,7 +2294,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: translate
+            text: 生成
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2320,70 +2303,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  66e2ed4e5f374472:
+  d517e5d336238162:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Translates existing website content into different languages.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 将现有网站内容翻译成不同语言。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  ebfa11d276df4e55:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: update
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: update
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  954b3c2129a97849:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Updates an existing website with new or modified requirements.
+            text: Create a complete website from a requirements file.
             style:
               color: text.secondary
               variant: body1
@@ -2398,7 +2323,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 使用新或修改后的需求更新现有网站。
+            text: 从需求文件创建完整网站。
             style:
               color: text.secondary
               variant: body1
@@ -2409,12 +2334,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  1e09cb2cd71ed865:
+  f99225a5faa7ee40:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: For Developers & Contributors
+            text: Publish
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2427,7 +2352,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 供开发者与贡献者使用
+            text: 发布
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2436,40 +2361,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  55c0bb09346bd895:
+  c52bc70f7ef70184:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Project Structure
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 项目结构
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  3d14ef5f430d9e80:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: The codebase is organized into core AI agents, prompts, utilities, and MCP
-              server implementations for clear separation of concerns.
+            text: Deploy the generated website directly to Pages Kit.
             style:
               color: text.secondary
               variant: body1
@@ -2484,7 +2381,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 代码库被组织为核心 AI 代理、提示、实用工具，以及 MCP 服务器实现，确保关注点明确分离。
+            text: 将生成的网站直接部署到 Pages Kit。
             style:
               color: text.secondary
               variant: body1
@@ -2495,7 +2392,244 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  09941fae68c02b46:
+  e349776fdb7f41e8:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Translate
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 翻译
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  d81a9e8293cd38d2:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Localize existing website content into different languages.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 将现有网站内容本地化为不同语言。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  9ea2fc40fc9f1333:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Update
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 更新
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  ff0506ef5e54221d:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Refresh website content based on new requirements.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 根据新需求刷新网站内容。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  a93a27fd1ab1c921:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Built for Performance and Reliability
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 为性能与可靠性而构建
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  001be1e0683b1c22:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Optimized for production with parallel agent processing, efficient
+              template generation, and robust error handling. Our platform is
+              backed by comprehensive test coverage, code quality checks, and
+              pre-commit hooks.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 针对生产环境优化，采用并行 agent 处理、高效的模板生成和健壮的错误处理。我们的平台由全面的测试覆盖、代码质量检查和 pre-commit
+              hooks 支持。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  18bfdd4351e3636a:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Fast Generation
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 快速生成
+            style:
+              color: text.primary
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  a8f952378b0934dc:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Utilizes parallel agent processing for efficient and rapid website
+              creation.
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 利用并行 agent 处理，实现高效快速的网站创建。
+            style:
+              color: text.secondary
+              variant: body1
+              fontSize: 18
+        v5utpm7bu9yvdpnq:
+          value: center
+        e8f3k7m2n9p4q1s5:
+          value: false
+        kyg0hdy5uqq4gc1o:
+          value: center
+  b3723031cc858bb9:
     en:
       properties:
         gs1rn5jmxfvpxptx:
@@ -2522,14 +2656,13 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  f29bb22d39d148f4:
+  73b84c774c033f32:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Run tests using 'bun test'. The project has extensive coverage for
-              utilities, integrations, and core functionality to ensure
-              stability.
+            text: Over 32 test cases cover all core functionality, ensuring stability and
+              reliability.
             style:
               color: text.secondary
               variant: body1
@@ -2544,7 +2677,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 使用 'bun test' 运行测试。项目对工具、集成和核心功能有广泛覆盖，以确保稳定性。
+            text: 超过 32 个测试用例覆盖所有核心功能，确保稳定性和可靠性。
             style:
               color: text.secondary
               variant: body1
@@ -2555,12 +2688,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  531ac073e506bcf8:
+  e5508af42cc84b9b:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Contribution Process
+            text: Strict Code Quality
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2573,7 +2706,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 贡献流程
+            text: 严格的代码质量
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2582,80 +2715,13 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  e728103fc1e9294a:
+  4d76a3a29fa97e9a:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: We use Biome for code quality and formatting. Fork the repo, create a
-              feature branch, and submit a pull request.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 我们使用 Biome 进行代码质量和格式化。Fork 仓库，创建一个功能分支，然后提交 pull request。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  f2ea4783782ab00f:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Latest Updates
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 最新更新
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  ad419f8524e2eb91:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: >-
-              v1.2.0-beta: Added support for a built-in component library.
-
-              v1.1.5-beta: Fixed bugs related to page data composition and
-              caching.
-
-              v1.1.0: Optimized the website publishing logic.
-
-              v1.0.6: Allowed website publishing without a projectId and added
-              CLI error handling.
+            text: Uses Biome for code formatting and quality checks, enforced by pre-commit
+              hooks.
             style:
               color: text.secondary
               variant: body1
@@ -2670,11 +2736,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: |-
-              v1.2.0-beta: 增加对内置组件库的支持。
-              v1.1.5-beta: 修复与页面数据组成和缓存相关的错误。
-              v1.1.0: 优化网站发布逻辑。
-              v1.0.6: 允许在没有 projectId 的情况下发布网站并新增 CLI 错误处理。
+            text: 使用 Biome 进行代码格式化和质量检查，通过 pre-commit hooks 强制执行。
             style:
               color: text.secondary
               variant: body1
@@ -2685,12 +2747,12 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  e9d2c8c334db41e5:
+  aff234fc6ce00c7f:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Project License
+            text: Ready to Build Your Next Website?
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2703,7 +2765,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 项目许可
+            text: 准备好构建下一个网站了吗？
             style:
               color: text.primary
         v5utpm7bu9yvdpnq:
@@ -2712,104 +2774,13 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  c2d7049f469840e4:
+  159788d32b8548db:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: AIGNE WebSmith is licensed under the Elastic License 2.0. This license
-              grants you broad permissions to use, copy, and distribute the
-              software, with the key limitation that you may not offer it as a
-              managed or hosted service. For complete details, please review the
-              full license text on our GitHub repository.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: AIGNE WebSmith 采用 Elastic License 2.0
-              授权。本许可授予您使用、复制和分发软件的广泛权限，主要限制是您不得以托管或托管服务的形式提供。欲了解完整细节，请在我们的
-              GitHub 仓库查看完整许可文本。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  22a10b47031b0f66:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Explore the Ecosystem
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 探索生态系统
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  cd50065f3b71816c:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: AIGNE Framework
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: AIGNE Framework
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  9ae6ccdb8560d533:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Learn about the core framework that powers WebSmith. Visit
-              aigne.io/en/framework.
+            text: Explore the AIGNE Framework, check out the source code, or report an
+              issue. Join us in building the future of web development.
             style:
               color: text.secondary
               variant: body1
@@ -2824,7 +2795,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 了解驱动 WebSmith 的核心框架。访问 aigne.io/en/framework。
+            text: 探索 AIGNE Framework、查看源代码或报告问题。加入我们，共同构建 Web 开发的未来。
             style:
               color: text.secondary
               variant: body1
@@ -2835,179 +2806,48 @@ dataSource:
           value: false
         kyg0hdy5uqq4gc1o:
           value: center
-  0976562253f146f9:
+  e564e0bd562234e2:
     en:
       properties:
-        gs1rn5jmxfvpxptx:
+        b8x4m3n9kp7qtw5r:
           value:
-            text: Official Documentation
-            style:
-              color: text.primary
+            - id: ""
+              type: link
+              text: View on GitHub
+              url: https://github.com/AIGNE-io/aigne-web-smith/issues
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
         v5utpm7bu9yvdpnq:
           value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
+        h4g7j2k8l9m5n3p6:
+          value: row
+        r8t5y6u7i1o2p3a4:
+          value: 1
+        jjq9864c7hqkr0uj:
+          value: nowrap
+        v9979xeclpsbvn0n:
           value: center
     zh:
       properties:
-        gs1rn5jmxfvpxptx:
+        b8x4m3n9kp7qtw5r:
           value:
-            text: Official Documentation
-            style:
-              color: text.primary
+            - id: ""
+              type: link
+              text: 在 GitHub 上查看
+              url: https://github.com/AIGNE-io/aigne-web-smith/issues
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
         v5utpm7bu9yvdpnq:
           value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  acc40a15b1ed335c:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Dive into detailed guides and API references at docs.aigne.io.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 深入阅读 docs.aigne.io 上的详细指南和 API 参考。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  3d7b39e0090b37d7:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Pages Kit Platform
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Pages Kit Platform
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  2ceebc0011f2450a:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Discover the publishing platform for your generated sites by searching for
-              Pages Kit on the Blocklet Store.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 通过在 Blocklet Store 上搜索 Pages Kit，发现你生成网站的发布平台。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  b17268d03a6b39f4:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: GitHub Repository
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: GitHub Repository
-            style:
-              color: text.primary
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-  57333084e393fb3f:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Contribute to the project, report issues, or view the source code on
-              GitHub.
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
-          value: center
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 在 GitHub 上为该项目做出贡献、报告问题或查看源代码。
-            style:
-              color: text.secondary
-              variant: body1
-              fontSize: 18
-        v5utpm7bu9yvdpnq:
-          value: center
-        e8f3k7m2n9p4q1s5:
-          value: false
-        kyg0hdy5uqq4gc1o:
+        h4g7j2k8l9m5n3p6:
+          value: row
+        r8t5y6u7i1o2p3a4:
+          value: 1
+        jjq9864c7hqkr0uj:
+          value: nowrap
+        v9979xeclpsbvn0n:
           value: center

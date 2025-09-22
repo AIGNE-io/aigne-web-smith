@@ -5,7 +5,7 @@ alias:
 description: Clear the workspace, generated pages, or configuration
 skills:
   - ../utils/load-config.mjs
-  - ./choose-clear-content.mjs
+  - ./choose-contents.mjs
 input_schema:
   type: object
   properties:

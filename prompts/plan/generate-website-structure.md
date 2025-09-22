@@ -36,8 +36,6 @@ When website constraints conflict, resolve by:
 - Include all relevant <datasources> content based on <website_constraints>
   - Follow `Page Purpose` requirements (Landing page, Homepage, etc.) to structure content appropriately
   - Tailor content presentation to `Target Audience` (Customers/End users, etc.)
-  - When `Website Scale` is `Single Page`: organize all content into logical sections within one page, and the website structure should contain only 1 page
-  - When `Website Scale` is `Multiple Pages`: distribute content appropriately across pages
 - Supplement with your knowledge when <datasources> content is limited:
   - Use publicly available information to enhance the website structure
   - Never fabricate content for private products or data
@@ -82,7 +80,7 @@ When website constraints conflict, resolve by:
 {% include "../common/rules/glossary-rule.md" %}
 {% include "../common/rules/user-locale-rule.md" %}
 
-Website structure constraints:
+Website Structure constraints:
 
 - Must comply with all <website_constraints> specifications
 - Must include homepage with path '/home'
@@ -90,6 +88,13 @@ Website structure constraints:
 - Define pages and their hierarchy (parent/child relationships)
   - Ensure intuitive navigation paths and logical browsing flow
   - Structure constraints: first level ≤ 7 items, max depth ≤ 3 levels
+
+Website Scale Constraints:
+{% ifAsync websiteScale == "singlePage" %}
+{% include "./website-scale/single-page.md" %}
+{% else %}
+{% include "./website-scale/multi-page.md" %}
+{% endif %}
 
 Source ID requirements:
 

@@ -36,8 +36,6 @@ When website constraints include conflicting options, resolve by:
 - Include all relevant <datasources> content based on <website_constraints>
   - Follow `Page Purpose` requirements (Landing page, Homepage, etc.) to structure content appropriately
   - Tailor content presentation to `Target Audience` (Customers/End users, etc.)
-  - When `Website Scale` is single page: organize all content into logical sections within one page
-  - When `Website Scale` is multiple pages: distribute content appropriately across pages
 - Supplement with your knowledge when <datasources> content is limited:
   - Use publicly available information to enhance website structure
   - Never fabricate content for private products or data
@@ -109,6 +107,13 @@ Validation output constraints:
   2. **Unrelated node stability**: Nodes not mentioned in feedback must keep `path` and `sourceIds` unchanged
   3. **Data validity**: All nodes must have associated data sources, sourceIds must contain values
   4. **Homepage requirement**: Must confirm homepage exists with path '/home'
+
+Website Scale Constraints:
+{% ifAsync websiteScale == "singlePage" %}
+{% include "./website-scale/single-page.md" %}
+{% else %}
+{% include "./website-scale/multi-page.md" %}
+{% endif %}
 
 Output format examples:
 

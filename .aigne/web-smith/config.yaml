@@ -36,6 +36,7 @@ pagePurpose:
 #   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
 targetAudienceTypes:
   - customers
+  - developers
 
 # Website Scale: How many pages should your website have?
 # Available options (uncomment and modify as needed):
@@ -44,7 +45,7 @@ targetAudienceTypes:
 #   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
 #   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
 #   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
-websiteScale: standard
+websiteScale: singlePage
 
 # Custom Rules: Define specific page generation rules and requirements
 rules: ""
@@ -62,4 +63,5 @@ locale: en
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: 4b7841672514f6c246d929241f4467766923e8e1
+lastGitHead: 3d09508f3e71d9ec2ace0ef4d46b3dc0fe01190e
+appUrl: https://staging.websmith.aigne.io

@@ -44,9 +44,11 @@ Current page information:
 {{ assetsContent }}
 </available_media_assets>
 
+{% ifAsync websiteScale != "singlePage" %}
 <available_links>
 {{ linksContent }}
 </available_links>
+{% endif %}
 
 <structure_plan>
 
@@ -99,9 +101,12 @@ Content and Organization:
 
 - Content must be complete and self-contained, with no missing or truncated blocks or lists.
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
-- If sub-pages exist, current page should only show overview and guide navigation, avoiding duplication with other page content.
+{% ifAsync websiteScale == "singlePage" %}
+{% include "./website-scale/single-page.md" %}
+{% else %}
+{% include "./website-scale/multi-page.md" %}
+{% endif %}
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
-- Do not include any internal page links or anchors within the content.
 
 Style and Expression:
 
@@ -116,9 +121,9 @@ Resources and References:
   - Each media resource in the output must use its **`mediaKitPath`** value exactly as provided.
   - Do **not** invent, paraphrase, or fabricate any media paths.
 - Link Resources
-  - All navigation links must come **only** from `<available_links>`.
-  - Each link in the output must use its **`linkPath`** value exactly as provided.
-  - Do **not** invent, paraphrase, or fabricate any link paths.
+  - For single-page experiences, do not create cross-page navigation.
+  - When `<available_links>` is provided, use its entries only and copy each **`linkPath`** exactly.
+  - Never invent, paraphrase, or fabricate link paths.
 
 ** Sections Constraints（VERY IMPORTANT）:**
 

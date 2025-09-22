@@ -44,7 +44,7 @@ targetAudienceTypes:
 #   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
 #   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
 #   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
-websiteScale: singlePage
+websiteScale: standard
 
 # Custom Rules: Define specific page generation rules and requirements
 rules: ""
@@ -59,7 +59,7 @@ locale: en
 # translateLanguages:  # List of languages to translate the pages to
 #   - zh  # Example: Chinese translation
 #   - en  # Example: English translation
-pagesDir: .aigne/web-smith/pages  # Directory to save generated pages
-sourcesPath:  # Source code paths to analyze
+pagesDir: .aigne/web-smith/pages # Directory to save generated pages
+sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: f47c4f02b89239069956c0de16d03d3195618609
+lastGitHead: 4b7841672514f6c246d929241f4467766923e8e1

@@ -177,7 +177,7 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   const hasError = results.some((item) => item.status === "error");
-  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup complete.";
+  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successfully!";
 
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");
 

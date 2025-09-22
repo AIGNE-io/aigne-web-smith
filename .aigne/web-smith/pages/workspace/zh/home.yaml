@@ -1,64 +1,87 @@
 meta:
-  title: "AIGNE WebSmith：面向专业人士的 AI 驱动网站生成"
-  description: "发现 AIGNE WebSmith，这是一个由人工智能驱动的工具，能够自动化专业、SEO 优化的网站创建。仅用一个命令即可生成结构、内容和模板并立即发布。"
+  title: AIGNE WebSmith | AI 驱动的网站生成工具
+  description: 了解 AIGNE WebSmith，这是一个 AI 驱动工具，能够实现专业且经过 SEO 优化的网站创建。生成内容、模板，并仅用一个命令直接发布到 Pages Kit。
 sections:
-  - name: "hero"
-    summary: "简要概述：用清晰的价值主张和首要行动召唤来介绍 AIGNE WebSmith。目标是立即传达产品的用途和对象。"
-    title: "用 AI 立即构建专业网站"
-    description: "AIGNE WebSmith 是一个强大且由 AI 驱动的工具，能够自动化整个网站创建过程——从结构、内容到模板与发布。基于 AIGNE 框架打造，追求最大化的效率与质量。"
+  - name: hero
+    summary: 通过有力的价值主张和明确的行动号召来介绍 AIGNE WebSmith，帮助用户快速开始。本节作为主要入口，能够立即吸引用户兴趣。
+    title: 借助 AI 即刻构建并上线网站
+    description: AIGNE WebSmith 是一款强大且 AI 驱动的工具，能够自动创建专业且经过 SEO 优化的网站。生成完整内容和模板，然后只需一个命令即可直接发布到 Pages Kit。
     action:
-      text: "现在开始"
-      link: "https://github.com/AIGNE-io/aigne-web-smith"
-  - name: "keyFeatures"
-    summary: "突出 AIGNE WebSmith 的核心优势与特性，展示其强大与多功能性。本节将主要能力拆分为四个关键支柱，便于理解。"
-    title: "从创意到上线网站，一应俱全"
+      text: 在 GitHub 上查看
+      link: https://github.com/AIGNE-io/aigne-web-smith
+  - name: keyFeatures
+    summary: 突出展示 AIGNE WebSmith 的核心功能，展示其能力和优势。本节旨在快速向商业与技术用户传达产品价值。
+    title: 自动化网页创建所需的一切
     list:
-      - title: "AI 驱动生成"
-        description: "自动分析需求，生成最优的网站架构；批量创建详细内容，并应用 SEO 最佳实践。"
-      - title: "专业模板系统"
-        description: "直接与 Pages Kit 集成，采用基于组件的设计，内置库用于响应式、可视化可编辑的布局。"
-      - title: "内置质量保障"
-        description: "具备自动结构评估系统、内容质量检查和全面的测试覆盖，确保最终产品的品质。"
-      - title: "一键发布"
-        description: "仅用一个命令即可将整个网站直接发布到 Pages Kit 平台，包含状态监控和即时访问链接。"
-  - name: "architecture"
-    summary: "解释底层的基于代理的体系结构，以增强技术受众的可信度。本节阐明不同 AI 代理如何协作，共同创建完整网站。"
-    title: "工作原理：基于代理的工作流程"
-    description: "WebSmith 依托于在 AIGNE 框架上构建的专业 AI 代理团队。每个代理处理流程中的特定部分——从结构规划、到内容生成、模板创建和质量评估——确保从开始到结束的无缝且智能的工作流。"
-  - name: "quickStart"
-    summary: "提供一个简单、可执行的新手指南，降低进入门槛并鼓励立即采用，显示安装与网站生成的核心命令。"
-    title: "几分钟内即可开始"
-    description: "安装 AIGNE CLI，并仅用几个命令就能生成你的首个 AI 驱动网站。"
+      - title: AI-Powered Generation
+        description: 自动计划网站架构、批量生成内容，并应用 SEO 最佳实践以实现最佳性能。
+      - title: Professional Template System
+        description: 采用基于组件的设计，内置库、响应式布局，以及直接与 Pages Kit 集成以进行可视化编辑。
+      - title: Built-in Quality Assurance
+        description: 通过自动化结构评估系统和全面的测试覆盖，确保内容准确并提供出色的用户体验。
+      - title: One-Click Publishing
+        description: 将你的网站直接部署到 Pages Kit 平台，支持批量上传、状态监控，以及即时访问链接。
+  - name: architecture
+    summary: 解释 WebSmith 的技术架构，以提升透明度并增强开发者用户的信心。基于文本的图解清晰地展示了基于代理的工作流。
+    title: 基于代理的架构
+    description: WebSmith 构建在 AIGNE 框架之上，采用顺序的基于代理的架构，以简化从规划到部署的网站创建流程。
     code:
-      filename: "Terminal"
-      content: "# 1. 安装 AIGNE CLI\nnpm install -g @aigne/cli\n\n# 2. 交互式生成网站\naigne web chat\n\n# 或直接使用提示生成\naigne web generate --input rules=\"为科技型初创企业创建一个网站\""
-  - name: "advancedCommands"
-    summary: "通过列举其高级功能，展示 AIGNE WebSmith 的深度与强大。本节面向希望超越基本生成功能的用户，突出发布、翻译和更新等特性。"
-    title: "全方位控制的强大命令"
+      filename: Architecture Flow
+      content: "┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\n│  Structure      │    │  Content        │    │  Template       │\n│  Planning       │───▶│  Generation     │───▶│  Generation     │\n│  Agent          │    │  Agent          │    │  Agent          │\n└─────────────────┘    └─────────────────┘    └─────────────────┘\n         │                       │                       │\n         ▼                       ▼                       ▼\n┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\n│  Evaluation     │    │  Batch          │    │  Upload         │\n│  Agent          │    │  Processing     │    │  Agent          │\n│                 │    │  Agent          │    │                 │\n└─────────────────┘    └─────────────────┘    └─────────────────┘"
+  - name: quickStart
+    summary: 提供一个清晰的分步安装与基本用法指南，帮助用户快速上手并亲身体验产品价值。
+    title: 几分钟内开始使用
+    description: 安装 AIGNE CLI，并运行一个命令即可生成你的第一個 AI 驱动的网站。就这么简单。
+    code:
+      filename: Installation & Usage
+      content: "# Install AIGNE CLI\nnpm install -g @aigne/cli\n\n# Generate your website\naigne web generate"
+  - name: exampleUsage
+    summary: 展示一个实际的输入配置文件示例，说明用户如何为生成过程定义他们的网站需求。
+    title: 用一个简单的 YAML 文件定义你的网站
+    description: 创建一个类似 `my-website.yaml` 的输入文件，为 AI 提供规则、目标受众和风格偏好。然后，运行 generate 命令，将你的愿景变为现实。
+    code:
+      filename: my-website.yaml
+      content: "rules: |\n  Create a modern SaaS product website that includes:\n  1. Product introduction and core features\n  2. Pricing plan comparison\n  3. Customer success stories\n  4. Technical documentation portal\n  5. Contact and support pages\n\n  Requirements:\n  - Professional business style\n  - Highlight product advantages and differentiation\n  - Include clear CTA to guide users to trial\n\ntargetAudience: 中小企业所有者与技术决策者\nlocale: en\nwebsiteStyle: business\nprojectId: your-pages-kit-project-id"
+  - name: apiReference
+    summary: 详细说明主要 CLI 命令及其参数，作为开发者和高级用户的快速参考，使其能够充分利用该工具的全部功能。
+    title: 强大的命令行界面
+    description: 使用这些核心命令，管理从生成到更新的整个网站生命周期。
     list:
-      - title: "aigne web publish"
-        description: "直接将生成的站点发布到 Pages Kit。使用 `--dryRun` 在上线前预览变更。"
-      - title: "aigne web translate"
-        description: "将现有网站翻译成多种语言，包括英语和中文，以触及全球受众。"
-      - title: "aigne web update"
-        description: "通过提供新需求来迭代网站，更新现有内容和结构。"
-      - title: "aigne web prefs"
-        description: "管理用户偏好并将工具配置为适应您的特定工作流程与需求。"
-  - name: "qualityAndPerformance"
-    summary: "通过强调对质量、性能与可靠性的承诺来建立信任。本节详细介绍测试、代码质量实践和性能基准。"
-    title: "为质量与性能而设计"
-    description: "WebSmith 面向生产使用而构建，专注于可靠性与速度。"
+      - title: generate
+        description: 从你的需求文件生成一个完整的网站。别名为 gen, g。
+      - title: publish
+        description: 将生成的网站直接发布到你的 Pages Kit 项目。
+      - title: translate
+        description: 将现有网站内容翻译成不同语言。
+      - title: update
+        description: 使用新或修改后的需求更新现有网站。
+  - name: developerCorner
+    summary: 为希望为项目做出贡献的开发者提供必需信息，包括项目结构、测试与开发环境设置，营造开放与协作的环境。
+    title: 供开发者与贡献者使用
     list:
-      - title: "全面测试"
-        description: "覆盖 32 项测试用例，覆盖从工具函数、Pages Kit 集成到文件系统处理与组件验证等各方面。"
-      - title: "高代码质量"
-        description: "我们通过 Biome 进行 lint/格式化，以及前置提交钩子，严格执行代码质量，确保每次贡献都符合我们的标准。"
-      - title: "针对速度的优化"
-        description: "利用并行代理处理和高效的模板集成，典型的五页网站可在仅 2-3 分钟内完成生成。"
-  - name: "finalCta"
-    summary: "提供最终、明确的行动号召，鼓励用户探索项目、阅读文档或参与贡献。本节作为用户参与的收尾引导。"
-    title: "准备好将 Web 开发自动化吗？"
-    description: "探索源代码，深入文档，或现在就开始使用 AIGNE WebSmith 构建你的下一个项目。欢迎贡献！"
-    action:
-      text: "在 GitHub 上查看"
-      link: "https://github.com/AIGNE-io/aigne-web-smith"
+      - title: 项目结构
+        description: 代码库被组织为核心 AI 代理、提示、实用工具，以及 MCP 服务器实现，确保关注点明确分离。
+      - title: 全面测试
+        description: 使用 'bun test' 运行测试。项目对工具、集成和核心功能有广泛覆盖，以确保稳定性。
+      - title: 贡献流程
+        description: 我们使用 Biome 进行代码质量和格式化。Fork 仓库，创建一个功能分支，然后提交 pull request。
+  - name: changelog
+    summary: 显示最近的更新和特性，以展示活跃的开发并让用户了解最新的改进和错误修复。
+    title: 最新更新
+    description: "v1.2.0-beta: 增加对内置组件库的支持。\nv1.1.5-beta: 修复与页面数据组成和缓存相关的错误。\nv1.1.0: 优化网站发布逻辑。\nv1.0.6: 允许在没有 projectId 的情况下发布网站并新增 CLI 错误处理。"
+  - name: license
+    summary: 清楚地说明该项目的许可条款，以告知用户和开发者在使用软件时的权利与义务。
+    title: 项目许可
+    description: AIGNE WebSmith 采用 Elastic License 2.0 授权。本许可授予您使用、复制和分发软件的广泛权限，主要限制是您不得以托管或托管服务的形式提供。欲了解完整细节，请在我们的 GitHub 仓库查看完整许可文本。
+  - name: usefulLinks
+    summary: 提供一组关键的外部链接，帮助用户获取更多信息、寻求支持，或在 AIGNE 生态系统中探索相关资源。
+    title: 探索生态系统
+    list:
+      - title: AIGNE Framework
+        description: 了解驱动 WebSmith 的核心框架。访问 aigne.io/en/framework。
+      - title: Official Documentation
+        description: 深入阅读 docs.aigne.io 上的详细指南和 API 参考。
+      - title: Pages Kit Platform
+        description: 通过在 Blocklet Store 上搜索 Pages Kit，发现你生成网站的发布平台。
+      - title: GitHub Repository
+        description: 在 GitHub 上为该项目做出贡献、报告问题或查看源代码。

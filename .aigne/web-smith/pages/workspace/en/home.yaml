@@ -1,64 +1,87 @@
 meta:
-  title: "AIGNE WebSmith: AI-Powered Website Generation for Professionals"
-  description: "Discover AIGNE WebSmith, the AI-driven tool that automates professional, SEO-optimized website creation. Generate structure, content, and templates with one command and publish instantly."
+  title: AIGNE WebSmith | AI-Powered Website Generation Tool
+  description: Discover AIGNE WebSmith, the AI-driven tool that automates professional, SEO-optimized website creation. Generate content, templates, and publish directly with one command.
 sections:
-  - name: "hero"
-    summary: "Introduce AIGNE WebSmith with a clear value proposition and a primary call to action. The goal is to immediately convey what the product does and for whom."
-    title: "Build Professional Websites Instantly with AI"
-    description: "AIGNE WebSmith is a powerful, AI-driven tool that automates the entire website creation process—from structure and content to templates and publishing. Built on the AIGNE Framework for maximum efficiency and quality."
+  - name: hero
+    summary: Introduce AIGNE WebSmith with a compelling value proposition and a clear call-to-action to get started. This section serves as the primary entry point, capturing user interest immediately.
+    title: Build and Launch Websites Instantly with AI
+    description: AIGNE WebSmith is a powerful, AI-driven tool that automates the creation of professional, SEO-optimized websites. Generate complete content and templates, then publish directly to Pages Kit with a single command.
     action:
-      text: "Get Started Now"
-      link: "https://github.com/AIGNE-io/aigne-web-smith"
-  - name: "keyFeatures"
-    summary: "Highlight the core benefits and features of AIGNE WebSmith to showcase its power and versatility. This section breaks down the main capabilities into four key pillars for easy understanding."
-    title: "Everything You Need to Go from Idea to Live Site"
+      text: View on GitHub
+      link: https://github.com/AIGNE-io/aigne-web-smith
+  - name: keyFeatures
+    summary: Highlight the core features of AIGNE WebSmith to showcase its capabilities and benefits. This section is designed to quickly communicate the product's value to both business and technical users.
+    title: Everything You Need to Automate Web Creation
     list:
-      - title: "AI-Powered Generation"
-        description: "Automatically analyze requirements to generate optimal site architecture, batch-create detailed content, and apply SEO best practices."
-      - title: "Professional Template System"
-        description: "Integrates directly with Pages Kit, using a component-based design with a built-in library for responsive, visually editable layouts."
-      - title: "Built-in Quality Assurance"
-        description: "Features an automatic structure evaluation system, content quality checks, and comprehensive test coverage to ensure a polished final product."
-      - title: "One-Click Publishing"
-        description: "Publish your entire website directly to the Pages Kit platform with a single command, complete with status monitoring and instant access links."
-  - name: "architecture"
-    summary: "Explain the underlying agent-based architecture to build credibility with a technical audience. This section clarifies how different AI agents collaborate to create a complete website."
-    title: "How It Works: An Agent-Based Workflow"
-    description: "WebSmith uses a sophisticated team of specialized AI agents built on the AIGNE framework. Each agent handles a specific part of the process—from planning the structure to generating content, creating templates, and evaluating quality—ensuring a seamless and intelligent workflow from start to finish."
-  - name: "quickStart"
-    summary: "Provide a simple, actionable guide to getting started. This section is designed to lower the barrier to entry and encourage immediate adoption by showing the core commands for installation and website generation."
-    title: "Get Started in Minutes"
-    description: "Install the AIGNE CLI and generate your first AI-powered website with just a few commands."
+      - title: AI-Powered Generation
+        description: Automatically plan website architecture, generate batch content, and apply SEO best practices for optimal performance.
+      - title: Professional Template System
+        description: Leverage a component-based design with a built-in library, responsive layouts, and direct integration with Pages Kit for visual editing.
+      - title: Built-in Quality Assurance
+        description: Ensure content accuracy and a great user experience with an automated structure evaluation system and comprehensive test coverage.
+      - title: One-Click Publishing
+        description: Deploy your website directly to the Pages Kit platform with batch uploading, status monitoring, and instant access links.
+  - name: architecture
+    summary: Explain the technical architecture of WebSmith to provide transparency and build confidence with developer users. The text-based diagram clearly illustrates the agent-based workflow.
+    title: Agent-Based Architecture
+    description: WebSmith is built on the AIGNE framework and uses a sequential, agent-based architecture to streamline the website creation process from planning to deployment.
     code:
-      filename: "Terminal"
-      content: "# 1. Install AIGNE CLI\nnpm install -g @aigne/cli\n\n# 2. Generate a website interactively\naigne web chat\n\n# Or generate directly with a prompt\naigne web generate --input rules=\"Create a website for a tech startup\""
-  - name: "advancedCommands"
-    summary: "Showcase the depth and power of AIGNE WebSmith by listing its advanced capabilities. This section targets users who want to go beyond basic generation, highlighting features like publishing, translation, and updates."
-    title: "Powerful Commands for Full Control"
+      filename: Architecture Flow
+      content: "┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\n│  Structure      │    │  Content        │    │  Template       │\n│  Planning       │───▶│  Generation     │───▶│  Generation     │\n│  Agent          │    │  Agent          │    │  Agent          │\n└─────────────────┘    └─────────────────┘    └─────────────────┘\n         │                       │                       │\n         ▼                       ▼                       ▼\n┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\n│  Evaluation     │    │  Batch          │    │  Upload         │\n│  Agent          │    │  Processing     │    │  Agent          │\n│                 │    │  Agent          │    │                 │\n└─────────────────┘    └─────────────────┘    └─────────────────┘"
+  - name: quickStart
+    summary: Provide a clear, step-by-step guide for installation and basic usage to help users get started quickly and experience the product's value firsthand.
+    title: Get Started in Minutes
+    description: Install the AIGNE CLI and run a single command to generate your first AI-powered website. It's that simple.
+    code:
+      filename: Installation & Usage
+      content: "# Install AIGNE CLI\nnpm install -g @aigne/cli\n\n# Generate your website\naigne web generate"
+  - name: exampleUsage
+    summary: Showcase a practical example of an input configuration file to demonstrate how users can define their website requirements for the generation process.
+    title: Define Your Website with a Simple YAML File
+    description: Create an input file like `my-website.yaml` to provide the AI with rules, target audience, and style preferences. Then, run the generate command to bring your vision to life.
+    code:
+      filename: my-website.yaml
+      content: "rules: |\n  Create a modern SaaS product website that includes:\n  1. Product introduction and core features\n  2. Pricing plan comparison\n  3. Customer success stories\n  4. Technical documentation portal\n  5. Contact and support pages\n\n  Requirements:\n  - Professional business style\n  - Highlight product advantages and differentiation\n  - Include clear CTA to guide users to trial\n\ntargetAudience: SMB owners and technical decision makers\nlocale: en\nwebsiteStyle: business\nprojectId: your-pages-kit-project-id"
+  - name: apiReference
+    summary: Detail the main CLI commands and their parameters to serve as a quick reference for developers and advanced users, enabling them to leverage the full power of the tool.
+    title: Powerful Command-Line Interface
+    description: Manage your entire website lifecycle from generation to updates using these core commands.
     list:
-      - title: "aigne web publish"
-        description: "Publish your generated website directly to Pages Kit. Use `--dryRun` to preview changes before going live."
-      - title: "aigne web translate"
-        description: "Translate an existing website into multiple languages, including English and Chinese, to reach a global audience."
-      - title: "aigne web update"
-        description: "Iterate on your website by providing new requirements to update existing content and structure."
-      - title: "aigne web prefs"
-        description: "Manage user preferences and configure the tool to fit your specific workflow and needs."
-  - name: "qualityAndPerformance"
-    summary: "Build trust and confidence by highlighting the project's commitment to quality, performance, and reliability. This section details testing, code quality practices, and performance benchmarks."
-    title: "Engineered for Quality and Performance"
-    description: "WebSmith is built for production use with a focus on reliability and speed."
+      - title: generate
+        description: Generates a complete website from your requirements file. Aliases are gen, g.
+      - title: publish
+        description: Publishes the generated website directly to your Pages Kit project.
+      - title: translate
+        description: Translates existing website content into different languages.
+      - title: update
+        description: Updates an existing website with new or modified requirements.
+  - name: developerCorner
+    summary: Provide essential information for developers who wish to contribute to the project, including project structure, testing, and development setup, fostering an open and collaborative environment.
+    title: For Developers & Contributors
     list:
-      - title: "Comprehensive Testing"
-        description: "With over 32 test cases, we cover everything from utility functions and Pages Kit integration to file system handling and component validation."
-      - title: "High Code Quality"
-        description: "We enforce strict code quality using Biome for linting/formatting and pre-commit hooks to ensure every contribution meets our standards."
-      - title: "Optimized for Speed"
-        description: "Leveraging parallel agent processing and efficient template integration, a typical 5-page website can be generated in just 2-3 minutes."
-  - name: "finalCta"
-    summary: "Provide a final, clear call to action to encourage users to explore the project, read the documentation, or contribute. This section serves as the concluding prompt for user engagement."
-    title: "Ready to Automate Your Web Development?"
-    description: "Explore the source code, dive into the documentation, or start building your next project with AIGNE WebSmith today. Contributions are welcome!"
-    action:
-      text: "View on GitHub"
-      link: "https://github.com/AIGNE-io/aigne-web-smith"
+      - title: Project Structure
+        description: The codebase is organized into core AI agents, prompts, utilities, and MCP server implementations for clear separation of concerns.
+      - title: Comprehensive Testing
+        description: Run tests using 'bun test'. The project has extensive coverage for utilities, integrations, and core functionality to ensure stability.
+      - title: Contribution Process
+        description: We use Biome for code quality and formatting. Fork the repo, create a feature branch, and submit a pull request.
+  - name: changelog
+    summary: Display the most recent updates and features from the project's changelog to show active development and inform users of the latest improvements and bug fixes.
+    title: Latest Updates
+    description: "v1.2.0-beta: Added support for a built-in component library.\nv1.1.5-beta: Fixed bugs related to page data composition and caching.\nv1.1.0: Optimized the website publishing logic.\nv1.0.6: Allowed website publishing without a projectId and added CLI error handling."
+  - name: license
+    summary: Clearly state the project's licensing terms to inform users and developers of their rights and obligations when using the software.
+    title: Project License
+    description: AIGNE WebSmith is licensed under the Elastic License 2.0. This license grants you broad permissions to use, copy, and distribute the software, with the key limitation that you may not offer it as a managed or hosted service. For complete details, please review the full license text on our GitHub repository.
+  - name: usefulLinks
+    summary: Provide a set of essential external links for users to find more information, get support, or explore related resources within the AIGNE ecosystem.
+    title: Explore the Ecosystem
+    list:
+      - title: AIGNE Framework
+        description: Learn about the core framework that powers WebSmith. Visit aigne.io/en/framework.
+      - title: Official Documentation
+        description: Dive into detailed guides and API references at docs.aigne.io.
+      - title: Pages Kit Platform
+        description: Discover the publishing platform for your generated sites by searching for Pages Kit on the Blocklet Store.
+      - title: GitHub Repository
+        description: Contribute to the project, report issues, or view the source code on GitHub.

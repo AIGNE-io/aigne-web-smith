@@ -1,0 +1,28 @@
+type: team
+name: theme
+alias:
+  - t
+description: Generate and manage website theme configurations
+skills:
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
+  - ./load-theme.mjs
+  - ./generate-theme.yaml
+  - ./validate-theme.mjs
+  - ./save-theme.mjs
+
+input_schema:
+  type: object
+  properties:
+    config:
+      type: string
+      description: Path to configuration file
+    forceRegenerate:
+      type: boolean
+      description: Force regenerate theme even if cached version exists
+    themeName:
+      type: string
+      description: Custom name for the generated theme
+  required:
+    - config
+mode: sequential

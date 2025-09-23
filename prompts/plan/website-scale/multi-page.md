@@ -1,0 +1,8 @@
+- Website Scale guidance (multi page):
+  - Provide a homepage at `/home`, then add pages that map to distinct user goals.
+  - Avoid redundant or overlapping entries across the top level.
+  - Use the selected scale's guardrails when estimating breadth—follow the ranges defined in `Website Scale` (e.g. minimal, standard, comprehensive).
+  - Comply with the details specified in <website_constraints> regarding `website scale`; strictly adhere to all inclusions, exclusions, and scopes listed therein.
+  - Distribute datasource topics so each page owns a focused theme, and assign `parentId` only when nested navigation genuinely improves clarity.
+  - List traceable sourceIds on every page and capture why the content belongs there in the page `description`.
+  - Whenever datasources describe deep content (blog archives, docs, case studies), allocate hub pages and note deferred depth if page limits would be exceeded.

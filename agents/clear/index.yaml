@@ -1,0 +1,32 @@
+type: team
+name: clear
+alias:
+  - clear
+description: Clear the workspace, generated pages, or configuration
+skills:
+  - ../utils/load-config.mjs
+  - ./choose-contents.mjs
+input_schema:
+  type: object
+  properties:
+    targets:
+      type: array
+      description: Items to clear without prompting
+      items:
+        type: string
+        enum:
+          - workspace
+          - generatedPages
+          - websiteConfig
+    pagesDir:
+      type: string
+      description: Override the pages directory root
+    tmpDir:
+      type: string
+      description: Override the workspace directory
+    outputDir:
+      type: string
+      description: Override the generated pages directory
+    configPath:
+      type: string
+      description: Override the configuration file path

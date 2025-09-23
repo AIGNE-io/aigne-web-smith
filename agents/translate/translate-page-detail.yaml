@@ -7,7 +7,7 @@ input_schema:
   properties:
     language:
       type: string
-      description: Language to translate the page detail into (e.g., 'zh_CN' for Chinese)
+      description: Language to translate the page detail into (e.g., 'zh' for Simplified Chinese, 'zh-TW' for Traditional Chinese, 'en' for English)
     content:
       type: string
       description: Content to translate
@@ -26,6 +26,3 @@ output_schema:
     translation:
       type: string
       description: Translation of the page detail
-    language:
-      type: string
-      description: Language of the translation

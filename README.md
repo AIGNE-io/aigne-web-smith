@@ -79,43 +79,26 @@ npm install @aigne/cli
 #### 1. Generate a Website
 
 ```bash
-# Interactive chat mode for website generation
-aigne web chat
-
-# Or directly generate with parameters
-aigne web generate \
-  --input rules="Create an AI technology enterprise website with product introduction, technical advantages, customer cases and other pages" \
-  --input targetAudience="Enterprise decision makers" \
-  --input locale="en"
+# Generate pages
+aigne web generate
 ```
 
 #### 2. Publish to Pages Kit
 
 ```bash
-# Publish generated website
-aigne web publish \
-  --input projectId="your-pages-kit-project-id"
-
-# Dry run (preview without publishing)
-aigne web publish \
-  --input projectId="your-pages-kit-project-id" \
-  --input dryRun=true
+# Publish generated pages
+aigne web publish
 ```
 
 #### 3. Additional Commands
 
 ```bash
-# Translate existing website to different language
+# Translate existing pages to different language
 aigne web translate
 
 # Update existing website content
 aigne web update
 
-# Manage user preferences
-aigne web prefs
-
-# Start MCP server for integration
-aigne web serve-mcp
 ```
 
 ### Example Input

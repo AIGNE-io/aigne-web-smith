@@ -507,7 +507,6 @@ export default async function composePagesData(input) {
     componentLibrary,
     locale,
     translateLanguages = [],
-    path,
     pagesDir,
     outputDir,
     moreContentsComponentList,
@@ -527,7 +526,7 @@ export default async function composePagesData(input) {
     moreContentsComponentMap[comp.content.id] = comp;
   });
 
-  log(`🔧 Starting to compose Pages Kit YAML: ${path}`);
+  log(`🔧 Starting to compose Pages Kit YAML: ${pagesDir}`);
   log(`🧩 Component library count: ${componentLibrary?.length || 0}`);
   log(`🌐 Locale: ${locale}`);
   log(`📁 Output directory: ${pagesDir}`);
@@ -540,7 +539,7 @@ export default async function composePagesData(input) {
   const fileDataMap = new Map();
 
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
-    log(`📄 Middle format files count: ${middleFormatFiles.length}`);
+    log(`📄 Page detail count: ${middleFormatFiles.length}`);
 
     // Build processing list containing all language files
     const filesToProcess = [];

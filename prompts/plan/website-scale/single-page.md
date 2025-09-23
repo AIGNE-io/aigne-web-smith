@@ -1,0 +1,5 @@
+- Website Scale guidance (single page):
+  - Emit exactly one page entry (homepage at `/home`) and forbid sibling pages.
+  - Group all datasource topics inside that page's `description`, using Markdown headings or ordered lists to mark sections.
+  - Surface navigation anchors (hero, features, pricing, testimonials, FAQ, etc.) inside the description instead of spinning up new pages.
+  - Summarize any specialized flows as subsections or callouts within `/home`; never add extra pages for them.

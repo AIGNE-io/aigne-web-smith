@@ -12,7 +12,7 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalWebsiteStructure, feedback, lastGitHead, pagesDir, forceRegenerate, ...rest },
+  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, ...rest },
   options,
 ) {
   // Check if originalWebsiteStructure is empty and prompt user
@@ -52,7 +52,7 @@ export default async function analyzeWebsiteStructure(
 
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
-  let finalFeedback = feedback;
+  let finalFeedback = "";
 
   // If no feedback and originalWebsiteStructure exists, check for git changes
   if (originalWebsiteStructure) {

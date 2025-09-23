@@ -104,7 +104,6 @@ export async function savePageWithTranslations({
   tmpDir,
   locale,
   translates = [],
-  labels,
   isTranslate = false,
 }) {
   const results = [];
@@ -121,13 +120,7 @@ export async function savePageWithTranslations({
 
       await fs.mkdir(path.dirname(mainFilePath), { recursive: true });
 
-      // Add labels front matter if labels are provided
-      let finalContent = processContent({ content });
-
-      if (labels && labels.length > 0) {
-        const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
-        finalContent = frontMatter + finalContent;
-      }
+      const finalContent = processContent({ content });
 
       await fs.writeFile(mainFilePath, finalContent, "utf8");
       results.push({ path: mainFilePath, success: true });
@@ -143,15 +136,9 @@ export async function savePageWithTranslations({
 
       await fs.mkdir(path.dirname(translatePath), { recursive: true });
 
-      // Add labels front matter to translation content if labels are provided
-      let finalTranslationContent = processContent({
+      const finalTranslationContent = processContent({
         content: translate.translation,
       });
-
-      if (labels && labels.length > 0) {
-        const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
-        finalTranslationContent = frontMatter + finalTranslationContent;
-      }
 
       await fs.writeFile(translatePath, finalTranslationContent, "utf8");
       results.push({ path: translatePath, success: true });

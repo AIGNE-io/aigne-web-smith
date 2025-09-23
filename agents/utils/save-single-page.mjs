@@ -6,7 +6,6 @@ export default async function saveSinglePage({
   pagesDir,
   tmpDir,
   translates,
-  labels,
   locale,
   isTranslate = false,
   isShowMessage = false,
@@ -17,7 +16,6 @@ export default async function saveSinglePage({
     pagesDir,
     tmpDir,
     translates,
-    labels,
     locale,
     isTranslate,
   });

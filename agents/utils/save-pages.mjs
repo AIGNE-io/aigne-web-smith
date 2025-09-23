@@ -14,8 +14,8 @@ export default async function savePages({
   websiteStructureResult: websiteStructure,
   pagesDir,
   outputDir,
-  // translateLanguages = [],
-  // locale,
+  translateLanguages = [],
+  locale,
   projectInfoMessage,
 }) {
   // Save current git HEAD to config.yaml for change detection
@@ -36,12 +36,11 @@ export default async function savePages({
   }
 
   // Clean up invalid .yaml files that are no longer in the structure plan
-  // try {
-  //   // @FIXME
-  //   // await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
-  // } catch (err) {
-  //   console.error("Failed to cleanup invalid .yaml files:", err.message);
-  // }
+  try {
+    await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
+  } catch (err) {
+    console.error("Failed to cleanup invalid .yaml files:", err.message);
+  }
 
   const message = `✅ Pages Generated Successfully!
 
@@ -92,7 +91,7 @@ function generateFileName(flatName, language) {
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
+async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
   const results = [];
 
   try {

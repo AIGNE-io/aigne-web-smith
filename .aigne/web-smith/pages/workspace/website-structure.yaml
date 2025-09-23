@@ -1,8 +1,9 @@
-- title: "AIGNE WebSmith: AI-Powered Website Generation"
-  description: A comprehensive landing page introducing AIGNE WebSmith. It
-    outlines the AI-powered website generator's value, featuring sections on its
-    core capabilities (AI Generation, Templates, QA, Publishing), a 'How It
-    Works' overview, a developer 'Quick Start' guide, and clear calls-to-action.
+- title: AIGNE WebSmith | AI-Powered Website Generation
+  description: The official landing page for AIGNE WebSmith. This page provides a
+    comprehensive overview, including a hero section with the core value
+    proposition, detailed features, a look at the technical architecture, a
+    quick start guide, developer resources, and links for community
+    contribution.
   path: /home
   sourceIds:
     - README.md

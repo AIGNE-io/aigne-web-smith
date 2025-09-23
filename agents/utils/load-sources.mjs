@@ -214,6 +214,7 @@ export default async function loadSources({
   const mediaFiles = [];
   const componentFiles = [];
   const moreContentsComponentFiles = [];
+  const builtinComponentLibrary = [];
   let allSources = "";
 
   await Promise.all(
@@ -242,6 +243,23 @@ export default async function loadSources({
         if (relativePath.includes("assets/components")) {
           // ignore _component
           if (path.basename(file).startsWith("_")) {
+            return;
+          }
+
+          // handle builtin-component-library.yaml separately
+          if (path.basename(file) === "builtin-component-library.yaml") {
+            const builtinComponentLibraryContent = parse(content);
+            Object.entries(builtinComponentLibraryContent).forEach(([type, value]) => {
+              value.map((item) => {
+                const isAtomic = type === "atomic";
+                builtinComponentLibrary.push({
+                  ...item,
+                  type,
+                  fieldCombinations: isAtomic ? [item.field] : item.fieldCombinations,
+                  relatedComponents: isAtomic ? [] : item.relatedComponents,
+                });
+              });
+            });
             return;
           }
 
@@ -382,6 +400,7 @@ export default async function loadSources({
     datasources: allSources,
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
+    builtinComponentLibrary,
     content,
     originalWebsiteStructure,
     files,
@@ -448,6 +467,32 @@ loadSources.output_schema = {
           content: { type: "string" },
         },
       },
+    },
+    componentList: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          sourceId: { type: "string" },
+          content: { type: "object" },
+        },
+      },
+      description: "Array of simplified component definitions for AI",
+    },
+    moreContentsComponentList: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          sourceId: { type: "string" },
+          content: { type: "object" },
+        },
+      },
+      description: "Array of full component definitions for JS SDK",
+    },
+    builtinComponentLibrary: {
+      type: ["array", "null"],
+      description: "Parsed base component library configuration",
     },
     files: {
       type: "array",

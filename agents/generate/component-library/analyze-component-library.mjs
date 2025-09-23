@@ -5,8 +5,27 @@ import {
   getComponentLibraryData,
 } from "../../../utils/generate-helper.mjs";
 
+const USING_BUILTIN_COMPONENT_LIBRARY = true;
 export default async function analyzeComponentLibrary(input, options) {
-  const { componentList, componentLibraryData, middleFormatFiles, tmpDir } = input;
+  const {
+    componentList,
+    componentLibraryData,
+    middleFormatFiles,
+    tmpDir,
+    builtinComponentLibrary,
+  } = input;
+
+  // using base builtin component library
+  // @FIXME remove generate component library workflow
+  if (USING_BUILTIN_COMPONENT_LIBRARY && builtinComponentLibrary?.length) {
+    return {
+      componentLibraryData: {
+        hash: "mock-hash",
+        componentLibrary: builtinComponentLibrary,
+      },
+      componentLibrary: builtinComponentLibrary,
+    };
+  }
 
   try {
     const hash = calculateMiddleFormatHash(middleFormatFiles);

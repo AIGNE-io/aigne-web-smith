@@ -15,6 +15,7 @@ AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AI
 
 - **Pages Kit Integration**: Direct generation of Pages Kit-compatible YAML templates
 - **Component-based Design**: Supports modern components like Hero, CTA, FAQ, Content Cards
+- **Builtin Component Library**: Integrated component library with validation and management
 - **Responsive Layout**: Automatic adaptation for mobile and desktop displays
 - **Visual Editing**: Generated templates support visual editing and adjustments
 
@@ -56,6 +57,7 @@ WebSmith is built on the AIGNE framework using an Agent-based architecture:
 - **🧠 Structure Planning**: Intelligently analyze requirements and generate website architecture
 - **📝 Content Generation**: Batch generate high-quality page content
 - **🎨 Template Generation**: Create Pages Kit compatible templates
+- **🧩 Component Library**: Built-in component library management and validation
 - **📊 Quality Evaluation**: Evaluate website quality and user experience
 - **⚡ Batch Processing**: Efficient batch processing system
 - **🚀 Pages Kit Upload**: One-click publishing to Pages Kit
@@ -65,15 +67,11 @@ WebSmith is built on the AIGNE framework using an Agent-based architecture:
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/AIGNE-io/aigne-web-smith.git
-cd aigne-web-smith
+# Install AIGNE CLI
+npm install -g @aigne/cli
 
-# Install dependencies
-pnpm install
-
-# Make CLI executable
-chmod +x aigne.yaml
+# Or install locally
+npm install @aigne/cli
 ```
 
 ### Basic Usage
@@ -81,40 +79,26 @@ chmod +x aigne.yaml
 #### 1. Generate a Website
 
 ```bash
-# Interactive website generation
-./aigne.yaml run websmith-generate
-
-# Or with parameters
-./aigne.yaml run websmith-generate \
-  --input rules="Create an AI technology enterprise website with product introduction, technical advantages, customer cases and other pages" \
-  --input targetAudience="Enterprise decision makers" \
-  --input locale="en"
+# Generate pages
+aigne web generate
 ```
 
 #### 2. Publish to Pages Kit
 
 ```bash
-# Publish generated website
-./aigne.yaml run websmith-publish \
-  --input projectId="your-pages-kit-project-id"
-
-# Dry run (preview without publishing)
-./aigne.yaml run websmith-publish \
-  --input projectId="your-pages-kit-project-id" \
-  --input dryRun=true
+# Publish generated pages
+aigne web publish
 ```
 
-#### 3. Generate Individual Components
+#### 3. Additional Commands
 
 ```bash
-# Structure planning only
-./aigne.yaml run structure-planning
+# Translate existing pages to different language
+aigne web translate
 
-# Content generation for specific page
-./aigne.yaml run content-detail-generator
+# Update existing website content
+aigne web update
 
-# Template generation
-./aigne.yaml run page-template-generator
 ```
 
 ### Example Input
@@ -144,7 +128,7 @@ projectId: your-pages-kit-project-id
 Then run:
 
 ```bash
-./aigne.yaml run content-generator --input @my-website.yaml
+aigne web generate --input @my-website.yaml
 ```
 
 ## 📁 Project Structure
@@ -152,22 +136,28 @@ Then run:
 ```
 aigne-web-smith/
 ├── agents/                 # Core AI agents
-│   ├── structure-planning.yaml
-│   ├── content-detail-generator.yaml
-│   ├── evaluation.yaml
-│   ├── batch-content-detail-generator.yaml
-│   ├── content-generator.yaml        # Main workflow
-│   ├── websmith-generate.yaml        # CLI command
-│   ├── websmith-publish.yaml         # CLI command
-│   └── upload-template.mjs           # Pages Kit integration
-├── prompts/                # AI prompts and templates
-├── utils/                  # Utility functions
-│   ├── utils.mjs          # General utilities
-│   ├── pages-kit-utils.mjs # Pages Kit integration
-│   └── constants.mjs      # Configuration constants
-├── pages-mcp/             # MCP server agents
-├── examples/              # Example inputs and configurations
-└── aigne.yaml            # Main configuration
+│   ├── chat/              # Interactive chat interface
+│   ├── generate/          # Website generation workflows
+│   │   ├── component-library/  # Component library management
+│   │   ├── page-detail/        # Page content generation
+│   │   └── page-data/          # Page data composition
+│   ├── plan/              # Website structure planning
+│   ├── publish/           # Pages Kit publishing
+│   ├── translate/         # Multi-language support
+│   ├── update/            # Content update workflows
+│   └── utils/             # Utility functions and helpers
+├── prompts/               # AI prompts and templates
+│   ├── chat/, generate/, plan/, translate/
+├── utils/                 # Core utility functions
+│   ├── constants.mjs          # Component definitions and constants
+│   ├── generate-helper.mjs    # Website generation utilities
+│   ├── auth-utils.mjs         # Authentication handling
+│   ├── pages-finder-utils.mjs # Page discovery and management
+│   └── upload-files.mjs       # File upload utilities
+├── pages-mcp/             # MCP server implementation
+│   ├── get-pages-structure.mjs
+│   └── get-page-detail.mjs
+└── aigne.yaml            # Main CLI configuration
 ```
 
 ## 🧪 Testing
@@ -178,9 +168,8 @@ WebSmith includes comprehensive test coverage:
 # Run all tests
 bun test
 
-# Run specific test suite
-bun test tests/utils/
-bun test tests/agents/
+# Run with coverage
+bun test --coverage --coverage-reporter=lcov --coverage-reporter=text
 
 # Run with verbose output
 bun test --verbose
@@ -188,10 +177,11 @@ bun test --verbose
 
 Test coverage includes:
 
-- ✅ 12 utility function tests
-- ✅ 13 Pages Kit integration tests
-- ✅ 7 website structure tests
+- ✅ Utility function tests
+- ✅ Pages Kit integration tests
+- ✅ Website structure tests
 - ✅ File system and error handling tests
+- ✅ Component library validation tests
 
 ## 🔧 Development
 
@@ -208,15 +198,15 @@ npm run lint
 npm run lint:fix
 
 # Watch mode for tests
-npm run test:watch
+bun test --watch
 ```
 
 ### Adding New Components
 
-1. **Create Agent**: Add new `.yaml` agent in `agents/`
+1. **Create Agent**: Add new `.yaml` agent in appropriate `agents/` subdirectory
 2. **Add Prompt**: Create corresponding prompt in `prompts/`
 3. **Update Config**: Add agent to `aigne.yaml`
-4. **Write Tests**: Add tests in appropriate `tests/` subdirectory
+4. **Write Tests**: Add tests using Bun test framework
 5. **Update Docs**: Document the new functionality
 
 ### Code Quality
@@ -230,7 +220,11 @@ npm run test:watch
 
 ### Main Commands
 
-#### websmith-generate
+#### chat
+
+Interactive chat interface for website generation.
+
+#### generate (aliases: gen, g)
 
 Generate a complete website from user requirements.
 
@@ -242,7 +236,7 @@ Generate a complete website from user requirements.
 - `websiteStyle`: Website style (default: "business")
 - `projectId`: Pages Kit project ID for publishing
 
-#### websmith-publish
+#### publish
 
 Publish generated website to Pages Kit.
 
@@ -253,18 +247,26 @@ Publish generated website to Pages Kit.
 - `dryRun`: Preview without publishing
 - `overwrite`: Overwrite existing pages
 
+#### translate
+
+Translate existing website content to different languages.
+
+#### update
+
+Update existing website content with new requirements.
+
 ### MCP Server
 
 WebSmith provides MCP server endpoints for integration:
 
-- `get-website-structure`: Retrieve current website structure
+- `get-pages-structure`: Retrieve current website structure
 - `get-page-detail`: Get detailed content for specific page
-- `website-search`: Search within website content
+- `pages-search`: Search within website content
 
 Start MCP server:
 
 ```bash
-./aigne.yaml serve-mcp
+aigne web serve-mcp
 ```
 
 ## 📊 Performance

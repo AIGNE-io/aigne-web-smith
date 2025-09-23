@@ -31,6 +31,9 @@ input_schema:
     additionalInformation:
       type: string
       description: Additional supplementary information
+    fieldConstraints:
+      type: string
+      description: Dynamic field usage constraints based on component library
   required:
     - rules
     - datasources

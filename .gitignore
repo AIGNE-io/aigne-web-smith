@@ -7,6 +7,8 @@ node_modules
 examples
 test-temp
 migrate-todos.md
-.aigne
+# .aigne
+AGENTS.md
 
+ignore
 !pnpm-lock.yaml

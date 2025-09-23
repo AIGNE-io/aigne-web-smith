@@ -1,5 +1,43 @@
 # Changelog
 
+## [1.2.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.0-beta...v1.2.1-beta) (2025-09-22)
+
+
+### Features
+
+* add clear command ([f47c4f0](https://github.com/AIGNE-io/aigne-web-smith/commit/f47c4f02b89239069956c0de16d03d3195618609))
+
+
+### Bug Fixes
+
+* publish website bug ([4b78416](https://github.com/AIGNE-io/aigne-web-smith/commit/4b7841672514f6c246d929241f4467766923e8e1))
+
+
+### Miscellaneous Chores
+
+* release 1.2.1-beta ([2539006](https://github.com/AIGNE-io/aigne-web-smith/commit/2539006477de0218764d43d8393dbfa0941278dd))
+
+## [1.2.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.5-beta...v1.2.0-beta) (2025-09-19)
+
+
+### Features
+
+* **core:** support builtin component library  ([#21](https://github.com/AIGNE-io/aigne-web-smith/issues/21)) ([6a7b69a](https://github.com/AIGNE-io/aigne-web-smith/commit/6a7b69a3b915dd32968be3e8675347db66654941))
+
+## [1.1.5-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.4-beta...v1.1.5-beta) (2025-09-19)
+
+
+### Bug Fixes
+
+* **core:** compose page data error and page cache ([2b70d0d](https://github.com/AIGNE-io/aigne-web-smith/commit/2b70d0d8d7275419f5de0957f778cf02b89f4052))
+
+## [1.1.4-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.3-beta...v1.1.4-beta) (2025-09-19)
+
+
+### Miscellaneous Chores
+
+* release 1.1.4-beta ([b6a77a6](https://github.com/AIGNE-io/aigne-web-smith/commit/b6a77a64b24246877e0e9f062e2ade2452411ba8))
+
 ## [1.1.3-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.1.2-beta...v1.1.3-beta) (2025-09-19)
 
 

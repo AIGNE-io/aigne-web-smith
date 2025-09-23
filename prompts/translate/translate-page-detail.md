@@ -49,6 +49,5 @@ Translation Constraints:
   - Technical terms/proper nouns: keep original (API, URL, GitHub, etc.)
   - Industry terms: use Glossary translations if provided
   - Brand/product names: keep original
-  - When uncertain: preserve original form
 
 </output_constraints>

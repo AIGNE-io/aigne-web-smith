@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.2-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.1-beta...v1.2.2-beta) (2025-09-23)
+
+
+### Features
+
+* **core:** add MBTI personas to agent prompts ([#26](https://github.com/AIGNE-io/aigne-web-smith/issues/26)) ([b801504](https://github.com/AIGNE-io/aigne-web-smith/commit/b80150414681ae39b5a5c97833bdc1ef14d20a86))
+
+
+### Miscellaneous Chores
+
+* release 1.2.2 ([0d5c41c](https://github.com/AIGNE-io/aigne-web-smith/commit/0d5c41ccbfcf6d1a0da159ba21847c4c1f754086))
+* release 1.2.2-beta ([c42afb4](https://github.com/AIGNE-io/aigne-web-smith/commit/c42afb46b2bf2d45157d7dcfd89f055e539a52a6))
+
 ## [1.2.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.0-beta...v1.2.1-beta) (2025-09-22)
 
 

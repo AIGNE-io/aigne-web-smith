@@ -72,7 +72,6 @@ Review and improve your page structure:
   };
 }
 
-
 /**
  * Clean up .yaml files that are no longer in the structure plan
  * @param {Array<{path: string, title: string}>} websiteStructure
@@ -160,7 +159,9 @@ async function cleanupDirectoryFiles(dirPath, expectedFiles, results, dirType) {
     }
 
     if (filesToDelete.length > 0) {
-      console.log(`Cleaned up ${filesToDelete.length} invalid .yaml files from ${dirType} directory: ${dirPath}`);
+      console.log(
+        `Cleaned up ${filesToDelete.length} invalid .yaml files from ${dirType} directory: ${dirPath}`,
+      );
     }
   } catch (err) {
     // If directory doesn't exist, that's okay

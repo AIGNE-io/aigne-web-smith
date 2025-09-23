@@ -55,7 +55,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     }
 
     // Get the generateWebsiteStructure agent
-    const refineAgent = options.context.agents["generateWebsiteStructure"];
+    const refineAgent = options.context.agents["updateWebsiteStructure"];
     if (!refineAgent) {
       console.log(
         "Unable to process your feedback - the structure refinement feature is unavailable.",
@@ -72,11 +72,11 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
     try {
-      // Call generateWebsiteStructure agent with feedback
+      // Call updateWebsiteStructure agent with feedback
       const result = await options.context.invoke(refineAgent, {
         ...rest,
         feedback: feedback.trim(),
-        originalWebsiteStructure: currentStructure,
+        websiteStructure: currentStructure,
         userPreferences,
       });
 

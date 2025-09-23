@@ -42,6 +42,7 @@ agents:
   - ./agents/plan/analyze-website-structure.mjs
   - ./agents/plan/generate-website-structure.yaml
   - ./agents/plan/validate-website-structure.yaml
+  - ./agents/plan/update-website-structure.yaml
 
   # prefs
   - ./agents/prefs/index.mjs

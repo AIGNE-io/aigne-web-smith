@@ -20,16 +20,17 @@ skills:
       ])
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
-  - ../utils/choose-pages.mjs
+  - url: ../utils/choose-pages.mjs
+    default_input:
+      requiredFeedback: false
   - type: team
     name: generatePageDetailTeam(selectedPages)
     skills:
-      - ../generate/page-detail/generate-page-detail-team.yaml
+      - ../utils/transform-detail-datasources.mjs
+      - ../update/user-review-page-detail.mjs
+      - ../utils/save-single-page.mjs
     iterate_on: selectedPages
     concurrency: 10
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: page_refine
   - ../generate/component-library/load-component-library.mjs
   - type: team
     name: analyzeComponentLibrary and batchTranslatePageDetail

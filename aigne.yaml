@@ -61,6 +61,8 @@ agents:
 
   # update
   - ./agents/update/index.yaml
+  - ./agents/update/user-review-page-detail.mjs
+  - ./agents/update/update-page-detail.yaml
 
   # utils
   - ./agents/utils/check-detail-result.mjs

@@ -53,8 +53,11 @@ Translation Constraints:
 - Follow language conventions with correct punctuation and grammar
 - Preserve original structure exactly - translate only content, do not add/modify tags or markdown syntax, maintain line breaks and blank lines
 - Terminology handling:
-  - Technical terms/proper nouns: keep original (API, URL, GitHub, product names like "AIGNE WebSmith"), but translate generic feature names and explanatory text.
-  - Industry terms: use Glossary translations if provided
-  - Brand/product names: keep original
+  - Always prioritize translations from <glossary>; glossary entries override all other rules
+  - Translate all terms whenever possible
+  - Keep brand/product names in original form (e.g., "AIGNE WebSmith")
+  - If glossary entry is not available:
+    - Technical terms should still be translated if they have standard equivalents
+    - Proper nouns (API, URL, GitHub, etc.) remain untranslated
 
 </output_constraints>

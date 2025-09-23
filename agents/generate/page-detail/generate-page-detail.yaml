@@ -1,10 +1,14 @@
 name: generatePageDetail
 description: Page detail generator
 instructions:
-  url: ../../../prompts/generate/page-detail/generate-page-detail.md
+  url: ../../../prompts/generate/page-detail/test-system.md
+input_key: message
 input_schema:
   type: object
   properties:
+    message:
+      type: string
+      description: Message to be sent to the user
     rules:
       type: string
       description: User's website structure requirements

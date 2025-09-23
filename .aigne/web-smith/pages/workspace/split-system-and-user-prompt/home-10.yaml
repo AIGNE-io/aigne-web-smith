@@ -1,0 +1,60 @@
+meta:
+  title: "AIGNE WebSmith | AI-Powered Website Generation"
+  description: "Instantly generate professional, SEO-optimized websites with AIGNE WebSmith. Leverage AI to handle everything from structure planning and content creation to one-click publishing."
+sections:
+  - name: "hero"
+    summary: "A vibrant and compelling introduction to grab the visitor's attention, immediately conveying the core value proposition of AIGNE WebSmith and driving them to explore further."
+    fields:
+      title: "Build Your Entire Website with AI. Instantly."
+      description: "Stop wrestling with code and complex builders. Describe your vision, and let AIGNE WebSmith intelligently craft a complete, professional, and SEO-optimized website for you in minutes. It's website creation, reimagined!"
+      action:
+        text: "See it in Action!"
+        link: "https://www.aigne.io/web-smith"
+  - name: "features"
+    summary: "Showcasing the four core pillars of AIGNE WebSmith. This section breaks down the key benefits into exciting, digestible points that highlight the power and ease of use for the user."
+    fields:
+      title: "Everything You Need to Go from Idea to Live Site, Faster Than Ever"
+      description: "WebSmith is packed with powerful features designed to automate and elevate your website creation process. Here’s what makes it so special:"
+      list:
+        - title: "🤖 AI-Powered Generation"
+          description: "Let our intelligent agents do the heavy lifting! From planning the perfect site architecture to generating all your content in multiple languages, our AI ensures professional, SEO-friendly results every time."
+        - title: "🎨 Professional Template System"
+          description: "Get stunning, responsive designs right out of the box. Our system generates modern, component-based templates compatible with Pages Kit, so your site looks amazing on any device."
+        - title: "📊 Built-in Quality Assurance"
+          description: "Launch with total confidence. WebSmith automatically evaluates your site's structure, checks content quality, and runs on a fully tested core, ensuring a polished and reliable user experience."
+        - title: "🚀 One-Click Publishing"
+          description: "Go live in a flash! Publish your entire website directly to the Pages Kit platform with a single command. Monitor the status and get your live link the moment it's ready."
+  - name: "architecture"
+    summary: "A high-level overview of the sophisticated agent-based architecture that powers WebSmith, presented in an accessible way to build trust and showcase the tool's intelligent design."
+    fields:
+      title: "How the Magic Happens: An Intelligent, Agent-Powered Workflow"
+      description: "AIGNE WebSmith uses a coordinated team of specialized AI agents that work together seamlessly. From the Structure Planning Agent that maps your site to the Upload Agent that publishes it, each step is automated and optimized for quality and speed."
+  - name: "quickStart"
+    summary: "An action-oriented guide that makes the product feel tangible and incredibly easy to use. This section provides the exact commands needed to install and run the tool, empowering users to get started immediately."
+    fields:
+      title: "Ready to Launch? Get Started in Minutes!"
+      description: "Seeing is believing. Install the AIGNE CLI and run your first command to witness the power of AI-driven website generation firsthand. It’s this simple:"
+      list:
+        - title: "1. Install the CLI"
+          description: "Fire up your terminal and run this command to get the AIGNE CLI on your machine."
+          code:
+            content: "npm install -g @aigne/cli"
+            filename: "Terminal"
+        - title: "2. Generate Your Website"
+          description: "Next, just tell the AI what you want to build. Create a simple `my-website.yaml` file with your rules..."
+          code:
+            content: "rules: |\n  Create a modern SaaS product website that includes:\n  1. Product introduction and core features\n  2. Pricing plan comparison\n  3. Customer success stories\n  Requirements:\n  - Professional business style\n  - Highlight product advantages\n  - Include clear CTA to guide users to trial\ntargetAudience: SMB owners and technical decision makers\nlocale: en"
+            filename: "my-website.yaml"
+        - title: "3. Run the Generate Command"
+          description: "...then run the generate command. Sit back and watch as WebSmith brings your vision to life!"
+          code:
+            content: "aigne web generate --input @my-website.yaml"
+            filename: "Terminal"
+  - name: "callToAction"
+    summary: "A final, high-energy call to action designed to convert interest into action, guiding users to the official product page to learn more or get started."
+    fields:
+      title: "Your Next Great Website is Just a Prompt Away."
+      description: "Why wait? Dive in and experience the future of web development. Explore the official documentation, check out the project on GitHub, and start building with the power of AI today!"
+      action:
+        text: "Explore AIGNE WebSmith Now"
+        link: "https://github.com/AIGNE-io/aigne-web-smith"

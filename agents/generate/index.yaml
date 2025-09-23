@@ -33,10 +33,13 @@ skills:
     mode: parallel
   - ./page-data/compose-pages-data.mjs
   - ../utils/save-pages.mjs
-
+input_key: message
 input_schema:
   type: object
   properties:
+    message:
+      type: string
+      description: Message to be sent to the user
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file

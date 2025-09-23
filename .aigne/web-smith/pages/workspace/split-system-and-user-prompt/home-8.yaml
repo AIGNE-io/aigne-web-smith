@@ -1,0 +1,44 @@
+```yaml
+meta:
+  title: "AIGNE WebSmith | AI-Powered Website Generation"
+  description: "Discover AIGNE WebSmith, the AI-powered tool that automates website creation. Go from idea to a fully published, SEO-optimized site with just a few commands. Try it now!"
+sections:
+  - name: "hero"
+    summary: "A vibrant and compelling introduction to grab the visitor's attention. This section immediately communicates the core value proposition—effortless, AI-powered website creation—and provides a direct call to action to learn more."
+    title: "Build Stunning Websites in Minutes, Not Months"
+    description: "Tired of the slow, complicated process of building a website? Let AIGNE WebSmith be your personal AI web developer! Describe your vision, and watch as it crafts a professional, SEO-optimized site for you in a flash. It's time to bring your ideas to life, effortlessly."
+    action:
+      text: "See How It Works"
+      link: "https://www.aigne.io/web-smith"
+  - name: "features"
+    summary: "Highlights the four core pillars of AIGNE WebSmith in an energetic, easy-to-scan format. Each feature is presented as a tangible benefit, showing users exactly what they gain, from intelligent generation to seamless publishing."
+    title: "Everything You Need to Go Live, Faster"
+    description: "WebSmith is packed with powerful features designed to take the work out of website creation. Here's a taste of what you can do!"
+    list:
+      - title: "🤖 AI-Powered Generation"
+        description: "Just tell our AI what you need! It intelligently plans your site's architecture, generates all your content in batches, and even handles multi-language support automatically."
+      - title: "🎨 Professional Template System"
+        description: "Get gorgeous, responsive layouts right out of the box. Our system integrates directly with Pages Kit, using a modern, component-based design that looks amazing on any device."
+      - title: "📊 Built-in Quality Assurance"
+        description: "Launch with total confidence. WebSmith automatically evaluates your site's structure, checks content quality, and runs over 32 tests to ensure everything is perfect."
+      - title: "🚀 One-Click Publishing"
+        description: "Your new website is ready for the world! Publish directly to Pages Kit with a single command, monitor the status, and get your live link the moment it's done."
+  - name: "architecture"
+    summary: "Provides a high-level, accessible overview of the technology behind WebSmith. This section builds trust by explaining the agent-based architecture in simple terms, reassuring users that the tool is both powerful and intelligently designed."
+    title: "How The Magic Happens"
+    description: "AIGNE WebSmith uses a smart, Agent-based architecture where specialized AI agents collaborate to build your site. A Planning Agent maps it out, a Content Agent writes the copy, and a Template Agent puts it all together—all working in perfect harmony to deliver incredible results, fast."
+  - name: "quickStart"
+    summary: "An action-oriented guide to get users started immediately. This section breaks down the installation and first use into simple, copy-paste commands, making the tool feel approachable and encouraging instant engagement."
+    title: "Get Started in a Flash!"
+    description: "Ready to play? You're just two commands away from creating your first AI-generated website. It's seriously this easy. Let's do this!"
+    code:
+      filename: "Terminal"
+      content: "# 1. Install the AIGNE CLI globally\nnpm install -g @aigne/cli\n\n# 2. Generate your first website!\naigne web generate\n\n# 3. Publish it to the world\naigne web publish"
+  - name: "callToAction"
+    summary: "A final, energetic call to action that encourages visitors to take the next step. This section reinforces the core benefits and directs them to the project's home on GitHub for deeper exploration or contribution."
+    title: "Ready to Launch Your Masterpiece?"
+    description: "Stop wrestling with code and start creating! AIGNE WebSmith is your partner for building amazing websites faster than ever before. Explore the project, see what's possible, and join our community of innovators."
+    action:
+      text: "Explore on GitHub"
+      link: "https://github.com/AIGNE-io/aigne-web-smith"
+```

@@ -8,7 +8,7 @@ sections:
     description: "Stop wrestling with code and content. Just describe your vision, and let AIGNE WebSmith's AI agents intelligently plan, write, and publish a complete, professional website for you in minutes. It's web creation, reimagined."
     action:
       text: "Get Started Now"
-      link: "#quickStart"
+      link: "#quickStart" # 👈 ❌
   - name: "features"
     summary: "This section highlights the four core features of AIGNE WebSmith. It breaks down the key benefits into easily digestible points, showcasing the power and comprehensive nature of the tool to build user confidence."
     title: "Everything You Need, Powered by AI"

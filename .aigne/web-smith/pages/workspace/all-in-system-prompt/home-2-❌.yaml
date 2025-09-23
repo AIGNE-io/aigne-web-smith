@@ -1,0 +1,56 @@
+meta:
+  title: "AIGNE WebSmith | AI-Powered Website Generation in Minutes"
+  description: "Experience the future of web development with AIGNE WebSmith. Instantly generate professional, SEO-optimized, and content-rich websites with a single command. Try it now!"
+sections:
+  - name: "hero"
+    summary: "A vibrant and compelling introduction to grab the user's attention, clearly state the core value proposition of AI-driven website creation, and provide an immediate call to action to get started."
+    title: "Build Your Entire Website in Minutes, Not Months!"
+    description: "Welcome to AIGNE WebSmith, the revolutionary AI tool that turns your ideas into fully-functional, professional websites. Just describe what you need, and watch the magic happen. Let's create something amazing together!"
+    action:
+      text: "Get Started Now"
+      link: "#quickStart" # 👈 ❌
+  - name: "features"
+    summary: "Showcase the four core, powerhouse features of AIGNE WebSmith in an energetic and benefit-focused way. This section is designed to wow users by highlighting the tool's intelligence, creative power, reliability, and speed."
+    title: "Everything You Need to Launch, Instantly!"
+    description: "AIGNE WebSmith is packed with incredible features designed to make your life easier and your websites better. You'll feel like a web design superstar!"
+    list:
+      - title: "🤖 AI-Powered Generation"
+        description: "Just bring your ideas! Our AI intelligently plans your site's structure, generates all the content, and optimizes everything for SEO in multiple languages. It’s like having a pro web team on call 24/7."
+      - title: "🎨 Professional Template System"
+        description: "Get stunning, responsive websites right out of the box. Our system uses a modern, component-based design that integrates perfectly with Pages Kit, so your site looks incredible on any device."
+      - title: "📊 Built-in Quality Assurance"
+        description: "Launch with total confidence! We automatically run over 32 tests to evaluate your site's structure, check content quality, and ensure everything works flawlessly. You can rest easy knowing it's perfect."
+      - title: "🚀 One-Click Publishing"
+        description: "Why wait to go live? Publish your entire website directly to Pages Kit with a single click. You'll get your live link instantly and can share your creation with the world."
+  - name: "architecture"
+    summary: "Visually represent the smart, agent-based architecture to build trust and credibility, especially with technical users. This section demystifies the process in a simple, engaging way, showing how different agents collaborate to build the final product."
+    title: "See The Magic Behind The Curtain"
+    description: "Curious how it all works? AIGNE WebSmith uses a brilliant team of specialized AI Agents that work together seamlessly. From planning the structure to generating content and templates, each agent plays a vital role in building your perfect website with incredible speed and precision."
+    image: "/placeholder/architecture-diagram.svg"
+  - name: "quickStart"
+    summary: "An action-oriented, hands-on guide that empowers users to get started immediately. This section provides simple, copy-paste commands to remove friction and encourage instant adoption, making the first experience feel effortless and exciting."
+    title: "Ready to Launch? Let's Go!"
+    description: "You're just a few commands away from creating your first AI-generated website. It’s so simple, you'll be amazed. Just open your terminal and let the fun begin!"
+    list:
+      - title: "1. Install the CLI"
+        description: "First, grab the AIGNE CLI from npm. This one-time install gives you access to the full power of WebSmith."
+        code:
+          content: "# Install AIGNE CLI globally\nnpm install -g @aigne/cli"
+          filename: "bash"
+      - title: "2. Generate Your Website"
+        description: "Now for the magic. Run the generate command, and WebSmith will build your entire site based on your requirements."
+        code:
+          content: "# Simply run the generate command\naigne web generate"
+          filename: "bash"
+      - title: "3. Publish to the World!"
+        description: "Your site is ready! Use the publish command to push it live to Pages Kit and get a shareable link in seconds."
+        code:
+          content: "# Go live with one command\naigne web publish"
+          filename: "bash"
+  - name: "callToAction"
+    summary: "A final, high-energy call to action that reinforces the primary benefit of the tool and encourages immediate engagement. This section aims to convert interest into action by providing a clear, compelling next step."
+    title: "Your Dream Website is a Prompt Away!"
+    description: "Stop wrestling with code and complex builders. It's time to create websites the smart way with AIGNE WebSmith. What will you build first?"
+    action:
+      text: "Explore the Code on GitHub"
+      link: "https://github.com/AIGNE-io/aigne-web-smith"

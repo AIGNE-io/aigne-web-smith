@@ -143,6 +143,23 @@ export default async function analyzePageDetail(input, options) {
 
   const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
 
+  let derivedWebsiteScale = "";
+  if (Array.isArray(websiteStructure)) {
+    if (websiteStructure.length === 1) {
+      derivedWebsiteScale = "singlePage";
+    } else if (websiteStructure.length > 1) {
+      if (input.websiteScale && input.websiteScale !== "singlePage") {
+        derivedWebsiteScale = input.websiteScale;
+      } else {
+        derivedWebsiteScale = "multiPage";
+      }
+    }
+  }
+
+  if (!derivedWebsiteScale && input.websiteScale) {
+    derivedWebsiteScale = input.websiteScale;
+  }
+
   const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,
     pagesDir,
@@ -151,6 +168,7 @@ export default async function analyzePageDetail(input, options) {
     originalWebsiteStructure,
     websiteStructure,
     fieldConstraints,
+    websiteScale: derivedWebsiteScale,
   });
 
   return {

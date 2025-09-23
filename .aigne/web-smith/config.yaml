@@ -49,9 +49,6 @@ websiteScale: singlePage
 # Custom Rules: Define specific page generation rules and requirements
 rules: ""
 
-# Target Audience: Describe your specific target audience and their characteristics
-targetAudience: ""
-
 # Glossary: Define project-specific terms and definitions
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 

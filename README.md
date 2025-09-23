@@ -122,7 +122,6 @@ rules: |
 targetAudience: SMB owners and technical decision makers
 locale: en
 websiteStyle: business
-projectId: your-pages-kit-project-id
 ```
 
 Then run:

@@ -9,6 +9,15 @@ skills:
       skipIfExists: true
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'websiteStructure': originalWebsiteStructure
+        }
+      ])
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
   - ../utils/choose-pages.mjs
@@ -21,8 +30,18 @@ skills:
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: page_refine
-  # re-trigger generate agent
-  - url: ../generate/index.yaml
+  - ../generate/component-library/load-component-library.mjs
+  - type: team
+    name: analyzeComponentLibrary and batchTranslatePageDetail
+    model: openai/gpt-5
+    skills:
+      - url: ../translate/batch-translate-page-detail.yaml
+        default_input:
+          skipIfExists: false
+      - ../generate/component-library/analyze-component-library.mjs
+    mode: parallel
+  - ../generate/page-data/compose-pages-data.mjs
+  - ../utils/save-pages.mjs
 
 input_schema:
   type: object

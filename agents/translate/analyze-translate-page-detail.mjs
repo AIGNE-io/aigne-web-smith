@@ -8,7 +8,7 @@ import chooseLanguage from "./choose-language.mjs";
  * @returns {Promise<Object>} Analysis result with pages that need translation
  */
 export default async function analyzeTranslatePageDetail(input, options) {
-  const { websiteStructureResult, translateLanguages, skipIfExists = false } = input;
+  const { websiteStructureResult, translateLanguages, skipIfExists = false, selectedPages = [] } = input;
 
   const langs = translateLanguages;
 
@@ -19,7 +19,9 @@ export default async function analyzeTranslatePageDetail(input, options) {
     };
   }
 
-  const pages = websiteStructureResult?.map((item) => item.path);
+  const pages = websiteStructureResult?.map((item) => item.path).filter((path) =>{
+    return !selectedPages || selectedPages.length === 0 || selectedPages.some((page) => page.path === path);
+  });
 
   const choosePagesResult = await choosePages(
     {

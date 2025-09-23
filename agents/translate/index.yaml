@@ -7,11 +7,22 @@ skills:
       skipIfExists: true
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'websiteStructure': originalWebsiteStructure
+        }
+      ])
   - ../utils/transform-website-structure.yaml
   - url: ../utils/choose-pages.mjs
     default_input:
       isTranslate: true
-  - ./choose-language.mjs
+  - url: ./choose-language.mjs
+    default_input:
+      requiredFeedback: true
   - type: team
     name: batchTranslatePageDetail
     skills:

@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: aigne-web-smith
+projectName: aigne-web-smith-0923
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: f1f6a749-802a-4783-bd1c-71356783ddfa
-projectSlug: aigne-web-smith-09-22
+projectId: h1f6a749-802a-4783-bd1c-72356783ddfa
+projectSlug: aigne-web-smith-0923
 
 # =============================================================================
 # Website Configuration
@@ -49,9 +49,6 @@ websiteScale: singlePage
 # Custom Rules: Define specific page generation rules and requirements
 rules: ""
 
-# Target Audience: Describe your specific target audience and their characteristics
-targetAudience: ""
-
 # Glossary: Define project-specific terms and definitions
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
@@ -61,6 +58,6 @@ translateLanguages: # List of languages to translate the pages to
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
-  - ./README.md
-lastGitHead: a87aa6b5176db0a1830f4a7e02669fec2139527a
+  - ./
+lastGitHead: ee936de6f84438113aacab2e4ce8b1c1f42b1514
 appUrl: https://staging.websmith.aigne.io

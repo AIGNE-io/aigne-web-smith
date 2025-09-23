@@ -1,13 +1,14 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-23T07:48:09.607Z
-updatedAt: 2025-09-23T07:48:09.607Z
-publishedAt: 2025-09-23T07:48:09.607Z
+createdAt: 2025-09-23T09:35:27.388Z
+updatedAt: 2025-09-23T09:35:27.388Z
+publishedAt: 2025-09-23T09:35:27.388Z
 isPublic: true
 locales:
   en:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
+      paddingY: large
       paddingX: large
     title: AIGNE WebSmith | AI-Powered Website Generation
     description: Instantly generate professional, SEO-optimized websites with AIGNE
@@ -19,6 +20,7 @@ locales:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
+      paddingY: large
       paddingX: large
     title: AIGNE WebSmith | 人工智能驱动的网站生成
     description: 立即使用 AIGNE WebSmith 生成专业且符合 SEO 的网站。利用人工智能处理结构、内容和一键发布。几分钟即可开始。

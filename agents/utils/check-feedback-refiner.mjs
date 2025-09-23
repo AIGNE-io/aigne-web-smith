@@ -53,6 +53,8 @@ export default async function checkFeedbackRefiner(
   return result;
 }
 
+checkFeedbackRefiner.taskRenderMode = "collapse";
+
 checkFeedbackRefiner.input_schema = {
   type: "object",
   properties: {

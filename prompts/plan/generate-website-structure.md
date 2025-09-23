@@ -82,7 +82,8 @@ When website constraints conflict, resolve by:
 
 Website Structure constraints:
 
-- Must comply with all <website_constraints> specifications
+- ** If there is user feedback <feedback>, the priority of user feedback is the highest and must be met**
+- Must comply with all <website_constraints> specifications, **lower priority than <feedback>**
 - Must include homepage with path '/home'
 - Structure format: Each entry in the website structure corresponds to a page
 - Define pages and their hierarchy (parent/child relationships)

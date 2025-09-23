@@ -620,6 +620,7 @@ export default async function composePagesData(input) {
         backgroundColor: "",
         style: {
           maxWidth: "custom:1560px",
+          paddingY: "large",
           paddingX: "large",
         },
         title: middleFormatContent.meta.title,

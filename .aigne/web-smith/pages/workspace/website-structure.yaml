@@ -1,59 +1,8 @@
-- title: AIGNE WebSmith - AI-Powered Website Generation
-  description: >-
-    ## Automate Your Website Creation
-
-    AIGNE WebSmith is a powerful, AI-driven website generation tool that
-    automates the creation of professional, SEO-optimized websites with complete
-    content and templates.
-
-
-    ## Key Features
-
-    *   **AI-Powered Website Generation**: Automatically analyzes requirements
-    to generate optimal website architecture, content, and SEO.
-
-    *   **Professional Template System**: Integrates with Pages Kit, featuring a
-    component-based design, a built-in component library, and responsive
-    layouts.
-
-    *   **Quality Assurance**: Includes an automatic evaluation system for
-    architecture, content quality checks, and complete test coverage to ensure
-    reliability.
-
-    *   **One-Click Publishing**: Publish your entire website directly to the
-    Pages Kit platform with a single command, including status monitoring and
-    instant access links.
-
-
-    ## How It Works
-
-    WebSmith uses an Agent-based architecture to streamline the website creation
-    process, moving from planning and content generation to template creation
-    and publishing seamlessly.
-
-
-    ## Get Started in Minutes
-
-    1.  **Install**: `npm install -g @aigne/cli`
-
-    2.  **Generate**: Define your requirements in a YAML file and run `aigne web
-    generate`.
-
-    3.  **Publish**: Deploy your site instantly with `aigne web publish`.
-
-
-    ## Powerful Developer Tools
-
-    Access a full suite of commands for generation, publishing, translation, and
-    content updates. Integrate with our MCP server endpoints to retrieve website
-    structure and content programmatically.
-
-
-    ## Built for Performance and Reliability
-
-    Optimized for production with parallel agent processing, efficient template
-    generation, and robust error handling. Our platform is backed by
-    comprehensive test coverage, code quality checks, and pre-commit hooks.
+- title: "AIGNE WebSmith: AI-Powered Website Generation"
+  description: A comprehensive landing page introducing AIGNE WebSmith. It
+    outlines the AI-powered website generator's value, featuring sections on its
+    core capabilities (AI Generation, Templates, QA, Publishing), a 'How It
+    Works' overview, a developer 'Quick Start' guide, and clear calls-to-action.
   path: /home
   sourceIds:
     - README.md

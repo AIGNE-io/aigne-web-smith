@@ -2,8 +2,8 @@
 projectName: aigne-web-smith
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: f1f6a749-802a-4783-bd1c-71356783ddfa
-projectSlug: aigne-web-smith-09-22
+projectId: h1f6a749-802a-4783-bd1c-72356783ddfa
+projectSlug: aigne-web-smith-09-23
 
 # =============================================================================
 # Website Configuration
@@ -62,5 +62,5 @@ translateLanguages: # List of languages to translate the pages to
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./README.md
-lastGitHead: 04479418b496f27a583f9f9f48add7547674983a
+lastGitHead: 7e6b5aa69a23375a7460371b04e6c2dc7c40c6e4
 appUrl: https://staging.websmith.aigne.io

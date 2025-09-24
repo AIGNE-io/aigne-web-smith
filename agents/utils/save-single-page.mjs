@@ -6,8 +6,11 @@ export default async function saveSinglePage({
   pagesDir,
   tmpDir,
   translates,
-  labels,
   locale,
+  title,
+  description,
+  sourceIds,
+  parentId,
   isTranslate = false,
   isShowMessage = false,
 }) {
@@ -17,7 +20,6 @@ export default async function saveSinglePage({
     pagesDir,
     tmpDir,
     translates,
-    labels,
     locale,
     isTranslate,
   });
@@ -29,7 +31,15 @@ export default async function saveSinglePage({
     return { message };
   }
 
-  return {};
+  return {
+    path,
+    content,
+    title,
+    description,
+    sourceIds,
+    parentId,
+    translates,
+  };
 }
 
 saveSinglePage.task_render_mode = "hide";

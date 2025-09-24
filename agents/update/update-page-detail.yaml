@@ -1,0 +1,66 @@
+type: ai
+name: updatePageDetail
+description: Update page detail content based on user feedback and intentions using content modification tools
+instructions:
+  url: ../../prompts/update/update-page-detail.md
+input_schema:
+  type: object
+  properties:
+    pageDetail:
+      type: string
+      description: Current page detail YAML string to be updated
+    rules:
+      type: string
+      description: User's website structure requirements
+    locale:
+      type: string
+      description: User language, such as zh, en
+    datasources:
+      type: string
+      description: Global context for assisting detail generation
+    originalWebsiteStructure: ../schema/website-structure.yaml
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    parentId:
+      type:
+        - string
+        - "null"
+    glossary:
+      type: string
+      description: Glossary
+    additionalInformation:
+      type: string
+      description: Additional supplementary information
+    fieldConstraints:
+      type: string
+      description: Dynamic field usage constraints based on component library
+    feedback:
+      type: string
+      description: User feedback for page detail modifications
+    userPreferences:
+      type: string
+      description: User preference rules, YAML format for page detail and global preferences
+  required:
+    - pageDetail
+    - rules
+    - datasources
+    - feedback
+output_schema:
+  type: object
+  properties:
+    pageDetail:
+      type: string
+      description: Updated page detail YAML string
+    operationSummary:
+      type: string
+      description: Summary of the operations performed on the page detail
+skills:
+  - ./page-detail-tools/update-meta.mjs
+  - ./page-detail-tools/add-section.mjs
+  - ./page-detail-tools/delete-section.mjs
+  - ./page-detail-tools/update-section.mjs
+  - ./page-detail-tools/move-section.mjs

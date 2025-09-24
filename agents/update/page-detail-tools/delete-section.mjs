@@ -1,0 +1,90 @@
+import YAML from "yaml";
+
+export default async function deleteSection({ pageDetail, name }) {
+  // Validate required parameters
+  if (!pageDetail) {
+    console.log(
+      "⚠️  Unable to delete section: No page detail provided. Please specify the page detail to modify.",
+    );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
+    return { pageDetail };
+  }
+
+  if (!name) {
+    console.log(
+      "⚠️  Unable to delete section: No section name specified. Please clearly indicate which section you want to remove.",
+    );
+    return { pageDetail };
+  }
+
+  // Check if sections array exists
+  if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
+    console.log("⚠️  Cannot delete section: No sections array found in page detail");
+    return { pageDetail };
+  }
+
+  // Find the section to delete
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
+  if (sectionIndex === -1) {
+    console.log(`⚠️  Cannot delete section: Section '${name}' not found`);
+    return { pageDetail };
+  }
+
+  const sectionToDelete = parsedPageDetail.sections[sectionIndex];
+
+  // Create new sections array without the deleted section
+  const newSections = parsedPageDetail.sections.filter((_, index) => index !== sectionIndex);
+
+  // Create updated page detail
+  const updatedPageDetail = {
+    ...parsedPageDetail,
+    sections: newSections,
+  };
+
+  return {
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
+    deletedSection: sectionToDelete,
+  };
+}
+
+deleteSection.taskTitle = "Delete a section from page detail";
+deleteSection.description = "Remove a section from the page detail by its name";
+deleteSection.inputSchema = {
+  type: "object",
+  properties: {
+    pageDetail: {
+      type: "string",
+      description: "Current page detail YAML string",
+    },
+    name: {
+      type: "string",
+      description: "Name of the section to delete",
+    },
+  },
+  required: ["pageDetail", "name"],
+};
+deleteSection.outputSchema = {
+  type: "object",
+  properties: {
+    pageDetail: {
+      type: "string",
+      description: "Updated page detail YAML string with the section removed",
+    },
+    deletedSection: {
+      type: "object",
+      description: "The section that was deleted",
+    },
+  },
+  required: ["pageDetail"],
+};

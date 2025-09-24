@@ -42,6 +42,14 @@ agents:
   - ./agents/plan/analyze-website-structure.mjs
   - ./agents/plan/generate-website-structure.yaml
   - ./agents/plan/validate-website-structure.yaml
+  - ./agents/plan/update-website-structure.yaml
+  - ./agents/plan/user-review-website-structure.mjs
+
+  # update website structure tools
+  - ./agents/plan/website-structure-tools/add-page.mjs
+  - ./agents/plan/website-structure-tools/delete-page.mjs
+  - ./agents/plan/website-structure-tools/update-page.mjs
+  - ./agents/plan/website-structure-tools/move-page.mjs
 
   # prefs
   - ./agents/prefs/index.mjs
@@ -60,6 +68,15 @@ agents:
 
   # update
   - ./agents/update/index.yaml
+  - ./agents/update/user-review-page-detail.mjs
+  - ./agents/update/update-page-detail.yaml
+
+  # update page detail tools
+  - ./agents/update/page-detail-tools/update-meta.mjs
+  - ./agents/update/page-detail-tools/add-section.mjs
+  - ./agents/update/page-detail-tools/delete-section.mjs
+  - ./agents/update/page-detail-tools/update-section.mjs
+  - ./agents/update/page-detail-tools/move-section.mjs
 
   # utils
   - ./agents/utils/check-detail-result.mjs

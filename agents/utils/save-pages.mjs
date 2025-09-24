@@ -14,8 +14,8 @@ export default async function savePages({
   websiteStructureResult: websiteStructure,
   pagesDir,
   outputDir,
-  // translateLanguages = [],
-  // locale,
+  translateLanguages = [],
+  locale,
   projectInfoMessage,
 }) {
   // Save current git HEAD to config.yaml for change detection
@@ -36,46 +36,36 @@ export default async function savePages({
   }
 
   // Clean up invalid .yaml files that are no longer in the structure plan
-  // try {
-  //   // @FIXME
-  //   // await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
-  // } catch (err) {
-  //   console.error("Failed to cleanup invalid .yaml files:", err.message);
-  // }
+  try {
+    await cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale);
+  } catch (err) {
+    console.error("Failed to cleanup invalid .yaml files:", err.message);
+  }
 
   const message = `✅ Pages Generated Successfully!
 
-Successfully generated **${websiteStructure.length}** page templates and saved to:
-  \`${pagesDir}\`
+Generated **${websiteStructure.length}** page templates and saved to: \`${pagesDir}\`
   ${projectInfoMessage || ""}
 🚀 Next Steps
 
-1. Publish Pages
+**Publish Your Pages**
+Generate a shareable preview link for your team:
 
-    \`\`\`bash
-    aigne web publish
-    \`\`\`
-
-Get an online preview link to share with your team
+  \`aigne web publish\`
 
 🔧 Optional Improvements
 
-1. Update Specific Pages
+**Update Specific Pages**
+Regenerate content for individual pages:
 
-    \`\`\`bash
-    aigne web update
-    \`\`\`
+  \`aigne web update\`
 
-Regenerate content for specific pages
+**Refine Page Structure**
+Review and improve your page structure:
 
-2. Provide Structure Feedback
+  \`aigne web generate\`
 
-    \`\`\`bash
-    aigne web generate --feedback "Your feedback on page structure"
-    \`\`\`
-    Improve the overall page structure
-
-    `;
+`;
 
   return {
     message,
@@ -83,49 +73,66 @@ Regenerate content for specific pages
 }
 
 /**
- * Generate filename based on flatName and language
- * @param {string} flatName - Flattened path name
- * @param {string} language - Language code
- * @returns {string} - Generated filename
- */
-function generateFileName(flatName, language) {
-  const isEnglish = language === "en";
-  return isEnglish ? `${flatName}.yaml` : `${flatName}.${language}.yaml`;
-}
-
-/**
  * Clean up .yaml files that are no longer in the structure plan
  * @param {Array<{path: string, title: string}>} websiteStructure
- * @param {string} pagesDir
+ * @param {string} pagesDir - Base pages directory containing workspace and output subdirectories
  * @param {Array<string>} translateLanguages
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
+async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguages, locale) {
   const results = [];
 
+  // Generate expected file names from structure plan (no language suffixes since files are organized by folders)
+  const expectedFiles = new Set();
+  for (const { path } of websiteStructure) {
+    const flatName = path.replace(/^\//, "").replace(/\//g, "-");
+    const fileName = `${flatName}.yaml`;
+    expectedFiles.add(fileName);
+  }
+
+  // Clean up workspace files (tmpDir/locale subdirectories)
+  const workspaceDir = join(pagesDir, "workspace");
   try {
-    // Get all .yaml files in pagesDir
-    const files = await readdir(pagesDir);
-    const yamlFiles = files.filter((file) => file.endsWith(".yaml"));
+    // Clean main locale directory
+    const mainLocaleDir = join(workspaceDir, locale);
+    await cleanupDirectoryFiles(mainLocaleDir, expectedFiles, results, "workspace");
 
-    // Generate expected file names from structure plan
-    const expectedFiles = new Set();
-
-    // Add main page files
-    for (const { path } of websiteStructure) {
-      const flatName = path.replace(/^\//, "").replace(/\//g, "-");
-
-      // Main language file
-      const mainFileName = generateFileName(flatName, locale);
-      expectedFiles.add(mainFileName);
-
-      // Add translation files for each language
-      for (const lang of translateLanguages) {
-        const translateFileName = generateFileName(flatName, lang);
-        expectedFiles.add(translateFileName);
-      }
+    // Clean translation locale directories
+    for (const lang of translateLanguages) {
+      const langDir = join(workspaceDir, lang);
+      await cleanupDirectoryFiles(langDir, expectedFiles, results, "workspace");
     }
+  } catch (err) {
+    if (err.code !== "ENOENT") {
+      console.warn(`Failed to cleanup workspace files: ${err.message}`);
+    }
+  }
+
+  // Clean up output files (outputDir directly) - same expected files, preserve _sitemap.yaml
+  const outputDir = join(pagesDir, "output");
+  try {
+    await cleanupDirectoryFiles(outputDir, expectedFiles, results, "output");
+  } catch (err) {
+    if (err.code !== "ENOENT") {
+      console.warn(`Failed to cleanup output files: ${err.message}`);
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Clean up files in a specific directory
+ * @param {string} dirPath - Directory path to clean
+ * @param {Set<string>} expectedFiles - Set of expected file names
+ * @param {Array} results - Results array to append to
+ * @param {string} dirType - Directory type for logging ("workspace" or "output")
+ */
+async function cleanupDirectoryFiles(dirPath, expectedFiles, results, dirType) {
+  try {
+    const files = await readdir(dirPath);
+    const yamlFiles = files.filter((file) => file.endsWith(".yaml"));
 
     // Find files to delete (files that are not in expectedFiles and not _sitemap.yaml)
     const filesToDelete = yamlFiles.filter(
@@ -135,33 +142,33 @@ async function _cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguag
     // Delete invalid files
     for (const file of filesToDelete) {
       try {
-        const filePath = join(pagesDir, file);
+        const filePath = join(dirPath, file);
         await unlink(filePath);
         results.push({
           path: filePath,
           success: true,
-          message: `Deleted invalid file: ${file}`,
+          message: `Successfully deleted invalid file from ${dirType} directory: ${file}`,
         });
       } catch (err) {
         results.push({
           path: file,
           success: false,
-          error: `Failed to delete ${file}: ${err.message}`,
+          error: `Failed to delete file from ${dirType} directory: ${file}: ${err.message}`,
         });
       }
     }
 
     if (filesToDelete.length > 0) {
-      console.log(`Cleaned up ${filesToDelete.length} invalid .yaml files from ${pagesDir}`);
+      console.log(
+        `Cleaned up ${filesToDelete.length} invalid .yaml files from ${dirType} directory: ${dirPath}`,
+      );
     }
   } catch (err) {
-    // If pagesDir doesn't exist or can't be read, that's okay
+    // If directory doesn't exist, that's okay
     if (err.code !== "ENOENT") {
       throw err;
     }
   }
-
-  return results;
 }
 
 // Generate sitemap YAML content, support nested structure, and the order is consistent with websiteStructure

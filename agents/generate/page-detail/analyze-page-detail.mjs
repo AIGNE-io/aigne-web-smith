@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getFileName, hasSourceFilesChanged } from "../../../utils/utils.mjs";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
+import { getFileName, hasSourceFilesChanged } from "../../../utils/utils.mjs";
 import checkDetailResult from "../../utils/check-detail-result.mjs";
 
 export default async function analyzePageDetail(input, options) {

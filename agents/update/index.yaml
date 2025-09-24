@@ -23,6 +23,7 @@ skills:
   - url: ../utils/choose-pages.mjs
     default_input:
       requiredFeedback: false
+      multipleSelection: false
   - type: team
     name: generatePageDetailTeam(selectedPages)
     skills:

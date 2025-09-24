@@ -18,6 +18,7 @@ import {
  * @param {string} params.feedback - User feedback
  * @param {string} params.locale - Locale identifier
  * @param {boolean} [params.requiredFeedback=true] - Whether feedback is required
+ * @param {boolean} [params.multipleSelection=true] - Whether to allow multiple page selection
  * @param {Object} options - Additional options
  */
 
@@ -31,6 +32,7 @@ export default async function choosePages(
     feedback,
     locale,
     requiredFeedback = true,
+    multipleSelection = true,
   },
   options,
 ) {
@@ -53,26 +55,47 @@ export default async function choosePages(
         throw new Error("No pages found in the pages directory");
       }
 
-      // Let user select multiple files
-      selectedFiles = await options.prompts.checkbox({
-        message: getActionText(isTranslate, "Select pages to {action}:"),
-        source: (term) => {
-          const choices = mainLanguageFiles.map((file) => ({
-            name: file,
-            value: file,
-          }));
+      // Let user select files (single or multiple based on multipleSelection parameter)
+      if (multipleSelection) {
+        selectedFiles = await options.prompts.checkbox({
+          message: getActionText(isTranslate, "Select pages to {action}:"),
+          source: (term) => {
+            const choices = mainLanguageFiles.map((file) => ({
+              name: file,
+              value: file,
+            }));
 
-          if (!term) return choices;
+            if (!term) return choices;
 
-          return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
-        },
-        validate: (answer) => {
-          if (answer.length === 0) {
-            return "Please select at least one page";
-          }
-          return true;
-        },
-      });
+            return choices.filter((choice) =>
+              choice.name.toLowerCase().includes(term.toLowerCase()),
+            );
+          },
+          validate: (answer) => {
+            if (answer.length === 0) {
+              return "Please select at least one page";
+            }
+            return true;
+          },
+        });
+      } else {
+        const selectedFile = await options.prompts.search({
+          message: getActionText(isTranslate, "Select page to {action}:"),
+          source: (term) => {
+            const choices = mainLanguageFiles.map((file) => ({
+              name: file,
+              value: file,
+            }));
+
+            if (!term) return choices;
+
+            return choices.filter((choice) =>
+              choice.name.toLowerCase().includes(term.toLowerCase()),
+            );
+          },
+        });
+        selectedFiles = [selectedFile];
+      }
 
       if (!selectedFiles || selectedFiles.length === 0) {
         throw new Error("No pages selected");

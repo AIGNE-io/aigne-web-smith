@@ -2,7 +2,17 @@ import YAML from "yaml";
 
 // FIXME: The updated properties are currently hardcoded.
 // If new properties are added to built-in components, manual updates are required here
-export default async function updateSection({ pageDetail, name, title, description, image, code, action, list, summary }) {
+export default async function updateSection({
+  pageDetail,
+  name,
+  title,
+  description,
+  image,
+  code,
+  action,
+  list,
+  summary,
+}) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(

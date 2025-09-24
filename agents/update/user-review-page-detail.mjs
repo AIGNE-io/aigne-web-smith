@@ -1,8 +1,11 @@
 import YAML from "yaml";
-import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
+import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
-export default async function userReviewPageDetail({ content, builtinComponentLibrary, ...rest }, options) {
+export default async function userReviewPageDetail(
+  { content, builtinComponentLibrary, ...rest },
+  options,
+) {
   // Check if page detail content exists
   if (!content) {
     console.log("No page detail content was provided to review.");
@@ -78,7 +81,7 @@ export default async function userReviewPageDetail({ content, builtinComponentLi
     const allApplicableRules = [...structureRules, ...globalRules];
     const ruleTexts = allApplicableRules.map((rule) => rule.rule);
     const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
-  const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
+    const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
 
     try {
       // Call updatePageDetail agent with feedback
@@ -92,7 +95,7 @@ export default async function userReviewPageDetail({ content, builtinComponentLi
 
       if (result.pageDetail) {
         // Parse the returned YAML string back to object
-        if (typeof result.pageDetail === 'string') {
+        if (typeof result.pageDetail === "string") {
           currentPageDetail = YAML.parse(result.pageDetail);
         } else {
           currentPageDetail = result.pageDetail;
@@ -172,16 +175,18 @@ function printSectionSimple(section, index) {
     content.push(`🔘 ${truncateText(actionText || "Button", 30)}`);
   }
   if (section.list && Array.isArray(section.list)) {
-    const listDetails = section.list.map((item, index) => {
-      if (typeof item === 'string') {
-        return `${index + 1}. ${truncateText(item, 40)}`;
-      } else if (typeof item === 'object' && item !== null) {
-        const itemTitle = item.title || item.name || item.text || 'Item';
-        const itemDesc = item.description || item.summary || '';
-        return `${index + 1}. ${truncateText(itemTitle, 25)}${itemDesc ? ` - ${truncateText(itemDesc, 50)}` : ''}`;
-      }
-      return `${index + 1}. ${truncateText(String(item), 40)}`;
-    }).join('\n     ');
+    const listDetails = section.list
+      .map((item, index) => {
+        if (typeof item === "string") {
+          return `${index + 1}. ${truncateText(item, 40)}`;
+        } else if (typeof item === "object" && item !== null) {
+          const itemTitle = item.title || item.name || item.text || "Item";
+          const itemDesc = item.description || item.summary || "";
+          return `${index + 1}. ${truncateText(itemTitle, 25)}${itemDesc ? ` - ${truncateText(itemDesc, 50)}` : ""}`;
+        }
+        return `${index + 1}. ${truncateText(String(item), 40)}`;
+      })
+      .join("\n     ");
     content.push(`📋 List (${section.list.length} items):\n     ${listDetails}`);
   }
 

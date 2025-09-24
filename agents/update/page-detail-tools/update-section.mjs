@@ -1,4 +1,6 @@
-export default async function updateSection({ pageDetail, name, ...updates }) {
+// FIXME: The updated properties are currently hardcoded. 
+// If new properties are added to built-in components, manual updates are required here
+export default async function updateSection({ pageDetail, name, title, description, image, code, action, list, summary }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(
@@ -14,7 +16,19 @@ export default async function updateSection({ pageDetail, name, ...updates }) {
     return { pageDetail };
   }
 
-  // Check if any update fields are provided (excluding pageDetail and name)
+  // Define supported update fields and collect provided values
+  const updates = {};
+
+  // Only include defined (non-undefined) supported fields
+  if (title !== undefined) updates.title = title;
+  if (description !== undefined) updates.description = description;
+  if (image !== undefined) updates.image = image;
+  if (code !== undefined) updates.code = code;
+  if (action !== undefined) updates.action = action;
+  if (list !== undefined) updates.list = list;
+  if (summary !== undefined) updates.summary = summary;
+
+  // Check if any update fields are provided
   const updateFields = Object.keys(updates);
   if (updateFields.length === 0) {
     console.log(

@@ -8,12 +8,10 @@ skills:
 input_schema:
   type: object
   properties:
+    name:
+      type: string
+      description: Theme name for the generated theme
     config:
       type: string
       description: Path to configuration file
-      default: './.aigne/web-smith/config.yaml'
-    generate:
-      type: string
-      description: Theme name for the generated theme (defaults to empty string)
-      default: ''
 mode: sequential

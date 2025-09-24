@@ -3,6 +3,12 @@ name: generateThemeAI
 description: Generate comprehensive MUI theme configuration based on website style context
 instructions:
   url: ../../prompts/theme/generate-theme-config.md
+input_schema:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Theme name for the generated theme
 output_schema:
   type: object
   properties:

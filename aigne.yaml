@@ -59,7 +59,7 @@ agents:
   - ./agents/translate/analyze-translate-page-detail.mjs
 
   # theme
-  - ./agents/theme/index.yaml
+  - ./agents/theme/index.mjs
   - ./agents/theme/generate-theme.yaml
   - ./agents/theme/generate-theme-ai.yaml
   - ./agents/theme/apply-theme.mjs
@@ -95,7 +95,7 @@ cli:
     - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
     - ./agents/translate/index.yaml
-    - ./agents/theme/index.yaml
+    - ./agents/theme/index.mjs
     - ./agents/prefs/index.mjs
 mcp_server:
   agents:

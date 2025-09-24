@@ -7,11 +7,11 @@ export function getContrastText(bgColor) {
 }
 
 /**
- * 生成 light / main / dark / contrastText 颜色
+ * Generates light / main / dark / contrastText colors
  * @param {Object} options
- * @param {string} options.main - 主色 (必填，Hex/rgba/hsl 都行)
- * @param {number} [options.lighten=20] - 提亮百分比 (0-100)
- * @param {number} [options.darken=20] - 加深百分比 (0-100)
+ * @param {string} options.main - Main color (required, accepts Hex/rgba/hsl)
+ * @param {number} [options.lighten=20] - Lightening percentage (0-100)
+ * @param {number} [options.darken=20] - Darkening percentage (0-100)
  */
 export function augmentColor({ main, lighten = 20, darken = 20 }) {
   if (!main) throw new Error("augmentColor requires a 'main' color.");
@@ -21,10 +21,10 @@ export function augmentColor({ main, lighten = 20, darken = 20 }) {
   const light = mainColor.clone().lighten(lighten).toHexString();
   const dark = mainColor.clone().darken(darken).toHexString();
 
-  // 自动挑选对比色，保证可读性
+  // Automatically select contrast color to ensure readability
   const contrastText = tinycolor
     .mostReadable(mainColor, ["#ffffff", "#000000"], {
-      level: "AA", // WCAG 2.0 AA 标准
+      level: "AA", // WCAG 2.0 AA standard
       size: "small",
     })
     .toHexString();

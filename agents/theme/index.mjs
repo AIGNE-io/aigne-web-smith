@@ -15,7 +15,6 @@ export default async function theme({ apply, appUrl, name, config }, options) {
       return result;
     }
   } catch (error) {
-    console.log(error);
     return {
       message: chalk.red(`❌ Theme router error: ${error}`),
     };
@@ -30,7 +29,7 @@ theme.input_schema = {
   properties: {
     apply: {
       type: "boolean",
-      description: "Upload and apply theme configuration",
+      description: "Apply an existing theme configuration to the application",
     },
     generate: {
       type: "boolean",
@@ -42,7 +41,7 @@ theme.input_schema = {
     },
     appUrl: {
       type: "string",
-      description: "The url of the app",
+      description: "The full URL of the application (e.g., https://example.com)",
     },
     config: {
       type: "string",

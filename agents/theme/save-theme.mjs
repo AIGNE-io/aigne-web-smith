@@ -5,16 +5,12 @@ import chalk from "chalk";
 export default async function saveTheme({ theme, config }) {
   if (!theme) {
     return {
-      saveThemeStatus: false,
-      saveThemePath: null,
-      error: "No theme data found to save.",
+      message: chalk.red("No theme data provided for saving"),
     };
   }
   if (!config) {
     return {
-      saveThemeStatus: false,
-      saveThemePath: null,
-      error: "No config file path found to save theme.",
+      message: chalk.red("No configuration file path provided"),
     };
   }
 
@@ -37,8 +33,8 @@ export default async function saveTheme({ theme, config }) {
         const existingPath = join(cacheDir, existingFile);
         await fs.unlink(existingPath);
       }
-    } catch {
-      // Ignore errors when checking for existing files
+    } catch (error) {
+      console.warn(chalk.yellow(`Warning: Error checking existing themes: ${error.message}`));
     }
 
     // Save theme to file as JSON

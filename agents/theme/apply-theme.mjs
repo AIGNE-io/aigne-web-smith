@@ -54,7 +54,7 @@ function formatToMUITheme(themeData) {
       palette: {
         ...darkAugmented,
         background: {
-          default: dark?.background,
+          default: dark.background,
           paper: dark.surface,
         },
       },
@@ -231,7 +231,7 @@ export default async function applyTheme({ appUrl }, options) {
           const themeContent = await readFile(themePath, "utf-8");
           const theme = JSON.parse(themeContent);
 
-          if (theme?.name) {
+          if (theme.name) {
             themes.push({
               name: theme.name,
               file: file,
@@ -305,7 +305,7 @@ export default async function applyTheme({ appUrl }, options) {
       // If no remote theme data, create an empty theme object
       console.log(
         chalk.yellow(
-          `❌ Failed to get remote theme data: ${error.message}, creating new theme collection`,
+          `⚠️ Failed to get remote theme data: ${error.message}, creating new theme collection`,
         ),
       );
       remoteThemeData = { concepts: [] };
@@ -368,7 +368,7 @@ applyTheme.input_schema = {
   properties: {
     appUrl: {
       type: "string",
-      description: "The url of the app",
+      description: "The URL of the application",
     },
   },
 };

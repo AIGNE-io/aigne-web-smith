@@ -38,7 +38,7 @@ output_schema:
       type: string
       description: Summary of the operations performed on the website structure
 skills:
-  - ./website-structure-tools/addPage.mjs
-  - ./website-structure-tools/deletePage.mjs
-  - ./website-structure-tools/updatePage.mjs
-  - ./website-structure-tools/movePage.mjs
+  - ./website-structure-tools/add-page.mjs
+  - ./website-structure-tools/delete-page.mjs
+  - ./website-structure-tools/update-page.mjs
+  - ./website-structure-tools/move-page.mjs

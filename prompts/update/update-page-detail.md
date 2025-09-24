@@ -164,6 +164,7 @@ Operation execution rules:
 - **Validate all required parameters** before calling tools
 - **Maintain content integrity** by ensuring all constraints are met
 - **Provide clear feedback** about what changes were made
+- **Use Tool return results** When all Tool calls are complete, directly use the result from the last Tool
 
 Tool usage guidelines:
 

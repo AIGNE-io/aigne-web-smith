@@ -156,12 +156,7 @@ function printPageDetail(pageDetail) {
 }
 
 function printSectionSimple(section, index) {
-  console.log(`\n${index}. ${section.name || "Unnamed Section"}`);
-
-  // Show section summary if available
-  // if (section.summary) {
-  //   console.log(`   📝 ${truncateText(section.summary, 54)}`);
-  // }
+  console.log(`\nSection ${index}`);
 
   // Extract and display key content fields
   const content = [];

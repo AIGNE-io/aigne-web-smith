@@ -1,7 +1,8 @@
 import YAML from "yaml";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
+import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 
-export default async function userReviewPageDetail({ content, ...rest }, options) {
+export default async function userReviewPageDetail({ content, builtinComponentLibrary, ...rest }, options) {
   // Check if page detail content exists
   if (!content) {
     console.log("No page detail content was provided to review.");
@@ -77,6 +78,7 @@ export default async function userReviewPageDetail({ content, ...rest }, options
     const allApplicableRules = [...structureRules, ...globalRules];
     const ruleTexts = allApplicableRules.map((rule) => rule.rule);
     const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
+  const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
 
     try {
       // Call updatePageDetail agent with feedback
@@ -85,6 +87,7 @@ export default async function userReviewPageDetail({ content, ...rest }, options
         feedback: feedback.trim(),
         pageDetail: YAML.stringify(currentPageDetail),
         userPreferences,
+        fieldConstraints,
       });
 
       if (result.pageDetail) {

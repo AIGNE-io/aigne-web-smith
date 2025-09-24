@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.2-beta...v1.2.2-beta.1) (2025-09-24)
+
+
+### Bug Fixes
+
+* add user review and modification tools for website structure ([#29](https://github.com/AIGNE-io/aigne-web-smith/issues/29)) ([8d1b78c](https://github.com/AIGNE-io/aigne-web-smith/commit/8d1b78cbe2523e8c3f3f351c3a13dc5af97c5c9d))
+
 ## [1.2.2-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.1-beta...v1.2.2-beta) (2025-09-23)
 
 

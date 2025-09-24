@@ -339,7 +339,6 @@ export function generateYAML(input) {
 
     // Custom rules and target audience (empty for user to fill)
     rules: "",
-    targetAudience: "",
 
     // Language settings
     locale: input.locale || "en",
@@ -422,14 +421,6 @@ export function generateYAML(input) {
   const rulesSection = yamlStringify({ rules: config.rules }).trim();
   // Use literal style for multiline strings
   yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
-
-  // Target Audience Description
-  yaml += "# Target Audience: Describe your specific target audience and their characteristics\n";
-  const targetAudienceSection = yamlStringify({
-    targetAudience: config.targetAudience,
-  }).trim();
-  // Use literal style for multiline strings
-  yaml += `${targetAudienceSection.replace(/targetAudience: ''/, "targetAudience: |\n  ")}\n\n`;
 
   // Glossary Configuration
   yaml += "# Glossary: Define project-specific terms and definitions\n";

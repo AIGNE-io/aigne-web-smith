@@ -1,17 +1,127 @@
-type: team
-name: generateTheme
-description: Create and save comprehensive MUI theme configuration
-skills:
-  - ../utils/load-config.mjs
-  - ./generate-theme-ai.yaml
-  - ./save-theme.mjs
+type: ai
+name: generateThemeAI
+description: Create comprehensive MUI theme configuration based on your website style
+taskRenderMode: hide
+instructions:
+  url: ../../prompts/theme/generate-theme-config.md
 input_schema:
   type: object
   properties:
     name:
       type: string
       description: Name for your new theme
-    config:
-      type: string
-      description: Configuration file location
-mode: sequential
+output_schema:
+  type: object
+  properties:
+    theme:
+      type: object
+      description: Complete theme configuration data
+      properties:
+        name:
+          type: string
+          description: Your theme name
+        createdAt:
+          type: string
+          description: When this theme was created
+        light:
+          type: object
+          properties:
+            primary:
+              type: string
+              description: Primary color (hex format)
+            secondary:
+              type: string
+              description: Secondary color (hex format)
+            success:
+              type: string
+              description: Success color (hex format)
+            error:
+              type: string
+              description: Error color (hex format)
+            info:
+              type: string
+              description: Info color (hex format)
+            warning:
+              type: string
+              description: Warning color (hex format)
+            background:
+              type: string
+              description: Background color (hex format)
+            surface:
+              type: string
+              description: Surface color (hex format)
+          required:
+            - primary
+            - secondary
+            - success
+            - error
+            - info
+            - warning
+            - background
+            - surface
+        dark:
+          type: object
+          properties:
+            primary:
+              type: string
+              description: Primary color (hex format)
+            secondary:
+              type: string
+              description: Secondary color (hex format)
+            success:
+              type: string
+              description: Success color (hex format)
+            error:
+              type: string
+              description: Error color (hex format)
+            info:
+              type: string
+              description: Info color (hex format)
+            warning:
+              type: string
+              description: Warning color (hex format)
+            background:
+              type: string
+              description: Background color (hex format)
+            surface:
+              type: string
+              description: Surface color (hex format)
+          required:
+            - primary
+            - secondary
+            - success
+            - error
+            - info
+            - warning
+            - background
+            - surface
+        fonts:
+          type: object
+          properties:
+            heading:
+              type: object
+              properties:
+                fontFamily:
+                  type: string
+                  description: Google Font family for headings
+              required:
+                - fontFamily
+            body:
+              type: object
+              properties:
+                fontFamily:
+                  type: string
+                  description: Google Font family for body text
+              required:
+                - fontFamily
+          required:
+            - heading
+            - body
+      required:
+        - name
+        - createdAt
+        - light
+        - dark
+        - fonts
+  required:
+    - theme

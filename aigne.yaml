@@ -60,8 +60,8 @@ agents:
 
   # theme
   - ./agents/theme/index.mjs
+  - ./agents/theme/generate-theme-team.yaml
   - ./agents/theme/generate-theme.yaml
-  - ./agents/theme/generate-theme-ai.yaml
   - ./agents/theme/apply-theme.mjs
   - ./agents/theme/save-theme.mjs
 

@@ -38,7 +38,11 @@ export default async function saveTheme({ theme, config }) {
     }
 
     // Save theme to file as JSON
-    const content = JSON.stringify(theme, null, 2);
+    const themeWithTimestamp = {
+      ...theme,
+      createdAt: new Date().toISOString(),
+    };
+    const content = JSON.stringify(themeWithTimestamp, null, 2);
     await fs.writeFile(filePath, content, "utf8");
 
     return {

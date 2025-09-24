@@ -37,40 +37,17 @@ Theme Name: {{name}}
 
 </website_style_context>
 
-{% if (feedback) %}
-<feedback_and_history>
-
-<history>
-{{content}}
-</history>
-
-<feedback>
-{{feedback}}
-</feedback>
-
-<feedback_handling_rules>
-
-- Implement all requested changes from <feedback> as the highest priority
-- When applying feedback, preserve the existing theme structure unless explicitly requested to change
-- Make minimal necessary adjustments to incorporate feedback while maintaining theme consistency
-
-</feedback_handling_rules>
-
-</feedback_and_history>
-{% endif %}
-
 <output_constraints>
 
 Theme Configuration Requirements:
 
 - Output complete theme configuration in JSON format with proper structure
-- Must include all required fields: `name`, `createdAt`, `light`, `dark`, `fonts`
+- Must include all required fields: `name`, `light`, `dark`, `fonts`
 - Use the provided theme name from <website_style_context> as the `name` field value
 - If no theme name is provided, generate an appropriate name based on website purpose, target audience, and color palette
 - Theme name should be descriptive and reflect the website's character (e.g., "Modern Business Blue", "Creative Studio Purple", "Tech Startup Green")
 - Color values must be valid hex codes (e.g., "#0077B6")
 - Font families must be valid Google Fonts names only
-- `createdAt` must be ISO timestamp format (e.g., "2024-01-15T10:30:00.000Z")
 
 Color Palette Structure:
 
@@ -120,7 +97,6 @@ Complete MUI theme configuration, output as JSON (this example is for reference 
 ```json
 {
   "name": "Oceanic Blue",
-  "createdAt": "2024-01-15T10:30:00.000Z",
   "light": {
     "primary": "#0077B6",
     "secondary": "#4A90E2",

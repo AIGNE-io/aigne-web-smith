@@ -8,15 +8,15 @@ export function getContrastText(bgColor) {
 
 /**
  * Generates light / main / dark / contrastText colors
+ * @param {string} color - Main color (required, accepts Hex/rgba/hsl)
  * @param {Object} options
- * @param {string} options.main - Main color (required, accepts Hex/rgba/hsl)
  * @param {number} [options.lighten=20] - Lightening percentage (0-100)
  * @param {number} [options.darken=20] - Darkening percentage (0-100)
  */
-export function augmentColor({ main, lighten = 20, darken = 20 }) {
-  if (!main) throw new Error("augmentColor requires a 'main' color.");
+export function augmentColor(color, { lighten = 20, darken = 20 } = {}) {
+  if (!color) throw new Error("augmentColor requires a 'color' parameter.");
 
-  const mainColor = tinycolor(main);
+  const mainColor = tinycolor(color);
 
   const light = mainColor.clone().lighten(lighten).toHexString();
   const dark = mainColor.clone().darken(darken).toHexString();
@@ -29,9 +29,11 @@ export function augmentColor({ main, lighten = 20, darken = 20 }) {
     })
     .toHexString();
 
+  const main = mainColor.toHexString();
+
   return {
     light,
-    main: mainColor.toHexString(),
+    main,
     dark,
     contrastText,
   };

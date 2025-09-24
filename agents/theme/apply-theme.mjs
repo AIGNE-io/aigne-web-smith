@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
 import { nanoid } from "nanoid";
@@ -29,7 +29,7 @@ function formatToMUITheme(themeData) {
 
     for (const key of colorKeys) {
       if (colorObj[key]) {
-        augmented[key] = augmentColor({ main: colorObj[key] });
+        augmented[key] = augmentColor(colorObj[key]);
       }
     }
 
@@ -162,6 +162,9 @@ export default async function applyTheme({ appUrl }, options) {
     if (appUrl) {
       finalAppUrl = appUrl.trim();
 
+      // Ensure appUrl has protocol
+      finalAppUrl = finalAppUrl.includes("://") ? finalAppUrl : `https://${finalAppUrl}`;
+
       // Basic format validation
       try {
         new URL(finalAppUrl);
@@ -184,7 +187,6 @@ export default async function applyTheme({ appUrl }, options) {
     let selectedTheme;
     const cacheDir = join(process.cwd(), ".aigne", "web-smith", "themes");
 
-    const { readdir } = await import("node:fs/promises");
     const files = await readdir(cacheDir);
     const themeFiles = files.filter((file) => file.endsWith(".json"));
 
@@ -206,7 +208,7 @@ export default async function applyTheme({ appUrl }, options) {
             name: theme.name,
             file: file,
             theme: theme,
-            generatedAt: theme.generatedAt || "Unknown",
+            generatedAt: theme.generatedAt || new Date(0).toISOString(),
             primaryColor: theme.light?.primary || "N/A",
             headingFont: theme.fonts?.heading?.fontFamily || "N/A",
             bodyFont: theme.fonts?.body?.fontFamily || "N/A",

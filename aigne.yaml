@@ -66,6 +66,13 @@ agents:
   - ./agents/translate/batch-translate-page-detail.yaml
   - ./agents/translate/analyze-translate-page-detail.mjs
 
+  # theme
+  - ./agents/theme/index.mjs
+  - ./agents/theme/generate-theme-team.yaml
+  - ./agents/theme/generate-theme.yaml
+  - ./agents/theme/apply-theme.mjs
+  - ./agents/theme/save-theme.mjs
+
   # update
   - ./agents/update/index.yaml
   - ./agents/update/user-review-page-detail.mjs
@@ -105,6 +112,7 @@ cli:
     - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
     - ./agents/translate/index.yaml
+    - ./agents/theme/index.mjs
     - ./agents/prefs/index.mjs
 mcp_server:
   agents:

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.2-beta.1...v1.3.0-beta.1) (2025-09-24)
+
+
+### Features
+
+* support for theme agent ([#28](https://github.com/AIGNE-io/aigne-web-smith/issues/28)) ([be1c154](https://github.com/AIGNE-io/aigne-web-smith/commit/be1c1544c71e58a39fa57f916675c3c3df77cec1))
+
 ## [1.2.2-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.2-beta...v1.2.2-beta.1) (2025-09-24)
 
 

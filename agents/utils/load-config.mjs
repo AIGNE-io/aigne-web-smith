@@ -21,6 +21,7 @@ export default async function loadConfig({ config, appUrl }) {
   try {
     // Read and parse YAML file
     const configContent = await fs.readFile(configPath, "utf-8");
+
     let parsedConfig = parse(configContent);
 
     // Resolve file references (@ prefixed values)

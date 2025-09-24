@@ -1,0 +1,17 @@
+type: team
+name: generateTheme
+description: Create and save comprehensive MUI theme configuration
+skills:
+  - ../utils/load-config.mjs
+  - ./generate-theme.yaml
+  - ./save-theme.mjs
+input_schema:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Name for your new theme
+    config:
+      type: string
+      description: Configuration file location
+mode: sequential

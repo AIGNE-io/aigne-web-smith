@@ -23,7 +23,12 @@ export class ComponentNotFoundError extends Error {
   }
 }
 
-export async function getComponentMountPoint(appUrl, did) {
+/**
+ * Get blocklet configuration from the application URL
+ * @param {string} appUrl - Application URL
+ * @returns {Promise<Object>} - Blocklet configuration object
+ */
+export async function getBlockletConfig(appUrl) {
   const url = new URL(appUrl);
   const blockletJsUrl = `${url.origin}/__blocklet__.js?type=json`;
 
@@ -49,6 +54,22 @@ export async function getComponentMountPoint(appUrl, did) {
   } catch {
     throw new InvalidBlockletError(appUrl, null, "Invalid JSON response");
   }
+
+  return config;
+}
+
+/**
+ * Get blocklet's meta.did
+ * @param {string} appUrl - Application URL
+ * @returns {Promise<string>} - Blocklet's DID
+ */
+export async function getBlockletMetaDid(appUrl) {
+  const config = await getBlockletConfig(appUrl);
+  return config.did;
+}
+
+export async function getComponentMountPoint(appUrl, did) {
+  const config = await getBlockletConfig(appUrl);
 
   const component = config.componentMountPoints?.find((component) => component.did === did);
   if (!component) {

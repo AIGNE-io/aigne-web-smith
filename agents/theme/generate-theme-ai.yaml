@@ -1,6 +1,6 @@
 type: ai
 name: generateThemeAI
-description: Generate comprehensive MUI theme configuration based on website style context
+description: Create comprehensive MUI theme configuration based on your website style
 instructions:
   url: ../../prompts/theme/generate-theme-config.md
 input_schema:
@@ -8,55 +8,55 @@ input_schema:
   properties:
     name:
       type: string
-      description: Theme name for the generated theme
+      description: Name for your new theme
 output_schema:
   type: object
   properties:
     theme:
       type: object
-      description: A structured JSON object containing theme configuration
+      description: Complete theme configuration data
       properties:
         name:
           type: string
-          description: Theme name
+          description: Your theme name
         createdAt:
           type: string
-          description: ISO timestamp when the theme was created
+          description: When this theme was created
         light:
           type: object
           properties:
             primary:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Primary color in hex format
+              description: Primary color (hex format)
             secondary:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Secondary color in hex format
+              description: Secondary color (hex format)
             success:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Success color in hex format
+              description: Success color (hex format)
             error:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Error color in hex format
+              description: Error color (hex format)
             info:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Info color in hex format
+              description: Info color (hex format)
             warning:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Warning color in hex format
+              description: Warning color (hex format)
             background:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Background color in hex format
+              description: Background color (hex format)
             surface:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Surface color in hex format
+              description: Surface color (hex format)
           required:
             - primary
             - secondary
@@ -72,35 +72,35 @@ output_schema:
             primary:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Primary color in hex format
+              description: Primary color (hex format)
             secondary:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Secondary color in hex format
+              description: Secondary color (hex format)
             success:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Success color in hex format
+              description: Success color (hex format)
             error:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Error color in hex format
+              description: Error color (hex format)
             info:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Info color in hex format
+              description: Info color (hex format)
             warning:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Warning color in hex format
+              description: Warning color (hex format)
             background:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Background color in hex format
+              description: Background color (hex format)
             surface:
               type: string
               pattern: '^#[0-9A-Fa-f]{6}$'
-              description: Surface color in hex format
+              description: Surface color (hex format)
           required:
             - primary
             - secondary
@@ -118,7 +118,7 @@ output_schema:
               properties:
                 fontFamily:
                   type: string
-                  description: Google Font family name for headings
+                  description: Google Font family for headings
               required:
                 - fontFamily
             body:
@@ -126,7 +126,7 @@ output_schema:
               properties:
                 fontFamily:
                   type: string
-                  description: Google Font family name for body text
+                  description: Google Font family for body text
               required:
                 - fontFamily
           required:

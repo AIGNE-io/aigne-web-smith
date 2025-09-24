@@ -5,12 +5,12 @@ import chalk from "chalk";
 export default async function saveTheme({ theme, config }) {
   if (!theme) {
     return {
-      message: chalk.red("No theme data provided for saving"),
+      message: chalk.red("Please provide theme data to save"),
     };
   }
   if (!config) {
     return {
-      message: chalk.red("No configuration file path provided"),
+      message: chalk.red("Please provide a configuration file path"),
     };
   }
 
@@ -34,7 +34,7 @@ export default async function saveTheme({ theme, config }) {
         await fs.unlink(existingPath);
       }
     } catch (error) {
-      console.warn(chalk.yellow(`Warning: Error checking existing themes: ${error.message}`));
+      console.warn(chalk.yellow(`Warning: Could not check existing themes: ${error.message}`));
     }
 
     // Save theme to file as JSON
@@ -46,23 +46,23 @@ export default async function saveTheme({ theme, config }) {
     };
   } catch (error) {
     return {
-      message: chalk.red(`Failed to save theme: ${error.message}`),
+      message: chalk.red(`Unable to save theme: ${error.message}`),
     };
   }
 }
 
-saveTheme.description = "Save a structured theme configuration to the theme cache directory";
+saveTheme.description = "Save theme configuration to your local cache";
 
 saveTheme.input_schema = {
   type: "object",
   properties: {
     theme: {
       type: "object",
-      description: "A structured JSON object containing theme configuration",
+      description: "Theme configuration data",
     },
     config: {
       type: "string",
-      description: "Path to configuration file",
+      description: "Configuration file location",
       default: "./.aigne/web-smith/config.yaml",
     },
   },

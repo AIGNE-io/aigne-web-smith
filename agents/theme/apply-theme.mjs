@@ -195,7 +195,7 @@ export default async function applyTheme({ appUrl }, options) {
       try {
         new URL(finalAppUrl);
       } catch {
-        throw new Error(`Invalid appUrl format: ${finalAppUrl}. Please provide a valid URL.`);
+        throw new Error(`Invalid URL format: ${finalAppUrl}. Please enter a valid website URL.`);
       }
     } else {
       // If no appUrl parameter, use config file or default value
@@ -213,76 +213,69 @@ export default async function applyTheme({ appUrl }, options) {
     let selectedTheme;
     const cacheDir = join(process.cwd(), ".aigne", "web-smith", "themes");
 
-    try {
-      const { readdir } = await import("node:fs/promises");
-      const files = await readdir(cacheDir);
-      const themeFiles = files.filter((file) => file.endsWith(".json"));
+    const { readdir } = await import("node:fs/promises");
+    const files = await readdir(cacheDir);
+    const themeFiles = files.filter((file) => file.endsWith(".json"));
 
-      if (themeFiles.length === 0) {
-        throw new Error(`No cached themes found. Please generate a theme first.`);
-      }
+    if (themeFiles.length === 0) {
+      throw new Error(`No themes available. Please create a theme first.`);
+    }
 
-      const themes = [];
+    const themes = [];
 
-      // Read all theme files and sort by creation time (newest first)
-      for (const file of themeFiles) {
-        try {
-          const themePath = join(cacheDir, file);
-          const themeContent = await readFile(themePath, "utf-8");
-          const theme = JSON.parse(themeContent);
+    // Read all theme files and sort by creation time (newest first)
+    for (const file of themeFiles) {
+      try {
+        const themePath = join(cacheDir, file);
+        const themeContent = await readFile(themePath, "utf-8");
+        const theme = JSON.parse(themeContent);
 
-          if (theme.name) {
-            themes.push({
-              name: theme.name,
-              file: file,
-              theme: theme,
-              generatedAt: theme.generatedAt || "Unknown",
-              primaryColor: theme.light?.primary || "N/A",
-              headingFont: theme.fonts?.heading?.fontFamily || "N/A",
-              bodyFont: theme.fonts?.body?.fontFamily || "N/A",
-            });
-          }
-        } catch {
-          // Skip invalid theme files
+        if (theme.name) {
+          themes.push({
+            name: theme.name,
+            file: file,
+            theme: theme,
+            generatedAt: theme.generatedAt || "Unknown",
+            primaryColor: theme.light?.primary || "N/A",
+            headingFont: theme.fonts?.heading?.fontFamily || "N/A",
+            bodyFont: theme.fonts?.body?.fontFamily || "N/A",
+          });
         }
+      } catch {
+        // Skip invalid theme files
       }
+    }
 
-      // Sort by generation time (newest first)
-      themes.sort((a, b) => new Date(b.generatedAt) - new Date(a.generatedAt));
+    // Sort by generation time (newest first)
+    themes.sort((a, b) => new Date(b.generatedAt) - new Date(a.generatedAt));
 
-      if (themes.length === 0) {
-        throw new Error(`No valid themes found in cache. Please generate a theme first.`);
-      }
+    if (themes.length === 0) {
+      throw new Error(`No themes available. Please create a theme first.`);
+    }
 
-      // Create interactive selection options
-      const choices = themes.map((theme, index) => ({
-        name: `${index + 1}. ${theme.name} (${theme.primaryColor}) - ${theme.headingFont}/${theme.bodyFont}`,
-        value: theme.name,
-        description: `Generated: ${theme.generatedAt}`,
-      }));
+    // Create interactive selection options
+    const choices = themes.map((theme, index) => ({
+      name: `${index + 1}. ${theme.name} (${theme.primaryColor}) - ${theme.headingFont}/${theme.bodyFont}`,
+      value: theme.name,
+      description: `Generated: ${theme.generatedAt}`,
+    }));
 
-      // Let user select theme
-      const selectedThemeName = await options.prompts.select({
-        message: "Select a theme to apply:",
-        choices: choices,
-      });
+    // Let user select theme
+    const selectedThemeName = await options.prompts.select({
+      message: "Choose a theme to apply to your website:",
+      choices: choices,
+    });
 
-      if (!selectedThemeName) {
-        throw new Error("No theme selected");
-      }
+    if (!selectedThemeName) {
+      throw new Error("Please select a theme to continue");
+    }
 
-      // Find selected theme
-      const foundTheme = themes.find((t) => t.name === selectedThemeName);
-      if (foundTheme) {
-        selectedTheme = foundTheme.theme;
-      } else {
-        throw new Error(`Selected theme "${selectedThemeName}" not found`);
-      }
-    } catch (error) {
-      if (error.message.includes("No cached themes") || error.message.includes("No valid themes")) {
-        throw error;
-      }
-      throw new Error(`No cached themes found. Please generate a theme first.`);
+    // Find selected theme
+    const foundTheme = themes.find((t) => t.name === selectedThemeName);
+    if (foundTheme) {
+      selectedTheme = foundTheme.theme;
+    } else {
+      throw new Error(`Theme "${selectedThemeName}" could not be found`);
     }
 
     // Validate theme data structure
@@ -293,7 +286,7 @@ export default async function applyTheme({ appUrl }, options) {
       !selectedTheme.fonts
     ) {
       throw new Error(
-        "Invalid theme data structure. Missing required fields: name, light, dark, fonts",
+        "Theme data is incomplete. Required fields are missing: name, light colors, dark colors, and fonts",
       );
     }
 
@@ -305,7 +298,7 @@ export default async function applyTheme({ appUrl }, options) {
       // If no remote theme data, create an empty theme object
       console.log(
         chalk.yellow(
-          `⚠️ Failed to get remote theme data: ${error.message}, creating new theme collection`,
+          `⚠️ Could not retrieve existing themes: ${error.message}. Creating a new theme collection.`,
         ),
       );
       remoteThemeData = { concepts: [] };
@@ -348,17 +341,17 @@ export default async function applyTheme({ appUrl }, options) {
     }
 
     // Step 7: Upload updated theme data
-    console.log(chalk.blue("🚀 Uploading theme data..."));
+    console.log(chalk.blue("🚀 Applying theme to your website..."));
     await uploadThemeData(finalAppUrl, accessToken, blockletDid, remoteThemeData);
 
     return {
       message: chalk.green(
-        `Theme "${selectedTheme.name}" has been successfully applied to the website`,
+        `Theme "${selectedTheme.name}" has been successfully applied to your website`,
       ),
     };
   } catch (error) {
     return {
-      message: chalk.red(`Failed to apply theme: ${error.message}`),
+      message: chalk.red(`Unable to apply theme: ${error.message}`),
     };
   }
 }
@@ -368,7 +361,7 @@ applyTheme.input_schema = {
   properties: {
     appUrl: {
       type: "string",
-      description: "The URL of the application",
+      description: "Your website's URL",
     },
   },
 };

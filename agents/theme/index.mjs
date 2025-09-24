@@ -16,12 +16,12 @@ export default async function theme({ apply, appUrl, name, config }, options) {
     }
   } catch (error) {
     return {
-      message: chalk.red(`❌ Theme router error: ${error}`),
+      message: chalk.red(`❌ Unable to process theme request: ${error}`),
     };
   }
 }
 
-theme.description = "Theme router";
+theme.description = "Manage and apply website themes";
 
 // Define input schema
 theme.input_schema = {
@@ -29,11 +29,11 @@ theme.input_schema = {
   properties: {
     apply: {
       type: "boolean",
-      description: "Apply an existing theme configuration to the application",
+      description: "Apply an existing theme to your website",
     },
     generate: {
       type: "boolean",
-      description: "Generate new theme configuration",
+      description: "Create a new theme for your website",
     },
     name: {
       type: "string",
@@ -41,7 +41,7 @@ theme.input_schema = {
     },
     appUrl: {
       type: "string",
-      description: "The full URL of the application (e.g., https://example.com)",
+      description: "Your website's URL (e.g., https://example.com)",
     },
     config: {
       type: "string",

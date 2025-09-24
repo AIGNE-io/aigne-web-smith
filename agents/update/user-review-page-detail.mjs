@@ -166,6 +166,8 @@ function printSectionSimple(section, index) {
   // Extract and display key content fields
   const content = [];
 
+  // FIXME: Update this function when new properties are added to built-in components.
+  // Currently supported properties must be manually added to the content array below.
   if (section.title) content.push(`Title: ${truncateText(section.title, 80)}`);
   if (section.description) content.push(`Description: ${truncateText(section.description, 80)}`);
   if (section.image) content.push(`🖼️ Image`);

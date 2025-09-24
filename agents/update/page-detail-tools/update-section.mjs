@@ -1,6 +1,6 @@
 import YAML from "yaml";
 
-// TODO: Update this function when new properties are added to built-in components.
+// FIXME: Update this function when new properties are added to built-in components.
 // Currently supported properties must be manually added to the updates object below.
 export default async function updateSection({
   pageDetail,

@@ -1,9 +1,20 @@
+import YAML from "yaml";
+
 export default async function moveSection({ pageDetail, name, newPosition }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(
       "⚠️  Unable to move section: No page detail provided. Please specify the page detail to modify.",
     );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
     return { pageDetail };
   }
 
@@ -22,7 +33,7 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   }
 
   // Check if sections array exists
-  if (!pageDetail.sections || !Array.isArray(pageDetail.sections)) {
+  if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     console.log(
       "⚠️  Unable to move section: No sections found in the page detail. Please verify the page detail structure.",
     );
@@ -30,7 +41,7 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   }
 
   // Find the section to move
-  const sectionIndex = pageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
     console.log(
       `⚠️  Unable to move section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to move.`,
@@ -38,16 +49,16 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
     return { pageDetail };
   }
 
-  const sectionToMove = pageDetail.sections[sectionIndex];
+  const sectionToMove = parsedPageDetail.sections[sectionIndex];
 
   // Determine target position
   let targetIndex;
   if (typeof newPosition === "number") {
     // Position is an index
-    targetIndex = Math.max(0, Math.min(newPosition, pageDetail.sections.length - 1));
+    targetIndex = Math.max(0, Math.min(newPosition, parsedPageDetail.sections.length - 1));
   } else if (typeof newPosition === "string") {
     // Position is relative to another section
-    const refIndex = pageDetail.sections.findIndex((s) => s.name === newPosition);
+    const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === newPosition);
     if (refIndex === -1) {
       console.log(
         `⚠️  Unable to move section: Reference section '${newPosition}' doesn't exist. Please specify an existing section as reference for the move operation.`,
@@ -69,7 +80,7 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   }
 
   // Create new sections array with the moved section
-  const newSections = [...pageDetail.sections];
+  const newSections = [...parsedPageDetail.sections];
 
   // Remove section from current position
   newSections.splice(sectionIndex, 1);
@@ -82,12 +93,12 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
 
   // Create updated page detail
   const updatedPageDetail = {
-    ...pageDetail,
+    ...parsedPageDetail,
     sections: newSections,
   };
 
   return {
-    pageDetail: updatedPageDetail,
+    pageDetail: YAML.stringify(updatedPageDetail),
     movedSection: sectionToMove,
     fromIndex: sectionIndex,
     toIndex: adjustedTargetIndex,
@@ -100,8 +111,8 @@ moveSection.inputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Current page detail object",
+      type: "string",
+      description: "Current page detail YAML string",
     },
     name: {
       type: "string",
@@ -118,8 +129,8 @@ moveSection.outputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Updated page detail object with the section moved",
+      type: "string",
+      description: "Updated page detail YAML string with the section moved",
     },
     movedSection: {
       type: "object",

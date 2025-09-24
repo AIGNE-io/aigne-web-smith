@@ -83,12 +83,17 @@ export default async function userReviewPageDetail({ content, ...rest }, options
       const result = await options.context.invoke(updateAgent, {
         ...rest,
         feedback: feedback.trim(),
-        pageDetail: currentPageDetail,
+        pageDetail: YAML.stringify(currentPageDetail),
         userPreferences,
       });
 
       if (result.pageDetail) {
-        currentPageDetail = result.pageDetail;
+        // Parse the returned YAML string back to object
+        if (typeof result.pageDetail === 'string') {
+          currentPageDetail = YAML.parse(result.pageDetail);
+        } else {
+          currentPageDetail = result.pageDetail;
+        }
       }
 
       // Check if feedback should be saved as user preference

@@ -1,4 +1,6 @@
-// FIXME: The updated properties are currently hardcoded. 
+import YAML from "yaml";
+
+// FIXME: The updated properties are currently hardcoded.
 // If new properties are added to built-in components, manual updates are required here
 export default async function updateSection({ pageDetail, name, title, description, image, code, action, list, summary }) {
   // Validate required parameters
@@ -6,6 +8,15 @@ export default async function updateSection({ pageDetail, name, title, descripti
     console.log(
       "⚠️  Unable to update section: No page detail provided. Please specify the page detail to modify.",
     );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
     return { pageDetail };
   }
 
@@ -38,7 +49,7 @@ export default async function updateSection({ pageDetail, name, title, descripti
   }
 
   // Check if sections array exists
-  if (!pageDetail.sections || !Array.isArray(pageDetail.sections)) {
+  if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     console.log(
       "⚠️  Unable to update section: No sections found in the page detail. Please verify the page detail structure.",
     );
@@ -46,7 +57,7 @@ export default async function updateSection({ pageDetail, name, title, descripti
   }
 
   // Find the section to update
-  const sectionIndex = pageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
     console.log(
       `⚠️  Unable to update section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to update.`,
@@ -54,7 +65,7 @@ export default async function updateSection({ pageDetail, name, title, descripti
     return { pageDetail };
   }
 
-  const originalSection = pageDetail.sections[sectionIndex];
+  const originalSection = parsedPageDetail.sections[sectionIndex];
 
   // Create updated section object
   const updatedSection = {
@@ -63,17 +74,17 @@ export default async function updateSection({ pageDetail, name, title, descripti
   };
 
   // Create new sections array with the updated section
-  const newSections = [...pageDetail.sections];
+  const newSections = [...parsedPageDetail.sections];
   newSections[sectionIndex] = updatedSection;
 
   // Create updated page detail
   const updatedPageDetail = {
-    ...pageDetail,
+    ...parsedPageDetail,
     sections: newSections,
   };
 
   return {
-    pageDetail: updatedPageDetail,
+    pageDetail: YAML.stringify(updatedPageDetail),
     originalSection,
     updatedSection,
   };
@@ -86,8 +97,8 @@ updateSection.inputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Current page detail object",
+      type: "string",
+      description: "Current page detail YAML string",
     },
     name: {
       type: "string",
@@ -113,8 +124,8 @@ updateSection.outputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Updated page detail object with the section modified",
+      type: "string",
+      description: "Updated page detail YAML string with the section modified",
     },
     originalSection: {
       type: "object",

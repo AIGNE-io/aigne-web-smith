@@ -7,8 +7,8 @@ input_schema:
   type: object
   properties:
     pageDetail:
-      type: object
-      description: Current page detail object to be updated
+      type: string
+      description: Current page detail YAML string to be updated
     rules:
       type: string
       description: User's website structure requirements
@@ -53,8 +53,8 @@ output_schema:
   type: object
   properties:
     pageDetail:
-      type: object
-      description: Updated page detail object
+      type: string
+      description: Updated page detail YAML string
     operationSummary:
       type: string
       description: Summary of the operations performed on the page detail

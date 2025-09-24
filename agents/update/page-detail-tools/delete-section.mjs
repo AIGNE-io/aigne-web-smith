@@ -1,9 +1,20 @@
+import YAML from "yaml";
+
 export default async function deleteSection({ pageDetail, name }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(
       "⚠️  Unable to delete section: No page detail provided. Please specify the page detail to modify.",
     );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
     return { pageDetail };
   }
 
@@ -15,7 +26,7 @@ export default async function deleteSection({ pageDetail, name }) {
   }
 
   // Check if sections array exists
-  if (!pageDetail.sections || !Array.isArray(pageDetail.sections)) {
+  if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     console.log(
       "⚠️  Unable to delete section: No sections found in the page detail. Please verify the page detail structure.",
     );
@@ -23,7 +34,7 @@ export default async function deleteSection({ pageDetail, name }) {
   }
 
   // Find the section to delete
-  const sectionIndex = pageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
     console.log(
       `⚠️  Unable to delete section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to remove.`,
@@ -31,19 +42,19 @@ export default async function deleteSection({ pageDetail, name }) {
     return { pageDetail };
   }
 
-  const sectionToDelete = pageDetail.sections[sectionIndex];
+  const sectionToDelete = parsedPageDetail.sections[sectionIndex];
 
   // Create new sections array without the deleted section
-  const newSections = pageDetail.sections.filter((_, index) => index !== sectionIndex);
+  const newSections = parsedPageDetail.sections.filter((_, index) => index !== sectionIndex);
 
   // Create updated page detail
   const updatedPageDetail = {
-    ...pageDetail,
+    ...parsedPageDetail,
     sections: newSections,
   };
 
   return {
-    pageDetail: updatedPageDetail,
+    pageDetail: YAML.stringify(updatedPageDetail),
     deletedSection: sectionToDelete,
   };
 }
@@ -54,8 +65,8 @@ deleteSection.inputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Current page detail object",
+      type: "string",
+      description: "Current page detail YAML string",
     },
     name: {
       type: "string",
@@ -68,8 +79,8 @@ deleteSection.outputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Updated page detail object with the section removed",
+      type: "string",
+      description: "Updated page detail YAML string with the section removed",
     },
     deletedSection: {
       type: "object",

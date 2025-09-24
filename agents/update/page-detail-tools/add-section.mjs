@@ -1,9 +1,20 @@
+import YAML from "yaml";
+
 export default async function addSection({ pageDetail, section, position }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(
       "⚠️  Unable to add section: No page detail provided. Please specify the page detail to modify.",
     );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
     return { pageDetail };
   }
 
@@ -23,12 +34,12 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Initialize sections array if it doesn't exist
-  if (!pageDetail.sections) {
-    pageDetail.sections = [];
+  if (!parsedPageDetail.sections) {
+    parsedPageDetail.sections = [];
   }
 
   // Check if section with same name already exists
-  const existingSection = pageDetail.sections.find((s) => s.name === section.name);
+  const existingSection = parsedPageDetail.sections.find((s) => s.name === section.name);
   if (existingSection) {
     console.log(
       `⚠️  Unable to add section: A section with name '${section.name}' already exists. Please choose a different name for the new section.`,
@@ -37,15 +48,15 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Determine insertion position
-  let insertIndex = pageDetail.sections.length; // Default to end
+  let insertIndex = parsedPageDetail.sections.length; // Default to end
 
   if (position !== undefined) {
     if (typeof position === "number") {
       // Position is an index
-      insertIndex = Math.max(0, Math.min(position, pageDetail.sections.length));
+      insertIndex = Math.max(0, Math.min(position, parsedPageDetail.sections.length));
     } else if (typeof position === "string") {
       // Position is relative to another section
-      const refIndex = pageDetail.sections.findIndex((s) => s.name === position);
+      const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === position);
       if (refIndex !== -1) {
         insertIndex = refIndex + 1; // Insert after the reference section
       }
@@ -53,17 +64,17 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Create new sections array with the inserted section
-  const newSections = [...pageDetail.sections];
+  const newSections = [...parsedPageDetail.sections];
   newSections.splice(insertIndex, 0, section);
 
   // Create updated page detail
   const updatedPageDetail = {
-    ...pageDetail,
+    ...parsedPageDetail,
     sections: newSections,
   };
 
   return {
-    pageDetail: updatedPageDetail,
+    pageDetail: YAML.stringify(updatedPageDetail),
     addedSection: section,
     insertedAt: insertIndex,
   };
@@ -75,8 +86,8 @@ addSection.inputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Current page detail object",
+      type: "string",
+      description: "Current page detail YAML string",
     },
     section: {
       type: "object",
@@ -100,8 +111,8 @@ addSection.outputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Updated page detail object with the new section added",
+      type: "string",
+      description: "Updated page detail YAML string with the new section added",
     },
     addedSection: {
       type: "object",

@@ -1,9 +1,20 @@
+import YAML from "yaml";
+
 export default async function updateMeta({ pageDetail, title, description }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log(
       "⚠️  Unable to update meta: No page detail provided. Please specify the page detail to modify.",
     );
+    return { pageDetail };
+  }
+
+  // Parse YAML string to object
+  let parsedPageDetail;
+  try {
+    parsedPageDetail = YAML.parse(pageDetail);
+  } catch (error) {
+    console.log("⚠️  Unable to parse page detail YAML:", error.message);
     return { pageDetail };
   }
 
@@ -17,15 +28,15 @@ export default async function updateMeta({ pageDetail, title, description }) {
 
   // Create updated page detail object
   const updatedPageDetail = {
-    ...pageDetail,
+    ...parsedPageDetail,
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
   };
 
   return {
-    pageDetail: updatedPageDetail,
+    pageDetail: YAML.stringify(updatedPageDetail),
     originalPageDetail: pageDetail,
-    updatedPageDetail,
+    updatedPageDetail: YAML.stringify(updatedPageDetail),
   };
 }
 
@@ -36,8 +47,8 @@ updateMeta.inputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Current page detail object",
+      type: "string",
+      description: "Current page detail YAML string",
     },
     title: {
       type: "string",
@@ -55,16 +66,16 @@ updateMeta.outputSchema = {
   type: "object",
   properties: {
     pageDetail: {
-      type: "object",
-      description: "Updated page detail object with modified meta information",
+      type: "string",
+      description: "Updated page detail YAML string with modified meta information",
     },
     originalPageDetail: {
-      type: "object",
-      description: "The original page detail before update",
+      type: "string",
+      description: "The original page detail YAML string before update",
     },
     updatedPageDetail: {
-      type: "object",
-      description: "The updated page detail after modification",
+      type: "string",
+      description: "The updated page detail YAML string after modification",
     },
   },
   required: ["pageDetail"],

@@ -1,0 +1,211 @@
+{
+  "id": "477Trmp1oQ5nDFJi",
+  "createdAt": "2025-09-24T07:36:32.295Z",
+  "updatedAt": "2025-09-24T09:38:27.143Z",
+  "name": "Image",
+  "description": "MUI Box 封装的基础图片组件，支持自定义尺寸与裁剪方式",
+  "properties": {
+    "ZjzDYjhBGbSFjQvg": {
+      "index": 0,
+      "data": {
+        "id": "ZjzDYjhBGbSFjQvg",
+        "key": "src",
+        "type": "url",
+        "locales": {
+          "zh": {
+            "name": "图片地址",
+            "defaultValue": {
+              "url": "",
+              "mediaKitUrl": ""
+            }
+          },
+          "en": {
+            "name": "Image Source",
+            "defaultValue": {
+              "url": "",
+              "mediaKitUrl": ""
+            }
+          }
+        }
+      }
+    },
+    "IDcIJ2sD67Fv61NE": {
+      "index": 1,
+      "data": {
+        "id": "IDcIJ2sD67Fv61NE",
+        "key": "altText",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "替代文本",
+            "defaultValue": ""
+          },
+          "en": {
+            "name": "Alt Text",
+            "defaultValue": ""
+          }
+        }
+      }
+    },
+    "awQrleg6KIaDKrAa": {
+      "index": 2,
+      "data": {
+        "id": "awQrleg6KIaDKrAa",
+        "key": "width",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "宽度",
+            "defaultValue": "100%"
+          },
+          "en": {
+            "name": "Width",
+            "defaultValue": "100%"
+          }
+        }
+      }
+    },
+    "fa2HvV3PGuXyeATp": {
+      "index": 3,
+      "data": {
+        "id": "fa2HvV3PGuXyeATp",
+        "key": "height",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "高度",
+            "defaultValue": "auto"
+          },
+          "en": {
+            "name": "Height",
+            "defaultValue": "auto"
+          }
+        }
+      }
+    },
+    "Rd0MqNe0AcwE7q7q": {
+      "index": 4,
+      "data": {
+        "id": "Rd0MqNe0AcwE7q7q",
+        "key": "objectFit",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "裁剪方式",
+            "defaultValue": "cover"
+          },
+          "en": {
+            "name": "Object Fit",
+            "defaultValue": "cover"
+          }
+        }
+      }
+    },
+    "0jcm1hH9ubpOe5NX": {
+      "index": 5,
+      "data": {
+        "id": "0jcm1hH9ubpOe5NX",
+        "key": "loading",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "加载策略",
+            "defaultValue": "lazy"
+          },
+          "en": {
+            "name": "Loading",
+            "defaultValue": "lazy"
+          }
+        }
+      }
+    },
+    "1Lbvgfyz6qi6jkQk": {
+      "index": 6,
+      "data": {
+        "id": "1Lbvgfyz6qi6jkQk",
+        "key": "borderRadius",
+        "type": "string",
+        "locales": {
+          "zh": {
+            "name": "圆角",
+            "defaultValue": "0px"
+          },
+          "en": {
+            "name": "Border Radius",
+            "defaultValue": "0px"
+          }
+        }
+      }
+    },
+    "knGtRCcMEvwf7zhT": {
+      "index": 7,
+      "data": {
+        "id": "knGtRCcMEvwf7zhT",
+        "key": "backgroundColor",
+        "type": "color",
+        "locales": {
+          "zh": {
+            "name": "背景颜色",
+            "defaultValue": ""
+          },
+          "en": {
+            "name": "Background Color",
+            "defaultValue": ""
+          }
+        }
+      }
+    }
+  },
+  "llmConfig": {
+    "properties": {
+      "ZjzDYjhBGbSFjQvg": {
+        "key": "src",
+        "isNeedGenerate": true,
+        "describe": "Image source URL. Provide an accessible https link or media library asset.",
+        "displayName": "Image Source"
+      },
+      "IDcIJ2sD67Fv61NE": {
+        "key": "altText",
+        "isNeedGenerate": true,
+        "describe": "Alternative text describing the image content for accessibility.",
+        "displayName": "Alt Text"
+      },
+      "awQrleg6KIaDKrAa": {
+        "key": "width",
+        "isNeedGenerate": false,
+        "describe": "CSS width value, e.g. 100%, 320px, 20rem.",
+        "displayName": "Width"
+      },
+      "fa2HvV3PGuXyeATp": {
+        "key": "height",
+        "isNeedGenerate": false,
+        "describe": "CSS height value, e.g. auto, 240px, 50vh.",
+        "displayName": "Height"
+      },
+      "Rd0MqNe0AcwE7q7q": {
+        "key": "objectFit",
+        "isNeedGenerate": false,
+        "describe": "CSS object-fit for the image. Allowed values: cover, contain, fill, scale-down, none.",
+        "displayName": "Object Fit"
+      },
+      "0jcm1hH9ubpOe5NX": {
+        "key": "loading",
+        "isNeedGenerate": false,
+        "describe": "Native img loading behavior. Allowed values: lazy, eager, auto.",
+        "displayName": "Loading"
+      },
+      "1Lbvgfyz6qi6jkQk": {
+        "key": "borderRadius",
+        "isNeedGenerate": false,
+        "describe": "CSS border-radius value such as 8px or 50%.",
+        "displayName": "Border Radius"
+      },
+      "knGtRCcMEvwf7zhT": {
+        "key": "backgroundColor",
+        "isNeedGenerate": false,
+        "describe": "Background color beneath the image. Accepts hex, rgb(a), or MUI palette tokens.",
+        "displayName": "Background Color"
+      }
+    }
+  }
+}

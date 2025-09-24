@@ -74,8 +74,9 @@ Theme Configuration Requirements:
 
 Color Palette Structure:
 
+Follow the comprehensive color palette guidelines from <theme_design_knowledge> for:
 - `primary`: Main brand color for key UI elements
-- `secondary`: Supporting brand color for accents and highlights
+- `secondary`: Supporting brand color for accents and highlights  
 - `success`: Color for positive actions and success states
 - `error`: Color for error states and destructive actions
 - `info`: Color for informational messages and neutral actions
@@ -92,11 +93,16 @@ Design Guidelines:
 - Font selection: Must be from Google Fonts library only
 - Background and surface colors should provide sufficient contrast with text content
 - Surface color should be slightly different from background to create visual hierarchy
-- **Primary-Secondary Color Harmony**: Ensure primary and secondary colors work together cohesively:
-  - Use color theory principles (complementary, analogous, triadic relationships)
-  - Maintain appropriate contrast levels without creating visual tension
-  - Secondary should complement primary while maintaining distinctiveness
-  - Consider hue, saturation, and brightness relationships for optimal harmony
+
+**Advanced Color Strategy Guidelines:**
+
+Apply comprehensive color strategy principles from <theme_design_knowledge> including:
+- Color psychology and industry applications
+- Advanced color harmony techniques
+- Primary-secondary color relationships
+- Accessibility standards and contrast requirements
+- Light/dark mode adaptation strategies
+- Cultural considerations and temperature balance
 
 **Design Philosophy:**
 

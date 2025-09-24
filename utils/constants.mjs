@@ -284,18 +284,21 @@ export const WEBSITE_SCALE = {
     description: "All content consolidated into 1 page",
     content:
       "Includes: All key information in one scrollable page with sections.\nBest for: Landing pages, simple portfolios, documentation sites.\n **Only 1 page with multiple sections.**",
+    max: 1,
   },
   minimal: {
     name: "Minimal (2-6 pages)",
     description: "Core pages only - quick to launch",
     content:
       "Includes: Home, About, Services/Products, Contact.\nBest for: MVP, landing pages, simple business sites.\n ** Expected pages: 2-6 pages. **",
+    max: 6,
   },
   standard: {
     name: "Standard (7-12 pages)",
     description: "Complete website with main sections [RECOMMENDED]",
     content:
       "Includes: All minimal pages plus portfolio/blog, team, FAQ, pricing.\nBest for: Professional business sites, portfolios, small e-commerce.\n ** Expected pages: 7-12 pages. **",
+    max: 12,
   },
   comprehensive: {
     name: "Comprehensive (12+ pages)",

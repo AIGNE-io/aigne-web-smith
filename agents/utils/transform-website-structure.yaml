@@ -5,8 +5,7 @@ jsonata: |
   $merge([
     $,
     {
-      'websiteStructure': originalWebsiteStructure,
-      'websiteStructureResult': [$map(originalWebsiteStructure, function($item) {
+      'websiteStructureResult': [$map(websiteStructure, function($item) {
         $merge([
           $item,
           {

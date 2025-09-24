@@ -17,12 +17,16 @@ skills:
       savePath:
         $get: tmpDir
       fileName: website-structure.yaml
+  - ../plan/user-review-website-structure.mjs
+  - url: ../utils/save-output.mjs
+    default_input:
+      saveKey: websiteStructure
+      savePath:
+        $get: tmpDir
+      fileName: website-structure.yaml
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
   - ../generate/page-detail/batch-generate-page-detail.yaml
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: structure_planning
   - ./component-library/load-component-library.mjs
   - type: team
     name: analyzeComponentLibrary and batchTranslatePageDetail
@@ -40,9 +44,6 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    feedback:
-      type: string
-      description: Feedback for structure planning adjustments
     forceRegenerate:
       type: boolean
       description: Force regenerate all pages

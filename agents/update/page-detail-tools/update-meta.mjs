@@ -34,9 +34,15 @@ export default async function updateMeta({ pageDetail, title, description }) {
   };
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail),
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
     originalPageDetail: pageDetail,
-    updatedPageDetail: YAML.stringify(updatedPageDetail),
+    updatedPageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
   };
 }
 

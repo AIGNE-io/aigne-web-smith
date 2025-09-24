@@ -98,7 +98,10 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   };
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail),
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
     movedSection: sectionToMove,
     fromIndex: sectionIndex,
     toIndex: adjustedTargetIndex,

@@ -54,7 +54,10 @@ export default async function deleteSection({ pageDetail, name }) {
   };
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail),
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
     deletedSection: sectionToDelete,
   };
 }

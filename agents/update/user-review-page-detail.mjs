@@ -107,8 +107,9 @@ export default async function userReviewPageDetail(
       if (feedbackRefinerAgent) {
         try {
           await options.context.invoke(feedbackRefinerAgent, {
-            pageDetailFeedback: feedback.trim(),
+            feedback: feedback.trim(),
             stage: "page_refine",
+            selectedPaths: [rest.path],
           });
         } catch (refinerError) {
           console.warn("Could not save feedback as user preference:", refinerError.message);
@@ -128,7 +129,12 @@ export default async function userReviewPageDetail(
     }
   }
 
-  return { content: YAML.stringify(currentPageDetail) };
+  return {
+    content: YAML.stringify(currentPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
+  };
 }
 
 function printPageDetail(pageDetail) {

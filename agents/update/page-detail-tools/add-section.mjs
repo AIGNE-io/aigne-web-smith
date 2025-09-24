@@ -74,7 +74,10 @@ export default async function addSection({ pageDetail, section, position }) {
   };
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail),
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
     addedSection: section,
     insertedAt: insertIndex,
   };

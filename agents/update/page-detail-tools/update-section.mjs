@@ -94,7 +94,10 @@ export default async function updateSection({
   };
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail),
+    pageDetail: YAML.stringify(updatedPageDetail, {
+      quotingType: '"',
+      defaultStringType: "QUOTE_DOUBLE",
+    }),
     originalSection,
     updatedSection,
   };

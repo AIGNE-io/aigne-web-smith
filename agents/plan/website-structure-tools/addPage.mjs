@@ -30,7 +30,7 @@ export default async function addPage({
   }
 
   // Validate parent exists if parentId is provided
-  if (parentId !== null && parentId !== undefined && parentId !== "null") {
+  if (parentId !== null && parentId !== undefined && parentId !== "null" && parentId !== "") {
     const parentExists = websiteStructure.some((item) => item.path === parentId);
     if (!parentExists) {
       console.log(

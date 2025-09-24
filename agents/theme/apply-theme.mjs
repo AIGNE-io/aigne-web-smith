@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { joinURL } from "ufo";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { getBlockletMetaDid } from "../../utils/blocklet.mjs";
 import { DEFAULT_APP_URL } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
 import { loadConfigFromFile } from "../../utils/utils.mjs";
@@ -94,36 +95,6 @@ function formatToMUITheme(themeData) {
   };
 
   return muiTheme;
-}
-
-/**
- * Get blocklet's meta.did
- * @param {string} appUrl - Application URL
- * @returns {Promise<string>} - Blocklet's DID
- */
-async function getBlockletMetaDid(appUrl) {
-  const url = new URL(appUrl);
-  const blockletJsUrl = `${url.origin}/__blocklet__.js?type=json`;
-
-  try {
-    const response = await fetch(blockletJsUrl, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch blocklet config: ${response.status} ${response.statusText}`);
-    }
-
-    const config = await response.json();
-
-    console.log(chalk.green(`✅ Fetched blocklet config: ${blockletJsUrl}`));
-    return config.did;
-  } catch (error) {
-    throw new Error(`Failed to get blocklet meta DID: ${error.message}`);
-  }
 }
 
 /**

@@ -249,15 +249,17 @@ export default async function loadSources({
           // handle builtin-component-library.yaml separately
           if (path.basename(file) === "builtin-component-library.yaml") {
             const builtinComponentLibraryContent = parse(content);
-            Object.entries(builtinComponentLibraryContent).forEach(([type, value]) => {
-              value.map((item) => {
-                const isAtomic = type === "atomic";
-                builtinComponentLibrary.push({
-                  ...item,
-                  type,
-                  fieldCombinations: isAtomic ? [item.field] : item.fieldCombinations,
-                  relatedComponents: isAtomic ? [] : item.relatedComponents,
-                });
+            const { atomic, composite } = builtinComponentLibraryContent;
+            atomic.forEach((item) => {
+              builtinComponentLibrary.push({
+                ...item,
+                type: "atomic",
+              });
+            });
+            composite.forEach((item) => {
+              builtinComponentLibrary.push({
+                ...item,
+                type: "composite",
               });
             });
             return;

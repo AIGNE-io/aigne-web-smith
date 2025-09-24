@@ -69,7 +69,7 @@ This is the website structure. You can refer to it to understand where the curre
 </datasources>
 
 <page_detail>
-{{ pageDetail | yaml }}
+{{ pageDetail }}
 
 <detail_context>
 Current page detail contains the following structure:

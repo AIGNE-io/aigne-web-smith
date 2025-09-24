@@ -121,33 +121,85 @@ export default async function userReviewPageDetail({ content, ...rest }, options
 }
 
 function printPageDetail(pageDetail) {
-  console.log("\n📄 Page Detail Content:");
-  console.log("=".repeat(50));
+  console.log("\n📄 Page Detail:");
+  console.log("=".repeat(60));
 
   // Print meta information
   console.log(`\n📌 Meta Information:`);
-  if (pageDetail.title) console.log(`   Title: ${pageDetail.title}`);
-  if (pageDetail.description) console.log(`   Description: ${pageDetail.description}`);
-  if (pageDetail.seoTitle) console.log(`   SEO Title: ${pageDetail.seoTitle}`);
-  if (pageDetail.seoDescription) console.log(`   SEO Description: ${pageDetail.seoDescription}`);
+  if (pageDetail.meta?.title) console.log(`   Title: ${pageDetail.meta.title}`);
+  if (pageDetail.meta?.description) console.log(`   Description: ${pageDetail.meta.description}`);
 
-  // Print sections
+  // Print sections with simplified preview
   if (pageDetail.sections && Array.isArray(pageDetail.sections)) {
-    console.log(`\n📋 Sections (${pageDetail.sections.length}):`);
+    console.log(`\n🌐 Website Preview (${pageDetail.sections.length} sections):`);
+    console.log("-".repeat(60));
+
     pageDetail.sections.forEach((section, index) => {
-      console.log(`\n   ${index + 1}. ${section.name || "Unnamed Section"}`);
-      if (section.summary) console.log(`      Summary: ${section.summary}`);
-      if (section.title) console.log(`      Title: ${section.title}`);
-      if (section.description)
-        console.log(
-          `      Description: ${section.description.substring(0, 100)}${section.description.length > 100 ? "..." : ""}`,
-        );
+      printSectionSimple(section, index + 1);
     });
   } else {
     console.log(`\n📋 Sections: None`);
   }
 
-  console.log(`\n${"=".repeat(50)}`);
+  console.log(`\n${"=".repeat(60)}`);
+}
+
+function printSectionSimple(section, index) {
+  console.log(`\n${index}. ${section.name || "Unnamed Section"}`);
+
+  // Show section summary if available
+  // if (section.summary) {
+  //   console.log(`   📝 ${truncateText(section.summary, 54)}`);
+  // }
+
+  // Extract and display key content fields
+  const content = [];
+
+  if (section.title) content.push(`Title: ${truncateText(section.title, 80)}`);
+  if (section.description) content.push(`Description: ${truncateText(section.description, 80)}`);
+  if (section.image) content.push(`🖼️ Image`);
+  if (section.code) content.push(`💻 Code`);
+  if (section.action) {
+    const actionText = typeof section.action === "object" ? section.action.text : section.action;
+    content.push(`🔘 ${truncateText(actionText || "Button", 30)}`);
+  }
+  if (section.list && Array.isArray(section.list)) {
+    const listDetails = section.list.map((item, index) => {
+      if (typeof item === 'string') {
+        return `${index + 1}. ${truncateText(item, 40)}`;
+      } else if (typeof item === 'object' && item !== null) {
+        const itemTitle = item.title || item.name || item.text || 'Item';
+        const itemDesc = item.description || item.summary || '';
+        return `${index + 1}. ${truncateText(itemTitle, 25)}${itemDesc ? ` - ${truncateText(itemDesc, 50)}` : ''}`;
+      }
+      return `${index + 1}. ${truncateText(String(item), 40)}`;
+    }).join('\n     ');
+    content.push(`📋 List (${section.list.length} items):\n     ${listDetails}`);
+  }
+
+  // Show content in a compact format
+  if (content.length > 0) {
+    const contentLine = content.join("\n   ");
+    console.log(`   ${contentLine}`);
+  }
+
+  // Show any custom fields
+  const customFields = Object.keys(section).filter(
+    (key) =>
+      !["name", "summary", "title", "description", "image", "code", "action", "list"].includes(key),
+  );
+
+  if (customFields.length > 0) {
+    const customText = customFields
+      .map((key) => `${key}: ${truncateText(String(section[key]), 15)}`)
+      .join(" • ");
+    console.log(`   📎 ${truncateText(customText, 50)}`);
+  }
+}
+
+function truncateText(text, maxLength) {
+  if (!text) return "";
+  return text.length > maxLength ? `${text.substring(0, maxLength - 3)}...` : text;
 }
 
 userReviewPageDetail.taskTitle = "User review and modify page detail content";

@@ -59,8 +59,8 @@ output_schema:
       type: string
       description: Summary of the operations performed on the page detail
 skills:
-  - ./page-detail-tools/updateMeta.mjs
-  - ./page-detail-tools/addSection.mjs
-  - ./page-detail-tools/deleteSection.mjs
-  - ./page-detail-tools/updateSection.mjs
-  - ./page-detail-tools/moveSection.mjs
+  - ./page-detail-tools/update-meta.mjs
+  - ./page-detail-tools/add-section.mjs
+  - ./page-detail-tools/delete-section.mjs
+  - ./page-detail-tools/update-section.mjs
+  - ./page-detail-tools/move-section.mjs

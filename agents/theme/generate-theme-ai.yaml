@@ -1,6 +1,7 @@
 type: ai
 name: generateThemeAI
 description: Create comprehensive MUI theme configuration based on your website style
+taskRenderMode: hide
 instructions:
   url: ../../prompts/theme/generate-theme-config.md
 input_schema:

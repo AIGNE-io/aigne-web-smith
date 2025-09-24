@@ -49,3 +49,5 @@ theme.input_schema = {
     },
   },
 };
+
+theme.taskTitle = "🎨 Theme Management"

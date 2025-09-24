@@ -67,3 +67,5 @@ saveTheme.input_schema = {
     },
   },
 };
+
+saveTheme.taskRenderMode = "hide";

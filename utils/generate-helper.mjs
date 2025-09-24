@@ -394,10 +394,12 @@ export const getComponentLibraryData = (tmpDir) => {
 /**
  * Generate field usage constraints from builtin component library
  * @param {Array} componentLibrary - Array of component definitions
+ * @throws {Error} Will not throw, returns empty string for invalid input
  * @returns {string} Formatted constraints text for LLM usage
  */
 export function generateFieldConstraints(componentLibrary) {
   if (!componentLibrary || !Array.isArray(componentLibrary)) {
+    console.warn("Invalid component library provided to generateFieldConstraints");
     return "";
   }
 

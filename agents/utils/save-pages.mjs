@@ -147,13 +147,13 @@ async function cleanupDirectoryFiles(dirPath, expectedFiles, results, dirType) {
         results.push({
           path: filePath,
           success: true,
-          message: `Deleted invalid ${dirType} file: ${file}`,
+          message: `Successfully deleted invalid file from ${dirType} directory: ${file}`,
         });
       } catch (err) {
         results.push({
           path: file,
           success: false,
-          error: `Failed to delete ${dirType} file ${file}: ${err.message}`,
+          error: `Failed to delete file from ${dirType} directory: ${file}: ${err.message}`,
         });
       }
     }

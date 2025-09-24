@@ -27,7 +27,7 @@ export default async function userReviewPageDetail(
   // Ask user if they want to review the page detail
   const needReview = await options.prompts.select({
     message:
-      "Would you like to optimize the page detail?\n  You can edit sections, meta information, and content structure.",
+      "Would you like to optimize this page?\n  You can edit sections, metadata, and content structure.",
     choices: [
       {
         name: "Looks good - proceed with current content",
@@ -68,10 +68,8 @@ export default async function userReviewPageDetail(
     // Get the updatePageDetail agent
     const updateAgent = options.context.agents["updatePageDetail"];
     if (!updateAgent) {
-      console.log(
-        "Unable to process your feedback - the page detail update feature is unavailable.",
-      );
-      console.log("Please try again later or contact support if this continues.");
+      console.log("Unable to process feedback: page detail update feature unavailable.");
+      console.log("Please try again later or contact support if the issue persists.");
       break;
     }
 
@@ -112,19 +110,20 @@ export default async function userReviewPageDetail(
             selectedPaths: [rest.path],
           });
         } catch (refinerError) {
-          console.warn("Could not save feedback as user preference:", refinerError.message);
-          console.warn("Your feedback was applied but not saved as a preference.");
+          console.warn(`Failed to save user preference: ${refinerError.message}`);
+          console.warn("Feedback applied but not saved as preference.");
         }
       }
 
       // Print updated page detail
       printPageDetail(currentPageDetail);
     } catch (error) {
-      console.error("Error processing your feedback:");
-      console.error(`Type: ${error.name}`);
-      console.error(`Message: ${error.message}`);
-      console.error(`Stack: ${error.stack}`);
-      console.log("\nPlease try rephrasing your feedback or continue with the current content.");
+      console.error("Error processing feedback:", {
+        type: error.name,
+        message: error.message,
+        stack: error.stack,
+      });
+      console.log("\nPlease rephrase feedback or continue with current content.");
       break;
     }
   }

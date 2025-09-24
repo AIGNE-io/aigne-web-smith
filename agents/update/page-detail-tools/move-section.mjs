@@ -3,9 +3,7 @@ import YAML from "yaml";
 export default async function moveSection({ pageDetail, name, newPosition }) {
   // Validate required parameters
   if (!pageDetail) {
-    console.log(
-      "⚠️  Unable to move section: No page detail provided. Please specify the page detail to modify.",
-    );
+    console.log("⚠️  Unable to move section: No page detail provided");
     return { pageDetail };
   }
 
@@ -19,33 +17,25 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   }
 
   if (!name) {
-    console.log(
-      "⚠️  Unable to move section: No section name specified. Please clearly indicate which section you want to move.",
-    );
+    console.log("⚠️  Unable to move section: No section name specified");
     return { pageDetail };
   }
 
   if (newPosition === undefined) {
-    console.log(
-      "⚠️  Unable to move section: No target position specified. Please indicate where you want to move the section.",
-    );
+    console.log("⚠️  Unable to move section: No target position specified");
     return { pageDetail };
   }
 
   // Check if sections array exists
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
-    console.log(
-      "⚠️  Unable to move section: No sections found in the page detail. Please verify the page detail structure.",
-    );
+    console.log("⚠️  Unable to move section: No sections found in page detail");
     return { pageDetail };
   }
 
   // Find the section to move
   const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
-    console.log(
-      `⚠️  Unable to move section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to move.`,
-    );
+    console.log(`⚠️  Unable to move section: Section '${name}' not found`);
     return { pageDetail };
   }
 
@@ -60,22 +50,18 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
     // Position is relative to another section
     const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === newPosition);
     if (refIndex === -1) {
-      console.log(
-        `⚠️  Unable to move section: Reference section '${newPosition}' doesn't exist. Please specify an existing section as reference for the move operation.`,
-      );
+      console.log(`⚠️  Unable to move section: Reference section '${newPosition}' not found`);
       return { pageDetail };
     }
     targetIndex = refIndex;
   } else {
-    console.log(
-      "⚠️  Unable to move section: Invalid position format. Please specify a number (index) or section name as the target position.",
-    );
+    console.log("⚠️  Unable to move section: Invalid position format");
     return { pageDetail };
   }
 
   // If the section is already at the target position, no change needed
   if (sectionIndex === targetIndex) {
-    console.log(`⚠️  Section '${name}' is already at the specified position. No changes were made.`);
+    console.log(`⚠️  Section '${name}' already at specified position`);
     return { pageDetail };
   }
 

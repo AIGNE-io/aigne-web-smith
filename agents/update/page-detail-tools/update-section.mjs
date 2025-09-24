@@ -1,7 +1,7 @@
 import YAML from "yaml";
 
-// FIXME: The updated properties are currently hardcoded.
-// If new properties are added to built-in components, manual updates are required here
+// TODO: Update this function when new properties are added to built-in components.
+// Currently supported properties must be manually added to the updates object below.
 export default async function updateSection({
   pageDetail,
   name,
@@ -15,9 +15,7 @@ export default async function updateSection({
 }) {
   // Validate required parameters
   if (!pageDetail) {
-    console.log(
-      "⚠️  Unable to update section: No page detail provided. Please specify the page detail to modify.",
-    );
+    console.log("⚠️  Update failed: Missing required page detail parameter");
     return { pageDetail };
   }
 
@@ -31,9 +29,7 @@ export default async function updateSection({
   }
 
   if (!name) {
-    console.log(
-      "⚠️  Unable to update section: No section name specified. Please clearly indicate which section you want to modify.",
-    );
+    console.log("⚠️  Update failed: Missing required section name parameter");
     return { pageDetail };
   }
 
@@ -52,26 +48,20 @@ export default async function updateSection({
   // Check if any update fields are provided
   const updateFields = Object.keys(updates);
   if (updateFields.length === 0) {
-    console.log(
-      "⚠️  Unable to update section: No changes specified. Please provide details about what section properties you want to modify.",
-    );
+    console.log("⚠️  Update failed: No section properties specified for update");
     return { pageDetail };
   }
 
   // Check if sections array exists
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
-    console.log(
-      "⚠️  Unable to update section: No sections found in the page detail. Please verify the page detail structure.",
-    );
+    console.log("⚠️  Update failed: Page detail contains no sections array");
     return { pageDetail };
   }
 
   // Find the section to update
   const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
-    console.log(
-      `⚠️  Unable to update section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to update.`,
-    );
+    console.log(`⚠️  Update failed: Section '${name}' not found`);
     return { pageDetail };
   }
 
@@ -103,9 +93,8 @@ export default async function updateSection({
   };
 }
 
-updateSection.taskTitle = "Update properties of an existing section";
-updateSection.description =
-  "Update one or more properties of an existing section in the page detail";
+updateSection.taskTitle = "Update section properties";
+updateSection.description = "Modify properties of an existing section in the page detail";
 updateSection.inputSchema = {
   type: "object",
   properties: {
@@ -131,7 +120,6 @@ updateSection.inputSchema = {
     },
   },
   required: ["pageDetail", "name"],
-  additionalProperties: true,
 };
 updateSection.outputSchema = {
   type: "object",

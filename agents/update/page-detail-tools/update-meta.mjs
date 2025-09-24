@@ -21,7 +21,7 @@ export default async function updateMeta({ pageDetail, title, description }) {
   // At least one update field must be provided
   if (!title && !description) {
     console.log(
-      "⚠️  Unable to update meta: No changes specified. Please provide details about what meta information you want to modify (title, description, seoTitle, or seoDescription).",
+      "⚠️  Unable to update meta: No changes specified. Please provide details about what meta information you want to modify (title or description).",
     );
     return { pageDetail };
   }
@@ -39,10 +39,6 @@ export default async function updateMeta({ pageDetail, title, description }) {
       defaultStringType: "QUOTE_DOUBLE",
     }),
     originalPageDetail: pageDetail,
-    updatedPageDetail: YAML.stringify(updatedPageDetail, {
-      quotingType: '"',
-      defaultStringType: "QUOTE_DOUBLE",
-    }),
   };
 }
 
@@ -78,10 +74,6 @@ updateMeta.outputSchema = {
     originalPageDetail: {
       type: "string",
       description: "The original page detail YAML string before update",
-    },
-    updatedPageDetail: {
-      type: "string",
-      description: "The updated page detail YAML string after modification",
     },
   },
   required: ["pageDetail"],

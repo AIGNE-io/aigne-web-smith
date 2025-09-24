@@ -27,18 +27,14 @@ export default async function deleteSection({ pageDetail, name }) {
 
   // Check if sections array exists
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
-    console.log(
-      "⚠️  Unable to delete section: No sections found in the page detail. Please verify the page detail structure.",
-    );
+    console.log("⚠️  Cannot delete section: No sections array found in page detail");
     return { pageDetail };
   }
 
   // Find the section to delete
   const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
   if (sectionIndex === -1) {
-    console.log(
-      `⚠️  Unable to delete section: Section '${name}' doesn't exist in the page detail. Please specify an existing section to remove.`,
-    );
+    console.log(`⚠️  Cannot delete section: Section '${name}' not found`);
     return { pageDetail };
   }
 

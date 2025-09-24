@@ -1,0 +1,136 @@
+type: ai
+name: generateThemeAI
+description: Generate comprehensive MUI theme configuration based on website style context
+instructions:
+  url: ../../prompts/theme/generate-theme-config.md
+output_schema:
+  type: object
+  properties:
+    theme:
+      type: object
+      description: A structured JSON object containing theme configuration
+      properties:
+        name:
+          type: string
+          description: Theme name
+        createdAt:
+          type: string
+          description: ISO timestamp when the theme was created
+        light:
+          type: object
+          properties:
+            primary:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Primary color in hex format
+            secondary:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Secondary color in hex format
+            success:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Success color in hex format
+            error:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Error color in hex format
+            info:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Info color in hex format
+            warning:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Warning color in hex format
+            background:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Background color in hex format
+            surface:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Surface color in hex format
+          required:
+            - primary
+            - secondary
+            - success
+            - error
+            - info
+            - warning
+            - background
+            - surface
+        dark:
+          type: object
+          properties:
+            primary:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Primary color in hex format
+            secondary:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Secondary color in hex format
+            success:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Success color in hex format
+            error:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Error color in hex format
+            info:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Info color in hex format
+            warning:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Warning color in hex format
+            background:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Background color in hex format
+            surface:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              description: Surface color in hex format
+          required:
+            - primary
+            - secondary
+            - success
+            - error
+            - info
+            - warning
+            - background
+            - surface
+        fonts:
+          type: object
+          properties:
+            heading:
+              type: object
+              properties:
+                fontFamily:
+                  type: string
+                  description: Google Font family name for headings
+              required:
+                - fontFamily
+            body:
+              type: object
+              properties:
+                fontFamily:
+                  type: string
+                  description: Google Font family name for body text
+              required:
+                - fontFamily
+          required:
+            - heading
+            - body
+      required:
+        - name
+        - createdAt
+        - light
+        - dark
+        - fonts
+  required:
+    - theme

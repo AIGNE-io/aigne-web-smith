@@ -1,62 +1,60 @@
 import { promises as fs } from "node:fs";
-import { join } from "node:path";
-import { stringify } from "yaml";
+import { dirname, join } from "node:path";
 
-export default async function saveTheme({ theme, config, themeName }) {
+export default async function saveTheme({ theme, config }) {
   if (!theme) {
-    console.warn("No theme data found to save.");
     return {
       saveThemeStatus: false,
       saveThemePath: null,
+      error: "No theme data found to save.",
+    };
+  }
+  if (!config) {
+    return {
+      saveThemeStatus: false,
+      saveThemePath: null,
+      error: "No config file path found to save theme.",
     };
   }
 
   try {
     // Create theme cache directory
-    const cacheDir = join(process.cwd(), ".aigne", "web-smith", "themes");
+    const cacheDir = join(dirname(config), "themes");
     await fs.mkdir(cacheDir, { recursive: true });
 
     // Generate theme filename
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const filename = themeName 
-      ? `${themeName}-${timestamp}.yaml`
-      : `${theme.name}-${timestamp}.yaml`;
-    
+    const themeName = theme.name;
+    const filename = `${themeName}.json`;
     const filePath = join(cacheDir, filename);
 
-    // Add metadata
-    const themeWithMetadata = {
-      ...theme,
-      metadata: {
-        ...theme.metadata,
-        generatedAt: new Date().toISOString(),
-        configPath: config,
-        themeName: themeName || theme.name,
+    // Save theme directly
+    const themeObj = theme;
+
+    // Check for existing themes with the same name and delete them
+    try {
+      const files = await fs.readdir(cacheDir);
+      const existingThemes = files.filter(
+        (file) => file === `${themeName}.json`,
+      );
+
+      for (const existingFile of existingThemes) {
+        const existingPath = join(cacheDir, existingFile);
+        await fs.unlink(existingPath);
       }
-    };
+    } catch {
+      // Ignore errors when checking for existing files
+    }
 
-    // Save theme to file
-    const content = stringify(themeWithMetadata, {
-      aliasDuplicateObjects: false,
-    });
-    
+    // Save theme to file as JSON
+    const content = JSON.stringify(themeObj, null, 2);
     await fs.writeFile(filePath, content, "utf8");
-
-    // Also save as latest theme for easy access
-    const latestPath = join(cacheDir, "latest.yaml");
-    await fs.writeFile(latestPath, content, "utf8");
-
-    console.log(`Theme saved successfully: ${filePath}`);
-    console.log(`Latest theme cached: ${latestPath}`);
 
     return {
       saveThemeStatus: true,
       saveThemePath: filePath,
-      latestThemePath: latestPath,
-      themeName: theme.name,
+      themeName: themeName,
     };
   } catch (error) {
-    console.error(`Error saving theme: ${error.message}`);
     return {
       saveThemeStatus: false,
       saveThemePath: null,
@@ -65,4 +63,13 @@ export default async function saveTheme({ theme, config, themeName }) {
   }
 }
 
-saveTheme.task_render_mode = "hide";
+
+saveTheme.description = "Save a structured theme configuration to the theme cache directory";
+
+saveTheme.input_schema = {
+  type: "object",
+  properties: {
+    theme: { type: "object", description: "A structured JSON object containing theme configuration" },
+    config: { type: "string", description: "Path to configuration file" },
+  },
+};

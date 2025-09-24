@@ -61,9 +61,9 @@ agents:
   # theme
   - ./agents/theme/index.yaml
   - ./agents/theme/generate-theme.yaml
+  - ./agents/theme/generate-theme-ai.yaml
+  - ./agents/theme/apply-theme.mjs
   - ./agents/theme/save-theme.mjs
-  - ./agents/theme/load-theme.mjs
-  - ./agents/theme/validate-theme.mjs
 
   # update
   - ./agents/update/index.yaml

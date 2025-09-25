@@ -5,7 +5,7 @@ import YAML from "yaml";
 
 import { toKebabCase } from "../../utils/utils.mjs";
 
-export default async function saveTheme({ theme, config }) {
+export default async function saveTheme({ theme, config }, options) {
   if (!theme) {
     return {
       message: chalk.red("Please provide theme data to save"),
@@ -28,14 +28,28 @@ export default async function saveTheme({ theme, config }) {
     const filename = `${kebabCaseName}.yaml`;
     const filePath = join(cacheDir, filename);
 
-    // Check for existing themes with the same name and delete them
+    // Check for existing themes with the same name and ask for confirmation
     try {
       const files = await fs.readdir(cacheDir);
       const existingThemes = files.filter((file) => file === filename);
 
-      for (const existingFile of existingThemes) {
-        const existingPath = join(cacheDir, existingFile);
-        await fs.unlink(existingPath);
+      if (existingThemes.length > 0) {
+        const confirmed = await options.prompts.confirm({
+          message: `Theme "${themeName}" already exists. Overwrite?`,
+          default: false,
+        });
+
+        if (!confirmed) {
+          return {
+            message: chalk.yellow(`Save cancelled.`),
+          };
+        }
+
+        // Delete existing theme files
+        for (const existingFile of existingThemes) {
+          const existingPath = join(cacheDir, existingFile);
+          await fs.unlink(existingPath);
+        }
       }
     } catch (error) {
       console.warn(chalk.yellow(`Warning: Could not check existing themes: ${error.message}`));
@@ -50,7 +64,7 @@ export default async function saveTheme({ theme, config }) {
     await fs.writeFile(filePath, content, "utf8");
 
     return {
-      message: chalk.green(`Theme "${themeName}" saved successfully as ${filename}`),
+      message: chalk.green(`Theme "${themeName}" saved successfully as "${filename}"`),
     };
   } catch (error) {
     return {

@@ -1,6 +1,9 @@
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import YAML from "yaml";
+
+import { toKebabCase } from "../../utils/utils.mjs";
 
 export default async function saveTheme({ theme, config }) {
   if (!theme) {
@@ -19,15 +22,16 @@ export default async function saveTheme({ theme, config }) {
     const cacheDir = join(dirname(config), "themes");
     await fs.mkdir(cacheDir, { recursive: true });
 
-    // Generate theme filename
+    // Generate theme filename using kebab-case
     const themeName = theme.name;
-    const filename = `${themeName}.json`;
+    const kebabCaseName = toKebabCase(themeName);
+    const filename = `${kebabCaseName}.yaml`;
     const filePath = join(cacheDir, filename);
 
     // Check for existing themes with the same name and delete them
     try {
       const files = await fs.readdir(cacheDir);
-      const existingThemes = files.filter((file) => file === `${themeName}.json`);
+      const existingThemes = files.filter((file) => file === filename);
 
       for (const existingFile of existingThemes) {
         const existingPath = join(cacheDir, existingFile);
@@ -37,16 +41,16 @@ export default async function saveTheme({ theme, config }) {
       console.warn(chalk.yellow(`Warning: Could not check existing themes: ${error.message}`));
     }
 
-    // Save theme to file as JSON
+    // Save theme to file as YAML
     const themeWithTimestamp = {
       ...theme,
       createdAt: new Date().toISOString(),
     };
-    const content = JSON.stringify(themeWithTimestamp, null, 2);
+    const content = YAML.stringify(themeWithTimestamp, { indent: 2 });
     await fs.writeFile(filePath, content, "utf8");
 
     return {
-      message: chalk.green(`Theme "${themeName}" saved successfully`),
+      message: chalk.green(`Theme "${themeName}" saved successfully as ${filename}`),
     };
   } catch (error) {
     return {

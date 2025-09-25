@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { nanoid } from "nanoid";
 import { joinURL } from "ufo";
+import YAML from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getBlockletConfig } from "../../utils/blocklet.mjs";
@@ -11,6 +12,7 @@ import { augmentColor } from "../../utils/theme-utils.mjs";
 import { loadConfigFromFile } from "../../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
+
 
 /**
  * Convert theme data to MUI Theme standard structure
@@ -192,7 +194,7 @@ export default async function applyTheme({ appUrl, config = './.aigne/web-smith/
     console.log('config: ', config, ' cacheDir: ', cacheDir)
 
     const files = await readdir(cacheDir);
-    const themeFiles = files.filter((file) => file.endsWith(".json"));
+    const themeFiles = files.filter((file) => file.endsWith(".yaml"));
 
     if (themeFiles.length === 0) {
       throw new Error(`No themes available. Please create a theme first.`);
@@ -205,7 +207,7 @@ export default async function applyTheme({ appUrl, config = './.aigne/web-smith/
       try {
         const themePath = join(cacheDir, file);
         const themeContent = await readFile(themePath, "utf-8");
-        const theme = JSON.parse(themeContent);
+        const theme = YAML.parse(themeContent);
 
         if (theme.name) {
           themes.push({

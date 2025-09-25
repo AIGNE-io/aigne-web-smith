@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T14:03:10.190Z
+  updateAt: 2025-09-25T14:14:51.656Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -389,8 +389,8 @@ composite:
     name: Feature wuth right image
     summary: A feature with image, and the image is on the right
     fieldCombinations:
-      - fetureTitle
-      - fetureDescription
+      - featureTitle
+      - featureDescription
       - action.text
       - action.link
       - rightImage
@@ -494,7 +494,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= fetureTitle %>
+              text: <%= featureTitle %>
               style:
                 variant: h2
           9ajrz12ik7esfk1z:
@@ -502,7 +502,7 @@ composite:
               list:
                 - id: item-1753382621853-07ja75k36
                   type: text
-                  text: <%= fetureDescription %>
+                  text: <%= featureDescription %>
                   style:
                     color: ""
                     fontSize: 16px

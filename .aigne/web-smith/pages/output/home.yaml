@@ -1,15 +1,15 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T12:31:33.096Z
-updatedAt: 2025-09-25T12:31:33.096Z
-publishedAt: 2025-09-25T12:31:33.096Z
+createdAt: 2025-09-25T14:13:04.801Z
+updatedAt: 2025-09-25T14:13:04.801Z
+publishedAt: 2025-09-25T14:13:04.801Z
 isPublic: true
 locales:
   en:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
-      paddingY: large
-      paddingX: large
+      paddingY: normal
+      paddingX: normal
     title: AIGNE WebSmith | AI-Powered Website Generation
     description: Instantly generate professional, SEO-optimized websites with
       complete content and templates using AIGNE WebSmith. Go from idea to live
@@ -20,8 +20,8 @@ locales:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
-      paddingY: large
-      paddingX: large
+      paddingY: normal
+      paddingX: normal
     title: AIGNE WebSmith | 人工智能驱动的网站生成
     description: 使用 AIGNE WebSmith 即刻生成包含完整内容和模板的专业 SEO 优化网站。仅需一条命令即可在数分钟内将想法变为上线网站。
     header:
@@ -368,7 +368,7 @@ sections:
       padding: large
       maxWidth: full
       paddingX: none
-      paddingY: custom:100px
+      paddingY: none
   14c7fc5c96cb582e:
     id: 14c7fc5c96cb582e
     name: Layout 1x3
@@ -703,7 +703,7 @@ sections:
             h: 1
       gap: none
       paddingX: none
-      paddingY: custom:100px
+      paddingY: none
 sectionIds:
   - 43483e566b924717
   - 2c9fe55a5a7ce8bc

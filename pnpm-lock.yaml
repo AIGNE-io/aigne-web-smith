@@ -26,6 +26,9 @@ importers:
       '@aigne/openai':
         specifier: ^0.16.0
         version: 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@blocklet/payment-broker-client':
+        specifier: ^1.20.20
+        version: 1.21.1
       chalk:
         specifier: ^5.5.0
         version: 5.6.2
@@ -397,6 +400,10 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@blocklet/payment-broker-client@1.21.1':
+    resolution: {integrity: sha512-WFJRox+sfORCoCPDFXm+fRvRopw487CAZD+86c+pcBRs5VpkNQtSrH9AquzM4kL5cfem2dWfNkn4/gNJIITdPg==}
+    engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
@@ -5372,6 +5379,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.1.4':
     optional: true
+
+  '@blocklet/payment-broker-client@1.21.1': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 

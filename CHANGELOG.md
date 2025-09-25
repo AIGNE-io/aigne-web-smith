@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2025-09-25)
+
+
+### Bug Fixes
+
+* **main:** release to 1.3.1-beta.1 ([0f8bd1c](https://github.com/AIGNE-io/aigne-web-smith/commit/0f8bd1ccdffe080c09abee47b1e5659f60030be3))
+
 ## [1.3.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.2-beta.1...v1.3.0-beta.1) (2025-09-24)
 
 

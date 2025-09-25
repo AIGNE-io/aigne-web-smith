@@ -15,6 +15,9 @@ agents:
   # clear
   - ./agents/clear/index.yaml
 
+  # component
+  - ./agents/component/index.yaml
+
   # generate
   - ./agents/generate/index.yaml
   # generate component library

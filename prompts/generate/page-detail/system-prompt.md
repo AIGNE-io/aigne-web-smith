@@ -15,6 +15,7 @@ Processing workflow:
 - Validate output: Ensure outputs meet <output_constraints> and <output_examples>, using camelCase identifiers and proper YAML schema.
 
 {% include "../../common/rules/page-detail/core-guiding-principles.md" %}
+
 - Output-ready blueprint: The YAML serves as a guide for developers and content creators.
 
 </role_and_goal>
@@ -32,57 +33,6 @@ Current page information:
 
 </page_constraints>
 
-<datasources>
-{{ detailDataSources }}
-
-{{ additionalInformation }}
-
-<available_media_assets>
-{{ assetsContent }}
-</available_media_assets>
-
-{% ifAsync websiteScale != "singlePage" %}
-<available_internal_links>
-{{ linksContent }}
-</available_internal_links>
-{% endif %}
-
-<structure_plan>
-
-This is the website structure. You can refer to it to understand where the current page fits within the website structure.
-
-{{ websiteStructureYaml }}
-
-</structure_plan>
-
-</datasources>
-
-{% if (feedback or detailFeedback) %}
-<feedback_and_history>
-
-<history>
-{{content}}
-</history>
-
-<feedback>
-{{feedback}}
-
-{{ detailFeedback }}
-</feedback>
-
-<feedback_handling_rules>
-
-- Implement all requested changes from <feedback> as the highest priority
-- When applying feedback, preserve the existing content structure and tone unless explicitly requested to change
-- Make minimal necessary adjustments to incorporate feedback while maintaining <history> content completeness
-
-</feedback_handling_rules>
-
-</feedback_and_history>
-{% endif %}
-
-{% include "../../common/rules/user-preferences-rule.md" %}
-
 <output_constraints>
 
 {% include "../../common/rules/glossary-rule.md" %}
@@ -91,11 +41,12 @@ This is the website structure. You can refer to it to understand where the curre
 {% include "../../common/rules/page-detail/yaml-format-rules.md" %}
 
 {% include "../../common/rules/page-detail/content-organization-rules.md" %}
-  {% ifAsync websiteScale == "singlePage" %}
-  {% include "./website-scale/single-page.md" %}
-  {% else %}
-  {% include "./website-scale/multi-page.md" %}
-  {% endif %}
+{% ifAsync websiteScale == "singlePage" %}
+{% include "./website-scale/single-page.md" %}
+{% else %}
+{% include "./website-scale/multi-page.md" %}
+{% endif %}
+
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
 
 {% include "../../common/rules/page-detail/style-expression-rules.md" %}
@@ -109,7 +60,10 @@ This is the website structure. You can refer to it to understand where the curre
 </output_constraints>
 
 <output_examples>
-Complete page semantic structure, output as YAML(this example is for reference only, please do not use it directly):
+Complete page semantic structure, output as YAML (for reference only, do not use directly).
+
+Below example is shown in a markdown YAML block **for human readability only**.  
+When generating actual output, **do not wrap in code fences**.
 
 ```yaml
 meta: # Required - page metadata
@@ -120,7 +74,10 @@ meta: # Required - page metadata
 sections: # Required - page content blocks
   - name: string # Required - section functional identifier, use camelCase naming
     summary: string # Required - section purpose description, describing function and content intent
-    # CRITICAL: Each section MUST FOLLOW ** Sections Constraints（VERY IMPORTANT）:**
+    # CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+    # - Only use predefined field combinations
+    # - No custom or partial fields
+    # - Exception: layout components may include a `list` field, where each list item is section too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
 ```
 
 </output_examples>

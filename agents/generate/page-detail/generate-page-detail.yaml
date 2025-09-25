@@ -1,7 +1,10 @@
 name: generatePageDetail
 description: Page detail generator
 instructions:
-  url: ../../../prompts/generate/page-detail/generate-page-detail.md
+  - role: system
+    url: ../../../prompts/generate/page-detail/system-prompt.md
+  - role: user
+    url: ../../../prompts/generate/page-detail/user-prompt.md
 input_schema:
   type: object
   properties:
@@ -43,5 +46,10 @@ output_schema:
   properties:
     content:
       type: string
+      description: >
+        Page detail content, must be a valid YAML document.
+        The YAML must strictly follow the defined page semantic structure
+        (include meta and sections), with correct indentation and hierarchy.
+        Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
   required:
     - content

@@ -1,0 +1,16 @@
+type: team
+name: component
+alias:
+  - comp
+  - component
+description: Pull components to built-in component library
+skills:
+  - ./pull-components.mjs
+input_schema:
+  type: object
+  properties:
+    url:
+      type: string
+      description: target pull component URL
+  required:
+    - url

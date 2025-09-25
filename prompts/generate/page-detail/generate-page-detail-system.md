@@ -74,7 +74,10 @@ meta: # Required - page metadata
 sections: # Required - page content blocks
   - name: string # Required - section functional identifier, use camelCase naming
     summary: string # Required - section purpose description, describing function and content intent
-    # CRITICAL: Each section MUST FOLLOW ** Sections Constraints（VERY IMPORTANT）:**
+    # CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+    # - Only use predefined field combinations
+    # - No custom or partial fields
+    # - Exception: layout components may include a `list` field, where each list item must itself be an independent section following the same constraints
 ```
 
 </output_examples>

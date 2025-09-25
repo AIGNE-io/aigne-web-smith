@@ -60,7 +60,10 @@ Current page information:
 </output_constraints>
 
 <output_examples>
-Complete page semantic structure, output as YAML(this example is for reference only, please do not use it directly):
+Complete page semantic structure, output as YAML (for reference only, do not use directly).
+
+Below example is shown in a markdown YAML block **for human readability only**.  
+When generating actual output, **do not wrap in code fences**.
 
 ```yaml
 meta: # Required - page metadata

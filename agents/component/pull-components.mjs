@@ -1,24 +1,20 @@
-// fetch-file.mjs
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
 
-// 获取当前文件目录
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export async function pullComponents({ url }) {
+export default async function pullComponents({ url }) {
   if (!url) {
-    return {
-      message: "Please provide a URL to pull components",
-    };
+    return { message: "Please provide a URL to pull components" };
   }
 
-  const componentDir = path.join(__dirname, "../", COMPONENTS_DIR);
+  const componentDir = path.join(__dirname, "../../", COMPONENTS_DIR);
 
   try {
-    // 确保目标目录存在
     if (!fs.existsSync(componentDir)) {
       fs.mkdirSync(componentDir, { recursive: true });
     }
@@ -28,16 +24,32 @@ export async function pullComponents({ url }) {
 
     const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
 
-    const buffer = await res.arrayBuffer();
-    fs.writeFileSync(filePath, Buffer.from(buffer));
+    const text = await res.text();
+    fs.writeFileSync(filePath, text);
 
-    return {
-      message: "✅ Pull Components successfully!",
-    };
+    // --- 解析 YAML ---
+    const doc = parse(text);
+
+    const atomicCount = doc.atomic?.length || 0;
+    const compositeCount = doc.composite?.length || 0;
+
+    // --- 格式化输出 ---
+    let statsMessage = `✅ Pull Components successfully!
+📊 Statistics:
+  🔹 Atomic components: ${atomicCount}`;
+
+    doc.atomic?.forEach((a) => {
+      statsMessage += `\n    • ${a.name} - ${a.summary}`;
+    });
+
+    statsMessage += `\n  🧩 Composite components: ${compositeCount}`;
+    doc.composite?.forEach((c) => {
+      statsMessage += `\n    • ${c.name} - ${c.summary || "no summary"}`;
+    });
+
+    return { message: statsMessage };
   } catch (err) {
-    return {
-      message: `❌ Pull Components Error: ${err.message}`,
-    };
+    return { message: `❌ Pull Components Error: ${err.message}` };
   }
 }
 

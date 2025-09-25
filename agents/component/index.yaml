@@ -5,13 +5,7 @@ alias:
   - component
 description: Pull components to built-in component library
 skills:
-  - url: ../init/index.mjs
-    default_input:
-      skipIfExists: true
-  - ../utils/load-config.mjs
-  - ../utils/load-sources.mjs
-  - ../utils/format-website-structure.mjs
-  - ./publish-website.mjs
+  - ./pull-components.mjs
 input_schema:
   type: object
   properties:

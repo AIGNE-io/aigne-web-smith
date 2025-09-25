@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T01:38:58.412Z
-updatedAt: 2025-09-25T01:38:58.412Z
-publishedAt: 2025-09-25T01:38:58.412Z
+createdAt: 2025-09-25T01:49:50.471Z
+updatedAt: 2025-09-25T01:49:50.471Z
+publishedAt: 2025-09-25T01:49:50.471Z
 isPublic: true
 locales:
   en:
@@ -11,9 +11,9 @@ locales:
       paddingY: large
       paddingX: large
     title: AIGNE WebSmith | AI-Powered Website Generation
-    description: Build and launch professional, SEO-optimized websites in minutes
-      with AIGNE WebSmith. Our AI-powered tool automates everything from
-      structure and content to one-click publishing. Get started now!
+    description: Launch your entire website with a single command! AIGNE WebSmith is
+      the AI-driven tool that automates site creation from idea to a live,
+      professional, SEO-optimized website in minutes.
     header:
       sticky: true
 sections:
@@ -54,43 +54,35 @@ sections:
       - d48d922ceb39b941
       - f9fe87071e5348ba
       - 89fec177c0abe6b0
-  3ed6ec7e833ddd4a:
-    id: 3ed6ec7e833ddd4a
-    name: Card
+  4ec93600a36d9455:
+    id: 4ec93600a36d9455
+    name: Step-1
     component: layout-block
     sections:
-      15f6b95943799a0a:
-        id: 15f6b95943799a0a
-        name: Image
-        component: custom-component
-        config:
-          useCache: true
-          componentId: xoHu0JPjPs122kaaa-
-      c8b8609ed9461b54:
-        id: c8b8609ed9461b54
+      3f91f9a94cd22320:
+        id: 3f91f9a94cd22320
         name: RichText
         component: custom-component
         config:
           useCache: true
           componentId: xoHu0J44322kDYc-
-      497b3512bf583e94:
-        id: 497b3512bf583e94
-        name: Section Layout
+      6b185f01b8c85562:
+        id: 6b185f01b8c85562
+        name: Container
         component: layout-block
         sections:
-          872a4f5b80a252cd:
-            id: 872a4f5b80a252cd
-            name: Action
+          c57ca3e16d19272b:
+            id: c57ca3e16d19272b
+            name: Code
             component: custom-component
             config:
               useCache: true
-              componentId: a44r0SiGV9AFn2Fj
+              componentId: 2EHGy3vwxlS9JGr2
         sectionIds:
-          - 872a4f5b80a252cd
+          - c57ca3e16d19272b
     sectionIds:
-      - 15f6b95943799a0a
-      - c8b8609ed9461b54
-      - 497b3512bf583e94
+      - 3f91f9a94cd22320
+      - 6b185f01b8c85562
   27bb09f106757170:
     id: 27bb09f106757170
     name: Card
@@ -202,19 +194,307 @@ sections:
       - cf3516e22f643ea5
       - 915c538b90e9384b
       - 49a5584986485ec3
+  674931c4fbb26b4e:
+    id: 674931c4fbb26b4e
+    name: Card
+    component: layout-block
+    sections:
+      c6b0f1f9c6a5fe77:
+        id: c6b0f1f9c6a5fe77
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      134b01d91fda4de2:
+        id: 134b01d91fda4de2
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      a5e9f6773ac3153b:
+        id: a5e9f6773ac3153b
+        name: Section Layout
+        component: layout-block
+        sections:
+          0f2486f1f0286334:
+            id: 0f2486f1f0286334
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - 0f2486f1f0286334
+    sectionIds:
+      - c6b0f1f9c6a5fe77
+      - 134b01d91fda4de2
+      - a5e9f6773ac3153b
+  0b2e69784981f896:
+    id: 0b2e69784981f896
+    name: Step-1
+    component: layout-block
+    sections:
+      2c95a3cb650b2a85:
+        id: 2c95a3cb650b2a85
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      8b3602c82bce41ac:
+        id: 8b3602c82bce41ac
+        name: Container
+        component: layout-block
+        sections:
+          398c90ebea8bd032:
+            id: 398c90ebea8bd032
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - 398c90ebea8bd032
+    sectionIds:
+      - 2c95a3cb650b2a85
+      - 8b3602c82bce41ac
+  12653b680af15be5:
+    id: 12653b680af15be5
+    name: Card
+    component: layout-block
+    sections:
+      1737b872cd902b76:
+        id: 1737b872cd902b76
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      5a146aeb73703349:
+        id: 5a146aeb73703349
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      162130a8de97d7b6:
+        id: 162130a8de97d7b6
+        name: Section Layout
+        component: layout-block
+        sections:
+          f2869ac22f34f7d8:
+            id: f2869ac22f34f7d8
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - f2869ac22f34f7d8
+    sectionIds:
+      - 1737b872cd902b76
+      - 5a146aeb73703349
+      - 162130a8de97d7b6
+  e3c76c5f4fd84c94:
+    id: e3c76c5f4fd84c94
+    name: Step-1
+    component: layout-block
+    sections:
+      fb0488f43498de22:
+        id: fb0488f43498de22
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      4c3f05316e75dbe3:
+        id: 4c3f05316e75dbe3
+        name: Container
+        component: layout-block
+        sections:
+          619ab9bbb1cd2bc5:
+            id: 619ab9bbb1cd2bc5
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - 619ab9bbb1cd2bc5
+    sectionIds:
+      - fb0488f43498de22
+      - 4c3f05316e75dbe3
+  4edca7ea9c10db91:
+    id: 4edca7ea9c10db91
+    name: Card
+    component: layout-block
+    sections:
+      3c14df5bad12d970:
+        id: 3c14df5bad12d970
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      b7b9b7c5a8cbbf14:
+        id: b7b9b7c5a8cbbf14
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      2824493da3cca6c0:
+        id: 2824493da3cca6c0
+        name: Section Layout
+        component: layout-block
+        sections:
+          11e49f947f3b1117:
+            id: 11e49f947f3b1117
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - 11e49f947f3b1117
+    sectionIds:
+      - 3c14df5bad12d970
+      - b7b9b7c5a8cbbf14
+      - 2824493da3cca6c0
+  299b3edac9379c77:
+    id: 299b3edac9379c77
+    name: Card
+    component: layout-block
+    sections:
+      121e9d55c2fc014a:
+        id: 121e9d55c2fc014a
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      d7314bdfd40b660f:
+        id: d7314bdfd40b660f
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      bfce7a6302f3eae0:
+        id: bfce7a6302f3eae0
+        name: Section Layout
+        component: layout-block
+        sections:
+          c8db48cc0ec8e6b0:
+            id: c8db48cc0ec8e6b0
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - c8db48cc0ec8e6b0
+    sectionIds:
+      - 121e9d55c2fc014a
+      - d7314bdfd40b660f
+      - bfce7a6302f3eae0
+  960bd5d0d483ecb9:
+    id: 960bd5d0d483ecb9
+    name: Card
+    component: layout-block
+    sections:
+      82eff2abdf2d1c5a:
+        id: 82eff2abdf2d1c5a
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      9d0a2dc5a8568606:
+        id: 9d0a2dc5a8568606
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      8438e328ea7c0afd:
+        id: 8438e328ea7c0afd
+        name: Section Layout
+        component: layout-block
+        sections:
+          0a635543013d00e9:
+            id: 0a635543013d00e9
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - 0a635543013d00e9
+    sectionIds:
+      - 82eff2abdf2d1c5a
+      - 9d0a2dc5a8568606
+      - 8438e328ea7c0afd
+  74a0799f1c192e40:
+    id: 74a0799f1c192e40
+    name: Card
+    component: layout-block
+    sections:
+      604faa8af74d9c00:
+        id: 604faa8af74d9c00
+        name: Image
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+      650ac1d37b7ef7c9:
+        id: 650ac1d37b7ef7c9
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      72c231214f9a4897:
+        id: 72c231214f9a4897
+        name: Section Layout
+        component: layout-block
+        sections:
+          94e949ff367b1fdd:
+            id: 94e949ff367b1fdd
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+        sectionIds:
+          - 94e949ff367b1fdd
+    sectionIds:
+      - 604faa8af74d9c00
+      - 650ac1d37b7ef7c9
+      - 72c231214f9a4897
 sectionIds:
   - 9f97dce708c0bf02
-  - 3ed6ec7e833ddd4a
+  - 4ec93600a36d9455
   - 27bb09f106757170
   - 33190b1cd05f8e93
   - dfbdbe69a0514537
+  - 674931c4fbb26b4e
+  - 0b2e69784981f896
+  - 12653b680af15be5
+  - e3c76c5f4fd84c94
+  - 4edca7ea9c10db91
+  - 299b3edac9379c77
+  - 960bd5d0d483ecb9
+  - 74a0799f1c192e40
 dataSource:
   f9fe87071e5348ba:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Build Your Entire Website in Minutes, Powered by AI!
+            text: Build Your Entire Website with a Single Command
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -222,10 +502,9 @@ dataSource:
             list:
               - id: item-1753785524461-oi28q5aii
                 type: text
-                text: Stop wrestling with code and content. AIGNE WebSmith is your personal AI
-                  web developer, transforming your ideas into professional,
-                  SEO-optimized websites with just a few commands. Let's create
-                  something amazing, together!
+                text: Stop wrestling with code and templates. AIGNE WebSmith uses powerful AI to
+                  generate professional, SEO-optimized websites from a simple
+                  description. Go from idea to live in minutes, not months!
                 style:
                   color: ""
                   fontSize: 16px
@@ -254,83 +533,51 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: Get Started Now
+              text: Explore on GitHub
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: medium
               target: _self
               needLogin: false
-  c8b8609ed9461b54:
+  3f91f9a94cd22320:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Your All-in-One AI Website Toolkit
+            text: Everything You Need to Go from Zero to Live, Instantly
             style:
               variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1753785524461-oi28q5aii
+              - id: item-1753781618241-5hf1v8hkt
                 type: text
                 text: >-
-                  Experience the future of web development!
+                  Simply run your agent as you normally would using the CLI.
+                  Traces are automatically collected in the background.
 
-
-                  🤖 **AI-Powered Generation:** From site structure to
-                  multi-language content, our AI does the heavy lifting.
-
-
-                  🎨 **Professional Templates:** Get stunning, responsive
-                  layouts that integrate directly with Pages Kit.
-
-
-                  📊 **Built-in Quality Assurance:** We automatically check
-                  structure, content, and code quality so you don't have to.
-
-
-                  🚀 **One-Click Publishing:** Go live in an instant. Push your
-                  entire site to Pages Kit with a single command.
+                  Bash
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-  15f6b95943799a0a:
+  c57ca3e16d19272b:
     en:
       properties:
-        x8beiec3fxx5des1:
-          value: 40px
-        5fjm8opvqth7wk71:
-          value: 40px
-        7m5pz8nefl5j9hqq:
-          value:
-            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
-            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
-            width: 24
-            height: 24
-  872a4f5b80a252cd:
-    en:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: Explore the Code
-              url: https://github.com/AIGNE-io/aigne-web-smith
-              variant: contained
-              size: medium
-              target: _self
-              needLogin: false
+        b2jrz12ik7esf93z:
+          value: Run Your Agent
+        a7frn5jmx5vpxpt3:
+          value: aigne run
+        e9kvx5d7y82lm3n:
+          value: material
   c48c98e6f9419279:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: "Intelligent by Design: Our Agent-Based Architecture"
+            text: AI-Powered Website Generation
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -338,11 +585,9 @@ dataSource:
             list:
               - id: item-1753785524461-oi28q5aii
                 type: text
-                text: AIGNE WebSmith operates like a team of specialized AI agents. The
-                  Structure Planner maps your vision, the Content Generator
-                  writes compelling copy, and the Template Generator builds the
-                  final pages. It's a coordinated, powerful system designed for
-                  speed, quality, and incredible results.
+                text: Just describe your vision! Our AI intelligently plans your site structure,
+                  writes all the content, and handles SEO, so you get a
+                  professional result without the heavy lifting.
                 style:
                   color: ""
                   fontSize: 16px
@@ -371,8 +616,8 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: Learn About the AIGNE Framework
-              url: https://www.aigne.io/en/framework
+              text: See the Magic
+              url: https://www.aigne.io/web-smith
               variant: contained
               size: medium
               target: _self
@@ -382,7 +627,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Ready, Set, Generate! Your Quick Start Guide
+            text: Professional Template System
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -390,19 +635,9 @@ dataSource:
             list:
               - id: item-1753785524461-oi28q5aii
                 type: text
-                text: >-
-                  Jump right in and see the magic for yourself! Open your
-                  terminal and run these commands to install the CLI and
-                  generate your first site.
-
-
-                  **Install:** `npm install -g @aigne/cli`
-
-
-                  **Generate:** `aigne web generate`
-
-
-                  **Publish:** `aigne web publish`
+                text: Get stunning, responsive layouts right out of the box. Our templates are
+                  built with modern components, integrate directly with Pages
+                  Kit, and are fully editable visually.
                 style:
                   color: ""
                   fontSize: 16px
@@ -431,8 +666,8 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: View Full Documentation
-              url: https://www.aigne.io/web-smith
+              text: Discover Pages Kit
+              url: https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o
               variant: contained
               size: medium
               target: _self
@@ -442,7 +677,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: What Are You Waiting For? Build Your Next Website Today!
+            text: Built-in Quality Assurance
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -450,10 +685,9 @@ dataSource:
             list:
               - id: item-1753785524461-oi28q5aii
                 type: text
-                text: Join developers and creators who are building faster and smarter with
-                  AIGNE WebSmith. Unleash the power of AI and launch your next
-                  project in record time. Your masterpiece is just one command
-                  away.
+                text: Launch with total confidence. We automatically evaluate your site's
+                  architecture, check content quality, and run over 32 tests to
+                  ensure everything is absolutely perfect.
                 style:
                   color: ""
                   fontSize: 16px
@@ -476,6 +710,372 @@ dataSource:
             width: 24
             height: 24
   9b4a17f1f88549ad:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Check Our Standards
+              url: https://github.com/AIGNE-io/aigne-web-smith
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  134b01d91fda4de2:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: One-Click Publishing
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: Your site is ready? Go live instantly! Publish directly to Pages Kit with
+                  a single command, monitor the status, and get your shareable
+                  URL immediately.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  c6b0f1f9c6a5fe77:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  0f2486f1f0286334:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Learn About Publishing
+              url: https://www.aigne.io/web-smith
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  2c95a3cb650b2a85:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "How the Magic Happens: Our Agent-Based Architecture"
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781618241-5hf1v8hkt
+                type: text
+                text: >-
+                  Simply run your agent as you normally would using the CLI.
+                  Traces are automatically collected in the background.
+
+                  Bash
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  398c90ebea8bd032:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Run Your Agent
+        a7frn5jmx5vpxpt3:
+          value: aigne run
+        e9kvx5d7y82lm3n:
+          value: material
+  5a146aeb73703349:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: An Intelligent Team of AI Agents
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: Our system uses specialized AI agents that work together in a seamless
+                  flow. It starts with planning your site's structure, moves to
+                  content and template generation, and finishes with a flawless
+                  one-click deployment. It’s your personal, automated web
+                  development team.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  1737b872cd902b76:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  f2869ac22f34f7d8:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Dive into the Code
+              url: https://github.com/AIGNE-io/aigne-web-smith
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  fb0488f43498de22:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Ready to Launch? Get Started in 3 Simple Steps
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781618241-5hf1v8hkt
+                type: text
+                text: >-
+                  Simply run your agent as you normally would using the CLI.
+                  Traces are automatically collected in the background.
+
+                  Bash
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  619ab9bbb1cd2bc5:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Run Your Agent
+        a7frn5jmx5vpxpt3:
+          value: aigne run
+        e9kvx5d7y82lm3n:
+          value: material
+  b7b9b7c5a8cbbf14:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. Install the AIGNE CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: "Pop open your terminal and run this one command to get the magic started:
+                  `npm install -g @aigne/cli`"
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  3c14df5bad12d970:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  11e49f947f3b1117:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: View on NPM
+              url: https://www.npmjs.com/package/@aigne/cli
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  d7314bdfd40b660f:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. Generate Your Website
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: "Describe what you want to build in a simple YAML file, then run the
+                  generate command to watch your site come to life: `aigne web
+                  generate`"
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  121e9d55c2fc014a:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  c8db48cc0ec8e6b0:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: See an Example
+              url: https://github.com/AIGNE-io/aigne-web-smith#example-input
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  9d0a2dc5a8568606:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. Publish to the World
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: "Once you love what you see, push your new site live for everyone to
+                  admire with this simple command: `aigne web publish`"
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  82eff2abdf2d1c5a:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  0a635543013d00e9:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Read the Docs
+              url: https://github.com/AIGNE-io/aigne-web-smith#api-reference
+              variant: contained
+              size: medium
+              target: _self
+              needLogin: false
+  650ac1d37b7ef7c9:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Your AI Web Developer is Waiting
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753785524461-oi28q5aii
+                type: text
+                text: Why wait? Automate your entire web development process with AIGNE WebSmith
+                  and launch your next amazing project today. The future of
+                  building websites is here!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  604faa8af74d9c00:
+    en:
+      properties:
+        x8beiec3fxx5des1:
+          value: 40px
+        5fjm8opvqth7wk71:
+          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+            mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+            width: 24
+            height: 24
+  94e949ff367b1fdd:
     en:
       properties:
         b8x4m3n9kp7qtw5r:

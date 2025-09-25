@@ -53,11 +53,12 @@ rules: ""
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
 locale: en
-translateLanguages: # List of languages to translate the pages to
-  - zh # Example: Chinese translation
+translateLanguages: []
+# translateLanguages: # List of languages to translate the pages to
+# - zh # Example: Chinese translation
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: 44410f60ad4c74ae812f6d60b10f891f3ba97976
+lastGitHead: e31bd675515046d06c14aced895148606e7245ec
 appUrl: https://staging.websmith.aigne.io

@@ -1,535 +1,180 @@
-# WebSmith Pre-built Component Library Configuration
-# This file defines field-to-component mappings, supporting both atomic and composite components
-# Goal: Optimize from 5 AI calls to 1 AI call + lookup matching, achieving 10-30x performance improvement
-
-# Atomic components: Single field to component mapping - each atomic component handles only one field
+meta:
+  updateAt: 2025-09-25T01:47:15.721Z
 atomic:
-  # RichText 组件处理核心文本字段
-  - name: "RichTextTitle"
-    field: "title"
+  - name: RichText
     componentId: xoHu0J44322kDYc-
-    summary: "Page main title, configured as large heading style: string"
-    dataSourceTemplate:
-      title:
-        text: "<%= title %>"
-        style:
-          color: "text.primary"
-      align: "center"
-      enableAnimation: false
-      alignMobile: "center"
-
-  - name: "RichTextDescription"
-    field: "description"
-    componentId: xoHu0J44322kDYc-
-    summary: "Page description text, supports long text display: string"
-    dataSourceTemplate:
-      title:
-        text: "<%= description %>"
-        style:
-          color: "text.secondary"
-          variant: "body1"
-          fontSize: 18
-      align: "center"
-      enableAnimation: false
-      alignMobile: "center"
-
-  # Code component handles code-related fields
-  - name: "CodeBlock"
-    field: "code"
-    componentId: 2EHGy3vwxlS9JGr2
-    summary: "Code example display with syntax highlighting and line numbers: { content: string; filename: string }"
-    dataSourceTemplate:
-      code: "<%= code.content %>"
-      filename: "<%= code.filename %>"
-      showIndex: true
-
-  # Media component handles image and media fields
-  - name: "MediaImage"
-    field: "image"
+    summary: 一个 RichText 组件，主要展示 title 被 description，支持调整字体颜色
+    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletTitle: ArcBlock Home Site Component
+  - name: Media
     componentId: xoHu0JPjPs122kaaa-
-    summary: "Image media display with responsive image rendering: string"
-    dataSourceTemplate:
-      bg:
-        url: "<%= image %>"
-        mediaKitUrl: ""
-        width: "100%"
-        height: "auto"
-      backgroundColor: "transparent"
-      width: "100%"
-      height: "auto"
-      objectFit: "cover"
-      ratio: "auto"
-
-  # Action component handles interaction fields
-  - name: "ActionButton"
-    field: "action"
+    summary: 一个通用的媒体组件
+    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletTitle: ArcBlock Home Site Component
+  - name: Action
     componentId: a44r0SiGV9AFn2Fj
-    summary: "Interactive button with text and link navigation: { text: string; link: string }"
-    dataSourceTemplate:
-      buttons:
-        - id: ""
-          type: "link"
-          text: "<%= action.text %>"
-          url: "<%= action.link %>"
-          variant: "contained"
-          size: "medium"
-          target: "_self"
-          needLogin: false
-      align: "center"
-      direction: "row"
-      gap: 1
-      flexWrap: "nowrap"
-      alignMobile: "center"
-
-# Composite components: Common field combinations to layout mappings
+    summary: Action buttons component with alignment and customization support
+    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletTitle: Chun Chun Component Studio
+  - name: Code
+    componentId: 2EHGy3vwxlS9JGr2
+    summary: 代码展示组件
+    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletTitle: ArcBlock Home Site Component
 composite:
-  # Basic two-field combinations
-  - name: "TitleDescription"
-    fieldCombinations: ["title", "description"]
-    summary: "Most basic text content block, suitable for various content displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Hero section combinations
-  - name: "HeroSection"
-    fieldCombinations: ["title", "description", "action"]
-    summary: "Classic hero section layout, ideal for page headers"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: a44r0SiGV9AFn2Fj
-        fieldCombinations: ["action"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          action: { x: 0, y: 2, w: 12, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          action: { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-      alignContent: "center"
-      justifyContent: "center"
-      background: "grey.100"
-      borderRadius: "medium"
-
-  - name: "HeroWithImage"
-    fieldCombinations: ["title", "description", "image", "action"]
-    summary: "Hero section layout with image, perfect for product introduction pages"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-      - componentId: a44r0SiGV9AFn2Fj
-        fieldCombinations: ["action"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 6, h: 1 }
-          description: { x: 0, y: 1, w: 6, h: 1 }
-          action: { x: 0, y: 2, w: 6, h: 1 }
-          image: { x: 6, y: 0, w: 6, h: 3 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          image: { x: 0, y: 2, w: 12, h: 1 }
-          action: { x: 0, y: 3, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  # Content display combinations
-  - name: "FeatureBlock"
-    fieldCombinations: ["title", "description", "image"]
-    summary: "Feature introduction block, ideal for showcasing product features"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 6, h: 1 }
-          description: { x: 0, y: 1, w: 6, h: 1 }
-          image: { x: 6, y: 0, w: 6, h: 2 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          image: { x: 0, y: 1, w: 12, h: 1 }
-          description: { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  # Code display combinations
-  - name: "CodeWithDescription"
-    fieldCombinations: ["title", "description", "code"]
-    summary: "Code example display block, perfect for technical documentation and tutorials"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: 2EHGy3vwxlS9JGr2
-        fieldCombinations: ["code"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          code: { x: 0, y: 2, w: 12, h: 2 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          code: { x: 0, y: 2, w: 12, h: 2 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "ImageWithDescription"
-    fieldCombinations: ["image", "description"]
-    summary: "Image with description block, suitable for product or feature introductions"
-    relatedComponents:
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          image: { x: 0, y: 0, w: 6, h: 2 }
-          description: { x: 6, y: 0, w: 6, h: 2 }
-        mobile:
-          image: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "TextWithList3"
-    fieldCombinations: ["title", "description", "list.0", "list.1", "list.2"]
-    summary: "Feature introduction with key points list, ideal for feature highlights"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 4, h: 1 }
-          "list.1": { x: 4, y: 2, w: 4, h: 1 }
-          "list.2": { x: 8, y: 2, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 12, h: 1 }
-          "list.1": { x: 0, y: 3, w: 12, h: 1 }
-          "list.2": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TextWithList4"
+  - id: od2449kxkz9jwiyx
+    name: Card
+    summary: ei
     fieldCombinations:
-      ["title", "description", "list.0", "list.1", "list.2", "list.3"]
-    summary: "Feature introduction with detailed list, perfect for comprehensive feature displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 6, h: 1 }
-          "list.1": { x: 6, y: 2, w: 6, h: 1 }
-          "list.2": { x: 0, y: 3, w: 6, h: 1 }
-          "list.3": { x: 6, y: 3, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 12, h: 1 }
-          "list.1": { x: 0, y: 3, w: 12, h: 1 }
-          "list.2": { x: 0, y: 4, w: 12, h: 1 }
-          "list.3": { x: 0, y: 5, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "List4Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2", "list.3"]
-    summary: "Pure list item display, ideal for product features, metrics, and parallel content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 3, h: 1 }
-          "list.1": { x: 3, y: 0, w: 3, h: 1 }
-          "list.2": { x: 6, y: 0, w: 3, h: 1 }
-          "list.3": { x: 9, y: 0, w: 3, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 6, h: 1 }
-          "list.1": { x: 6, y: 0, w: 6, h: 1 }
-          "list.2": { x: 0, y: 1, w: 6, h: 1 }
-          "list.3": { x: 6, y: 1, w: 6, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "List3Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2"]
-    summary: "Pure list item display, suitable for service items, core advantages, and parallel content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 4, h: 1 }
-          "list.1": { x: 4, y: 0, w: 4, h: 1 }
-          "list.2": { x: 8, y: 0, w: 4, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-          "list.2": { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Two-item list combinations
-  - name: "TitleWithList2"
-    fieldCombinations: ["title", "list.0", "list.1"]
-    summary: "Title with dual list items, 2-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 6, h: 1 }
-          "list.1": { x: 6, y: 1, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TitleWithList3"
-    fieldCombinations: ["title", "list.0", "list.1", "list.2"]
-    summary: "Title with three list items, 3-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 4, h: 1 }
-          "list.1": { x: 4, y: 1, w: 4, h: 1 }
-          "list.2": { x: 8, y: 1, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TitleWithList4"
-    fieldCombinations: ["title", "list.0", "list.1", "list.2", "list.3"]
-    summary: "Title with four list items, 4-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 6, h: 1 }
-          "list.1": { x: 6, y: 1, w: 6, h: 1 }
-          "list.2": { x: 0, y: 2, w: 6, h: 1 }
-          "list.3": { x: 6, y: 2, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-          "list.3": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "List2Grid"
-    fieldCombinations: ["list.0", "list.1"]
-    summary: "Pure list item display, ideal for comparison displays and side-by-side content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 6, h: 1 }
-          "list.1": { x: 6, y: 0, w: 6, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Five-item list combinations (occasionally used)
-  - name: "List5Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2", "list.3", "list.4"]
-    summary: "Pure list item display, desktop: 3 items first row + 2 items second row, mobile: vertical arrangement"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-      - componentId: ""
-        fieldCombinations: ["list.4"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 4, h: 1 }
-          "list.1": { x: 4, y: 0, w: 4, h: 1 }
-          "list.2": { x: 8, y: 0, w: 4, h: 1 }
-          "list.3": { x: 2, y: 1, w: 4, h: 1 }
-          "list.4": { x: 6, y: 1, w: 4, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-          "list.2": { x: 0, y: 2, w: 12, h: 1 }
-          "list.3": { x: 0, y: 3, w: 12, h: 1 }
-          "list.4": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "TitleWithList5"
+      - title
+      - description
+      - icon
+      - action.name
+      - action.link
+    section:
+      id: r9yzb4jga7iota1d
+      name: Card
+      component: layout-block
+      sections:
+        q5blu26ztzvfs7us:
+          id: q5blu26ztzvfs7us
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        6xqx0h72i41ge63j:
+          id: 6xqx0h72i41ge63j
+          name: Image
+          component: custom-component
+          config:
+            componentId: xoHu0JPjPs122kaaa-
+        pcxfg4qmmxtpqc6p:
+          id: pcxfg4qmmxtpqc6p
+          name: Section Layout
+          component: layout-block
+          sections:
+            u8qzwpicueuk0pvw:
+              id: u8qzwpicueuk0pvw
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - u8qzwpicueuk0pvw
+      sectionIds:
+        - 6xqx0h72i41ge63j
+        - q5blu26ztzvfs7us
+        - pcxfg4qmmxtpqc6p
+    dataSource:
+      r9yzb4jga7iota1d: {}
+      q5blu26ztzvfs7us:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753785524461-oi28q5aii
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      6xqx0h72i41ge63j:
+        properties:
+          x8beiec3fxx5des1:
+            value: 40px
+          5fjm8opvqth7wk71:
+            value: 40px
+          7m5pz8nefl5j9hqq:
+            value:
+              url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
+              mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
+              width: 24
+              height: 24
+      pcxfg4qmmxtpqc6p: {}
+      u8qzwpicueuk0pvw:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.name %>
+                url: <%= action.link %>
+                variant: contained
+                size: medium
+                target: _self
+                needLogin: false
+  - id: kb8r6hluyskd01db
+    name: Step-1
     fieldCombinations:
-      ["title", "list.0", "list.1", "list.2", "list.3", "list.4"]
-    summary: "Title with detailed list items, perfect for comprehensive feature list displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-      - componentId: ""
-        fieldCombinations: ["list.4"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 4, h: 1 }
-          "list.1": { x: 4, y: 1, w: 4, h: 1 }
-          "list.2": { x: 8, y: 1, w: 4, h: 1 }
-          "list.3": { x: 2, y: 2, w: 4, h: 1 }
-          "list.4": { x: 6, y: 2, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-          "list.3": { x: 0, y: 4, w: 12, h: 1 }
-          "list.4": { x: 0, y: 5, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-# Configuration notes:
-# - atomic_components: Each field maps to one component configuration, achieving O(1) lookup complexity
-# - composite_components: Predefined common field combinations, avoiding dynamic layout generation
-# - summary: Adds description for each configuration, helping AI understand usage scenarios
-# - fieldCombinations: Exact match arrays, supporting comparison in any order
-# - configTemplate: Contains responsive layouts (desktop/mobile) and style configurations
-# - Template syntax: Only supports simple <%= fieldName %> format, no JavaScript expressions
+      - title
+    section:
+      id: tqfnbq54ec6x9jaj
+      name: Step-1
+      component: layout-block
+      sections:
+        jdmbr6wufq961mmz:
+          id: jdmbr6wufq961mmz
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        jfa230jzkj2oo2cq:
+          id: jfa230jzkj2oo2cq
+          name: Container
+          component: layout-block
+          sections:
+            f995s38zo3prt6dq:
+              id: f995s38zo3prt6dq
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - f995s38zo3prt6dq
+      sectionIds:
+        - jdmbr6wufq961mmz
+        - jfa230jzkj2oo2cq
+    dataSource:
+      tqfnbq54ec6x9jaj: {}
+      jdmbr6wufq961mmz:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h4
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753781618241-5hf1v8hkt
+                  type: text
+                  text: >-
+                    Simply run your agent as you normally would using the CLI.
+                    Traces are automatically collected in the background.
+
+                    Bash
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      jfa230jzkj2oo2cq: {}
+      f995s38zo3prt6dq:
+        properties:
+          b2jrz12ik7esf93z:
+            value: Run Your Agent
+          a7frn5jmx5vpxpt3:
+            value: aigne run
+          e9kvx5d7y82lm3n:
+            value: material

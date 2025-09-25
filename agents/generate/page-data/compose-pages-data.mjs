@@ -1,4 +1,4 @@
-import { rmSync, readFileSync } from "node:fs";
+import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
@@ -80,21 +80,17 @@ function processSimpleTemplate(obj, data) {
  * Process array template - Special case: single-element array as template
  */
 function processArrayTemplate(templateArray, data) {
-  // If not an array or not a single-element array, process normally
   if (!Array.isArray(templateArray) || templateArray.length !== 1) {
     return templateArray.map((item) => processSimpleTemplate(item, data));
   }
 
-  // Special case: single-element array might be a template array, find array fields in data
   const arrayField = Object.keys(data).find((key) => Array.isArray(data[key]));
 
   if (arrayField && data[arrayField]?.length > 0) {
-    // This is a template array, need to copy template for each data item
     const template = templateArray[0];
     return data[arrayField].map((arrayItem) => processSimpleTemplate(template, arrayItem));
   }
 
-  // Otherwise process array normally
   return templateArray.map((item) => processSimpleTemplate(item, data));
 }
 
@@ -102,12 +98,9 @@ function processArrayTemplate(templateArray, data) {
  * Unified template processing function
  */
 function processTemplate(obj, data) {
-  // For arrays, first check if it's a special template array case
   if (Array.isArray(obj) && obj.length === 1) {
-    // Might be a template array, use dedicated processing function
     return processArrayTemplate(obj, data);
   }
-  // Other cases use normal processing (including regular arrays and objects)
   return processSimpleTemplate(obj, data);
 }
 
@@ -225,24 +218,24 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex }) 
   };
 }
 
-/**
- * Complete process for composing Pages Kit YAML
- * Integrates assembly and save logic, directly prints output results
- * @param {Object} input
- * @param {Array} input.middleFormatFiles - Middle format files array
- * @param {Array} input.componentLibrary - Component list
- * @param {string} input.locale - Language environment
- * @param {string} input.path - File path
- * @param {string} input.pagesDir - Pages directory
- * @returns {Promise<Object>}
- */
+// ============= New Recursive Section Collector =============
+function collectSections(section) {
+  const collected = [section];
+
+  if (Array.isArray(section.list)) {
+    for (const item of section.list) {
+      collected.push(...collectSections(item));
+    }
+  }
+
+  return collected;
+}
 
 // Reusable function: match middle format sections to corresponding components
 function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   log(`🔍 Starting to parse middle format and match components...`);
 
   try {
-    // Parse middle format content
     const parsedData =
       typeof middleFormatContent === "string" ? parse(middleFormatContent) : middleFormatContent;
     if (!parsedData || !parsedData.sections) {
@@ -250,23 +243,23 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
       return [];
     }
 
-    log(`📑 Found ${parsedData.sections.length} sections`);
+    // 🔑 Collect sections including nested list items
+    const allSections = parsedData.sections.flatMap((section) => collectSections(section));
+
+    log(`📑 Found ${allSections.length} sections (including nested list items)`);
 
     const compositeComponents = (componentLibrary || []).filter(
       (component) => component.type === "composite",
     );
 
-    // Match components for each section
-    const composedSections = parsedData.sections?.map((section, index) => {
+    const composedSections = allSections.map((section, index) => {
       log(`  🏷️  Processing Section ${index + 1}: "${section.name}"`);
 
-      // Use SDK to extract field combinations
       const sectionAnalysis = extractFieldCombinations({ sections: [section] });
       const fieldCombinations = sectionAnalysis[0]?.fieldCombinations || [];
 
       log(`    📋 Field combinations:`, JSON.stringify(fieldCombinations));
 
-      // Match component
       const matchedComponent = compositeComponents.find((component) => {
         const componentFields = component.fieldCombinations || [];
         return _.isEqual(componentFields?.sort(), fieldCombinations?.sort());
@@ -323,34 +316,25 @@ export default async function composePagesData(input) {
     tmpDir,
   } = input;
 
-  // clear outputDir data
   try {
     rmSync(outputDir, { recursive: true, force: true });
-  } catch (_error) {
-    // ignore error
-  }
+  } catch (_error) {}
 
   log(`🔧 Starting to compose Pages Kit YAML: ${pagesDir}`);
   log(`🧩 Component library count: ${componentLibrary?.length || 0}`);
   log(`🌐 Locale: ${locale}`);
   log(`📁 Output directory: ${pagesDir}`);
 
-  // Process middle format files, match components
   const allComposedSections = [];
   const allPagesKitYamlList = [];
-
-  // Used to organize data by filePath for different languages
   const fileDataMap = new Map();
 
   if (middleFormatFiles && Array.isArray(middleFormatFiles)) {
     log(`📄 Page detail count: ${middleFormatFiles.length}`);
 
-    // Build processing list containing all language files
     const filesToProcess = [];
 
-    // Add main language files
-    const mainFiles = middleFormatFiles;
-    mainFiles.forEach((file) => {
+    middleFormatFiles.forEach((file) => {
       filesToProcess.push({
         ...file,
         language: locale,
@@ -358,13 +342,12 @@ export default async function composePagesData(input) {
       });
     });
 
-    // Add translation language files
     if (translateLanguages && translateLanguages.length > 0 && tmpDir) {
       for (const translateLang of translateLanguages) {
-        mainFiles.forEach((file) => {
+        middleFormatFiles.forEach((file) => {
           const translateFile = {
             filePath: file.filePath,
-            content: null, // Read later
+            content: null,
             language: translateLang,
             isMainLanguage: false,
           };
@@ -378,12 +361,10 @@ export default async function composePagesData(input) {
     );
 
     for (const [index, file] of filesToProcess.entries()) {
-      // Read content for non-main language files
       let middleFormatContent;
       if (file.isMainLanguage) {
         middleFormatContent = typeof file.content === "string" ? parse(file.content) : file.content;
       } else {
-        // Read translation language file
         const translateContent = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
         if (!translateContent) {
           log(`⚠️  Skipping unreadable translation file: ${file.language}/${file.filePath}`);
@@ -399,13 +380,10 @@ export default async function composePagesData(input) {
         `\n📋 Processing file ${index + 1}/${filesToProcess.length}: ${currentLanguage}/${filePath}`,
       );
 
-      // Use reusable function to match sections and components
       const composedSections = composeSectionsWithComponents(middleFormatContent, componentLibrary);
 
-      // Collect all matching results
       allComposedSections.push(...composedSections);
 
-      // Ensure file entry exists in fileDataMap
       if (!fileDataMap.has(filePath)) {
         fileDataMap.set(filePath, {
           filePath,
@@ -419,7 +397,6 @@ export default async function composePagesData(input) {
 
       const fileData = fileDataMap.get(filePath);
 
-      // Add locale info for current language
       fileData.locales[currentLanguage] = {
         backgroundColor: "",
         style: {
@@ -435,7 +412,6 @@ export default async function composePagesData(input) {
         },
       };
 
-      // If main language, set sections and sectionIds
       if (file.isMainLanguage) {
         composedSections.forEach(({ instantiation }) => {
           const instantiatedSection = instantiation?.section;
@@ -450,7 +426,6 @@ export default async function composePagesData(input) {
         });
       }
 
-      // Generate dataSource for all instances in current language
       composedSections.forEach(({ instantiation }) => {
         if (!instantiation) {
           return;
@@ -470,7 +445,6 @@ export default async function composePagesData(input) {
       });
     }
 
-    // Convert data in fileDataMap to final Pages Kit YAML
     fileDataMap.forEach((fileData) => {
       const now = new Date().toISOString();
 

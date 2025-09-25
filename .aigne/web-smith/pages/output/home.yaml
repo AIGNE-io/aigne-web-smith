@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T09:13:43.186Z
-updatedAt: 2025-09-25T09:13:43.186Z
-publishedAt: 2025-09-25T09:13:43.186Z
+createdAt: 2025-09-25T09:31:52.040Z
+updatedAt: 2025-09-25T09:31:52.040Z
+publishedAt: 2025-09-25T09:31:52.040Z
 isPublic: true
 locales:
   en:
@@ -363,33 +363,289 @@ sections:
             w: 12
             h: 1
       gap: normal
-  1d10c6f9fc22ad7d:
-    id: 1d10c6f9fc22ad7d
+  0778b4f76eaa6c8e:
+    id: 0778b4f76eaa6c8e
+    name: Step-2
+    component: layout-block
+    sections:
+      3f3023205ce1fbf1:
+        id: 3f3023205ce1fbf1
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      02761a1b8f272489:
+        id: 02761a1b8f272489
+        name: Container
+        component: layout-block
+        sections:
+          5d797b177e439a35:
+            id: 5d797b177e439a35
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - 5d797b177e439a35
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
+    sectionIds:
+      - 3f3023205ce1fbf1
+      - 02761a1b8f272489
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+  5bb17d9f6a7a500a:
+    id: 5bb17d9f6a7a500a
+    name: Step-2
+    component: layout-block
+    sections:
+      001aa5764ab785a2:
+        id: 001aa5764ab785a2
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      af050ab38c48dbf8:
+        id: af050ab38c48dbf8
+        name: Container
+        component: layout-block
+        sections:
+          dda0af7ff1c604da:
+            id: dda0af7ff1c604da
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - dda0af7ff1c604da
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
+    sectionIds:
+      - 001aa5764ab785a2
+      - af050ab38c48dbf8
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+  70437ff927d5b5a1:
+    id: 70437ff927d5b5a1
+    name: Step-2
+    component: layout-block
+    sections:
+      7430dbebdf55045b:
+        id: 7430dbebdf55045b
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      f781fb36af833744:
+        id: f781fb36af833744
+        name: Container
+        component: layout-block
+        sections:
+          d4f6c5622fd91acd:
+            id: d4f6c5622fd91acd
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - d4f6c5622fd91acd
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
+    sectionIds:
+      - 7430dbebdf55045b
+      - f781fb36af833744
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+  b3cb33b511ab1b28:
+    id: b3cb33b511ab1b28
+    name: Step-2
+    component: layout-block
+    sections:
+      120261cbab2dbc8f:
+        id: 120261cbab2dbc8f
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+      b575b4225ebf6639:
+        id: b575b4225ebf6639
+        name: Container
+        component: layout-block
+        sections:
+          5adf331c50e0594d:
+            id: 5adf331c50e0594d
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+        sectionIds:
+          - 5adf331c50e0594d
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
+    sectionIds:
+      - 120261cbab2dbc8f
+      - b575b4225ebf6639
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+  e1b069820aa78a22:
+    id: e1b069820aa78a22
     name: CTA
     component: layout-block
     sections:
-      d660b940a3747c6d:
-        id: d660b940a3747c6d
+      246ff2945c2970b2:
+        id: 246ff2945c2970b2
         name: Section Layout
         component: layout-block
         sections:
-          47ee6b28dec7822b:
-            id: 47ee6b28dec7822b
+          d9d86292cd6a2fe3:
+            id: d9d86292cd6a2fe3
             name: RichText
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
-          ddc74deb97536545:
-            id: ddc74deb97536545
+          f8879c8a3e9f56cf:
+            id: f8879c8a3e9f56cf
             name: Action
             component: custom-component
             config:
               useCache: true
               componentId: a44r0SiGV9AFn2Fj
         sectionIds:
-          - 47ee6b28dec7822b
-          - ddc74deb97536545
+          - d9d86292cd6a2fe3
+          - f8879c8a3e9f56cf
         config:
           gridSettings:
             desktop:
@@ -410,7 +666,7 @@ sections:
           border: none
           paddingY: large
     sectionIds:
-      - d660b940a3747c6d
+      - 246ff2945c2970b2
     config:
       padding: large
       gridSettings:
@@ -429,7 +685,11 @@ sectionIds:
   - fb4fc063061c3023
   - 8718ebf5cd426c20
   - 0ad7f11e9bc4aad8
-  - 1d10c6f9fc22ad7d
+  - 0778b4f76eaa6c8e
+  - 5bb17d9f6a7a500a
+  - 70437ff927d5b5a1
+  - b3cb33b511ab1b28
+  - e1b069820aa78a22
 dataSource:
   528665611c0beb35:
     en:
@@ -558,6 +818,312 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
+            text: Intelligent AI Generation
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Just describe your vision, and our AI agents get to work, crafting the
+                  perfect structure, writing compelling content, and even
+                  optimizing for SEO.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 智能 AI 生成
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 只需描述您的愿景，我们的 AI 代理将开始工作，构建理想的结构、撰写吸引人的内容，甚至进行 SEO 优化。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  85a3f1e85a55f16b:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: my-website.yaml
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            rules: |
+              Create a modern SaaS product website that includes:
+              1. Product introduction and core features
+              2. Pricing plan comparison
+              3. Customer success stories
+              4. Technical documentation portal
+              5. Contact and support pages
+
+              Requirements:
+              - Professional business style
+              - Highlight product advantages and differentiation
+              - Include clear CTA to guide users to trial
+
+            targetAudience: SMB owners and technical decision makers
+            locale: en
+            websiteStyle: business
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: my-website.yaml
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            rules: |
+              Create a modern SaaS product website that includes:
+              1. Product introduction and core features
+              2. Pricing plan comparison
+              3. Customer success stories
+              4. Technical documentation portal
+              5. Contact and support pages
+
+              Requirements:
+              - Professional business style
+              - Highlight product advantages and differentiation
+              - Include clear CTA to guide users to trial
+
+            targetAudience: SMB owners and technical decision makers
+            locale: en
+            websiteStyle: business
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  3d6c797990fec36f:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Stunning, Professional Templates
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Get gorgeous, responsive websites right out of the box. Our templates are
+                  built for the Pages Kit, support visual editing, and look
+                  incredible on any device.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 精美专业的模板
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 开箱即可获得精美且响应式的网站。我们的模板为 Pages Kit 构建，支持可视化编辑，并在任意设备上均有出色表现。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  2bf11a838078e4fe:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: template-example.yaml
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            meta:
+              title: 'Your Awesome Product'
+            sections:
+              - name: 'hero'
+                title: 'The Best Solution Ever'
+              - name: 'features'
+                ...
+              - name: 'cta'
+                text: 'Try It Free!'
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: template-example.yaml
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            meta:
+              title: 'Your Awesome Product'
+            sections:
+              - name: 'hero'
+                title: 'The Best Solution Ever'
+              - name: 'features'
+                ...
+              - name: 'cta'
+                text: 'Try It Free!'
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  3f3023205ce1fbf1:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Built-in Quality Assurance
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Launch with total confidence! Our evaluation agents automatically check
+                  your site's structure, content quality, and user experience,
+                  backed by 32+ core tests.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 内置质量保证
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 安心发布！我们的评估代理会自动检查站点结构、内容质量与用户体验，并由 32+ 项核心测试支撑。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  5d797b177e439a35:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: run-tests.sh
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Run all tests with coverage
+            bun test --coverage
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: run-tests.sh
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Run all tests with coverage
+            bun test --coverage
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  001aa5764ab785a2:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: One-Click Publishing
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Your masterpiece is ready? Go live with a single command! Publish directly
+                  to the Pages Kit, monitor the status, and get your live link
+                  in seconds.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 一键发布
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 作品准备就绪？只需一条命令即可上线！直接发布到 Pages Kit，监控状态，并在数秒内获取您的实时链接。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  dda0af7ff1c604da:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: publish.sh
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Publish generated pages to Pages Kit
+            aigne web publish
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: publish.sh
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Publish generated pages to Pages Kit
+            aigne web publish
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  7430dbebdf55045b:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
             text: "How the Magic Happens: Our Agent-Based Powerhouse"
             style:
               variant: h4
@@ -595,7 +1161,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  85a3f1e85a55f16b:
+  d4f6c5622fd91acd:
     en:
       properties:
         b2jrz12ik7esf93z:
@@ -640,7 +1206,7 @@ dataSource:
             └─────────────────┘    └─────────────────┘    └─────────────────┘
         d8hvf7cxz93jk5p:
           value: 1rem
-  3d6c797990fec36f:
+  120261cbab2dbc8f:
     en:
       properties:
         gs1rn5jmxfvpxptx:
@@ -681,7 +1247,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  2bf11a838078e4fe:
+  5adf331c50e0594d:
     en:
       properties:
         b2jrz12ik7esf93z:
@@ -718,7 +1284,7 @@ dataSource:
             aigne web publish
         d8hvf7cxz93jk5p:
           value: 1rem
-  47ee6b28dec7822b:
+  d9d86292cd6a2fe3:
     en:
       properties:
         gs1rn5jmxfvpxptx:
@@ -759,7 +1325,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  ddc74deb97536545:
+  f8879c8a3e9f56cf:
     en:
       properties:
         b8x4m3n9kp7qtw5r:

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T07:27:28.147Z
+  updateAt: 2025-09-25T07:42:08.538Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -700,8 +700,9 @@ composite:
           v5utpm7bu9yvdpnq:
             value: flex-start
   - id: 5qt0u2v8lnrxxw6u
-    name: Showcase code with terminal
+    name: Code showcase with terminal
     summary: A showcase code card with terminal cast, will auto-play terminal cast
+      (terminal cast must be a json, if not provider, don't use this component)
     fieldCombinations:
       - terminalCast
       - step
@@ -862,8 +863,7 @@ composite:
               height: 2258
   - id: q4vy8nev65zil8c3
     name: Content card with image button
-    summary:
-      Content card with big image, from top to bottom is image button, title,
+    summary: Content card with big image, from top to bottom is image button, title,
       description
     fieldCombinations:
       - title
@@ -932,3 +932,70 @@ composite:
                 target: _blank
                 needLogin: false
                 imageUrl: <%= imageButton.image %>
+  - id: cfkp0jcaus826p7n
+    name: Code showcase with title and description
+    summary: A code showcase with title and description
+    fieldCombinations:
+      - title
+      - description
+      - code.name
+      - code.content
+    section:
+      id: 85ikbdbx37bzs2s9
+      name: Step-2
+      component: layout-block
+      sections:
+        t75cpdxbg8ixr260:
+          id: t75cpdxbg8ixr260
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        6bjawbo8s9ydpvgb:
+          id: 6bjawbo8s9ydpvgb
+          name: Container
+          component: layout-block
+          sections:
+            ym5fsbth0has8cq4:
+              id: ym5fsbth0has8cq4
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - ym5fsbth0has8cq4
+      sectionIds:
+        - t75cpdxbg8ixr260
+        - 6bjawbo8s9ydpvgb
+    dataSource:
+      85ikbdbx37bzs2s9: {}
+      t75cpdxbg8ixr260:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h4
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753781653625-ia4shqnk4
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      6bjawbo8s9ydpvgb: {}
+      ym5fsbth0has8cq4:
+        properties:
+          b2jrz12ik7esf93z:
+            value: <%= code.name %>
+          e9kvx5d7y82lm3n:
+            value: material
+          a7frn5jmx5vpxpt3:
+            value: <%= code.content %>
+          d8hvf7cxz93jk5p:
+            value: 1rem

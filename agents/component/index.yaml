@@ -1,0 +1,22 @@
+type: team
+name: component
+alias:
+  - comp
+  - component
+description: Pull components to built-in component library
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
+  - ../utils/format-website-structure.mjs
+  - ./publish-website.mjs
+input_schema:
+  type: object
+  properties:
+    url:
+      type: string
+      description: target pull component URL
+  required:
+    - url

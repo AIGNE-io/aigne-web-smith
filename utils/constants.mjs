@@ -531,3 +531,7 @@ export const PAGE_FILE_EXTENSION = ".yaml";
 export const PAGES_OUTPUT_DIR = "output";
 
 export const PAGES_TMP_DIR = "workspace";
+
+export const COMPONENTS_DIR = "assets/components";
+
+export const BUILTIN_COMPONENT_LIBRARY_NAME = "builtin-component-library.yaml";

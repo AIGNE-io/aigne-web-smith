@@ -6,9 +6,9 @@ skills:
   - type: ai
     instructions:
       - role: system
-        url: ../../prompts/plan/generate-website-structure-system.md
+        url: ../../prompts/plan/system-prompt.md
       - role: user
-        url: ../../prompts/plan/generate-website-structure-user.md
+        url: ../../prompts/plan/user-prompt.md
     input_schema:
       type: object
       properties:

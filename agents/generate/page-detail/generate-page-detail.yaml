@@ -2,9 +2,9 @@ name: generatePageDetail
 description: Page detail generator
 instructions:
   - role: system
-    url: ../../../prompts/generate/page-detail/generate-page-detail-system.md
+    url: ../../../prompts/generate/page-detail/system-prompt.md
   - role: user
-    url: ../../../prompts/generate/page-detail/generate-page-detail-user.md
+    url: ../../../prompts/generate/page-detail/user-prompt.md
 input_schema:
   type: object
   properties:

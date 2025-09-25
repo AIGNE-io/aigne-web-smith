@@ -5,7 +5,7 @@ export default async function theme({ apply, appUrl, name, config }, options) {
     // apply theme
     if (apply !== undefined) {
       const applyTheme = await import("./apply-theme.mjs");
-      return await applyTheme.default({ appUrl }, options);
+      return await applyTheme.default({ appUrl, config }, options);
     } else {
       // generate theme
       const result = await options.context.invoke(options.context.agents["generateTheme"], {

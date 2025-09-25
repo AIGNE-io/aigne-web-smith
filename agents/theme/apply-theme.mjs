@@ -1,11 +1,11 @@
 import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { nanoid } from "nanoid";
 import { joinURL } from "ufo";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
-import { getBlockletMetaDid } from "../../utils/blocklet.mjs";
+import { getBlockletConfig } from "../../utils/blocklet.mjs";
 import { DEFAULT_APP_URL } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
 import { loadConfigFromFile } from "../../utils/utils.mjs";
@@ -154,7 +154,7 @@ async function uploadThemeData(appUrl, accessToken, blockletDid, themeData) {
   return await response.json();
 }
 
-export default async function applyTheme({ appUrl }, options) {
+export default async function applyTheme({ appUrl, config = './.aigne/web-smith/config.yaml' }, options) {
   // Step 1: Process appUrl
   try {
     let finalAppUrl;
@@ -180,12 +180,16 @@ export default async function applyTheme({ appUrl }, options) {
     // Step 2: Get access token
     const accessToken = await getAccessToken(finalAppUrl);
 
-    // Step 3: get blocklet DID
-    const blockletDid = await getBlockletMetaDid(finalAppUrl);
+    // Step 3: get blocklet configuration and DID
+    const blockletConfig = await getBlockletConfig(finalAppUrl);
+    const blockletDid = blockletConfig.did;
+    const appName = blockletConfig.appName;
 
     // Step 4: CLI interactive theme selection
     let selectedTheme;
-    const cacheDir = join(process.cwd(), ".aigne", "web-smith", "themes");
+    const cacheDir = join(dirname(config), "themes");
+
+    console.log('config: ', config, ' cacheDir: ', cacheDir)
 
     const files = await readdir(cacheDir);
     const themeFiles = files.filter((file) => file.endsWith(".json"));
@@ -277,7 +281,33 @@ export default async function applyTheme({ appUrl }, options) {
       remoteThemeData = { concepts: [] };
     }
 
-    // Step 6: Update or insert theme data
+    // Step 6: User confirmation before applying theme
+    console.log(chalk.yellow("\n⚠️  Warning: This operation will overwrite the current theme configuration on your website."));
+    console.log(chalk.blue(`\nTarget Website: ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`));
+    // Display current theme information if available
+    let currentTheme = null;
+    if (remoteThemeData.concepts && remoteThemeData.concepts.length > 0) {
+      currentTheme = remoteThemeData.concepts.find(t => t.id === remoteThemeData.currentConceptId);
+    }
+    if (currentTheme) {
+      console.log(chalk.blue(`Current Theme: "${currentTheme.name}"`));
+    } else {
+      console.log(chalk.blue(`Current Theme: Default`));
+    }
+    console.log(chalk.blue(`Theme to Apply: "${selectedTheme.name}"`));
+
+    const confirmed = await options.prompts.confirm({
+      message: "Are you sure you want to proceed?",
+      default: false,
+    });
+
+    if (!confirmed) {
+      return {
+        message: chalk.yellow("Theme application cancelled."),
+      };
+    }
+
+    // Step 7: Update or insert theme data
     if (!remoteThemeData.concepts) {
       remoteThemeData.concepts = [];
     }
@@ -313,13 +343,13 @@ export default async function applyTheme({ appUrl }, options) {
       remoteThemeData.currentConceptId = id;
     }
 
-    // Step 7: Upload updated theme data
+    // Step 8: Upload updated theme data
     console.log(chalk.blue("🚀 Applying theme to your website..."));
     await uploadThemeData(finalAppUrl, accessToken, blockletDid, remoteThemeData);
 
     return {
       message: chalk.green(
-        `Theme "${selectedTheme.name}" has been successfully applied to your website`,
+        `Theme "${selectedTheme.name}" has been successfully applied to ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl})`,
       ),
     };
   } catch (error) {
@@ -335,6 +365,10 @@ applyTheme.input_schema = {
     appUrl: {
       type: "string",
       description: "Your website's URL",
+    },
+    config: {
+      type: "string",
+      description: "Configuration file location",
     },
   },
 };

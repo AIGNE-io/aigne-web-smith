@@ -99,6 +99,9 @@ aigne web translate
 # Update existing website content
 aigne web update
 
+# Pull components
+aigne web component --url "https://your-pages-kit/api/projects/your-project-id/components/pull?secret=your-secret&hash=your-hash"
+
 ```
 
 ### Example Input
@@ -301,9 +304,11 @@ This project is licensed under the Elastic License 2.0 - see the [LICENSE](LICEN
 
 ## 🔗 Links
 
-- 🌐 [AIGNE Framework](https://www.aigne.io/en/framework)
+- 🎨 [WebSmith Logo](https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg)
 - 📖 [WebSmith Official Website](https://www.aigne.io/web-smith)
+- 🌐 [AIGNE Framework](https://www.aigne.io/en/framework)
 - 🎯 [Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
+- 💻 [Github Repo](https://github.com/AIGNE-io/aigne-web-smith)
 - 🐛 [Report Issues](https://github.com/AIGNE-io/aigne-web-smith/issues)
 
 ---

@@ -77,7 +77,7 @@ sections: # Required - page content blocks
     # CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
     # - Only use predefined field combinations
     # - No custom or partial fields
-    # - Exception: layout components may include a `list` field, where each list item must itself be an independent section following the same constraints
+    # - Exception: layout components may include a `list` field, where each list item is section too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
 ```
 
 </output_examples>

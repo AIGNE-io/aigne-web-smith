@@ -11,6 +11,7 @@ import { nanoid } from "nanoid";
 import { parse } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { LIST_KEY } from "./constants.mjs";
 
 /**
  * ID 生成工具
@@ -244,15 +245,13 @@ export function extractContentFields(obj, prefix = "") {
     const currentPath = prefix ? `${prefix}.${key}` : key;
     const value = obj[key];
 
-    if (Array.isArray(value)) {
-      // fields.add(`${currentPath}`);
+    if (Array.isArray(value) && key === LIST_KEY) {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
     } else if (typeof value === "object" && value !== null) {
-      Object.entries(value).forEach(([key]) => {
-        fields.add(`${currentPath}.${key}`);
-      });
+      // 递归调用，继续深入对象层级
+      extractContentFields(value, currentPath).forEach((field) => fields.add(field));
     } else {
       fields.add(currentPath);
     }
@@ -417,12 +416,12 @@ export function generateFieldConstraints(componentLibrary) {
   let constraints = "";
 
   // Atomic fields section
-  constraints += "<fields_information>\n";
+  constraints += "<atomic_component_information>\n";
   atomicFields.forEach((item) => {
-    const { field, summary } = item;
-    constraints += `- \`${field}\`: ${summary}\n`;
+    const { name, summary } = item;
+    constraints += `- \`${name}\`: ${summary}\n`;
   });
-  constraints += "</fields_information>\n\n";
+  constraints += "</atomic_component_information>\n\n";
 
   // Composite combinations section
   constraints += "<allowed_field_combinations>\n";
@@ -432,10 +431,16 @@ export function generateFieldConstraints(componentLibrary) {
   constraints += "</allowed_field_combinations>\n\n";
 
   constraints +=
-    "- You can refer to the information in <fields_information> to understand what each field defines\n";
+    "- You can refer to the information in <atomic_component_information> to understand what each field defines\n";
   constraints +=
     "- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>\n";
   constraints += "    - DO NOT use any other field combinations\n";
+
+  constraints += "- Layout sections may include a `list` field\n";
+  constraints +=
+    "    - Each `list` item is itself a section and MUST independently follow <allowed_field_combinations>\n";
+  constraints +=
+    "- This constraint applies recursively: all sections at any depth must strictly comply\n";
 
   return constraints;
 }

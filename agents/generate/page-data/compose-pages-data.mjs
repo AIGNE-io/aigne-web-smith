@@ -2,7 +2,7 @@
  * ===================== Compose Pages Data (Refactored) =====================
  *
  * ## 目标
- * - 正确解析并渲染 `list.*` 层级：layout-block 模板里出现的 `{{list.N}}` 占位，必须由对应
+ * - 正确解析并渲染 `LIST_KEY.*` 层级：layout-block 模板里出现的 `{{LIST_KEY.N}}` 占位，必须由对应
  *   的 list 子项实例 **精确替换**，而不是平铺到父节点外层或随意 append。
  * - 全局一致的 id 映射：无论 id 出现在 sections、sectionIds、config.gridSettings 或其他配置 key/value，
  *   都通过同一套 `applyIdMapDeep` 完成一次性替换，避免“补丁式”遗漏。
@@ -10,17 +10,17 @@
  *
  * ## 核心流程
  * 1) 读入 middle 格式（支持多语言）。
- * 2) 构建 **树形** section 节点（保留 `list` 的父子层级与 path，如 ["root", 0, "list", 2]）。
+ * 2) 构建 **树形** section 节点（保留 `LIST_KEY` 的父子层级与 path，如 ["root", 0, "LIST_KEY", 2]）。
  * 3) 递归处理每个节点：
  *    - 依据 fieldCombinations 匹配组件模板；
  *    - clone 模板 → 生成稳定 id（包含 path）→ 形成 `idMap`；
  *    - 用 `applyIdMapDeep` 对 clone 后的 section（含 config/sections/sectionIds）统一替换 id；
- *    - 在父实例上 **收集 layout-block 占位（{{list.N}}）**，对子节点按其 path 中的 N 精确替换 slot；
+ *    - 在父实例上 **收集 layout-block 占位（{{LIST_KEY.N}}）**，对子节点按其 path 中的 N 精确替换 slot；
  *      同时用 `applyIdMapDeep` 把父实例 config 中对占位 id 的引用替换为子实例 id（保证 gridSettings 等同步）。
  * 4) 构建最终 YAML：顶层仅挂 **根节点实例**；所有数据源 dataSource 统一在外层聚合。
  *
  * ## 关键保证
- * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{list.N}}`）时才挂入；
+ * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{LIST_KEY.N}}`）时才挂入；
  *   若找不到 slot，记录 warning，并 **不把子实例提升到顶层**（避免再次出现“跑外面去”的问题）。
  * - **id 一致性**：唯一方法 `applyIdMapDeep` 统一替换任意对象的 key/值里的旧 id → 新 id。
  */
@@ -29,6 +29,7 @@ import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
+import { LIST_KEY } from "../../../utils/constants.mjs";
 import {
   extractFieldCombinations,
   generateDeterministicId,
@@ -203,14 +204,14 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
 const isLayoutBlock = (sec) =>
   !!sec && (sec.component === "layout-block" || sec.type === "layout-block");
 
-// 仅处理 {{list.N}} 形式；若未来需要 {{features.list.N}} 可扩展此解析
+// 仅处理 {{LIST_KEY.N}} 形式；若未来需要 {{features.LIST_KEY.N}} 可扩展此解析
 function parseListIndexFromName(name) {
   if (typeof name !== "string") return null;
   const m = name.match(/^\s*\{\{\s*list\.(\d+)\s*\}\}\s*$/);
   return m ? Number(m[1]) : null;
 }
 
-/** 深度遍历父实例，收集所有 layout-block 的 {{list.N}} 占位 → Map<N, {parent, placeholderId, position}> */
+/** 深度遍历父实例，收集所有 layout-block 的 {{LIST_KEY.N}} 占位 → Map<N, {parent, placeholderId, position}> */
 function collectLayoutSlots(rootSection) {
   const slots = new Map();
   function dfs(node, parent = null) {
@@ -267,9 +268,9 @@ function replaceSlotWithChild(slot, childSection) {
 // ============= Tree Build（保留层级 & 路径） ============
 function collectSectionsHierarchically(section, path = []) {
   const node = { section, path, children: [] };
-  if (Array.isArray(section.list)) {
-    section.list.forEach((item, idx) => {
-      node.children.push(collectSectionsHierarchically(item, [...path, "list", idx]));
+  if (Array.isArray(section[LIST_KEY])) {
+    section?.[LIST_KEY]?.forEach((item, idx) => {
+      node.children.push(collectSectionsHierarchically(item, [...path, LIST_KEY, idx]));
     });
   }
   return node;
@@ -282,6 +283,7 @@ function processNode(node, compositeComponents, sectionIndex) {
   // 1) 匹配组件
   const analysis = extractFieldCombinations({ sections: [section] });
   const fieldCombinations = analysis[0]?.fieldCombinations || [];
+
   const matched = compositeComponents.find((c) =>
     _.isEqual((c.fieldCombinations || []).sort(), fieldCombinations.sort()),
   );

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T08:55:23.922Z
+  updateAt: 2025-09-25T10:34:13.576Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -194,8 +194,8 @@ composite:
         borderRadius: medium
         border: none
         alignContent: start
-        paddingY: large
-        paddingX: large
+        paddingY: none
+        paddingX: none
     dataSource:
       wk1c4g8ywuyytg9f: {}
       v4u4ydjwf641vpsm:
@@ -1455,7 +1455,8 @@ composite:
   - id: ddhpxym2t66mkmah
     name: Layout Center 1x3 with action
     summary: "A layout 1x3, content is center, from top to bottom is: title,
-      description, item1, item2, item3, action"
+      description, item1, item2, item3, action. Suitable for displaying long
+      content."
     fieldCombinations:
       - title
       - description
@@ -1620,7 +1621,8 @@ composite:
   - id: eueu5e597mi887xx
     name: Layout Center 2x2
     summary: "A layout 2x2, content is center, from top to bottom is: title,
-      description, 2 items, 2 items"
+      description, 2 items, 2 items. Suitable for displaying some text content.
+      If the content is too lengthy, please refrain from using it."
     fieldCombinations:
       - title
       - description
@@ -1804,8 +1806,8 @@ composite:
   - id: nzfgidx4rk5b6h9k
     name: Layout Center 2+3
     summary: "A layout 2+3, content is center, from top to bottom: title,
-      description, 2 items, 3 items, suitable for 5 items and requires some
-      design flair."
+      description, 2 items, 3 items. Suitable for 5 items and requires some
+      design flair"
     fieldCombinations:
       - titile
       - description
@@ -2003,7 +2005,8 @@ composite:
   - id: iffc0vi14ab50a5q
     name: Layout Center 3x1 with action
     summary: "A layout 3x1, content is center, from top to bottom is: title,
-      description, 3 items, action"
+      description, 3 items, action. Suitable for displaying some text content.
+      If the content is too lengthy, please refrain from using it."
     fieldCombinations:
       - title
       - description

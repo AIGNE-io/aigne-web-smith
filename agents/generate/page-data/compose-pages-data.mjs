@@ -39,15 +39,20 @@ import savePagesKitData from "./save-pages-data.mjs";
 // ============= Logging =============
 const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
 const log = (...args) => ENABLE_LOGS && console.log(...args);
-// const logError = (...args) => ENABLE_LOGS && console.error(...args);
+const logError = (...args) => ENABLE_LOGS && console.error(...args);
+
+// 小工具：path 数组可视化
+const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));
 
 // ============= IO Utils =============
 async function readMiddleFormatFile(tmpDir, locale, fileName) {
   try {
     const filePath = join(tmpDir, locale, fileName);
-    return parse(readFileSync(filePath, "utf8"));
+    const content = readFileSync(filePath, "utf8");
+    log("📥 [readMiddleFormatFile] loaded:", { locale, fileName, bytes: content.length });
+    return parse(content);
   } catch (err) {
-    log(`⚠️  Unable to read file ${locale}/${fileName}: ${err.message}`);
+    logError("⚠️  [readMiddleFormatFile] failed:", { locale, fileName, error: err.message });
     return null;
   }
 }
@@ -78,14 +83,32 @@ function processArrayTemplate(templateArray, data) {
   const arrayField = Object.keys(data).find((k) => Array.isArray(data[k]));
   if (arrayField && data[arrayField]?.length > 0) {
     const t = templateArray[0];
-    return data[arrayField].map((item) => processSimpleTemplate(t, item));
+    const out = data[arrayField].map((item) => {
+      const r = processSimpleTemplate(t, item);
+      return r;
+    });
+    log("🧩 [processArrayTemplate] expanded array template:", {
+      items: data[arrayField].length,
+    });
+    return out;
   }
   return templateArray.map((x) => processSimpleTemplate(x, data));
 }
 function processTemplate(obj, data) {
-  return Array.isArray(obj) && obj.length === 1
-    ? processArrayTemplate(obj, data)
-    : processSimpleTemplate(obj, data);
+  const isArrayCase = Array.isArray(obj) && obj.length === 1;
+  const res = isArrayCase ? processArrayTemplate(obj, data) : processSimpleTemplate(obj, data);
+  if (ENABLE_LOGS) {
+    const preview =
+      typeof res === "string"
+        ? res.slice(0, 80)
+        : Array.isArray(res)
+          ? `[array x${res.length}]`
+          : res && typeof res === "object"
+            ? "{object}"
+            : String(res);
+    log("🧪 [processTemplate] done:", { arrayCase: isArrayCase, preview });
+  }
+  return res;
 }
 
 // ============= ID Mapping (single source of truth) ============
@@ -120,12 +143,16 @@ function remapIdsInPlace(obj, fromId, toId) {
     Object.keys(obj).forEach((k) => delete obj[k]);
     Object.entries(remapped).forEach(([k, v]) => (obj[k] = v));
   }
+  log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
 }
 
 // ============= Section Instantiation ============
 function ensureCustomComponentConfig(section) {
   if (section.component === "custom-component") {
     section.config = { useCache: true, ...section.config };
+    log("⚙️  [ensureCustomComponentConfig] applied default config for custom-component:", {
+      id: section.id,
+    });
   }
   return section;
 }
@@ -144,12 +171,16 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
   idMap.set(section.id, derivedId);
   cloned.id = derivedId;
 
+  // 递归处理子 section
   if (cloned.sectionIds && cloned.sections) {
     const nextSections = {};
     const nextIds = [];
     cloned.sectionIds.forEach((cid, idx) => {
       const childTpl = section.sections?.[cid];
-      if (!childTpl) return;
+      if (!childTpl) {
+        logError("⚠️  [cloneTemplateSection] missing child template:", { cid, parent: section.id });
+        return;
+      }
       const childClone = cloneTemplateSection(
         childTpl,
         { templateId, sectionIndex, path: [...path, idx] },
@@ -172,12 +203,35 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
   cloned.sectionIds = (cloned.sectionIds || []).map((id) => idMap.get(id) || id);
   cloned.config = applyIdMapDeep(cloned.config, idMap);
 
+  if (ENABLE_LOGS) {
+    // 打印少量映射（最多 5 个），避免过度噪声
+    const mapPreview = [];
+    let c = 0;
+    for (const [from, to] of idMap.entries()) {
+      mapPreview.push([from, "→", to]);
+      if (++c >= 5) break;
+    }
+    log("🧬 [cloneTemplateSection] cloned", {
+      templateId,
+      sectionIndex,
+      path: fmtPath(path),
+      newId: cloned.id,
+      idMapPreview: mapPreview,
+    });
+  }
+
   return cloned;
 }
 
 function instantiateComponentTemplate({ component, sectionData, sectionIndex, path = [] }) {
   const templateId = component.id || component.componentId || component.name;
-  if (!component?.section) return { section: null, idMap: new Map(), dataSource: {} };
+  if (!component?.section) {
+    logError("⚠️  [instantiateComponentTemplate] component has no section:", {
+      templateId,
+      path: fmtPath(path),
+    });
+    return { section: null, idMap: new Map(), dataSource: {} };
+  }
 
   const idMap = new Map();
   const clonedSection = cloneTemplateSection(
@@ -190,11 +244,25 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
   const tplDS = component.dataSource || {};
   Object.entries(tplDS).forEach(([origId, t]) => {
     const newId = idMap.get(origId);
-    if (!newId) return;
+    if (!newId) {
+      logError("⚠️  [instantiateComponentTemplate] dataSource id missing in idMap:", {
+        templateId,
+        origId,
+      });
+      return;
+    }
     const processed = processTemplate(_.cloneDeep(t), sectionData);
     if (processed !== undefined && !(typeof processed === "object" && _.isEmpty(processed))) {
       transformedDataSource[newId] = processed;
     }
+  });
+
+  log("✅ [instantiateComponentTemplate] instantiated:", {
+    templateId,
+    sectionIndex,
+    path: fmtPath(path),
+    sectionId: clonedSection.id,
+    dsKeys: Object.keys(transformedDataSource).length,
   });
 
   return { section: clonedSection, idMap, dataSource: transformedDataSource };
@@ -222,6 +290,12 @@ function collectLayoutSlots(rootSection) {
         const pos = parent.sectionIds.indexOf(node.id);
         if (pos !== -1 && !slots.has(idx)) {
           slots.set(idx, { parent, placeholderId: node.id, position: pos });
+          log("📌 [collectLayoutSlots] slot found:", {
+            listIndex: idx,
+            placeholderId: node.id,
+            parentId: parent.id,
+            position: pos,
+          });
         }
       }
     }
@@ -253,7 +327,11 @@ function replaceSlotWithChild(slot, childSection) {
   if (position >= 0 && position < parent.sectionIds.length) {
     parent.sectionIds.splice(position, 1, childSection.id);
   } else {
-    log(`⚠️  Unexpected slot position for placeholder ${placeholderId}.`);
+    logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+      placeholderId,
+      parentId: parent.id,
+      position,
+    });
     parent.sectionIds.push(childSection.id);
   }
 
@@ -263,6 +341,12 @@ function replaceSlotWithChild(slot, childSection) {
 
   // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
   if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+
+  log("🔗 [replaceSlotWithChild] slot replaced:", {
+    parentId: parent.id,
+    placeholderId,
+    childId: childSection.id,
+  });
 }
 
 // ============= Tree Build（只把真实 list 当作子节点；占位块不当子节点） ============
@@ -290,14 +374,34 @@ function processNode(node, compositeComponents, sectionIndex) {
     _.isEqual((c.fieldCombinations || []).sort(), fieldCombinations.sort()),
   );
 
-  let instantiation = null;
-  if (matched) {
-    instantiation = instantiateComponentTemplate({
-      component: matched,
-      sectionData: section,
-      sectionIndex,
-      path,
+  if (ENABLE_LOGS) {
+    log("🔎 [processNode] match try:", {
+      path: fmtPath(path),
+      sectionName: section?.name,
+      fcCount: fieldCombinations.length,
+      matched: !!matched,
+      matchedName: matched?.name || matched?.id || null,
     });
+  }
+
+  let instantiation = null;
+
+  if (matched) {
+    try {
+      instantiation = instantiateComponentTemplate({
+        component: matched,
+        sectionData: section,
+        sectionIndex,
+        path,
+      });
+    } catch (e) {
+      logError("❌ [processNode] instantiate failed:", {
+        path: fmtPath(path),
+        error: e?.message,
+      });
+    }
+  } else {
+    log("🟡 [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
   }
 
   const result = {
@@ -326,11 +430,11 @@ function processNode(node, compositeComponents, sectionIndex) {
       replaceSlotWithChild(slotMap.get(listIdx), childSection);
     } else {
       // 找不到 slot：为了避免再次把子实例“挂到外面”，这里仅记录告警，不做 fallback append
-      log(
-        `⚠️  No layout-block slot matched for child at path ${JSON.stringify(
-          childNode.path,
-        )}. The child instance is skipped.`,
-      );
+      logError("⚠️  [processNode] no slot matched for child, skipped mounting:", {
+        parentPath: fmtPath(path),
+        childPath: fmtPath(childNode.path),
+        childId: childSection.id,
+      });
     }
   });
 
@@ -341,11 +445,18 @@ function processNode(node, compositeComponents, sectionIndex) {
 function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   const parsed =
     typeof middleFormatContent === "string" ? parse(middleFormatContent) : middleFormatContent;
-  if (!parsed?.sections) return { roots: [], flat: [] };
+  if (!parsed?.sections) {
+    logError("⚠️  [compose] middle content has no sections");
+    return { roots: [], flat: [] };
+  }
 
   const compositeComponents = (componentLibrary || []).filter((c) => c.type === "composite");
+  log("🧱 [compose] start:", {
+    sections: parsed.sections.length,
+    compositeCount: compositeComponents.length,
+  });
 
-  const roots = parsed.sections.map((s, i) =>
+  const roots = parsed.sections?.map((s, i) =>
     processNode(collectSectionsHierarchically(s, ["root", i]), compositeComponents, i),
   );
 
@@ -357,9 +468,12 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
     });
   })(roots);
 
-  log(
-    `✅ Matching completed: ${flat.filter((x) => x.matched).length}/${flat.length} (incl. nested)`,
-  );
+  const matchedCount = flat.filter((x) => x.matched).length;
+  log("✅ [compose] matching completed:", {
+    matched: matchedCount,
+    total: flat.length,
+    ratio: `${matchedCount}/${flat.length}`,
+  });
   return { roots, flat };
 }
 
@@ -377,11 +491,17 @@ export default async function composePagesData(input) {
 
   try {
     rmSync(outputDir, { recursive: true, force: true });
-  } catch {}
+    log("🧹 [composePagesData] clean outputDir:", { outputDir });
+  } catch (e) {
+    logError("⚠️  [composePagesData] clean outputDir failed:", { outputDir, error: e?.message });
+  }
 
-  log(`🔧 Composing Pages Kit YAML: ${pagesDir}`);
-  log(`🧩 Components: ${componentLibrary?.length || 0}`);
-  log(`🌐 Locale: ${locale}`);
+  log("🔧 [composePagesData] start:", {
+    pagesDir,
+    components: componentLibrary?.length || 0,
+    locale,
+    translateLanguages,
+  });
 
   const allPagesKitYaml = [];
   const fileDataMap = new Map();
@@ -402,13 +522,34 @@ export default async function composePagesData(input) {
         : []),
     ];
 
+    log("📚 [composePagesData] filesToProcess:", {
+      count: filesToProcess.length,
+      main: filesToProcess.filter((f) => f.isMainLanguage).length,
+      i18n: filesToProcess.filter((f) => !f.isMainLanguage).length,
+    });
+
     for (const file of filesToProcess) {
-      const content = file.isMainLanguage
-        ? typeof file.content === "string"
-          ? parse(file.content)
-          : file.content
-        : await readMiddleFormatFile(tmpDir, file.language, file.filePath);
-      if (!content) continue;
+      let content = file.content;
+      if (!file.isMainLanguage) {
+        content = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
+      } else if (typeof content === "string") {
+        try {
+          content = parse(content);
+        } catch (e) {
+          logError("❌ [composePagesData] parse main content failed:", {
+            file: file.filePath,
+            error: e?.message,
+          });
+          continue;
+        }
+      }
+      if (!content) {
+        logError("⚠️  [composePagesData] skip empty content:", {
+          file: file.filePath,
+          lang: file.language,
+        });
+        continue;
+      }
 
       const { roots, flat } = composeSectionsWithComponents(content, componentLibrary);
 
@@ -428,9 +569,9 @@ export default async function composePagesData(input) {
       fd.locales[file.language] = {
         backgroundColor: "",
         style: { maxWidth: "custom:1560px", paddingY: "large", paddingX: "large" },
-        title: content.meta.title,
-        description: content.meta.description,
-        image: content.meta.image,
+        title: content.meta?.title,
+        description: content.meta?.description,
+        image: content.meta?.image,
         header: { sticky: true },
       };
 
@@ -442,16 +583,28 @@ export default async function composePagesData(input) {
           fd.sections[s.id] = s;
           if (!fd.sectionIds.includes(s.id)) fd.sectionIds.push(s.id);
         });
+        log("🌲 [composePagesData] root instances attached:", {
+          file: file.filePath,
+          roots: roots.filter((r) => !!r.instantiation?.section).length,
+        });
       }
 
       // dataSource：统一聚合（所有节点）
+      let dsAdded = 0;
       flat.forEach(({ instantiation }) => {
         if (!instantiation) return;
         Object.entries(instantiation.dataSource || {}).forEach(([id, data]) => {
           if (!id || data === undefined) return;
           if (!fd.dataSource[id]) fd.dataSource[id] = {};
           fd.dataSource[id][file.language] = _.cloneDeep(data);
+          dsAdded++;
         });
+      });
+      log("🍱 [composePagesData] dataSource aggregated:", {
+        file: file.filePath,
+        lang: file.language,
+        added: dsAdded,
+        totalKeys: Object.keys(fd.dataSource).length,
       });
     }
 
@@ -469,24 +622,39 @@ export default async function composePagesData(input) {
         sectionIds: fd.sectionIds,
         dataSource: fd.dataSource,
       };
+      const content = stringify(yaml, { aliasDuplicateObjects: false });
       allPagesKitYaml.push({
         filePath: fd.filePath,
-        content: stringify(yaml, { aliasDuplicateObjects: false }),
+        content,
+      });
+      log("📝 [composePagesData] yaml prepared:", {
+        file: fd.filePath,
+        sectionCount: Object.keys(fd.sections || {}).length,
+        rootIds: fd.sectionIds.length,
+        dsKeys: Object.keys(fd.dataSource || {}).length,
       });
     });
+  } else {
+    logError("⚠️  [composePagesData] middleFormatFiles is not an array");
   }
 
   // 保存输出
-  allPagesKitYaml.forEach(({ filePath, content }) =>
-    savePagesKitData({
-      path: basename(filePath).split(".")?.[0] || filePath,
-      locale,
-      pagesDir,
-      pagesKitYaml: content,
-      outputDir,
-    }),
-  );
+  allPagesKitYaml.forEach(({ filePath, content }) => {
+    try {
+      savePagesKitData({
+        path: basename(filePath).split(".")?.[0] || filePath,
+        locale,
+        pagesDir,
+        pagesKitYaml: content,
+        outputDir,
+      });
+      log("💾 [composePagesData] saved:", { file: filePath, bytes: content.length });
+    } catch (e) {
+      logError("❌ [composePagesData] save failed:", { file: filePath, error: e?.message });
+    }
+  });
 
+  log("🎉 [composePagesData] done");
   return { ...input };
 }
 

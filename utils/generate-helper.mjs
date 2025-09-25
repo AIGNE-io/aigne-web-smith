@@ -240,7 +240,8 @@ export function extractContentFields(obj, prefix = "") {
   const fields = new Set();
 
   Object.keys(obj).forEach((key) => {
-    if (metaFields.includes(key)) return;
+    // 跳过 section 顶层的 meta 字段
+    if (!prefix && metaFields.includes(key)) return;
 
     const currentPath = prefix ? `${prefix}.${key}` : key;
     const value = obj[key];
@@ -250,8 +251,10 @@ export function extractContentFields(obj, prefix = "") {
         fields.add(`${currentPath}.${index}`);
       });
     } else if (typeof value === "object" && value !== null) {
-      // 递归调用，继续深入对象层级
-      extractContentFields(value, currentPath).forEach((field) => fields.add(field));
+      // 对象字段：递归提取子字段，使用路径格式
+      const subFields = extractContentFields(value, currentPath);
+
+      subFields.forEach((field) => fields.add(field));
     } else {
       fields.add(currentPath);
     }

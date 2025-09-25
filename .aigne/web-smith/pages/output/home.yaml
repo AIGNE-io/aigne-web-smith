@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T10:50:00.864Z
-updatedAt: 2025-09-25T10:50:00.864Z
-publishedAt: 2025-09-25T10:50:00.864Z
+createdAt: 2025-09-25T12:31:33.096Z
+updatedAt: 2025-09-25T12:31:33.096Z
+publishedAt: 2025-09-25T12:31:33.096Z
 isPublic: true
 locales:
   en:
@@ -371,12 +371,12 @@ sections:
       paddingY: custom:100px
   14c7fc5c96cb582e:
     id: 14c7fc5c96cb582e
-    name: Build
+    name: Layout 1x3
     component: layout-block
     sections:
       9de2a7aa5e9d16ac:
         id: 9de2a7aa5e9d16ac
-        name: Layout 1x3
+        name: Title
         component: custom-component
         config:
           useCache: true
@@ -387,71 +387,227 @@ sections:
         name: CardList
         component: layout-block
         sections:
-          b72de9f3e2998402:
-            id: b72de9f3e2998402
-            name: "{{list.0}}"
+          637ade5f22994253:
+            id: 637ade5f22994253
+            name: Step-2
             component: layout-block
-            sections: {}
-            sectionIds: []
+            sections:
+              c9671dc4bf62b036:
+                id: c9671dc4bf62b036
+                name: RichText
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              8c7c4b68ce287888:
+                id: 8c7c4b68ce287888
+                name: Container
+                component: layout-block
+                sections:
+                  5924f5ccb93bd13f:
+                    id: 5924f5ccb93bd13f
+                    name: Code
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: 2EHGy3vwxlS9JGr2
+                    sectionIds: []
+                sectionIds:
+                  - 5924f5ccb93bd13f
+                config:
+                  gridSettings:
+                    desktop:
+                      5924f5ccb93bd13f:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  borderRadius: medium
+                  height: unset
+            sectionIds:
+              - c9671dc4bf62b036
+              - 8c7c4b68ce287888
             config:
               gridSettings:
-                desktop: {}
-              gap: large
-              paddingX: none
-              paddingY: none
-              background: transparent
-              borderRadius: none
-          19db6f672e4fe94e:
-            id: 19db6f672e4fe94e
-            name: "{{list.1}}"
+                desktop:
+                  c9671dc4bf62b036:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                  8c7c4b68ce287888:
+                    x: 6
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  c9671dc4bf62b036:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  8c7c4b68ce287888:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              gap: normal
+          847629726aa8786e:
+            id: 847629726aa8786e
+            name: Step-2
             component: layout-block
-            sections: {}
-            sectionIds: []
+            sections:
+              cb14d3a91ebc8c71:
+                id: cb14d3a91ebc8c71
+                name: RichText
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              f21dbc4b3310f0b8:
+                id: f21dbc4b3310f0b8
+                name: Container
+                component: layout-block
+                sections:
+                  f18aa16444c127ac:
+                    id: f18aa16444c127ac
+                    name: Code
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: 2EHGy3vwxlS9JGr2
+                    sectionIds: []
+                sectionIds:
+                  - f18aa16444c127ac
+                config:
+                  gridSettings:
+                    desktop:
+                      f18aa16444c127ac:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  borderRadius: medium
+                  height: unset
+            sectionIds:
+              - cb14d3a91ebc8c71
+              - f21dbc4b3310f0b8
             config:
               gridSettings:
-                desktop: {}
-              gap: large
-              paddingX: none
-              paddingY: none
-              background: transparent
-              borderRadius: none
-          984fa30ae45d1fa0:
-            id: 984fa30ae45d1fa0
-            name: "{{list.2}}"
+                desktop:
+                  cb14d3a91ebc8c71:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                  f21dbc4b3310f0b8:
+                    x: 6
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  cb14d3a91ebc8c71:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  f21dbc4b3310f0b8:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              gap: normal
+          910462c0363616dc:
+            id: 910462c0363616dc
+            name: Step-2
             component: layout-block
-            sections: {}
-            sectionIds: []
+            sections:
+              c3102fe0ded582ba:
+                id: c3102fe0ded582ba
+                name: RichText
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              35a6fe40ca824e69:
+                id: 35a6fe40ca824e69
+                name: Container
+                component: layout-block
+                sections:
+                  1c996b0975214c55:
+                    id: 1c996b0975214c55
+                    name: Code
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: 2EHGy3vwxlS9JGr2
+                    sectionIds: []
+                sectionIds:
+                  - 1c996b0975214c55
+                config:
+                  gridSettings:
+                    desktop:
+                      1c996b0975214c55:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  borderRadius: medium
+                  height: unset
+            sectionIds:
+              - c3102fe0ded582ba
+              - 35a6fe40ca824e69
             config:
               gridSettings:
-                desktop: {}
-              gap: large
-              paddingX: none
-              paddingY: none
-              background: transparent
-              borderRadius: none
+                desktop:
+                  c3102fe0ded582ba:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                  35a6fe40ca824e69:
+                    x: 6
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  c3102fe0ded582ba:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  35a6fe40ca824e69:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              gap: normal
         sectionIds:
-          - b72de9f3e2998402
-          - 19db6f672e4fe94e
-          - 984fa30ae45d1fa0
+          - 637ade5f22994253
+          - 847629726aa8786e
+          - 910462c0363616dc
         config:
           gridSettings:
             desktop:
-              b72de9f3e2998402:
+              637ade5f22994253:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              19db6f672e4fe94e:
+              847629726aa8786e:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
-              984fa30ae45d1fa0:
+              910462c0363616dc:
                 x: 0
                 y: 2
                 w: 12
                 h: 1
-          gap: large
+          gap: normal
       1e17c1327fb50a56:
         id: 1e17c1327fb50a56
         name: Action
@@ -1052,6 +1208,190 @@ dataSource:
               size: large
               target: _blank
               needLogin: false
+  c9671dc4bf62b036:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 1: Install the CLI"
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Get the AIGNE command-line tool on your machine. This one-time setup gives
+                  you access to the full power of WebSmith.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 步骤 1：安装 CLI
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 在您的机器上安装 AIGNE 命令行工具。此一次性设置可让您访问 WebSmith 的全部功能。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  5924f5ccb93bd13f:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Install AIGNE CLI
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: npm install -g @aigne/cli
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: 安装 AIGNE CLI
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: npm install -g @aigne/cli
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  cb14d3a91ebc8c71:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 2: Generate Your Site"
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Describe your ideal website in a simple file, then run the generate
+                  command. Sit back and watch as the AI builds everything for
+                  you.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 步骤 2：生成您的网站
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 用一个简单文件描述您理想的网站，然后运行生成命令。然后坐享其成，AI 会为您构建一切。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  f18aa16444c127ac:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Generate from a file
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne web generate --input @my-website.yaml
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: 从文件生成
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne web generate --input @my-website.yaml
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  c3102fe0ded582ba:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 3: Publish to the World"
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Ready to show off your creation? A single command pushes your new website
+                  live to Pages Kit, instantly and effortlessly.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 步骤 3：发布到线上
+            style:
+              variant: h4
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: 准备展示您的作品了吗？一条命令即可将新网站推送到 Pages Kit，立即且轻松上线。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  1c996b0975214c55:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Publish to Pages Kit
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne web publish
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        b2jrz12ik7esf93z:
+          value: 发布到 Pages Kit
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne web publish
+        d8hvf7cxz93jk5p:
+          value: 1rem
   a91fb517ee087e8c:
     en:
       properties:

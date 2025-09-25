@@ -249,6 +249,10 @@ export function extractContentFields(obj, prefix = "") {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
+    } else if (typeof value === "object" && value !== null) {
+      Object.entries(value).forEach(([key]) => {
+        fields.add(`${currentPath}.${key}`);
+      });
     } else {
       fields.add(currentPath);
     }

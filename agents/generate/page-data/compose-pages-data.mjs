@@ -10,18 +10,18 @@
  *
  * ## 核心流程
  * 1) 读入 middle 格式（支持多语言）。
- * 2) 构建 **树形** section 节点（保留 `LIST_KEY` 的父子层级与 path，如 ["root", 0, "LIST_KEY", 2]）。
+ * 2) 构建 **树形** section 节点（仅把真实的 `section[list]` 当作子节点；名字形如 `{{list.N}}` 的只是模板占位，不算子节点）。
  * 3) 递归处理每个节点：
  *    - 依据 fieldCombinations 匹配组件模板；
  *    - clone 模板 → 生成稳定 id（包含 path）→ 形成 `idMap`；
  *    - 用 `applyIdMapDeep` 对 clone 后的 section（含 config/sections/sectionIds）统一替换 id；
- *    - 在父实例上 **收集 layout-block 占位（{{LIST_KEY.N}}）**，对子节点按其 path 中的 N 精确替换 slot；
+ *    - 对父实例：**收集 layout-block 占位（{{list.N}}）**，按子节点的 N **在父实例内**精确替换 slot；
  *      同时用 `applyIdMapDeep` 把父实例 config 中对占位 id 的引用替换为子实例 id（保证 gridSettings 等同步）。
  * 4) 构建最终 YAML：顶层仅挂 **根节点实例**；所有数据源 dataSource 统一在外层聚合。
  *
  * ## 关键保证
- * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{LIST_KEY.N}}`）时才挂入；
- *   若找不到 slot，记录 warning，并 **不把子实例提升到顶层**（避免再次出现“跑外面去”的问题）。
+ * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{list.N}}`）时才挂入；
+ *   若找不到 slot，记录 warning，并 **不把子实例提升到顶层**（避免“跑外面去”）。
  * - **id 一致性**：唯一方法 `applyIdMapDeep` 统一替换任意对象的 key/值里的旧 id → 新 id。
  */
 
@@ -235,7 +235,7 @@ function collectLayoutSlots(rootSection) {
 
 /** 从子节点 path 中提取 list 索引（…,"list", N, …） */
 function extractListIndexFromPath(path) {
-  const i = path.findIndex((p) => p === "list");
+  const i = path.findIndex((p) => p === LIST_KEY);
   if (i === -1 || i + 1 >= path.length) return null;
   const v = path[i + 1];
   const n = typeof v === "number" ? v : Number(v);
@@ -265,14 +265,16 @@ function replaceSlotWithChild(slot, childSection) {
   if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
 }
 
-// ============= Tree Build（保留层级 & 路径） ============
+// ============= Tree Build（只把真实 list 当作子节点；占位块不当子节点） ============
 function collectSectionsHierarchically(section, path = []) {
   const node = { section, path, children: [] };
-  if (Array.isArray(section[LIST_KEY])) {
-    section?.[LIST_KEY]?.forEach((item, idx) => {
+  // 严格：只有当 section[list] 是数组时，才把其元素视为 list 子节点
+  if (Array.isArray(section?.[LIST_KEY])) {
+    section[LIST_KEY].forEach((item, idx) => {
       node.children.push(collectSectionsHierarchically(item, [...path, LIST_KEY, idx]));
     });
   }
+  // 注意：名字为 "{{list.N}}" 的布局块只是模板槽位，不是数据，不放进 children
   return node;
 }
 
@@ -307,10 +309,10 @@ function processNode(node, compositeComponents, sectionIndex) {
     children: [],
   };
 
-  // 2) 只有父已实例化时，才收集 slot
+  // 2) 只有父已实例化时，才收集 slot（在父实例范围内）
   const slotMap = instantiation?.section ? collectLayoutSlots(instantiation.section) : new Map();
 
-  // 3) 递归处理子节点，并按 slot 精确替换
+  // 3) 递归处理子节点，并按 slot 精确替换（严格按本父节点 children 的索引）
   children.forEach((childNode, idx) => {
     const childResult = processNode(childNode, compositeComponents, idx);
     result.children.push(childResult);
@@ -323,11 +325,11 @@ function processNode(node, compositeComponents, sectionIndex) {
     if (listIdx !== null && slotMap.has(listIdx)) {
       replaceSlotWithChild(slotMap.get(listIdx), childSection);
     } else {
-      // 找不到 slot：为了避免再次把子实例“挂到外面”，这里**仅记录告警，不做 fallback append**
+      // 找不到 slot：为了避免再次把子实例“挂到外面”，这里仅记录告警，不做 fallback append
       log(
         `⚠️  No layout-block slot matched for child at path ${JSON.stringify(
           childNode.path,
-        )}. The child instance is skipped from attachment.`,
+        )}. The child instance is skipped.`,
       );
     }
   });

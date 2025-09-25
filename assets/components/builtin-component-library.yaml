@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T10:34:13.576Z
+  updateAt: 2025-09-25T11:29:51.353Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -1467,12 +1467,12 @@ composite:
       - list.2
     section:
       id: 44ar2hdabcsq8pt6
-      name: Build
+      name: Layout 1x3
       component: layout-block
       sections:
         2u1ujyd3l49uxkdb:
           id: 2u1ujyd3l49uxkdb
-          name: Layout 1x3
+          name: Title
           component: custom-component
           config:
             componentId: xoHu0J44322kDYc-
@@ -1545,7 +1545,7 @@ composite:
                   y: 2
                   w: 12
                   h: 1
-            gap: large
+            gap: normal
         5djzyjelnffm1bu2:
           id: 5djzyjelnffm1bu2
           name: Action
@@ -2098,7 +2098,7 @@ composite:
                   y: 0
                   w: 4
                   h: 1
-            gap: large
+            gap: normal
         s7wrqvdrjq4be4ic:
           id: s7wrqvdrjq4be4ic
           name: Action

@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T07:44:35.273Z
-updatedAt: 2025-09-25T07:44:35.273Z
-publishedAt: 2025-09-25T07:44:35.273Z
+createdAt: 2025-09-25T08:09:15.465Z
+updatedAt: 2025-09-25T08:09:15.465Z
+publishedAt: 2025-09-25T08:09:15.465Z
 isPublic: true
 locales:
   en:
@@ -58,11 +58,54 @@ sections:
                   componentId: 2EHGy3vwxlS9JGr2
             sectionIds:
               - 8e1598dbf30cb077
+            config:
+              gridSettings:
+                desktop:
+                  zrkwjssmhhphquk4:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              borderRadius: small
         sectionIds:
           - 7129cbfaeb788df2
+        config:
+          gridSettings:
+            desktop:
+              yze801kc6qmtj6g9:
+                x: 0
+                y: 0
+                w: 5
+                h: 1
+            mobile:
+              yze801kc6qmtj6g9:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: none
+          alignContent: center
     sectionIds:
       - 77889a91503ead44
       - 394d9c1444658eee
+    config:
+      gridSettings:
+        desktop:
+          kvqw8j3dwcstlb0c:
+            x: 0
+            y: 0
+            w: 8
+            h: 1
+          gceef71oyvf3ucp4:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      paddingY: custom:150px
+      paddingX: none
+      backgroundFullWidth: true
+      background: 4d8c15b918a75901a6e6c589dd22e0ec.webp
+      gap: large
   085b31a01746d94c:
     id: 085b31a01746d94c
     name: Card
@@ -85,6 +128,27 @@ sections:
     sectionIds:
       - f698aa4f8d9d9490
       - 2bc6be5f81d62608
+    config:
+      gridSettings:
+        desktop:
+          v4u4ydjwf641vpsm:
+            x: 0
+            y: 0
+            w: 2
+            h: 1
+          bskdh8ztuo3fe0d2:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      padding: normal
+      background: background.paper
+      gap: normal
+      borderRadius: medium
+      border: none
+      alignContent: start
+      paddingY: large
+      paddingX: large
   8d05067a0deec77d:
     id: 8d05067a0deec77d
     name: Card
@@ -107,6 +171,27 @@ sections:
     sectionIds:
       - d0ef17e0029cbf43
       - 437e7ce3a956a392
+    config:
+      gridSettings:
+        desktop:
+          v4u4ydjwf641vpsm:
+            x: 0
+            y: 0
+            w: 2
+            h: 1
+          bskdh8ztuo3fe0d2:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      padding: normal
+      background: background.paper
+      gap: normal
+      borderRadius: medium
+      border: none
+      alignContent: start
+      paddingY: large
+      paddingX: large
   769b832692401ced:
     id: 769b832692401ced
     name: Card
@@ -129,6 +214,27 @@ sections:
     sectionIds:
       - 1458b90a76d5358d
       - b7f28341bf25e8ab
+    config:
+      gridSettings:
+        desktop:
+          v4u4ydjwf641vpsm:
+            x: 0
+            y: 0
+            w: 2
+            h: 1
+          bskdh8ztuo3fe0d2:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      padding: normal
+      background: background.paper
+      gap: normal
+      borderRadius: medium
+      border: none
+      alignContent: start
+      paddingY: large
+      paddingX: large
   c1050bad2b66d9ac:
     id: c1050bad2b66d9ac
     name: Card
@@ -151,6 +257,27 @@ sections:
     sectionIds:
       - 37f088e545b7fb7a
       - 69bf3446c542dc1b
+    config:
+      gridSettings:
+        desktop:
+          v4u4ydjwf641vpsm:
+            x: 0
+            y: 0
+            w: 2
+            h: 1
+          bskdh8ztuo3fe0d2:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      padding: normal
+      background: background.paper
+      gap: normal
+      borderRadius: medium
+      border: none
+      alignContent: start
+      paddingY: large
+      paddingX: large
   5bb17d9f6a7a500a:
     id: 5bb17d9f6a7a500a
     name: Step-2
@@ -177,9 +304,44 @@ sections:
               componentId: 2EHGy3vwxlS9JGr2
         sectionIds:
           - dda0af7ff1c604da
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
     sectionIds:
       - 001aa5764ab785a2
       - af050ab38c48dbf8
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
   70437ff927d5b5a1:
     id: 70437ff927d5b5a1
     name: Step-2
@@ -206,9 +368,44 @@ sections:
               componentId: 2EHGy3vwxlS9JGr2
         sectionIds:
           - d4f6c5622fd91acd
+        config:
+          gridSettings:
+            desktop:
+              ym5fsbth0has8cq4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
     sectionIds:
       - 7430dbebdf55045b
       - f781fb36af833744
+    config:
+      gridSettings:
+        desktop:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          t75cpdxbg8ixr260:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          6bjawbo8s9ydpvgb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
   ecb81d7ed71727b8:
     id: ecb81d7ed71727b8
     name: CTA
@@ -236,8 +433,40 @@ sections:
         sectionIds:
           - 8513809c25fb3b9d
           - cd1c9a34eff4decd
+        config:
+          gridSettings:
+            desktop:
+              bammisocksvdzmxb:
+                x: 2
+                y: 0
+                w: 8
+                h: 1
+              c3z1wzg1xz7zyroz:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          background: background.paper
+          padding: large
+          gap: normal
+          borderRadius: medium
+          border: none
+          paddingY: large
     sectionIds:
       - 3a2d6713085ee06d
+    config:
+      padding: large
+      gridSettings:
+        desktop:
+          6e2eibno5o8vunck:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: none
+      maxWidth: full
+      paddingY: custom:100px
+      paddingX: none
 sectionIds:
   - 78b0df18835d65d1
   - 085b31a01746d94c

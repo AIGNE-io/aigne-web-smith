@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T07:42:08.538Z
+  updateAt: 2025-09-25T08:08:57.842Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -62,8 +62,34 @@ composite:
           sectionIds:
             - 9qoj8f9dy45fgvwm
             - mc8o2ca1jzydt1h0
+          config:
+            gridSettings:
+              desktop:
+                9qoj8f9dy45fgvwm:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                mc8o2ca1jzydt1h0:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: large
+            paddingX: none
       sectionIds:
         - zuqls9ievhu1a70b
+      config:
+        gridSettings:
+          desktop:
+            zuqls9ievhu1a70b:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+        paddingY: custom:150px
+        background: grey.300
+        backgroundFullWidth: true
     dataSource:
       4dox83hzbbop36yp: {}
       zuqls9ievhu1a70b: {}
@@ -149,6 +175,27 @@ composite:
       sectionIds:
         - v4u4ydjwf641vpsm
         - bskdh8ztuo3fe0d2
+      config:
+        gridSettings:
+          desktop:
+            v4u4ydjwf641vpsm:
+              x: 0
+              y: 0
+              w: 2
+              h: 1
+            bskdh8ztuo3fe0d2:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        padding: normal
+        background: background.paper
+        gap: normal
+        borderRadius: medium
+        border: none
+        alignContent: start
+        paddingY: large
+        paddingX: large
     dataSource:
       wk1c4g8ywuyytg9f: {}
       v4u4ydjwf641vpsm:
@@ -221,6 +268,22 @@ composite:
           sectionIds:
             - xyeuifr3wvsoytv7
             - 4bifxer7i36srcy1
+          config:
+            gridSettings:
+              desktop:
+                xyeuifr3wvsoytv7:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                4bifxer7i36srcy1:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            padding: none
+            gap: normal
+            alignContent: center
         t7galphq2dr7f5za:
           id: t7galphq2dr7f5za
           name: Image Container
@@ -234,9 +297,45 @@ composite:
                 componentId: xoHu0JPjPs122kaaa-
           sectionIds:
             - 9q03om3iw1dw2tx6
+          config:
+            gridSettings:
+              desktop:
+                9q03om3iw1dw2tx6:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
       sectionIds:
         - hxbm2fjtywrzdqea
         - t7galphq2dr7f5za
+      config:
+        gridSettings:
+          desktop:
+            hxbm2fjtywrzdqea:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        paddingY: small
     dataSource:
       mw1ikvzx6xx1mn5a: {}
       hxbm2fjtywrzdqea: {}
@@ -320,6 +419,22 @@ composite:
           sectionIds:
             - xyeuifr3wvsoytv7
             - 4bifxer7i36srcy1
+          config:
+            gridSettings:
+              desktop:
+                xyeuifr3wvsoytv7:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                4bifxer7i36srcy1:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            padding: none
+            gap: normal
+            alignContent: center
         t7galphq2dr7f5za:
           id: t7galphq2dr7f5za
           name: Image Container
@@ -333,9 +448,45 @@ composite:
                 componentId: xoHu0JPjPs122kaaa-
           sectionIds:
             - 9q03om3iw1dw2tx6
+          config:
+            gridSettings:
+              desktop:
+                9q03om3iw1dw2tx6:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
       sectionIds:
         - hxbm2fjtywrzdqea
         - t7galphq2dr7f5za
+      config:
+        gridSettings:
+          desktop:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            t7galphq2dr7f5za:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        paddingY: small
     dataSource:
       mw1ikvzx6xx1mn5a: {}
       hxbm2fjtywrzdqea: {}
@@ -420,8 +571,39 @@ composite:
           sectionIds:
             - bammisocksvdzmxb
             - c3z1wzg1xz7zyroz
+          config:
+            gridSettings:
+              desktop:
+                bammisocksvdzmxb:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                c3z1wzg1xz7zyroz:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            background: background.paper
+            padding: large
+            gap: large
+            borderRadius: medium
+            border: none
+            paddingY: large
       sectionIds:
         - 6e2eibno5o8vunck
+      config:
+        padding: large
+        gridSettings:
+          desktop:
+            6e2eibno5o8vunck:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: none
+        paddingX: none
+        paddingY: custom:100px
     dataSource:
       dmf59dq4byd8kj54: {}
       6e2eibno5o8vunck: {}
@@ -501,8 +683,40 @@ composite:
           sectionIds:
             - bammisocksvdzmxb
             - c3z1wzg1xz7zyroz
+          config:
+            gridSettings:
+              desktop:
+                bammisocksvdzmxb:
+                  x: 2
+                  y: 0
+                  w: 8
+                  h: 1
+                c3z1wzg1xz7zyroz:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            background: background.paper
+            padding: large
+            gap: normal
+            borderRadius: medium
+            border: none
+            paddingY: large
       sectionIds:
         - 6e2eibno5o8vunck
+      config:
+        padding: large
+        gridSettings:
+          desktop:
+            6e2eibno5o8vunck:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: none
+        maxWidth: full
+        paddingY: custom:100px
+        paddingX: none
     dataSource:
       dmf59dq4byd8kj54: {}
       6e2eibno5o8vunck: {}
@@ -574,11 +788,54 @@ composite:
                     componentId: 2EHGy3vwxlS9JGr2
               sectionIds:
                 - zrkwjssmhhphquk4
+              config:
+                gridSettings:
+                  desktop:
+                    zrkwjssmhhphquk4:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                borderRadius: small
           sectionIds:
             - yze801kc6qmtj6g9
+          config:
+            gridSettings:
+              desktop:
+                yze801kc6qmtj6g9:
+                  x: 0
+                  y: 0
+                  w: 5
+                  h: 1
+              mobile:
+                yze801kc6qmtj6g9:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: none
+            alignContent: center
       sectionIds:
         - kvqw8j3dwcstlb0c
         - gceef71oyvf3ucp4
+      config:
+        gridSettings:
+          desktop:
+            kvqw8j3dwcstlb0c:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+            gceef71oyvf3ucp4:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingY: custom:150px
+        paddingX: none
+        backgroundFullWidth: true
+        background: 4d8c15b918a75901a6e6c589dd22e0ec.webp
+        gap: large
     dataSource:
       t8uw2z9alumfe69d: {}
       kvqw8j3dwcstlb0c:
@@ -656,8 +913,39 @@ composite:
           sectionIds:
             - upo1go2xhucnawuo
             - x5jjs5ahienrf9oa
+          config:
+            gridSettings:
+              desktop:
+                upo1go2xhucnawuo:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                x5jjs5ahienrf9oa:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: large
+            paddingX: none
+            maxWidth: full
+            alignContent: center
       sectionIds:
         - gnbw2cxeby7rl0qr
+      config:
+        gridSettings:
+          desktop:
+            gnbw2cxeby7rl0qr:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+        paddingY: custom:150px
+        background: b7bb8d5b0880f56eb66df9b1f2ba1466.webp
+        backgroundFullWidth: true
+        alignContent: start
+        gap: normal
+        paddingX: none
     dataSource:
       q9c0551tgshtkxuz: {}
       gnbw2cxeby7rl0qr: {}
@@ -726,6 +1014,16 @@ composite:
                 componentId: AwkO9eKiUWeU7Z8u
           sectionIds:
             - 189z5ylxd9t5554s
+          config:
+            gridSettings:
+              desktop:
+                189z5ylxd9t5554s:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: terminal
         upoxk2q6mb0thd9r:
           id: upoxk2q6mb0thd9r
           name: Code
@@ -750,12 +1048,63 @@ composite:
                     componentId: 2EHGy3vwxlS9JGr2
               sectionIds:
                 - dhxysvxal5z05n6s
+              config:
+                gridSettings:
+                  desktop:
+                    dhxysvxal5z05n6s:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                borderRadius: medium
           sectionIds:
             - sz8l40kriqadq5hw
             - src9j9h5k6ck75yy
+          config:
+            gridSettings:
+              desktop:
+                sz8l40kriqadq5hw:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                src9j9h5k6ck75yy:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: normal
+            alignContent: start
       sectionIds:
         - idjg6b9tkuftczke
         - upoxk2q6mb0thd9r
+      config:
+        gridSettings:
+          desktop:
+            idjg6b9tkuftczke:
+              x: 5
+              y: 0
+              w: 7
+              h: 1
+            upoxk2q6mb0thd9r:
+              x: 0
+              y: 0
+              w: 5
+              h: 1
+          mobile:
+            idjg6b9tkuftczke:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            upoxk2q6mb0thd9r:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        alignContent: center
+        paddingY: small
     dataSource:
       znnnhf7t5im0h1r4: {}
       idjg6b9tkuftczke: {}
@@ -814,6 +1163,15 @@ composite:
                 componentId: xoHu0J44322kDYc-
           sectionIds:
             - qg6ttcnqahp269ca
+          config:
+            gridSettings:
+              desktop:
+                qg6ttcnqahp269ca:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            alignContent: center
         iuexqdge21ft0cv7:
           id: iuexqdge21ft0cv7
           name: Image Container
@@ -827,9 +1185,47 @@ composite:
                 componentId: xoHu0JPjPs122kaaa-
           sectionIds:
             - i9xc49qji7j958xs
+          config:
+            gridSettings:
+              desktop:
+                i9xc49qji7j958xs:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
       sectionIds:
         - ln1f7e0axqd8aqr5
         - iuexqdge21ft0cv7
+      config:
+        padding: large
+        gap: normal
+        gridSettings:
+          desktop:
+            ln1f7e0axqd8aqr5:
+              x: 2
+              y: 0
+              w: 8
+              h: 1
+            iuexqdge21ft0cv7:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+          mobile:
+            ln1f7e0axqd8aqr5:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            iuexqdge21ft0cv7:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingX: none
+        paddingY: custom:100px
     dataSource:
       u2nl4996sckvozwt: {}
       ln1f7e0axqd8aqr5: {}
@@ -894,9 +1290,31 @@ composite:
                 componentId: a44r0SiGV9AFn2Fj
           sectionIds:
             - n4dfdvpenvzbyigc
+          config:
+            gridSettings:
+              desktop: {}
+            borderRadius: medium
       sectionIds:
         - a2crtid2awmhoxpg
         - lbajqq2e4zw4iezq
+      config:
+        gridSettings:
+          desktop:
+            a2crtid2awmhoxpg:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            lbajqq2e4zw4iezq:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingX: none
+        paddingY: none
+        background: transparent
+        borderRadius: none
     dataSource:
       0lhcgc203g57pq3t: {}
       a2crtid2awmhoxpg:
@@ -964,9 +1382,44 @@ composite:
                 componentId: 2EHGy3vwxlS9JGr2
           sectionIds:
             - ym5fsbth0has8cq4
+          config:
+            gridSettings:
+              desktop:
+                ym5fsbth0has8cq4:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            height: unset
       sectionIds:
         - t75cpdxbg8ixr260
         - 6bjawbo8s9ydpvgb
+      config:
+        gridSettings:
+          desktop:
+            t75cpdxbg8ixr260:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            6bjawbo8s9ydpvgb:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            t75cpdxbg8ixr260:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            6bjawbo8s9ydpvgb:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
     dataSource:
       85ikbdbx37bzs2s9: {}
       t75cpdxbg8ixr260:

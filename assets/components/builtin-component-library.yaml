@@ -1,85 +1,184 @@
 meta:
-  updateAt: 2025-09-25T01:47:15.721Z
+  updateAt: 2025-09-25T07:27:28.147Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
     summary: 一个 RichText 组件，主要展示 title 被 description，支持调整字体颜色
-    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
-    blockletTitle: ArcBlock Home Site Component
-  - name: Media
-    componentId: xoHu0JPjPs122kaaa-
-    summary: 一个通用的媒体组件
-    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
     summary: Action buttons component with alignment and customization support
-    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Media
+    componentId: xoHu0JPjPs122kaaa-
+    summary: 一个通用的媒体组件
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Chun Chun Component Studio
   - name: Code
     componentId: 2EHGy3vwxlS9JGr2
     summary: 代码展示组件
-    blockletId: z2qa2cMK27t8btfrYmNW2Ufr43zHqCG591cxd
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Terminal
+    componentId: AwkO9eKiUWeU7Z8u
+    summary: Simple terminal player component using @arcblock/terminal
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
 composite:
-  - id: od2449kxkz9jwiyx
-    name: Card
-    summary: ei
+  - id: fl8kdr0ghgxu149s
+    name: Hero Section with background and 2 buttons
+    summary: A Hero Section with a background and two call-to-action buttons
     fieldCombinations:
-      - title
-      - description
-      - icon
-      - action.name
-      - action.link
+      - heroTitle
+      - heroDescription
+      - actions.0.text
+      - actions.0.link
+      - actions.1.text
+      - actions.1.link
     section:
-      id: r9yzb4jga7iota1d
-      name: Card
+      id: 4dox83hzbbop36yp
+      name: Hero
       component: layout-block
       sections:
-        q5blu26ztzvfs7us:
-          id: q5blu26ztzvfs7us
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
-        6xqx0h72i41ge63j:
-          id: 6xqx0h72i41ge63j
-          name: Image
-          component: custom-component
-          config:
-            componentId: xoHu0JPjPs122kaaa-
-        pcxfg4qmmxtpqc6p:
-          id: pcxfg4qmmxtpqc6p
-          name: Section Layout
+        zuqls9ievhu1a70b:
+          id: zuqls9ievhu1a70b
+          name: Title
           component: layout-block
           sections:
-            u8qzwpicueuk0pvw:
-              id: u8qzwpicueuk0pvw
+            9qoj8f9dy45fgvwm:
+              id: 9qoj8f9dy45fgvwm
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            mc8o2ca1jzydt1h0:
+              id: mc8o2ca1jzydt1h0
               name: Action
               component: custom-component
               config:
                 componentId: a44r0SiGV9AFn2Fj
           sectionIds:
-            - u8qzwpicueuk0pvw
+            - 9qoj8f9dy45fgvwm
+            - mc8o2ca1jzydt1h0
       sectionIds:
-        - 6xqx0h72i41ge63j
-        - q5blu26ztzvfs7us
-        - pcxfg4qmmxtpqc6p
+        - zuqls9ievhu1a70b
     dataSource:
-      r9yzb4jga7iota1d: {}
-      q5blu26ztzvfs7us:
+      4dox83hzbbop36yp: {}
+      zuqls9ievhu1a70b: {}
+      9qoj8f9dy45fgvwm:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= title %>
+              text: |
+                <%= heroTitle %>
               style:
-                variant: h4
+                color: common.white
+                variant: h1
           9ajrz12ik7esfk1z:
             value:
               list:
-                - id: item-1753785524461-oi28q5aii
+                - id: item-1754042380003-mnbkkn5fa
                   type: text
-                  text: <%= description %>
+                  text: |
+                    <%= heroDescription %>
+                  style:
+                    color: common.white
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      mc8o2ca1jzydt1h0:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= actions.0.text %>
+                url: <%= actions.0.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+              - type: link
+                text: <%= actions.1.text %>
+                url: <%= actions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _blank
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1754042480282-63txf2twj
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+  - id: o5ihqyzby93wdz2n
+    name: Content card with icon
+    summary: Content card with small icon and title and description
+    fieldCombinations:
+      - icon
+      - cardTitle
+      - cardDescription
+    section:
+      id: wk1c4g8ywuyytg9f
+      name: Card
+      component: layout-block
+      sections:
+        v4u4ydjwf641vpsm:
+          id: v4u4ydjwf641vpsm
+          name: Image
+          component: custom-component
+          config:
+            componentId: xoHu0JPjPs122kaaa-
+        bskdh8ztuo3fe0d2:
+          id: bskdh8ztuo3fe0d2
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+      sectionIds:
+        - v4u4ydjwf641vpsm
+        - bskdh8ztuo3fe0d2
+    dataSource:
+      wk1c4g8ywuyytg9f: {}
+      v4u4ydjwf641vpsm:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= icon %>
+              mediaKitUrl: <%= icon %>
+              width: 24
+              height: 24
+          x8beiec3fxx5des1:
+            value: 40px
+          5fjm8opvqth7wk71:
+            value: 40px
+      bskdh8ztuo3fe0d2:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= cardTitle %>
+              style:
+                fontSize: ""
+                variant: h4
+          e8f3k7m2n9p4q1s5:
+            value: false
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753379691477-fu786lae3
+                  type: text
+                  text: <%= cardDescription %>
                   style:
                     color: ""
                     fontSize: 16px
@@ -88,93 +187,747 @@ composite:
             value: flex-start
           kyg0hdy5uqq4gc1o:
             value: flex-start
-      6xqx0h72i41ge63j:
+  - id: zveyc3fw79od7cid
+    name: Feature with left image
+    summary: A feature with image, and the image is on the left
+    fieldCombinations:
+      - fetureTitle
+      - fetureDescription
+      - action.text
+      - action.link
+      - leftImage
+    section:
+      id: mw1ikvzx6xx1mn5a
+      name: Section Layout
+      component: layout-block
+      sections:
+        hxbm2fjtywrzdqea:
+          id: hxbm2fjtywrzdqea
+          name: Title
+          component: layout-block
+          sections:
+            xyeuifr3wvsoytv7:
+              id: xyeuifr3wvsoytv7
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            4bifxer7i36srcy1:
+              id: 4bifxer7i36srcy1
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - xyeuifr3wvsoytv7
+            - 4bifxer7i36srcy1
+        t7galphq2dr7f5za:
+          id: t7galphq2dr7f5za
+          name: Image Container
+          component: layout-block
+          sections:
+            9q03om3iw1dw2tx6:
+              id: 9q03om3iw1dw2tx6
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - 9q03om3iw1dw2tx6
+      sectionIds:
+        - hxbm2fjtywrzdqea
+        - t7galphq2dr7f5za
+    dataSource:
+      mw1ikvzx6xx1mn5a: {}
+      hxbm2fjtywrzdqea: {}
+      xyeuifr3wvsoytv7:
         properties:
-          x8beiec3fxx5des1:
-            value: 40px
-          5fjm8opvqth7wk71:
-            value: 40px
-          7m5pz8nefl5j9hqq:
+          gs1rn5jmxfvpxptx:
             value:
-              url: https://www.aigne.io/image-bin/uploads/7995019575512bb5f49f31524aaad9fe.svg
-              mediaKitUrl: mediakit://7995019575512bb5f49f31524aaad9fe.svg
-              width: 24
-              height: 24
-      pcxfg4qmmxtpqc6p: {}
-      u8qzwpicueuk0pvw:
+              text: <%= fetureTitle %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753382621853-07ja75k36
+                  type: text
+                  text: <%= fetureDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      4bifxer7i36srcy1:
         properties:
           b8x4m3n9kp7qtw5r:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= action.name %>
+                text: <%= action.text %>
                 url: <%= action.link %>
-                variant: contained
+                variant: outlined
                 size: medium
                 target: _self
                 needLogin: false
-  - id: kb8r6hluyskd01db
-    name: Step-1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      t7galphq2dr7f5za: {}
+      9q03om3iw1dw2tx6:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= leftImage %>
+              mediaKitUrl: <%= leftImage %>
+              width: 5088
+              height: 2562
+          02dp1e6zfq2xwkt3:
+            value: auto
+          x8beiec3fxx5des1:
+            value: 100%
+  - id: z6zo5x5l0auo1ojw
+    name: Feature wuth right image
+    summary: A feature with image, and the image is on the right
     fieldCombinations:
-      - title
+      - fetureTitle
+      - fetureDescription
+      - action.text
+      - action.link
+      - rightImage
     section:
-      id: tqfnbq54ec6x9jaj
-      name: Step-1
+      id: mw1ikvzx6xx1mn5a
+      name: Section Layout
       component: layout-block
       sections:
-        jdmbr6wufq961mmz:
-          id: jdmbr6wufq961mmz
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
-        jfa230jzkj2oo2cq:
-          id: jfa230jzkj2oo2cq
-          name: Container
+        hxbm2fjtywrzdqea:
+          id: hxbm2fjtywrzdqea
+          name: Title
           component: layout-block
           sections:
-            f995s38zo3prt6dq:
-              id: f995s38zo3prt6dq
-              name: Code
+            xyeuifr3wvsoytv7:
+              id: xyeuifr3wvsoytv7
+              name: RichText
               component: custom-component
               config:
-                componentId: 2EHGy3vwxlS9JGr2
+                componentId: xoHu0J44322kDYc-
+            4bifxer7i36srcy1:
+              id: 4bifxer7i36srcy1
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
           sectionIds:
-            - f995s38zo3prt6dq
+            - xyeuifr3wvsoytv7
+            - 4bifxer7i36srcy1
+        t7galphq2dr7f5za:
+          id: t7galphq2dr7f5za
+          name: Image Container
+          component: layout-block
+          sections:
+            9q03om3iw1dw2tx6:
+              id: 9q03om3iw1dw2tx6
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - 9q03om3iw1dw2tx6
       sectionIds:
-        - jdmbr6wufq961mmz
-        - jfa230jzkj2oo2cq
+        - hxbm2fjtywrzdqea
+        - t7galphq2dr7f5za
     dataSource:
-      tqfnbq54ec6x9jaj: {}
-      jdmbr6wufq961mmz:
+      mw1ikvzx6xx1mn5a: {}
+      hxbm2fjtywrzdqea: {}
+      xyeuifr3wvsoytv7:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= fetureTitle %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753382621853-07ja75k36
+                  type: text
+                  text: <%= fetureDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      4bifxer7i36srcy1:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: outlined
+                size: medium
+                target: _self
+                needLogin: false
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      t7galphq2dr7f5za: {}
+      9q03om3iw1dw2tx6:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= rightImage %>
+              mediaKitUrl: <%= rightImage %>
+              width: 5088
+              height: 2562
+          02dp1e6zfq2xwkt3:
+            value: auto
+          x8beiec3fxx5des1:
+            value: 100%
+  - id: h1x8yr953m7g6r40
+    name: CTA with 2 buttons
+    summary: Call-to-action with 2 buttons
+    fieldCombinations:
+      - title
+      - description
+      - ctaActions.0.text
+      - ctaActions.0.link
+      - ctaActions.1.text
+      - ctaActions.1.link
+    section:
+      id: dmf59dq4byd8kj54
+      name: CTA
+      component: layout-block
+      sections:
+        6e2eibno5o8vunck:
+          id: 6e2eibno5o8vunck
+          name: Section Layout
+          component: layout-block
+          sections:
+            bammisocksvdzmxb:
+              id: bammisocksvdzmxb
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            c3z1wzg1xz7zyroz:
+              id: c3z1wzg1xz7zyroz
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - bammisocksvdzmxb
+            - c3z1wzg1xz7zyroz
+      sectionIds:
+        - 6e2eibno5o8vunck
+    dataSource:
+      dmf59dq4byd8kj54: {}
+      6e2eibno5o8vunck: {}
+      bammisocksvdzmxb:
         properties:
           gs1rn5jmxfvpxptx:
             value:
               text: <%= title %>
               style:
-                variant: h4
-          v5utpm7bu9yvdpnq:
-            value: flex-start
+                variant: h1
+          e8f3k7m2n9p4q1s5:
+            value: false
           9ajrz12ik7esfk1z:
             value:
               list:
-                - id: item-1753781618241-5hf1v8hkt
+                - id: item-1753381637728-mjjp8nvd5
                   type: text
-                  text: >-
-                    Simply run your agent as you normally would using the CLI.
-                    Traces are automatically collected in the background.
-
-                    Bash
+                  text: <%= description %>
                   style:
                     color: ""
                     fontSize: 16px
                     variant: body1
-      jfa230jzkj2oo2cq: {}
-      f995s38zo3prt6dq:
+      c3z1wzg1xz7zyroz:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= ctaActions.0.text %>
+                url: <%= ctaActions.0.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+              - type: link
+                text: <%= ctaActions.1.text %>
+                url: <%= ctaActions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _blank
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                id: btn-1753381708894-gbhxzm1xt
+  - id: tnfh0li7m3h4g37p
+    name: CTA with 1 button
+    summary: CTA with 1 button
+    fieldCombinations:
+      - title
+      - description
+      - ctaAction.text
+      - ctaAction.link
+    section:
+      id: dmf59dq4byd8kj54
+      name: CTA
+      component: layout-block
+      sections:
+        6e2eibno5o8vunck:
+          id: 6e2eibno5o8vunck
+          name: Section Layout
+          component: layout-block
+          sections:
+            bammisocksvdzmxb:
+              id: bammisocksvdzmxb
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            c3z1wzg1xz7zyroz:
+              id: c3z1wzg1xz7zyroz
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - bammisocksvdzmxb
+            - c3z1wzg1xz7zyroz
+      sectionIds:
+        - 6e2eibno5o8vunck
+    dataSource:
+      dmf59dq4byd8kj54: {}
+      6e2eibno5o8vunck: {}
+      bammisocksvdzmxb:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h1
+          e8f3k7m2n9p4q1s5:
+            value: true
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753381637728-mjjp8nvd5
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      c3z1wzg1xz7zyroz:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= ctaAction.text %>
+                url: <%= ctaAction.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+  - id: 3wutrnnn8cscbzn5
+    name: Hero Section With background and code
+    summary: Hero Section With background and code
+    fieldCombinations:
+      - heroTitle
+      - heroDescription
+      - code.filename
+      - code.content
+    section:
+      id: t8uw2z9alumfe69d
+      name: Hero
+      component: layout-block
+      sections:
+        kvqw8j3dwcstlb0c:
+          id: kvqw8j3dwcstlb0c
+          name: Title
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        gceef71oyvf3ucp4:
+          id: gceef71oyvf3ucp4
+          name: Section Layout
+          component: layout-block
+          sections:
+            yze801kc6qmtj6g9:
+              id: yze801kc6qmtj6g9
+              name: Section Layout
+              component: layout-block
+              sections:
+                zrkwjssmhhphquk4:
+                  id: zrkwjssmhhphquk4
+                  name: Code
+                  component: custom-component
+                  config:
+                    componentId: 2EHGy3vwxlS9JGr2
+              sectionIds:
+                - zrkwjssmhhphquk4
+          sectionIds:
+            - yze801kc6qmtj6g9
+      sectionIds:
+        - kvqw8j3dwcstlb0c
+        - gceef71oyvf3ucp4
+    dataSource:
+      t8uw2z9alumfe69d: {}
+      kvqw8j3dwcstlb0c:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= heroTitle %>
+              style:
+                color: common.white
+                variant: h1
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754131284858-7ip6im6yq
+                  type: text
+                  text: <%= heroDescription %>
+                  style:
+                    color: common.white
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      gceef71oyvf3ucp4: {}
+      yze801kc6qmtj6g9: {}
+      zrkwjssmhhphquk4:
         properties:
           b2jrz12ik7esf93z:
-            value: Run Your Agent
+            value: <%= code.filename %>
           a7frn5jmx5vpxpt3:
-            value: aigne run
+            value: <%= code.content %>
           e9kvx5d7y82lm3n:
-            value: material
+            value: default
+          qvxiyadgn5bj6oq8:
+            value: false
+          c4kvf6b7zyskk8m:
+            value: false
+          7mp2u9tibl03thp6:
+            value: shell
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          3uqbvyqzsluuv5hs:
+            value: "500"
+  - id: 6w7bt82aes4sldo9
+    name: Hero Section with background and 1 button
+    summary: Hero Section with background and 1 button
+    fieldCombinations:
+      - heroTitle
+      - heroDescription
+      - action.text
+      - action.link
+    section:
+      id: q9c0551tgshtkxuz
+      name: Hero
+      component: layout-block
+      sections:
+        gnbw2cxeby7rl0qr:
+          id: gnbw2cxeby7rl0qr
+          name: Title
+          component: layout-block
+          sections:
+            upo1go2xhucnawuo:
+              id: upo1go2xhucnawuo
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            x5jjs5ahienrf9oa:
+              id: x5jjs5ahienrf9oa
+              name: action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - upo1go2xhucnawuo
+            - x5jjs5ahienrf9oa
+      sectionIds:
+        - gnbw2cxeby7rl0qr
+    dataSource:
+      q9c0551tgshtkxuz: {}
+      gnbw2cxeby7rl0qr: {}
+      upo1go2xhucnawuo:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= heroTitle %>
+              style:
+                color: common.white
+                variant: h1
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754035056337-47v01f57c
+                  type: text
+                  text: <%= heroDescription %>
+                  style:
+                    color: common.white
+                    fontSize: 16px
+                    variant: body1
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      x5jjs5ahienrf9oa:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+          v9979xeclpsbvn0n:
+            value: flex-start
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+  - id: 5qt0u2v8lnrxxw6u
+    name: Showcase code with terminal
+    summary: A showcase code card with terminal cast, will auto-play terminal cast
+    fieldCombinations:
+      - terminalCast
+      - step
+      - code.filename
+      - code.content
+    section:
+      id: znnnhf7t5im0h1r4
+      name: flow-create
+      component: layout-block
+      sections:
+        idjg6b9tkuftczke:
+          id: idjg6b9tkuftczke
+          name: Image Container
+          component: layout-block
+          sections:
+            189z5ylxd9t5554s:
+              id: 189z5ylxd9t5554s
+              name: Terminal
+              component: custom-component
+              config:
+                componentId: AwkO9eKiUWeU7Z8u
+          sectionIds:
+            - 189z5ylxd9t5554s
+        upoxk2q6mb0thd9r:
+          id: upoxk2q6mb0thd9r
+          name: Code
+          component: layout-block
+          sections:
+            sz8l40kriqadq5hw:
+              id: sz8l40kriqadq5hw
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            src9j9h5k6ck75yy:
+              id: src9j9h5k6ck75yy
+              name: Section Layout
+              component: layout-block
+              sections:
+                dhxysvxal5z05n6s:
+                  id: dhxysvxal5z05n6s
+                  name: Code
+                  component: custom-component
+                  config:
+                    componentId: 2EHGy3vwxlS9JGr2
+              sectionIds:
+                - dhxysvxal5z05n6s
+          sectionIds:
+            - sz8l40kriqadq5hw
+            - src9j9h5k6ck75yy
+      sectionIds:
+        - idjg6b9tkuftczke
+        - upoxk2q6mb0thd9r
+    dataSource:
+      znnnhf7t5im0h1r4: {}
+      idjg6b9tkuftczke: {}
+      189z5ylxd9t5554s:
+        properties:
+          n802svpu2aj3ecnm:
+            value: <%= terminalCast %>
+      upoxk2q6mb0thd9r: {}
+      sz8l40kriqadq5hw:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= step %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list: []
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      src9j9h5k6ck75yy: {}
+      dhxysvxal5z05n6s:
+        properties:
+          b2jrz12ik7esf93z:
+            value: <%= code.filename %>
+          a7frn5jmx5vpxpt3:
+            value: <%= code.content %>
+          c4kvf6b7zyskk8m:
+            value: true
+          qvxiyadgn5bj6oq8:
+            value: true
+          7mp2u9tibl03thp6:
+            value: bash
+  - id: dvycg2nks1hcems2
+    name: Section with big image
+    summary: A section with big image, from top to bottom
+    fieldCombinations:
+      - title
+      - description
+      - sectionImage
+    section:
+      id: u2nl4996sckvozwt
+      name: Section
+      component: layout-block
+      sections:
+        ln1f7e0axqd8aqr5:
+          id: ln1f7e0axqd8aqr5
+          name: Title
+          component: layout-block
+          sections:
+            qg6ttcnqahp269ca:
+              id: qg6ttcnqahp269ca
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - qg6ttcnqahp269ca
+        iuexqdge21ft0cv7:
+          id: iuexqdge21ft0cv7
+          name: Image Container
+          component: layout-block
+          sections:
+            i9xc49qji7j958xs:
+              id: i9xc49qji7j958xs
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - i9xc49qji7j958xs
+      sectionIds:
+        - ln1f7e0axqd8aqr5
+        - iuexqdge21ft0cv7
+    dataSource:
+      u2nl4996sckvozwt: {}
+      ln1f7e0axqd8aqr5: {}
+      qg6ttcnqahp269ca:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: center
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753778571489-pi6knln4d
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      iuexqdge21ft0cv7: {}
+      i9xc49qji7j958xs:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= sectionImage %>
+              mediaKitUrl: <%= sectionImage %>
+              width: 4408
+              height: 2258
+  - id: q4vy8nev65zil8c3
+    name: Content card with image button
+    summary: Content card with big image, from top to bottom is image button, title,
+      description
+    fieldCombinations:
+      - title
+      - description
+      - imageButton.link
+      - imageButton.image
+    section:
+      id: 0lhcgc203g57pq3t
+      name: Card
+      component: layout-block
+      sections:
+        a2crtid2awmhoxpg:
+          id: a2crtid2awmhoxpg
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        lbajqq2e4zw4iezq:
+          id: lbajqq2e4zw4iezq
+          name: Section Layout
+          component: layout-block
+          sections:
+            n4dfdvpenvzbyigc:
+              id: n4dfdvpenvzbyigc
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - n4dfdvpenvzbyigc
+      sectionIds:
+        - a2crtid2awmhoxpg
+        - lbajqq2e4zw4iezq
+    dataSource:
+      0lhcgc203g57pq3t: {}
+      a2crtid2awmhoxpg:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h3
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1755588901245-og0f2hkvo
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: center
+      lbajqq2e4zw4iezq: {}
+      n4dfdvpenvzbyigc:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: Get Started
+                url: <%= imageButton.link %>
+                variant: image
+                size: medium
+                target: _blank
+                needLogin: false
+                imageUrl: <%= imageButton.image %>

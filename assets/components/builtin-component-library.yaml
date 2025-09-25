@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T11:29:51.353Z
+  updateAt: 2025-09-25T14:03:10.190Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -238,8 +238,8 @@ composite:
     name: Feature with left image
     summary: A feature with image, and the image is on the left
     fieldCombinations:
-      - fetureTitle
-      - fetureDescription
+      - featureTitle
+      - featureDescription
       - action.text
       - action.link
       - leftImage
@@ -343,7 +343,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= fetureTitle %>
+              text: <%= featureTitle %>
               style:
                 variant: h2
           9ajrz12ik7esfk1z:
@@ -351,7 +351,7 @@ composite:
               list:
                 - id: item-1753382621853-07ja75k36
                   type: text
-                  text: <%= fetureDescription %>
+                  text: <%= featureDescription %>
                   style:
                     color: ""
                     fontSize: 16px
@@ -603,7 +603,7 @@ composite:
               h: 1
         gap: none
         paddingX: none
-        paddingY: custom:100px
+        paddingY: none
     dataSource:
       dmf59dq4byd8kj54: {}
       6e2eibno5o8vunck: {}
@@ -715,7 +715,7 @@ composite:
               h: 1
         gap: none
         maxWidth: full
-        paddingY: custom:100px
+        paddingY: none
         paddingX: none
     dataSource:
       dmf59dq4byd8kj54: {}
@@ -1225,7 +1225,7 @@ composite:
               w: 12
               h: 1
         paddingX: none
-        paddingY: custom:100px
+        paddingY: none
     dataSource:
       u2nl4996sckvozwt: {}
       ln1f7e0axqd8aqr5: {}
@@ -1776,7 +1776,7 @@ composite:
         padding: large
         maxWidth: full
         paddingX: none
-        paddingY: custom:100px
+        paddingY: none
     dataSource:
       y0050xy5xzny5ari: {}
       ekjlzpwe6z0kaipi: {}
@@ -1974,7 +1974,7 @@ composite:
         padding: large
         gap: normal
         maxWidth: full
-        paddingY: custom:100px
+        paddingY: none
         paddingX: none
     dataSource:
       ekxdt5dnblorvqre: {}
@@ -2130,7 +2130,7 @@ composite:
         gap: large
         paddingX: none
         maxWidth: full
-        paddingY: custom:100px
+        paddingY: none
     dataSource:
       ql99yv2hc7dmen7o: {}
       57ghfy2ek7txjnix:

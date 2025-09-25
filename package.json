@@ -27,6 +27,7 @@
     "@aigne/core": "^1.60.3",
     "@aigne/gemini": "^0.13.5",
     "@aigne/openai": "^0.15.4",
+    "@blocklet/payment-broker-client": "^1.20.20",
     "chalk": "^5.5.0",
     "dompurify": "^3.2.6",
     "fs-extra": "^11.3.1",

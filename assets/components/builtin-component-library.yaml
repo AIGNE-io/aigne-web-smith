@@ -862,7 +862,8 @@ composite:
               height: 2258
   - id: q4vy8nev65zil8c3
     name: Content card with image button
-    summary: Content card with big image, from top to bottom is image button, title,
+    summary:
+      Content card with big image, from top to bottom is image button, title,
       description
     fieldCombinations:
       - title

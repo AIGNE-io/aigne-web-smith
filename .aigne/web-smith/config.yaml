@@ -2,7 +2,7 @@
 projectName: aigne-web-smith-0925
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: h1faat49-802a-4783-bd1c-72356783ddfa
+projectId: h1faat49-812a-4783-bd1c-72356783ddfa
 projectSlug: aigne-web-smith-0925
 
 # =============================================================================
@@ -53,12 +53,11 @@ rules: ""
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
 locale: en
-translateLanguages: []
-# translateLanguages: # List of languages to translate the pages to
-# - zh # Example: Chinese translation
+translateLanguages: # List of languages to translate the pages to
+  - zh # Example: Chinese translation
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: e31bd675515046d06c14aced895148606e7245ec
+lastGitHead: 3f2c9f6011e924481ab09c7ca6e668feca2e78d0
 appUrl: https://staging.websmith.aigne.io

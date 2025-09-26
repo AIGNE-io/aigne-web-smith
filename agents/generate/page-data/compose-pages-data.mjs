@@ -568,7 +568,7 @@ export default async function composePagesData(input) {
       // 本地化信息
       fd.locales[file.language] = {
         backgroundColor: "",
-        style: { maxWidth: "custom:1560px", paddingY: "normal", paddingX: "normal" },
+        style: { maxWidth: "custom:1560px", paddingY: "large", paddingX: "large" },
         title: content.meta?.title,
         description: content.meta?.description,
         image: content.meta?.image,

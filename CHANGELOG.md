@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.2...v1.3.0-beta.3) (2025-09-26)
+
+
+### Bug Fixes
+
+* **core:** missing component command in cli ([438629f](https://github.com/AIGNE-io/aigne-web-smith/commit/438629f6c967b30a5af695fdf4eb652b77dbed6c))
+* **main:** remove component library useless padding ([44814f8](https://github.com/AIGNE-io/aigne-web-smith/commit/44814f895786cf8ca03533fe57f1b21b7688504e))
+* **main:** remove useless padding ([dc2967b](https://github.com/AIGNE-io/aigne-web-smith/commit/dc2967be6349f9c9193af90e585b6dca47e0f4e9))
+* **main:** remove useless padding ([2bfbff7](https://github.com/AIGNE-io/aigne-web-smith/commit/2bfbff7a004a5ef6c8b8853b23dae29d6457d86b))
+
 ## [1.3.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2025-09-25)
 
 

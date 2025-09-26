@@ -315,7 +315,7 @@ export default async function applyTheme(
 
     if (!confirmed) {
       return {
-        message: chalk.yellow("Theme application cancelled."),
+        message: chalk.yellow("Theme not applied."),
       };
     }
 

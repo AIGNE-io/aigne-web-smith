@@ -236,7 +236,7 @@ export default async function applyTheme(
 
     // Create interactive selection options
     const choices = themes.map((theme, index) => ({
-      name: `${index + 1}. ${theme.name} (${theme.primaryColor}) - ${theme.headingFont}/${theme.bodyFont}`,
+      name: `${index + 1}. ${theme.name} (${chalk.hex(theme.primaryColor)(theme.primaryColor)}) - ${theme.headingFont}/${theme.bodyFont}`,
       value: theme.name,
       description: `Generated: ${theme.generatedAt}`,
     }));

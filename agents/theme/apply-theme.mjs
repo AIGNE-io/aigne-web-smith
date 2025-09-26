@@ -199,7 +199,7 @@ export default async function applyTheme(
     const themeFiles = files.filter((file) => file.endsWith(".yaml"));
 
     if (themeFiles.length === 0) {
-      throw new Error(`No themes available. Please create a theme first.`);
+      throw new Error(`No themes found. Please create a theme first.`);
     }
 
     const themes = [];
@@ -231,7 +231,7 @@ export default async function applyTheme(
     themes.sort((a, b) => new Date(b.generatedAt) - new Date(a.generatedAt));
 
     if (themes.length === 0) {
-      throw new Error(`No themes available. Please create a theme first.`);
+      throw new Error(`No themes found. Please create a theme first.`);
     }
 
     // Create interactive selection options
@@ -243,7 +243,7 @@ export default async function applyTheme(
 
     // Let user select theme
     const selectedThemeName = await options.prompts.select({
-      message: "Choose a theme to apply to your website:",
+      message: "Select a theme to apply to your website:",
       choices: choices,
     });
 
@@ -256,7 +256,7 @@ export default async function applyTheme(
     if (foundTheme) {
       selectedTheme = foundTheme.theme;
     } else {
-      throw new Error(`Theme "${selectedThemeName}" could not be found`);
+      throw new Error(`Theme "${selectedThemeName}" not found`);
     }
 
     // Validate theme data structure
@@ -267,7 +267,7 @@ export default async function applyTheme(
       !selectedTheme.fonts
     ) {
       throw new Error(
-        "Theme data is incomplete. Required fields are missing: name, light colors, dark colors, and fonts",
+        "Theme data is incomplete. Missing required fields: name, light colors, dark colors, and fonts",
       );
     }
 
@@ -288,7 +288,7 @@ export default async function applyTheme(
     // Step 6: User confirmation before applying theme
     console.log(
       chalk.yellow(
-        "\n⚠️  Warning: This operation will overwrite the current theme configuration on your website.",
+        "\n⚠️  Warning: This will replace your current website theme.",
       ),
     );
     console.log(
@@ -306,10 +306,10 @@ export default async function applyTheme(
     } else {
       console.log(chalk.blue(`Current Theme: Default`));
     }
-    console.log(chalk.blue(`Theme to Apply: "${selectedTheme.name}"`));
+    console.log(chalk.blue(`New Theme: "${selectedTheme.name}"`));
 
     const confirmed = await options.prompts.confirm({
-      message: "Are you sure you want to proceed?",
+      message: "Continue with theme application?",
       default: false,
     });
 
@@ -361,12 +361,12 @@ export default async function applyTheme(
 
     return {
       message: chalk.green(
-        `Theme "${selectedTheme.name}" has been successfully applied to ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl})`,
+        `Theme "${selectedTheme.name}" applied successfully to ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`,
       ),
     };
   } catch (error) {
     return {
-      message: chalk.red(`Unable to apply theme: ${error.message}`),
+      message: chalk.red(`Failed to apply theme: ${error.message}`),
     };
   }
 }
@@ -376,7 +376,7 @@ applyTheme.input_schema = {
   properties: {
     appUrl: {
       type: "string",
-      description: "Your website's URL",
+      description: "Your website URL",
     },
     config: {
       type: "string",
@@ -384,3 +384,5 @@ applyTheme.input_schema = {
     },
   },
 };
+
+applyTheme.taskTitle = "Apply theme to your website";

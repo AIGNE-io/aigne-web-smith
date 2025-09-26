@@ -309,7 +309,7 @@ export default async function applyTheme(
     console.log(chalk.blue(`New Theme: "${selectedTheme.name}"`));
 
     const confirmed = await options.prompts.confirm({
-      message: "Continue with theme application?",
+      message: "Apply this theme to your website?",
       default: false,
     });
 

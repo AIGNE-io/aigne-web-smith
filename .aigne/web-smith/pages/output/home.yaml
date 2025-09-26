@@ -10,7 +10,7 @@ locales:
       maxWidth: custom:1560px
       paddingY: large
       paddingX: large
-    title: 🤖 AIGNE WebSmith | AI-Powered Website Generation!
+    title: AIGNE WebSmith | AI-Powered Website Generation!
     description: Instantly generate professional, SEO-optimized websites with
       complete content and templates using AIGNE WebSmith. Go from idea to live
       site in minutes with one command.
@@ -22,7 +22,7 @@ locales:
       maxWidth: custom:1560px
       paddingY: large
       paddingX: large
-    title: 🤖 AIGNE WebSmith | 人工智能驱动的网站生成!
+    title: AIGNE WebSmith | 人工智能驱动的网站生成!
     description: 使用 AIGNE WebSmith 即刻生成包含完整内容和模板的专业 SEO 优化网站。仅需一条命令即可在数分钟内将想法变为上线网站。
     header:
       sticky: true

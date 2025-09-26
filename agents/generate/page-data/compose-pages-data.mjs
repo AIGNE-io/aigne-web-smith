@@ -277,8 +277,25 @@ const isLayoutBlock = (sec) =>
 // 仅处理 {{LIST_KEY.N}} 形式；若未来需要 {{features.LIST_KEY.N}} 可扩展此解析
 function parseListIndexFromName(name) {
   if (typeof name !== "string") return null;
-  const m = name.match(/^\s*\{\{\s*list\.(\d+)\s*\}\}\s*$/);
-  return m ? Number(m[1]) : null;
+  const s = name.trim();
+
+  // Handlebars 风格：{{ list.N }}
+  let m = s.match(/^\{\{\s*list\.(\d+)\s*\}\}$/);
+  if (m) return Number(m[1]);
+
+  // Handlebars + 下标：{{ list[N] }}
+  m = s.match(/^\{\{\s*list\[(\d+)\]\s*\}\}$/);
+  if (m) return Number(m[1]);
+
+  // EJS 风格：<%= list.N %>
+  m = s.match(/^<%=\s*list\.(\d+)\s*%>$/);
+  if (m) return Number(m[1]);
+
+  // EJS + 下标：<%= list[N] %>
+  m = s.match(/^<%=\s*list\[(\d+)\]\s*%>$/);
+  if (m) return Number(m[1]);
+
+  return null;
 }
 
 /** 深度遍历父实例，收集所有 layout-block 的 {{LIST_KEY.N}} 占位 → Map<N, {parent, placeholderId, position}> */

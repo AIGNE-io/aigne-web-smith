@@ -20,7 +20,7 @@ function createFileChoice(fileName, websiteStructureResult) {
   const foundItem = findItemByFlatName(websiteStructureResult, flatName);
 
   if (foundItem?.title) {
-    // Show title with path for context: "Home (/home)"
+    // Show title with path for context: "Home"
     const displayName = foundItem.title;
     return {
       name: displayName,

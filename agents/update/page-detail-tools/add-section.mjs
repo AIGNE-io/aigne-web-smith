@@ -30,7 +30,10 @@ export default async function addSection({ pageDetail, section, position }) {
   try {
     parsedSection = YAML.parse(section);
   } catch (error) {
-    console.log("⚠️  Unable to parse section YAML:", error.message);
+    console.log(
+      "⚠️  Unable to parse section YAML. Please ensure valid YAML format with proper indentation:",
+      error.message,
+    );
     return { pageDetail };
   }
 

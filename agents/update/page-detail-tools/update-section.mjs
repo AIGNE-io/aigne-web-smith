@@ -31,7 +31,10 @@ export default async function updateSection({ pageDetail, name, updates }) {
   try {
     parsedUpdates = YAML.parse(updates);
   } catch (error) {
-    console.log("⚠️  Unable to parse updates YAML:", error.message);
+    console.log(
+      "⚠️  Invalid YAML format in updates parameter. Please ensure it follows valid YAML syntax:",
+      error.message,
+    );
     return { pageDetail };
   }
 
@@ -99,7 +102,7 @@ updateSection.inputSchema = {
     updates: {
       type: "string",
       description:
-        "YAML string containing the properties to update (e.g., 'title: New Title\\ndescription: New description'). Any valid section properties can be included.",
+        "YAML string containing the properties to update. Example: 'title: New Title\ndescription: New Description'. All valid section properties are supported.",
     },
   },
   required: ["pageDetail", "name", "updates"],

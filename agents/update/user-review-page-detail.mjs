@@ -262,55 +262,54 @@ function formatFieldValue(key, value, indent = "") {
   return `${indent}${prefix}${truncateText(String(value), 80)}`;
 }
 
+const fieldMappings = [
+  // Title related - ordered by priority
+  { pattern: "title", display: "Title" },
+  { pattern: "heading", display: "Title" },
+  { pattern: "header", display: "Title" },
+
+  // Description related
+  { pattern: "description", display: "Description" },
+  { pattern: "desc", display: "Description" },
+  { pattern: "content", display: "Content" },
+  { pattern: "text", display: "Text" },
+  { pattern: "body", display: "Content" },
+
+  // Media related
+  { pattern: "image", display: "🖼️ Image" },
+  { pattern: "img", display: "🖼️ Image" },
+  { pattern: "picture", display: "🖼️ Image" },
+  { pattern: "photo", display: "🖼️ Photo" },
+  { pattern: "video", display: "🎥 Video" },
+  { pattern: "audio", display: "🔊 Audio" },
+
+  // Interactive elements
+  { pattern: "action", display: "🔘 Action" },
+  { pattern: "button", display: "🔘 Button" },
+  { pattern: "link", display: "🔗 Link" },
+  { pattern: "url", display: "🔗 URL" },
+  { pattern: "href", display: "🔗 Link" },
+
+  // Code related
+  { pattern: "code", display: "💻 Code" },
+  { pattern: "snippet", display: "💻 Code" },
+  { pattern: "script", display: "💻 Script" },
+
+  // List related
+  { pattern: "list", display: "List" },
+  { pattern: "items", display: "Items" },
+  { pattern: "options", display: "Options" },
+
+  // Common properties
+  { pattern: "id", display: "ID" },
+  { pattern: "type", display: "Type" },
+  { pattern: "style", display: "Style" },
+  { pattern: "class", display: "Class" },
+  { pattern: "value", display: "Value" },
+  { pattern: "placeholder", display: "Placeholder" },
+  { pattern: "label", display: "Label" },
+];
 function getDisplayName(fieldName) {
-  const fieldMappings = [
-    // Title related - ordered by priority
-    { pattern: "title", display: "Title" },
-    { pattern: "heading", display: "Title" },
-    { pattern: "header", display: "Title" },
-
-    // Description related
-    { pattern: "description", display: "Description" },
-    { pattern: "desc", display: "Description" },
-    { pattern: "content", display: "Content" },
-    { pattern: "text", display: "Text" },
-    { pattern: "body", display: "Content" },
-
-    // Media related
-    { pattern: "image", display: "🖼️ Image" },
-    { pattern: "img", display: "🖼️ Image" },
-    { pattern: "picture", display: "🖼️ Image" },
-    { pattern: "photo", display: "🖼️ Photo" },
-    { pattern: "video", display: "🎥 Video" },
-    { pattern: "audio", display: "🔊 Audio" },
-
-    // Interactive elements
-    { pattern: "action", display: "🔘 Action" },
-    { pattern: "button", display: "🔘 Button" },
-    { pattern: "link", display: "🔗 Link" },
-    { pattern: "url", display: "🔗 URL" },
-    { pattern: "href", display: "🔗 Link" },
-
-    // Code related
-    { pattern: "code", display: "💻 Code" },
-    { pattern: "snippet", display: "💻 Code" },
-    { pattern: "script", display: "💻 Script" },
-
-    // List related
-    { pattern: "list", display: "List" },
-    { pattern: "items", display: "Items" },
-    { pattern: "options", display: "Options" },
-
-    // Common properties
-    { pattern: "id", display: "ID" },
-    { pattern: "type", display: "Type" },
-    { pattern: "style", display: "Style" },
-    { pattern: "class", display: "Class" },
-    { pattern: "value", display: "Value" },
-    { pattern: "placeholder", display: "Placeholder" },
-    { pattern: "label", display: "Label" },
-  ];
-
   const lowerField = fieldName.toLowerCase();
 
   // Check for partial matches - find first matching pattern

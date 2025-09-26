@@ -8,10 +8,14 @@ export default async function theme({ apply, appUrl, name, config }, options) {
       return await applyTheme.default({ appUrl, config }, options);
     } else {
       // generate theme
-      const result = await options.context.invoke(options.context.agents["generateTheme"], {
-        name,
-        config,
-      }, options);
+      const result = await options.context.invoke(
+        options.context.agents["generateTheme"],
+        {
+          name,
+          config,
+        },
+        options,
+      );
       return result;
     }
   } catch (error) {
@@ -49,5 +53,3 @@ theme.input_schema = {
     },
   },
 };
-
-theme.taskTitle = "🎨 Theme Management";

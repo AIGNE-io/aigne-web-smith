@@ -1164,25 +1164,27 @@ export function getContentHash(str) {
 }
 
 /**
- * Convert any string to kebab-case (snake-case) format
- * Handles various formats: PascalCase, space-separated words, mixed case, special characters
+ * Converts any string to kebab-case format
+ * Handles various input formats: PascalCase, space-separated words, mixed case, and special characters
  * @param {string} str - Input string in any format
  * @returns {string} - kebab-case string
  */
 export function toKebabCase(str) {
-  if (!str || typeof str !== 'string') {
-    return '';
+  if (!str || typeof str !== "string") {
+    return "";
   }
-  
-  return str
-    // Replace special characters and spaces with hyphens
-    .replace(/[\s_\/&]+/g, '-')
-    // Insert hyphens before uppercase letters (except the first one)
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    // Convert to lowercase
-    .toLowerCase()
-    // Remove any leading/trailing hyphens
-    .replace(/^-+|-+$/g, '')
-    // Replace multiple consecutive hyphens with single hyphen
-    .replace(/-+/g, '-');
+
+  return (
+    str
+      // Replace special characters and spaces with hyphens
+      .replace(/[\s_\\/&]+/g, "-")
+      // Insert hyphens before uppercase letters (except the first one)
+      .replace(/([a-z])([A-Z])/g, "$1-$2")
+      // Convert to lowercase
+      .toLowerCase()
+      // Remove any leading/trailing hyphens
+      .replace(/^-+|-+$/g, "")
+      // Replace multiple consecutive hyphens with single hyphen
+      .replace(/-+/g, "-")
+  );
 }

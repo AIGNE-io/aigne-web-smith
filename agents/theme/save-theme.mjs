@@ -35,7 +35,7 @@ export default async function saveTheme({ theme, config }, options) {
 
       if (existingThemes.length > 0) {
         const confirmed = await options.prompts.confirm({
-          message: `Theme "${themeName}" already exists. Overwrite?`,
+          message: `Theme "${themeName}" already exists. Do you want to overwrite it?`,
           default: false,
         });
 
@@ -64,7 +64,7 @@ export default async function saveTheme({ theme, config }, options) {
     await fs.writeFile(filePath, content, "utf8");
 
     return {
-      message: chalk.green(`Theme "${themeName}" saved successfully as "${filename}"`),
+      message: chalk.green(`Theme "${themeName}" saved as "${filename}"`),
     };
   } catch (error) {
     return {

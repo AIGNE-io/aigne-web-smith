@@ -13,7 +13,6 @@ import { loadConfigFromFile } from "../../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
-
 /**
  * Convert theme data to MUI Theme standard structure
  * @param {Object} themeData - Original theme data
@@ -156,7 +155,10 @@ async function uploadThemeData(appUrl, accessToken, blockletDid, themeData) {
   return await response.json();
 }
 
-export default async function applyTheme({ appUrl, config = './.aigne/web-smith/config.yaml' }, options) {
+export default async function applyTheme(
+  { appUrl, config = "./.aigne/web-smith/config.yaml" },
+  options,
+) {
   // Step 1: Process appUrl
   try {
     let finalAppUrl;
@@ -191,7 +193,7 @@ export default async function applyTheme({ appUrl, config = './.aigne/web-smith/
     let selectedTheme;
     const cacheDir = join(dirname(config), "themes");
 
-    console.log('config: ', config, ' cacheDir: ', cacheDir)
+    console.log("config: ", config, " cacheDir: ", cacheDir);
 
     const files = await readdir(cacheDir);
     const themeFiles = files.filter((file) => file.endsWith(".yaml"));
@@ -284,12 +286,20 @@ export default async function applyTheme({ appUrl, config = './.aigne/web-smith/
     }
 
     // Step 6: User confirmation before applying theme
-    console.log(chalk.yellow("\n⚠️  Warning: This operation will overwrite the current theme configuration on your website."));
-    console.log(chalk.blue(`\nTarget Website: ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`));
+    console.log(
+      chalk.yellow(
+        "\n⚠️  Warning: This operation will overwrite the current theme configuration on your website.",
+      ),
+    );
+    console.log(
+      chalk.blue(`\nTarget Website: ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`),
+    );
     // Display current theme information if available
     let currentTheme = null;
     if (remoteThemeData.concepts && remoteThemeData.concepts.length > 0) {
-      currentTheme = remoteThemeData.concepts.find(t => t.id === remoteThemeData.currentConceptId);
+      currentTheme = remoteThemeData.concepts.find(
+        (t) => t.id === remoteThemeData.currentConceptId,
+      );
     }
     if (currentTheme) {
       console.log(chalk.blue(`Current Theme: "${currentTheme.name}"`));

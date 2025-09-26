@@ -25,8 +25,20 @@ export default async function addSection({ pageDetail, section, position }) {
     return { pageDetail };
   }
 
+  // Parse section YAML string to object
+  let parsedSection;
+  try {
+    parsedSection = YAML.parse(section);
+  } catch (error) {
+    console.log(
+      "⚠️  Unable to parse section YAML. Please ensure valid YAML format with proper indentation:",
+      error.message,
+    );
+    return { pageDetail };
+  }
+
   // Validate section has required properties
-  if (!section.name) {
+  if (!parsedSection.name) {
     console.log(
       "⚠️  Unable to add section: Section must have a name. Please provide a unique name for the section.",
     );
@@ -39,10 +51,10 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Check if section with same name already exists
-  const existingSection = parsedPageDetail.sections.find((s) => s.name === section.name);
+  const existingSection = parsedPageDetail.sections.find((s) => s.name === parsedSection.name);
   if (existingSection) {
     console.log(
-      `⚠️  Unable to add section: A section with name '${section.name}' already exists. Please choose a different name for the new section.`,
+      `⚠️  Unable to add section: A section with name '${parsedSection.name}' already exists. Please choose a different name for the new section.`,
     );
     return { pageDetail };
   }
@@ -65,7 +77,7 @@ export default async function addSection({ pageDetail, section, position }) {
 
   // Create new sections array with the inserted section
   const newSections = [...parsedPageDetail.sections];
-  newSections.splice(insertIndex, 0, section);
+  newSections.splice(insertIndex, 0, parsedSection);
 
   // Create updated page detail
   const updatedPageDetail = {
@@ -78,7 +90,7 @@ export default async function addSection({ pageDetail, section, position }) {
       quotingType: '"',
       defaultStringType: "QUOTE_DOUBLE",
     }),
-    addedSection: section,
+    addedSection: parsedSection,
     insertedAt: insertIndex,
   };
 }
@@ -93,15 +105,9 @@ addSection.inputSchema = {
       description: "Current page detail YAML string",
     },
     section: {
-      type: "object",
-      description: "Section content to add with at least a name property",
-      properties: {
-        name: { type: "string" },
-        summary: { type: "string" },
-        title: { type: "string" },
-        description: { type: "string" },
-      },
-      required: ["name"],
+      type: "string",
+      description:
+        "YAML string containing the section content to add (must include a 'name' property). Any valid section properties can be included (e.g., 'name: section1\\ntitle: My Title\\ndescription: My description').",
     },
     position: {
       type: ["number", "string"],

@@ -141,7 +141,9 @@ function remapIdsInPlace(obj, fromId, toId) {
     remapped.forEach((x) => obj.push(x));
   } else if (obj && typeof obj === "object") {
     Object.keys(obj).forEach((k) => delete obj[k]);
-    Object.entries(remapped).forEach(([k, v]) => (obj[k] = v));
+    Object.entries(remapped).forEach(([k, v]) => {
+      obj[k] = v;
+    });
   }
   log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
 }

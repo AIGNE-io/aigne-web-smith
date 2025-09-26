@@ -1,18 +1,6 @@
 import YAML from "yaml";
 
-// FIXME: Update this function when new properties are added to built-in components.
-// Currently supported properties must be manually added to the updates object below.
-export default async function updateSection({
-  pageDetail,
-  name,
-  title,
-  description,
-  image,
-  code,
-  action,
-  list,
-  summary,
-}) {
+export default async function updateSection({ pageDetail, name, updates }) {
   // Validate required parameters
   if (!pageDetail) {
     console.log("⚠️  Update failed: Missing required page detail parameter");
@@ -33,20 +21,22 @@ export default async function updateSection({
     return { pageDetail };
   }
 
-  // Define supported update fields and collect provided values
-  const updates = {};
+  if (!updates) {
+    console.log("⚠️  Update failed: Missing required updates parameter");
+    return { pageDetail };
+  }
 
-  // Only include defined (non-undefined) supported fields
-  if (title !== undefined) updates.title = title;
-  if (description !== undefined) updates.description = description;
-  if (image !== undefined) updates.image = image;
-  if (code !== undefined) updates.code = code;
-  if (action !== undefined) updates.action = action;
-  if (list !== undefined) updates.list = list;
-  if (summary !== undefined) updates.summary = summary;
+  // Parse updates YAML string to object
+  let parsedUpdates;
+  try {
+    parsedUpdates = YAML.parse(updates);
+  } catch (error) {
+    console.log("⚠️  Unable to parse updates YAML:", error.message);
+    return { pageDetail };
+  }
 
   // Check if any update fields are provided
-  const updateFields = Object.keys(updates);
+  const updateFields = Object.keys(parsedUpdates);
   if (updateFields.length === 0) {
     console.log("⚠️  Update failed: No section properties specified for update");
     return { pageDetail };
@@ -70,7 +60,7 @@ export default async function updateSection({
   // Create updated section object
   const updatedSection = {
     ...originalSection,
-    ...updates,
+    ...parsedUpdates,
   };
 
   // Create new sections array with the updated section
@@ -106,20 +96,13 @@ updateSection.inputSchema = {
       type: "string",
       description: "Name of the section to update",
     },
-    summary: {
+    updates: {
       type: "string",
-      description: "New section summary (optional)",
-    },
-    title: {
-      type: "string",
-      description: "New section title (optional)",
-    },
-    description: {
-      type: "string",
-      description: "New section description (optional)",
+      description:
+        "YAML string containing the properties to update (e.g., 'title: New Title\\ndescription: New description'). Any valid section properties can be included.",
     },
   },
-  required: ["pageDetail", "name"],
+  required: ["pageDetail", "name", "updates"],
 };
 updateSection.outputSchema = {
   type: "object",

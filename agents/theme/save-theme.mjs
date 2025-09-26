@@ -5,15 +5,10 @@ import YAML from "yaml";
 
 import { toKebabCase } from "../../utils/utils.mjs";
 
-export default async function saveTheme({ theme, config }, options) {
+export default async function saveTheme({ theme, config = "./.aigne/web-smith/config.yaml" }, options) {
   if (!theme) {
     return {
       message: chalk.red("Please provide theme data to save"),
-    };
-  }
-  if (!config) {
-    return {
-      message: chalk.red("Please provide a configuration file path"),
     };
   }
 
@@ -85,9 +80,8 @@ saveTheme.input_schema = {
     config: {
       type: "string",
       description: "Configuration file location",
-      default: "./.aigne/web-smith/config.yaml",
     },
   },
 };
 
-saveTheme.taskRenderMode = "hide";
+saveTheme.taskTitle = "Save theme to local storage";

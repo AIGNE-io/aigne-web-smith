@@ -165,11 +165,11 @@ function printSectionSimple(section, index) {
 
   // Print all fields except 'name' and 'summary' with recursive handling
   const content = [];
-  const excludeFields = ['name', 'summary'];
+  const excludeFields = ["name", "summary"];
 
   Object.keys(section)
-    .filter(key => !excludeFields.includes(key))
-    .forEach(key => {
+    .filter((key) => !excludeFields.includes(key))
+    .forEach((key) => {
       const value = section[key];
       const displayText = formatFieldValue(key, value);
       if (displayText) {
@@ -191,9 +191,9 @@ function formatFieldValue(key, value, indent = "") {
 
   const displayName = getDisplayName(key);
 
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     // Special handling for code fields - just show existence
-    if (key.toLowerCase().includes('code') || key.toLowerCase().includes('snippet')) {
+    if (key.toLowerCase().includes("code") || key.toLowerCase().includes("snippet")) {
       const prefix = displayName ? `${displayName}` : "💻 Code";
       return `${indent}${prefix}`;
     }
@@ -202,7 +202,7 @@ function formatFieldValue(key, value, indent = "") {
     return `${indent}${prefix}${truncateText(value, 80)}`;
   }
 
-  if (typeof value === 'number' || typeof value === 'boolean') {
+  if (typeof value === "number" || typeof value === "boolean") {
     const prefix = displayName ? `${displayName}: ` : "";
     return `${indent}${prefix}${value}`;
   }
@@ -213,35 +213,39 @@ function formatFieldValue(key, value, indent = "") {
       return `${indent}${prefix}[]`;
     }
 
-    const listHeader = displayName ? `${displayName} (${value.length} items):` : `List (${value.length} items):`;
-    const listItems = value.map((item, index) => {
-      if (typeof item === 'string') {
-        return `${indent}     ${index + 1}. ${truncateText(item, 80)}`;
-      } else if (typeof item === 'object' && item !== null) {
-        const subContent = Object.keys(item)
-          .filter(subKey => !['name', 'summary'].includes(subKey))
-          .map(subKey => formatFieldValue(subKey, item[subKey], "       "))
-          .filter(Boolean)
-          .join("\n");
-        return `${indent}     ${index + 1}. \n${subContent || 'Item'}`;
-      } else {
-        return `${indent}     ${index + 1}. ${truncateText(String(item), 80)}`;
-      }
-    }).join("\n");
+    const listHeader = displayName
+      ? `${displayName} (${value.length} items):`
+      : `List (${value.length} items):`;
+    const listItems = value
+      .map((item, index) => {
+        if (typeof item === "string") {
+          return `${indent}     ${index + 1}. ${truncateText(item, 80)}`;
+        } else if (typeof item === "object" && item !== null) {
+          const subContent = Object.keys(item)
+            .filter((subKey) => !["name", "summary"].includes(subKey))
+            .map((subKey) => formatFieldValue(subKey, item[subKey], "       "))
+            .filter(Boolean)
+            .join("\n");
+          return `${indent}     ${index + 1}. \n${subContent || "Item"}`;
+        } else {
+          return `${indent}     ${index + 1}. ${truncateText(String(item), 80)}`;
+        }
+      })
+      .join("\n");
 
     return `${indent}📋 ${listHeader}\n${listItems}`;
   }
 
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     // Special handling for code objects - just show existence
-    if (key.toLowerCase().includes('code') || key.toLowerCase().includes('snippet')) {
+    if (key.toLowerCase().includes("code") || key.toLowerCase().includes("snippet")) {
       const prefix = displayName ? `${displayName}` : "💻 Code";
       return `${indent}${prefix}`;
     }
 
     const subContent = Object.keys(value)
-      .filter(subKey => !['name', 'summary'].includes(subKey))
-      .map(subKey => formatFieldValue(subKey, value[subKey], `${indent}   `))
+      .filter((subKey) => !["name", "summary"].includes(subKey))
+      .map((subKey) => formatFieldValue(subKey, value[subKey], `${indent}   `))
       .filter(Boolean)
       .join("\n");
 
@@ -261,50 +265,50 @@ function formatFieldValue(key, value, indent = "") {
 function getDisplayName(fieldName) {
   const fieldMappings = [
     // Title related - ordered by priority
-    { pattern: 'title', display: 'Title' },
-    { pattern: 'heading', display: 'Title' },
-    { pattern: 'header', display: 'Title' },
+    { pattern: "title", display: "Title" },
+    { pattern: "heading", display: "Title" },
+    { pattern: "header", display: "Title" },
 
     // Description related
-    { pattern: 'description', display: 'Description' },
-    { pattern: 'desc', display: 'Description' },
-    { pattern: 'content', display: 'Content' },
-    { pattern: 'text', display: 'Text' },
-    { pattern: 'body', display: 'Content' },
+    { pattern: "description", display: "Description" },
+    { pattern: "desc", display: "Description" },
+    { pattern: "content", display: "Content" },
+    { pattern: "text", display: "Text" },
+    { pattern: "body", display: "Content" },
 
     // Media related
-    { pattern: 'image', display: '🖼️ Image' },
-    { pattern: 'img', display: '🖼️ Image' },
-    { pattern: 'picture', display: '🖼️ Image' },
-    { pattern: 'photo', display: '🖼️ Photo' },
-    { pattern: 'video', display: '🎥 Video' },
-    { pattern: 'audio', display: '🔊 Audio' },
+    { pattern: "image", display: "🖼️ Image" },
+    { pattern: "img", display: "🖼️ Image" },
+    { pattern: "picture", display: "🖼️ Image" },
+    { pattern: "photo", display: "🖼️ Photo" },
+    { pattern: "video", display: "🎥 Video" },
+    { pattern: "audio", display: "🔊 Audio" },
 
     // Interactive elements
-    { pattern: 'action', display: '🔘 Action' },
-    { pattern: 'button', display: '🔘 Button' },
-    { pattern: 'link', display: '🔗 Link' },
-    { pattern: 'url', display: '🔗 URL' },
-    { pattern: 'href', display: '🔗 Link' },
+    { pattern: "action", display: "🔘 Action" },
+    { pattern: "button", display: "🔘 Button" },
+    { pattern: "link", display: "🔗 Link" },
+    { pattern: "url", display: "🔗 URL" },
+    { pattern: "href", display: "🔗 Link" },
 
     // Code related
-    { pattern: 'code', display: '💻 Code' },
-    { pattern: 'snippet', display: '💻 Code' },
-    { pattern: 'script', display: '💻 Script' },
+    { pattern: "code", display: "💻 Code" },
+    { pattern: "snippet", display: "💻 Code" },
+    { pattern: "script", display: "💻 Script" },
 
     // List related
-    { pattern: 'list', display: 'List' },
-    { pattern: 'items', display: 'Items' },
-    { pattern: 'options', display: 'Options' },
+    { pattern: "list", display: "List" },
+    { pattern: "items", display: "Items" },
+    { pattern: "options", display: "Options" },
 
     // Common properties
-    { pattern: 'id', display: 'ID' },
-    { pattern: 'type', display: 'Type' },
-    { pattern: 'style', display: 'Style' },
-    { pattern: 'class', display: 'Class' },
-    { pattern: 'value', display: 'Value' },
-    { pattern: 'placeholder', display: 'Placeholder' },
-    { pattern: 'label', display: 'Label' },
+    { pattern: "id", display: "ID" },
+    { pattern: "type", display: "Type" },
+    { pattern: "style", display: "Style" },
+    { pattern: "class", display: "Class" },
+    { pattern: "value", display: "Value" },
+    { pattern: "placeholder", display: "Placeholder" },
+    { pattern: "label", display: "Label" },
   ];
 
   const lowerField = fieldName.toLowerCase();

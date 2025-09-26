@@ -5,7 +5,10 @@ import YAML from "yaml";
 
 import { toKebabCase } from "../../utils/utils.mjs";
 
-export default async function saveTheme({ theme, config = "./.aigne/web-smith/config.yaml" }, options) {
+export default async function saveTheme(
+  { theme, config = "./.aigne/web-smith/config.yaml" },
+  options,
+) {
   if (!theme) {
     return {
       message: chalk.red("Please provide theme data to save"),

@@ -286,11 +286,7 @@ export default async function applyTheme(
     }
 
     // Step 6: User confirmation before applying theme
-    console.log(
-      chalk.yellow(
-        "\n⚠️  Warning: This will replace your current website theme.",
-      ),
-    );
+    console.log(chalk.yellow("\n⚠️  Warning: This will replace your current website theme."));
     console.log(
       chalk.blue(`\nTarget Website: ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`),
     );

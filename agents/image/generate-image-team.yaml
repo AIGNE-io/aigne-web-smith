@@ -1,0 +1,22 @@
+type: team
+name: generateImageTeam
+description: Generate images for the website
+skills:
+  - ../image/generate-image.yaml
+iterate_on: imageRequirements
+concurrency: 3
+input_schema:
+  type: object
+  properties:
+    imageRequirements:
+      type: array
+      items:
+        type: object
+        properties:
+          imageName:
+            type: string
+            description: The name of the image.
+          aiPrompt:
+            type: string
+            description: The AI prompt to generate the image.
+      description: The AI prompt to generate the image.

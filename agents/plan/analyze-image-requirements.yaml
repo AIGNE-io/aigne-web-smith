@@ -1,0 +1,68 @@
+type: ai
+name: analyzeImageRequirements
+description: Analyze website structure and existing assets to determine if additional images are needed for better visual presentation
+task_render_mode: collapse
+instructions:
+  url: ../../prompts/plan/analyze-image-requirements.md
+input_schema:
+  type: object
+  properties:
+    datasources:
+      type: string
+      description: Context for website structure and content
+    assetsContent:
+      type: string
+      description: Information about existing available images and assets
+    websiteStructure:
+      $ref: ../schema/website-structure.yaml
+      description: The website structure generated from previous step
+    locale:
+      type: string
+      description: User language, e.g. zh, en
+    projectName:
+      type: string
+      description: Project name for context
+    projectDesc:
+      type: string
+      description: Project description for context
+  required:
+    - datasources
+    - assetsContent
+    - websiteStructure
+output_schema:
+  type: object
+  properties:
+    needsAdditionalImages:
+      type: boolean
+      description: Whether additional images are needed to enhance the website visual presentation
+    imageRequirements:
+      type: array
+      description: List of additional images needed
+      items:
+        type: object
+        properties:
+          imageName:
+            type: string
+            description: Suggested name for the image file
+          imageDescription:
+            type: string
+            description: Description of what the image should contain and its purpose
+          aiPrompt:
+            type: string
+            description: Detailed prompt for AI image generation describing the main subject and visual style
+          pageContext:
+            type: string
+            description: Which page or section this image is intended for
+          priority:
+            type: string
+            enum: ["high", "medium", "low"]
+            description: Priority level for generating this image
+        required:
+          - imageName
+          - imageDescription
+          - aiPrompt
+          - pageContext
+          - priority
+  required:
+    - needsAdditionalImages
+    - imageRequirements

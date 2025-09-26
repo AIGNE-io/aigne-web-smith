@@ -44,6 +44,8 @@ agents:
   - ./agents/plan/validate-website-structure.yaml
   - ./agents/plan/update-website-structure.yaml
   - ./agents/plan/user-review-website-structure.mjs
+  - ./agents/plan/analyze-image-requirements.yaml
+  - ./agents/plan/check-need-generate-images.mjs
 
   # update website structure tools
   - ./agents/plan/website-structure-tools/add-page.mjs
@@ -84,6 +86,10 @@ agents:
   - ./agents/update/page-detail-tools/delete-section.mjs
   - ./agents/update/page-detail-tools/update-section.mjs
   - ./agents/update/page-detail-tools/move-section.mjs
+
+  # image
+  - ./agents/image/generate-image.yaml
+  - ./agents/image/generate-image-team.yaml
 
   # utils
   - ./agents/utils/check-detail-result.mjs

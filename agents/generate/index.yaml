@@ -26,6 +26,8 @@ skills:
       fileName: website-structure.yaml
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
+  - ../plan/analyze-image-requirements.yaml
+  - ../plan/check-need-generate-images.mjs
   - ../generate/page-detail/batch-generate-page-detail.yaml
   - ./component-library/load-component-library.mjs
   - type: team

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.3...v1.3.0-beta.4) (2025-09-26)
+
+
+### Bug Fixes
+
+* **core:** missing clear command in cli ([74eb9bd](https://github.com/AIGNE-io/aigne-web-smith/commit/74eb9bd5b73262cab9ae3f0e995e9279ae0d5f9c))
+
 ## [1.3.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.2...v1.3.0-beta.3) (2025-09-26)
 
 

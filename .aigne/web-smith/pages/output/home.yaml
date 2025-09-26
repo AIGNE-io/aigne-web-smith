@@ -1,16 +1,16 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-25T14:13:04.801Z
-updatedAt: 2025-09-25T14:13:04.801Z
-publishedAt: 2025-09-25T14:13:04.801Z
+createdAt: 2025-09-26T07:14:13.858Z
+updatedAt: 2025-09-26T07:14:13.858Z
+publishedAt: 2025-09-26T07:14:13.858Z
 isPublic: true
 locales:
   en:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
-      paddingY: normal
-      paddingX: normal
-    title: AIGNE WebSmith | AI-Powered Website Generation
+      paddingY: large
+      paddingX: large
+    title: 🤖 AIGNE WebSmith | AI-Powered Website Generation!
     description: Instantly generate professional, SEO-optimized websites with
       complete content and templates using AIGNE WebSmith. Go from idea to live
       site in minutes with one command.
@@ -20,9 +20,9 @@ locales:
     backgroundColor: ""
     style:
       maxWidth: custom:1560px
-      paddingY: normal
-      paddingX: normal
-    title: AIGNE WebSmith | 人工智能驱动的网站生成
+      paddingY: large
+      paddingX: large
+    title: 🤖 AIGNE WebSmith | 人工智能驱动的网站生成!
     description: 使用 AIGNE WebSmith 即刻生成包含完整内容和模板的专业 SEO 优化网站。仅需一条命令即可在数分钟内将想法变为上线网站。
     header:
       sticky: true
@@ -726,7 +726,8 @@ dataSource:
             list:
               - id: item-1754131284858-7ip6im6yq
                 type: text
-                text: AIGNE WebSmith is your personal AI web developer. It plans, writes, and
+                text:
+                  AIGNE WebSmith is your personal AI web developer. It plans, writes, and
                   builds professional, SEO-optimized websites from a simple
                   description, so you can launch in minutes, not months.
                 style:
@@ -809,7 +810,8 @@ dataSource:
             list:
               - id: item-1758789736331-y7vkch80n
                 type: text
-                text: WebSmith handles everything from planning and content to design and
+                text:
+                  WebSmith handles everything from planning and content to design and
                   deployment, so you can focus on your big idea.
                 style:
                   color: ""
@@ -875,7 +877,8 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: Our AI intelligently plans your site structure, generates all your content
+                text:
+                  Our AI intelligently plans your site structure, generates all your content
                   in multiple languages, and optimizes it for search engines
                   automatically.
                 style:
@@ -951,7 +954,8 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: Get stunning, responsive designs right out of the box. All templates are
+                text:
+                  Get stunning, responsive designs right out of the box. All templates are
                   built with modern components and are fully compatible with
                   Pages Kit for easy visual editing.
                 style:
@@ -1027,7 +1031,8 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: Launch with confidence. WebSmith automatically assesses your site's
+                text:
+                  Launch with confidence. WebSmith automatically assesses your site's
                   architecture, checks content quality, and ensures everything
                   is polished and professional.
                 style:
@@ -1103,7 +1108,8 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: Go live in an instant! Publish your entire website directly to Pages Kit
+                text:
+                  Go live in an instant! Publish your entire website directly to Pages Kit
                   with a single command and get your shareable link immediately.
                 style:
                   color: ""
@@ -1155,7 +1161,8 @@ dataSource:
             list:
               - id: item-1754037726128-q9f6xufkq
                 type: text
-                text: Ready to see the magic happen? Getting started with AIGNE WebSmith is
+                text:
+                  Ready to see the magic happen? Getting started with AIGNE WebSmith is
                   incredibly simple. Just follow these steps in your terminal.
                 style:
                   color: text.secondary
@@ -1223,7 +1230,8 @@ dataSource:
             list:
               - id: item-1753781653625-ia4shqnk4
                 type: text
-                text: Get the AIGNE command-line tool on your machine. This one-time setup gives
+                text:
+                  Get the AIGNE command-line tool on your machine. This one-time setup gives
                   you access to the full power of WebSmith.
                 style:
                   color: ""
@@ -1284,7 +1292,8 @@ dataSource:
             list:
               - id: item-1753781653625-ia4shqnk4
                 type: text
-                text: Describe your ideal website in a simple file, then run the generate
+                text:
+                  Describe your ideal website in a simple file, then run the generate
                   command. Sit back and watch as the AI builds everything for
                   you.
                 style:
@@ -1346,7 +1355,8 @@ dataSource:
             list:
               - id: item-1753781653625-ia4shqnk4
                 type: text
-                text: Ready to show off your creation? A single command pushes your new website
+                text:
+                  Ready to show off your creation? A single command pushes your new website
                   live to Pages Kit, instantly and effortlessly.
                 style:
                   color: ""
@@ -1407,7 +1417,8 @@ dataSource:
             list:
               - id: item-1753381637728-mjjp8nvd5
                 type: text
-                text: Your professional website is just a command away. Stop waiting and start
+                text:
+                  Your professional website is just a command away. Stop waiting and start
                   building with the power of AI today. Get started for free!
                 style:
                   color: ""

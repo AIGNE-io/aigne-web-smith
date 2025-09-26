@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
+import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -494,7 +495,7 @@ ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to w
 
 🔗 Published Pages
 
-${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
+${publishedUrls.map((url) => `- ${withoutTrailingSlash(url)}`).join("\n")}
 
 🚀 Next Steps
 

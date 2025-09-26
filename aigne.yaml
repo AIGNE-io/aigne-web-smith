@@ -118,6 +118,7 @@ cli:
     - ./agents/theme/index.mjs
     - ./agents/prefs/index.mjs
     - ./agents/component/index.yaml
+    - ./agents/clear/index.yaml
 mcp_server:
   agents:
     - ./pages-mcp/get-pages-structure.mjs

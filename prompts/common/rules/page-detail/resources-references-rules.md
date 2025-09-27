@@ -11,3 +11,14 @@
   - Internal navigation must rely on `<available_internal_links>` entries; copy each **`linkPath`** exactly and do not fabricate new internal routes. Single-page experiences typically omit internal navigation.
   - External URLs (starting with `http://`, `https://`, or `mailto:`) that appear in <datasources> or <page_constraints> are allowed; reproduce them verbatim and explain their destination.
   - **NEVER** output anchor-style links (e.g., `#section-name`), invent, paraphrase, or fabricate link paths.
+- Color & Contrast (fields like "xxxBackground", "background", "backgroundColor", "xxxColor"):
+  - Scope: Applies to fields whose names indicate color or background usage.
+  - Allowed values:
+    - MUI palette tokens (strings), e.g., "primary.dark", "grey[900]" (or their light variants).
+    - Standard CSS color/gradient strings, e.g., "#000000", "#FFFFFF", "rgb(...)", "hsl(...)", "linear-gradient(...)".
+    - Background images from "<available_media_assets>" using exact "mediaKitPath" (must follow Media Resources guardrails).
+  - Contrast heuristic:
+    - With **light text** (e.g., white), choose a **dark, low-noise** background; with **dark text**, choose a **light, low-noise** background.
+    - Target WCAG AA: ≥4.5:1 for body text, ≥3:1 for large text. If unsure, suggest a soft overlay (e.g., "rgba(0,0,0,0.35~0.5)") or pick a darker/lighter tone.
+  - Fallback order: Suitable image (if exists) → gradient → solid color.
+  - Validity: Do not emit empty strings, "null", or fabricated tokens/paths; keep tokens as strings (resolution happens at render/design system level).

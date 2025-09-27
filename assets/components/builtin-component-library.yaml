@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-27T07:07:32.058Z
+  updateAt: 2025-09-27T08:52:29.001Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -29,7 +29,9 @@ atomic:
 composite:
   - id: fl8kdr0ghgxu149s
     name: Hero Section with background and 2 buttons
-    summary: A Hero Section with a background and two call-to-action buttons
+    summary: A Hero Section with a background and two call-to-action buttons. The
+      section uses white text, so choose a dark, low-noise sectionBackground
+      that guarantees WCAG AA contrast.
     fieldCombinations:
       - actions.0.link
       - actions.0.text
@@ -37,6 +39,7 @@ composite:
       - actions.1.text
       - heroDescription
       - heroTitle
+      - sectionBackground
     section:
       id: 4dox83hzbbop36yp
       name: Hero
@@ -88,7 +91,7 @@ composite:
               w: 8
               h: 1
         paddingY: custom:150px
-        background: grey.400
+        background: <%= sectionBackground %>
         backgroundFullWidth: true
     dataSource:
       4dox83hzbbop36yp: {}
@@ -189,7 +192,7 @@ composite:
               w: 12
               h: 1
         padding: normal
-        background: background.paper
+        background: transparent
         gap: normal
         borderRadius: medium
         border: none
@@ -544,6 +547,7 @@ composite:
       - ctaActions.0.text
       - ctaActions.1.link
       - ctaActions.1.text
+      - ctaBackground
       - description
       - title
     section:
@@ -584,7 +588,7 @@ composite:
                   y: 1
                   w: 12
                   h: 1
-            background: background.paper
+            background: <%= ctaBackground %>
             padding: large
             gap: large
             borderRadius: medium
@@ -650,115 +654,17 @@ composite:
                 endIcon: ""
                 needLogin: false
                 id: btn-1753381708894-gbhxzm1xt
-  - id: tnfh0li7m3h4g37p
-    name: CTA with 1 button
-    summary: CTA with 1 button
-    fieldCombinations:
-      - ctaAction.link
-      - ctaAction.text
-      - description
-      - title
-    section:
-      id: dmf59dq4byd8kj54
-      name: CTA
-      component: layout-block
-      sections:
-        6e2eibno5o8vunck:
-          id: 6e2eibno5o8vunck
-          name: Section Layout
-          component: layout-block
-          sections:
-            bammisocksvdzmxb:
-              id: bammisocksvdzmxb
-              name: RichText
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            c3z1wzg1xz7zyroz:
-              id: c3z1wzg1xz7zyroz
-              name: Action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - bammisocksvdzmxb
-            - c3z1wzg1xz7zyroz
-          config:
-            gridSettings:
-              desktop:
-                bammisocksvdzmxb:
-                  x: 2
-                  y: 0
-                  w: 8
-                  h: 1
-                c3z1wzg1xz7zyroz:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-            background: background.paper
-            padding: large
-            gap: normal
-            borderRadius: medium
-            border: none
-            paddingY: large
-      sectionIds:
-        - 6e2eibno5o8vunck
-      config:
-        padding: large
-        gridSettings:
-          desktop:
-            6e2eibno5o8vunck:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-        gap: none
-        maxWidth: full
-        paddingY: none
-        paddingX: none
-    dataSource:
-      dmf59dq4byd8kj54: {}
-      6e2eibno5o8vunck: {}
-      bammisocksvdzmxb:
-        properties:
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= title %>
-              style:
-                variant: h1
-          e8f3k7m2n9p4q1s5:
-            value: true
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1753381637728-mjjp8nvd5
-                  type: text
-                  text: <%= description %>
-                  style:
-                    color: ""
-                    fontSize: 16px
-                    variant: body1
-      c3z1wzg1xz7zyroz:
-        properties:
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= ctaAction.text %>
-                url: <%= ctaAction.link %>
-                variant: contained
-                size: large
-                target: _blank
-                needLogin: false
   - id: 3wutrnnn8cscbzn5
     name: Hero Section with background and code
-    summary: Hero Section With background and code
+    summary: Hero Section With background and code. The section uses white text, so
+      choose a dark, low-noise sectionBackground that guarantees WCAG AA
+      contrast.
     fieldCombinations:
       - code.content
       - code.filename
       - heroDescription
       - heroTitle
+      - sectionBackground
     section:
       id: t8uw2z9alumfe69d
       name: Hero
@@ -834,7 +740,7 @@ composite:
         paddingY: custom:150px
         paddingX: none
         backgroundFullWidth: true
-        background: grey.400
+        background: <%= sectionBackground %>
         gap: large
     dataSource:
       t8uw2z9alumfe69d: {}
@@ -880,113 +786,6 @@ composite:
             value: 1rem
           3uqbvyqzsluuv5hs:
             value: "500"
-  - id: 6w7bt82aes4sldo9
-    name: Hero Section with background and 1 button
-    summary: Hero Section with background and 1 button
-    fieldCombinations:
-      - action.link
-      - action.text
-      - heroDescription
-      - heroTitle
-    section:
-      id: q9c0551tgshtkxuz
-      name: Hero
-      component: layout-block
-      sections:
-        gnbw2cxeby7rl0qr:
-          id: gnbw2cxeby7rl0qr
-          name: Title
-          component: layout-block
-          sections:
-            upo1go2xhucnawuo:
-              id: upo1go2xhucnawuo
-              name: RichText
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            x5jjs5ahienrf9oa:
-              id: x5jjs5ahienrf9oa
-              name: action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - upo1go2xhucnawuo
-            - x5jjs5ahienrf9oa
-          config:
-            gridSettings:
-              desktop:
-                upo1go2xhucnawuo:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-                x5jjs5ahienrf9oa:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-            gap: large
-            paddingX: none
-            maxWidth: full
-            alignContent: center
-      sectionIds:
-        - gnbw2cxeby7rl0qr
-      config:
-        gridSettings:
-          desktop:
-            gnbw2cxeby7rl0qr:
-              x: 0
-              y: 0
-              w: 8
-              h: 1
-        paddingY: custom:150px
-        background: grey.400
-        backgroundFullWidth: true
-        alignContent: start
-        gap: normal
-        paddingX: none
-    dataSource:
-      q9c0551tgshtkxuz: {}
-      gnbw2cxeby7rl0qr: {}
-      upo1go2xhucnawuo:
-        properties:
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= heroTitle %>
-              style:
-                color: common.white
-                variant: h1
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1754035056337-47v01f57c
-                  type: text
-                  text: <%= heroDescription %>
-                  style:
-                    color: common.white
-                    fontSize: 16px
-                    variant: body1
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-      x5jjs5ahienrf9oa:
-        properties:
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= action.text %>
-                url: <%= action.link %>
-                variant: contained
-                size: large
-                target: _blank
-                needLogin: false
-          v9979xeclpsbvn0n:
-            value: flex-start
-          v5utpm7bu9yvdpnq:
-            value: flex-start
   - id: 5qt0u2v8lnrxxw6u
     name: Code showcase with terminal
     summary: A showcase code card with terminal cast, will auto-play terminal cast
@@ -1490,9 +1289,9 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
+                gap: normal
+                paddingX: large
+                paddingY: large
                 background: transparent
                 borderRadius: none
             8223c6a77fmlu6m4:
@@ -1504,9 +1303,9 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
+                gap: normal
+                paddingX: large
+                paddingY: large
                 background: transparent
                 borderRadius: none
             f9kqgds9jci1y1vz:
@@ -1518,9 +1317,9 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
+                gap: normal
+                paddingX: large
+                paddingY: large
                 background: transparent
                 borderRadius: none
           sectionIds:
@@ -1557,10 +1356,10 @@ composite:
         - 4d0hjw3napyxbvmk
         - 5djzyjelnffm1bu2
       config:
-        gap: large
+        gap: normal
         paddingX: none
         maxWidth: full
-        paddingY: custom:100px
+        paddingY: none
         gridSettings:
           desktop:
             2u1ujyd3l49uxkdb:
@@ -2041,9 +1840,9 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
                 alignContent: start
             216gccdrtw6el7yo:
@@ -2056,9 +1855,9 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: normal
+                background: background.paper
                 borderRadius: none
                 alignContent: center
             xpzzv4cssqmr4h5y:
@@ -2071,9 +1870,9 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
                 alignContent: center
           sectionIds:
@@ -2127,7 +1926,7 @@ composite:
               y: 2
               w: 12
               h: 1
-        gap: large
+        gap: normal
         paddingX: none
         maxWidth: full
         paddingY: none

@@ -109,7 +109,7 @@ addSection.inputSchema = {
     section: {
       type: "string",
       description:
-        "YAML string containing the section content to add (must include a 'name' property). Any valid section properties can be included (e.g., 'name: section1\\ntitle: My Title\\ndescription: My description').",
+        "YAML string containing the section content to add (must include a 'sectionName' property). Any valid section properties can be included (e.g., 'sectionName: section1\\ntitle: My Title\\ndescription: My description').",
     },
     position: {
       type: ["number", "string"],

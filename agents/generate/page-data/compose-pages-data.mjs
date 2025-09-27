@@ -111,6 +111,26 @@ function processTemplate(obj, data) {
   return res;
 }
 
+function processSectionTemplatesDeep(node, data) {
+  if (!node || typeof node !== "object") return node;
+
+  // 先处理本节点的普通字段（跳过 id / sectionIds / name / sections 的 key 替换）
+  for (const [k, v] of Object.entries(node)) {
+    if (["id", "name", "sectionIds", "sections"].includes(k)) continue;
+    node[k] = processTemplate(v, data);
+  }
+
+  // 再递归子节点
+  if (node.sections && Array.isArray(node.sectionIds)) {
+    node.sectionIds.forEach((cid) => {
+      const child = node.sections[cid];
+      if (child) processSectionTemplatesDeep(child, data);
+    });
+  }
+
+  return node;
+}
+
 // ============= ID Mapping (single source of truth) ============
 /**
  * 把对象里所有 **key & string 值** 中的旧 id 映射为新 id。
@@ -241,6 +261,8 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
     { templateId, sectionIndex, path },
     idMap,
   );
+  // 递归处理 section 里面的 template
+  processSectionTemplatesDeep(clonedSection, sectionData);
 
   const transformedDataSource = {};
   const tplDS = component.dataSource || {};

@@ -418,6 +418,8 @@ export function generateFieldConstraints(componentLibrary) {
   // Build constraints text
   let constraints = "";
 
+  const listKeyWithSymbol = `\`${LIST_KEY}\``;
+
   // Atomic fields section
   constraints += "<atomic_component_information>\n";
   atomicFields.forEach((item) => {
@@ -433,17 +435,24 @@ export function generateFieldConstraints(componentLibrary) {
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  constraints +=
-    "- You can refer to the information in <atomic_component_information> to understand what each field defines\n";
-  constraints +=
-    "- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>\n";
-  constraints += "    - DO NOT use any other field combinations\n";
-
-  constraints += "- Layout sections may include a `list` field\n";
-  constraints +=
-    "    - Each `list` item is itself a section and MUST independently follow <allowed_field_combinations>\n";
-  constraints +=
-    "- This constraint applies recursively: all sections at any depth must strictly comply\n";
+  constraints += `
+- You can refer to the information in <atomic_component_information> to understand what each component defines
+- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>
+    - DO NOT use any other field combinations
+- Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
+    - Each ${listKeyWithSymbol} item is itself a section and MUST independently follow <allowed_field_combinations>
+- This constraint applies recursively: all sections at any depth must strictly comply
+- Zero-Tolerance List Misuse:
+    - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
+- Strict List Rules:
+    - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number.
+    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>.
+    - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
+    - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:
+        ${LIST_KEY}:
+          - "aaaa"   # disallowed
+          - "bbbb"   # disallowed
+`;
 
   return constraints;
 }

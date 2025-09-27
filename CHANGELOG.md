@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.4...v1.3.0-beta.5) (2025-09-27)
+
+
+### Features
+
+* **core:** update website content and improve UI components ([#39](https://github.com/AIGNE-io/aigne-web-smith/issues/39)) ([0442939](https://github.com/AIGNE-io/aigne-web-smith/commit/0442939ce0be5cf670d0a4053df5f7faa65bf277))
+
+
+### Bug Fixes
+
+* improve theme agent interaction ([#34](https://github.com/AIGNE-io/aigne-web-smith/issues/34)) ([d062225](https://github.com/AIGNE-io/aigne-web-smith/commit/d062225e6604d2cb1cada731af3cc75ef2aa7e07))
+* update section management tools to handle YAML string input ([#37](https://github.com/AIGNE-io/aigne-web-smith/issues/37)) ([efa1f6d](https://github.com/AIGNE-io/aigne-web-smith/commit/efa1f6d190709b27f78ccba2c274c6cdca199f33))
+
 ## [1.3.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.3...v1.3.0-beta.4) (2025-09-26)
 
 

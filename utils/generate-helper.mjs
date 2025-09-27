@@ -435,8 +435,8 @@ export function generateFieldConstraints(componentLibrary) {
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  constraints += `
-- You can refer to the information in <atomic_component_information> to understand what each component defines
+  //
+  constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
 - Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>
     - DO NOT use any other field combinations
 - Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
@@ -452,6 +452,14 @@ export function generateFieldConstraints(componentLibrary) {
         ${LIST_KEY}:
           - "aaaa"   # disallowed
           - "bbbb"   # disallowed
+`;
+
+  constraints += `- Value-Level Downgrade (fallback when no exact match <allowed_field_combinations> exists):
+    - What it does: Allows using the closest **allowed superset** combination so the **emitted field set still exactly equals** one entry in <allowed_field_combinations>, while hiding secondary UI elements at render time.
+    - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space.
+    - All-or-nothing: Do **not** leave an element half-empty—either **all empty** (hidden) or **all non-empty** (shown). Partial empty is **invalid** and MUST trigger regeneration.
+    - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules.
+    - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`.
 `;
 
   return constraints;

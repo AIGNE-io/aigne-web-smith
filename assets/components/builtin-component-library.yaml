@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-27T11:51:28.014Z
+  updateAt: 2025-09-27T12:15:50.430Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -1197,6 +1197,7 @@ composite:
                   h: 1
             borderRadius: medium
             height: unset
+            border: terminal
       sectionIds:
         - t75cpdxbg8ixr260
         - 6bjawbo8s9ydpvgb

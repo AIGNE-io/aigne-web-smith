@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-27T11:55:14.362Z
-updatedAt: 2025-09-27T11:55:14.362Z
-publishedAt: 2025-09-27T11:55:14.362Z
+createdAt: 2025-09-27T12:16:58.003Z
+updatedAt: 2025-09-27T12:16:58.003Z
+publishedAt: 2025-09-27T12:16:58.003Z
 isPublic: true
 locales:
   en:
@@ -734,6 +734,7 @@ sections:
                 h: 1
           borderRadius: medium
           height: unset
+          border: terminal
     sectionIds:
       - 29aef9b049421e10
       - 872dfaf0ea9f6dd5
@@ -800,6 +801,7 @@ sections:
                 h: 1
           borderRadius: medium
           height: unset
+          border: terminal
     sectionIds:
       - df15a417f7815db4
       - 8c5cc2b4760aa16f

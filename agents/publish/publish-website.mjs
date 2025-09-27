@@ -106,6 +106,7 @@ const publishPageFn = async ({
   pageTemplateData,
   routeData,
   dataSourceData,
+  resetProject = false,
 }) => {
   // Build request headers
   const headers = new Headers();
@@ -119,6 +120,7 @@ const publishPageFn = async ({
     pageTemplateData,
     routeData,
     dataSourceData,
+    resetProject,
   });
 
   const requestOptions = {
@@ -359,7 +361,7 @@ export default async function publishWebsite(
     // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
       yamlFiles,
-      async (file) => {
+      async (file, index) => {
         const parsedPageContent = pageContents.get(file);
         if (!parsedPageContent) {
           return {
@@ -440,6 +442,7 @@ export default async function publishWebsite(
             pageTemplateData,
             routeData,
             mountPoint,
+            resetProject: index === 0,
             // dataSourceData not needed for now, can be added later
           });
 

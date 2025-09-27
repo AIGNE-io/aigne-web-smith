@@ -2,6 +2,7 @@ import YAML from "yaml";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
+const excludeFields = ["sectionName", "sectionSummary"];
 export default async function userReviewPageDetail(
   { content, builtinComponentLibrary, ...rest },
   options,
@@ -163,9 +164,8 @@ function printPageDetail(pageDetail) {
 function printSectionSimple(section, index) {
   console.log(`\nSection ${index}`);
 
-  // Print all fields except 'name' and 'summary' with recursive handling
+  // Print all fields except 'sectionName' and 'sectionSummary' with recursive handling
   const content = [];
-  const excludeFields = ["name", "summary"];
 
   Object.keys(section)
     .filter((key) => !excludeFields.includes(key))
@@ -222,7 +222,7 @@ function formatFieldValue(key, value, indent = "") {
           return `${indent}     ${index + 1}. ${truncateText(item, 80)}`;
         } else if (typeof item === "object" && item !== null) {
           const subContent = Object.keys(item)
-            .filter((subKey) => !["name", "summary"].includes(subKey))
+            .filter((subKey) => !excludeFields.includes(subKey))
             .map((subKey) => formatFieldValue(subKey, item[subKey], "       "))
             .filter(Boolean)
             .join("\n");
@@ -244,7 +244,7 @@ function formatFieldValue(key, value, indent = "") {
     }
 
     const subContent = Object.keys(value)
-      .filter((subKey) => !["name", "summary"].includes(subKey))
+      .filter((subKey) => !excludeFields.includes(subKey))
       .map((subKey) => formatFieldValue(subKey, value[subKey], `${indent}   `))
       .filter(Boolean)
       .join("\n");

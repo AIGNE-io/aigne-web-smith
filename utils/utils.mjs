@@ -1,8 +1,16 @@
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
-import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import {
+  accessSync,
+  constants,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import fs from "node:fs/promises";
-import path, { join } from "node:path";
+import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
@@ -1187,4 +1195,50 @@ export function toKebabCase(str) {
       // Replace multiple consecutive hyphens with single hyphen
       .replace(/-+/g, "-")
   );
+}
+
+export function resolveToAbsolute(value) {
+  if (!value) return undefined;
+  return isAbsolute(value) ? value : resolvePath(process.cwd(), value);
+}
+
+export async function pathExists(targetPath) {
+  try {
+    await fs.stat(targetPath);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+export function toDisplayPath(targetPath) {
+  const rel = relative(process.cwd(), targetPath);
+  return rel.startsWith("..") ? targetPath : rel || ".";
+}
+
+export function ensureDir(p) {
+  if (!existsSync(p)) mkdirSync(p, { recursive: true });
+}
+
+/**
+ * Clear directory contents while preserving whitelisted files/directories
+ * @param {string} dir  target directory
+ * @param {string[]} keep  the absolute paths of files/directories to keep
+ */
+export function clearDirExcept(dir, keep = []) {
+  ensureDir(dir);
+  const keepSet = new Set(keep.map((p) => path.resolve(p)));
+  const entries = readdirSync(dir, { withFileTypes: true });
+
+  for (const ent of entries) {
+    const full = path.join(dir, ent.name);
+    if (keepSet.has(path.resolve(full))) continue; // 命中白名单则跳过
+
+    if (ent.isDirectory()) {
+      rmSync(full, { recursive: true, force: true });
+    } else {
+      rmSync(full, { force: true });
+    }
+  }
 }

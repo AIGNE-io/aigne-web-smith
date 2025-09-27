@@ -111,6 +111,26 @@ function processTemplate(obj, data) {
   return res;
 }
 
+function processSectionTemplatesDeep(node, data) {
+  if (!node || typeof node !== "object") return node;
+
+  // 先处理本节点的普通字段（跳过 id / sectionIds / name / sections 的 key 替换）
+  for (const [k, v] of Object.entries(node)) {
+    if (["id", "name", "sectionIds", "sections"].includes(k)) continue;
+    node[k] = processTemplate(v, data);
+  }
+
+  // 再递归子节点
+  if (node.sections && Array.isArray(node.sectionIds)) {
+    node.sectionIds.forEach((cid) => {
+      const child = node.sections[cid];
+      if (child) processSectionTemplatesDeep(child, data);
+    });
+  }
+
+  return node;
+}
+
 // ============= ID Mapping (single source of truth) ============
 /**
  * 把对象里所有 **key & string 值** 中的旧 id 映射为新 id。
@@ -129,23 +149,6 @@ function applyIdMapDeep(obj, idMap) {
     }
   }
   return out;
-}
-
-/** 用一个临时 idMap（from→to）对目标对象进行就地替换（便于 slot 替换后同步 config） */
-function remapIdsInPlace(obj, fromId, toId) {
-  const map = new Map([[fromId, toId]]);
-  const remapped = applyIdMapDeep(obj, map);
-  // 原地覆盖
-  if (Array.isArray(obj)) {
-    obj.length = 0;
-    remapped.forEach((x) => obj.push(x));
-  } else if (obj && typeof obj === "object") {
-    Object.keys(obj).forEach((k) => delete obj[k]);
-    Object.entries(remapped).forEach(([k, v]) => {
-      obj[k] = v;
-    });
-  }
-  log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
 }
 
 // ============= Section Instantiation ============
@@ -241,6 +244,8 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
     { templateId, sectionIndex, path },
     idMap,
   );
+  // 递归处理 section 里面的 template
+  processSectionTemplatesDeep(clonedSection, sectionData);
 
   const transformedDataSource = {};
   const tplDS = component.dataSource || {};
@@ -277,8 +282,25 @@ const isLayoutBlock = (sec) =>
 // 仅处理 {{LIST_KEY.N}} 形式；若未来需要 {{features.LIST_KEY.N}} 可扩展此解析
 function parseListIndexFromName(name) {
   if (typeof name !== "string") return null;
-  const m = name.match(/^\s*\{\{\s*list\.(\d+)\s*\}\}\s*$/);
-  return m ? Number(m[1]) : null;
+  const s = name.trim();
+
+  // Handlebars 风格：{{ list.N }}
+  let m = s.match(/^\{\{\s*list\.(\d+)\s*\}\}$/);
+  if (m) return Number(m[1]);
+
+  // Handlebars + 下标：{{ list[N] }}
+  m = s.match(/^\{\{\s*list\[(\d+)\]\s*\}\}$/);
+  if (m) return Number(m[1]);
+
+  // EJS 风格：<%= list.N %>
+  m = s.match(/^<%=\s*list\.(\d+)\s*%>$/);
+  if (m) return Number(m[1]);
+
+  // EJS + 下标：<%= list[N] %>
+  m = s.match(/^<%=\s*list\[(\d+)\]\s*%>$/);
+  if (m) return Number(m[1]);
+
+  return null;
 }
 
 /** 深度遍历父实例，收集所有 layout-block 的 {{LIST_KEY.N}} 占位 → Map<N, {parent, placeholderId, position}> */
@@ -318,36 +340,87 @@ function extractListIndexFromPath(path) {
   return Number.isFinite(n) ? n : null;
 }
 
+/** 用一个临时 idMap（from→to）对目标对象进行就地替换（便于 slot 替换后同步 config） */
+// function remapIdsInPlace(obj, fromId, toId) {
+//   const map = new Map([[fromId, toId]]);
+//   const remapped = applyIdMapDeep(obj, map);
+//   // 原地覆盖
+//   if (Array.isArray(obj)) {
+//     obj.length = 0;
+//     remapped.forEach((x) => obj.push(x));
+//   } else if (obj && typeof obj === "object") {
+//     Object.keys(obj).forEach((k) => delete obj[k]);
+//     Object.entries(remapped).forEach(([k, v]) => {
+//       obj[k] = v;
+//     });
+//   }
+//   log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
+// }
+
 /** 用子实例替换占位：同步 sections/sectionIds，并把 parent.config 中占位 id 全量替换为子实例 id */
+// function replaceSlotWithChild(slot, childSection) {
+//   const { parent, placeholderId, position } = slot;
+
+//   if (!parent.sections) parent.sections = {};
+//   if (!parent.sectionIds) parent.sectionIds = [];
+
+//   // 1) 替换 sectionIds 的位置
+//   if (position >= 0 && position < parent.sectionIds.length) {
+//     parent.sectionIds.splice(position, 1, childSection.id);
+//   } else {
+//     logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+//       placeholderId,
+//       parentId: parent.id,
+//       position,
+//     });
+//     parent.sectionIds.push(childSection.id);
+//   }
+
+//   // 2) 更新 sections 映射：删除占位 → 挂新 child
+//   delete parent.sections[placeholderId];
+//   parent.sections[childSection.id] = childSection;
+
+//   // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
+//   if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+
+//   log("🔗 [replaceSlotWithChild] slot replaced:", {
+//     parentId: parent.id,
+//     placeholderId,
+//     childId: childSection.id,
+//   });
+// }
+
+/** 挂到占位块自身：把子实例放进占位 slot 的 sections/sectionIds 下（占位保留、父层不动） */
 function replaceSlotWithChild(slot, childSection) {
   const { parent, placeholderId, position } = slot;
 
-  if (!parent.sections) parent.sections = {};
-  if (!parent.sectionIds) parent.sectionIds = [];
-
-  // 1) 替换 sectionIds 的位置
-  if (position >= 0 && position < parent.sectionIds.length) {
-    parent.sectionIds.splice(position, 1, childSection.id);
-  } else {
-    logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+  if (!parent?.sections || !parent.sections[placeholderId]) {
+    logError("❌ [replaceSlotWithChild] placeholder node not found on parent:", {
+      parentId: parent?.id,
       placeholderId,
-      parentId: parent.id,
-      position,
     });
-    parent.sectionIds.push(childSection.id);
+    return;
   }
 
-  // 2) 更新 sections 映射：删除占位 → 挂新 child
-  delete parent.sections[placeholderId];
-  parent.sections[childSection.id] = childSection;
+  // 1) 找到占位块节点（layout-block，占位名为 {{list.N}} / <%= list.N %>）
+  const placeholderNode = parent.sections[placeholderId];
 
-  // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
-  if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+  // 2) 确保占位块具备 sections/sectionIds 容器
+  if (!placeholderNode.sections) placeholderNode.sections = {};
+  if (!Array.isArray(placeholderNode.sectionIds)) placeholderNode.sectionIds = [];
 
-  log("🔗 [replaceSlotWithChild] slot replaced:", {
+  placeholderNode.name = `${parent.name}-${position + 1}`;
+
+  // 3) 在占位块下面追加子实例（不删除占位本身，也不动父层的结构）
+  placeholderNode.sections[childSection.id] = childSection;
+  placeholderNode.sectionIds.push(childSection.id);
+
+  // 4) 不改 parent.config，不做 remap，保持最小改动
+  log("➕ [replaceSlotWithChild] child appended under placeholder node:", {
     parentId: parent.id,
     placeholderId,
     childId: childSection.id,
+    slotChildren: placeholderNode.sectionIds.length,
   });
 }
 

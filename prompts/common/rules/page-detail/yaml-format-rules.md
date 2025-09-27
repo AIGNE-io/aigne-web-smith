@@ -7,4 +7,4 @@ Format and Structure:
   - Wrap every string scalar in double quotes, especially text containing colons, commas, or special characters.
   - Reject Markdown tables, JSON, or pseudo-code structures.
 - Page must include essential fields such as `meta`, `sections`.
-- Each section must have clear `name` (camelCase), `summary` (purpose description), and specific content description.
+- Each section must have clear `sectionName` (camelCase), `sectionSummary` (purpose description), and specific content description.

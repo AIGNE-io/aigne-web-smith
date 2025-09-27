@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
+import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -105,6 +106,7 @@ const publishPageFn = async ({
   pageTemplateData,
   routeData,
   dataSourceData,
+  resetProject = false,
 }) => {
   // Build request headers
   const headers = new Headers();
@@ -118,6 +120,7 @@ const publishPageFn = async ({
     pageTemplateData,
     routeData,
     dataSourceData,
+    resetProject,
   });
 
   const requestOptions = {
@@ -358,7 +361,7 @@ export default async function publishWebsite(
     // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
       yamlFiles,
-      async (file) => {
+      async (file, index) => {
         const parsedPageContent = pageContents.get(file);
         if (!parsedPageContent) {
           return {
@@ -439,6 +442,7 @@ export default async function publishWebsite(
             pageTemplateData,
             routeData,
             mountPoint,
+            resetProject: index === 0,
             // dataSourceData not needed for now, can be added later
           });
 
@@ -494,7 +498,7 @@ ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to w
 
 🔗 Published Pages
 
-${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
+${publishedUrls.map((url) => `- ${withoutTrailingSlash(url)}`).join("\n")}
 
 🚀 Next Steps
 

@@ -1,20 +1,28 @@
-// fetch-file.mjs
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import _ from "lodash";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
+import { clearDirExcept, resolveToAbsolute } from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default async function pullComponents({ url }, options = {}) {
+export default async function pullComponents(input, options = {}) {
+  const { tmpDir, outputDir, url } = input;
+
   if (!url) {
     return { message: "Please provide a URL to pull components" };
   }
 
-  const componentDir = path.join(__dirname, "../../", COMPONENTS_DIR);
+  const rootDir = path.join(__dirname, "../../");
+  const componentDir = path.join(rootDir, COMPONENTS_DIR);
   const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
+
+  const workspacePath = resolveToAbsolute(tmpDir);
+  const websiteStructurePath = path.join(workspacePath, "website-structure.yaml");
+  const generatedPagesPath = resolveToAbsolute(outputDir);
 
   try {
     if (!fs.existsSync(componentDir)) {
@@ -50,12 +58,12 @@ export default async function pullComponents({ url }, options = {}) {
 📊 New Components Statistics:
   🔹 Atomic components: ${atomicCount} (${oldAtomicCount} → ${atomicCount})`;
     doc.atomic?.forEach((a) => {
-      statsMessage += `\n    • ${a.name} - ${a.summary}`;
+      statsMessage += `\n    • ${a.name} - ${_.truncate(a.summary || "no summary", { length: 40 })}`;
     });
 
     statsMessage += `\n  🧩 Composite components: ${compositeCount} (${oldCompositeCount} → ${compositeCount})`;
     doc.composite?.forEach((c) => {
-      statsMessage += `\n    • ${c.name} - ${c.summary || "no summary"}`;
+      statsMessage += `\n    • ${c.name} - ${_.truncate(c.summary || "no summary", { length: 40 })}`;
     });
 
     console.log(statsMessage);
@@ -73,6 +81,37 @@ export default async function pullComponents({ url }, options = {}) {
         // 确认后才保存
         fs.writeFileSync(filePath, text);
         resultMessage += `\n💾 New components saved.`;
+
+        const failed = [];
+
+        // keep website-structure.yaml, because user may have modified it
+        try {
+          clearDirExcept(workspacePath, [websiteStructurePath]);
+        } catch (e) {
+          failed.push(`workspace: ${e?.message || String(e)}`);
+        }
+
+        // output（全量清空）
+        try {
+          if (fs.existsSync(generatedPagesPath)) {
+            fs.rmSync(generatedPagesPath, { recursive: true, force: true });
+          }
+          fs.mkdirSync(generatedPagesPath, { recursive: true });
+        } catch (e) {
+          failed.push(`output: ${e?.message || String(e)}`);
+        }
+
+        if (failed.length === 0) {
+          const cleanedMsg = "🧹 Cleaned previous generated content.";
+          resultMessage += `\n${cleanedMsg}`;
+        } else {
+          const warnMsg =
+            "⚠️ Some previous generated content could not be cleaned, please check manually.";
+          resultMessage += `\n${warnMsg}`;
+        }
+
+        const reminder = `🚀 Next: please run below command to re-generate pages:\n\n  \`aigne web generate\`\n\n`;
+        resultMessage += `\n${reminder}`;
       } else {
         resultMessage += `\n⏩ No modification applied.`;
       }

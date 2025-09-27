@@ -5,6 +5,7 @@ alias:
   - component
 description: Pull components to built-in component library
 skills:
+  - ../utils/load-config.mjs
   - ./pull-components.mjs
 input_schema:
   type: object

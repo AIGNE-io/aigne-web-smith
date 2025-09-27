@@ -1,9 +1,10 @@
 meta:
-  updateAt: 2025-09-25T14:14:51.656Z
+  updateAt: 2025-09-27T16:35:47.285Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
-    summary: 一个 RichText 组件，主要展示 title 被 description，支持调整字体颜色
+    summary: A RichText component primarily displays the title and description,
+      supporting customization of font color.
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: Action
@@ -11,14 +12,20 @@ atomic:
     summary: Action buttons component with alignment and customization support
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Icon
+    componentId: YwuDiIbyyF5vfGpt
+    summary: An Iconify-based icon component that accepts Iconify tokens. Supports
+      `fontSize`, `iconName` and `color` properties. Wrapper by MUI Box.
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
   - name: Media
     componentId: xoHu0JPjPs122kaaa-
-    summary: 一个通用的媒体组件
+    summary: A universal media component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
-    blockletTitle: Chun Chun Component Studio
+    blockletTitle: ArcBlock Home Site Component
   - name: Code
     componentId: 2EHGy3vwxlS9JGr2
-    summary: 代码展示组件
+    summary: Code Showcase Component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: Terminal
@@ -29,14 +36,17 @@ atomic:
 composite:
   - id: fl8kdr0ghgxu149s
     name: Hero Section with background and 2 buttons
-    summary: A Hero Section with a background and two call-to-action buttons
+    summary: A Hero Section with a background and two call-to-action buttons. The
+      section uses white text, so choose a dark, low-noise sectionBackground
+      that guarantees WCAG AA contrast.
     fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - actions.0.text
       - actions.0.link
-      - actions.1.text
+      - actions.0.text
       - actions.1.link
+      - actions.1.text
+      - heroDescription
+      - heroTitle
+      - sectionBackground
     section:
       id: 4dox83hzbbop36yp
       name: Hero
@@ -88,7 +98,7 @@ composite:
               w: 8
               h: 1
         paddingY: custom:150px
-        background: grey.400
+        background: <%= sectionBackground %>
         backgroundFullWidth: true
     dataSource:
       4dox83hzbbop36yp: {}
@@ -150,66 +160,56 @@ composite:
             value: flex-start
   - id: o5ihqyzby93wdz2n
     name: Content card with icon
-    summary: Content card with small icon and title and description
+    summary: Content card with small icon, title, and description. iconifyIconName
+      must be a valid Iconify token in prefix:name format that resolves to an
+      existing icon (e.g., mdi:home), not arbitrary text.
     fieldCombinations:
-      - icon
-      - cardTitle
       - cardDescription
+      - cardTitle
+      - iconifyIconName
     section:
       id: wk1c4g8ywuyytg9f
       name: Card
       component: layout-block
       sections:
-        v4u4ydjwf641vpsm:
-          id: v4u4ydjwf641vpsm
-          name: Image
-          component: custom-component
-          config:
-            componentId: xoHu0JPjPs122kaaa-
         bskdh8ztuo3fe0d2:
           id: bskdh8ztuo3fe0d2
           name: RichText
           component: custom-component
           config:
             componentId: xoHu0J44322kDYc-
+        7l1ymx0gsccou1qh:
+          id: 7l1ymx0gsccou1qh
+          name: Icon
+          component: custom-component
+          config:
+            componentId: YwuDiIbyyF5vfGpt
       sectionIds:
-        - v4u4ydjwf641vpsm
+        - 7l1ymx0gsccou1qh
         - bskdh8ztuo3fe0d2
       config:
         gridSettings:
           desktop:
-            v4u4ydjwf641vpsm:
-              x: 0
-              y: 0
-              w: 2
-              h: 1
             bskdh8ztuo3fe0d2:
               x: 0
               y: 1
               w: 12
               h: 1
+            7l1ymx0gsccou1qh:
+              x: 0
+              y: 0
+              w: 4
+              h: 1
         padding: normal
-        background: background.paper
+        background: transparent
         gap: normal
-        borderRadius: medium
+        borderRadius: none
         border: none
         alignContent: start
         paddingY: none
         paddingX: none
     dataSource:
       wk1c4g8ywuyytg9f: {}
-      v4u4ydjwf641vpsm:
-        properties:
-          7m5pz8nefl5j9hqq:
-            value:
-              url: <%= icon %>
-              mediaKitUrl: <%= icon %>
-              width: 24
-              height: 24
-          x8beiec3fxx5des1:
-            value: 40px
-          5fjm8opvqth7wk71:
-            value: 40px
       bskdh8ztuo3fe0d2:
         properties:
           gs1rn5jmxfvpxptx:
@@ -234,14 +234,22 @@ composite:
             value: flex-start
           kyg0hdy5uqq4gc1o:
             value: flex-start
+      7l1ymx0gsccou1qh:
+        properties:
+          5ek4m0kw9cu0ndns:
+            value: <%= iconifyIconName %>
+          529qbwiam7oypw8e:
+            value: 40px
+          gugqsxx3xyveuu8n:
+            value: primary.main
   - id: zveyc3fw79od7cid
     name: Feature with left image
     summary: A feature with image, and the image is on the left
     fieldCombinations:
-      - featureTitle
-      - featureDescription
-      - action.text
       - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
       - leftImage
     section:
       id: mw1ikvzx6xx1mn5a
@@ -386,13 +394,13 @@ composite:
           x8beiec3fxx5des1:
             value: 100%
   - id: z6zo5x5l0auo1ojw
-    name: Feature wuth right image
+    name: Feature with right image
     summary: A feature with image, and the image is on the right
     fieldCombinations:
-      - featureTitle
-      - featureDescription
-      - action.text
       - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
       - rightImage
     section:
       id: mw1ikvzx6xx1mn5a
@@ -538,14 +546,16 @@ composite:
             value: 100%
   - id: h1x8yr953m7g6r40
     name: CTA with 2 buttons
-    summary: Call-to-action with 2 buttons
+    summary: Call-to-action with 2 buttons. The section uses `text.primary` text, so
+      choose a fitting  ctaBackground  color that guarantees WCAG AA contrast.
     fieldCombinations:
-      - title
-      - description
-      - ctaActions.0.text
       - ctaActions.0.link
-      - ctaActions.1.text
+      - ctaActions.0.text
       - ctaActions.1.link
+      - ctaActions.1.text
+      - ctaBackground
+      - description
+      - title
     section:
       id: dmf59dq4byd8kj54
       name: CTA
@@ -584,7 +594,7 @@ composite:
                   y: 1
                   w: 12
                   h: 1
-            background: background.paper
+            background: <%= ctaBackground %>
             padding: large
             gap: large
             borderRadius: medium
@@ -650,115 +660,17 @@ composite:
                 endIcon: ""
                 needLogin: false
                 id: btn-1753381708894-gbhxzm1xt
-  - id: tnfh0li7m3h4g37p
-    name: CTA with 1 button
-    summary: CTA with 1 button
-    fieldCombinations:
-      - title
-      - description
-      - ctaAction.text
-      - ctaAction.link
-    section:
-      id: dmf59dq4byd8kj54
-      name: CTA
-      component: layout-block
-      sections:
-        6e2eibno5o8vunck:
-          id: 6e2eibno5o8vunck
-          name: Section Layout
-          component: layout-block
-          sections:
-            bammisocksvdzmxb:
-              id: bammisocksvdzmxb
-              name: RichText
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            c3z1wzg1xz7zyroz:
-              id: c3z1wzg1xz7zyroz
-              name: Action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - bammisocksvdzmxb
-            - c3z1wzg1xz7zyroz
-          config:
-            gridSettings:
-              desktop:
-                bammisocksvdzmxb:
-                  x: 2
-                  y: 0
-                  w: 8
-                  h: 1
-                c3z1wzg1xz7zyroz:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-            background: background.paper
-            padding: large
-            gap: normal
-            borderRadius: medium
-            border: none
-            paddingY: large
-      sectionIds:
-        - 6e2eibno5o8vunck
-      config:
-        padding: large
-        gridSettings:
-          desktop:
-            6e2eibno5o8vunck:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-        gap: none
-        maxWidth: full
-        paddingY: none
-        paddingX: none
-    dataSource:
-      dmf59dq4byd8kj54: {}
-      6e2eibno5o8vunck: {}
-      bammisocksvdzmxb:
-        properties:
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= title %>
-              style:
-                variant: h1
-          e8f3k7m2n9p4q1s5:
-            value: true
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1753381637728-mjjp8nvd5
-                  type: text
-                  text: <%= description %>
-                  style:
-                    color: ""
-                    fontSize: 16px
-                    variant: body1
-      c3z1wzg1xz7zyroz:
-        properties:
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= ctaAction.text %>
-                url: <%= ctaAction.link %>
-                variant: contained
-                size: large
-                target: _blank
-                needLogin: false
   - id: 3wutrnnn8cscbzn5
-    name: Hero Section With background and code
-    summary: Hero Section With background and code
+    name: Hero Section with background and code
+    summary: Hero Section With background and code. The section uses white text, so
+      choose a dark, low-noise sectionBackground that guarantees WCAG AA
+      contrast.
     fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - code.filename
       - code.content
+      - code.filename
+      - heroDescription
+      - heroTitle
+      - sectionBackground
     section:
       id: t8uw2z9alumfe69d
       name: Hero
@@ -834,7 +746,7 @@ composite:
         paddingY: custom:150px
         paddingX: none
         backgroundFullWidth: true
-        background: grey.400
+        background: <%= sectionBackground %>
         gap: large
     dataSource:
       t8uw2z9alumfe69d: {}
@@ -880,122 +792,15 @@ composite:
             value: 1rem
           3uqbvyqzsluuv5hs:
             value: "500"
-  - id: 6w7bt82aes4sldo9
-    name: Hero Section with background and 1 button
-    summary: Hero Section with background and 1 button
-    fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - action.text
-      - action.link
-    section:
-      id: q9c0551tgshtkxuz
-      name: Hero
-      component: layout-block
-      sections:
-        gnbw2cxeby7rl0qr:
-          id: gnbw2cxeby7rl0qr
-          name: Title
-          component: layout-block
-          sections:
-            upo1go2xhucnawuo:
-              id: upo1go2xhucnawuo
-              name: RichText
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            x5jjs5ahienrf9oa:
-              id: x5jjs5ahienrf9oa
-              name: action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - upo1go2xhucnawuo
-            - x5jjs5ahienrf9oa
-          config:
-            gridSettings:
-              desktop:
-                upo1go2xhucnawuo:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-                x5jjs5ahienrf9oa:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-            gap: large
-            paddingX: none
-            maxWidth: full
-            alignContent: center
-      sectionIds:
-        - gnbw2cxeby7rl0qr
-      config:
-        gridSettings:
-          desktop:
-            gnbw2cxeby7rl0qr:
-              x: 0
-              y: 0
-              w: 8
-              h: 1
-        paddingY: custom:150px
-        background: grey.400
-        backgroundFullWidth: true
-        alignContent: start
-        gap: normal
-        paddingX: none
-    dataSource:
-      q9c0551tgshtkxuz: {}
-      gnbw2cxeby7rl0qr: {}
-      upo1go2xhucnawuo:
-        properties:
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= heroTitle %>
-              style:
-                color: common.white
-                variant: h1
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1754035056337-47v01f57c
-                  type: text
-                  text: <%= heroDescription %>
-                  style:
-                    color: common.white
-                    fontSize: 16px
-                    variant: body1
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-      x5jjs5ahienrf9oa:
-        properties:
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= action.text %>
-                url: <%= action.link %>
-                variant: contained
-                size: large
-                target: _blank
-                needLogin: false
-          v9979xeclpsbvn0n:
-            value: flex-start
-          v5utpm7bu9yvdpnq:
-            value: flex-start
   - id: 5qt0u2v8lnrxxw6u
     name: Code showcase with terminal
     summary: A showcase code card with terminal cast, will auto-play terminal cast
       (terminal cast must be a json, if not provider, don't use this component)
     fieldCombinations:
-      - terminalCast
-      - step
-      - code.filename
       - code.content
+      - code.filename
+      - step
+      - terminalCast
     section:
       id: znnnhf7t5im0h1r4
       name: flow-create
@@ -1142,9 +947,9 @@ composite:
     name: Section with big image
     summary: A section with big image, from top to bottom
     fieldCombinations:
-      - title
       - description
       - sectionImage
+      - title
     section:
       id: u2nl4996sckvozwt
       name: Section
@@ -1262,10 +1067,10 @@ composite:
     summary: Content card with big image, from top to bottom is image button, title,
       description
     fieldCombinations:
-      - title
       - description
-      - imageButton.link
       - imageButton.image
+      - imageButton.link
+      - title
     section:
       id: 0lhcgc203g57pq3t
       name: Card
@@ -1323,7 +1128,7 @@ composite:
             value:
               text: <%= title %>
               style:
-                variant: h3
+                variant: h2
           9ajrz12ik7esfk1z:
             value:
               list:
@@ -1354,10 +1159,10 @@ composite:
     name: Code showcase with title and description
     summary: A code showcase with title and description
     fieldCombinations:
-      - title
-      - description
-      - code.name
       - code.content
+      - code.name
+      - description
+      - title
     section:
       id: 85ikbdbx37bzs2s9
       name: Step-2
@@ -1392,6 +1197,7 @@ composite:
                   h: 1
             borderRadius: medium
             height: unset
+            border: terminal
       sectionIds:
         - t75cpdxbg8ixr260
         - 6bjawbo8s9ydpvgb
@@ -1428,7 +1234,7 @@ composite:
             value:
               text: <%= title %>
               style:
-                variant: h4
+                variant: h2
           v5utpm7bu9yvdpnq:
             value: flex-start
           9ajrz12ik7esfk1z:
@@ -1458,13 +1264,13 @@ composite:
       description, item1, item2, item3, action. Suitable for displaying long
       content."
     fieldCombinations:
-      - title
-      - description
-      - action.text
       - action.link
+      - action.text
+      - description
       - list.0
       - list.1
       - list.2
+      - title
     section:
       id: 44ar2hdabcsq8pt6
       name: Layout 1x3
@@ -1483,45 +1289,45 @@ composite:
           sections:
             f488sf2mdmis21fr:
               id: f488sf2mdmis21fr
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
-                background: transparent
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
             8223c6a77fmlu6m4:
               id: 8223c6a77fmlu6m4
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
-                background: transparent
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
             f9kqgds9jci1y1vz:
               id: f9kqgds9jci1y1vz
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
               config:
                 gridSettings:
                   desktop: {}
-                gap: large
-                paddingX: none
-                paddingY: none
-                background: transparent
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
           sectionIds:
             - f488sf2mdmis21fr
@@ -1557,10 +1363,10 @@ composite:
         - 4d0hjw3napyxbvmk
         - 5djzyjelnffm1bu2
       config:
-        gap: large
+        gap: normal
         paddingX: none
         maxWidth: full
-        paddingY: custom:100px
+        paddingY: none
         gridSettings:
           desktop:
             2u1ujyd3l49uxkdb:
@@ -1624,12 +1430,12 @@ composite:
       description, 2 items, 2 items. Suitable for displaying some text content.
       If the content is too lengthy, please refrain from using it."
     fieldCombinations:
-      - title
       - description
       - list.0
       - list.1
       - list.2
       - list.3
+      - title
     section:
       id: y0050xy5xzny5ari
       name: Layout 2x2
@@ -1642,7 +1448,7 @@ composite:
           sections:
             calwzqfvqplill9n:
               id: calwzqfvqplill9n
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1659,7 +1465,7 @@ composite:
                 paddingY: large
             eqfpyxsn127d43qd:
               id: eqfpyxsn127d43qd
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1676,7 +1482,7 @@ composite:
                 paddingY: large
             5q45otvhajst5427:
               id: 5q45otvhajst5427
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1693,7 +1499,7 @@ composite:
                 paddingY: large
             ok5tw0ml9s9ffvff:
               id: ok5tw0ml9s9ffvff
-              name: "{{list.3}}"
+              name: <%= list.3 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1809,13 +1615,13 @@ composite:
       description, 2 items, 3 items. Suitable for 5 items and requires some
       design flair"
     fieldCombinations:
-      - titile
       - description
       - list.0
       - list.1
       - list.2
       - list.3
       - list.4
+      - title
     section:
       id: ekxdt5dnblorvqre
       name: Layout 2+3
@@ -1834,7 +1640,7 @@ composite:
           sections:
             wk1c4g8ywuyytg9f:
               id: wk1c4g8ywuyytg9f
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1851,7 +1657,7 @@ composite:
                 paddingX: large
             wp1tpov8npww7vzs:
               id: wp1tpov8npww7vzs
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1869,7 +1675,7 @@ composite:
                 paddingY: large
             2bo46qeu9374eb2a:
               id: 2bo46qeu9374eb2a
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1886,7 +1692,7 @@ composite:
                 paddingY: large
             pf5t0gaf8dsvgoj2:
               id: pf5t0gaf8dsvgoj2
-              name: "{{list.3}}"
+              name: <%= list.3 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1903,7 +1709,7 @@ composite:
                 paddingY: large
             z0jsgemt2amu7ary:
               id: z0jsgemt2amu7ary
-              name: "{{list.4}}"
+              name: <%= list.4 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1982,7 +1788,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= titile %>
+              text: <%= title %>
               style:
                 variant: h1
           e8f3k7m2n9p4q1s5:
@@ -2008,13 +1814,13 @@ composite:
       description, 3 items, action. Suitable for displaying some text content.
       If the content is too lengthy, please refrain from using it."
     fieldCombinations:
-      - title
-      - description
-      - action.text
       - action.link
+      - action.text
+      - description
       - list.0
       - list.1
       - list.2
+      - title
     section:
       id: ql99yv2hc7dmen7o
       name: Layout 3x1
@@ -2033,7 +1839,7 @@ composite:
           sections:
             gixjtyy2tb60tjgy:
               id: gixjtyy2tb60tjgy
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2041,14 +1847,14 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
                 alignContent: start
             216gccdrtw6el7yo:
               id: 216gccdrtw6el7yo
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2056,14 +1862,14 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
                 alignContent: center
             xpzzv4cssqmr4h5y:
               id: xpzzv4cssqmr4h5y
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2071,9 +1877,9 @@ composite:
                 gridSettings:
                   desktop: {}
                 gap: normal
-                paddingX: none
-                paddingY: none
-                background: transparent
+                paddingX: large
+                paddingY: large
+                background: background.paper
                 borderRadius: none
                 alignContent: center
           sectionIds:
@@ -2127,7 +1933,7 @@ composite:
               y: 2
               w: 12
               h: 1
-        gap: large
+        gap: normal
         paddingX: none
         maxWidth: full
         paddingY: none

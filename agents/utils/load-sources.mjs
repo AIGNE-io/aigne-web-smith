@@ -366,7 +366,7 @@ export default async function loadSources({
   }
 
   // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Documentation\n\n";
+  let assetsContent = "# Available Media Assets for Website\n\n";
 
   if (mediaFiles.length > 0) {
     // Helper function to determine file type from extension

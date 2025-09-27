@@ -72,12 +72,14 @@ meta: # Required - page metadata
   image: string # Social sharing image path (optional)
 
 sections: # Required - page content blocks
-  - name: string # Required - section functional identifier, use camelCase naming
-    summary: string # Required - section purpose description, describing function and content intent
+  - sectionName: string # Required - section functional identifier, use camelCase naming
+    sectionSummary: string # Required - section purpose description, describing function and content intent
     # CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
     # - Only use predefined field combinations
     # - No custom or partial fields
-    # - Exception: layout components may include a `list` field, where each list item is section too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+    # - Layout sections may include a `list` field ONLY IF the chosen combination includes `list.N`
+    # - Each `list` item MUST be an object (section), not a string/number, and SHOULD include `sectionName` and `sectionSummary`
+    # - Exception: layout components may include a `list` field, where each list item is section format too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
 ```
 
 </output_examples>

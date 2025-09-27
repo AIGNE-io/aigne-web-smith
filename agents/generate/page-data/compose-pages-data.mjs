@@ -151,23 +151,6 @@ function applyIdMapDeep(obj, idMap) {
   return out;
 }
 
-/** 用一个临时 idMap（from→to）对目标对象进行就地替换（便于 slot 替换后同步 config） */
-function remapIdsInPlace(obj, fromId, toId) {
-  const map = new Map([[fromId, toId]]);
-  const remapped = applyIdMapDeep(obj, map);
-  // 原地覆盖
-  if (Array.isArray(obj)) {
-    obj.length = 0;
-    remapped.forEach((x) => obj.push(x));
-  } else if (obj && typeof obj === "object") {
-    Object.keys(obj).forEach((k) => delete obj[k]);
-    Object.entries(remapped).forEach(([k, v]) => {
-      obj[k] = v;
-    });
-  }
-  log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
-}
-
 // ============= Section Instantiation ============
 function ensureCustomComponentConfig(section) {
   if (section.component === "custom-component") {
@@ -357,36 +340,87 @@ function extractListIndexFromPath(path) {
   return Number.isFinite(n) ? n : null;
 }
 
+/** 用一个临时 idMap（from→to）对目标对象进行就地替换（便于 slot 替换后同步 config） */
+// function remapIdsInPlace(obj, fromId, toId) {
+//   const map = new Map([[fromId, toId]]);
+//   const remapped = applyIdMapDeep(obj, map);
+//   // 原地覆盖
+//   if (Array.isArray(obj)) {
+//     obj.length = 0;
+//     remapped.forEach((x) => obj.push(x));
+//   } else if (obj && typeof obj === "object") {
+//     Object.keys(obj).forEach((k) => delete obj[k]);
+//     Object.entries(remapped).forEach(([k, v]) => {
+//       obj[k] = v;
+//     });
+//   }
+//   log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
+// }
+
 /** 用子实例替换占位：同步 sections/sectionIds，并把 parent.config 中占位 id 全量替换为子实例 id */
+// function replaceSlotWithChild(slot, childSection) {
+//   const { parent, placeholderId, position } = slot;
+
+//   if (!parent.sections) parent.sections = {};
+//   if (!parent.sectionIds) parent.sectionIds = [];
+
+//   // 1) 替换 sectionIds 的位置
+//   if (position >= 0 && position < parent.sectionIds.length) {
+//     parent.sectionIds.splice(position, 1, childSection.id);
+//   } else {
+//     logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+//       placeholderId,
+//       parentId: parent.id,
+//       position,
+//     });
+//     parent.sectionIds.push(childSection.id);
+//   }
+
+//   // 2) 更新 sections 映射：删除占位 → 挂新 child
+//   delete parent.sections[placeholderId];
+//   parent.sections[childSection.id] = childSection;
+
+//   // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
+//   if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+
+//   log("🔗 [replaceSlotWithChild] slot replaced:", {
+//     parentId: parent.id,
+//     placeholderId,
+//     childId: childSection.id,
+//   });
+// }
+
+/** 挂到占位块自身：把子实例放进占位 slot 的 sections/sectionIds 下（占位保留、父层不动） */
 function replaceSlotWithChild(slot, childSection) {
   const { parent, placeholderId, position } = slot;
 
-  if (!parent.sections) parent.sections = {};
-  if (!parent.sectionIds) parent.sectionIds = [];
-
-  // 1) 替换 sectionIds 的位置
-  if (position >= 0 && position < parent.sectionIds.length) {
-    parent.sectionIds.splice(position, 1, childSection.id);
-  } else {
-    logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+  if (!parent?.sections || !parent.sections[placeholderId]) {
+    logError("❌ [replaceSlotWithChild] placeholder node not found on parent:", {
+      parentId: parent?.id,
       placeholderId,
-      parentId: parent.id,
-      position,
     });
-    parent.sectionIds.push(childSection.id);
+    return;
   }
 
-  // 2) 更新 sections 映射：删除占位 → 挂新 child
-  delete parent.sections[placeholderId];
-  parent.sections[childSection.id] = childSection;
+  // 1) 找到占位块节点（layout-block，占位名为 {{list.N}} / <%= list.N %>）
+  const placeholderNode = parent.sections[placeholderId];
 
-  // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
-  if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+  // 2) 确保占位块具备 sections/sectionIds 容器
+  if (!placeholderNode.sections) placeholderNode.sections = {};
+  if (!Array.isArray(placeholderNode.sectionIds)) placeholderNode.sectionIds = [];
 
-  log("🔗 [replaceSlotWithChild] slot replaced:", {
+  placeholderNode.name = `${parent.name}-${position + 1}`;
+
+  // 3) 在占位块下面追加子实例（不删除占位本身，也不动父层的结构）
+  placeholderNode.sections[childSection.id] = childSection;
+  placeholderNode.sectionIds.push(childSection.id);
+
+  // 4) 不改 parent.config，不做 remap，保持最小改动
+  log("➕ [replaceSlotWithChild] child appended under placeholder node:", {
     parentId: parent.id,
     placeholderId,
     childId: childSection.id,
+    slotChildren: placeholderNode.sectionIds.length,
   });
 }
 

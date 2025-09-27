@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-27T09:44:07.408Z
-updatedAt: 2025-09-27T09:44:07.408Z
-publishedAt: 2025-09-27T09:44:07.408Z
+createdAt: 2025-09-27T11:33:03.279Z
+updatedAt: 2025-09-27T11:33:03.279Z
+publishedAt: 2025-09-27T11:33:03.279Z
 isPublic: true
 locales:
   en:
@@ -127,210 +127,282 @@ sections:
         name: Cards
         component: layout-block
         sections:
-          3fe0e876ba2bc9be:
-            id: 3fe0e876ba2bc9be
-            name: Card
+          928bb0873327106a:
+            id: 928bb0873327106a
+            name: Cards - 0
             component: layout-block
             sections:
-              537f335659802f92:
-                id: 537f335659802f92
-                name: Image
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0JPjPs122kaaa-
-                sectionIds: []
-              f2fceaee42d5c604:
-                id: f2fceaee42d5c604
-                name: RichText
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-            sectionIds:
-              - 537f335659802f92
-              - f2fceaee42d5c604
-            config:
-              gridSettings:
-                desktop:
+              3fe0e876ba2bc9be:
+                id: 3fe0e876ba2bc9be
+                name: Card
+                component: layout-block
+                sections:
                   537f335659802f92:
-                    x: 0
-                    y: 0
-                    w: 2
-                    h: 1
+                    id: 537f335659802f92
+                    name: Image
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0JPjPs122kaaa-
+                    sectionIds: []
                   f2fceaee42d5c604:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-              padding: normal
-              background: transparent
-              gap: normal
-              borderRadius: none
-              border: none
-              alignContent: start
-              paddingY: none
-              paddingX: none
-          ab473ce9ac8a830e:
-            id: ab473ce9ac8a830e
-            name: Card
-            component: layout-block
-            sections:
-              17ce98744eae30cd:
-                id: 17ce98744eae30cd
-                name: Image
-                component: custom-component
+                    id: f2fceaee42d5c604
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 537f335659802f92
+                  - f2fceaee42d5c604
                 config:
-                  useCache: true
-                  componentId: xoHu0JPjPs122kaaa-
-                sectionIds: []
-              60669633b69c613c:
-                id: 60669633b69c613c
-                name: RichText
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
+                  gridSettings:
+                    desktop:
+                      537f335659802f92:
+                        x: 0
+                        y: 0
+                        w: 2
+                        h: 1
+                      f2fceaee42d5c604:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
             sectionIds:
-              - 17ce98744eae30cd
-              - 60669633b69c613c
+              - 3fe0e876ba2bc9be
             config:
               gridSettings:
-                desktop:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          456963db95590044:
+            id: 456963db95590044
+            name: Cards - 1
+            component: layout-block
+            sections:
+              ab473ce9ac8a830e:
+                id: ab473ce9ac8a830e
+                name: Card
+                component: layout-block
+                sections:
                   17ce98744eae30cd:
-                    x: 0
-                    y: 0
-                    w: 2
-                    h: 1
+                    id: 17ce98744eae30cd
+                    name: Image
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0JPjPs122kaaa-
+                    sectionIds: []
                   60669633b69c613c:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-              padding: normal
-              background: transparent
-              gap: normal
-              borderRadius: none
-              border: none
-              alignContent: start
-              paddingY: none
-              paddingX: none
-          8ed56cb8ce29cc1d:
-            id: 8ed56cb8ce29cc1d
-            name: Card
-            component: layout-block
-            sections:
-              8c47fd655d28316d:
-                id: 8c47fd655d28316d
-                name: Image
-                component: custom-component
+                    id: 60669633b69c613c
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 17ce98744eae30cd
+                  - 60669633b69c613c
                 config:
-                  useCache: true
-                  componentId: xoHu0JPjPs122kaaa-
-                sectionIds: []
-              cebc339339a2bdc3:
-                id: cebc339339a2bdc3
-                name: RichText
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
+                  gridSettings:
+                    desktop:
+                      17ce98744eae30cd:
+                        x: 0
+                        y: 0
+                        w: 2
+                        h: 1
+                      60669633b69c613c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
             sectionIds:
-              - 8c47fd655d28316d
-              - cebc339339a2bdc3
+              - ab473ce9ac8a830e
             config:
               gridSettings:
-                desktop:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          4f98146eb049817c:
+            id: 4f98146eb049817c
+            name: Cards - 2
+            component: layout-block
+            sections:
+              8ed56cb8ce29cc1d:
+                id: 8ed56cb8ce29cc1d
+                name: Card
+                component: layout-block
+                sections:
                   8c47fd655d28316d:
-                    x: 0
-                    y: 0
-                    w: 2
-                    h: 1
+                    id: 8c47fd655d28316d
+                    name: Image
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0JPjPs122kaaa-
+                    sectionIds: []
                   cebc339339a2bdc3:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-              padding: normal
-              background: transparent
-              gap: normal
-              borderRadius: none
-              border: none
-              alignContent: start
-              paddingY: none
-              paddingX: none
-          8e731e2a61a5231a:
-            id: 8e731e2a61a5231a
-            name: Card
-            component: layout-block
-            sections:
-              3dcabdcf296ca0d7:
-                id: 3dcabdcf296ca0d7
-                name: Image
-                component: custom-component
+                    id: cebc339339a2bdc3
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 8c47fd655d28316d
+                  - cebc339339a2bdc3
                 config:
-                  useCache: true
-                  componentId: xoHu0JPjPs122kaaa-
-                sectionIds: []
-              9d2f663bc2e29067:
-                id: 9d2f663bc2e29067
-                name: RichText
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
+                  gridSettings:
+                    desktop:
+                      8c47fd655d28316d:
+                        x: 0
+                        y: 0
+                        w: 2
+                        h: 1
+                      cebc339339a2bdc3:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
             sectionIds:
-              - 3dcabdcf296ca0d7
-              - 9d2f663bc2e29067
+              - 8ed56cb8ce29cc1d
             config:
               gridSettings:
-                desktop:
-                  3dcabdcf296ca0d7:
-                    x: 0
-                    y: 0
-                    w: 2
-                    h: 1
-                  9d2f663bc2e29067:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
+                desktop: {}
+                mobile: {}
               padding: normal
-              background: transparent
+              background: background.paper
               gap: normal
-              borderRadius: none
+              borderRadius: medium
               border: none
-              alignContent: start
-              paddingY: none
-              paddingX: none
+              paddingX: large
+              paddingY: large
+          9d081e0f489a9726:
+            id: 9d081e0f489a9726
+            name: Cards - 3
+            component: layout-block
+            sections:
+              8e731e2a61a5231a:
+                id: 8e731e2a61a5231a
+                name: Card
+                component: layout-block
+                sections:
+                  3dcabdcf296ca0d7:
+                    id: 3dcabdcf296ca0d7
+                    name: Image
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0JPjPs122kaaa-
+                    sectionIds: []
+                  9d2f663bc2e29067:
+                    id: 9d2f663bc2e29067
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 3dcabdcf296ca0d7
+                  - 9d2f663bc2e29067
+                config:
+                  gridSettings:
+                    desktop:
+                      3dcabdcf296ca0d7:
+                        x: 0
+                        y: 0
+                        w: 2
+                        h: 1
+                      9d2f663bc2e29067:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8e731e2a61a5231a
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
         sectionIds:
-          - 3fe0e876ba2bc9be
-          - ab473ce9ac8a830e
-          - 8ed56cb8ce29cc1d
-          - 8e731e2a61a5231a
+          - 928bb0873327106a
+          - 456963db95590044
+          - 4f98146eb049817c
+          - 9d081e0f489a9726
         config:
           gridSettings:
             desktop:
-              3fe0e876ba2bc9be:
+              928bb0873327106a:
                 x: 0
                 y: 0
                 w: 6
                 h: 1
-              ab473ce9ac8a830e:
+              456963db95590044:
                 x: 6
                 y: 0
                 w: 6
                 h: 1
-              8ed56cb8ce29cc1d:
+              4f98146eb049817c:
                 x: 0
                 y: 1
                 w: 6
                 h: 1
-              8e731e2a61a5231a:
+              9d081e0f489a9726:
                 x: 6
                 y: 1
                 w: 6

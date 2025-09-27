@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: aigne-web-smith-0925
+projectName: aigne-web-smith-0927
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: h1faat49-812a-4783-bd1c-72356783ddfa
-projectSlug: aigne-web-smith-0925
+projectId: h1faat49-812a-lk83-bd1c-72356783ddfa
+projectSlug: aigne-web-smith-0927
 
 # =============================================================================
 # Website Configuration
@@ -59,5 +59,5 @@ translateLanguages: # List of languages to translate the pages to
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: 3fe6d26d3be5e283b868602898d89f4369ed5ce8
+lastGitHead: 38d2d25644c5a2b32fff4ae41403ef592d8bf64f
 appUrl: https://staging.websmith.aigne.io/

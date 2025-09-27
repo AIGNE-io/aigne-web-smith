@@ -233,15 +233,15 @@ export function propertiesToZodSchema(
   return z.object(schemaObj);
 }
 
-const metaFields = ["name", "summary"];
+const metaFields = ["sectionName", "sectionSummary"];
 
 // 提取字段，使用路径格式表示嵌套字段
 export function extractContentFields(obj, prefix = "") {
   const fields = new Set();
 
   Object.keys(obj).forEach((key) => {
-    // 跳过 section 顶层的 meta 字段
-    if (!prefix && metaFields.includes(key)) return;
+    // 跳过 section 的 meta 字段
+    if (metaFields.includes(key)) return;
 
     const currentPath = prefix ? `${prefix}.${key}` : key;
     const value = obj[key];
@@ -310,8 +310,8 @@ export function extractFieldCombinations(middleFormatContent) {
 
     results.push({
       sectionIndex: index,
-      sectionName: section.name,
-      summary: section.summary || "",
+      sectionName: section.sectionName,
+      sectionSummary: section.sectionSummary || "",
       // 主要的字段组合（用于组件匹配）
       fieldCombinations,
       // 数组字段信息（用于参考）
@@ -445,7 +445,7 @@ export function generateFieldConstraints(componentLibrary) {
 - Zero-Tolerance List Misuse:
     - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
 - Strict List Rules:
-    - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number.
+    - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number, and SHOULD include \`sectionName\` and \`sectionSummary\`
     - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>.
     - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
     - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:

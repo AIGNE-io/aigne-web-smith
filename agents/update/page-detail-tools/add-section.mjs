@@ -38,7 +38,7 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Validate section has required properties
-  if (!parsedSection.name) {
+  if (!parsedSection.sectionName) {
     console.log(
       "⚠️  Unable to add section: Section must have a name. Please provide a unique name for the section.",
     );
@@ -51,10 +51,12 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Check if section with same name already exists
-  const existingSection = parsedPageDetail.sections.find((s) => s.name === parsedSection.name);
+  const existingSection = parsedPageDetail.sections.find(
+    (s) => s.sectionName === parsedSection.sectionName,
+  );
   if (existingSection) {
     console.log(
-      `⚠️  Unable to add section: A section with name '${parsedSection.name}' already exists. Please choose a different name for the new section.`,
+      `⚠️  Unable to add section: A section with name '${parsedSection.sectionName}' already exists. Please choose a different name for the new section.`,
     );
     return { pageDetail };
   }

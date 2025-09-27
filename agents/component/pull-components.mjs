@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import _ from "lodash";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
 import { clearDirExcept, resolveToAbsolute } from "../../utils/utils.mjs";
@@ -57,12 +58,12 @@ export default async function pullComponents(input, options = {}) {
 📊 New Components Statistics:
   🔹 Atomic components: ${atomicCount} (${oldAtomicCount} → ${atomicCount})`;
     doc.atomic?.forEach((a) => {
-      statsMessage += `\n    • ${a.name} - ${a.summary}`;
+      statsMessage += `\n    • ${a.name} - ${_.truncate(a.summary || "no summary", { length: 40 })}`;
     });
 
     statsMessage += `\n  🧩 Composite components: ${compositeCount} (${oldCompositeCount} → ${compositeCount})`;
     doc.composite?.forEach((c) => {
-      statsMessage += `\n    • ${c.name} - ${c.summary || "no summary"}`;
+      statsMessage += `\n    • ${c.name} - ${_.truncate(c.summary || "no summary", { length: 40 })}`;
     });
 
     console.log(statsMessage);

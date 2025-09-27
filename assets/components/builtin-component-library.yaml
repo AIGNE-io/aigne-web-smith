@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-27T12:15:50.430Z
+  updateAt: 2025-09-27T16:35:47.285Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -1621,7 +1621,7 @@ composite:
       - list.2
       - list.3
       - list.4
-      - titile
+      - title
     section:
       id: ekxdt5dnblorvqre
       name: Layout 2+3
@@ -1788,7 +1788,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= titile %>
+              text: <%= title %>
               style:
                 variant: h1
           e8f3k7m2n9p4q1s5:

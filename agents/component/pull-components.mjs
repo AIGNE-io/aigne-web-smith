@@ -3,7 +3,7 @@ import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
-import { resolveToAbsolute } from "../../utils/utils.mjs";
+import { clearDirExcept, resolveToAbsolute } from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,6 +20,7 @@ export default async function pullComponents(input, options = {}) {
   const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
 
   const workspacePath = resolveToAbsolute(tmpDir);
+  const websiteStructurePath = path.join(workspacePath, "website-structure.yaml");
   const generatedPagesPath = resolveToAbsolute(outputDir);
 
   try {
@@ -80,19 +81,23 @@ export default async function pullComponents(input, options = {}) {
         fs.writeFileSync(filePath, text);
         resultMessage += `\n💾 New components saved.`;
 
-        // 清空 workspace 与 output（保留目录）
-        const dirsToClear = [workspacePath, generatedPagesPath].filter(Boolean);
         const failed = [];
 
-        for (const dir of dirsToClear) {
-          try {
-            if (fs.existsSync(dir)) {
-              fs.rmSync(dir, { recursive: true, force: true });
-            }
-            fs.mkdirSync(dir, { recursive: true });
-          } catch (e) {
-            failed.push(e?.message || String(e));
+        // 清理：workspace（保留 website-structure.yaml）, 因为用户可能微调过w ebsite-structure.yaml
+        try {
+          clearDirExcept(workspacePath, [websiteStructurePath]);
+        } catch (e) {
+          failed.push(`workspace: ${e?.message || String(e)}`);
+        }
+
+        // output（全量清空）
+        try {
+          if (fs.existsSync(generatedPagesPath)) {
+            fs.rmSync(generatedPagesPath, { recursive: true, force: true });
           }
+          fs.mkdirSync(generatedPagesPath, { recursive: true });
+        } catch (e) {
+          failed.push(`output: ${e?.message || String(e)}`);
         }
 
         if (failed.length === 0) {
@@ -104,7 +109,7 @@ export default async function pullComponents(input, options = {}) {
           resultMessage += `\n${warnMsg}`;
         }
 
-        const reminder = `⏩ Next: please run below command to re-generate pages:\n\n  \`aigne web generate\`\n\n`;
+        const reminder = `🚀 Next: please run below command to re-generate pages:\n\n  \`aigne web generate\`\n\n`;
         resultMessage += `\n${reminder}`;
       } else {
         resultMessage += `\n⏩ No modification applied.`;

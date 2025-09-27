@@ -1,6 +1,14 @@
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
-import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import {
+  accessSync,
+  constants,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import fs from "node:fs/promises";
 import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import slugify from "slugify";
@@ -1207,4 +1215,31 @@ export async function pathExists(targetPath) {
 export function toDisplayPath(targetPath) {
   const rel = relative(process.cwd(), targetPath);
   return rel.startsWith("..") ? targetPath : rel || ".";
+}
+
+// === helpers: 清空目录但保留白名单 ===
+export function ensureDir(p) {
+  if (!existsSync(p)) mkdirSync(p, { recursive: true });
+}
+
+/**
+ * 清空目录但保留白名单文件/目录
+ * @param {string} dir  目标目录
+ * @param {string[]} keep  需要保留的绝对路径（文件或目录）
+ */
+export function clearDirExcept(dir, keep = []) {
+  ensureDir(dir);
+  const keepSet = new Set(keep.map((p) => path.resolve(p)));
+  const entries = readdirSync(dir, { withFileTypes: true });
+
+  for (const ent of entries) {
+    const full = path.join(dir, ent.name);
+    if (keepSet.has(path.resolve(full))) continue; // 命中白名单则跳过
+
+    if (ent.isDirectory()) {
+      rmSync(full, { recursive: true, force: true });
+    } else {
+      rmSync(full, { force: true });
+    }
+  }
 }

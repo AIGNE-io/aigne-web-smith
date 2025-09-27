@@ -1,0 +1,17 @@
+- title: AIGNE WebSmith | AI-Powered Website Generation
+  description: A comprehensive landing page that introduces AIGNE WebSmith. It
+    starts with a compelling Hero section detailing the value proposition,
+    followed by a breakdown of key Features like intelligent planning and
+    one-click publishing. A Quick Start guide demonstrates ease of use,
+    supported by sections for testimonials and FAQs to build trust and answer
+    common questions for potential customers.
+  path: /home
+  sourceIds:
+    - README.md
+    - package.json
+    - aigne.yaml
+    - utils/utils.mjs
+    - utils/generate-helper.mjs
+    - LICENSE.md
+    - CHANGELOG.md
+  parentId: ""

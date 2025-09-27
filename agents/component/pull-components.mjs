@@ -1,20 +1,27 @@
-// fetch-file.mjs
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import chalk from "chalk";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
+import { resolveToAbsolute } from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default async function pullComponents({ url }, options = {}) {
+export default async function pullComponents(input, options = {}) {
+  const { tmpDir, outputDir, url } = input;
+
   if (!url) {
     return { message: "Please provide a URL to pull components" };
   }
 
-  const componentDir = path.join(__dirname, "../../", COMPONENTS_DIR);
+  const rootDir = path.join(__dirname, "../../");
+  const componentDir = path.join(rootDir, COMPONENTS_DIR);
   const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
+
+  const workspacePath = resolveToAbsolute(tmpDir);
+  const generatedPagesPath = resolveToAbsolute(outputDir);
 
   try {
     if (!fs.existsSync(componentDir)) {
@@ -73,6 +80,33 @@ export default async function pullComponents({ url }, options = {}) {
         // 确认后才保存
         fs.writeFileSync(filePath, text);
         resultMessage += `\n💾 New components saved.`;
+
+        // 清空 workspace 与 output（保留目录）
+        const dirsToClear = [workspacePath, generatedPagesPath].filter(Boolean);
+        const failed = [];
+
+        for (const dir of dirsToClear) {
+          try {
+            if (fs.existsSync(dir)) {
+              fs.rmSync(dir, { recursive: true, force: true });
+            }
+            fs.mkdirSync(dir, { recursive: true });
+          } catch (e) {
+            failed.push(e?.message || String(e));
+          }
+        }
+
+        if (failed.length === 0) {
+          const cleanedMsg = "🧹 Cleaned previous generated content.";
+          resultMessage += `\n${cleanedMsg}`;
+        } else {
+          const warnMsg =
+            "⚠️ Some previous generated content could not be cleaned, please check manually.";
+          resultMessage += `\n${warnMsg}`;
+        }
+
+        const reminder = `⏩ Next: please run ${chalk.cyan.bold("aigne web generate")} to re-generate pages.`; // CHG
+        resultMessage += `\n${reminder}`;
       } else {
         resultMessage += `\n⏩ No modification applied.`;
       }

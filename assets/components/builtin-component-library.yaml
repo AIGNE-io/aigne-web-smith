@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-25T14:14:51.656Z
+  updateAt: 2025-09-27T06:30:12.719Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -31,12 +31,12 @@ composite:
     name: Hero Section with background and 2 buttons
     summary: A Hero Section with a background and two call-to-action buttons
     fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - actions.0.text
       - actions.0.link
-      - actions.1.text
+      - actions.0.text
       - actions.1.link
+      - actions.1.text
+      - heroDescription
+      - heroTitle
     section:
       id: 4dox83hzbbop36yp
       name: Hero
@@ -152,9 +152,9 @@ composite:
     name: Content card with icon
     summary: Content card with small icon and title and description
     fieldCombinations:
-      - icon
-      - cardTitle
       - cardDescription
+      - cardTitle
+      - icon
     section:
       id: wk1c4g8ywuyytg9f
       name: Card
@@ -238,10 +238,10 @@ composite:
     name: Feature with left image
     summary: A feature with image, and the image is on the left
     fieldCombinations:
-      - featureTitle
-      - featureDescription
-      - action.text
       - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
       - leftImage
     section:
       id: mw1ikvzx6xx1mn5a
@@ -386,13 +386,13 @@ composite:
           x8beiec3fxx5des1:
             value: 100%
   - id: z6zo5x5l0auo1ojw
-    name: Feature wuth right image
+    name: Feature with right image
     summary: A feature with image, and the image is on the right
     fieldCombinations:
-      - featureTitle
-      - featureDescription
-      - action.text
       - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
       - rightImage
     section:
       id: mw1ikvzx6xx1mn5a
@@ -540,12 +540,12 @@ composite:
     name: CTA with 2 buttons
     summary: Call-to-action with 2 buttons
     fieldCombinations:
-      - title
-      - description
-      - ctaActions.0.text
       - ctaActions.0.link
-      - ctaActions.1.text
+      - ctaActions.0.text
       - ctaActions.1.link
+      - ctaActions.1.text
+      - description
+      - title
     section:
       id: dmf59dq4byd8kj54
       name: CTA
@@ -654,10 +654,10 @@ composite:
     name: CTA with 1 button
     summary: CTA with 1 button
     fieldCombinations:
-      - title
-      - description
-      - ctaAction.text
       - ctaAction.link
+      - ctaAction.text
+      - description
+      - title
     section:
       id: dmf59dq4byd8kj54
       name: CTA
@@ -752,13 +752,13 @@ composite:
                 target: _blank
                 needLogin: false
   - id: 3wutrnnn8cscbzn5
-    name: Hero Section With background and code
+    name: Hero Section with background and code
     summary: Hero Section With background and code
     fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - code.filename
       - code.content
+      - code.filename
+      - heroDescription
+      - heroTitle
     section:
       id: t8uw2z9alumfe69d
       name: Hero
@@ -884,10 +884,10 @@ composite:
     name: Hero Section with background and 1 button
     summary: Hero Section with background and 1 button
     fieldCombinations:
-      - heroTitle
-      - heroDescription
-      - action.text
       - action.link
+      - action.text
+      - heroDescription
+      - heroTitle
     section:
       id: q9c0551tgshtkxuz
       name: Hero
@@ -992,10 +992,10 @@ composite:
     summary: A showcase code card with terminal cast, will auto-play terminal cast
       (terminal cast must be a json, if not provider, don't use this component)
     fieldCombinations:
-      - terminalCast
-      - step
-      - code.filename
       - code.content
+      - code.filename
+      - step
+      - terminalCast
     section:
       id: znnnhf7t5im0h1r4
       name: flow-create
@@ -1142,9 +1142,9 @@ composite:
     name: Section with big image
     summary: A section with big image, from top to bottom
     fieldCombinations:
-      - title
       - description
       - sectionImage
+      - title
     section:
       id: u2nl4996sckvozwt
       name: Section
@@ -1262,10 +1262,10 @@ composite:
     summary: Content card with big image, from top to bottom is image button, title,
       description
     fieldCombinations:
-      - title
       - description
-      - imageButton.link
       - imageButton.image
+      - imageButton.link
+      - title
     section:
       id: 0lhcgc203g57pq3t
       name: Card
@@ -1354,10 +1354,10 @@ composite:
     name: Code showcase with title and description
     summary: A code showcase with title and description
     fieldCombinations:
-      - title
-      - description
-      - code.name
       - code.content
+      - code.name
+      - description
+      - title
     section:
       id: 85ikbdbx37bzs2s9
       name: Step-2
@@ -1458,13 +1458,13 @@ composite:
       description, item1, item2, item3, action. Suitable for displaying long
       content."
     fieldCombinations:
-      - title
-      - description
-      - action.text
       - action.link
+      - action.text
+      - description
       - list.0
       - list.1
       - list.2
+      - title
     section:
       id: 44ar2hdabcsq8pt6
       name: Layout 1x3
@@ -1483,7 +1483,7 @@ composite:
           sections:
             f488sf2mdmis21fr:
               id: f488sf2mdmis21fr
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1497,7 +1497,7 @@ composite:
                 borderRadius: none
             8223c6a77fmlu6m4:
               id: 8223c6a77fmlu6m4
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1511,7 +1511,7 @@ composite:
                 borderRadius: none
             f9kqgds9jci1y1vz:
               id: f9kqgds9jci1y1vz
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1624,12 +1624,12 @@ composite:
       description, 2 items, 2 items. Suitable for displaying some text content.
       If the content is too lengthy, please refrain from using it."
     fieldCombinations:
-      - title
       - description
       - list.0
       - list.1
       - list.2
       - list.3
+      - title
     section:
       id: y0050xy5xzny5ari
       name: Layout 2x2
@@ -1642,7 +1642,7 @@ composite:
           sections:
             calwzqfvqplill9n:
               id: calwzqfvqplill9n
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1659,7 +1659,7 @@ composite:
                 paddingY: large
             eqfpyxsn127d43qd:
               id: eqfpyxsn127d43qd
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1676,7 +1676,7 @@ composite:
                 paddingY: large
             5q45otvhajst5427:
               id: 5q45otvhajst5427
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1693,7 +1693,7 @@ composite:
                 paddingY: large
             ok5tw0ml9s9ffvff:
               id: ok5tw0ml9s9ffvff
-              name: "{{list.3}}"
+              name: <%= list.3 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1809,13 +1809,13 @@ composite:
       description, 2 items, 3 items. Suitable for 5 items and requires some
       design flair"
     fieldCombinations:
-      - titile
       - description
       - list.0
       - list.1
       - list.2
       - list.3
       - list.4
+      - titile
     section:
       id: ekxdt5dnblorvqre
       name: Layout 2+3
@@ -1834,7 +1834,7 @@ composite:
           sections:
             wk1c4g8ywuyytg9f:
               id: wk1c4g8ywuyytg9f
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1851,7 +1851,7 @@ composite:
                 paddingX: large
             wp1tpov8npww7vzs:
               id: wp1tpov8npww7vzs
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1869,7 +1869,7 @@ composite:
                 paddingY: large
             2bo46qeu9374eb2a:
               id: 2bo46qeu9374eb2a
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1886,7 +1886,7 @@ composite:
                 paddingY: large
             pf5t0gaf8dsvgoj2:
               id: pf5t0gaf8dsvgoj2
-              name: "{{list.3}}"
+              name: <%= list.3 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -1903,7 +1903,7 @@ composite:
                 paddingY: large
             z0jsgemt2amu7ary:
               id: z0jsgemt2amu7ary
-              name: "{{list.4}}"
+              name: <%= list.4 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2008,13 +2008,13 @@ composite:
       description, 3 items, action. Suitable for displaying some text content.
       If the content is too lengthy, please refrain from using it."
     fieldCombinations:
-      - title
-      - description
-      - action.text
       - action.link
+      - action.text
+      - description
       - list.0
       - list.1
       - list.2
+      - title
     section:
       id: ql99yv2hc7dmen7o
       name: Layout 3x1
@@ -2033,7 +2033,7 @@ composite:
           sections:
             gixjtyy2tb60tjgy:
               id: gixjtyy2tb60tjgy
-              name: "{{list.0}}"
+              name: <%= list.0 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2048,7 +2048,7 @@ composite:
                 alignContent: start
             216gccdrtw6el7yo:
               id: 216gccdrtw6el7yo
-              name: "{{list.1}}"
+              name: <%= list.1 %>
               component: layout-block
               sections: {}
               sectionIds: []
@@ -2063,7 +2063,7 @@ composite:
                 alignContent: center
             xpzzv4cssqmr4h5y:
               id: xpzzv4cssqmr4h5y
-              name: "{{list.2}}"
+              name: <%= list.2 %>
               component: layout-block
               sections: {}
               sectionIds: []

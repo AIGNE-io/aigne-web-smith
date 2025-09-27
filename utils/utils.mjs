@@ -2,7 +2,7 @@ import { execSync } from "node:child_process";
 import crypto from "node:crypto";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
-import path, { join } from "node:path";
+import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
@@ -1187,4 +1187,24 @@ export function toKebabCase(str) {
       // Replace multiple consecutive hyphens with single hyphen
       .replace(/-+/g, "-")
   );
+}
+
+export function resolveToAbsolute(value) {
+  if (!value) return undefined;
+  return isAbsolute(value) ? value : resolvePath(process.cwd(), value);
+}
+
+export async function pathExists(targetPath) {
+  try {
+    await fs.stat(targetPath);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+export function toDisplayPath(targetPath) {
+  const rel = relative(process.cwd(), targetPath);
+  return rel.startsWith("..") ? targetPath : rel || ".";
 }

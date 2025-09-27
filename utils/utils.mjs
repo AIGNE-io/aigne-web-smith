@@ -1217,15 +1217,14 @@ export function toDisplayPath(targetPath) {
   return rel.startsWith("..") ? targetPath : rel || ".";
 }
 
-// === helpers: 清空目录但保留白名单 ===
 export function ensureDir(p) {
   if (!existsSync(p)) mkdirSync(p, { recursive: true });
 }
 
 /**
- * 清空目录但保留白名单文件/目录
- * @param {string} dir  目标目录
- * @param {string[]} keep  需要保留的绝对路径（文件或目录）
+ * Clear directory contents while preserving whitelisted files/directories
+ * @param {string} dir  target directory
+ * @param {string[]} keep  the absolute paths of files/directories to keep
  */
 export function clearDirExcept(dir, keep = []) {
   ensureDir(dir);

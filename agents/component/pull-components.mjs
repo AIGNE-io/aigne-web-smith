@@ -84,7 +84,7 @@ export default async function pullComponents(input, options = {}) {
 
         const failed = [];
 
-        // 清理：workspace（保留 website-structure.yaml）, 因为用户可能微调过w ebsite-structure.yaml
+        // keep website-structure.yaml, because user may have modified it
         try {
           clearDirExcept(workspacePath, [websiteStructurePath]);
         } catch (e) {

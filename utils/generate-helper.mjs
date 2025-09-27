@@ -235,12 +235,12 @@ export function propertiesToZodSchema(
 
 const metaFields = ["sectionName", "sectionSummary"];
 
-// 提取字段，使用路径格式表示嵌套字段
+// Extract fields using path format to represent nested fields
 export function extractContentFields(obj, prefix = "") {
   const fields = new Set();
 
   Object.keys(obj).forEach((key) => {
-    // 跳过 section 的 meta 字段
+    // skip meta fields
     if (metaFields.includes(key)) return;
 
     const currentPath = prefix ? `${prefix}.${key}` : key;
@@ -251,7 +251,7 @@ export function extractContentFields(obj, prefix = "") {
         fields.add(`${currentPath}.${index}`);
       });
     } else if (typeof value === "object" && value !== null) {
-      // 对象字段：递归提取子字段，使用路径格式
+      // recursive extract sub fields
       const subFields = extractContentFields(value, currentPath);
 
       subFields.forEach((field) => fields.add(field));
@@ -446,7 +446,7 @@ export function generateFieldConstraints(componentLibrary) {
     - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
 - Strict List Rules:
     - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number, and SHOULD include \`sectionName\` and \`sectionSummary\`
-    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>.
+    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>
     - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
     - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:
         ${LIST_KEY}:
@@ -455,10 +455,10 @@ export function generateFieldConstraints(componentLibrary) {
 `;
 
   constraints += `- Value-Level Downgrade (fallback when no exact match <allowed_field_combinations> exists):
-    - What it does: Allows using the closest **allowed superset** combination so the **emitted field set still exactly equals** one entry in <allowed_field_combinations>, while hiding secondary UI elements at render time.
-    - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space.
-    - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules.
-    - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`.
+    - What it does: Allows using the closest **allowed superset** combination so the **emitted field set still exactly equals** one entry in <allowed_field_combinations>, while hiding secondary UI elements at render time
+    - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space
+    - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules
+    - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`
 `;
 
   return constraints;

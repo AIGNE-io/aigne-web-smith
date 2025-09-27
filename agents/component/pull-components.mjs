@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import chalk from "chalk";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
 import { resolveToAbsolute } from "../../utils/utils.mjs";
@@ -105,7 +104,7 @@ export default async function pullComponents(input, options = {}) {
           resultMessage += `\n${warnMsg}`;
         }
 
-        const reminder = `⏩ Next: please run ${chalk.cyan.bold("aigne web generate")} to re-generate pages.`; // CHG
+        const reminder = `⏩ Next: please run below command to re-generate pages:\n\n  \`aigne web generate\`\n\n`;
         resultMessage += `\n${reminder}`;
       } else {
         resultMessage += `\n⏩ No modification applied.`;

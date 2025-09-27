@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-27T08:52:29.001Z
+  updateAt: 2025-09-27T09:42:01.442Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -194,7 +194,7 @@ composite:
         padding: normal
         background: transparent
         gap: normal
-        borderRadius: medium
+        borderRadius: none
         border: none
         alignContent: start
         paddingY: none
@@ -541,7 +541,8 @@ composite:
             value: 100%
   - id: h1x8yr953m7g6r40
     name: CTA with 2 buttons
-    summary: Call-to-action with 2 buttons
+    summary: Call-to-action with 2 buttons. The section uses `text.primary` text, so
+      choose a fitting  ctaBackground  color that guarantees WCAG AA contrast.
     fieldCombinations:
       - ctaActions.0.link
       - ctaActions.0.text

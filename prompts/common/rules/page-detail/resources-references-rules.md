@@ -14,7 +14,7 @@
 - Color & Contrast (fields like "xxxBackground", "background", "backgroundColor", "xxxColor"):
   - Scope: Applies to fields whose names indicate color or background usage.
   - Allowed values:
-    - MUI palette tokens (strings), e.g., "primary.dark", "grey[900]" (or their light variants).
+    - MUI palette tokens (strings), e.g., "primary.dark", "grey.900" (or their light variants).
     - Standard CSS color/gradient strings, e.g., "#000000", "#FFFFFF", "rgb(...)", "hsl(...)", "linear-gradient(...)".
     - Background images from "<available_media_assets>" using exact "mediaKitPath" (must follow Media Resources guardrails).
   - Contrast heuristic:

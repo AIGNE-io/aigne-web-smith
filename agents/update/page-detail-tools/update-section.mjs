@@ -52,7 +52,7 @@ export default async function updateSection({ pageDetail, name, updates }) {
   }
 
   // Find the section to update
-  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === name);
   if (sectionIndex === -1) {
     console.log(`⚠️  Update failed: Section '${name}' not found`);
     return { pageDetail };

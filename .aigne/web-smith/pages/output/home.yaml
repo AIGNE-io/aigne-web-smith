@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-29T09:01:33.342Z
-updatedAt: 2025-09-29T09:01:33.342Z
-publishedAt: 2025-09-29T09:01:33.342Z
+createdAt: 2025-09-29T09:16:52.828Z
+updatedAt: 2025-09-29T09:16:52.828Z
+publishedAt: 2025-09-29T09:16:52.828Z
 isPublic: true
 locales:
   en:
@@ -22,8 +22,8 @@ locales:
       maxWidth: custom:1560px
       paddingY: large
       paddingX: large
-    title: AIGNE WebSmith | AI 驱动的网站生成
-    description: 使用 AIGNE WebSmith 在几分钟内生成专业、SEO 优化的网站。从一个简单想法到一个可上线的多页面网站，只需一条命令。立即试用！
+    title: AIGNE WebSmith | 人工智能驱动的网站生成
+    description: 使用 AIGNE WebSmith 在几分钟内生成专业且符合 SEO 的网站。从一个简单的想法通过一个命令生成一个上线的多页面站点。立即试用！
     header:
       sticky: true
 sections:
@@ -379,11 +379,267 @@ sections:
               border: none
               paddingX: large
               paddingY: large
+          83495bd13b8dbcd8:
+            id: 83495bd13b8dbcd8
+            name: Cards-5
+            component: layout-block
+            sections:
+              69577fcc82f2c8c5:
+                id: 69577fcc82f2c8c5
+                name: Card
+                component: layout-block
+                sections:
+                  da6b792c97ecf07e:
+                    id: da6b792c97ecf07e
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  f2fb3166b6c9c1fc:
+                    id: f2fb3166b6c9c1fc
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - da6b792c97ecf07e
+                  - f2fb3166b6c9c1fc
+                config:
+                  gridSettings:
+                    desktop:
+                      f2fb3166b6c9c1fc:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      da6b792c97ecf07e:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 69577fcc82f2c8c5
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          2f16ea58d6ebefbf:
+            id: 2f16ea58d6ebefbf
+            name: Cards-6
+            component: layout-block
+            sections:
+              0ed68e62ff5c0d3b:
+                id: 0ed68e62ff5c0d3b
+                name: Card
+                component: layout-block
+                sections:
+                  040b190b21b2d8e2:
+                    id: 040b190b21b2d8e2
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  28f6b4d80fb340cf:
+                    id: 28f6b4d80fb340cf
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 040b190b21b2d8e2
+                  - 28f6b4d80fb340cf
+                config:
+                  gridSettings:
+                    desktop:
+                      28f6b4d80fb340cf:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      040b190b21b2d8e2:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 0ed68e62ff5c0d3b
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          3726d68d9bc218f0:
+            id: 3726d68d9bc218f0
+            name: Cards-7
+            component: layout-block
+            sections:
+              15adedc85a14501e:
+                id: 15adedc85a14501e
+                name: Card
+                component: layout-block
+                sections:
+                  3ddf7b7ee84e131c:
+                    id: 3ddf7b7ee84e131c
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  4c6c8aacd4cbe2cb:
+                    id: 4c6c8aacd4cbe2cb
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 3ddf7b7ee84e131c
+                  - 4c6c8aacd4cbe2cb
+                config:
+                  gridSettings:
+                    desktop:
+                      4c6c8aacd4cbe2cb:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      3ddf7b7ee84e131c:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 15adedc85a14501e
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          0b4ad17294cfbc0c:
+            id: 0b4ad17294cfbc0c
+            name: Cards-8
+            component: layout-block
+            sections:
+              7dd5b0a0e5e3a19b:
+                id: 7dd5b0a0e5e3a19b
+                name: Card
+                component: layout-block
+                sections:
+                  420a287fc4bfd9bb:
+                    id: 420a287fc4bfd9bb
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  ea8788ea640d4f08:
+                    id: ea8788ea640d4f08
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 420a287fc4bfd9bb
+                  - ea8788ea640d4f08
+                config:
+                  gridSettings:
+                    desktop:
+                      ea8788ea640d4f08:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      420a287fc4bfd9bb:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 7dd5b0a0e5e3a19b
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
         sectionIds:
           - 790f93f1a90c39d8
           - 9b371fac7878711c
           - 0eb9070483fc013b
           - 7021e96745d882f4
+          - 83495bd13b8dbcd8
+          - 2f16ea58d6ebefbf
+          - 3726d68d9bc218f0
+          - 0b4ad17294cfbc0c
         config:
           gridSettings:
             desktop:
@@ -405,6 +661,26 @@ sections:
               7021e96745d882f4:
                 x: 6
                 y: 1
+                w: 6
+                h: 1
+              83495bd13b8dbcd8:
+                x: 0
+                y: 2
+                w: 6
+                h: 1
+              2f16ea58d6ebefbf:
+                x: 6
+                y: 2
+                w: 6
+                h: 1
+              3726d68d9bc218f0:
+                x: 0
+                y: 3
+                w: 6
+                h: 1
+              0b4ad17294cfbc0c:
+                x: 6
+                y: 3
                 w: 6
                 h: 1
           padding: none
@@ -992,7 +1268,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 用 AI 即刻构建您的下一个网站。
+            text: 使用人工智能，立即构建您的下一个网站。
             style:
               color: common.white
               variant: h1
@@ -1003,8 +1279,8 @@ dataSource:
             list:
               - id: item-1754131284858-7ip6im6yq
                 type: text
-                text: 无需再与代码和内容斗争。AIGNE WebSmith 是您的 AI 合作伙伴，可自动完成从规划和内容创作到发布 SEO
-                  优化模板的所有工作。只需一条命令，即可从想法到上线网站！
+                text: 不再为代码和内容苦恼。AIGNE WebSmith 是您的人工智能伙伴，可自动化从规划和内容创建到发布符合 SEO
+                  的模板的一切工作。只需一个命令即可将想法变成上线网站！
                 style:
                   color: common.white
                   fontSize: 16px
@@ -1074,7 +1350,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 一应俱全，完全自动化
+            text: 所需的一切，完全自动化
             style:
               variant: h1
         e8f3k7m2n9p4q1s5:
@@ -1084,7 +1360,7 @@ dataSource:
             list:
               - id: item-1758789736331-y7vkch80n
                 type: text
-                text: WebSmith 功能强大，旨在让网站创建变得像魔法般简单。以下是您开箱即得的功能：
+                text: WebSmith 拥有强大功能，旨在让网站创建感觉像魔法。以下是您开箱即得的内容：
                 style:
                   color: ""
                   fontSize: 16px
@@ -1131,7 +1407,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 只需描述您的愿景！我们的 AI 代理会智能规划网站结构、批量生成所有内容，甚至为搜索引擎进行优化。
+                text: 只需描述您的愿景！我们的 AI 代理会智能规划站点结构、批量生成所有内容，甚至为搜索引擎进行优化。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1199,7 +1475,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 每次都能获得漂亮且响应式的网站。我们使用现代组件库生成与 Pages Kit 兼容的模板，您甚至可以进行可视化编辑。
+                text: 每次都能获得华丽且响应式的网站。我们使用现代组件库生成与 Pages Kit 兼容的模板，您甚至可以通过可视化方式编辑它们。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1256,7 +1532,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 内置质量保障
+            text: 内置质量保证
             style:
               fontSize: ""
               variant: h4
@@ -1267,7 +1543,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 放心发布。我们的系统会自动评估网站的结构和内容质量，依托 32+ 项测试确保一切正常运行。
+                text: 自信上线。我们的系统会自动评估您站点的结构和内容质量，依托 32+ 项测试以确保一切正常运行。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1335,7 +1611,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 何必等待？使用一条命令即可将整个网站直接发布到 Pages Kit。完成后您会立即获得一个上线链接。就是如此简单！
+                text: 何必等待？通过一条命令将整个网站直接发布到 Pages Kit。完成后您会立即获得一个可访问链接。就是如此简单！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1357,6 +1633,278 @@ dataSource:
       properties:
         5ek4m0kw9cu0ndns:
           value: mdi:rocket-launch-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  f2fb3166b6c9c1fc:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Multi-language Support
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Reach a global audience! WebSmith supports content generation in both
+                  Chinese and English, with easy translation workflows to
+                  localize your site effortlessly.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 多语言支持
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: 触达全球受众！WebSmith 支持中文和英文的内容生成，并提供简便的翻译工作流程，轻松实现站点本地化。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  da6b792c97ecf07e:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:translate
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:translate
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  28f6b4d80fb340cf:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Visual Editing Ready
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Love to tweak the final look? The templates we generate are fully
+                  compatible with visual editors, letting you make quick
+                  adjustments without ever touching code.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 支持可视化编辑
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: 喜欢微调最终外观？我们生成的模板与可视化编辑器完全兼容，让您无需接触代码即可快速调整。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  040b190b21b2d8e2:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:pencil-ruler
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:pencil-ruler
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  4c6c8aacd4cbe2cb:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Component-Based Design
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Build like a pro with modern components like Hero, CTA, and FAQ. Our
+                  integrated library ensures your site looks consistent,
+                  polished, and professional.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 基于组件的设计
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: 使用现代组件（如 Hero、CTA 和 FAQ）像专业人士一样构建。我们的集成库确保您的站点外观一致、精致且专业。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  3ddf7b7ee84e131c:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:view-grid-plus-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:view-grid-plus-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  ea8788ea640d4f08:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: SEO Optimized
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Get discovered from day one! WebSmith follows SEO best practices
+                  out-of-the-box, helping your amazing new website rank higher
+                  in search results automatically.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: SEO 优化
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: 从第一天起就能被发现！WebSmith 开箱即用地遵循 SEO 最佳实践，帮助您出色的新网站在搜索结果中自动获得更高排名。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  420a287fc4bfd9bb:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:chart-line
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:chart-line
         529qbwiam7oypw8e:
           value: 40px
         gugqsxx3xyveuu8n:
@@ -1387,7 +1935,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 几分钟内上线
+            text: 几分钟即可上线
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -1397,7 +1945,7 @@ dataSource:
             list:
               - id: item-1753781653625-ia4shqnk4
                 type: text
-                text: 距离一个全新网站上线比您想象的更近。只需用一个简单的 YAML 文件记录您的愿景，让 WebSmith 处理其余工作。非常轻松！
+                text: 距离一个全新网站的上线比您想象的更近。只需创建一个包含您愿景的简单 YAML 文件，然后让 WebSmith 处理剩下的工作。非常轻松！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1438,21 +1986,34 @@ dataSource:
         a7frn5jmx5vpxpt3:
           value: |-
             # 1. Create your website plan in a file like my-website.yaml
-            rules: |
-              Create a modern SaaS product website that includes:
-              1. Product introduction and core features
-              2. Pricing plan comparison
-              3. Customer success stories
 
-              Requirements:
-              - Professional business style
-              - Highlight product advantages
-              - Include clear CTA to guide users to trial
-            targetAudience: SMB owners and technical decision makers
-            locale: en
+                    rules: |
 
-            # 2. Run the generate command!
-            aigne web generate --input @my-website.yaml
+                      Create a modern SaaS product website that includes:
+
+                      1. Product introduction and core features
+
+                      2. Pricing plan comparison
+
+                      3. Customer success stories
+
+
+                      Requirements:
+
+                      - Professional business style
+
+                      - Highlight product advantages
+
+                      - Include clear CTA to guide users to trial
+
+                    targetAudience: SMB owners and technical decision makers
+
+                    locale: en
+
+
+                    # 2. Run the generate command!
+
+                    aigne web generate --input @my-website.yaml
         d8hvf7cxz93jk5p:
           value: 1rem
   29aef9b049421e10:
@@ -1482,7 +2043,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 工作原理：我们的代理式架构
+            text: 工作原理：我们的代理驱动架构
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -1492,8 +2053,8 @@ dataSource:
             list:
               - id: item-1753781653625-ia4shqnk4
                 type: text
-                text: WebSmith 不仅仅是一个
-                  AI——它是一支协调合作的专业代理团队！每个代理都有特定任务，从规划结构到生成内容和模板，确保网站的每一部分都由专人打造。
+                text: WebSmith
+                  不只是单一的人工智能——它是一个协调的专业代理团队！每个代理都有特定职责，从规划结构到生成内容和模板，确保网站的每个部分都由专家打造。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1528,19 +2089,30 @@ dataSource:
         e9kvx5d7y82lm3n:
           value: material
         a7frn5jmx5vpxpt3:
-          value: |-
+          value: >-
             ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Structure      │    │  Content        │    │  Template       │
-            │  Planning       │───▶│  Generation     │───▶│  Generation     │
-            │  Agent          │    │  Agent          │    │  Agent          │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
-                     │                       │                       │
-                     ▼                       ▼                       ▼
-            ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-            │  Evaluation     │    │  Batch          │    │  Upload         │
-            │  Agent          │    │  Processing     │    │  Agent          │
-            │                 │    │  Agent          │    │                 │
-            └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+                    │  Structure      │    │  Content        │    │  Template       │
+
+                    │  Planning       │───▶│  Generation     │───▶│  Generation     │
+
+                    │  Agent          │    │  Agent          │    │  Agent          │
+
+                    └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+                             │                       │                       │
+
+                             ▼                       ▼                       ▼
+
+                    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+
+                    │  Evaluation     │    │  Batch          │    │  Upload         │
+
+                    │  Agent          │    │  Processing     │    │  Agent          │
+
+                    │                 │    │  Agent          │    │                 │
+
+                    └─────────────────┘    └─────────────────┘    └─────────────────┘
         d8hvf7cxz93jk5p:
           value: 1rem
   1b728675098cbfbd:
@@ -1575,7 +2147,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 常见问题解答
+            text: 您的问题，已解答！
             style:
               fontSize: 32px
               variant: h1
@@ -1584,7 +2156,7 @@ dataSource:
             list:
               - id: item-1754037726128-q9f6xufkq
                 type: text
-                text: 有疑问？我们有答案！以下是人们常问的关于 AIGNE WebSmith 的几个问题。
+                text: 有问题？我们有答案！以下是人们经常询问的关于 AIGNE WebSmith 的一些事项。
                 style:
                   color: text.secondary
                   fontSize: ""
@@ -1657,8 +2229,8 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 它是一个极其智能的 AI 工具，可为您构建完整的网站！它使用 AIGNE Framework
-                  自动规划网站、撰写所有内容、创建模板，甚至将其发布到线上。
+                text: 它是一个超智能的人工智能工具，可以为您构建完整的网站！它使用 AIGNE Framework
+                  自动规划您的站点、撰写所有内容、创建模板，甚至将其发布到线上。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1726,7 +2298,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 适用于任何想要省心获得专业网站的人，尤其是重视速度与质量的中小企业主以及负责技术决策的人士。
+                text: 它非常适合希望获得专业网站而不想烦恼的人，尤其是重视速度和质量的中小企业主及技术决策者。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1783,7 +2355,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 它真的能多快构建一个网站？
+            text: 它到底能多快构建网站？
             style:
               fontSize: ""
               variant: h4
@@ -1794,7 +2366,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: 惊人之快！一个典型的 5 页网站大约可在 2–3 分钟内就绪。从想法到上线链接所用时间少于煮一壶咖啡的时间。
+                text: 惊人地快！一个典型的 5 页网站大约在 2-3 分钟内就能准备就绪。从想法到生成可访问链接所需时间甚至比煮一壶咖啡还短。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1851,7 +2423,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 我的网站发布到哪里？
+            text: 我的网站会发布到哪里？
             style:
               fontSize: ""
               variant: h4
@@ -1862,7 +2434,7 @@ dataSource:
             list:
               - id: item-1753379691477-fu786lae3
                 type: text
-                text: WebSmith 设计为与 Pages Kit 无缝配合。它生成兼容的模板，并允许您使用一条简单命令将网站直接发布到该平台。
+                text: WebSmith 的设计可与 Pages Kit 无缝协作。它生成兼容的模板，并允许您通过一条简单的命令将站点直接发布到该平台。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1924,7 +2496,7 @@ dataSource:
             list:
               - id: item-1753381637728-mjjp8nvd5
                 type: text
-                text: 网页开发的未来已至。停止手工构建，开始生成。深入仓库查看代码，或探索支撑这一切的框架。
+                text: 网页开发的未来已经到来。停止手动构建，开始生成。深入代码库查看代码，或探索支撑这一切的框架。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1960,7 +2532,7 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: 在 GitHub 查看
+              text: 在 GitHub 上查看
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large

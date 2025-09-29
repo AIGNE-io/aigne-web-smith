@@ -70,7 +70,7 @@ export default async function addSection({ pageDetail, section, position }) {
       insertIndex = Math.max(0, Math.min(position, parsedPageDetail.sections.length));
     } else if (typeof position === "string") {
       // Position is relative to another section
-      const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === position);
+      const refIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === position);
       if (refIndex !== -1) {
         insertIndex = refIndex + 1; // Insert after the reference section
       }

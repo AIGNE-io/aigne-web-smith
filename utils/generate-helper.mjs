@@ -8,7 +8,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import _ from "lodash";
 import { nanoid } from "nanoid";
-import { parse } from "yaml";
+import { parse, stringify } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { LIST_KEY } from "./constants.mjs";
@@ -422,16 +422,28 @@ export function generateFieldConstraints(componentLibrary) {
 
   // Atomic fields section
   constraints += "<atomic_component_information>\n";
-  atomicFields.forEach((item) => {
-    const { name, summary } = item;
-    constraints += `- \`${name}\`: ${summary}\n`;
+  const atomicComponentInfo = atomicFields.map((item) => {
+    return {
+      name: item.name,
+      summary: item.summary,
+    };
+  });
+  constraints += stringify(atomicComponentInfo, {
+    aliasDuplicateObjects: false,
   });
   constraints += "</atomic_component_information>\n\n";
 
   // Composite combinations section
   constraints += "<allowed_field_combinations>\n";
-  compositeFields.forEach((item) => {
-    constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
+  const allowedFieldCombinations = compositeFields.map((item) => {
+    return {
+      fieldCombinations: item.fieldCombinations,
+      name: item.name,
+      summary: item.summary,
+    };
+  });
+  constraints += stringify(allowedFieldCombinations, {
+    aliasDuplicateObjects: false,
   });
   constraints += "</allowed_field_combinations>\n\n";
 

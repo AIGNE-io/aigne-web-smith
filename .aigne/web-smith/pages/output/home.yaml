@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-29T07:17:12.081Z
-updatedAt: 2025-09-29T07:17:12.081Z
-publishedAt: 2025-09-29T07:17:12.081Z
+createdAt: 2025-09-29T07:59:10.319Z
+updatedAt: 2025-09-29T07:59:10.319Z
+publishedAt: 2025-09-29T07:59:10.319Z
 isPublic: true
 locales:
   en:
@@ -87,6 +87,339 @@ sections:
       paddingY: custom:150px
       background: "linear-gradient(135deg, #0f172a, #1e293b)"
       backgroundFullWidth: true
+  066eb1323f773e9d:
+    id: 066eb1323f773e9d
+    name: Layout 2x2
+    component: layout-block
+    sections:
+      801367372a9d7987:
+        id: 801367372a9d7987
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      0bacfea0909b8f07:
+        id: 0bacfea0909b8f07
+        name: Cards
+        component: layout-block
+        sections:
+          790f93f1a90c39d8:
+            id: 790f93f1a90c39d8
+            name: Cards-1
+            component: layout-block
+            sections:
+              3fe0e876ba2bc9be:
+                id: 3fe0e876ba2bc9be
+                name: Card
+                component: layout-block
+                sections:
+                  d623545c67c0bae5:
+                    id: d623545c67c0bae5
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  f2fceaee42d5c604:
+                    id: f2fceaee42d5c604
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - d623545c67c0bae5
+                  - f2fceaee42d5c604
+                config:
+                  gridSettings:
+                    desktop:
+                      f2fceaee42d5c604:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      d623545c67c0bae5:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 3fe0e876ba2bc9be
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          9b371fac7878711c:
+            id: 9b371fac7878711c
+            name: Cards-2
+            component: layout-block
+            sections:
+              ab473ce9ac8a830e:
+                id: ab473ce9ac8a830e
+                name: Card
+                component: layout-block
+                sections:
+                  a00892c014dbf1b6:
+                    id: a00892c014dbf1b6
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  60669633b69c613c:
+                    id: 60669633b69c613c
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - a00892c014dbf1b6
+                  - 60669633b69c613c
+                config:
+                  gridSettings:
+                    desktop:
+                      60669633b69c613c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      a00892c014dbf1b6:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - ab473ce9ac8a830e
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          0eb9070483fc013b:
+            id: 0eb9070483fc013b
+            name: Cards-3
+            component: layout-block
+            sections:
+              8ed56cb8ce29cc1d:
+                id: 8ed56cb8ce29cc1d
+                name: Card
+                component: layout-block
+                sections:
+                  258d860b278ad281:
+                    id: 258d860b278ad281
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  cebc339339a2bdc3:
+                    id: cebc339339a2bdc3
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 258d860b278ad281
+                  - cebc339339a2bdc3
+                config:
+                  gridSettings:
+                    desktop:
+                      cebc339339a2bdc3:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      258d860b278ad281:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8ed56cb8ce29cc1d
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          7021e96745d882f4:
+            id: 7021e96745d882f4
+            name: Cards-4
+            component: layout-block
+            sections:
+              8e731e2a61a5231a:
+                id: 8e731e2a61a5231a
+                name: Card
+                component: layout-block
+                sections:
+                  db033aae1e3c1d54:
+                    id: db033aae1e3c1d54
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  9d2f663bc2e29067:
+                    id: 9d2f663bc2e29067
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - db033aae1e3c1d54
+                  - 9d2f663bc2e29067
+                config:
+                  gridSettings:
+                    desktop:
+                      9d2f663bc2e29067:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      db033aae1e3c1d54:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8e731e2a61a5231a
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+        sectionIds:
+          - 790f93f1a90c39d8
+          - 9b371fac7878711c
+          - 0eb9070483fc013b
+          - 7021e96745d882f4
+        config:
+          gridSettings:
+            desktop:
+              790f93f1a90c39d8:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              9b371fac7878711c:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              0eb9070483fc013b:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              7021e96745d882f4:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+          padding: none
+          gap: normal
+          background: transparent
+    sectionIds:
+      - 801367372a9d7987
+      - 0bacfea0909b8f07
+    config:
+      gridSettings:
+        desktop:
+          0bacfea0909b8f07:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          801367372a9d7987:
+            x: 2
+            y: 0
+            w: 8
+            h: 1
+        mobile:
+          0bacfea0909b8f07:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          801367372a9d7987:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      padding: large
+      maxWidth: full
+      paddingX: none
+      paddingY: none
   d8dfd84a98473a87:
     id: d8dfd84a98473a87
     name: Step-2
@@ -218,6 +551,7 @@ sections:
       paddingY: none
 sectionIds:
   - cd5bde18baa5fa64
+  - 066eb1323f773e9d
   - d8dfd84a98473a87
   - 2061b53b1b828451
 dataSource:
@@ -339,6 +673,47 @@ dataSource:
           value: flex-start
         v9979xeclpsbvn0n:
           value: flex-start
+  801367372a9d7987:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Everything You Need to Go from Idea to Live Site
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: WebSmith packs a punch with powerful features designed to make website
+                  creation fast, smart, and incredibly simple. See how you can
+                  bring your vision to life!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 从构想到上线所需的一切
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: WebSmith 拥有强大的功能，旨在让建站快速、智能且极为简单。查看如何将你的愿景变为现实！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
   f2fceaee42d5c604:
     en:
       properties:

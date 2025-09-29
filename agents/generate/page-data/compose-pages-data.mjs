@@ -437,6 +437,116 @@ function collectSectionsHierarchically(section, path = []) {
   return node;
 }
 
+/** 移除 layout-block 中未被替换的占位 slot */
+function cleanupLayoutConfig(config, placeholderId) {
+  if (!config || typeof config !== "object") return;
+
+  if (Array.isArray(config.sectionIds)) {
+    config.sectionIds = config.sectionIds.filter((id) => id !== placeholderId);
+    if (config.sectionIds.length === 0) delete config.sectionIds;
+  }
+
+  const { gridSettings } = config;
+  if (!gridSettings || typeof gridSettings !== "object") return;
+
+  Object.entries(gridSettings).forEach(([device, layout]) => {
+    if (!layout && layout !== 0) {
+      delete gridSettings[device];
+      return;
+    }
+
+    if (Array.isArray(layout)) {
+      for (let i = layout.length - 1; i >= 0; i -= 1) {
+        const item = layout[i];
+        if (
+          item === placeholderId ||
+          (item &&
+            typeof item === "object" &&
+            (item.id === placeholderId || item.sectionId === placeholderId))
+        ) {
+          layout.splice(i, 1);
+          continue;
+        }
+
+        if (item && typeof item === "object" && Array.isArray(item.sectionIds)) {
+          item.sectionIds = item.sectionIds.filter((id) => id !== placeholderId);
+          if (item.sectionIds.length === 0) delete item.sectionIds;
+        }
+      }
+
+      if (layout.length === 0) delete gridSettings[device];
+      return;
+    }
+
+    if (layout && typeof layout === "object") {
+      if (Object.hasOwn(layout, placeholderId)) {
+        delete layout[placeholderId];
+      }
+
+      if (layout.sections && typeof layout.sections === "object") {
+        if (Object.hasOwn(layout.sections, placeholderId)) {
+          delete layout.sections[placeholderId];
+        }
+        if (Object.keys(layout.sections).length === 0) delete layout.sections;
+      }
+
+      if (Array.isArray(layout.sectionIds)) {
+        layout.sectionIds = layout.sectionIds.filter((id) => id !== placeholderId);
+        if (layout.sectionIds.length === 0) delete layout.sectionIds;
+      }
+
+      if (Object.keys(layout).length === 0) {
+        delete gridSettings[device];
+      }
+      return;
+    }
+
+    if (layout === placeholderId) delete gridSettings[device];
+  });
+
+  if (Object.keys(gridSettings).length === 0) delete config.gridSettings;
+}
+
+function removeSlot(slot) {
+  if (!slot) return;
+
+  const { parent, placeholderId, position } = slot;
+
+  if (!parent?.sections || !Array.isArray(parent.sectionIds)) {
+    logError("⚠️  [removeSlot] parent sections metadata missing:", {
+      parentId: parent?.id,
+      placeholderId,
+    });
+    return;
+  }
+
+  if (
+    position >= 0 &&
+    position < parent.sectionIds.length &&
+    parent.sectionIds[position] === placeholderId
+  ) {
+    parent.sectionIds.splice(position, 1);
+  } else {
+    const idx = parent.sectionIds.indexOf(placeholderId);
+    if (idx !== -1) {
+      parent.sectionIds.splice(idx, 1);
+    } else {
+      logError("⚠️  [removeSlot] placeholder id not found in sectionIds:", {
+        parentId: parent.id,
+        placeholderId,
+      });
+    }
+  }
+
+  delete parent.sections[placeholderId];
+  cleanupLayoutConfig(parent.config, placeholderId);
+
+  log("🗑️  [removeSlot] unused slot removed:", {
+    parentId: parent.id,
+    placeholderId,
+  });
+}
+
 // ============= Per-node Processing（递归 + 精确插槽替换） ============
 function processNode(node, compositeComponents, sectionIndex) {
   const { section, path, children } = node;
@@ -490,6 +600,7 @@ function processNode(node, compositeComponents, sectionIndex) {
 
   // 2) 只有父已实例化时，才收集 slot（在父实例范围内）
   const slotMap = instantiation?.section ? collectLayoutSlots(instantiation.section) : new Map();
+  const resolvedSlotMap = new Map();
 
   // 3) 递归处理子节点，并按 slot 精确替换（严格按本父节点 children 的索引）
   children.forEach((childNode, idx) => {
@@ -503,6 +614,7 @@ function processNode(node, compositeComponents, sectionIndex) {
 
     if (listIdx !== null && slotMap.has(listIdx)) {
       replaceSlotWithChild(slotMap.get(listIdx), childSection);
+      resolvedSlotMap.set(listIdx, childSection);
     } else {
       // 找不到 slot：为了避免再次把子实例“挂到外面”，这里仅记录告警，不做 fallback append
       logError("⚠️  [processNode] no slot matched for child, skipped mounting:", {
@@ -512,6 +624,15 @@ function processNode(node, compositeComponents, sectionIndex) {
       });
     }
   });
+
+  const unResolvedSlots = Array.from(slotMap.keys()).filter((k) => !resolvedSlotMap.has(k));
+
+  // 如果 layout block 存在未解析的 slot，删除相应占位节点，避免遗留空壳
+  if (unResolvedSlots.length > 0 && result.component?.section?.component === "layout-block") {
+    unResolvedSlots.forEach((slotIdx) => removeSlot(slotMap.get(slotIdx)));
+  }
+
+  console.warn(22222, slotMap);
 
   return result;
 }

@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-29T08:05:35.034Z
-updatedAt: 2025-09-29T08:05:35.034Z
-publishedAt: 2025-09-29T08:05:35.034Z
+createdAt: 2025-09-29T08:20:29.271Z
+updatedAt: 2025-09-29T08:20:29.271Z
+publishedAt: 2025-09-29T08:20:29.271Z
 isPublic: true
 locales:
   en:
@@ -420,6 +420,270 @@ sections:
       maxWidth: full
       paddingX: none
       paddingY: none
+  14aac4ee5043c9a9:
+    id: 14aac4ee5043c9a9
+    name: Layout 2x2
+    component: layout-block
+    sections:
+      e648469d263bb333:
+        id: e648469d263bb333
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      cf2f3d9dd395622f:
+        id: cf2f3d9dd395622f
+        name: Cards
+        component: layout-block
+        sections:
+          61845c3f4ad355b7:
+            id: 61845c3f4ad355b7
+            name: Cards-1
+            component: layout-block
+            sections:
+              215884d5dbeda9f2:
+                id: 215884d5dbeda9f2
+                name: Card
+                component: layout-block
+                sections:
+                  688da075d8c6ce5e:
+                    id: 688da075d8c6ce5e
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  9076f811740b4112:
+                    id: 9076f811740b4112
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 688da075d8c6ce5e
+                  - 9076f811740b4112
+                config:
+                  gridSettings:
+                    desktop:
+                      9076f811740b4112:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      688da075d8c6ce5e:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 215884d5dbeda9f2
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          2dabadd0b88e9e85:
+            id: 2dabadd0b88e9e85
+            name: Cards-2
+            component: layout-block
+            sections:
+              ce561c19165f49f4:
+                id: ce561c19165f49f4
+                name: Card
+                component: layout-block
+                sections:
+                  ef390dbf7465834a:
+                    id: ef390dbf7465834a
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  bee1d4c7c2088724:
+                    id: bee1d4c7c2088724
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - ef390dbf7465834a
+                  - bee1d4c7c2088724
+                config:
+                  gridSettings:
+                    desktop:
+                      bee1d4c7c2088724:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      ef390dbf7465834a:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - ce561c19165f49f4
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          ed8112f739ec02df:
+            id: ed8112f739ec02df
+            name: Cards-3
+            component: layout-block
+            sections:
+              b378858c6d10172a:
+                id: b378858c6d10172a
+                name: Card
+                component: layout-block
+                sections:
+                  d12fc91096a1caa3:
+                    id: d12fc91096a1caa3
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  0d0fdac206e415a4:
+                    id: 0d0fdac206e415a4
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - d12fc91096a1caa3
+                  - 0d0fdac206e415a4
+                config:
+                  gridSettings:
+                    desktop:
+                      0d0fdac206e415a4:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      d12fc91096a1caa3:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - b378858c6d10172a
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+        sectionIds:
+          - 61845c3f4ad355b7
+          - 2dabadd0b88e9e85
+          - ed8112f739ec02df
+        config:
+          gridSettings:
+            desktop:
+              61845c3f4ad355b7:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              2dabadd0b88e9e85:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              ed8112f739ec02df:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+          padding: none
+          gap: normal
+          background: transparent
+    sectionIds:
+      - e648469d263bb333
+      - cf2f3d9dd395622f
+    config:
+      gridSettings:
+        desktop:
+          cf2f3d9dd395622f:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          e648469d263bb333:
+            x: 2
+            y: 0
+            w: 8
+            h: 1
+        mobile:
+          cf2f3d9dd395622f:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          e648469d263bb333:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      padding: large
+      maxWidth: full
+      paddingX: none
+      paddingY: none
   d8dfd84a98473a87:
     id: d8dfd84a98473a87
     name: Step-2
@@ -552,6 +816,7 @@ sections:
 sectionIds:
   - cd5bde18baa5fa64
   - 066eb1323f773e9d
+  - 14aac4ee5043c9a9
   - d8dfd84a98473a87
   - 2061b53b1b828451
 dataSource:
@@ -986,6 +1251,47 @@ dataSource:
           value: 40px
         gugqsxx3xyveuu8n:
           value: primary.main
+  e648469d263bb333:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: So Simple, It Feels Like Magic
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: Forget complicated setups and endless coding. With WebSmith, you're just
+                  three steps away from a fully functional, beautifully designed
+                  website. Here's how the magic happens!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 简单得像魔法一般
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: 忘掉复杂的配置和无休止的编码。使用 WebSmith，只需三步即可获得功能齐全、设计精美的网站。以下是实现方式！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
   9076f811740b4112:
     en:
       properties:

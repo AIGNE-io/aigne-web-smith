@@ -437,7 +437,7 @@ export function generateFieldConstraints(componentLibrary) {
   constraints += "<allowed_field_combinations>\n";
   const allowedFieldCombinations = compositeFields.map((item) => {
     return {
-      fieldCombinations: item.fieldCombinations,
+      fieldCombinations: JSON.stringify(item.fieldCombinations),
       name: item.name,
       summary: item.summary,
     };

@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-09-29T09:16:52.828Z
-updatedAt: 2025-09-29T09:16:52.828Z
-publishedAt: 2025-09-29T09:16:52.828Z
+createdAt: 2025-09-29T13:03:06.560Z
+updatedAt: 2025-09-29T13:03:06.560Z
+publishedAt: 2025-09-29T13:03:06.560Z
 isPublic: true
 locales:
   en:
@@ -880,14 +880,6 @@ sections:
                 name: Card
                 component: layout-block
                 sections:
-                  612acdaec15c7267:
-                    id: 612acdaec15c7267
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
                   fcc2a6bce8dfc961:
                     id: fcc2a6bce8dfc961
                     name: RichText
@@ -897,20 +889,14 @@ sections:
                       componentId: xoHu0J44322kDYc-
                     sectionIds: []
                 sectionIds:
-                  - 612acdaec15c7267
                   - fcc2a6bce8dfc961
                 config:
                   gridSettings:
                     desktop:
                       fcc2a6bce8dfc961:
                         x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      612acdaec15c7267:
-                        x: 0
                         y: 0
-                        w: 4
+                        w: 12
                         h: 1
                   padding: normal
                   background: transparent
@@ -923,8 +909,6 @@ sections:
             sectionIds:
               - 399d7ed50a4fed26
             config:
-              gridSettings:
-                desktop: {}
               gap: normal
               paddingX: large
               paddingY: large
@@ -940,14 +924,6 @@ sections:
                 name: Card
                 component: layout-block
                 sections:
-                  17e2bf6c35ea6a14:
-                    id: 17e2bf6c35ea6a14
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
                   6715829cfb5a6045:
                     id: 6715829cfb5a6045
                     name: RichText
@@ -957,20 +933,14 @@ sections:
                       componentId: xoHu0J44322kDYc-
                     sectionIds: []
                 sectionIds:
-                  - 17e2bf6c35ea6a14
                   - 6715829cfb5a6045
                 config:
                   gridSettings:
                     desktop:
                       6715829cfb5a6045:
                         x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      17e2bf6c35ea6a14:
-                        x: 0
                         y: 0
-                        w: 4
+                        w: 12
                         h: 1
                   padding: normal
                   background: transparent
@@ -983,8 +953,6 @@ sections:
             sectionIds:
               - 886210102bffb83c
             config:
-              gridSettings:
-                desktop: {}
               gap: normal
               paddingX: large
               paddingY: large
@@ -1000,14 +968,6 @@ sections:
                 name: Card
                 component: layout-block
                 sections:
-                  b0cb540591e952b0:
-                    id: b0cb540591e952b0
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
                   b666217a893dd312:
                     id: b666217a893dd312
                     name: RichText
@@ -1017,20 +977,14 @@ sections:
                       componentId: xoHu0J44322kDYc-
                     sectionIds: []
                 sectionIds:
-                  - b0cb540591e952b0
                   - b666217a893dd312
                 config:
                   gridSettings:
                     desktop:
                       b666217a893dd312:
                         x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      b0cb540591e952b0:
-                        x: 0
                         y: 0
-                        w: 4
+                        w: 12
                         h: 1
                   padding: normal
                   background: transparent
@@ -1043,8 +997,6 @@ sections:
             sectionIds:
               - 8f6d4eb7ec08ea74
             config:
-              gridSettings:
-                desktop: {}
               gap: normal
               paddingX: large
               paddingY: large
@@ -1060,14 +1012,6 @@ sections:
                 name: Card
                 component: layout-block
                 sections:
-                  cbd015039cfc638c:
-                    id: cbd015039cfc638c
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
                   ccd489e0f13b8a94:
                     id: ccd489e0f13b8a94
                     name: RichText
@@ -1077,20 +1021,14 @@ sections:
                       componentId: xoHu0J44322kDYc-
                     sectionIds: []
                 sectionIds:
-                  - cbd015039cfc638c
                   - ccd489e0f13b8a94
                 config:
                   gridSettings:
                     desktop:
                       ccd489e0f13b8a94:
                         x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      cbd015039cfc638c:
-                        x: 0
                         y: 0
-                        w: 4
+                        w: 12
                         h: 1
                   padding: normal
                   background: transparent
@@ -1103,8 +1041,6 @@ sections:
             sectionIds:
               - e3c9918be7d0ba8a
             config:
-              gridSettings:
-                desktop: {}
               gap: normal
               paddingX: large
               paddingY: large
@@ -1134,18 +1070,9 @@ sections:
                 w: 12
                 h: 1
           gap: normal
-      9f5d87cd266ec4dd:
-        id: 9f5d87cd266ec4dd
-        name: Action
-        component: custom-component
-        config:
-          useCache: true
-          componentId: a44r0SiGV9AFn2Fj
-        sectionIds: []
     sectionIds:
       - 1b728675098cbfbd
       - dc602745e5ae57eb
-      - 9f5d87cd266ec4dd
     config:
       gap: normal
       paddingX: none
@@ -1161,11 +1088,6 @@ sections:
           dc602745e5ae57eb:
             x: 0
             y: 1
-            w: 12
-            h: 1
-          9f5d87cd266ec4dd:
-            x: 0
-            y: 2
             w: 12
             h: 1
   8f59222c0ad9bf83:
@@ -2161,31 +2083,6 @@ dataSource:
                   color: text.secondary
                   fontSize: ""
                   variant: body1
-  9f5d87cd266ec4dd:
-    en:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: ""
-              url: ""
-              variant: outlined
-              size: large
-              target: _blank
-              needLogin: false
-    zh:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: ""
-              url: ""
-              variant: outlined
-              size: large
-              target: _blank
-              needLogin: false
   fcc2a6bce8dfc961:
     en:
       properties:
@@ -2239,23 +2136,6 @@ dataSource:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  612acdaec15c7267:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
   6715829cfb5a6045:
     en:
       properties:
@@ -2307,23 +2187,6 @@ dataSource:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  17e2bf6c35ea6a14:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
   b666217a893dd312:
     en:
       properties:
@@ -2375,23 +2238,6 @@ dataSource:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  b0cb540591e952b0:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
   ccd489e0f13b8a94:
     en:
       properties:
@@ -2443,23 +2289,6 @@ dataSource:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  cbd015039cfc638c:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: ""
-        529qbwiam7oypw8e:
-          value: 40px
-        gugqsxx3xyveuu8n:
-          value: primary.main
   095bd0dc0bf5cc83:
     en:
       properties:

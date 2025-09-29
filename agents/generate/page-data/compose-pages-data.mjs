@@ -7,6 +7,7 @@
  * - 全局一致的 id 映射：无论 id 出现在 sections、sectionIds、config.gridSettings 或其他配置 key/value，
  *   都通过同一套 `applyIdMapDeep` 完成一次性替换，避免“补丁式”遗漏。
  * - 可维护性：把“clone → 生成 idMap → 统一替换 → 递归插槽替换”的流程单点实现；递归处理时父子职责清晰。
+ * - 数据清洁：模板缺省值统一写入 `EMPTY_VALUE` 哨兵，生成阶段集中识别并裁剪空组件，网格配置自动回流。
  *
  * ## 核心流程
  * 1) 读入 middle 格式（支持多语言）。
@@ -17,12 +18,55 @@
  *    - 用 `applyIdMapDeep` 对 clone 后的 section（含 config/sections/sectionIds）统一替换 id；
  *    - 对父实例：**收集 layout-block 占位（{{list.N}}）**，按子节点的 N **在父实例内**精确替换 slot；
  *      同时用 `applyIdMapDeep` 把父实例 config 中对占位 id 的引用替换为子实例 id（保证 gridSettings 等同步）。
+ *    - 数据源生成后查找 `EMPTY_VALUE`，删除对应组件并在 section 树内回收 `sectionIds`、`gridSettings`；剩余网格行会重新自顶紧凑排列。
  * 4) 构建最终 YAML：顶层仅挂 **根节点实例**；所有数据源 dataSource 统一在外层聚合。
+ *
+ * ## 流程图（函数与阶段）
+ *  ┌────────────────────┐      ┌──────────────────────────────┐
+ *  │ composePagesData   │      │ readMiddleFormatFile         │
+ *  │ (入口,迭代语言)      ├────► │ 读取 middle YAML              │
+ *  └─────────┬──────────┘      └───────────┬──────────────────┘
+ *            │                              │
+ *            │                              ▼
+ *            │                  ┌──────────────────────────────┐
+ *            │                  │ collectSectionsHierarchically│
+ *            │                  │ 构树(仅真实 list)              │
+ *            │                  └───────────┬──────────────────┘
+ *            │                              │
+ *            │                              ▼
+ *            │            ┌────────────────────────────────────────┐
+ *            │            │ processNode                            │
+ *            │            │ 递归：match → instantiate               │
+ *            │            └───────────┬────────────────────────────┘
+ *            │                        │
+ *            │                        ▼
+ *            │         ┌──────────────────────────────────────────────┐
+ *            │         │ instantiateComponentTemplate                 │
+ *            │         │ → cloneTemplateSection                       │
+ *            │         │ → processSectionTemplatesDeep                │
+ *            │         │ → processTemplate / processArrayTemplate     │
+ *            │         │ → 生成 transformedDataSource                  │
+ *            │         └───────────┬──────────────────────────────────┘
+ *            │                     │
+ *            │                     ▼ 是否含 EMPTY_VALUE?
+ *            │         ┌──────────────────────────────────────────────┐
+ *            │         │ pruneSectionById                             │
+ *            │         │ → cleanupLayoutConfig                        │
+ *            │         │ → reflowGridSettingsDeep                     │
+ *            │         │   (compressGridSettings/ compressLayoutRows) │
+ *            │         └───────────┬──────────────────────────────────┘
+ *            │                     │
+ *            ▼                     ▼
+ *  ┌────────────────────┐      ┌────────────────────────────────────────┐
+ *  │ composePagesData   │      │ 聚合 sections + dataSource              │
+ *  │ 聚合多语言输出       ├────►  │ stringify → savePagesKitData           │
+ *  └────────────────────┘      └────────────────────────────────────────┘
  *
  * ## 关键保证
  * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{list.N}}`）时才挂入；
  *   若找不到 slot，记录 warning，并 **不把子实例提升到顶层**（避免“跑外面去”）。
  * - **id 一致性**：唯一方法 `applyIdMapDeep` 统一替换任意对象的 key/值里的旧 id → 新 id。
+ * - **无空组件**：任何数据源中残留 `EMPTY_VALUE` 的实例都会被移除，网格行位跟随压缩，避免界面出现空洞。
  */
 
 import { readFileSync, rmSync } from "node:fs";
@@ -32,6 +76,21 @@ import { parse, stringify } from "yaml";
 import { LIST_KEY } from "../../../utils/constants.mjs";
 import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
+
+const EMPTY_VALUE = "___EMPTY_VALUE___";
+
+const getEmptyValue = (_key) => {
+  return EMPTY_VALUE;
+};
+
+function containsEmptyValue(node) {
+  if (node === EMPTY_VALUE) return true;
+  if (Array.isArray(node)) return node.some((item) => containsEmptyValue(item));
+  if (node && typeof node === "object") {
+    return Object.values(node).some((item) => containsEmptyValue(item));
+  }
+  return false;
+}
 
 // ============= Logging =============
 const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
@@ -61,8 +120,9 @@ function getNestedValue(obj, path) {
 function processSimpleTemplate(obj, data) {
   if (typeof obj === "string") {
     return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_m, key) => {
-      const v = getNestedValue(data, key.trim());
-      return v !== undefined ? v : "";
+      const keyTrimmed = key.trim();
+      const v = getNestedValue(data, keyTrimmed);
+      return !_.isNil(v) && v !== "" ? v : getEmptyValue(keyTrimmed);
     });
   }
   if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data));
@@ -298,6 +358,143 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
   return cloned;
 }
 
+function pruneSectionById(rootSection, targetId) {
+  if (!rootSection || typeof rootSection !== "object" || !targetId) return false;
+  if (rootSection.id === targetId) return false;
+
+  let removed = false;
+  const stack = [rootSection];
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+    if (!node || typeof node !== "object") continue;
+
+    const { sections } = node;
+    if (sections && typeof sections === "object" && Object.hasOwn(sections, targetId)) {
+      delete sections[targetId];
+
+      if (Array.isArray(node.sectionIds)) {
+        node.sectionIds = node.sectionIds.filter((id) => id !== targetId);
+        if (node.sectionIds.length === 0) delete node.sectionIds;
+      }
+
+      cleanupLayoutConfig(node.config, targetId);
+
+      if (sections && Object.keys(sections).length === 0) delete node.sections;
+
+      removed = true;
+      break;
+    }
+
+    if (sections && typeof sections === "object") {
+      Object.values(sections).forEach((child) => {
+        if (child && typeof child === "object") stack.push(child);
+      });
+    }
+  }
+
+  return removed;
+}
+
+function compressLayoutRows(layout) {
+  if (!layout) return;
+
+  const collectItems = () => {
+    if (Array.isArray(layout)) return layout;
+    if (layout && typeof layout === "object") return Object.values(layout);
+    return [];
+  };
+
+  const items = collectItems().filter((item) => item && typeof item === "object");
+  if (items.length === 0) return;
+
+  const rowValues = Array.from(
+    new Set(
+      items
+        .map((item) => {
+          const value = Number(item.y);
+          return Number.isFinite(value) ? value : undefined;
+        })
+        .filter((y) => Number.isFinite(y)),
+    ),
+  ).sort((a, b) => a - b);
+
+  if (rowValues.length === 0) return;
+
+  const rowMap = new Map(rowValues.map((value, idx) => [value, idx]));
+
+  const updateRow = (item) => {
+    if (!item || typeof item !== "object") return;
+    const value = Number(item.y);
+    if (Number.isFinite(value) && rowMap.has(value)) {
+      item.y = rowMap.get(value);
+    }
+  };
+
+  if (Array.isArray(layout)) {
+    layout.forEach(updateRow);
+  } else {
+    Object.values(layout).forEach(updateRow);
+  }
+}
+
+function compressGridSettings(config) {
+  if (!config || typeof config !== "object") return;
+
+  const { gridSettings } = config;
+  if (!gridSettings || typeof gridSettings !== "object") return;
+
+  Object.entries(gridSettings).forEach(([device, layout]) => {
+    if (!layout) {
+      delete gridSettings[device];
+      return;
+    }
+
+    if (Array.isArray(layout)) {
+      layout.forEach((item) => {
+        if (item && typeof item === "object" && item.gridSettings) {
+          compressGridSettings(item);
+        }
+      });
+      compressLayoutRows(layout);
+      if (layout.length === 0) delete gridSettings[device];
+      return;
+    }
+
+    if (layout && typeof layout === "object") {
+      Object.values(layout).forEach((item) => {
+        if (item && typeof item === "object" && item.gridSettings) {
+          compressGridSettings(item);
+        }
+      });
+      compressLayoutRows(layout);
+
+      if (Object.keys(layout).length === 0) {
+        delete gridSettings[device];
+      }
+      return;
+    }
+
+    delete gridSettings[device];
+  });
+
+  if (Object.keys(gridSettings).length === 0) delete config.gridSettings;
+}
+
+function reflowGridSettingsDeep(section) {
+  if (!section || typeof section !== "object") return;
+
+  if (section.config) {
+    compressGridSettings(section.config);
+  }
+
+  if (section.sections && typeof section.sections === "object") {
+    Object.values(section.sections).forEach((child) => {
+      if (child && typeof child === "object") reflowGridSettingsDeep(child);
+    });
+  }
+}
+
 function instantiateComponentTemplate({ component, sectionData, sectionIndex, path = [] }) {
   const templateId = component.id || component.componentId || component.name;
   if (!component?.section) {
@@ -333,6 +530,33 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
       transformedDataSource[newId] = processed;
     }
   });
+
+  const prunedSectionIds = [];
+  Object.entries(transformedDataSource).forEach(([sectionId, value]) => {
+    if (containsEmptyValue(value)) {
+      prunedSectionIds.push(sectionId);
+    }
+  });
+
+  prunedSectionIds.forEach((sectionId) => {
+    const removed = pruneSectionById(clonedSection, sectionId);
+    delete transformedDataSource[sectionId];
+    if (removed) {
+      log("🧽 [instantiateComponentTemplate] pruned empty component:", {
+        templateId,
+        sectionId,
+      });
+    } else {
+      logError("⚠️  [instantiateComponentTemplate] failed to prune component for empty data:", {
+        templateId,
+        sectionId,
+      });
+    }
+  });
+
+  if (prunedSectionIds.length > 0) {
+    reflowGridSettingsDeep(clonedSection);
+  }
 
   log("✅ [instantiateComponentTemplate] instantiated:", {
     templateId,

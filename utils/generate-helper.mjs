@@ -449,8 +449,8 @@ export function generateFieldConstraints(componentLibrary) {
 
   //
   constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
-- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>
-    - DO NOT use any other field combinations
+- Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>
+    - DO NOT use any other \`fieldCombinations\`
 - Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
     - Each ${listKeyWithSymbol} item is itself a section and MUST independently follow <allowed_field_combinations>
 - This constraint applies recursively: all sections at any depth must strictly comply

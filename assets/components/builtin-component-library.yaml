@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-09-29T08:51:51.580Z
+  updateAt: 2025-09-29T13:17:15.139Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -1741,7 +1741,7 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
+                borderRadius: medium
                 alignContent: start
             216gccdrtw6el7yo:
               id: 216gccdrtw6el7yo
@@ -1756,8 +1756,8 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
-                alignContent: center
+                borderRadius: medium
+                alignContent: start
             xpzzv4cssqmr4h5y:
               id: xpzzv4cssqmr4h5y
               name: <%= list.2 %>
@@ -1771,8 +1771,8 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
-                alignContent: center
+                borderRadius: medium
+                alignContent: start
             qzhiyqpscirqoov7:
               id: qzhiyqpscirqoov7
               name: <%= list.3 %>
@@ -1786,7 +1786,7 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
+                borderRadius: medium
                 alignContent: start
             j5tdn02g00182p09:
               id: j5tdn02g00182p09
@@ -1801,7 +1801,7 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
+                borderRadius: medium
                 alignContent: start
             k2ciud4z7r3amy2k:
               id: k2ciud4z7r3amy2k
@@ -1816,7 +1816,7 @@ composite:
                 paddingX: large
                 paddingY: large
                 background: background.paper
-                borderRadius: none
+                borderRadius: medium
                 alignContent: start
           sectionIds:
             - gixjtyy2tb60tjgy

@@ -30,10 +30,7 @@ import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import { LIST_KEY } from "../../../utils/constants.mjs";
-import {
-  extractFieldCombinations,
-  generateDeterministicId,
-} from "../../../utils/generate-helper.mjs";
+import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 // ============= Logging =============
@@ -552,8 +549,7 @@ function processNode(node, compositeComponents, sectionIndex) {
   const { section, path, children } = node;
 
   // 1) 匹配组件
-  const analysis = extractFieldCombinations({ sections: [section] });
-  const fieldCombinations = analysis[0]?.fieldCombinations || [];
+  const fieldCombinations = extractContentFields(section);
 
   const matched = compositeComponents.find((c) =>
     _.isEqual((c.fieldCombinations || []).sort(), fieldCombinations.sort()),
@@ -631,8 +627,6 @@ function processNode(node, compositeComponents, sectionIndex) {
   if (unResolvedSlots.length > 0 && result.component?.section?.component === "layout-block") {
     unResolvedSlots.forEach((slotIdx) => removeSlot(slotMap.get(slotIdx)));
   }
-
-  console.warn(22222, slotMap);
 
   return result;
 }

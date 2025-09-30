@@ -1,29 +1,35 @@
 import YAML from "yaml";
+import {
+  getUpdateSectionInputJsonSchema,
+  getUpdateSectionOutputJsonSchema,
+  validateUpdateSectionInput,
+} from "../../../types/page-detail-schema.mjs";
 
-export default async function updateSection({ pageDetail, name, updates }) {
-  // Validate required parameters
-  if (!pageDetail) {
-    console.log("⚠️  Update failed: Missing required page detail parameter");
-    return { pageDetail };
+export default async function updateSection(input) {
+  // Validate input using Zod schema
+  const validation = validateUpdateSectionInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot update section: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail: input.pageDetail,
+      message: errorMessage,
+    };
   }
+
+  const { pageDetail, name, updates } = validation.data;
 
   // Parse YAML string to object
   let parsedPageDetail;
   try {
     parsedPageDetail = YAML.parse(pageDetail);
   } catch (error) {
-    console.log("⚠️  Unable to parse page detail YAML:", error.message);
-    return { pageDetail };
-  }
-
-  if (!name) {
-    console.log("⚠️  Update failed: Missing required section name parameter");
-    return { pageDetail };
-  }
-
-  if (!updates) {
-    console.log("⚠️  Update failed: Missing required updates parameter");
-    return { pageDetail };
+    const errorMessage = `Cannot update section: Unable to parse page detail YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Parse updates YAML string to object
@@ -31,31 +37,44 @@ export default async function updateSection({ pageDetail, name, updates }) {
   try {
     parsedUpdates = YAML.parse(updates);
   } catch (error) {
-    console.log(
-      "⚠️  Invalid YAML format in updates parameter. Please ensure it follows valid YAML syntax:",
-      error.message,
-    );
-    return { pageDetail };
+    const errorMessage = `Cannot update section: Unable to parse updates YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Check if any update fields are provided
   const updateFields = Object.keys(parsedUpdates);
   if (updateFields.length === 0) {
-    console.log("⚠️  Update failed: No section properties specified for update");
-    return { pageDetail };
+    const errorMessage = "Cannot update section: No properties specified for update.";
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Check if sections array exists
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
-    console.log("⚠️  Update failed: Page detail contains no sections array");
-    return { pageDetail };
+    const errorMessage = "Cannot update section: No sections array found in page detail.";
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Find the section to update
   const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === name);
   if (sectionIndex === -1) {
-    console.log(`⚠️  Update failed: Section '${name}' not found`);
-    return { pageDetail };
+    const errorMessage = `Cannot update section: Section '${name}' not found. Please choose an existing section to update.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   const originalSection = parsedPageDetail.sections[sectionIndex];
@@ -76,52 +95,18 @@ export default async function updateSection({ pageDetail, name, updates }) {
     sections: newSections,
   };
 
+  const successMessage = `Successfully updated section '${name}' with properties: ${updateFields.join(", ")}.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+
   return {
     pageDetail: YAML.stringify(updatedPageDetail, {
       quotingType: '"',
       defaultStringType: "QUOTE_DOUBLE",
     }),
-    originalSection,
-    updatedSection,
+    message: successMessage,
   };
 }
 
-updateSection.taskTitle = "Update section properties";
-updateSection.description = "Modify properties of an existing section in the page detail";
-updateSection.inputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Current page detail YAML string",
-    },
-    name: {
-      type: "string",
-      description: "Name of the section to update",
-    },
-    updates: {
-      type: "string",
-      description:
-        "YAML string containing the properties to update. Example: 'title: New Title\ndescription: New Description'. All valid section properties are supported.",
-    },
-  },
-  required: ["pageDetail", "name", "updates"],
-};
-updateSection.outputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Updated page detail YAML string with the section modified",
-    },
-    originalSection: {
-      type: "object",
-      description: "The original section before update",
-    },
-    updatedSection: {
-      type: "object",
-      description: "The updated section after modification",
-    },
-  },
-  required: ["pageDetail"],
-};
+updateSection.taskTitle = "Update section";
+updateSection.description = "Update properties of an existing section in the page detail";
+updateSection.inputSchema = getUpdateSectionInputJsonSchema();
+updateSection.outputSchema = getUpdateSectionOutputJsonSchema();

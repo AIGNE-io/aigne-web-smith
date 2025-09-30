@@ -1,29 +1,35 @@
 import YAML from "yaml";
+import {
+  getUpdateMetaInputJsonSchema,
+  getUpdateMetaOutputJsonSchema,
+  validateUpdateMetaInput,
+} from "../../../types/page-detail-schema.mjs";
 
-export default async function updateMeta({ pageDetail, title, description }) {
-  // Validate required parameters
-  if (!pageDetail) {
-    console.log(
-      "⚠️  Unable to update meta: No page detail provided. Please specify the page detail to modify.",
-    );
-    return { pageDetail };
+export default async function updateMeta(input) {
+  // Validate input using Zod schema
+  const validation = validateUpdateMetaInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot update meta: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail: input.pageDetail,
+      message: errorMessage,
+    };
   }
+
+  const { pageDetail, title, description } = validation.data;
 
   // Parse YAML string to object
   let parsedPageDetail;
   try {
     parsedPageDetail = YAML.parse(pageDetail);
   } catch (error) {
-    console.log("⚠️  Unable to parse page detail YAML:", error.message);
-    return { pageDetail };
-  }
-
-  // At least one update field must be provided
-  if (!title && !description) {
-    console.log(
-      "⚠️  Unable to update meta: No changes specified. Please provide details about what meta information you want to modify (title or description).",
-    );
-    return { pageDetail };
+    const errorMessage = `Cannot update meta: Unable to parse page detail YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Create updated page detail object
@@ -33,48 +39,22 @@ export default async function updateMeta({ pageDetail, title, description }) {
     ...(description !== undefined && { description }),
   };
 
+  const updatedFields = [];
+  if (title !== undefined) updatedFields.push(`title to '${title}'`);
+  if (description !== undefined) updatedFields.push("description");
+
+  const successMessage = `Successfully updated page meta: ${updatedFields.join(", ")}.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+
   return {
     pageDetail: YAML.stringify(updatedPageDetail, {
       quotingType: '"',
       defaultStringType: "QUOTE_DOUBLE",
     }),
-    originalPageDetail: pageDetail,
+    message: successMessage,
   };
 }
 
-updateMeta.taskTitle = "Update page meta information";
-updateMeta.description =
-  "Update page meta information including title, description, SEO title and SEO description";
-updateMeta.inputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Current page detail YAML string",
-    },
-    title: {
-      type: "string",
-      description: "New page title (optional)",
-    },
-    description: {
-      type: "string",
-      description: "New page description (optional)",
-    },
-  },
-  required: ["pageDetail"],
-  anyOf: [{ required: ["title"] }, { required: ["description"] }],
-};
-updateMeta.outputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Updated page detail YAML string with modified meta information",
-    },
-    originalPageDetail: {
-      type: "string",
-      description: "The original page detail YAML string before update",
-    },
-  },
-  required: ["pageDetail"],
-};
+updateMeta.taskTitle = "Update page meta";
+updateMeta.description = "Update page meta information including title and description";
+updateMeta.inputSchema = getUpdateMetaInputJsonSchema();
+updateMeta.outputSchema = getUpdateMetaOutputJsonSchema();

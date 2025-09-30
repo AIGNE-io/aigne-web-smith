@@ -1,41 +1,56 @@
 import YAML from "yaml";
+import {
+  getDeleteSectionInputJsonSchema,
+  getDeleteSectionOutputJsonSchema,
+  validateDeleteSectionInput,
+} from "../../../types/page-detail-schema.mjs";
 
-export default async function deleteSection({ pageDetail, name }) {
-  // Validate required parameters
-  if (!pageDetail) {
-    console.log(
-      "⚠️  Unable to delete section: No page detail provided. Please specify the page detail to modify.",
-    );
-    return { pageDetail };
+export default async function deleteSection(input) {
+  // Validate input using Zod schema
+  const validation = validateDeleteSectionInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot delete section: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail: input.pageDetail,
+      message: errorMessage,
+    };
   }
+
+  const { pageDetail, name } = validation.data;
 
   // Parse YAML string to object
   let parsedPageDetail;
   try {
     parsedPageDetail = YAML.parse(pageDetail);
   } catch (error) {
-    console.log("⚠️  Unable to parse page detail YAML:", error.message);
-    return { pageDetail };
-  }
-
-  if (!name) {
-    console.log(
-      "⚠️  Unable to delete section: No section name specified. Please clearly indicate which section you want to remove.",
-    );
-    return { pageDetail };
+    const errorMessage = `Cannot delete section: Unable to parse page detail YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Check if sections array exists
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
-    console.log("⚠️  Cannot delete section: No sections array found in page detail");
-    return { pageDetail };
+    const errorMessage = "Cannot delete section: No sections array found in page detail.";
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Find the section to delete
   const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === name);
   if (sectionIndex === -1) {
-    console.log(`⚠️  Cannot delete section: Section '${name}' not found`);
-    return { pageDetail };
+    const errorMessage = `Cannot delete section: Section '${name}' not found. Please choose an existing section to delete.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   const sectionToDelete = parsedPageDetail.sections[sectionIndex];
@@ -49,42 +64,18 @@ export default async function deleteSection({ pageDetail, name }) {
     sections: newSections,
   };
 
+  const successMessage = `Successfully deleted section '${sectionToDelete.sectionName}'.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+
   return {
     pageDetail: YAML.stringify(updatedPageDetail, {
       quotingType: '"',
       defaultStringType: "QUOTE_DOUBLE",
     }),
-    deletedSection: sectionToDelete,
+    message: successMessage,
   };
 }
 
-deleteSection.taskTitle = "Delete a section from page detail";
-deleteSection.description = "Remove a section from the page detail by its name";
-deleteSection.inputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Current page detail YAML string",
-    },
-    name: {
-      type: "string",
-      description: "Name of the section to delete",
-    },
-  },
-  required: ["pageDetail", "name"],
-};
-deleteSection.outputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Updated page detail YAML string with the section removed",
-    },
-    deletedSection: {
-      type: "object",
-      description: "The section that was deleted",
-    },
-  },
-  required: ["pageDetail"],
-};
+deleteSection.taskTitle = "Delete section";
+deleteSection.description = "Delete a section from the page detail";
+deleteSection.inputSchema = getDeleteSectionInputJsonSchema();
+deleteSection.outputSchema = getDeleteSectionOutputJsonSchema();

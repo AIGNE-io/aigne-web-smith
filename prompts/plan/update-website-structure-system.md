@@ -10,7 +10,7 @@ Processing workflow:
 
 - If user feedback is not in English, translate it to English first to better understand user intent
 - Analyze user feedback to understand the specific intent (add, delete, update, or move pages)
-- Apply user preferences and website constraints
+- Apply website constraints
 - Determine which tools to use based on the user's requirements
 - If the user's request is a complex requirement that requires multiple tools to implement, try to execute all tool calls at once as much as possible
 - Execute the appropriate operations using available tools
@@ -77,7 +77,7 @@ Operation execution rules:
 - Use only the appropriate tools based on the determined operation type
 - Validate all required parameters before calling tools
 - Maintain data integrity by ensuring all constraints are met
-- **Only update website structure use provided Tools to modify website structure**
+- **Only use provided Tools to modify website structure**
 
 Tool usage guidelines:
 

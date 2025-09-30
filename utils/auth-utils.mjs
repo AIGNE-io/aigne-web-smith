@@ -32,18 +32,18 @@ export async function getAccessToken(appUrl, ltToken = "") {
   const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
-  let accessToken = process.env.PAGE_KIT_ACCESS_TOKEN;
+  let accessToken = process.env.PAGES_KIT_ACCESS_TOKEN;
 
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
       if (existsSync(WEB_SMITH_ENV_FILE)) {
         const data = await readFile(WEB_SMITH_ENV_FILE, "utf8");
-        if (data.includes("PAGE_KIT_ACCESS_TOKEN")) {
+        if (data.includes("PAGES_KIT_ACCESS_TOKEN")) {
           // Handle empty or invalid YAML files
           const envs = data.trim() ? parse(data) : null;
-          if (envs?.[hostname]?.PAGE_KIT_ACCESS_TOKEN) {
-            accessToken = envs[hostname].PAGE_KIT_ACCESS_TOKEN;
+          if (envs?.[hostname]?.PAGES_KIT_ACCESS_TOKEN) {
+            accessToken = envs[hostname].PAGES_KIT_ACCESS_TOKEN;
           }
         }
       }
@@ -113,7 +113,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
     });
 
     accessToken = result.accessKeySecret;
-    process.env.PAGE_KIT_ACCESS_TOKEN = accessToken;
+    process.env.PAGES_KIT_ACCESS_TOKEN = accessToken;
 
     // Save the access token to config file
     const aigneDir = join(homedir(), ".aigne");
@@ -133,8 +133,8 @@ export async function getAccessToken(appUrl, ltToken = "") {
       stringify({
         ...existingConfig,
         [hostname]: {
-          PAGE_KIT_ACCESS_TOKEN: accessToken,
-          PAGE_KIT_URL: PAGES_KIT_URL,
+          PAGES_KIT_ACCESS_TOKEN: accessToken,
+          PAGES_KIT_URL: PAGES_KIT_URL,
         },
       }),
     );

@@ -94,7 +94,7 @@ describe("deploy", () => {
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith({
       baseUrl: "https://staging.websmith.aigne.io",
       authToken: "mock-auth-token",
-      paymentLinkKey: "PAYMENT_LINK_ID_OF_PAGE_KIT",
+      paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
     });
 
     // Verify deploy was called with correct parameters
@@ -347,7 +347,7 @@ describe("deploy", () => {
       expect.objectContaining({
         authToken: "mock-auth-token",
         baseUrl: "https://staging.websmith.aigne.io",
-        paymentLinkKey: "PAYMENT_LINK_ID_OF_PAGE_KIT",
+        paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
       }),
     );
   });
@@ -369,7 +369,7 @@ describe("deploy", () => {
       expect.objectContaining({
         authToken: "mock-auth-token",
         baseUrl: "https://staging.websmith.aigne.io",
-        paymentLinkKey: "PAYMENT_LINK_ID_OF_PAGE_KIT",
+        paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
       }),
     );
   });
@@ -438,7 +438,7 @@ describe("deploy", () => {
     // Verify BrokerClient was constructed with paymentLinkKey
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith(
       expect.objectContaining({
-        paymentLinkKey: "PAYMENT_LINK_ID_OF_PAGE_KIT",
+        paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
       }),
     );
   });

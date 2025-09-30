@@ -62,3 +62,4 @@ sourcesPath: # Source code paths to analyze
 lastGitHead: b365df20e405d069a47d5c9ed9cca71f1635712b
 # Checkout ID for website deployment service
 checkoutId: ""
+appUrl: https://staging.websmith.aigne.io/

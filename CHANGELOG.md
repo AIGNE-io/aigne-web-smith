@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.5...v1.3.0-beta.6) (2025-09-30)
+
+
+### Bug Fixes
+
+* **generate:** allow component match fallback on field supersets ([#40](https://github.com/AIGNE-io/aigne-web-smith/issues/40)) ([1a67497](https://github.com/AIGNE-io/aigne-web-smith/commit/1a67497afb053c515a707599b37d5622dddbecbd))
+
 ## [1.3.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.4...v1.3.0-beta.5) (2025-09-27)
 
 

@@ -54,7 +54,7 @@ export default async function addPage(input) {
   // Add the new page to the website structure
   const updatedStructure = [...websiteStructure, newPage];
 
-  const successMessage = `Successfully added page '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level page"}.`;
+  const successMessage = `Successfully added page '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level page"}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     websiteStructure: updatedStructure,

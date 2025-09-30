@@ -122,7 +122,7 @@ export default async function movePage(input) {
     websiteStructure.filter((item) => item.parentId === path).length > 0
       ? ` (also updated ${websiteStructure.filter((item) => item.parentId === path).length} child page(s))`
       : "";
-  const successMessage = `Successfully moved page '${pageToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.`;
+  const successMessage = `Successfully moved page '${pageToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     websiteStructure: updatedStructure,

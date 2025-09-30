@@ -48,7 +48,7 @@ export default async function updatePage(input) {
   if (description !== undefined) updatedFields.push(`description`);
   if (sourceIds !== undefined) updatedFields.push(`sourceIds (${sourceIds.length} sources)`);
 
-  const successMessage = `Successfully updated page '${originalPage.title}' at path '${path}': ${updatedFields.join(", ")}.`;
+  const successMessage = `Successfully updated page '${originalPage.title}' at path '${path}': ${updatedFields.join(", ")}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     websiteStructure: updatedStructure,

@@ -34,7 +34,7 @@ export default async function deletePage(input) {
   // Check if any other pages have this page as parent
   const childPages = websiteStructure.filter((item) => item.parentId === path);
   if (childPages.length > 0) {
-    const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages.`;
+    const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,

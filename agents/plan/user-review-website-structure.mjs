@@ -1,4 +1,3 @@
-import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   printWebsiteStructure,
   updateWebsiteScaleIfNeeded,
@@ -64,38 +63,16 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
       break;
     }
 
-    // Get user preferences
-    const structureRules = getActiveRulesForScope("structure", []);
-    const globalRules = getActiveRulesForScope("global", []);
-    const allApplicableRules = [...structureRules, ...globalRules];
-    const ruleTexts = allApplicableRules.map((rule) => rule.rule);
-    const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
-
     try {
       // Call updateWebsiteStructure agent with feedback
       const result = await options.context.invoke(refineAgent, {
         ...rest,
         feedback: feedback.trim(),
         websiteStructure: currentStructure,
-        userPreferences,
       });
 
       if (result.websiteStructure) {
         currentStructure = result.websiteStructure;
-      }
-
-      // Check if feedback should be saved as user preference
-      const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
-      if (feedbackRefinerAgent) {
-        try {
-          await options.context.invoke(feedbackRefinerAgent, {
-            websiteStructureFeedback: feedback.trim(),
-            stage: "structure_planning",
-          });
-        } catch (refinerError) {
-          console.warn("Could not save feedback as user preference:", refinerError.message);
-          console.warn("Your feedback was applied but not saved as a preference.");
-        }
       }
 
       // Print current website structure in a user-friendly format

@@ -32,7 +32,7 @@ export default async function deleteSection({ pageDetail, name }) {
   }
 
   // Find the section to delete
-  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === name);
   if (sectionIndex === -1) {
     console.log(`⚠️  Cannot delete section: Section '${name}' not found`);
     return { pageDetail };

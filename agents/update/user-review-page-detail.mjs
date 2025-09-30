@@ -1,8 +1,8 @@
 import YAML from "yaml";
+import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
-const excludeFields = ["sectionName", "sectionSummary"];
 export default async function userReviewPageDetail(
   { content, builtinComponentLibrary, ...rest },
   options,
@@ -168,7 +168,7 @@ function printSectionSimple(section, index) {
   const content = [];
 
   Object.keys(section)
-    .filter((key) => !excludeFields.includes(key))
+    .filter((key) => !SECTION_META_FIELDS.includes(key))
     .forEach((key) => {
       const value = section[key];
       const displayText = formatFieldValue(key, value);
@@ -222,7 +222,7 @@ function formatFieldValue(key, value, indent = "") {
           return `${indent}     ${index + 1}. ${truncateText(item, 80)}`;
         } else if (typeof item === "object" && item !== null) {
           const subContent = Object.keys(item)
-            .filter((subKey) => !excludeFields.includes(subKey))
+            .filter((subKey) => !SECTION_META_FIELDS.includes(subKey))
             .map((subKey) => formatFieldValue(subKey, item[subKey], "       "))
             .filter(Boolean)
             .join("\n");
@@ -244,7 +244,7 @@ function formatFieldValue(key, value, indent = "") {
     }
 
     const subContent = Object.keys(value)
-      .filter((subKey) => !excludeFields.includes(subKey))
+      .filter((subKey) => !SECTION_META_FIELDS.includes(subKey))
       .map((subKey) => formatFieldValue(subKey, value[subKey], `${indent}   `))
       .filter(Boolean)
       .join("\n");

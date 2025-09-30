@@ -8,10 +8,10 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import _ from "lodash";
 import { nanoid } from "nanoid";
-import { parse } from "yaml";
+import { parse, stringify } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { LIST_KEY } from "./constants.mjs";
+import { LIST_KEY, SECTION_META_FIELDS } from "./constants.mjs";
 
 /**
  * ID 生成工具
@@ -233,15 +233,13 @@ export function propertiesToZodSchema(
   return z.object(schemaObj);
 }
 
-const metaFields = ["sectionName", "sectionSummary"];
-
 // Extract fields using path format to represent nested fields
 export function extractContentFields(obj, prefix = "") {
   const fields = new Set();
 
   Object.keys(obj).forEach((key) => {
     // skip meta fields
-    if (metaFields.includes(key)) return;
+    if (SECTION_META_FIELDS.includes(key)) return;
 
     const currentPath = prefix ? `${prefix}.${key}` : key;
     const value = obj[key];
@@ -295,7 +293,7 @@ export function extractFieldCombinations(middleFormatContent) {
     // 收集数组字段信息（用于参考，但不作为主要 fieldCombinations）
     const arrayFields = [];
     Object.keys(section).forEach((key) => {
-      if (metaFields.includes(key)) return;
+      if (SECTION_META_FIELDS.includes(key)) return;
       const value = section[key];
       if (Array.isArray(value)) {
         arrayFields.push({
@@ -422,23 +420,35 @@ export function generateFieldConstraints(componentLibrary) {
 
   // Atomic fields section
   constraints += "<atomic_component_information>\n";
-  atomicFields.forEach((item) => {
-    const { name, summary } = item;
-    constraints += `- \`${name}\`: ${summary}\n`;
+  const atomicComponentInfo = atomicFields.map((item) => {
+    return {
+      name: item.name,
+      summary: item.summary,
+    };
+  });
+  constraints += stringify(atomicComponentInfo, {
+    aliasDuplicateObjects: false,
   });
   constraints += "</atomic_component_information>\n\n";
 
   // Composite combinations section
   constraints += "<allowed_field_combinations>\n";
-  compositeFields.forEach((item) => {
-    constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
+  const allowedFieldCombinations = compositeFields.map((item) => {
+    return {
+      fieldCombinations: JSON.stringify(item.fieldCombinations),
+      name: item.name,
+      summary: item.summary,
+    };
+  });
+  constraints += stringify(allowedFieldCombinations, {
+    aliasDuplicateObjects: false,
   });
   constraints += "</allowed_field_combinations>\n\n";
 
   //
   constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
-- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>
-    - DO NOT use any other field combinations
+- Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
+    - The emitted field set of each section (excluding "sectionName" and "sectionSummary") must be exactly equal to the chosen combination—no extra or missing keys.
 - Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
     - Each ${listKeyWithSymbol} item is itself a section and MUST independently follow <allowed_field_combinations>
 - This constraint applies recursively: all sections at any depth must strictly comply

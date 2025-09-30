@@ -7,6 +7,7 @@
  * - 全局一致的 id 映射：无论 id 出现在 sections、sectionIds、config.gridSettings 或其他配置 key/value，
  *   都通过同一套 `applyIdMapDeep` 完成一次性替换，避免“补丁式”遗漏。
  * - 可维护性：把“clone → 生成 idMap → 统一替换 → 递归插槽替换”的流程单点实现；递归处理时父子职责清晰。
+ * - 数据清洁：模板缺省值统一写入 `EMPTY_VALUE` 哨兵，生成阶段集中识别并裁剪空组件，网格配置自动回流。
  *
  * ## 核心流程
  * 1) 读入 middle 格式（支持多语言）。
@@ -17,12 +18,55 @@
  *    - 用 `applyIdMapDeep` 对 clone 后的 section（含 config/sections/sectionIds）统一替换 id；
  *    - 对父实例：**收集 layout-block 占位（{{list.N}}）**，按子节点的 N **在父实例内**精确替换 slot；
  *      同时用 `applyIdMapDeep` 把父实例 config 中对占位 id 的引用替换为子实例 id（保证 gridSettings 等同步）。
+ *    - 数据源生成后查找 `EMPTY_VALUE`，删除对应组件并在 section 树内回收 `sectionIds`、`gridSettings`；剩余网格行会重新自顶紧凑排列。
  * 4) 构建最终 YAML：顶层仅挂 **根节点实例**；所有数据源 dataSource 统一在外层聚合。
+ *
+ * ## 流程图（函数与阶段）
+ *  ┌────────────────────┐      ┌──────────────────────────────┐
+ *  │ composePagesData   │      │ readMiddleFormatFile         │
+ *  │ (入口,迭代语言)      ├────► │ 读取 middle YAML              │
+ *  └─────────┬──────────┘      └───────────┬──────────────────┘
+ *            │                              │
+ *            │                              ▼
+ *            │                  ┌──────────────────────────────┐
+ *            │                  │ collectSectionsHierarchically│
+ *            │                  │ 构树(仅真实 list)              │
+ *            │                  └───────────┬──────────────────┘
+ *            │                              │
+ *            │                              ▼
+ *            │            ┌────────────────────────────────────────┐
+ *            │            │ processNode                            │
+ *            │            │ 递归：match → instantiate               │
+ *            │            └───────────┬────────────────────────────┘
+ *            │                        │
+ *            │                        ▼
+ *            │         ┌──────────────────────────────────────────────┐
+ *            │         │ instantiateComponentTemplate                 │
+ *            │         │ → cloneTemplateSection                       │
+ *            │         │ → processSectionTemplatesDeep                │
+ *            │         │ → processTemplate / processArrayTemplate     │
+ *            │         │ → 生成 transformedDataSource                  │
+ *            │         └───────────┬──────────────────────────────────┘
+ *            │                     │
+ *            │                     ▼ 是否含 EMPTY_VALUE?
+ *            │         ┌──────────────────────────────────────────────┐
+ *            │         │ pruneSectionById                             │
+ *            │         │ → cleanupLayoutConfig                        │
+ *            │         │ → reflowGridSettingsDeep                     │
+ *            │         │   (compressGridSettings/ compressLayoutRows) │
+ *            │         └───────────┬──────────────────────────────────┘
+ *            │                     │
+ *            ▼                     ▼
+ *  ┌────────────────────┐      ┌────────────────────────────────────────┐
+ *  │ composePagesData   │      │ 聚合 sections + dataSource              │
+ *  │ 聚合多语言输出       ├────►  │ stringify → savePagesKitData           │
+ *  └────────────────────┘      └────────────────────────────────────────┘
  *
  * ## 关键保证
  * - **层级**：只在父实例找到与 `child.path` 对应的 slot（`{{list.N}}`）时才挂入；
  *   若找不到 slot，记录 warning，并 **不把子实例提升到顶层**（避免“跑外面去”）。
  * - **id 一致性**：唯一方法 `applyIdMapDeep` 统一替换任意对象的 key/值里的旧 id → 新 id。
+ * - **无空组件**：任何数据源中残留 `EMPTY_VALUE` 的实例都会被移除，网格行位跟随压缩，避免界面出现空洞。
  */
 
 import { readFileSync, rmSync } from "node:fs";
@@ -30,11 +74,23 @@ import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import { LIST_KEY } from "../../../utils/constants.mjs";
-import {
-  extractFieldCombinations,
-  generateDeterministicId,
-} from "../../../utils/generate-helper.mjs";
+import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
+
+const EMPTY_VALUE = "___EMPTY_VALUE___";
+
+const getEmptyValue = (_key) => {
+  return EMPTY_VALUE;
+};
+
+function containsEmptyValue(node) {
+  if (node === EMPTY_VALUE) return true;
+  if (Array.isArray(node)) return node.some((item) => containsEmptyValue(item));
+  if (node && typeof node === "object") {
+    return Object.values(node).some((item) => containsEmptyValue(item));
+  }
+  return false;
+}
 
 // ============= Logging =============
 const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
@@ -64,8 +120,9 @@ function getNestedValue(obj, path) {
 function processSimpleTemplate(obj, data) {
   if (typeof obj === "string") {
     return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_m, key) => {
-      const v = getNestedValue(data, key.trim());
-      return v !== undefined ? v : "";
+      const keyTrimmed = key.trim();
+      const v = getNestedValue(data, keyTrimmed);
+      return !_.isNil(v) && v !== "" ? v : getEmptyValue(keyTrimmed);
     });
   }
   if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data));
@@ -162,6 +219,79 @@ function ensureCustomComponentConfig(section) {
   return section;
 }
 
+function normalizeFieldList(fields = []) {
+  // 字段归一化：去重、去空串并排序，保证匹配时顺序一致
+  return Array.from(
+    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
+  ).sort();
+}
+
+function arraysEqual(a = [], b = []) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+function findBestComponentMatch(sectionFields, compositeComponents) {
+  const normalizedSectionFields = normalizeFieldList(sectionFields);
+  const sectionFieldSet = new Set(normalizedSectionFields);
+
+  let bestMatch = null;
+
+  compositeComponents.forEach((component) => {
+    const componentFields = normalizeFieldList(component.fieldCombinations || []);
+    if (componentFields.length === 0) return;
+
+    // 精确匹配优先，保持原有行为
+    if (arraysEqual(componentFields, normalizedSectionFields)) {
+      if (!bestMatch || bestMatch.type !== "exact") {
+        bestMatch = {
+          component,
+          type: "exact",
+          penalty: 0,
+          fieldCount: componentFields.length,
+        };
+      }
+      return;
+    }
+
+    if (normalizedSectionFields.length === 0) return;
+
+    // 仅当组件字段覆盖 section 字段时才考虑回退逻辑
+    const componentFieldSet = new Set(componentFields);
+    const hasAllSectionFields = normalizedSectionFields.every((field) =>
+      componentFieldSet.has(field),
+    );
+    if (!hasAllSectionFields) return;
+
+    const extraCount = componentFields.reduce(
+      (count, field) => count + (sectionFieldSet.has(field) ? 0 : 1),
+      0,
+    );
+
+    // 在没有精确匹配时，选择冗余字段最少的候选
+    if (!bestMatch || bestMatch.type !== "exact") {
+      const shouldReplace =
+        !bestMatch ||
+        extraCount < bestMatch.penalty ||
+        (extraCount === bestMatch.penalty && componentFields.length < bestMatch.fieldCount);
+
+      if (shouldReplace) {
+        bestMatch = {
+          component,
+          type: "superset",
+          penalty: extraCount,
+          fieldCount: componentFields.length,
+        };
+      }
+    }
+  });
+
+  return bestMatch;
+}
+
 /**
  * 深度 clone 模板 section，并生成稳定 id：
  * - 参与因子：templateId / 原模板 section.id / sectionIndex / path（含 list 索引）
@@ -228,6 +358,143 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
   return cloned;
 }
 
+function pruneSectionById(rootSection, targetId) {
+  if (!rootSection || typeof rootSection !== "object" || !targetId) return false;
+  if (rootSection.id === targetId) return false;
+
+  let removed = false;
+  const stack = [rootSection];
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+    if (!node || typeof node !== "object") continue;
+
+    const { sections } = node;
+    if (sections && typeof sections === "object" && Object.hasOwn(sections, targetId)) {
+      delete sections[targetId];
+
+      if (Array.isArray(node.sectionIds)) {
+        node.sectionIds = node.sectionIds.filter((id) => id !== targetId);
+        if (node.sectionIds.length === 0) delete node.sectionIds;
+      }
+
+      cleanupLayoutConfig(node.config, targetId);
+
+      if (sections && Object.keys(sections).length === 0) delete node.sections;
+
+      removed = true;
+      break;
+    }
+
+    if (sections && typeof sections === "object") {
+      Object.values(sections).forEach((child) => {
+        if (child && typeof child === "object") stack.push(child);
+      });
+    }
+  }
+
+  return removed;
+}
+
+function compressLayoutRows(layout) {
+  if (!layout) return;
+
+  const collectItems = () => {
+    if (Array.isArray(layout)) return layout;
+    if (layout && typeof layout === "object") return Object.values(layout);
+    return [];
+  };
+
+  const items = collectItems().filter((item) => item && typeof item === "object");
+  if (items.length === 0) return;
+
+  const rowValues = Array.from(
+    new Set(
+      items
+        .map((item) => {
+          const value = Number(item.y);
+          return Number.isFinite(value) ? value : undefined;
+        })
+        .filter((y) => Number.isFinite(y)),
+    ),
+  ).sort((a, b) => a - b);
+
+  if (rowValues.length === 0) return;
+
+  const rowMap = new Map(rowValues.map((value, idx) => [value, idx]));
+
+  const updateRow = (item) => {
+    if (!item || typeof item !== "object") return;
+    const value = Number(item.y);
+    if (Number.isFinite(value) && rowMap.has(value)) {
+      item.y = rowMap.get(value);
+    }
+  };
+
+  if (Array.isArray(layout)) {
+    layout.forEach(updateRow);
+  } else {
+    Object.values(layout).forEach(updateRow);
+  }
+}
+
+function compressGridSettings(config) {
+  if (!config || typeof config !== "object") return;
+
+  const { gridSettings } = config;
+  if (!gridSettings || typeof gridSettings !== "object") return;
+
+  Object.entries(gridSettings).forEach(([device, layout]) => {
+    if (!layout) {
+      delete gridSettings[device];
+      return;
+    }
+
+    if (Array.isArray(layout)) {
+      layout.forEach((item) => {
+        if (item && typeof item === "object" && item.gridSettings) {
+          compressGridSettings(item);
+        }
+      });
+      compressLayoutRows(layout);
+      if (layout.length === 0) delete gridSettings[device];
+      return;
+    }
+
+    if (layout && typeof layout === "object") {
+      Object.values(layout).forEach((item) => {
+        if (item && typeof item === "object" && item.gridSettings) {
+          compressGridSettings(item);
+        }
+      });
+      compressLayoutRows(layout);
+
+      if (Object.keys(layout).length === 0) {
+        delete gridSettings[device];
+      }
+      return;
+    }
+
+    delete gridSettings[device];
+  });
+
+  if (Object.keys(gridSettings).length === 0) delete config.gridSettings;
+}
+
+function reflowGridSettingsDeep(section) {
+  if (!section || typeof section !== "object") return;
+
+  if (section.config) {
+    compressGridSettings(section.config);
+  }
+
+  if (section.sections && typeof section.sections === "object") {
+    Object.values(section.sections).forEach((child) => {
+      if (child && typeof child === "object") reflowGridSettingsDeep(child);
+    });
+  }
+}
+
 function instantiateComponentTemplate({ component, sectionData, sectionIndex, path = [] }) {
   const templateId = component.id || component.componentId || component.name;
   if (!component?.section) {
@@ -263,6 +530,33 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
       transformedDataSource[newId] = processed;
     }
   });
+
+  const prunedSectionIds = [];
+  Object.entries(transformedDataSource).forEach(([sectionId, value]) => {
+    if (containsEmptyValue(value)) {
+      prunedSectionIds.push(sectionId);
+    }
+  });
+
+  prunedSectionIds.forEach((sectionId) => {
+    const removed = pruneSectionById(clonedSection, sectionId);
+    delete transformedDataSource[sectionId];
+    if (removed) {
+      log("🧽 [instantiateComponentTemplate] pruned empty component:", {
+        templateId,
+        sectionId,
+      });
+    } else {
+      logError("⚠️  [instantiateComponentTemplate] failed to prune component for empty data:", {
+        templateId,
+        sectionId,
+      });
+    }
+  });
+
+  if (prunedSectionIds.length > 0) {
+    reflowGridSettingsDeep(clonedSection);
+  }
 
   log("✅ [instantiateComponentTemplate] instantiated:", {
     templateId,
@@ -437,17 +731,125 @@ function collectSectionsHierarchically(section, path = []) {
   return node;
 }
 
+/** 移除 layout-block 中未被替换的占位 slot */
+function cleanupLayoutConfig(config, placeholderId) {
+  if (!config || typeof config !== "object") return;
+
+  if (Array.isArray(config.sectionIds)) {
+    config.sectionIds = config.sectionIds.filter((id) => id !== placeholderId);
+    if (config.sectionIds.length === 0) delete config.sectionIds;
+  }
+
+  const { gridSettings } = config;
+  if (!gridSettings || typeof gridSettings !== "object") return;
+
+  Object.entries(gridSettings).forEach(([device, layout]) => {
+    if (!layout && layout !== 0) {
+      delete gridSettings[device];
+      return;
+    }
+
+    if (Array.isArray(layout)) {
+      for (let i = layout.length - 1; i >= 0; i -= 1) {
+        const item = layout[i];
+        if (
+          item === placeholderId ||
+          (item &&
+            typeof item === "object" &&
+            (item.id === placeholderId || item.sectionId === placeholderId))
+        ) {
+          layout.splice(i, 1);
+          continue;
+        }
+
+        if (item && typeof item === "object" && Array.isArray(item.sectionIds)) {
+          item.sectionIds = item.sectionIds.filter((id) => id !== placeholderId);
+          if (item.sectionIds.length === 0) delete item.sectionIds;
+        }
+      }
+
+      if (layout.length === 0) delete gridSettings[device];
+      return;
+    }
+
+    if (layout && typeof layout === "object") {
+      if (Object.hasOwn(layout, placeholderId)) {
+        delete layout[placeholderId];
+      }
+
+      if (layout.sections && typeof layout.sections === "object") {
+        if (Object.hasOwn(layout.sections, placeholderId)) {
+          delete layout.sections[placeholderId];
+        }
+        if (Object.keys(layout.sections).length === 0) delete layout.sections;
+      }
+
+      if (Array.isArray(layout.sectionIds)) {
+        layout.sectionIds = layout.sectionIds.filter((id) => id !== placeholderId);
+        if (layout.sectionIds.length === 0) delete layout.sectionIds;
+      }
+
+      if (Object.keys(layout).length === 0) {
+        delete gridSettings[device];
+      }
+      return;
+    }
+
+    if (layout === placeholderId) delete gridSettings[device];
+  });
+
+  if (Object.keys(gridSettings).length === 0) delete config.gridSettings;
+}
+
+function removeSlot(slot) {
+  if (!slot) return;
+
+  const { parent, placeholderId, position } = slot;
+
+  if (!parent?.sections || !Array.isArray(parent.sectionIds)) {
+    logError("⚠️  [removeSlot] parent sections metadata missing:", {
+      parentId: parent?.id,
+      placeholderId,
+    });
+    return;
+  }
+
+  if (
+    position >= 0 &&
+    position < parent.sectionIds.length &&
+    parent.sectionIds[position] === placeholderId
+  ) {
+    parent.sectionIds.splice(position, 1);
+  } else {
+    const idx = parent.sectionIds.indexOf(placeholderId);
+    if (idx !== -1) {
+      parent.sectionIds.splice(idx, 1);
+    } else {
+      logError("⚠️  [removeSlot] placeholder id not found in sectionIds:", {
+        parentId: parent.id,
+        placeholderId,
+      });
+    }
+  }
+
+  delete parent.sections[placeholderId];
+  cleanupLayoutConfig(parent.config, placeholderId);
+
+  log("🗑️  [removeSlot] unused slot removed:", {
+    parentId: parent.id,
+    placeholderId,
+  });
+}
+
 // ============= Per-node Processing（递归 + 精确插槽替换） ============
 function processNode(node, compositeComponents, sectionIndex) {
   const { section, path, children } = node;
 
   // 1) 匹配组件
-  const analysis = extractFieldCombinations({ sections: [section] });
-  const fieldCombinations = analysis[0]?.fieldCombinations || [];
+  const fieldCombinations = extractContentFields(section);
 
-  const matched = compositeComponents.find((c) =>
-    _.isEqual((c.fieldCombinations || []).sort(), fieldCombinations.sort()),
-  );
+  const matchResult = findBestComponentMatch(fieldCombinations, compositeComponents);
+  const matched = matchResult?.component;
 
   if (ENABLE_LOGS) {
     log("🔎 [processNode] match try:", {
@@ -456,6 +858,8 @@ function processNode(node, compositeComponents, sectionIndex) {
       fcCount: fieldCombinations.length,
       matched: !!matched,
       matchedName: matched?.name || matched?.id || null,
+      matchType: matchResult?.type ?? null,
+      extraFields: matchResult?.penalty ?? null,
     });
   }
 
@@ -490,6 +894,7 @@ function processNode(node, compositeComponents, sectionIndex) {
 
   // 2) 只有父已实例化时，才收集 slot（在父实例范围内）
   const slotMap = instantiation?.section ? collectLayoutSlots(instantiation.section) : new Map();
+  const resolvedSlotMap = new Map();
 
   // 3) 递归处理子节点，并按 slot 精确替换（严格按本父节点 children 的索引）
   children.forEach((childNode, idx) => {
@@ -503,6 +908,7 @@ function processNode(node, compositeComponents, sectionIndex) {
 
     if (listIdx !== null && slotMap.has(listIdx)) {
       replaceSlotWithChild(slotMap.get(listIdx), childSection);
+      resolvedSlotMap.set(listIdx, childSection);
     } else {
       // 找不到 slot：为了避免再次把子实例“挂到外面”，这里仅记录告警，不做 fallback append
       logError("⚠️  [processNode] no slot matched for child, skipped mounting:", {
@@ -512,6 +918,13 @@ function processNode(node, compositeComponents, sectionIndex) {
       });
     }
   });
+
+  const unResolvedSlots = Array.from(slotMap.keys()).filter((k) => !resolvedSlotMap.has(k));
+
+  // 如果 layout block 存在未解析的 slot，删除相应占位节点，避免遗留空壳
+  if (unResolvedSlots.length > 0 && result.component?.section?.component === "layout-block") {
+    unResolvedSlots.forEach((slotIdx) => removeSlot(slotMap.get(slotIdx)));
+  }
 
   return result;
 }

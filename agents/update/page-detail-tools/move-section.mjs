@@ -33,7 +33,7 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
   }
 
   // Find the section to move
-  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.name === name);
+  const sectionIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === name);
   if (sectionIndex === -1) {
     console.log(`⚠️  Unable to move section: Section '${name}' not found`);
     return { pageDetail };
@@ -48,7 +48,7 @@ export default async function moveSection({ pageDetail, name, newPosition }) {
     targetIndex = Math.max(0, Math.min(newPosition, parsedPageDetail.sections.length - 1));
   } else if (typeof newPosition === "string") {
     // Position is relative to another section
-    const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === newPosition);
+    const refIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === newPosition);
     if (refIndex === -1) {
       console.log(`⚠️  Unable to move section: Reference section '${newPosition}' not found`);
       return { pageDetail };

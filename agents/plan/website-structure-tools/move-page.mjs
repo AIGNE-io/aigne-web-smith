@@ -1,31 +1,49 @@
-export default async function movePage({ websiteStructure, path, newParentId }) {
-  // Validate required parameters
-  if (!path) {
-    console.log(
-      "⚠️  Unable to move page: No page specified. Please clearly indicate which page you want to move and where it should be placed.",
-    );
-    return { websiteStructure };
+import {
+  getMovePageInputJsonSchema,
+  getMovePageOutputJsonSchema,
+  validateMovePageInput,
+} from "../../../types/website-structure-schema.mjs";
+
+export default async function movePage(input) {
+  // Validate input using Zod schema
+  const validation = validateMovePageInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot move page: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure: input.websiteStructure,
+      message: errorMessage,
+    };
   }
+
+  const { websiteStructure, path, newParentId, newPath } = validation.data;
 
   // Find the page to move
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
   if (pageIndex === -1) {
-    console.log(
-      `⚠️  Unable to move page: Page '${path}' doesn't exist in the website structure. Please specify an existing page to move.`,
-    );
-    return { websiteStructure };
+    const errorMessage = `Cannot move page: Page '${path}' does not exist. Please select an existing page to move.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure,
+      message: errorMessage,
+    };
   }
 
   const pageToMove = websiteStructure[pageIndex];
 
   // Validate new parent exists if newParentId is provided
-  if (newParentId !== null && newParentId !== undefined && newParentId !== "null") {
+  if (
+    newParentId &&
+    newParentId !== "null"
+  ) {
     const newParentExists = websiteStructure.some((item) => item.path === newParentId);
     if (!newParentExists) {
-      console.log(
-        `⚠️  Unable to move page: Target parent page '${newParentId}' doesn't exist. Please specify an existing parent page for the move operation.`,
-      );
-      return { websiteStructure };
+      const errorMessage = `Cannot move page: Target parent page '${newParentId}' does not exist. Please select an existing parent page.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        websiteStructure,
+        message: errorMessage,
+      };
     }
 
     // Check for circular dependency: the new parent cannot be a descendant of the page being moved
@@ -40,16 +58,41 @@ export default async function movePage({ websiteStructure, path, newParentId }) 
     };
 
     if (isDescendant(path, newParentId)) {
-      console.log(
-        `⚠️  Unable to move page: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please choose a different parent page that isn't nested under the page being moved.`,
-      );
-      return { websiteStructure };
+      const errorMessage = `Cannot move page: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please select a parent that is not nested under the page being moved.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        websiteStructure,
+        message: errorMessage,
+      };
     }
   }
 
-  // Create updated page object with new parent
+  // Validate newPath if provided
+  if (newPath && newPath !== path) {
+    // Check if newPath already exists
+    const pathExists = websiteStructure.some((item) => item.path === newPath);
+    if (pathExists) {
+      const errorMessage = `Cannot move page: A page with path '${newPath}' already exists. Choose a different path.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        websiteStructure,
+        message: errorMessage,
+      };
+    }
+
+    // Check if any pages have the current path as parent and would be affected
+    const childPages = websiteStructure.filter((item) => item.parentId === path);
+    if (childPages.length > 0) {
+      // Update all child pages to use the new path as parent
+      console.log(`Note: Will update ${childPages.length} child page(s) to reference new parent path.`);
+    }
+  }
+
+  // Create updated page object with new parent and path
+  const finalPath = newPath || path;
   const updatedPage = {
     ...pageToMove,
+    path: finalPath,
     parentId: newParentId || null,
   };
 
@@ -57,82 +100,37 @@ export default async function movePage({ websiteStructure, path, newParentId }) 
   const updatedStructure = [...websiteStructure];
   updatedStructure[pageIndex] = updatedPage;
 
+  // Update child pages if path changed
+  if (newPath && newPath !== path) {
+    for (let i = 0; i < updatedStructure.length; i++) {
+      if (updatedStructure[i].parentId === path) {
+        updatedStructure[i] = {
+          ...updatedStructure[i],
+          parentId: newPath,
+        };
+      }
+    }
+  }
+
+  const oldParentText = pageToMove.parentId ? ` from parent '${pageToMove.parentId}'` : " from top-level";
+  const newParentText = newParentId ? ` to parent '${newParentId}'` : " to top-level";
+  const pathChangeText =
+    newPath && newPath !== path ? ` and changed path from '${path}' to '${newPath}'` : "";
+  const childUpdateText =
+    newPath &&
+    newPath !== path &&
+    websiteStructure.filter((item) => item.parentId === path).length > 0
+      ? ` (also updated ${websiteStructure.filter((item) => item.parentId === path).length} child page(s))`
+      : "";
+  const successMessage = `Successfully moved page '${pageToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.`;
+
   return {
     websiteStructure: updatedStructure,
-    originalPage: pageToMove,
-    updatedPage,
+    message: successMessage,
   };
 }
 
-movePage.taskTitle = "Move a page to a new parent in website structure";
-movePage.description = "Move a page to a different parent in the website structure hierarchy";
-movePage.inputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Current website structure array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    path: {
-      type: "string",
-      description: "URL path of the page to move",
-    },
-    newParentId: {
-      type: ["string", "null"],
-      description: "Path of the new parent page, null to move to top-level",
-    },
-  },
-  required: ["websiteStructure", "path"],
-};
-movePage.outputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Updated website structure array with the page moved",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    originalPage: {
-      type: "object",
-      description: "The original page object before moving",
-      properties: {
-        title: { type: "string" },
-        description: { type: "string" },
-        path: { type: "string" },
-        parentId: { type: ["string", "null"] },
-        sourceIds: { type: "array", items: { type: "string" } },
-      },
-    },
-    updatedPage: {
-      type: "object",
-      description: "The updated page object after moving",
-      properties: {
-        title: { type: "string" },
-        description: { type: "string" },
-        path: { type: "string" },
-        parentId: { type: ["string", "null"] },
-        sourceIds: { type: "array", items: { type: "string" } },
-      },
-    },
-  },
-  required: ["websiteStructure"],
-};
+movePage.taskTitle = "Move page";
+movePage.description = "Move a page to a different parent in the website structure";
+movePage.inputSchema = getMovePageInputJsonSchema();
+movePage.outputSchema = getMovePageOutputJsonSchema();

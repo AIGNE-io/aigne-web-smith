@@ -1,52 +1,45 @@
-export default async function addPage({
-  websiteStructure,
-  title,
-  description,
-  path,
-  parentId,
-  sourceIds,
-}) {
-  // Validate required parameters
-  if (
-    !title ||
-    !description ||
-    !path ||
-    !sourceIds ||
-    !Array.isArray(sourceIds) ||
-    sourceIds.length === 0
-  ) {
-    console.log(
-      "⚠️  Unable to add page: Missing required information (title, description, path, or sourceIds). Please provide more specific details about the new page you want to add.",
-    );
-    return { websiteStructure };
+import {
+  getAddPageInputJsonSchema,
+  getAddPageOutputJsonSchema,
+  validateAddPageInput,
+} from "../../../types/website-structure-schema.mjs";
+
+export default async function addPage(input) {
+  // Validate input using Zod schema
+  const validation = validateAddPageInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot add page: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure: input.websiteStructure,
+      message: errorMessage,
+    };
   }
 
-  // Validate path format
-  if (!path.startsWith("/")) {
-    console.log(
-      "⚠️  Unable to add page: Invalid path format. Please specify a valid URL path that starts with '/'. For example: '/about' or '/products/services'.",
-    );
-    return { websiteStructure };
-  }
+  const { websiteStructure, title, description, path, parentId, sourceIds } = validation.data;
 
   // Validate parent exists if parentId is provided
-  if (parentId !== null && parentId !== undefined && parentId !== "null" && parentId !== "") {
+  if (parentId && parentId !== "null") {
     const parentExists = websiteStructure.some((item) => item.path === parentId);
     if (!parentExists) {
-      console.log(
-        `⚠️  Unable to add page: Parent page '${parentId}' doesn't exist. Please specify an existing parent page or set as top-level page.`,
-      );
-      return { websiteStructure };
+      const errorMessage = `Cannot add page: Parent page '${parentId}' not found.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        websiteStructure,
+        message: errorMessage,
+      };
     }
   }
 
   // Check if page with same path already exists
   const existingPage = websiteStructure.find((item) => item.path === path);
   if (existingPage) {
-    console.log(
-      `⚠️  Unable to add page: Page with path '${path}' already exists. Please choose a different path for the new page.`,
-    );
-    return { websiteStructure };
+    const errorMessage = `Cannot add page: A page with path '${path}' already exists. Choose a different path.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure,
+      message: errorMessage,
+    };
   }
 
   // Create new page object
@@ -61,85 +54,15 @@ export default async function addPage({
   // Add the new page to the website structure
   const updatedStructure = [...websiteStructure, newPage];
 
+  const successMessage = `Successfully added page '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level page"}.`;
+
   return {
     websiteStructure: updatedStructure,
-    addedPage: newPage,
+    message: successMessage,
   };
 }
 
-addPage.taskTitle = "Add a new page to website structure";
-addPage.description = "Add a new page to the website structure under a specified parent page";
-addPage.inputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Current website structure array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    title: {
-      type: "string",
-      description: "Title of the new page",
-    },
-    description: {
-      type: "string",
-      description: "Description of the new page",
-    },
-    path: {
-      type: "string",
-      description:
-        "URL path for the new page, must start with /, no language prefix, homepage uses /home",
-    },
-    parentId: {
-      type: ["string", "null"],
-      description: "Parent page path, null for top-level pages",
-    },
-    sourceIds: {
-      type: "array",
-      description: "Associated sourceIds from datasources, cannot be empty",
-      items: { type: "string" },
-      minItems: 1,
-    },
-  },
-  required: ["websiteStructure", "title", "description", "path", "sourceIds"],
-};
-addPage.outputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Updated website structure array with the new page added",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    addedPage: {
-      type: "object",
-      description: "The newly added page object",
-      properties: {
-        title: { type: "string" },
-        description: { type: "string" },
-        path: { type: "string" },
-        parentId: { type: ["string", "null"] },
-        sourceIds: { type: "array", items: { type: "string" } },
-      },
-    },
-  },
-  required: ["websiteStructure"],
-};
+addPage.taskTitle = "Add new page";
+addPage.description = "Add a new page to the website structure";
+addPage.inputSchema = getAddPageInputJsonSchema();
+addPage.outputSchema = getAddPageOutputJsonSchema();

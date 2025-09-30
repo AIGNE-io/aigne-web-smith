@@ -1,19 +1,32 @@
-export default async function deletePage({ websiteStructure, path }) {
-  // Validate required parameters
-  if (!path) {
-    console.log(
-      "⚠️  Unable to delete page: No page specified. Please clearly indicate which page you want to remove from the website structure.",
-    );
-    return { websiteStructure };
+import {
+  getDeletePageInputJsonSchema,
+  getDeletePageOutputJsonSchema,
+  validateDeletePageInput,
+} from "../../../types/website-structure-schema.mjs";
+
+export default async function deletePage(input) {
+  // Validate input using Zod schema
+  const validation = validateDeletePageInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot delete page: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure: input.websiteStructure,
+      message: errorMessage,
+    };
   }
+
+  const { websiteStructure, path } = validation.data;
 
   // Find the page to delete
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
   if (pageIndex === -1) {
-    console.log(
-      `⚠️  Unable to delete page: Page '${path}' doesn't exist in the website structure. Please specify an existing page to delete.`,
-    );
-    return { websiteStructure };
+    const errorMessage = `Cannot delete page: Page '${path}' does not exist. Please choose an existing page to delete.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure,
+      message: errorMessage,
+    };
   }
 
   const pageToDelete = websiteStructure[pageIndex];
@@ -21,75 +34,26 @@ export default async function deletePage({ websiteStructure, path }) {
   // Check if any other pages have this page as parent
   const childPages = websiteStructure.filter((item) => item.parentId === path);
   if (childPages.length > 0) {
-    console.log(
-      `⚠️  Unable to delete page: Page '${path}' has ${childPages.length} child page(s) (${childPages.map((p) => p.path).join(", ")}). Please first move these pages to a different parent or delete them before removing this page.`,
-    );
-    return { websiteStructure };
+    const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      websiteStructure,
+      message: errorMessage,
+    };
   }
 
   // Remove the page from the website structure
   const updatedStructure = websiteStructure.filter((_, index) => index !== pageIndex);
 
+  const successMessage = `Successfully deleted page '${pageToDelete.title}' from path '${path}'.`;
+
   return {
     websiteStructure: updatedStructure,
-    deletedPage: pageToDelete,
+    message: successMessage,
   };
 }
 
-deletePage.taskTitle = "Delete a page from website structure";
-deletePage.description = "Delete a page from the website structure by its path";
-deletePage.inputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Current website structure array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    path: {
-      type: "string",
-      description: "URL path of the page to delete",
-    },
-  },
-  required: ["websiteStructure", "path"],
-};
-deletePage.outputSchema = {
-  type: "object",
-  properties: {
-    websiteStructure: {
-      type: "array",
-      description: "Updated website structure array with the page removed",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    deletedPage: {
-      type: "object",
-      description: "The deleted page object",
-      properties: {
-        title: { type: "string" },
-        description: { type: "string" },
-        path: { type: "string" },
-        parentId: { type: ["string", "null"] },
-        sourceIds: { type: "array", items: { type: "string" } },
-      },
-    },
-  },
-  required: ["websiteStructure"],
-};
+deletePage.taskTitle = "Delete page";
+deletePage.description = "Delete a page from the website structure";
+deletePage.inputSchema = getDeletePageInputJsonSchema();
+deletePage.outputSchema = getDeletePageOutputJsonSchema();

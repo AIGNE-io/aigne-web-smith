@@ -27,7 +27,7 @@ importers:
         specifier: ^0.16.0
         version: 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@blocklet/payment-broker-client':
-        specifier: ^1.20.20
+        specifier: ^1.21.1
         version: 1.21.1
       chalk:
         specifier: ^5.5.0

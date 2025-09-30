@@ -330,7 +330,7 @@ describe("deploy", () => {
     expect(result.homeUrl).toBe(TEST_HOME_URL);
   });
 
-  test("uses custom BASE_URL when WEB_SMITH_BASE_URL is set", async () => {
+  test("uses default staging URL even when WEB_SMITH_BASE_URL is set", async () => {
     process.env.WEB_SMITH_BASE_URL = "https://custom.websmith.test";
 
     const mockResult = {
@@ -352,7 +352,7 @@ describe("deploy", () => {
     );
   });
 
-  test("uses empty BASE_URL when WEB_SMITH_BASE_URL is not set", async () => {
+  test("uses default staging URL when WEB_SMITH_BASE_URL is not set", async () => {
     delete process.env.WEB_SMITH_BASE_URL;
 
     const mockResult = {

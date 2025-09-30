@@ -224,13 +224,13 @@ export default async function publishWebsite(
         ...(hasCachedCheckoutId
           ? [
               {
-                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment is already processed.`,
+                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
                 value: "new-pagekit-continue",
               },
             ]
           : []),
         {
-          name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} We'll create a brand-new website with custom domain and hosting. Perfect for professional use.`,
+          name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
           value: "new-pagekit",
         },
       ],

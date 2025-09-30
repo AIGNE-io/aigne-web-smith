@@ -67,7 +67,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
         `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
           `${chalk.bold(
             "💡 Solution:",
-          )} Start here to set up your own website for hosting pages:\n${storeLink}\n\n`,
+          )} Start here to set up your own website to host pages:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
       const pagesLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_PAGES);
@@ -156,7 +156,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
 export async function getOfficialAccessToken(baseUrl) {
   // Early parameter validation
   if (!baseUrl) {
-    throw new Error("baseUrl parameter is required for getOfficialAccessToken.");
+    throw new Error("The baseUrl parameter is required for getting the official access token.");
   }
 
   // Parse URL once and reuse
@@ -218,7 +218,7 @@ export async function getOfficialAccessToken(baseUrl) {
   } catch (error) {
     console.debug(error);
     throw new Error(
-      "Failed to obtain official access token. Please check your network connection and try again later.",
+      "Failed to obtain the official access token. Please verify your network connection and permissions before trying again.",
     );
   }
 
@@ -258,7 +258,7 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       }),
     );
   } catch (error) {
-    console.warn(`Failed to save token to config file: ${error.message}`, error);
-    // Don't throw here, as the token is already obtained and set in env
+    console.warn(`Failed to save access token to configuration file: ${error.message}`, error);
+    // Don't throw since token is already obtained and set in environment
   }
 }

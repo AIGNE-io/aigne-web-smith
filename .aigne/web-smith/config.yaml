@@ -60,4 +60,5 @@ pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
 lastGitHead: b365df20e405d069a47d5c9ed9cca71f1635712b
-appUrl: https://staging.websmith.aigne.io/
+# Checkout ID for website deployment service
+checkoutId: ""

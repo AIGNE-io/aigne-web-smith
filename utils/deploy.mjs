@@ -2,11 +2,15 @@ import { BrokerClient, STEPS } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import open from "open";
 import { getOfficialAccessToken } from "./auth-utils.mjs";
+import { DEFAULT_APP_URL } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== Configuration ====================
-const BASE_URL = process.env.WEB_SMITH_BASE_URL || "";
-
+const BASE_URL = process.env.WEB_SMITH_BASE_URL || DEFAULT_APP_URL;
+const SUCCESS_MESSAGE = {
+  en: "Congratulations! Your website has been successfully created. You can return to the command-line tool to continue publishing your pages.",
+  zh: "恭喜您，你的网站已创建成功！可以返回命令行工具继续发布你的页面！",
+};
 /**
  * Deploy a new website for your pages and return the installation URL
  * @param {string} id - Cached checkout ID (optional)
@@ -24,12 +28,6 @@ export async function deploy(id, cachedUrl) {
     baseUrl: BASE_URL,
     authToken,
     paymentLinkKey: "PAYMENT_LINK_ID_OF_PAGE_KIT",
-    timeout: 300000,
-    polling: {
-      interval: 3000,
-      maxAttempts: 100,
-      backoffStrategy: "linear",
-    },
   });
 
   console.log(`🚀 Starting deployment...`);
@@ -37,12 +35,7 @@ export async function deploy(id, cachedUrl) {
   const result = await client.deploy({
     cachedCheckoutId: id,
     cachedPaymentUrl: cachedUrl,
-    page_info: {
-      success_message: {
-        en: "Congratulations! Your website has been successfully created. You can return to the command-line tool to continue publishing your pages.",
-        zh: "恭喜您，你的网站已创建成功！可以返回命令行工具继续发布你的页面！",
-      },
-    },
+    pageInfo: { successMessage: SUCCESS_MESSAGE },
     hooks: {
       [STEPS.PAYMENT_PENDING]: async ({ sessionId, paymentUrl, isResuming }) => {
         console.log(`⏳ Step 1/4: Waiting for payment...`);

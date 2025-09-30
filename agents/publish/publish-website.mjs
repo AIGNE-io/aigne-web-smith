@@ -210,7 +210,6 @@ export default async function publishWebsite(
 
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
     const hasCachedCheckoutId = !!config?.checkoutId;
-    const hasWebSmithBaseUrl = !!process.env.WEB_SMITH_BASE_URL;
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
@@ -222,7 +221,7 @@ export default async function publishWebsite(
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId && hasWebSmithBaseUrl
+        ...(hasCachedCheckoutId
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment is already processed.`,
@@ -230,14 +229,10 @@ export default async function publishWebsite(
               },
             ]
           : []),
-        ...(hasWebSmithBaseUrl
-          ? [
-              {
-                name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} We'll create a brand-new website with custom domain and hosting. Perfect for professional use.`,
-                value: "new-pagekit",
-              },
-            ]
-          : []),
+        {
+          name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} We'll create a brand-new website with custom domain and hosting. Perfect for professional use.`,
+          value: "new-pagekit",
+        },
       ],
     });
 
@@ -261,7 +256,7 @@ export default async function publishWebsite(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (hasWebSmithBaseUrl && ["new-pagekit", "new-pagekit-continue"].includes(choice)) {
+    } else if (["new-pagekit", "new-pagekit-continue"].includes(choice)) {
       // Deploy a new Pages Kit service
       try {
         let id = "";

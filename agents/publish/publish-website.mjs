@@ -274,8 +274,7 @@ export default async function publishWebsite(
         token = ltToken;
       } catch (error) {
         const errorMsg = error?.message || "Unknown error occurred";
-        console.error(`${chalk.red("❌ Failed to create website:")} ${errorMsg}`);
-        return { message: `❌ Website creation failed: ${errorMsg}` };
+        return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
       }
     }
   }

@@ -3,6 +3,13 @@ name: generateImageTeam
 description: Generate images for the website
 skills:
   - ../image/generate-image.yaml
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $
+      ])
+
 iterate_on: imageRequirements
 concurrency: 3
 input_schema:

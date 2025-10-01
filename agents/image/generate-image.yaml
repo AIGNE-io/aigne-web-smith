@@ -1,5 +1,6 @@
 type: image
 name: generateImage
+image_model: google/gemini-2.5-flash-image-preview
 instructions: |
   {{aiPrompt}} , high resolution, web design friendly, professional, clear, relevant to AI/tech industry, clean composition, vibrant colors but not distracting, soft lighting, modern aesthetic, suitable for a product landing page. Avoid busy backgrounds, ensure main subject is prominent.
 input_schema:
@@ -10,3 +11,5 @@ input_schema:
       description: The AI prompt to generate the image.
   required:
     - aiPrompt
+includeInputInOutput: true
+

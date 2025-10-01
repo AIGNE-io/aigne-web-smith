@@ -203,3 +203,79 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
     return [];
   }
 }
+
+/**
+ * Copy generated images from temp directory to assets directory
+ * @param {Array} imageRequirements - Array of image generation results
+ * @param {string} assetsDir - Target assets directory path
+ * @returns {Promise<Array>} Array of processed image information
+ */
+export async function copyGeneratedImages(imageRequirements, assetsDir) {
+  const { mkdir, copyFile, writeFile } = await import("node:fs/promises");
+
+  // Ensure assets directory exists
+  await mkdir(assetsDir, { recursive: true });
+
+  const processedImages = [];
+
+  for (const imageReq of imageRequirements) {
+    if (!imageReq.images || imageReq.images.length === 0) {
+      continue;
+    }
+
+    const processedImagePaths = [];
+
+    for (const image of imageReq.images) {
+      if (image.type === "local" && image.path) {
+        try {
+          // Get file extension from source path
+          const ext = path.extname(image.path);
+          // Create new filename using imageName
+          const newFilename = `${imageReq.imageName}${ext}`;
+          const destPath = path.join(assetsDir, newFilename);
+
+          // Copy file from temp to assets directory
+          await copyFile(image.path, destPath);
+
+          // Create metadata markdown file
+          const mdFilename = `${imageReq.imageName}.md`;
+          const mdPath = path.join(assetsDir, mdFilename);
+
+          // Build markdown content with image description and page context
+          let mdContent = `# ${imageReq.imageName}\n\n`;
+
+          if (imageReq.imageDescription) {
+            mdContent += `## Description\n\n${imageReq.imageDescription}\n\n`;
+          }
+
+          if (imageReq.pageContext) {
+            mdContent += `## Page Context\n\n${imageReq.pageContext}\n\n`;
+          }
+
+          mdContent += `## Image File\n\n\`${newFilename}\`\n`;
+
+          // Write markdown file
+          await writeFile(mdPath, mdContent, "utf8");
+
+          processedImagePaths.push({
+            imageName: imageReq.imageName,
+            path: destPath,
+            mimeType: image.mimeType,
+            metadataPath: mdPath,
+          });
+        } catch (copyError) {
+          console.error(`Failed to copy image ${image.path}: ${copyError.message}`);
+        }
+      }
+    }
+
+    if (processedImagePaths.length > 0) {
+      processedImages.push({
+        imageName: imageReq.imageName,
+        images: processedImagePaths,
+      });
+    }
+  }
+
+  return processedImages;
+}

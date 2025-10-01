@@ -46,23 +46,18 @@ output_schema:
             description: Suggested name for the image file
           imageDescription:
             type: string
-            description: Description of what the image should contain and its purpose
+            description: Describe the content displayed in the image and in what context it is suitable for use
           aiPrompt:
             type: string
             description: Detailed prompt for AI image generation describing the main subject and visual style
           pageContext:
             type: string
-            description: Which page or section this image is intended for
-          priority:
-            type: string
-            enum: ["high", "medium", "low"]
-            description: Priority level for generating this image
+            description: Which page this image is intended for
         required:
           - imageName
           - imageDescription
           - aiPrompt
           - pageContext
-          - priority
   required:
     - needsAdditionalImages
     - imageRequirements

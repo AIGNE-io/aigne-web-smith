@@ -1,4 +1,6 @@
+import path from "node:path";
 import chalk from "chalk";
+import { copyGeneratedImages } from "../../utils/file-utils.mjs";
 
 export default async function checkNeedGenerateImages(
   { needsAdditionalImages, imageRequirements = [] },
@@ -23,7 +25,7 @@ export default async function checkNeedGenerateImages(
   }
 
   console.log(
-    chalk.blue(`Found ${imageRequirements.length} image(s) that could enhance your website`)
+    chalk.blue(`Found ${imageRequirements.length} image(s) that could enhance your website`),
   );
 
   // Let user select which images to generate
@@ -38,9 +40,7 @@ export default async function checkNeedGenerateImages(
 
       if (!term) return choices;
 
-      return choices.filter((choice) =>
-        choice.name.toLowerCase().includes(term.toLowerCase())
-      );
+      return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
     },
     validate: () => {
       // Allow empty selection (user can choose not to generate any images)
@@ -58,19 +58,22 @@ export default async function checkNeedGenerateImages(
 
   try {
     // Invoke the image generation team with selected images
-    const result = await options.context.invoke(
-      options.context.agents["generateImageTeam"],
-      {
-        imageRequirements: selectedImages,
-      }
-    );
+    const result = await options.context.invoke(options.context.agents["generateImageTeam"], {
+      imageRequirements: selectedImages,
+    });
 
     console.log(chalk.green(`Successfully generated ${selectedImages.length} image(s)`));
 
+    // Process the result: copy images from temp directory to .aigne/web-smith/assets
+    const assetsDir = path.join(process.cwd(), ".aigne", "web-smith", "assets");
+
+    const processedImages = result?.imageRequirements
+      ? await copyGeneratedImages(result.imageRequirements, assetsDir)
+      : [];
+
     return {
       imageGenerated: true,
-      generatedImages: result,
-      selectedRequirements: selectedImages,
+      generatedImages: processedImages,
       message: `Successfully generated ${selectedImages.length} images`,
     };
   } catch (error) {

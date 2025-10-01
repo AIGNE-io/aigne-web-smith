@@ -77,7 +77,6 @@ For each identified image need, provide:
 - Purpose and context explanation
 - Detailed AI generation prompt focusing on main subject, style, and composition
 - Page/section context where it will be used
-- Priority level (high/medium/low)
 
 </analysis_process>
 

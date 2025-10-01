@@ -63,6 +63,7 @@ export default async function addPage(input) {
 }
 
 addPage.taskTitle = "Add page";
-addPage.description = "Add a new page to the website structure with specified title, path and parent";
+addPage.description =
+  "Add a new page to the website structure with specified title, path and parent";
 addPage.inputSchema = getAddPageInputJsonSchema();
 addPage.outputSchema = getAddPageOutputJsonSchema();

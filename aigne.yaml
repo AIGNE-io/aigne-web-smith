@@ -16,7 +16,7 @@ agents:
   - ./agents/clear/index.yaml
 
   # component
-  - ./agents/component/index.yaml
+  - ./agents/component/pull-components-team.yaml
 
   # generate
   - ./agents/generate/index.yaml
@@ -121,7 +121,12 @@ cli:
         - url: ./agents/theme/apply-theme.mjs
           name: apply
     - ./agents/prefs/index.mjs
-    - ./agents/component/index.yaml
+    - name: component
+      description: Manage and pull components
+      alias: ['comp']
+      agents:
+        - url: ./agents/component/pull-components-team.yaml
+          name: pull
     - ./agents/clear/index.yaml
 mcp_server:
   agents:

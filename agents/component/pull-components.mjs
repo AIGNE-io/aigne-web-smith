@@ -123,4 +123,4 @@ export default async function pullComponents(input, options = {}) {
   }
 }
 
-pullComponents.taskTitle = "Pull components from URL";
+pullComponents.taskRenderMode = "hide";

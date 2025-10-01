@@ -1,8 +1,5 @@
 type: team
-name: component
-alias:
-  - comp
-  - component
+name: pullComponents
 description: Pull components to built-in component library
 skills:
   - ../utils/load-config.mjs
@@ -15,3 +12,5 @@ input_schema:
       description: target pull component URL
   required:
     - url
+mode: sequential
+taskTitle: Pull components from URL

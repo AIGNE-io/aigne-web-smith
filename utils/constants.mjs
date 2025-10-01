@@ -360,6 +360,9 @@ export const PAGES_KIT_STORE_URL =
 export const BLOCKLET_ADD_COMPONENT_PAGES =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
 
+// Environment variable name for the official API access token used for authentication
+export const WEB_OFFICIAL_ACCESS_TOKEN = "WEB_OFFICIAL_ACCESS_TOKEN";
+
 // Supported file extensions for content reading
 export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
 

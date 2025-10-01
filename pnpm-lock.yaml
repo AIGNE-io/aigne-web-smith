@@ -27,8 +27,8 @@ importers:
         specifier: ^0.16.0
         version: 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@blocklet/payment-broker-client':
-        specifier: ^1.21.1
-        version: 1.21.1
+        specifier: ^1.21.5
+        version: 1.21.5
       chalk:
         specifier: ^5.5.0
         version: 5.6.2
@@ -401,8 +401,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.21.1':
-    resolution: {integrity: sha512-WFJRox+sfORCoCPDFXm+fRvRopw487CAZD+86c+pcBRs5VpkNQtSrH9AquzM4kL5cfem2dWfNkn4/gNJIITdPg==}
+  '@blocklet/payment-broker-client@1.21.5':
+    resolution: {integrity: sha512-2vLXgEx2aKgK6S9vP8xgfPm+SzS6rFP3YUZo6vRzyGPIum9p1fFRStIJR/RiNQ4ZiFgT/m/orBC2W55EAXtDJQ==}
     engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
@@ -5380,7 +5380,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.1.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.21.1': {}
+  '@blocklet/payment-broker-client@1.21.5': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 

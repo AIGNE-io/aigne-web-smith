@@ -73,7 +73,7 @@ import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
-import { LIST_KEY } from "../../../utils/constants.mjs";
+import { DEFAULT_PAGE_STYLE, LIST_KEY } from "../../../utils/constants.mjs";
 import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
@@ -1053,10 +1053,11 @@ export default async function composePagesData(input) {
       }
       const fd = fileDataMap.get(file.filePath);
 
-      // 本地化信息
+      // multi locale support
       fd.locales[file.language] = {
         backgroundColor: "",
-        style: { maxWidth: "custom:1560px", paddingY: "large", paddingX: "large" },
+        // @TODO support component library page style later
+        style: DEFAULT_PAGE_STYLE,
         title: content.meta?.title,
         description: content.meta?.description,
         image: content.meta?.image,

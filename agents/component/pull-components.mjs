@@ -53,17 +53,24 @@ export default async function pullComponents(input, options = {}) {
     const atomicCount = doc.atomic?.length || 0;
     const compositeCount = doc.composite?.length || 0;
 
+    const formatSummary = (summary) => {
+      const base = summary ?? "no summary";
+      const normalized = base.replace(/\s+/g, " ").trim();
+      const display = normalized || "no summary";
+      return _.truncate(display, { length: 60 });
+    };
+
     // --- 格式化输出 ---
     let statsMessage = `✅ Pull Components successfully (not saved yet)!
 📊 New Components Statistics:
   🔹 Atomic components: ${atomicCount} (${oldAtomicCount} → ${atomicCount})`;
     doc.atomic?.forEach((a) => {
-      statsMessage += `\n    • ${a.name} - ${_.truncate(a.summary || "no summary", { length: 40 })}`;
+      statsMessage += `\n    • ${a.name} - ${formatSummary(a.summary)}`;
     });
 
     statsMessage += `\n  🧩 Composite components: ${compositeCount} (${oldCompositeCount} → ${compositeCount})`;
     doc.composite?.forEach((c) => {
-      statsMessage += `\n    • ${c.name} - ${_.truncate(c.summary || "no summary", { length: 40 })}`;
+      statsMessage += `\n    • ${c.name} - ${formatSummary(c.summary)}`;
     });
 
     console.log(statsMessage);

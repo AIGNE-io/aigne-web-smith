@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-01T15:07:27.924Z
-updatedAt: 2025-10-01T15:07:27.924Z
-publishedAt: 2025-10-01T15:07:27.924Z
+createdAt: 2025-10-01T15:13:15.188Z
+updatedAt: 2025-10-01T15:13:15.188Z
+publishedAt: 2025-10-01T15:13:15.188Z
 isPublic: true
 locales:
   en:
@@ -23,8 +23,8 @@ locales:
       maxWidth: custom:1440px
       paddingY: none
       paddingX: none
-    title: "WebSmith: AI 驱动的网站生成"
-    description: 使用 WebSmith 在几分钟内生成专业且 SEO 优化的网站。我们由 AI 驱动的平台可自动化从结构到内容的所有环节，让您更快发布。
+    title: WebSmith：AI 驱动的网站生成
+    description: 使用 WebSmith 在几分钟内生成专业、SEO 优化的网站。我们的 AI 驱动平台自动化处理从结构到内容的所有工作，让您更快发布。
     image: ""
     header:
       sticky: true
@@ -1540,14 +1540,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 别再为模板和代码苦恼。描述您理想的网站，AIGNE WebSmith 的 AI 代理会生成结构、撰写内容并为您发布。就是这么简单！
+                text: 无需再为模板和代码烦恼。描述您理想的网站，AIGNE WebSmith 的 AI 代理会生成结构、撰写内容并为您发布。就是这么简单！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 通过一条命令构建并发布完整网站
+            text: 用一条命令构建并发布整个网站
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -1592,7 +1592,7 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 阅读文档
+              text: 查看文档
               variant: outlined
               borderColor: primary.main
               size: large
@@ -1636,7 +1636,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 从想法到上线所需的一切，立即实现
+            text: 从构想到上线，所需的一切，瞬间实现
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -1682,7 +1682,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 只需描述您的愿景。我们的 AI 会智能规划网站架构并生成所需的所有内容。
+                text: 只需描述您的愿景。我们的 AI 会智能规划网站架构并生成您所需的全部内容。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1743,7 +1743,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 获取惊艳的响应式布局，基于现代组件库构建，可视化编辑与自定义。
+                text: 获取令人惊艳的响应式布局，采用现代组件库构建，您可以通过可视化方式编辑和自定义。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1805,7 +1805,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们会自动评估站点结构、检查内容质量，并确保一切为最佳用户体验进行优化。
+                text: 我们会自动评估网站结构、检查内容质量，并确保一切为最佳用户体验而优化。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1866,7 +1866,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 秒级上线。通过一条命令将整站直接发布到 Pages Kit，并即时获得可分享链接。
+                text: 秒级上线。通过一条命令将整个网站直接发布到 Pages Kit，并即时获取可分享的链接。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1908,7 +1908,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 工作流程：三步将网站上线
+            text: 工作原理：通往上线网站的三步旅程
             style:
               variant: h2
   d6415ec1d624285f:
@@ -1950,7 +1950,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 创建一个简单的 YAML 文件，说明网站的目的、受众和风格。这是向 AI 提供的创意简报！
+                text: 创建一个简单的 YAML 文件，描述网站的目的、受众和风格。这是给 AI 的创意简报。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2011,7 +2011,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 在终端执行一条命令。WebSmith 的 AI 代理会开始工作，构建页面、内容和模板。
+                text: 在终端执行一条命令。WebSmith 的 AI 代理开始工作，构建页面、内容和模板。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2064,7 +2064,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 3. 发布并分享
+            text: 3. 发布与分享
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -2072,7 +2072,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 运行 'publish' 命令即可将新站点即时部署到 Pages Kit。获取链接并与世界分享您的作品！
+                text: 运行 'publish' 命令即可将新网站即时部署到 Pages Kit。获取链接并与全世界分享您的成果！
                 style:
                   color: ""
                   fontSize: 16px
@@ -2110,7 +2110,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 受到开发者和创作者的喜爱
+            text: 受开发者与创作者喜爱
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2144,7 +2144,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: WebSmith 完全改变了游戏规则。过去需要我们数周策划和编码的工作现在只需几分钟。我们在一个下午就上线了新的产品站点。速度和质量让我惊讶不已！
+                text: WebSmith 彻底改变了我们的工作方式。过去需要数周的规划和编码，现在只需几分钟。我们在一个下午就上线了新的产品网站。我对速度和质量印象深刻。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2228,7 +2228,7 @@ dataSource:
             list:
               - id: item-1759143440656-yo4jiraka
                 type: text
-                text: 首席开发者, Tech Innovators
+                text: 首席开发者，Tech Innovators
                 style:
                   color: ""
                   fontSize: 12px
@@ -2260,7 +2260,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 作为一名非程序员，WebSmith 让我在不写一行代码的情况下实现了我的愿景。AI 生成的内容非常贴切，模板也很美观。强烈推荐！
+                text: 作为非程序员，WebSmith 让我在不写一行代码的情况下实现了我的构想。AI 生成的内容非常贴合，模板也很漂亮。强烈推荐！
                 style:
                   color: ""
                   fontSize: 16px
@@ -2344,7 +2344,7 @@ dataSource:
             list:
               - id: item-1759143440656-yo4jiraka
                 type: text
-                text: 创始人, Creative Co.
+                text: 创始人，Creative Co.
                 style:
                   color: ""
                   fontSize: 12px
@@ -2368,7 +2368,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 常见问题
+            text: 常见问题解答
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2419,17 +2419,17 @@ dataSource:
       properties:
         4221qi1bxy322mf4:
           value:
-            - title: What is AIGNE WebSmith?
-              answer: 它是一个强大的、由 AI 驱动的工具，自动化创建专业网站的整个过程。您提供需求，它会为您生成结构、内容和模板，准备好发布到 Pages Kit。
-            - title: Who is WebSmith for?
-              answer: WebSmith 非常适合希望更快构建网站的开发者、中小企业主以及任何想要在创意到上线实现创纪录速度的人。
-            - title: How do I get started?
-              answer: 很简单！只需通过 npm 安装 AIGNE CLI，创建一个包含网站规则的简单 YAML 文件，然后运行 'aigne web
-                generate' 命令。几分钟内即可得到完整网站。
-            - title: Is it free to use?
-              answer: AIGNE WebSmith 是一个开源工具。可在 GitHub 上找到仓库以开始使用。您选择使用的 AI 模型或发布平台可能会产生标准费用。
-            - title: Can I use this for multi-language websites?
-              answer: 当然可以！WebSmith 内置支持生成和翻译多语言内容，包括英文和中文，使本地化变得轻松。
+            - title: 什么是 AIGNE WebSmith？
+              answer: 它是一个强大的 AI 驱动工具，自动化创建专业网站的整个流程。您提供需求，它会为您生成结构、内容和模板，准备发布到 Pages Kit。
+            - title: WebSmith 适合谁？
+              answer: WebSmith 非常适合希望更快构建网站的开发者、需要专业在线形象但不想麻烦的小型企业主，以及任何想在极短时间内将想法变为上线网站的人。
+            - title: 如何开始？
+              answer: 非常简单！通过 npm 安装 AIGNE CLI，创建一个包含网站规则的简单 YAML 文件，然后运行 'aigne web generate'
+                命令。您将在几分钟内获得完整网站。
+            - title: 使用是否免费？
+              answer: AIGNE WebSmith 是一个开源工具。您可以在 GitHub 上找到仓库并开始使用。所选的 AI 模型或发布平台可能会产生标准费用。
+            - title: 我可以用它构建多语言网站吗？
+              answer: 当然可以！WebSmith 内置支持生成并将内容翻译为多种语言，包括英文和中文，使本地化变得轻而易举。
             - title: ""
               answer: ""
             - title: ""
@@ -2472,14 +2472,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 加入那些比以往更快上线的开发者和创作者。立即开始使用 AIGNE WebSmith，将您的想法变为现实！
+                text: 加入那些比以往更快上线的开发者与创作者。立即开始使用 AIGNE WebSmith，将您的想法变为现实！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 准备好在几分钟内构建下一个网站了吗？
+            text: 准备在几分钟内构建下一个网站吗？
             style:
               color: ""
               variant: h1

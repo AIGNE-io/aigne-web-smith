@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-01T13:17:16.139Z
+  updateAt: 2025-10-01T14:52:10.789Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -57,15 +57,6 @@ composite:
       Constraint
 
       - The {{verticalHeroImage}} must be provided as a valid asset.
-
-      - If no suitable {{verticalHeroImage}} is available, automatically fall
-      back to a placeholder from https://placehold.co/600x400
-
-      - Ensure the image is exactly 600×400 (or same aspect ratio scaled) to
-      maintain layout stability.
-
-      - Do not substitute brand logos or unrelated visuals as temporary
-      backgrounds; only placeholder or actual hero images are valid.
     fieldCombinations:
       - verticalHeroActions.0.link
       - verticalHeroActions.0.text
@@ -136,7 +127,7 @@ composite:
                   y: 0
                   w: 12
                   h: 1
-            background: 4269d7458e12a25072079074976ff881.jpeg
+            background: <%= verticalHeroImage %>
       sectionIds:
         - 11e4g80knagitd6k
         - nkcldfr0e4u1h78q
@@ -209,8 +200,8 @@ composite:
         properties:
           7m5pz8nefl5j9hqq:
             value:
-              url: <%= verticalHeroImage %>
-              mediaKitUrl: <%= verticalHeroImage %>
+              url: ""
+              mediaKitUrl: ""
   - id: y3xj6g77rkta4stf
     name: Layout 3 Column Grid (Center)
     summary: >-
@@ -664,7 +655,7 @@ composite:
       t5wk76nxiadn5xmi: {}
   - id: f2d91hnlgeris63x
     name: Content Card With Icon
-    summary: >-
+    summary: >
       Structure (L→R / T→B)
 
       - Small icon → bold title (1 line) → short description (1–2 lines). Card
@@ -679,11 +670,18 @@ composite:
 
       Constraints
 
-      - {{iconName}} must be a real Iconify token in prefix:name format (e.g.,
-      mdi:home), resolvable in Iconify.
+      - `{{iconName}}` must reference an **existing Iconify icon**. Emit it
+      **only** if the token appears in `<available_iconify_tokens>` (preferred)
+      or is verifiably resolvable in the Iconify catalog.
 
-      - No custom SVGs or fake tokens; if validation fails, fall back to a
-      neutral placeholder or hide the icon.
+      - Format: lowercase `prefix:name` (e.g., `mdi:home`); no spaces, extra
+      colons, file extensions, or query strings.
+
+      - Do **not** guess or synthesize tokens. If no valid token is available,
+      **omit the icon** and use the iconless variant (keep title/description).
+
+      - Icons are not media: **do not** use image placeholders for missing
+      icons.
     fieldCombinations:
       - cardDescription
       - cardTitle
@@ -946,12 +944,8 @@ composite:
       - All three user identification fields ({{userReview.avatar}},
       {{userReview.userName}}, {{userReview.description}}) should be provided
       for maximum credibility.
-
-      - If the **{{userReview.avatar}}** data is missing or invalid, it must
-      **automatically fall back to a generic default avatar or a simple initial
-      placeholder** (e.g., a gray circle with the user's first initial).
     fieldCombinations:
-      - userReview.avatar
+      - userReview.avatarImage
       - userReview.content
       - userReview.description
       - userReview.userName
@@ -1078,8 +1072,8 @@ composite:
             value: cover
           7m5pz8nefl5j9hqq:
             value:
-              url: <%= userReview.avatar %>
-              mediaKitUrl: <%= userReview.avatar %>
+              url: <%= userReview.avatarImage %>
+              mediaKitUrl: <%= userReview.avatarImage %>
               width: 84
               height: 84
           02dp1e6zfq2xwkt3:
@@ -2898,18 +2892,8 @@ composite:
       - Actions: must have ≥1 CTA; allow at most 2. Primary comes first;
       secondary is optional.
 
-      - Image: splitHeroImage must be a valid asset (PNG/JPG/WebP/SVG).
-      Preferred aspect 16:9–16:10; minimum rendered size 1200×720.
-
-      - Fallback: if splitHeroImage is missing/invalid, use
-      https://placehold.co/1200x720?text=Preview and preserve aspect ratio
-      (object-fit: cover).
-
       - Accessibility: headline/CTA colors meet WCAG AA; provide
       splitHeroImageAlt or "" if decorative.
-
-      - Responsive: stack to vertical on small screens (copy first, image
-      second); image is width: 100%, auto height.
 
 
       Fields
@@ -3123,10 +3107,6 @@ composite:
       - Keep copy concise (titles + 1–2 lines). Avoid multiline lists inside
       cells.
 
-      - If a cell needs an image but none is available, **fallback** to
-      `https://placehold.co/600x400` and keep aspect consistent across all
-      cells.
-
       - Maintain WCAG AA contrast for text vs. background; avoid using logos as
       generic backgrounds.
     fieldCombinations:
@@ -3286,17 +3266,10 @@ composite:
 
       Constraints
 
-      - `contentCardBottomImage` must be a valid image (PNG/JPG/WebP/SVG).
-      Preferred aspect 16:9; minimum rendered size 800×450.
-
-      - If `contentCardBottomImage` is missing/invalid, fallback to
-      `https://placehold.co/800x450?text=Preview` and preserve aspect ratio.
+      - `contentCardBottomImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       multiline lists inside the card.
-
-      - Do not use logos/product marks as generic backgrounds; use a real image
-      or the placeholder only.
 
       - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
@@ -3400,19 +3373,13 @@ composite:
       Constraints
 
       - `{{featureSectionBottomImage}}` must be a valid image
-      (PNG/JPG/WebP/SVG). Preferred aspect 16:7–16:9; minimum rendered size
-      1440×700.
 
-      - If `{{featureSectionBottomImage}}` is missing/invalid, fallback to
-      `https://placehold.co/1440x700?text=Preview` and preserve aspect ratio
-      (`object-fit: cover`).
-
-      - Keep the visual low-contrast so it doesn’t compete with the header text.
+      - Keep the visual low-contrast so it doesn’t compete with the header text
 
       - Avoid using logos as background textures; use real screenshots or
-      illustrative product scenes.
+      illustrative product scenes
 
-      - Ensure text/background contrast meets WCAG AA.
+      - Ensure text/background contrast meets WCAG AA
     fieldCombinations:
       - featureSectionBottomImage
       - featureSectionDescription
@@ -3607,12 +3574,7 @@ composite:
 
       Constraints
 
-      - Image source: `{{featureSectionBottomImage}}` (PNG/JPG/WebP/SVG).
-      Preferred aspect 16:9–16:7; minimum rendered size 1440×700.
-
-      - Fallback: if `{{featureSectionBottomImage}}` is missing/invalid, use
-      `https://placehold.co/1440x700?text=Preview` and preserve aspect ratio
-      (`object-fit: cover`).
+      - Image source: `{{featureSectionBottomImage}}`
 
       - Keep the visual low-contrast so text remains dominant. Avoid logos as
       background textures.
@@ -4207,12 +4169,7 @@ composite:
       - Actions:  allow at most 2 CTA. Primary comes first; secondary is
       optional.
 
-      - Image: splitHeroImage must be a valid asset (PNG/JPG/WebP/SVG).
-      Preferred aspect 16:9–16:10; minimum rendered size 1200×720.
-
-      - Fallback: if splitHeroImage is missing/invalid, use
-      https://placehold.co/1200x720?text=Preview and preserve aspect ratio
-      (object-fit: cover).
+      - Image: splitHeroImage must be a valid asset
 
       - Accessibility: headline/CTA colors meet WCAG AA; provide
       splitHeroImageAlt or "" if decorative.
@@ -4424,17 +4381,10 @@ composite:
 
       Constraints
 
-      - `contentCardRightImage` must be a valid image (PNG/JPG/WebP/SVG).
-      Preferred aspect 4:3–16:9; minimum rendered size 800×600.
-
-      - If `contentCardRightImage` is missing/invalid, fallback to
-      `https://placehold.co/800x600?text=Preview` and preserve aspect ratio.
+      - `contentCardRightImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
-
-      - Do not use logos/product marks as generic backgrounds; use a real image
-      or the placeholder only.
 
       - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
@@ -4535,17 +4485,10 @@ composite:
 
       Constraints
 
-      - `contentCardLeftImage` must be a valid image (PNG/JPG/WebP/SVG).
-      Preferred aspect 4:3–16:9; minimum rendered size 800×600.
-
-      - If `contentCardLeftImage` is missing/invalid, fallback to
-      `https://placehold.co/800x600?text=Preview` and preserve aspect ratio.
+      - `contentCardLeftImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
-
-      - Do not use logos/product marks as generic backgrounds; use a real image
-      or the placeholder only.
 
       - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:

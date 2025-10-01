@@ -131,7 +131,33 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
 
 // ============= Simple Template ============
 function getNestedValue(obj, path) {
-  return path.split(".").reduce((cur, key) => (cur ? cur[key] : undefined), obj);
+  if (!obj || typeof obj !== "object" || typeof path !== "string" || path.length === 0) {
+    return undefined;
+  }
+
+  if (Object.hasOwn(obj, path)) {
+    return obj[path];
+  }
+
+  const segments = [];
+  path.split(".").forEach((segment) => {
+    segment
+      .split(/\[|\]/)
+      .filter(Boolean)
+      .forEach((part) => segments.push(part));
+  });
+
+  let current = obj;
+  for (const segment of segments) {
+    if (current == null) return undefined;
+    current = current[segment];
+  }
+
+  if (current === undefined && Object.hasOwn(obj, path)) {
+    return obj[path];
+  }
+
+  return current;
 }
 function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {

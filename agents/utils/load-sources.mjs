@@ -219,6 +219,24 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
+  // Load generated images from .aigne/web-smith/assets if exists
+  const assetsDir = path.join(process.cwd(), ".aigne", "web-smith", "assets");
+  try {
+    await access(assetsDir);
+    const { glob } = await import("glob");
+    const assetImageFiles = await glob("*.{jpg,jpeg,png,gif,bmp,webp,svg}", {
+      cwd: assetsDir,
+      absolute: true,
+      nodir: true,
+    });
+
+    for (const imageFile of assetImageFiles) {
+      files.push(imageFile);
+    }
+  } catch {
+    // Assets directory doesn't exist, skip
+  }
+
   await Promise.all(
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
@@ -227,15 +245,34 @@ export default async function loadSources({
         // This is a media file
         const relativePath = path.relative(pagesDir, file);
         const fileName = path.basename(file);
-        const description = path.parse(fileName).name;
+        const baseName = path.parse(fileName).name;
+        let context = "";
 
-        mediaFiles.push({
+        // Check if this is from assets directory and has metadata
+        if (file.includes(".aigne/web-smith/assets")) {
+          const mdFile = path.join(path.dirname(file), `${baseName}.md`);
+          try {
+            await access(mdFile);
+            const mdContent = await readFile(mdFile, "utf8");
+            context = mdContent;
+          } catch {
+            // No metadata file
+          }
+        }
+
+        const mediaItem = {
           name: fileName,
           path: relativePath,
           type: getFileType(relativePath),
           mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
-          description,
-        });
+        };
+
+        // Add context if available
+        if (context) {
+          mediaItem.context = context;
+        }
+
+        mediaFiles.push(mediaItem);
       } else {
         // This is a source file
         const content = await readFile(file, "utf8");
@@ -380,6 +417,14 @@ export default async function loadSources({
       assetsContent += `    path: "${asset.path}"\n`;
       assetsContent += `    type: "${asset.type}"\n`;
       assetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
+      if (asset.context) {
+        // Include context as a multiline string
+        const contextLines = asset.context
+          .split("\n")
+          .map((line) => `      ${line}`)
+          .join("\n");
+        assetsContent += `    context: |\n${contextLines}\n`;
+      }
     });
     assetsContent += "```\n";
   }

@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 
@@ -211,8 +211,6 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
  * @returns {Promise<Array>} Array of processed image information
  */
 export async function copyGeneratedImages(imageRequirements, assetsDir) {
-  const { mkdir, copyFile, writeFile } = await import("node:fs/promises");
-
   // Ensure assets directory exists
   await mkdir(assetsDir, { recursive: true });
 
@@ -251,8 +249,6 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
           if (imageReq.pageContext) {
             mdContent += `## Page Context\n\n${imageReq.pageContext}\n\n`;
           }
-
-          mdContent += `## Image File\n\n\`${newFilename}\`\n`;
 
           // Write markdown file
           await writeFile(mdPath, mdContent, "utf8");

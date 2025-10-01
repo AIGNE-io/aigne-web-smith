@@ -43,7 +43,7 @@ output_schema:
         properties:
           imageName:
             type: string
-            description: Suggested name for the image file
+            description: Suggested name for the image file, not include file type
           imageDescription:
             type: string
             description: Describe the content displayed in the image and in what context it is suitable for use

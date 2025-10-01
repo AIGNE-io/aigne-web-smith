@@ -3,12 +3,12 @@ name: generateImageTeam
 description: Generate images for the website
 skills:
   - ../image/generate-image.yaml
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $
-      ])
+  # - type: transform
+  #   task_render_mode: hide
+  #   jsonata: |
+  #     $merge([
+  #       $
+  #     ])
 
 iterate_on: imageRequirements
 concurrency: 3
@@ -26,4 +26,10 @@ input_schema:
           aiPrompt:
             type: string
             description: The AI prompt to generate the image.
+          imageDescription:
+            type: string
+            description: Describe the content displayed in the image and in what context it is suitable for use
+          pageContext:
+            type: string
+            description: Which page this image is intended for
       description: The AI prompt to generate the image.

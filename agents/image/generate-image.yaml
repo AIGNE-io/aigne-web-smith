@@ -11,5 +11,5 @@ input_schema:
       description: The AI prompt to generate the image.
   required:
     - aiPrompt
-includeInputInOutput: true
+include_input_in_output: true
 

@@ -1,9 +1,21 @@
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
+import { MEDIA_KIT_PROTOCOL } from "../../utils/constants.mjs";
 import { copyGeneratedImages } from "../../utils/file-utils.mjs";
 
+const getFileType = (filePath) => {
+  const ext = path.extname(filePath).toLowerCase();
+  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
+  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
+
+  if (imageExts.includes(ext)) return "image";
+  if (videoExts.includes(ext)) return "video";
+  return "media";
+};
+
 export default async function checkNeedGenerateImages(
-  { needsAdditionalImages, imageRequirements = [] },
+  { needsAdditionalImages, imageRequirements = [], assetsContent = "", mediaFiles = [] },
   options,
 ) {
   // If no additional images are needed, exit early
@@ -33,7 +45,8 @@ export default async function checkNeedGenerateImages(
     message: "Select images to generate:",
     source: (term) => {
       const choices = imageRequirements.map((req) => ({
-        name: `${req.imageName} - ${req.imageDescription} (${req.priority} priority)`,
+        name: req.imageName,
+        description: req.imageDescription,
         value: req,
         disabled: false,
       }));
@@ -71,9 +84,69 @@ export default async function checkNeedGenerateImages(
       ? await copyGeneratedImages(result.imageRequirements, assetsDir)
       : [];
 
+    // Update assetsContent and mediaFiles with new images
+    let updatedAssetsContent = assetsContent;
+    const updatedMediaFiles = [...mediaFiles];
+
+    if (processedImages.length > 0) {
+      for (const processedImage of processedImages) {
+        for (const image of processedImage.images) {
+          const fileName = path.basename(image.path);
+          const relativePath = path.relative(process.cwd(), image.path);
+
+          // Read metadata from .md file
+          let context = "";
+          try {
+            const mdContent = await readFile(image.metadataPath, "utf8");
+            context = mdContent;
+          } catch {
+            // No metadata file
+          }
+
+          const mediaItem = {
+            name: fileName,
+            path: relativePath,
+            type: getFileType(image.path),
+            mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
+          };
+
+          if (context) {
+            mediaItem.context = context;
+          }
+
+          updatedMediaFiles.push(mediaItem);
+        }
+      }
+
+      // Regenerate assetsContent
+      if (updatedMediaFiles.length > 0) {
+        updatedAssetsContent = "# Available Media Assets for Website\n\n";
+        updatedAssetsContent += "```yaml\n";
+        updatedAssetsContent += "assets:\n";
+
+        updatedMediaFiles.forEach((asset) => {
+          updatedAssetsContent += `  - name: "${asset.name}"\n`;
+          updatedAssetsContent += `    path: "${asset.path}"\n`;
+          updatedAssetsContent += `    type: "${asset.type}"\n`;
+          updatedAssetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
+          if (asset.context) {
+            const contextLines = asset.context
+              .split("\n")
+              .map((line) => `      ${line}`)
+              .join("\n");
+            updatedAssetsContent += `    context: |\n${contextLines}\n`;
+          }
+        });
+
+        updatedAssetsContent += "```\n";
+      }
+    }
+
     return {
       imageGenerated: true,
       generatedImages: processedImages,
+      assetsContent: updatedAssetsContent,
+      mediaFiles: updatedMediaFiles,
       message: `Successfully generated ${selectedImages.length} images`,
     };
   } catch (error) {

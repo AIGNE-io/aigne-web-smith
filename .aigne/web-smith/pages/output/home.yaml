@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-01T10:26:07.429Z
-updatedAt: 2025-10-01T10:26:07.429Z
-publishedAt: 2025-10-01T10:26:07.429Z
+createdAt: 2025-10-01T14:01:32.135Z
+updatedAt: 2025-10-01T14:01:32.135Z
+publishedAt: 2025-10-01T14:01:32.135Z
 isPublic: true
 locales:
   en:
@@ -12,8 +12,9 @@ locales:
       paddingX: none
     title: AIGNE WebSmith | AI-Powered Website Generation
     description: Generate professional, SEO-optimized websites in minutes with AIGNE
-      WebSmith. AI-powered planning, content creation, and one-click publishing.
-      Try it now!
+      WebSmith. Leverage AI for structure, content, and one-click publishing to
+      Pages Kit.
+    image: ""
     header:
       sticky: true
   zh:
@@ -23,113 +24,164 @@ locales:
       paddingY: none
       paddingX: none
     title: AIGNE WebSmith | AI 驱动的网站生成
-    description: 使用 AIGNE WebSmith 在几分钟内生成专业、SEO 优化的网站。AI 驱动的规划、内容创建和一键发布。立即试用！
+    description: 使用 AIGNE WebSmith 在几分钟内生成专业、SEO 优化的网站。利用 AI 完成结构、内容并一键发布到 Pages Kit。
+    image: ""
     header:
       sticky: true
 sections:
-  0419597208a15997:
-    id: 0419597208a15997
-    name: Full Background Hero
+  e1c97b3710d489a2:
+    id: e1c97b3710d489a2
+    name: Feature Grid_left
     component: layout-block
     sections:
-      99b4fbf8bd1ad608:
-        id: 99b4fbf8bd1ad608
-        name: CTA
+      78e3421030dcbdd5:
+        id: 78e3421030dcbdd5
+        name: Content
         component: layout-block
         sections:
-          b4adc82dfe78bc6e:
-            id: b4adc82dfe78bc6e
-            name: Description
-            component: custom-component
+          2595d95961e10014:
+            id: 2595d95961e10014
+            name: CTA
+            component: layout-block
+            sections:
+              087e8576fefadf0f:
+                id: 087e8576fefadf0f
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              5455a7046747c6d7:
+                id: 5455a7046747c6d7
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - 087e8576fefadf0f
+              - 5455a7046747c6d7
             config:
-              useCache: true
-              componentId: xoHu0J44322kDYc-
-            sectionIds: []
-          2e67fa70a49af799:
-            id: 2e67fa70a49af799
-            name: Action
-            component: custom-component
+              gridSettings:
+                desktop:
+                  087e8576fefadf0f:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  5455a7046747c6d7:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          ccdf0179b25ef747:
+            id: ccdf0179b25ef747
+            name: Image
+            component: layout-block
+            sections:
+              f98b98ffd13b8a1d:
+                id: f98b98ffd13b8a1d
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - f98b98ffd13b8a1d
             config:
-              useCache: true
-              componentId: a44r0SiGV9AFn2Fj
-            sectionIds: []
+              borderRadius: medium
+              gridSettings:
+                desktop:
+                  f98b98ffd13b8a1d:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: https://placehold.co/1200x720?text=AI+Website+Generation+in+Action
         sectionIds:
-          - b4adc82dfe78bc6e
-          - 2e67fa70a49af799
+          - 2595d95961e10014
+          - ccdf0179b25ef747
         config:
+          borderRadius: small
+          paddingX: none
+          paddingY: normal
+          maxWidth: full
           gridSettings:
             desktop:
-              b4adc82dfe78bc6e:
-                x: 2
-                y: 0
-                w: 8
-                h: 1
-              2e67fa70a49af799:
+              2595d95961e10014:
                 x: 0
-                y: 1
-                w: 12
+                y: 0
+                w: 6
                 h: 1
-          paddingY: large
-          gap: large
-          maxWidth: full
-          paddingX: none
-          background: background.paper
-          borderRadius: small
+              ccdf0179b25ef747:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+          gap: normal
     sectionIds:
-      - 99b4fbf8bd1ad608
+      - 78e3421030dcbdd5
     config:
       gridSettings:
         desktop:
-          99b4fbf8bd1ad608:
+          78e3421030dcbdd5:
             x: 0
             y: 0
             w: 12
             h: 1
+      gap: normal
+      paddingY: normal
       background: transparent
-      paddingY: large
-      backgroundFullWidth: false
+      border: none
       paddingX: normal
-  589ee100e0cba845:
-    id: 589ee100e0cba845
-    name: Metrics Bar/Wall
+  671827b9508f92f3:
+    id: 671827b9508f92f3
+    name: Testimonials/Reviews
     component: layout-block
     sections:
-      e1f78164a7364adb:
-        id: e1f78164a7364adb
+      84dac969276de5a3:
+        id: 84dac969276de5a3
         name: Title
         component: layout-block
         sections:
-          1817a56164d329c8:
-            id: 1817a56164d329c8
-            name: RichText
+          d79cdf28faac3108:
+            id: d79cdf28faac3108
+            name: LayoutTitle
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
         sectionIds:
-          - 1817a56164d329c8
+          - d79cdf28faac3108
         config:
           gap: small
           paddingX: large
           alignContent: start
           gridSettings:
             desktop:
-              1817a56164d329c8:
+              d79cdf28faac3108:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
             mobile:
-              1817a56164d329c8:
-                id: 1817a56164d329c8
-      576e73952a1521fd:
-        id: 576e73952a1521fd
+              d79cdf28faac3108:
+                id: d79cdf28faac3108
+      029ef42ecf2f3c2d:
+        id: 029ef42ecf2f3c2d
         name: Cards
         component: layout-block
         sections:
-          a79fc3fdde014623:
-            id: a79fc3fdde014623
+          db2d021683dcec65:
+            id: db2d021683dcec65
             name: Cards-1
             component: layout-block
             sections:
@@ -146,56 +198,18 @@ sections:
                       useCache: true
                       componentId: xoHu0J44322kDYc-
                     sectionIds: []
-                  527d9e489ed1baa2:
-                    id: 527d9e489ed1baa2
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      3ee66b593de1e036:
-                        id: 3ee66b593de1e036
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 3ee66b593de1e036
-                    config:
-                      gridSettings:
-                        desktop:
-                          3ee66b593de1e036:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
                 sectionIds:
                   - 8a0319c7be20285c
-                  - 527d9e489ed1baa2
                 config:
                   gridSettings:
                     desktop:
                       8a0319c7be20285c:
                         x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      527d9e489ed1baa2:
-                        x: 0
                         y: 0
-                        w: 2
+                        w: 12
                         h: 1
                     mobile:
                       8a0319c7be20285c:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      527d9e489ed1baa2:
                         x: 0
                         y: 0
                         w: 12
@@ -206,7 +220,7 @@ sections:
                   borderRadius: none
                   gap: normal
                   border: none
-                  alignContent: center
+                  alignContent: start
             sectionIds:
               - 9736a35b6204c1d8
             config:
@@ -227,13 +241,13 @@ sections:
                     id: do35jzobe9fv1z8i
               background: background.paper
               paddingX: small
-              paddingY: custom:24px
+              paddingY: small
               borderRadius: small
-              gap: none
+              gap: large
               border: solid
-              alignContent: center
-          32be1f293fb48143:
-            id: 32be1f293fb48143
+              alignContent: space-between
+          eef8d4a81e0a853c:
+            id: eef8d4a81e0a853c
             name: Cards-2
             component: layout-block
             sections:
@@ -310,7 +324,7 @@ sections:
                   borderRadius: none
                   gap: normal
                   border: none
-                  alignContent: center
+                  alignContent: start
             sectionIds:
               - c2753e6a35792fc3
             config:
@@ -331,13 +345,13 @@ sections:
                     id: do35jzobe9fv1z8i
               background: background.paper
               paddingX: small
-              paddingY: custom:24px
+              paddingY: small
               borderRadius: small
-              gap: none
+              gap: large
               border: solid
-              alignContent: center
-          04fc00aff8189e21:
-            id: 04fc00aff8189e21
+              alignContent: space-between
+          d7eb9ce9640fcd3f:
+            id: d7eb9ce9640fcd3f
             name: Cards-3
             component: layout-block
             sections:
@@ -414,7 +428,7 @@ sections:
                   borderRadius: none
                   gap: normal
                   border: none
-                  alignContent: center
+                  alignContent: start
             sectionIds:
               - 4c12062dd7030da4
             config:
@@ -435,570 +449,45 @@ sections:
                     id: do35jzobe9fv1z8i
               background: background.paper
               paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-          97dd0ec694413abd:
-            id: 97dd0ec694413abd
-            name: Cards-4
-            component: layout-block
-            sections:
-              95e04be57343246b:
-                id: 95e04be57343246b
-                name: Card01
-                component: layout-block
-                sections:
-                  6c7d6356a9593b08:
-                    id: 6c7d6356a9593b08
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  e54d5c77b851d15a:
-                    id: e54d5c77b851d15a
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      3146007f1ae8e627:
-                        id: 3146007f1ae8e627
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 3146007f1ae8e627
-                    config:
-                      gridSettings:
-                        desktop:
-                          3146007f1ae8e627:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 6c7d6356a9593b08
-                  - e54d5c77b851d15a
-                config:
-                  gridSettings:
-                    desktop:
-                      6c7d6356a9593b08:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e54d5c77b851d15a:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      6c7d6356a9593b08:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e54d5c77b851d15a:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 95e04be57343246b
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-        sectionIds:
-          - a79fc3fdde014623
-          - 32be1f293fb48143
-          - 04fc00aff8189e21
-          - 97dd0ec694413abd
-        config:
-          gridSettings:
-            desktop:
-              a79fc3fdde014623:
-                x: 0
-                y: 0
-                w: 3
-                h: 1
-              32be1f293fb48143:
-                x: 3
-                y: 0
-                w: 3
-                h: 1
-              04fc00aff8189e21:
-                x: 6
-                y: 0
-                w: 3
-                h: 1
-              97dd0ec694413abd:
-                x: 9
-                y: 0
-                w: 3
-                h: 1
-            mobile:
-              a79fc3fdde014623:
-                x: 0
-                y: 0
-                w: 6
-                h: 1
-              32be1f293fb48143:
-                x: 6
-                y: 0
-                w: 6
-                h: 1
-              04fc00aff8189e21:
-                x: 0
-                y: 1
-                w: 6
-                h: 1
-              97dd0ec694413abd:
-                x: 6
-                y: 1
-                w: 6
-                h: 1
-          gap: small
-          paddingX: none
-    sectionIds:
-      - e1f78164a7364adb
-      - 576e73952a1521fd
-    config:
-      gridSettings:
-        desktop:
-          576e73952a1521fd:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          e1f78164a7364adb:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-      gap: normal
-      paddingY: normal
-      paddingX: normal
-  0204804ba50155ce:
-    id: 0204804ba50155ce
-    name: Testimonials/Reviews
-    component: layout-block
-    sections:
-      50ff06b585a78927:
-        id: 50ff06b585a78927
-        name: Title
-        component: layout-block
-        sections:
-          6cbb8bd38caa66a4:
-            id: 6cbb8bd38caa66a4
-            name: LayoutTitle
-            component: custom-component
-            config:
-              useCache: true
-              componentId: xoHu0J44322kDYc-
-            sectionIds: []
-        sectionIds:
-          - 6cbb8bd38caa66a4
-        config:
-          gap: small
-          paddingX: large
-          alignContent: start
-          gridSettings:
-            desktop:
-              6cbb8bd38caa66a4:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-            mobile:
-              6cbb8bd38caa66a4:
-                id: 6cbb8bd38caa66a4
-      515650d5c27bccdb:
-        id: 515650d5c27bccdb
-        name: Cards
-        component: layout-block
-        sections:
-          eff9cd4b326deca2:
-            id: eff9cd4b326deca2
-            name: Cards-1
-            component: layout-block
-            sections:
-              e062dc285fdab938:
-                id: e062dc285fdab938
-                name: Card01
-                component: layout-block
-                sections:
-                  d6415ec1d624285f:
-                    id: d6415ec1d624285f
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  7ee4dec4719befe7:
-                    id: 7ee4dec4719befe7
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      c2c0c505651f861a:
-                        id: c2c0c505651f861a
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - c2c0c505651f861a
-                    config:
-                      gridSettings:
-                        desktop:
-                          c2c0c505651f861a:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - d6415ec1d624285f
-                  - 7ee4dec4719befe7
-                config:
-                  gridSettings:
-                    desktop:
-                      d6415ec1d624285f:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      7ee4dec4719befe7:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      d6415ec1d624285f:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      7ee4dec4719befe7:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - e062dc285fdab938
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: small
-              borderRadius: small
-              gap: large
-              border: solid
-              alignContent: space-between
-          838457b1582e11aa:
-            id: 838457b1582e11aa
-            name: Cards-2
-            component: layout-block
-            sections:
-              0d9c1e422791e55f:
-                id: 0d9c1e422791e55f
-                name: Card01
-                component: layout-block
-                sections:
-                  1b291b01c21efffd:
-                    id: 1b291b01c21efffd
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  af61752ceba78e50:
-                    id: af61752ceba78e50
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      cf7f14f32caa64b7:
-                        id: cf7f14f32caa64b7
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - cf7f14f32caa64b7
-                    config:
-                      gridSettings:
-                        desktop:
-                          cf7f14f32caa64b7:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 1b291b01c21efffd
-                  - af61752ceba78e50
-                config:
-                  gridSettings:
-                    desktop:
-                      1b291b01c21efffd:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      af61752ceba78e50:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      1b291b01c21efffd:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      af61752ceba78e50:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 0d9c1e422791e55f
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: small
-              borderRadius: small
-              gap: large
-              border: solid
-              alignContent: space-between
-          9f8c3fd573a74cf2:
-            id: 9f8c3fd573a74cf2
-            name: Cards-3
-            component: layout-block
-            sections:
-              2abfaf84fe1fcb09:
-                id: 2abfaf84fe1fcb09
-                name: Card01
-                component: layout-block
-                sections:
-                  5e82ed859f92ece6:
-                    id: 5e82ed859f92ece6
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  e31ce457eeba350d:
-                    id: e31ce457eeba350d
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      5786ed1f0d301e6b:
-                        id: 5786ed1f0d301e6b
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 5786ed1f0d301e6b
-                    config:
-                      gridSettings:
-                        desktop:
-                          5786ed1f0d301e6b:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 5e82ed859f92ece6
-                  - e31ce457eeba350d
-                config:
-                  gridSettings:
-                    desktop:
-                      5e82ed859f92ece6:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e31ce457eeba350d:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      5e82ed859f92ece6:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e31ce457eeba350d:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 2abfaf84fe1fcb09
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
               paddingY: small
               borderRadius: small
               gap: large
               border: solid
               alignContent: space-between
         sectionIds:
-          - eff9cd4b326deca2
-          - 838457b1582e11aa
-          - 9f8c3fd573a74cf2
+          - db2d021683dcec65
+          - eef8d4a81e0a853c
+          - d7eb9ce9640fcd3f
         config:
           gridSettings:
             desktop:
-              eff9cd4b326deca2:
+              db2d021683dcec65:
                 x: 0
                 y: 0
                 w: 4
                 h: 1
-              838457b1582e11aa:
+              eef8d4a81e0a853c:
                 x: 4
                 y: 0
                 w: 4
                 h: 1
-              9f8c3fd573a74cf2:
+              d7eb9ce9640fcd3f:
                 x: 8
                 y: 0
                 w: 4
                 h: 1
             mobile:
-              eff9cd4b326deca2:
+              db2d021683dcec65:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              838457b1582e11aa:
+              eef8d4a81e0a853c:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
-              9f8c3fd573a74cf2:
+              d7eb9ce9640fcd3f:
                 x: 0
                 y: 2
                 w: 12
@@ -1006,17 +495,17 @@ sections:
           gap: small
           paddingX: none
     sectionIds:
-      - 50ff06b585a78927
-      - 515650d5c27bccdb
+      - 84dac969276de5a3
+      - 029ef42ecf2f3c2d
     config:
       gridSettings:
         desktop:
-          515650d5c27bccdb:
+          029ef42ecf2f3c2d:
             x: 0
             y: 1
             w: 12
             h: 1
-          50ff06b585a78927:
+          84dac969276de5a3:
             x: 0
             y: 0
             w: 12
@@ -1024,526 +513,259 @@ sections:
       gap: normal
       paddingY: normal
       paddingX: normal
-  b78e48cffd10c28f:
-    id: b78e48cffd10c28f
-    name: Metrics Bar/Wall
+  498a8e31f1ddacbb:
+    id: 498a8e31f1ddacbb
+    name: Feature Section_2
     component: layout-block
     sections:
-      477626d12deace00:
-        id: 477626d12deace00
+      5dc6a8152c680497:
+        id: 5dc6a8152c680497
         name: Title
         component: layout-block
         sections:
-          dd19747480bbfb01:
-            id: dd19747480bbfb01
-            name: RichText
+          ff0330a902e913e4:
+            id: ff0330a902e913e4
+            name: Title
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          b153f4394fed2823:
+            id: b153f4394fed2823
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
+        sectionIds:
+          - ff0330a902e913e4
+          - b153f4394fed2823
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              ff0330a902e913e4:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              b153f4394fed2823:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+            mobile:
+              ff0330a902e913e4:
+                id: ff0330a902e913e4
+          alignContent: start
+      9e8a58145f573ac4:
+        id: 9e8a58145f573ac4
+        name: Logs
+        component: layout-block
+        sections:
+          dc5fbdf256751b7c:
+            id: dc5fbdf256751b7c
+            name: Card01
+            component: layout-block
+            sections:
+              532d9e3f23bf303a:
+                id: 532d9e3f23bf303a
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - 532d9e3f23bf303a
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  532d9e3f23bf303a:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+                  532d9e3f23bf303a:
+                    id: 532d9e3f23bf303a
+        sectionIds:
+          - dc5fbdf256751b7c
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              dc5fbdf256751b7c:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              dc5fbdf256751b7c:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+                id: dc5fbdf256751b7c
+    sectionIds:
+      - 5dc6a8152c680497
+      - 9e8a58145f573ac4
+    config:
+      gridSettings:
+        desktop:
+          5dc6a8152c680497:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          9e8a58145f573ac4:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: normal
+      paddingX: normal
+  7e5a4ced24f9c9f1:
+    id: 7e5a4ced24f9c9f1
+    name: Feature Section_1
+    component: layout-block
+    sections:
+      ed2dae128c6ab4aa:
+        id: ed2dae128c6ab4aa
+        name: Title
+        component: layout-block
+        sections:
+          6aeae6afe8bf28e3:
+            id: 6aeae6afe8bf28e3
+            name: Title
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          48ef8cef079ae0ed:
+            id: 48ef8cef079ae0ed
+            name: Description
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
         sectionIds:
-          - dd19747480bbfb01
+          - 6aeae6afe8bf28e3
+          - 48ef8cef079ae0ed
         config:
           gap: small
-          paddingX: large
-          alignContent: start
+          paddingX: none
           gridSettings:
             desktop:
-              dd19747480bbfb01:
+              6aeae6afe8bf28e3:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              48ef8cef079ae0ed:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+            mobile:
+              6aeae6afe8bf28e3:
+                id: 6aeae6afe8bf28e3
+          alignContent: start
+      316f01cc9ec30e75:
+        id: 316f01cc9ec30e75
+        name: Logs
+        component: layout-block
+        sections:
+          d059fca5eeeda8af:
+            id: d059fca5eeeda8af
+            name: Card01
+            component: layout-block
+            sections:
+              2807aa3d3d886343:
+                id: 2807aa3d3d886343
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - 2807aa3d3d886343
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  2807aa3d3d886343:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+        sectionIds:
+          - d059fca5eeeda8af
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              d059fca5eeeda8af:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
             mobile:
-              dd19747480bbfb01:
-                id: dd19747480bbfb01
-      a4b9b5e6c3dca79a:
-        id: a4b9b5e6c3dca79a
-        name: Cards
-        component: layout-block
-        sections:
-          dd808d28b7a34b4f:
-            id: dd808d28b7a34b4f
-            name: Cards-1
-            component: layout-block
-            sections:
-              48373436f58174ce:
-                id: 48373436f58174ce
-                name: Card01
-                component: layout-block
-                sections:
-                  188bf83f2774511b:
-                    id: 188bf83f2774511b
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  217c8a0c162c7e73:
-                    id: 217c8a0c162c7e73
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      9a4665f91027d3f7:
-                        id: 9a4665f91027d3f7
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 9a4665f91027d3f7
-                    config:
-                      gridSettings:
-                        desktop:
-                          9a4665f91027d3f7:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 188bf83f2774511b
-                  - 217c8a0c162c7e73
-                config:
-                  gridSettings:
-                    desktop:
-                      188bf83f2774511b:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      217c8a0c162c7e73:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      188bf83f2774511b:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      217c8a0c162c7e73:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 48373436f58174ce
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-          17a247a3865153ef:
-            id: 17a247a3865153ef
-            name: Cards-2
-            component: layout-block
-            sections:
-              2700bbe606496b87:
-                id: 2700bbe606496b87
-                name: Card01
-                component: layout-block
-                sections:
-                  3d914af2157737bc:
-                    id: 3d914af2157737bc
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  82fbb288a071de99:
-                    id: 82fbb288a071de99
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      834e8f1413211851:
-                        id: 834e8f1413211851
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 834e8f1413211851
-                    config:
-                      gridSettings:
-                        desktop:
-                          834e8f1413211851:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 3d914af2157737bc
-                  - 82fbb288a071de99
-                config:
-                  gridSettings:
-                    desktop:
-                      3d914af2157737bc:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      82fbb288a071de99:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      3d914af2157737bc:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      82fbb288a071de99:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 2700bbe606496b87
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-          82e9690da884d3db:
-            id: 82e9690da884d3db
-            name: Cards-3
-            component: layout-block
-            sections:
-              ade1629eb50bfd78:
-                id: ade1629eb50bfd78
-                name: Card01
-                component: layout-block
-                sections:
-                  824549dfc765923c:
-                    id: 824549dfc765923c
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  e9c33c64b8c6f7e4:
-                    id: e9c33c64b8c6f7e4
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      75224870c5e4c765:
-                        id: 75224870c5e4c765
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - 75224870c5e4c765
-                    config:
-                      gridSettings:
-                        desktop:
-                          75224870c5e4c765:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - 824549dfc765923c
-                  - e9c33c64b8c6f7e4
-                config:
-                  gridSettings:
-                    desktop:
-                      824549dfc765923c:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e9c33c64b8c6f7e4:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      824549dfc765923c:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      e9c33c64b8c6f7e4:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - ade1629eb50bfd78
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-          76fd5431918e23cc:
-            id: 76fd5431918e23cc
-            name: Cards-4
-            component: layout-block
-            sections:
-              9cc92f4fdc6cf6d3:
-                id: 9cc92f4fdc6cf6d3
-                name: Card01
-                component: layout-block
-                sections:
-                  dd7071b2646afbc7:
-                    id: dd7071b2646afbc7
-                    name: Title
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: xoHu0J44322kDYc-
-                    sectionIds: []
-                  00a0d8f0a567da1a:
-                    id: 00a0d8f0a567da1a
-                    name: Icon
-                    component: layout-block
-                    sections:
-                      a8774863f186f747:
-                        id: a8774863f186f747
-                        name: Icon
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: YwuDiIbyyF5vfGpt
-                        sectionIds: []
-                    sectionIds:
-                      - a8774863f186f747
-                    config:
-                      gridSettings:
-                        desktop:
-                          a8774863f186f747:
-                            x: 0
-                            y: 0
-                            w: 12
-                            h: 1
-                      background: transparent
-                      height: 100%
-                      borderRadius: custom:0px
-                      alignContent: start
-                sectionIds:
-                  - dd7071b2646afbc7
-                  - 00a0d8f0a567da1a
-                config:
-                  gridSettings:
-                    desktop:
-                      dd7071b2646afbc7:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      00a0d8f0a567da1a:
-                        x: 0
-                        y: 0
-                        w: 2
-                        h: 1
-                    mobile:
-                      dd7071b2646afbc7:
-                        x: 0
-                        y: 1
-                        w: 12
-                        h: 1
-                      00a0d8f0a567da1a:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  paddingX: none
-                  paddingY: none
-                  borderRadius: none
-                  gap: normal
-                  border: none
-                  alignContent: center
-            sectionIds:
-              - 9cc92f4fdc6cf6d3
-            config:
-              gridSettings:
-                desktop: {}
-                mobile:
-                  zf1s9y77l821pofu:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: zf1s9y77l821pofu
-                  do35jzobe9fv1z8i:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                    id: do35jzobe9fv1z8i
-              background: background.paper
-              paddingX: small
-              paddingY: custom:24px
-              borderRadius: small
-              gap: none
-              border: solid
-              alignContent: center
-        sectionIds:
-          - dd808d28b7a34b4f
-          - 17a247a3865153ef
-          - 82e9690da884d3db
-          - 76fd5431918e23cc
-        config:
-          gridSettings:
-            desktop:
-              dd808d28b7a34b4f:
+              d059fca5eeeda8af:
                 x: 0
-                y: 0
-                w: 3
+                y: 2
+                w: 12
                 h: 1
-              17a247a3865153ef:
-                x: 3
-                y: 0
-                w: 3
-                h: 1
-              82e9690da884d3db:
-                x: 6
-                y: 0
-                w: 3
-                h: 1
-              76fd5431918e23cc:
-                x: 9
-                y: 0
-                w: 3
-                h: 1
-            mobile:
-              dd808d28b7a34b4f:
-                x: 0
-                y: 0
-                w: 6
-                h: 1
-              17a247a3865153ef:
-                x: 6
-                y: 0
-                w: 6
-                h: 1
-              82e9690da884d3db:
-                x: 0
-                y: 1
-                w: 6
-                h: 1
-              76fd5431918e23cc:
-                x: 6
-                y: 1
-                w: 6
-                h: 1
-          gap: small
-          paddingX: none
+                id: d059fca5eeeda8af
     sectionIds:
-      - 477626d12deace00
-      - a4b9b5e6c3dca79a
+      - ed2dae128c6ab4aa
+      - 316f01cc9ec30e75
     config:
       gridSettings:
         desktop:
-          a4b9b5e6c3dca79a:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          477626d12deace00:
+          ed2dae128c6ab4aa:
             x: 0
             y: 0
+            w: 12
+            h: 1
+          316f01cc9ec30e75:
+            x: 0
+            y: 1
             w: 12
             h: 1
       gap: normal
@@ -1562,11 +784,25 @@ sections:
           useCache: true
           componentId: xoHu0J44322kDYc-
         sectionIds: []
+      dbb2035e9969526a:
+        id: dbb2035e9969526a
+        name: FaqComponentV2
+        component: custom-component
+        config:
+          useCache: true
+          componentId: 4MikfrDpecX9hUD6
+        sectionIds: []
     sectionIds:
       - be2459a9b19a18c1
+      - dbb2035e9969526a
     config:
       gridSettings:
         desktop:
+          dbb2035e9969526a:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
           be2459a9b19a18c1:
             x: 0
             y: 0
@@ -1593,8 +829,17 @@ sections:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
+          508276fbeb60a116:
+            id: 508276fbeb60a116
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
         sectionIds:
           - b2fd4755c489229c
+          - 508276fbeb60a116
         config:
           gridSettings:
             desktop:
@@ -1602,6 +847,11 @@ sections:
                 x: 2
                 y: 0
                 w: 8
+                h: 1
+              508276fbeb60a116:
+                x: 0
+                y: 1
+                w: 12
                 h: 1
           paddingY: large
           gap: large
@@ -1624,14 +874,14 @@ sections:
       backgroundFullWidth: false
       paddingX: normal
 sectionIds:
-  - 0419597208a15997
-  - 589ee100e0cba845
-  - 0204804ba50155ce
-  - b78e48cffd10c28f
+  - e1c97b3710d489a2
+  - 671827b9508f92f3
+  - 498a8e31f1ddacbb
+  - 7e5a4ced24f9c9f1
   - 45e93fb05e9fd0dc
   - 6edec3e84b5a8e8d
 dataSource:
-  b4adc82dfe78bc6e:
+  087e8576fefadf0f:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -1639,23 +889,23 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop wrestling with code and content. AIGNE WebSmith uses AI agents to
-                  intelligently plan, write, and publish professional, SEO-ready
-                  websites. Your vision, automated.
+                text: Let AI do the heavy lifting! AIGNE WebSmith intelligently plans, writes,
+                  and generates complete, professional websites, publishing them
+                  directly to Pages Kit. Your big idea is just one command away
+                  from reality.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Build Your Entire Website with a Single Command
+            text: Build Entire Websites with a Single Command
             style:
-              color: ""
               variant: h1
         v5utpm7bu9yvdpnq:
-          value: center
+          value: flex-start
         kyg0hdy5uqq4gc1o:
-          value: center
+          value: flex-start
     zh:
       properties:
         9ajrz12ik7esfk1z:
@@ -1663,89 +913,110 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 不再为代码和内容苦恼。AIGNE WebSmith 使用 AI 代理智能地规划、撰写并发布专业且符合 SEO 的网站。将您的构想自动化。
+                text: 让 AI 来承担繁重工作！AIGNE WebSmith 会智能地规划、撰写并生成完整的专业网站，直接发布到 Pages
+                  Kit。您的伟大创意只需一条命令即可成真。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 仅用一条命令构建完整网站
+            text: 用一条命令构建完整网站
             style:
-              color: ""
               variant: h1
         v5utpm7bu9yvdpnq:
-          value: center
+          value: flex-start
         kyg0hdy5uqq4gc1o:
-          value: center
-  2e67fa70a49af799:
+          value: flex-start
+  5455a7046747c6d7:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
           value:
             - id: btn-default-1
               type: link
-              text: Get Started on GitHub
+              text: Get Started Now
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: Learn More
+              text: View on GitHub
               variant: outlined
-              borderColor: common.white
+              borderColor: primary.main
               size: large
-              url: https://www.aigne.io/web-smith
+              url: https://github.com/AIGNE-io/aigne-web-smith
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:
-          value: center
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
     zh:
       properties:
         b8x4m3n9kp7qtw5r:
           value:
             - id: btn-default-1
               type: link
-              text: 在 GitHub 上开始
+              text: 立即开始
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 了解更多
+              text: 在 GitHub 查看
               variant: outlined
-              borderColor: common.white
+              borderColor: primary.main
               size: large
-              url: https://www.aigne.io/web-smith
+              url: https://github.com/AIGNE-io/aigne-web-smith
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:
-          value: center
-  1817a56164d329c8:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  f98b98ffd13b8a1d:
     en:
       properties:
-        gs1rn5jmxfvpxptx:
+        7m5pz8nefl5j9hqq:
           value:
-            text: How WebSmith Transforms Your Workflow
-            style:
-              variant: h2
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
     zh:
       properties:
-        gs1rn5jmxfvpxptx:
+        7m5pz8nefl5j9hqq:
           value:
-            text: WebSmith 如何改变您的工作流程
-            style:
-              variant: h2
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+  d79cdf28faac3108:
+    en:
+      properties:
         v5utpm7bu9yvdpnq:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Everything You Need to Go from Idea to Live Site, Instantly
+            style:
+              variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 从想法到上线站点所需的一切，瞬间完成
+            style:
+              variant: h2
   8a0319c7be20285c:
     en:
       properties:
@@ -1755,7 +1026,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Intelligent Planning
+            text: Intelligent AI Generation
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1763,8 +1034,9 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Our AI agents analyze your goals to design the perfect website structure,
-                  so you don't have to.
+                text: Our AI doesn't just write text. It analyzes your needs to plan the perfect
+                  site structure, generates all your content in batches, and
+                  even handles SEO.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1777,7 +1049,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 智能规划
+            text: 智能 AI 生成
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1785,28 +1057,11 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的 AI 代理会分析您的目标，设计出理想的网站结构，让您无需亲自操心。
+                text: 我们的 AI 不仅仅是写文本。它会分析您的需求以规划理想的网站结构，批量生成所有内容，甚至处理 SEO。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  3ee66b593de1e036:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:brain
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:brain
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
   051f5382aaa30930:
     en:
       properties:
@@ -1816,7 +1071,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Professional Templates
+            text: Professional Template System
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1824,8 +1079,9 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Generate beautiful, responsive, and component-based templates that
-                  integrate directly with Pages Kit.
+                text: Get beautiful, responsive layouts right out of the box. Fully compatible
+                  with Pages Kit, our component-based templates look amazing and
+                  are a dream to edit visually.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1838,7 +1094,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 专业模板
+            text: 专业模板系统
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1846,7 +1102,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 生成美观、响应式且基于组件的模板，可直接与 Pages Kit 集成。
+                text: 开箱即可获得精美且响应式的布局。我们的基于组件的模板与 Pages Kit 完全兼容，外观出众且可视化编辑非常便捷。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1855,7 +1111,7 @@ dataSource:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:palette-swatch
+          value: mdi:palette-swatch-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1863,73 +1119,12 @@ dataSource:
     zh:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:palette-swatch
+          value: mdi:palette-swatch-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
   6cf87c8dd697af94:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Built-in Quality Assurance
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: Automated checks for structure, content quality, and code ensure your site
-                  is polished and professional.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 内置质量保证
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 对结构、内容质量和代码的自动检查确保您的网站精良且专业。
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  835229da4540f842:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:shield-check
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:shield-check
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  6c7d6356a9593b08:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1946,8 +1141,9 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Go live in an instant. Publish your entire website directly to the Pages
-                  Kit platform with a single command.
+                text: Why wait? Publish your entire multi-page website directly to the Pages Kit
+                  platform with a single command. You'll get a live link in
+                  moments!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1968,16 +1164,16 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 瞬间上线。使用一条命令将整个网站直接发布到 Pages Kit 平台。
+                text: 何必等待？只需一条命令即可将完整的多页网站直接发布到 Pages Kit 平台，片刻内即可获得可访问链接！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  3146007f1ae8e627:
+  835229da4540f842:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:rocket-launch
+          value: mdi:rocket-launch-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1985,490 +1181,201 @@ dataSource:
     zh:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:rocket-launch
+          value: mdi:rocket-launch-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  6cbb8bd38caa66a4:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Go from Idea to Live Site in Minutes
-            style:
-              variant: h2
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 从想法到上线，仅需数分钟
-            style:
-              variant: h2
-  d6415ec1d624285f:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: "Step 1: Install"
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: "Get the AIGNE CLI ready on your machine. Just run: npm install -g
-                  @aigne/cli"
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 步骤 1：安装
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 在您的机器上准备好 AIGNE CLI。只需运行：npm install -g @aigne/cli
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  c2c0c505651f861a:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:download-box
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:download-box
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  1b291b01c21efffd:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: "Step 2: Generate"
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: "Describe your website in a simple file and let the AI work its magic.
-                  Run: aigne web generate"
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 步骤 2：生成
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 在一个简单的文件中描述您的网站，让 AI 发挥作用。运行：aigne web generate
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  cf7f14f32caa64b7:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:auto-fix
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:auto-fix
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  5e82ed859f92ece6:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: "Step 3: Publish"
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: "Push your new site live to Pages Kit instantly. It's as simple as: aigne
-                  web publish"
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 步骤 3：发布
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 立即将新网站推送到 Pages Kit 上线。只需：aigne web publish
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  5786ed1f0d301e6b:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:upload-network
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:upload-network
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  dd19747480bbfb01:
+  ff0330a902e913e4:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Powered by a Team of AI Agents
+            text: Launch Your Website in a Flash
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
-          value: center
+          value: flex-start
         kyg0hdy5uqq4gc1o:
-          value: center
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759204484222-0kvkmgmke
+                type: text
+                text: You're literally minutes away from seeing your new site. Just install the
+                  CLI and run the generate command. It’s that simple to watch
+                  the magic happen!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
     zh:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 由 AI 代理团队驱动
+            text: 瞬间上线您的网站
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
-          value: center
+          value: flex-start
         kyg0hdy5uqq4gc1o:
-          value: center
-  188bf83f2774511b:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759204484222-0kvkmgmke
+                type: text
+                text: 您只需几分钟即可看到新站点。只需安装 CLI 并运行 generate 命令。就是这么简单，见证魔法发生！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  b153f4394fed2823:
     en:
       properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Explore the Docs
+              url: https://github.com/AIGNE-io/aigne-web-smith#quick-start
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+              endIcon: ""
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 查看文档
+              url: https://github.com/AIGNE-io/aigne-web-smith#quick-start
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+              endIcon: ""
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  532d9e3f23bf303a:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/1440x700?text=Code+Snippet+Visualization
+            mediaKitUrl: https://placehold.co/1440x700?text=Code+Snippet+Visualization
+            width: 3024
+            height: 1034
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/1440x700?text=Code+Snippet+Visualization
+            mediaKitUrl: https://placehold.co/1440x700?text=Code+Snippet+Visualization
+            width: 3024
+            height: 1034
+  6aeae6afe8bf28e3:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Powered by an Intelligent Agent Crew
+            style:
+              variant: h2
         v5utpm7bu9yvdpnq:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
+    zh:
+      properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Planning & Content Agents
+            text: 由智能代理团队驱动
             style:
-              variant: h4
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  48ef8cef079ae0ed:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: ""
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-end
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759143324880-zr95ywd04
+              - id: item-1759204131040-9gxbxfmi5
                 type: text
-                text: Intelligently design your site's architecture and generate all the
-                  high-quality content you need.
+                text: WebSmith is built on the AIGNE framework, where specialized AI agents
+                  collaborate to handle everything from planning and content
+                  creation to quality evaluation and publishing. It's a full
+                  creative team, automated.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
     zh:
       properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 规划与内容代理
+            text: ""
             style:
-              variant: h4
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-end
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759143324880-zr95ywd04
+              - id: item-1759204131040-9gxbxfmi5
                 type: text
-                text: 智能设计您网站的架构，并生成所有所需的高质量内容。
+                text: WebSmith 构建于 AIGNE 框架之上，专门化的 AI
+                  代理协同处理从规划、内容创建到质量评估与发布的一切工作。这是一个自动化的完整创意团队。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  9a4665f91027d3f7:
+  2807aa3d3d886343:
     en:
       properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:compass-rose
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/1440x700?text=Agent-Based+Architecture+Diagram
+            mediaKitUrl: https://placehold.co/1440x700?text=Agent-Based+Architecture+Diagram
+            width: 3024
+            height: 1034
     zh:
       properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:compass-rose
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  3d914af2157737bc:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
+        7m5pz8nefl5j9hqq:
           value:
-            text: Template & Component Agents
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: Build your site using a validated library of modern components and create
-                  Pages Kit-ready templates.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 模板与组件代理
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 使用经过验证的现代组件库构建网站，并创建可供 Pages Kit 使用的模板。
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  834e8f1413211851:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:puzzle
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:puzzle
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  824549dfc765923c:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Evaluation & Processing Agents
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: Ensure a fantastic user experience with automated quality checks and
-                  efficient batch processing.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 评估与处理代理
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 通过自动化质量检查和高效的批处理确保出色的用户体验。
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  75224870c5e4c765:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:chart-line
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:chart-line
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  dd7071b2646afbc7:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Publishing Agent
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: Handles the final step, deploying your finished website directly to Pages
-                  Kit for you.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 发布代理
-            style:
-              variant: h4
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759143324880-zr95ywd04
-                type: text
-                text: 负责最后一步，为您将完成的网站直接部署到 Pages Kit。
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  a8774863f186f747:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:cloud-upload
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-    zh:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: mdi:cloud-upload
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
+            url: https://placehold.co/1440x700?text=Agent-Based+Architecture+Diagram
+            mediaKitUrl: https://placehold.co/1440x700?text=Agent-Based+Architecture+Diagram
+            width: 3024
+            height: 1034
   be2459a9b19a18c1:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Frequently Asked Questions
+            text: Got Questions? We've Got Answers!
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2482,7 +1389,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 常见问题
+            text: 有疑问？我们来解答！
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2492,6 +1399,68 @@ dataSource:
         9ajrz12ik7esfk1z:
           value:
             list: []
+  dbb2035e9969526a:
+    en:
+      properties:
+        4221qi1bxy322mf4:
+          value:
+            - title: What is AIGNE WebSmith?
+              answer: It's a super-powerful, AI-driven tool that automates the entire process
+                of creating a professional, SEO-optimized website. It handles
+                the structure, content, templates, and even publishing for you!
+            - title: How does it integrate with Pages Kit?
+              answer: WebSmith is designed to work perfectly with Pages Kit! It generates YAML
+                templates that are 100% compatible, and you can publish your
+                site directly to the Pages Kit platform with a single command.
+            - title: What kind of websites can I build?
+              answer: You can build all sorts of modern websites! It's perfect for SaaS
+                products, marketing sites, documentation portals, and more. Just
+                describe what you need in the input file, and the AI takes it
+                from there.
+            - title: Do I need to be a developer to use it?
+              answer: Not at all! While it's a command-line tool, the inputs are simple YAML
+                files where you describe your needs in plain language. It's
+                designed to make professional web creation accessible to
+                everyone.
+            - title: What languages does it support?
+              answer: Right now, it's fully optimized for both English and Chinese content
+                generation and localization, so you can reach a global audience
+                right away.
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+    zh:
+      properties:
+        4221qi1bxy322mf4:
+          value:
+            - title: What is AIGNE WebSmith?
+              answer: 这是一款功能强大的 AI 驱动工具，自动化完成创建专业、SEO 优化网站的整个流程。它为您处理结构、内容、模板，甚至发布！
+            - title: How does it integrate with Pages Kit?
+              answer: WebSmith 专为与 Pages Kit 无缝协作而设计！它生成与 Pages Kit 完全兼容的 YAML
+                模板，您可以通过一条命令直接将站点发布到 Pages Kit 平台。
+            - title: What kind of websites can I build?
+              answer: 您可以构建各种现代网站！非常适合 SaaS 产品、营销网站、文档门户等。只需在输入文件中描述您的需求，AI 就会接手。
+            - title: Do I need to be a developer to use it?
+              answer: 完全不需要！虽然它是命令行工具，但输入是简单的 YAML 文件，您可以用通俗语言描述需求。它旨在让专业网站创建对每个人都可用。
+            - title: What languages does it support?
+              answer: 目前已针对英文和中文的内容生成与本地化进行全面优化，因此您可以立即触达全球受众。
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
   b2fd4755c489229c:
     en:
       properties:
@@ -2500,15 +1469,16 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Dive into the future of web creation. Explore the repository, try the
-                  commands, and see what you can build with the power of AI.
+                text: Stop wrestling with code and content. Let AIGNE WebSmith bring your vision
+                  to life in minutes. Your next great project is just one click
+                  away.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Ready to Build Your Next Website in Minutes?
+            text: Ready to Build Your Next Website with AI?
             style:
               color: ""
               variant: h1
@@ -2523,18 +1493,63 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 迈入网页创作的未来。浏览仓库，尝试这些命令，看看您能用 AI 的力量构建出什么。
+                text: 别再为代码与内容苦恼。让 AIGNE WebSmith 在几分钟内将您的设想变为现实。您的下一个精彩项目只需一键即可开始。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 准备好在几分钟内构建下一个网站了吗？
+            text: 准备好用 AI 构建下一个网站了吗？
             style:
               color: ""
               variant: h1
         v5utpm7bu9yvdpnq:
           value: center
         kyg0hdy5uqq4gc1o:
+          value: center
+  508276fbeb60a116:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Start Your Project Now
+              url: https://github.com/AIGNE-io/aigne-web-smith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即开始您的项目
+              url: https://github.com/AIGNE-io/aigne-web-smith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
           value: center

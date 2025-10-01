@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-01T10:23:53.541Z
+  updateAt: 2025-10-01T13:17:16.139Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -53,9 +53,6 @@ composite:
 
       - Content is light/medium—no complex segmentation or multi-card layout.
 
-      - Avoid it if you must present multiple parallel highlights or audience
-      splits on the first screen.
-
 
       Constraint
 
@@ -70,8 +67,6 @@ composite:
       - Do not substitute brand logos or unrelated visuals as temporary
       backgrounds; only placeholder or actual hero images are valid.
     fieldCombinations:
-      - verticalHeroAction.0.link
-      - verticalHeroAction.0.text
       - verticalHeroActions.0.link
       - verticalHeroActions.0.text
       - verticalHeroActions.1.link
@@ -762,7 +757,7 @@ composite:
         borderRadius: none
         gap: normal
         border: none
-        alignContent: center
+        alignContent: start
     dataSource:
       0j46nmfzo6xwy59i: {}
       r58h1ogwbiqijh9n:
@@ -821,6 +816,14 @@ composite:
       - logoWallList.4.link
       - logoWallList.5.image
       - logoWallList.5.link
+      - logoWallList.6.image
+      - logoWallList.6.link
+      - logoWallList.7.image
+      - logoWallList.7.link
+      - logoWallList.8.image
+      - logoWallList.8.link
+      - logoWallList.9.image
+      - logoWallList.9.link
       - logoWallTitle
     section:
       id: dk56zu8ywvq4j0w4
@@ -878,6 +881,22 @@ composite:
                   url: <%= logoWallList.5.image %>
                   mediaKitUrl: <%= logoWallList.5.image %>
                 link: <%= logoWallList.5.link %>
+              - image:
+                  url: <%= logoWallList.6.image %>
+                  mediaKitUrl: <%= logoWallList.6.image %>
+                link: <%= logoWallList.6.link %>
+              - image:
+                  url: <%= logoWallList.7.image %>
+                  mediaKitUrl: <%= logoWallList.7.image %>
+                link: <%= logoWallList.7.link %>
+              - image:
+                  url: <%= logoWallList.8.image %>
+                  mediaKitUrl: <%= logoWallList.8.image %>
+                link: <%= logoWallList.8.link %>
+              - image:
+                  url: <%= logoWallList.9.image %>
+                  mediaKitUrl: <%= logoWallList.9.image %>
+                link: <%= logoWallList.9.link %>
   - id: osyn2uylw9cdhzpc
     name: User Review
     summary: >-
@@ -1629,7 +1648,7 @@ composite:
         borderRadius: none
         gap: none
         border: none
-        alignContent: center
+        alignContent: start
     dataSource:
       ilbxhb437qvz4d67: {}
       r7vfzbaj4gi20052:
@@ -1704,6 +1723,10 @@ composite:
       - list.3
       - list.4
       - list.5
+      - list.6
+      - list.7
+      - list.8
+      - list.9
       - twoColumnGridTitle
     section:
       id: lnurr34ly4bms2mj
@@ -1844,6 +1867,74 @@ composite:
                 gap: normal
                 border: solid
                 alignContent: center
+            7jz5btlzv1cjwqj4:
+              id: 7jz5btlzv1cjwqj4
+              name: <%= list.6 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: center
+            gcaktc5jnlonz07z:
+              id: gcaktc5jnlonz07z
+              name: <%= list.7 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: center
+            xx656uaol12aahip:
+              id: xx656uaol12aahip
+              name: <%= list.8 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: center
+            78rwckrcfmqcpc1s:
+              id: 78rwckrcfmqcpc1s
+              name: <%= list.9 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: center
           sectionIds:
             - 0j46nmfzo6xwy59i
             - sk6qyzu67kgput8w
@@ -1851,6 +1942,10 @@ composite:
             - 9dibw21n1yxvo2xo
             - 4rewpon7enlvhyxa
             - 17uev3txd93657vy
+            - 7jz5btlzv1cjwqj4
+            - gcaktc5jnlonz07z
+            - xx656uaol12aahip
+            - 78rwckrcfmqcpc1s
           config:
             gridSettings:
               desktop:
@@ -1882,6 +1977,26 @@ composite:
                 17uev3txd93657vy:
                   x: 6
                   y: 2
+                  w: 6
+                  h: 1
+                7jz5btlzv1cjwqj4:
+                  x: 0
+                  y: 3
+                  w: 6
+                  h: 1
+                gcaktc5jnlonz07z:
+                  x: 6
+                  y: 3
+                  w: 6
+                  h: 1
+                xx656uaol12aahip:
+                  x: 0
+                  y: 4
+                  w: 6
+                  h: 1
+                78rwckrcfmqcpc1s:
+                  x: 6
+                  y: 4
                   w: 6
                   h: 1
               mobile:
@@ -1947,6 +2062,10 @@ composite:
       9dibw21n1yxvo2xo: {}
       4rewpon7enlvhyxa: {}
       17uev3txd93657vy: {}
+      7jz5btlzv1cjwqj4: {}
+      gcaktc5jnlonz07z: {}
+      xx656uaol12aahip: {}
+      78rwckrcfmqcpc1s: {}
   - id: i1zqzgii2cnh1tt0
     name: Layout 3 Column Grid (Left)
     summary: >-
@@ -3751,6 +3870,10 @@ composite:
       - faqList.6.question
       - faqList.7.answer
       - faqList.7.question
+      - faqList.8.answer
+      - faqList.8.question
+      - faqList.9.answer
+      - faqList.9.question
       - faqTitle
     section:
       id: lnrxvur80huc9pkr
@@ -3824,6 +3947,10 @@ composite:
                 answer: <%= faqList.6.answer %>
               - title: <%= faqList.7.question %>
                 answer: <%= faqList.7.answer %>
+              - title: <%= faqList.8.question %>
+                answer: <%= faqList.8.answer %>
+              - title: <%= faqList.9.question %>
+                answer: <%= faqList.9.answer %>
   - id: mf3hxeufhelzclpb
     name: CTA
     summary: >
@@ -3838,8 +3965,7 @@ composite:
 
       Use when
 
-      - You want a focused call-to-action between sections or at the end of a
-      page.
+      - You want a focused call-to-action at the end of a page.
 
       - Ideal for signup/try/demo prompts, upgrades, or newsletter joins where a
       single decision is the goal.

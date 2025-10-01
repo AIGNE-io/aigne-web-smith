@@ -83,13 +83,29 @@ const getEmptyValue = (_key) => {
   return EMPTY_VALUE;
 };
 
-function containsEmptyValue(node) {
-  if (node === EMPTY_VALUE) return true;
-  if (Array.isArray(node)) return node.some((item) => containsEmptyValue(item));
-  if (node && typeof node === "object") {
-    return Object.values(node).some((item) => containsEmptyValue(item));
+function recordPlaceholder(stats, filled) {
+  if (!stats) return;
+  stats.placeholders += 1;
+  if (filled) stats.filled += 1;
+}
+
+function createPlaceholderStats() {
+  return { placeholders: 0, filled: 0 };
+}
+
+function replaceEmptyValueDeep(node) {
+  if (typeof node === "string") {
+    return node.includes(EMPTY_VALUE) ? node.split(EMPTY_VALUE).join("") : node;
   }
-  return false;
+  if (Array.isArray(node)) {
+    return node.map((item) => replaceEmptyValueDeep(item));
+  }
+  if (node && typeof node === "object") {
+    Object.entries(node).forEach(([key, value]) => {
+      node[key] = replaceEmptyValueDeep(value);
+    });
+  }
+  return node;
 }
 
 // ============= Logging =============
@@ -117,31 +133,33 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
 function getNestedValue(obj, path) {
   return path.split(".").reduce((cur, key) => (cur ? cur[key] : undefined), obj);
 }
-function processSimpleTemplate(obj, data) {
+function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {
     return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_m, key) => {
       const keyTrimmed = key.trim();
       const v = getNestedValue(data, keyTrimmed);
-      return !_.isNil(v) && v !== "" ? v : getEmptyValue(keyTrimmed);
+      const hasValue = !_.isNil(v) && !(typeof v === "string" && v.trim() === "");
+      recordPlaceholder(stats, hasValue);
+      return hasValue ? v : getEmptyValue(keyTrimmed);
     });
   }
-  if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data));
+  if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data, stats));
   if (obj && typeof obj === "object") {
     return Object.fromEntries(
-      Object.entries(obj).map(([k, v]) => [k, processSimpleTemplate(v, data)]),
+      Object.entries(obj).map(([k, v]) => [k, processSimpleTemplate(v, data, stats)]),
     );
   }
   return obj;
 }
-function processArrayTemplate(templateArray, data) {
+function processArrayTemplate(templateArray, data, stats = null) {
   if (!Array.isArray(templateArray) || templateArray.length !== 1) {
-    return templateArray.map((x) => processSimpleTemplate(x, data));
+    return templateArray.map((x) => processSimpleTemplate(x, data, stats));
   }
   const arrayField = Object.keys(data).find((k) => Array.isArray(data[k]));
   if (arrayField && data[arrayField]?.length > 0) {
     const t = templateArray[0];
     const out = data[arrayField].map((item) => {
-      const r = processSimpleTemplate(t, item);
+      const r = processSimpleTemplate(t, item, stats);
       return r;
     });
     log("🧩 [processArrayTemplate] expanded array template:", {
@@ -149,11 +167,13 @@ function processArrayTemplate(templateArray, data) {
     });
     return out;
   }
-  return templateArray.map((x) => processSimpleTemplate(x, data));
+  return templateArray.map((x) => processSimpleTemplate(x, data, stats));
 }
-function processTemplate(obj, data) {
+function processTemplate(obj, data, stats = null) {
   const isArrayCase = Array.isArray(obj) && obj.length === 1;
-  const res = isArrayCase ? processArrayTemplate(obj, data) : processSimpleTemplate(obj, data);
+  const res = isArrayCase
+    ? processArrayTemplate(obj, data, stats)
+    : processSimpleTemplate(obj, data, stats);
   if (ENABLE_LOGS) {
     const preview =
       typeof res === "string"
@@ -515,6 +535,7 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
   processSectionTemplatesDeep(clonedSection, sectionData);
 
   const transformedDataSource = {};
+  const placeholderStatsById = new Map();
   const tplDS = component.dataSource || {};
   Object.entries(tplDS).forEach(([origId, t]) => {
     const newId = idMap.get(origId);
@@ -525,15 +546,18 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
       });
       return;
     }
-    const processed = processTemplate(_.cloneDeep(t), sectionData);
+    const stats = createPlaceholderStats();
+    const processed = processTemplate(_.cloneDeep(t), sectionData, stats);
     if (processed !== undefined && !(typeof processed === "object" && _.isEmpty(processed))) {
       transformedDataSource[newId] = processed;
+      placeholderStatsById.set(newId, stats);
     }
   });
 
   const prunedSectionIds = [];
-  Object.entries(transformedDataSource).forEach(([sectionId, value]) => {
-    if (containsEmptyValue(value)) {
+  Object.entries(transformedDataSource).forEach(([sectionId]) => {
+    const stats = placeholderStatsById.get(sectionId);
+    if (stats && stats.placeholders > 0 && stats.filled === 0) {
       prunedSectionIds.push(sectionId);
     }
   });
@@ -555,6 +579,7 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
   });
 
   if (prunedSectionIds.length > 0) {
+    pruneEmptyLayoutBlocks(clonedSection);
     reflowGridSettingsDeep(clonedSection);
   }
 
@@ -623,6 +648,47 @@ function collectLayoutSlots(rootSection) {
   }
   dfs(rootSection, null);
   return slots;
+}
+
+function pruneEmptyLayoutBlocks(section) {
+  if (!section || typeof section !== "object") return;
+  if (!section.sectionIds || !section.sections) return;
+
+  const nextIds = [];
+  const nextSections = {};
+
+  section.sectionIds.forEach((childId) => {
+    const child = section.sections?.[childId];
+    if (!child) {
+      cleanupLayoutConfig(section.config, childId);
+      return;
+    }
+
+    pruneEmptyLayoutBlocks(child);
+
+    const childHasIds = Array.isArray(child.sectionIds) && child.sectionIds.length > 0;
+    const childHasSections =
+      child.sections &&
+      typeof child.sections === "object" &&
+      Object.keys(child.sections).length > 0;
+    const isEmptyLayout = isLayoutBlock(child) && !childHasIds && !childHasSections;
+
+    if (isEmptyLayout) {
+      cleanupLayoutConfig(section.config, childId);
+      return;
+    }
+
+    nextIds.push(childId);
+    nextSections[childId] = child;
+  });
+
+  if (nextIds.length > 0) {
+    section.sectionIds = nextIds;
+    section.sections = nextSections;
+  } else {
+    delete section.sectionIds;
+    delete section.sections;
+  }
 }
 
 /** 从子节点 path 中提取 list 索引（…,"list", N, …） */
@@ -1111,6 +1177,7 @@ export default async function composePagesData(input) {
         sectionIds: fd.sectionIds,
         dataSource: fd.dataSource,
       };
+      replaceEmptyValueDeep(yaml);
       const content = stringify(yaml, { aliasDuplicateObjects: false });
       allPagesKitYaml.push({
         filePath: fd.filePath,

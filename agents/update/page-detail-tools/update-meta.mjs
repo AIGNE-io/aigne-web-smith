@@ -55,6 +55,6 @@ export default async function updateMeta(input) {
 }
 
 updateMeta.taskTitle = "Update page meta";
-updateMeta.description = "Update page meta information including title and description";
+updateMeta.description = "Update page metadata including title and description fields";
 updateMeta.inputSchema = getUpdateMetaInputJsonSchema();
 updateMeta.outputSchema = getUpdateMetaOutputJsonSchema();

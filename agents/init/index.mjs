@@ -121,7 +121,8 @@ export default async function init(
 
   // 3. Custom rules - any specific requirements for the website?
   const rulesInput = await options.prompts.input({
-    message: "📋 [3/8]: Any custom rules or requirements for your website? (Optional, press Enter to skip)",
+    message:
+      "📋 [3/8]: Any custom rules or requirements for your website? (Optional, press Enter to skip)",
     default: "",
   });
   input.rules = rulesInput.trim();
@@ -426,7 +427,6 @@ export function generateYAML(input) {
   // Custom Page Rules and Requirements
   yaml += "# Custom Rules: Define specific page generation rules and requirements\n";
   const rulesSection = yamlStringify({ rules: config.rules }).trim();
-  // Use literal style for multiline strings
   yaml += `${rulesSection}\n\n`;
 
   // Glossary Configuration

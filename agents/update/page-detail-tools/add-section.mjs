@@ -114,7 +114,7 @@ export default async function addSection(input) {
   };
 }
 
-addSection.taskTitle = "Add new section";
-addSection.description = "Add a new section to the page detail";
+addSection.taskTitle = "Add section";
+addSection.description = "Add a new section to the specified page detail at an optional position";
 addSection.inputSchema = getAddSectionInputJsonSchema();
 addSection.outputSchema = getAddSectionOutputJsonSchema();

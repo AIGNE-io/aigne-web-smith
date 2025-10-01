@@ -32,10 +32,7 @@ export default async function movePage(input) {
   const pageToMove = websiteStructure[pageIndex];
 
   // Validate new parent exists if newParentId is provided
-  if (
-    newParentId &&
-    newParentId !== "null"
-  ) {
+  if (newParentId && newParentId !== "null") {
     const newParentExists = websiteStructure.some((item) => item.path === newParentId);
     if (!newParentExists) {
       const errorMessage = `Cannot move page: Target parent page '${newParentId}' does not exist. Please select an existing parent page.`;
@@ -84,7 +81,9 @@ export default async function movePage(input) {
     const childPages = websiteStructure.filter((item) => item.parentId === path);
     if (childPages.length > 0) {
       // Update all child pages to use the new path as parent
-      console.log(`Note: Will update ${childPages.length} child page(s) to reference new parent path.`);
+      console.log(
+        `Note: Will update ${childPages.length} child page(s) to reference new parent path.`,
+      );
     }
   }
 
@@ -112,7 +111,9 @@ export default async function movePage(input) {
     }
   }
 
-  const oldParentText = pageToMove.parentId ? ` from parent '${pageToMove.parentId}'` : " from top-level";
+  const oldParentText = pageToMove.parentId
+    ? ` from parent '${pageToMove.parentId}'`
+    : " from top-level";
   const newParentText = newParentId ? ` to parent '${newParentId}'` : " to top-level";
   const pathChangeText =
     newPath && newPath !== path ? ` and changed path from '${path}' to '${newPath}'` : "";

@@ -76,6 +76,6 @@ export default async function deleteSection(input) {
 }
 
 deleteSection.taskTitle = "Delete section";
-deleteSection.description = "Delete a section from the page detail";
+deleteSection.description = "Delete a section from the page detail by its name";
 deleteSection.inputSchema = getDeleteSectionInputJsonSchema();
 deleteSection.outputSchema = getDeleteSectionOutputJsonSchema();

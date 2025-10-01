@@ -107,6 +107,6 @@ export default async function updateSection(input) {
 }
 
 updateSection.taskTitle = "Update section";
-updateSection.description = "Update properties of an existing section in the page detail";
+updateSection.description = "Modify properties of an existing section within the page detail configuration";
 updateSection.inputSchema = getUpdateSectionInputJsonSchema();
 updateSection.outputSchema = getUpdateSectionOutputJsonSchema();

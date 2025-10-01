@@ -83,8 +83,8 @@ export const getAddPageInputJsonSchema = () => {
     schema.properties.title.description = "Title of the new page";
     schema.properties.description.description = "Description of the new page";
     schema.properties.path.description =
-      "URL path for the new page, must start with /, no language prefix, homepage uses /home";
-    schema.properties.parentId.description = "Parent page path, null for top-level pages";
+      "URL path for the new page. Must start with '/'. No language prefix. Homepage uses '/home'";
+    schema.properties.parentId.description = "Parent page path. Use null for top-level pages";
     schema.properties.sourceIds.description =
       "Associated sourceIds from datasources, cannot be empty";
   }
@@ -128,7 +128,7 @@ export const getMovePageInputJsonSchema = () => {
     schema.properties.newParentId.description =
       "Path of the new parent page (leave empty for top-level)";
     schema.properties.newPath.description =
-      "New URL path for the page, path needs to be updated accordingly new parent path";
+      "New URL path for the page. Path must be updated to match the new parent path";
   }
   return schema;
 };
@@ -151,7 +151,7 @@ export const getUpdatePageInputJsonSchema = () => {
     schema.properties.title.description = "New title for the page (optional)";
     schema.properties.description.description = "New description for the page (optional)";
     schema.properties.sourceIds.description =
-      "New source references for the page (optional, cannot be empty if provided)";
+      "New source references for the page (optional). If provided, array cannot be empty";
   }
   // Add anyOf constraint for at least one update field
   schema.anyOf = [

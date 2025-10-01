@@ -114,6 +114,6 @@ export default async function moveSection(input) {
 }
 
 moveSection.taskTitle = "Move section";
-moveSection.description = "Move a section to a different position in the page detail";
+moveSection.description = "Moves a section to a specified position within the page detail";
 moveSection.inputSchema = getMoveSectionInputJsonSchema();
 moveSection.outputSchema = getMoveSectionOutputJsonSchema();

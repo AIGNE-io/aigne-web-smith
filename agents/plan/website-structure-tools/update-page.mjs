@@ -21,7 +21,7 @@ export default async function updatePage(input) {
   // Find the page to update
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
   if (pageIndex === -1) {
-    const errorMessage = `Cannot update page: Page '${path}' does not exist. Choose an existing page to update.`;
+    const errorMessage = `Cannot update page: Page '${path}' does not exist. Please specify an existing page path.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
@@ -56,7 +56,7 @@ export default async function updatePage(input) {
   };
 }
 
-updatePage.taskTitle = "Update page";
+updatePage.taskTitle = "Update Page Properties";
 updatePage.description = "Update properties of an existing page in the website structure";
 updatePage.inputSchema = getUpdatePageInputJsonSchema();
 updatePage.outputSchema = getUpdatePageOutputJsonSchema();

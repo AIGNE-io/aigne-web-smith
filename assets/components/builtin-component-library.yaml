@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-01T14:52:10.789Z
+  updateAt: 2025-10-01T15:28:23.375Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -736,7 +736,7 @@ composite:
             w9rrqeiqq3ddhnii:
               x: 0
               y: 0
-              w: 2
+              w: 6
               h: 1
           mobile:
             r58h1ogwbiqijh9n:
@@ -1199,7 +1199,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             ol4wieo44cw96mst:
               id: ol4wieo44cw96mst
               name: <%= list.1 %>
@@ -1228,7 +1228,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             6b8bap6q8usvzerc:
               id: 6b8bap6q8usvzerc
               name: <%= list.2 %>
@@ -1257,7 +1257,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             u7ip6dvihh8yptxg:
               id: u7ip6dvihh8yptxg
               name: <%= list.3 %>
@@ -1286,7 +1286,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             6zp0bwzko9363qi7:
               id: 6zp0bwzko9363qi7
               name: <%= list.4 %>
@@ -1315,7 +1315,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             3afva70pja44kpkw:
               id: 3afva70pja44kpkw
               name: <%= list.5 %>
@@ -1344,7 +1344,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             1jjxyo0qsj8rrif0:
               id: 1jjxyo0qsj8rrif0
               name: <%= list.6 %>
@@ -1373,7 +1373,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
             6f7rfr9atoko3ky8:
               id: 6f7rfr9atoko3ky8
               name: <%= list.7 %>
@@ -1402,7 +1402,7 @@ composite:
                 borderRadius: small
                 gap: none
                 border: solid
-                alignContent: center
+                alignContent: space-between
           sectionIds:
             - ilbxhb437qvz4d67
             - ol4wieo44cw96mst
@@ -1775,7 +1775,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             sk6qyzu67kgput8w:
               id: sk6qyzu67kgput8w
               name: <%= list.1 %>
@@ -1792,7 +1792,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             axklby5ddf9a60n4:
               id: axklby5ddf9a60n4
               name: <%= list.2 %>
@@ -1809,7 +1809,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             9dibw21n1yxvo2xo:
               id: 9dibw21n1yxvo2xo
               name: <%= list.3 %>
@@ -1826,7 +1826,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             4rewpon7enlvhyxa:
               id: 4rewpon7enlvhyxa
               name: <%= list.4 %>
@@ -1843,7 +1843,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             17uev3txd93657vy:
               id: 17uev3txd93657vy
               name: <%= list.5 %>
@@ -1860,7 +1860,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             7jz5btlzv1cjwqj4:
               id: 7jz5btlzv1cjwqj4
               name: <%= list.6 %>
@@ -1877,7 +1877,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             gcaktc5jnlonz07z:
               id: gcaktc5jnlonz07z
               name: <%= list.7 %>
@@ -1894,7 +1894,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             xx656uaol12aahip:
               id: xx656uaol12aahip
               name: <%= list.8 %>
@@ -1911,7 +1911,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             78rwckrcfmqcpc1s:
               id: 78rwckrcfmqcpc1s
               name: <%= list.9 %>
@@ -1928,7 +1928,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
           sectionIds:
             - 0j46nmfzo6xwy59i
             - sk6qyzu67kgput8w
@@ -2147,7 +2147,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             a1mditpbph7mudql:
               id: a1mditpbph7mudql
               name: <%= list.1 %>
@@ -2164,7 +2164,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             jgu2gx5ogwpk11nu:
               id: jgu2gx5ogwpk11nu
               name: <%= list.2 %>
@@ -2181,7 +2181,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             ozy85nxrbtelzr4o:
               id: ozy85nxrbtelzr4o
               name: <%= list.3 %>
@@ -2198,7 +2198,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             bac0220nw9y8u6gc:
               id: bac0220nw9y8u6gc
               name: <%= list.4 %>
@@ -2215,7 +2215,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             qpmhi3mk8oaa2vtg:
               id: qpmhi3mk8oaa2vtg
               name: <%= list.5 %>
@@ -2232,7 +2232,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             ab60j6xplplx0qag:
               id: ab60j6xplplx0qag
               name: <%= list.6 %>
@@ -2249,7 +2249,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             q2kkdvh1d3l7ncjw:
               id: q2kkdvh1d3l7ncjw
               name: <%= list.7 %>
@@ -2266,7 +2266,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
             skc8pla6bcrvtnh1:
               id: skc8pla6bcrvtnh1
               name: <%= list.8 %>
@@ -2283,7 +2283,7 @@ composite:
                 borderRadius: small
                 gap: normal
                 border: solid
-                alignContent: center
+                alignContent: space-between
           sectionIds:
             - qhdydhkpreqhgtfw
             - a1mditpbph7mudql
@@ -3135,7 +3135,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
         b6flsk80a31ajfhg:
           id: b6flsk80a31ajfhg
           name: <%= list.1 %>
@@ -3151,7 +3151,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
         jlv1pcozi3jj2ym1:
           id: jlv1pcozi3jj2ym1
           name: <%= list.2 %>
@@ -3167,7 +3167,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
         owz1ef5yvnj8u6z1:
           id: owz1ef5yvnj8u6z1
           name: <%= list.3 %>
@@ -3183,7 +3183,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
         0nijh6cwuc30kiz4:
           id: 0nijh6cwuc30kiz4
           name: <%= list.4 %>
@@ -3199,7 +3199,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
       sectionIds:
         - v0yqgx0alva8pqgk
         - b6flsk80a31ajfhg
@@ -4108,7 +4108,7 @@ composite:
             background: transparent
             border: solid
             borderRadius: small
-            alignContent: center
+            alignContent: space-between
         yvbfss906axhksok:
           id: yvbfss906axhksok
           name: <%= list.1 %>
@@ -4124,7 +4124,7 @@ composite:
             background: background.paper
             border: solid
             borderRadius: small
-            alignContent: start
+            alignContent: space-between
       sectionIds:
         - xebzelstnp0vag5c
         - yvbfss906axhksok

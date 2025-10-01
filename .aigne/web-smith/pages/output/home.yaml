@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-01T15:13:15.188Z
-updatedAt: 2025-10-01T15:13:15.188Z
-publishedAt: 2025-10-01T15:13:15.188Z
+createdAt: 2025-10-01T15:29:07.371Z
+updatedAt: 2025-10-01T15:29:07.371Z
+publishedAt: 2025-10-01T15:29:07.371Z
 isPublic: true
 locales:
   en:
@@ -239,7 +239,7 @@ sections:
                       527d9e489ed1baa2:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       8a0319c7be20285c:
@@ -283,7 +283,7 @@ sections:
               borderRadius: small
               gap: none
               border: solid
-              alignContent: center
+              alignContent: space-between
           32be1f293fb48143:
             id: 32be1f293fb48143
             name: Cards-2
@@ -343,7 +343,7 @@ sections:
                       3fd5ca10c66e4eb0:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       051f5382aaa30930:
@@ -387,7 +387,7 @@ sections:
               borderRadius: small
               gap: none
               border: solid
-              alignContent: center
+              alignContent: space-between
           04fc00aff8189e21:
             id: 04fc00aff8189e21
             name: Cards-3
@@ -447,7 +447,7 @@ sections:
                       eb1727d56ab40dd6:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       6cf87c8dd697af94:
@@ -491,7 +491,7 @@ sections:
               borderRadius: small
               gap: none
               border: solid
-              alignContent: center
+              alignContent: space-between
           97dd0ec694413abd:
             id: 97dd0ec694413abd
             name: Cards-4
@@ -551,7 +551,7 @@ sections:
                       e54d5c77b851d15a:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       6c7d6356a9593b08:
@@ -595,7 +595,7 @@ sections:
               borderRadius: small
               gap: none
               border: solid
-              alignContent: center
+              alignContent: space-between
         sectionIds:
           - a79fc3fdde014623
           - 32be1f293fb48143
@@ -764,7 +764,7 @@ sections:
                       7ee4dec4719befe7:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       d6415ec1d624285f:
@@ -868,7 +868,7 @@ sections:
                       af61752ceba78e50:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       1b291b01c21efffd:
@@ -972,7 +972,7 @@ sections:
                       e31ce457eeba350d:
                         x: 0
                         y: 0
-                        w: 2
+                        w: 6
                         h: 1
                     mobile:
                       5e82ed859f92ece6:
@@ -1232,7 +1232,7 @@ sections:
               borderRadius: small
               gap: normal
               border: solid
-              alignContent: center
+              alignContent: space-between
           a6ccaa112e1697f3:
             id: a6ccaa112e1697f3
             name: Cards-2
@@ -1350,7 +1350,7 @@ sections:
               borderRadius: small
               gap: normal
               border: solid
-              alignContent: center
+              alignContent: space-between
         sectionIds:
           - 43e7b56439ae4228
           - a6ccaa112e1697f3

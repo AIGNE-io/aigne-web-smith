@@ -119,7 +119,14 @@ export default async function init(
   // Save target audience choices as keys
   input.targetAudienceTypes = audienceChoices;
 
-  // 3. Website scale - how many pages should be generated?
+  // 3. Custom rules - any specific requirements for the website?
+  const rulesInput = await options.prompts.input({
+    message: "📋 [3/8]: Any custom rules or requirements for your website? (Optional, press Enter to skip)",
+    default: "",
+  });
+  input.rules = rulesInput.trim();
+
+  // 4. Website scale - how many pages should be generated?
   // Determine default based on priority: Purpose > Audience
   const getScaleDefault = () => {
     // Check priority order: purposes -> audiences
@@ -140,7 +147,7 @@ export default async function init(
   const defaultScale = getScaleDefault();
 
   const scaleChoice = await options.prompts.select({
-    message: "📊 [3/7]: How many pages should your website have?",
+    message: "📊 [4/8]: How many pages should your website have?",
     choices: Object.entries(WEBSITE_SCALE).map(([key, scale]) => ({
       name: `${scale.name}`,
       description: scale.description,
@@ -158,7 +165,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [4/7]: Choose primary website language:",
+    message: "🌐 [5/8]: Choose primary website language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -175,7 +182,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [5/7]: Select translation languages:",
+    message: "🔄 [6/8]: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -184,15 +191,15 @@ export default async function init(
 
   input.translateLanguages = translateLanguageChoices;
 
-  // 6. Website pages directory
+  // 7. Website pages directory
   const pagesDirInput = await options.prompts.input({
-    message: `📁 [6/7]: Where to save generated website pages:`,
+    message: `📁 [7/8]: Where to save generated website pages:`,
     default: `${outputPath}/pages`,
   });
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
-  // 7. Source code paths
-  console.log("\n📁 [7/7]: DataSource Paths");
+  // 8. Source code paths
+  console.log("\n📁 [8/8]: DataSource Paths");
   console.log(
     "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content, ./src)",
   );
@@ -338,7 +345,7 @@ export function generateYAML(input) {
     websiteScale: input.websiteScale || "",
 
     // Custom rules and target audience (empty for user to fill)
-    rules: "",
+    rules: input.rules || "",
 
     // Language settings
     locale: input.locale || "en",
@@ -420,7 +427,7 @@ export function generateYAML(input) {
   yaml += "# Custom Rules: Define specific page generation rules and requirements\n";
   const rulesSection = yamlStringify({ rules: config.rules }).trim();
   // Use literal style for multiline strings
-  yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
+  yaml += `${rulesSection}\n\n`;
 
   // Glossary Configuration
   yaml += "# Glossary: Define project-specific terms and definitions\n";

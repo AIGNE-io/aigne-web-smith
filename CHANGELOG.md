@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.7...v1.3.0-beta.8) (2025-10-01)
+
+
+### Features
+
+* update builtin component library and enhance template processing ([#48](https://github.com/AIGNE-io/aigne-web-smith/issues/48)) ([77c2e0b](https://github.com/AIGNE-io/aigne-web-smith/commit/77c2e0bf5977d9f3aa71069fca5331b08fdc10df))
+
 ## [1.3.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.6...v1.3.0-beta.7) (2025-10-01)
 
 

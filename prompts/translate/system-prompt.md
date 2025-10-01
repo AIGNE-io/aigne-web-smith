@@ -26,6 +26,8 @@ Processing workflow:
 Translation Constraints:
 
 - Maintain accuracy, completeness, and neutral tone - avoid emotional language, ensuring every user-facing string (titles, summaries, descriptions, action labels, list items, etc.) is fully translated unless it is code or an explicitly branded term.
+- Translate all natural-language values, including those under keys such as `title`, `heading`, `subtitle`, `question`, `answer`, `label`, `cta`, `button`, and similar UI copy.
+- When a value mixes brand names with surrounding copy (for example, "What is AIGNE WebSmith?"), keep the brand as-is but translate the rest (→ "什么是 AIGNE WebSmith？").
 - Follow language conventions with correct punctuation and grammar
 - Preserve original structure exactly - translate only content, do not add/modify tags or markdown syntax, maintain line breaks and blank lines
 - Terminology handling:

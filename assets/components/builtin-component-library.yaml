@@ -1,535 +1,2275 @@
-# WebSmith Pre-built Component Library Configuration
-# This file defines field-to-component mappings, supporting both atomic and composite components
-# Goal: Optimize from 5 AI calls to 1 AI call + lookup matching, achieving 10-30x performance improvement
-
-# Atomic components: Single field to component mapping - each atomic component handles only one field
+meta:
+  updateAt: 2025-09-29T13:17:15.139Z
 atomic:
-  # RichText 组件处理核心文本字段
-  - name: "RichTextTitle"
-    field: "title"
+  - name: RichText
     componentId: xoHu0J44322kDYc-
-    summary: "Page main title, configured as large heading style: string"
-    dataSourceTemplate:
-      title:
-        text: "<%= title %>"
-        style:
-          color: "text.primary"
-      align: "center"
-      enableAnimation: false
-      alignMobile: "center"
-
-  - name: "RichTextDescription"
-    field: "description"
-    componentId: xoHu0J44322kDYc-
-    summary: "Page description text, supports long text display: string"
-    dataSourceTemplate:
-      title:
-        text: "<%= description %>"
-        style:
-          color: "text.secondary"
-          variant: "body1"
-          fontSize: 18
-      align: "center"
-      enableAnimation: false
-      alignMobile: "center"
-
-  # Code component handles code-related fields
-  - name: "CodeBlock"
-    field: "code"
-    componentId: 2EHGy3vwxlS9JGr2
-    summary: "Code example display with syntax highlighting and line numbers: { content: string; filename: string }"
-    dataSourceTemplate:
-      code: "<%= code.content %>"
-      filename: "<%= code.filename %>"
-      showIndex: true
-
-  # Media component handles image and media fields
-  - name: "MediaImage"
-    field: "image"
-    componentId: xoHu0JPjPs122kaaa-
-    summary: "Image media display with responsive image rendering: string"
-    dataSourceTemplate:
-      bg:
-        url: "<%= image %>"
-        mediaKitUrl: ""
-        width: "100%"
-        height: "auto"
-      backgroundColor: "transparent"
-      width: "100%"
-      height: "auto"
-      objectFit: "cover"
-      ratio: "auto"
-
-  # Action component handles interaction fields
-  - name: "ActionButton"
-    field: "action"
+    summary: A RichText component primarily displays the title and description,
+      supporting customization of font color.
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Action
     componentId: a44r0SiGV9AFn2Fj
-    summary: "Interactive button with text and link navigation: { text: string; link: string }"
-    dataSourceTemplate:
-      buttons:
-        - id: ""
-          type: "link"
-          text: "<%= action.text %>"
-          url: "<%= action.link %>"
-          variant: "contained"
-          size: "medium"
-          target: "_self"
-          needLogin: false
-      align: "center"
-      direction: "row"
-      gap: 1
-      flexWrap: "nowrap"
-      alignMobile: "center"
-
-# Composite components: Common field combinations to layout mappings
+    summary: Action buttons component with alignment and customization support
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Icon
+    componentId: YwuDiIbyyF5vfGpt
+    summary: An Iconify-based icon component that accepts Iconify tokens. Supports
+      `fontSize`, `iconName` and `color` properties. Wrapper by MUI Box.
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Media
+    componentId: xoHu0JPjPs122kaaa-
+    summary: A universal media component
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Code
+    componentId: 2EHGy3vwxlS9JGr2
+    summary: Code Showcase Component
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
+  - name: Terminal
+    componentId: AwkO9eKiUWeU7Z8u
+    summary: Simple terminal player component using @arcblock/terminal
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
 composite:
-  # Basic two-field combinations
-  - name: "TitleDescription"
-    fieldCombinations: ["title", "description"]
-    summary: "Most basic text content block, suitable for various content displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Hero section combinations
-  - name: "HeroSection"
-    fieldCombinations: ["title", "description", "action"]
-    summary: "Classic hero section layout, ideal for page headers"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: a44r0SiGV9AFn2Fj
-        fieldCombinations: ["action"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          action: { x: 0, y: 2, w: 12, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          action: { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-      alignContent: "center"
-      justifyContent: "center"
-      background: "grey.100"
-      borderRadius: "medium"
-
-  - name: "HeroWithImage"
-    fieldCombinations: ["title", "description", "image", "action"]
-    summary: "Hero section layout with image, perfect for product introduction pages"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-      - componentId: a44r0SiGV9AFn2Fj
-        fieldCombinations: ["action"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 6, h: 1 }
-          description: { x: 0, y: 1, w: 6, h: 1 }
-          action: { x: 0, y: 2, w: 6, h: 1 }
-          image: { x: 6, y: 0, w: 6, h: 3 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          image: { x: 0, y: 2, w: 12, h: 1 }
-          action: { x: 0, y: 3, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  # Content display combinations
-  - name: "FeatureBlock"
-    fieldCombinations: ["title", "description", "image"]
-    summary: "Feature introduction block, ideal for showcasing product features"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 6, h: 1 }
-          description: { x: 0, y: 1, w: 6, h: 1 }
-          image: { x: 6, y: 0, w: 6, h: 2 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          image: { x: 0, y: 1, w: 12, h: 1 }
-          description: { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  # Code display combinations
-  - name: "CodeWithDescription"
-    fieldCombinations: ["title", "description", "code"]
-    summary: "Code example display block, perfect for technical documentation and tutorials"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: 2EHGy3vwxlS9JGr2
-        fieldCombinations: ["code"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          code: { x: 0, y: 2, w: 12, h: 2 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          code: { x: 0, y: 2, w: 12, h: 2 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "ImageWithDescription"
-    fieldCombinations: ["image", "description"]
-    summary: "Image with description block, suitable for product or feature introductions"
-    relatedComponents:
-      - componentId: xoHu0JPjPs122kaaa-
-        fieldCombinations: ["image"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          image: { x: 0, y: 0, w: 6, h: 2 }
-          description: { x: 6, y: 0, w: 6, h: 2 }
-        mobile:
-          image: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "TextWithList3"
-    fieldCombinations: ["title", "description", "list.0", "list.1", "list.2"]
-    summary: "Feature introduction with key points list, ideal for feature highlights"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 4, h: 1 }
-          "list.1": { x: 4, y: 2, w: 4, h: 1 }
-          "list.2": { x: 8, y: 2, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 12, h: 1 }
-          "list.1": { x: 0, y: 3, w: 12, h: 1 }
-          "list.2": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TextWithList4"
+  - id: fl8kdr0ghgxu149s
+    name: Hero Section with background and 2 buttons
+    summary: A Hero Section with a background and two call-to-action buttons. The
+      section uses white text, so choose a darken color, low-noise
+      sectionBackground that guarantees WCAG AA contrast.
     fieldCombinations:
-      ["title", "description", "list.0", "list.1", "list.2", "list.3"]
-    summary: "Feature introduction with detailed list, perfect for comprehensive feature displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["description"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 6, h: 1 }
-          "list.1": { x: 6, y: 2, w: 6, h: 1 }
-          "list.2": { x: 0, y: 3, w: 6, h: 1 }
-          "list.3": { x: 6, y: 3, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          description: { x: 0, y: 1, w: 12, h: 1 }
-          "list.0": { x: 0, y: 2, w: 12, h: 1 }
-          "list.1": { x: 0, y: 3, w: 12, h: 1 }
-          "list.2": { x: 0, y: 4, w: 12, h: 1 }
-          "list.3": { x: 0, y: 5, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "List4Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2", "list.3"]
-    summary: "Pure list item display, ideal for product features, metrics, and parallel content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 3, h: 1 }
-          "list.1": { x: 3, y: 0, w: 3, h: 1 }
-          "list.2": { x: 6, y: 0, w: 3, h: 1 }
-          "list.3": { x: 9, y: 0, w: 3, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 6, h: 1 }
-          "list.1": { x: 6, y: 0, w: 6, h: 1 }
-          "list.2": { x: 0, y: 1, w: 6, h: 1 }
-          "list.3": { x: 6, y: 1, w: 6, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "List3Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2"]
-    summary: "Pure list item display, suitable for service items, core advantages, and parallel content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 4, h: 1 }
-          "list.1": { x: 4, y: 0, w: 4, h: 1 }
-          "list.2": { x: 8, y: 0, w: 4, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-          "list.2": { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Two-item list combinations
-  - name: "TitleWithList2"
-    fieldCombinations: ["title", "list.0", "list.1"]
-    summary: "Title with dual list items, 2-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 6, h: 1 }
-          "list.1": { x: 6, y: 1, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TitleWithList3"
-    fieldCombinations: ["title", "list.0", "list.1", "list.2"]
-    summary: "Title with three list items, 3-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 4, h: 1 }
-          "list.1": { x: 4, y: 1, w: 4, h: 1 }
-          "list.2": { x: 8, y: 1, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "TitleWithList4"
-    fieldCombinations: ["title", "list.0", "list.1", "list.2", "list.3"]
-    summary: "Title with four list items, 4-column layout on desktop, vertical arrangement on mobile"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 6, h: 1 }
-          "list.1": { x: 6, y: 1, w: 6, h: 1 }
-          "list.2": { x: 0, y: 2, w: 6, h: 1 }
-          "list.3": { x: 6, y: 2, w: 6, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-          "list.3": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-
-  - name: "List2Grid"
-    fieldCombinations: ["list.0", "list.1"]
-    summary: "Pure list item display, ideal for comparison displays and side-by-side content"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 6, h: 1 }
-          "list.1": { x: 6, y: 0, w: 6, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  # Five-item list combinations (occasionally used)
-  - name: "List5Grid"
-    fieldCombinations: ["list.0", "list.1", "list.2", "list.3", "list.4"]
-    summary: "Pure list item display, desktop: 3 items first row + 2 items second row, mobile: vertical arrangement"
-    relatedComponents:
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-      - componentId: ""
-        fieldCombinations: ["list.4"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          "list.0": { x: 0, y: 0, w: 4, h: 1 }
-          "list.1": { x: 4, y: 0, w: 4, h: 1 }
-          "list.2": { x: 8, y: 0, w: 4, h: 1 }
-          "list.3": { x: 2, y: 1, w: 4, h: 1 }
-          "list.4": { x: 6, y: 1, w: 4, h: 1 }
-        mobile:
-          "list.0": { x: 0, y: 0, w: 12, h: 1 }
-          "list.1": { x: 0, y: 1, w: 12, h: 1 }
-          "list.2": { x: 0, y: 2, w: 12, h: 1 }
-          "list.3": { x: 0, y: 3, w: 12, h: 1 }
-          "list.4": { x: 0, y: 4, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "normal"
-
-  - name: "TitleWithList5"
+      - actions.0.link
+      - actions.0.text
+      - actions.1.link
+      - actions.1.text
+      - heroDescription
+      - heroTitle
+      - sectionBackground
+    section:
+      id: 4dox83hzbbop36yp
+      name: Hero
+      component: layout-block
+      sections:
+        zuqls9ievhu1a70b:
+          id: zuqls9ievhu1a70b
+          name: Title
+          component: layout-block
+          sections:
+            9qoj8f9dy45fgvwm:
+              id: 9qoj8f9dy45fgvwm
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            mc8o2ca1jzydt1h0:
+              id: mc8o2ca1jzydt1h0
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - 9qoj8f9dy45fgvwm
+            - mc8o2ca1jzydt1h0
+          config:
+            gridSettings:
+              desktop:
+                9qoj8f9dy45fgvwm:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                mc8o2ca1jzydt1h0:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: large
+            paddingX: none
+      sectionIds:
+        - zuqls9ievhu1a70b
+      config:
+        gridSettings:
+          desktop:
+            zuqls9ievhu1a70b:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+        paddingY: custom:150px
+        background: <%= sectionBackground %>
+        backgroundFullWidth: true
+    dataSource:
+      4dox83hzbbop36yp: {}
+      zuqls9ievhu1a70b: {}
+      9qoj8f9dy45fgvwm:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: |
+                <%= heroTitle %>
+              style:
+                color: common.white
+                variant: h1
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754042380003-mnbkkn5fa
+                  type: text
+                  text: |
+                    <%= heroDescription %>
+                  style:
+                    color: common.white
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      mc8o2ca1jzydt1h0:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= actions.0.text %>
+                url: <%= actions.0.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+              - type: link
+                text: <%= actions.1.text %>
+                url: <%= actions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _blank
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1754042480282-63txf2twj
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+  - id: o5ihqyzby93wdz2n
+    name: Content card with icon
+    summary: Content card with small icon, title, and description. iconifyIconName
+      must be a valid Iconify token in prefix:name format that resolves to an
+      existing icon (e.g., mdi:home), not arbitrary text.
     fieldCombinations:
-      ["title", "list.0", "list.1", "list.2", "list.3", "list.4"]
-    summary: "Title with detailed list items, perfect for comprehensive feature list displays"
-    relatedComponents:
-      - componentId: xoHu0J44322kDYc-
-        fieldCombinations: ["title"]
-      - componentId: ""
-        fieldCombinations: ["list.0"]
-      - componentId: ""
-        fieldCombinations: ["list.1"]
-      - componentId: ""
-        fieldCombinations: ["list.2"]
-      - componentId: ""
-        fieldCombinations: ["list.3"]
-      - componentId: ""
-        fieldCombinations: ["list.4"]
-    configTemplate:
-      gridSettings:
-        desktop:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 4, h: 1 }
-          "list.1": { x: 4, y: 1, w: 4, h: 1 }
-          "list.2": { x: 8, y: 1, w: 4, h: 1 }
-          "list.3": { x: 2, y: 2, w: 4, h: 1 }
-          "list.4": { x: 6, y: 2, w: 4, h: 1 }
-        mobile:
-          title: { x: 0, y: 0, w: 12, h: 1 }
-          "list.0": { x: 0, y: 1, w: 12, h: 1 }
-          "list.1": { x: 0, y: 2, w: 12, h: 1 }
-          "list.2": { x: 0, y: 3, w: 12, h: 1 }
-          "list.3": { x: 0, y: 4, w: 12, h: 1 }
-          "list.4": { x: 0, y: 5, w: 12, h: 1 }
-      gap: "normal"
-      paddingX: "normal"
-      paddingY: "large"
-# Configuration notes:
-# - atomic_components: Each field maps to one component configuration, achieving O(1) lookup complexity
-# - composite_components: Predefined common field combinations, avoiding dynamic layout generation
-# - summary: Adds description for each configuration, helping AI understand usage scenarios
-# - fieldCombinations: Exact match arrays, supporting comparison in any order
-# - configTemplate: Contains responsive layouts (desktop/mobile) and style configurations
-# - Template syntax: Only supports simple <%= fieldName %> format, no JavaScript expressions
+      - cardDescription
+      - cardTitle
+      - iconifyIconName
+    section:
+      id: wk1c4g8ywuyytg9f
+      name: Card
+      component: layout-block
+      sections:
+        bskdh8ztuo3fe0d2:
+          id: bskdh8ztuo3fe0d2
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        7l1ymx0gsccou1qh:
+          id: 7l1ymx0gsccou1qh
+          name: Icon
+          component: custom-component
+          config:
+            componentId: YwuDiIbyyF5vfGpt
+      sectionIds:
+        - 7l1ymx0gsccou1qh
+        - bskdh8ztuo3fe0d2
+      config:
+        gridSettings:
+          desktop:
+            bskdh8ztuo3fe0d2:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            7l1ymx0gsccou1qh:
+              x: 0
+              y: 0
+              w: 4
+              h: 1
+        padding: normal
+        background: transparent
+        gap: normal
+        borderRadius: none
+        border: none
+        alignContent: start
+        paddingY: none
+        paddingX: none
+    dataSource:
+      wk1c4g8ywuyytg9f: {}
+      bskdh8ztuo3fe0d2:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= cardTitle %>
+              style:
+                fontSize: ""
+                variant: h4
+          e8f3k7m2n9p4q1s5:
+            value: false
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753379691477-fu786lae3
+                  type: text
+                  text: <%= cardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      7l1ymx0gsccou1qh:
+        properties:
+          5ek4m0kw9cu0ndns:
+            value: <%= iconifyIconName %>
+          529qbwiam7oypw8e:
+            value: 40px
+          gugqsxx3xyveuu8n:
+            value: primary.main
+  - id: zveyc3fw79od7cid
+    name: Feature with left image
+    summary: A feature with image, and the image is on the left
+    fieldCombinations:
+      - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
+      - leftImage
+    section:
+      id: mw1ikvzx6xx1mn5a
+      name: Section Layout
+      component: layout-block
+      sections:
+        hxbm2fjtywrzdqea:
+          id: hxbm2fjtywrzdqea
+          name: Title
+          component: layout-block
+          sections:
+            xyeuifr3wvsoytv7:
+              id: xyeuifr3wvsoytv7
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            4bifxer7i36srcy1:
+              id: 4bifxer7i36srcy1
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - xyeuifr3wvsoytv7
+            - 4bifxer7i36srcy1
+          config:
+            gridSettings:
+              desktop:
+                xyeuifr3wvsoytv7:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                4bifxer7i36srcy1:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            padding: none
+            gap: normal
+            alignContent: center
+        t7galphq2dr7f5za:
+          id: t7galphq2dr7f5za
+          name: Image Container
+          component: layout-block
+          sections:
+            9q03om3iw1dw2tx6:
+              id: 9q03om3iw1dw2tx6
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - 9q03om3iw1dw2tx6
+          config:
+            gridSettings:
+              desktop:
+                9q03om3iw1dw2tx6:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
+      sectionIds:
+        - hxbm2fjtywrzdqea
+        - t7galphq2dr7f5za
+      config:
+        gridSettings:
+          desktop:
+            hxbm2fjtywrzdqea:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        paddingY: small
+    dataSource:
+      mw1ikvzx6xx1mn5a: {}
+      hxbm2fjtywrzdqea: {}
+      xyeuifr3wvsoytv7:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= featureTitle %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753382621853-07ja75k36
+                  type: text
+                  text: <%= featureDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      4bifxer7i36srcy1:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: outlined
+                size: medium
+                target: _self
+                needLogin: false
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      t7galphq2dr7f5za: {}
+      9q03om3iw1dw2tx6:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= leftImage %>
+              mediaKitUrl: <%= leftImage %>
+              width: 5088
+              height: 2562
+          02dp1e6zfq2xwkt3:
+            value: auto
+          x8beiec3fxx5des1:
+            value: 100%
+  - id: z6zo5x5l0auo1ojw
+    name: Feature with right image
+    summary: A feature with image, and the image is on the right
+    fieldCombinations:
+      - action.link
+      - action.text
+      - featureDescription
+      - featureTitle
+      - rightImage
+    section:
+      id: mw1ikvzx6xx1mn5a
+      name: Section Layout
+      component: layout-block
+      sections:
+        hxbm2fjtywrzdqea:
+          id: hxbm2fjtywrzdqea
+          name: Title
+          component: layout-block
+          sections:
+            xyeuifr3wvsoytv7:
+              id: xyeuifr3wvsoytv7
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            4bifxer7i36srcy1:
+              id: 4bifxer7i36srcy1
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - xyeuifr3wvsoytv7
+            - 4bifxer7i36srcy1
+          config:
+            gridSettings:
+              desktop:
+                xyeuifr3wvsoytv7:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                4bifxer7i36srcy1:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            padding: none
+            gap: normal
+            alignContent: center
+        t7galphq2dr7f5za:
+          id: t7galphq2dr7f5za
+          name: Image Container
+          component: layout-block
+          sections:
+            9q03om3iw1dw2tx6:
+              id: 9q03om3iw1dw2tx6
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - 9q03om3iw1dw2tx6
+          config:
+            gridSettings:
+              desktop:
+                9q03om3iw1dw2tx6:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
+      sectionIds:
+        - hxbm2fjtywrzdqea
+        - t7galphq2dr7f5za
+      config:
+        gridSettings:
+          desktop:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            t7galphq2dr7f5za:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            hxbm2fjtywrzdqea:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            t7galphq2dr7f5za:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        paddingY: small
+    dataSource:
+      mw1ikvzx6xx1mn5a: {}
+      hxbm2fjtywrzdqea: {}
+      xyeuifr3wvsoytv7:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= featureTitle %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753382621853-07ja75k36
+                  type: text
+                  text: <%= featureDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      4bifxer7i36srcy1:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: outlined
+                size: medium
+                target: _self
+                needLogin: false
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      t7galphq2dr7f5za: {}
+      9q03om3iw1dw2tx6:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= rightImage %>
+              mediaKitUrl: <%= rightImage %>
+              width: 5088
+              height: 2562
+          02dp1e6zfq2xwkt3:
+            value: auto
+          x8beiec3fxx5des1:
+            value: 100%
+  - id: h1x8yr953m7g6r40
+    name: CTA with 2 buttons
+    summary: Call-to-action with 2 buttons. The section uses `text.primary` text, so
+      choose a fitting  ctaBackground  color that guarantees WCAG AA contrast.
+    fieldCombinations:
+      - ctaActions.0.link
+      - ctaActions.0.text
+      - ctaActions.1.link
+      - ctaActions.1.text
+      - description
+      - title
+    section:
+      id: dmf59dq4byd8kj54
+      name: CTA
+      component: layout-block
+      sections:
+        6e2eibno5o8vunck:
+          id: 6e2eibno5o8vunck
+          name: Section Layout
+          component: layout-block
+          sections:
+            bammisocksvdzmxb:
+              id: bammisocksvdzmxb
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            c3z1wzg1xz7zyroz:
+              id: c3z1wzg1xz7zyroz
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - bammisocksvdzmxb
+            - c3z1wzg1xz7zyroz
+          config:
+            gridSettings:
+              desktop:
+                bammisocksvdzmxb:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                c3z1wzg1xz7zyroz:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            background: background.paper
+            padding: large
+            gap: large
+            borderRadius: medium
+            border: none
+            paddingY: large
+      sectionIds:
+        - 6e2eibno5o8vunck
+      config:
+        padding: large
+        gridSettings:
+          desktop:
+            6e2eibno5o8vunck:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: none
+        paddingX: none
+        paddingY: none
+    dataSource:
+      dmf59dq4byd8kj54: {}
+      6e2eibno5o8vunck: {}
+      bammisocksvdzmxb:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h1
+          e8f3k7m2n9p4q1s5:
+            value: false
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753381637728-mjjp8nvd5
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      c3z1wzg1xz7zyroz:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= ctaActions.0.text %>
+                url: <%= ctaActions.0.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+              - type: link
+                text: <%= ctaActions.1.text %>
+                url: <%= ctaActions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _blank
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                id: btn-1753381708894-gbhxzm1xt
+  - id: 3wutrnnn8cscbzn5
+    name: Hero Section with background and code
+    summary: Hero Section With background and code. The section uses white text, so
+      choose a dark, low-noise sectionBackground that guarantees WCAG AA
+      contrast.
+    fieldCombinations:
+      - code.content
+      - code.filename
+      - heroDescription
+      - heroTitle
+      - sectionBackground
+    section:
+      id: t8uw2z9alumfe69d
+      name: Hero
+      component: layout-block
+      sections:
+        kvqw8j3dwcstlb0c:
+          id: kvqw8j3dwcstlb0c
+          name: Title
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        gceef71oyvf3ucp4:
+          id: gceef71oyvf3ucp4
+          name: Section Layout
+          component: layout-block
+          sections:
+            yze801kc6qmtj6g9:
+              id: yze801kc6qmtj6g9
+              name: Section Layout
+              component: layout-block
+              sections:
+                zrkwjssmhhphquk4:
+                  id: zrkwjssmhhphquk4
+                  name: Code
+                  component: custom-component
+                  config:
+                    componentId: 2EHGy3vwxlS9JGr2
+              sectionIds:
+                - zrkwjssmhhphquk4
+              config:
+                gridSettings:
+                  desktop:
+                    zrkwjssmhhphquk4:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                borderRadius: small
+                border: terminal
+          sectionIds:
+            - yze801kc6qmtj6g9
+          config:
+            gridSettings:
+              desktop:
+                yze801kc6qmtj6g9:
+                  x: 0
+                  y: 0
+                  w: 5
+                  h: 1
+              mobile:
+                yze801kc6qmtj6g9:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: none
+            alignContent: center
+      sectionIds:
+        - kvqw8j3dwcstlb0c
+        - gceef71oyvf3ucp4
+      config:
+        gridSettings:
+          desktop:
+            kvqw8j3dwcstlb0c:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+            gceef71oyvf3ucp4:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingY: custom:150px
+        paddingX: none
+        backgroundFullWidth: true
+        background: <%= sectionBackground %>
+        gap: large
+    dataSource:
+      t8uw2z9alumfe69d: {}
+      kvqw8j3dwcstlb0c:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= heroTitle %>
+              style:
+                color: common.white
+                variant: h1
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754131284858-7ip6im6yq
+                  type: text
+                  text: <%= heroDescription %>
+                  style:
+                    color: common.white
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      gceef71oyvf3ucp4: {}
+      yze801kc6qmtj6g9: {}
+      zrkwjssmhhphquk4:
+        properties:
+          b2jrz12ik7esf93z:
+            value: <%= code.filename %>
+          a7frn5jmx5vpxpt3:
+            value: <%= code.content %>
+          e9kvx5d7y82lm3n:
+            value: default
+          qvxiyadgn5bj6oq8:
+            value: false
+          c4kvf6b7zyskk8m:
+            value: false
+          7mp2u9tibl03thp6:
+            value: shell
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          3uqbvyqzsluuv5hs:
+            value: "500"
+  - id: 5qt0u2v8lnrxxw6u
+    name: Code showcase with terminal
+    summary: A showcase code card with terminal cast, will auto-play terminal cast
+      (terminal cast must be a json, if not provider, don't use this component)
+    fieldCombinations:
+      - code.content
+      - code.filename
+      - step
+      - terminalCast
+    section:
+      id: znnnhf7t5im0h1r4
+      name: flow-create
+      component: layout-block
+      sections:
+        idjg6b9tkuftczke:
+          id: idjg6b9tkuftczke
+          name: Image Container
+          component: layout-block
+          sections:
+            189z5ylxd9t5554s:
+              id: 189z5ylxd9t5554s
+              name: Terminal
+              component: custom-component
+              config:
+                componentId: AwkO9eKiUWeU7Z8u
+          sectionIds:
+            - 189z5ylxd9t5554s
+          config:
+            gridSettings:
+              desktop:
+                189z5ylxd9t5554s:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: terminal
+        upoxk2q6mb0thd9r:
+          id: upoxk2q6mb0thd9r
+          name: Code
+          component: layout-block
+          sections:
+            sz8l40kriqadq5hw:
+              id: sz8l40kriqadq5hw
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            src9j9h5k6ck75yy:
+              id: src9j9h5k6ck75yy
+              name: Section Layout
+              component: layout-block
+              sections:
+                dhxysvxal5z05n6s:
+                  id: dhxysvxal5z05n6s
+                  name: Code
+                  component: custom-component
+                  config:
+                    componentId: 2EHGy3vwxlS9JGr2
+              sectionIds:
+                - dhxysvxal5z05n6s
+              config:
+                gridSettings:
+                  desktop:
+                    dhxysvxal5z05n6s:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                borderRadius: medium
+          sectionIds:
+            - sz8l40kriqadq5hw
+            - src9j9h5k6ck75yy
+          config:
+            gridSettings:
+              desktop:
+                sz8l40kriqadq5hw:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                src9j9h5k6ck75yy:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: normal
+            alignContent: start
+      sectionIds:
+        - idjg6b9tkuftczke
+        - upoxk2q6mb0thd9r
+      config:
+        gridSettings:
+          desktop:
+            idjg6b9tkuftczke:
+              x: 5
+              y: 0
+              w: 7
+              h: 1
+            upoxk2q6mb0thd9r:
+              x: 0
+              y: 0
+              w: 5
+              h: 1
+          mobile:
+            idjg6b9tkuftczke:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            upoxk2q6mb0thd9r:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: large
+        alignContent: center
+        paddingY: small
+    dataSource:
+      znnnhf7t5im0h1r4: {}
+      idjg6b9tkuftczke: {}
+      189z5ylxd9t5554s:
+        properties:
+          n802svpu2aj3ecnm:
+            value: <%= terminalCast %>
+      upoxk2q6mb0thd9r: {}
+      sz8l40kriqadq5hw:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= step %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list: []
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+      src9j9h5k6ck75yy: {}
+      dhxysvxal5z05n6s:
+        properties:
+          b2jrz12ik7esf93z:
+            value: <%= code.filename %>
+          a7frn5jmx5vpxpt3:
+            value: <%= code.content %>
+          c4kvf6b7zyskk8m:
+            value: true
+          qvxiyadgn5bj6oq8:
+            value: true
+          7mp2u9tibl03thp6:
+            value: bash
+  - id: dvycg2nks1hcems2
+    name: Section with big image
+    summary: A section with big image, from top to bottom
+    fieldCombinations:
+      - description
+      - sectionImage
+      - title
+    section:
+      id: u2nl4996sckvozwt
+      name: Section
+      component: layout-block
+      sections:
+        ln1f7e0axqd8aqr5:
+          id: ln1f7e0axqd8aqr5
+          name: Title
+          component: layout-block
+          sections:
+            qg6ttcnqahp269ca:
+              id: qg6ttcnqahp269ca
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - qg6ttcnqahp269ca
+          config:
+            gridSettings:
+              desktop:
+                qg6ttcnqahp269ca:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            alignContent: center
+        iuexqdge21ft0cv7:
+          id: iuexqdge21ft0cv7
+          name: Image Container
+          component: layout-block
+          sections:
+            i9xc49qji7j958xs:
+              id: i9xc49qji7j958xs
+              name: Image
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - i9xc49qji7j958xs
+          config:
+            gridSettings:
+              desktop:
+                i9xc49qji7j958xs:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            border: safari
+      sectionIds:
+        - ln1f7e0axqd8aqr5
+        - iuexqdge21ft0cv7
+      config:
+        padding: large
+        gap: normal
+        gridSettings:
+          desktop:
+            ln1f7e0axqd8aqr5:
+              x: 2
+              y: 0
+              w: 8
+              h: 1
+            iuexqdge21ft0cv7:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+          mobile:
+            ln1f7e0axqd8aqr5:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            iuexqdge21ft0cv7:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingX: none
+        paddingY: none
+    dataSource:
+      u2nl4996sckvozwt: {}
+      ln1f7e0axqd8aqr5: {}
+      qg6ttcnqahp269ca:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: center
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753778571489-pi6knln4d
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      iuexqdge21ft0cv7: {}
+      i9xc49qji7j958xs:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= sectionImage %>
+              mediaKitUrl: <%= sectionImage %>
+              width: 4408
+              height: 2258
+  - id: q4vy8nev65zil8c3
+    name: Content card with image button
+    summary: Content card with big image, from top to bottom is image button, title,
+      description
+    fieldCombinations:
+      - description
+      - imageButton.image
+      - imageButton.link
+      - title
+    section:
+      id: 0lhcgc203g57pq3t
+      name: Card
+      component: layout-block
+      sections:
+        a2crtid2awmhoxpg:
+          id: a2crtid2awmhoxpg
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        lbajqq2e4zw4iezq:
+          id: lbajqq2e4zw4iezq
+          name: Section Layout
+          component: layout-block
+          sections:
+            n4dfdvpenvzbyigc:
+              id: n4dfdvpenvzbyigc
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - n4dfdvpenvzbyigc
+          config:
+            gridSettings:
+              desktop: {}
+            borderRadius: medium
+      sectionIds:
+        - a2crtid2awmhoxpg
+        - lbajqq2e4zw4iezq
+      config:
+        gridSettings:
+          desktop:
+            a2crtid2awmhoxpg:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            lbajqq2e4zw4iezq:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingX: none
+        paddingY: none
+        background: transparent
+        borderRadius: none
+    dataSource:
+      0lhcgc203g57pq3t: {}
+      a2crtid2awmhoxpg:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h2
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1755588901245-og0f2hkvo
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: center
+      lbajqq2e4zw4iezq: {}
+      n4dfdvpenvzbyigc:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: Get Started
+                url: <%= imageButton.link %>
+                variant: image
+                size: medium
+                target: _blank
+                needLogin: false
+                imageUrl: <%= imageButton.image %>
+  - id: cfkp0jcaus826p7n
+    name: Code showcase with title and description
+    summary: A code showcase with title and description
+    fieldCombinations:
+      - code.content
+      - code.name
+      - description
+      - title
+    section:
+      id: 85ikbdbx37bzs2s9
+      name: Step-2
+      component: layout-block
+      sections:
+        t75cpdxbg8ixr260:
+          id: t75cpdxbg8ixr260
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        6bjawbo8s9ydpvgb:
+          id: 6bjawbo8s9ydpvgb
+          name: Container
+          component: layout-block
+          sections:
+            ym5fsbth0has8cq4:
+              id: ym5fsbth0has8cq4
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - ym5fsbth0has8cq4
+          config:
+            gridSettings:
+              desktop:
+                ym5fsbth0has8cq4:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: medium
+            height: unset
+            border: terminal
+      sectionIds:
+        - t75cpdxbg8ixr260
+        - 6bjawbo8s9ydpvgb
+      config:
+        gridSettings:
+          desktop:
+            t75cpdxbg8ixr260:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            6bjawbo8s9ydpvgb:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            t75cpdxbg8ixr260:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            6bjawbo8s9ydpvgb:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+    dataSource:
+      85ikbdbx37bzs2s9: {}
+      t75cpdxbg8ixr260:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= title %>
+              style:
+                variant: h2
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753781653625-ia4shqnk4
+                  type: text
+                  text: <%= description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      6bjawbo8s9ydpvgb: {}
+      ym5fsbth0has8cq4:
+        properties:
+          b2jrz12ik7esf93z:
+            value: <%= code.name %>
+          e9kvx5d7y82lm3n:
+            value: material
+          a7frn5jmx5vpxpt3:
+            value: <%= code.content %>
+          d8hvf7cxz93jk5p:
+            value: 1rem
+  - id: ddhpxym2t66mkmah
+    name: Layout Center 1x6 with action
+    summary: "A centered 1×6 vertical layout for long-form sections that need clear
+      hierarchy from top to bottom: title → description → up to six items → a
+      concluding action. Use it for narrative content, feature deep dives,
+      step-by-step walkthroughs, documentation summaries, or case studies where
+      readers scan downward. Each “item” can be a complex block (including
+      left–right sub-components like media + text), but the overall stack
+      remains single-column and centered to preserve focus and readability.
+      Recommended 2–4 items for optimal pacing (supports up to 6). Prefer this
+      layout when you need room for richer detail and progressive disclosure;
+      avoid it for very short copy or highly media-dense sections where a
+      multi-column grid would perform better."
+    fieldCombinations:
+      - action.link
+      - action.text
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+      - vStackDescription
+      - vStackTitle
+    section:
+      id: 44ar2hdabcsq8pt6
+      name: Layout 1x3
+      component: layout-block
+      sections:
+        2u1ujyd3l49uxkdb:
+          id: 2u1ujyd3l49uxkdb
+          name: Title
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        4d0hjw3napyxbvmk:
+          id: 4d0hjw3napyxbvmk
+          name: CardList
+          component: layout-block
+          sections:
+            f488sf2mdmis21fr:
+              id: f488sf2mdmis21fr
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+            8223c6a77fmlu6m4:
+              id: 8223c6a77fmlu6m4
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+            f9kqgds9jci1y1vz:
+              id: f9kqgds9jci1y1vz
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+            3nwi1wnkw1c0eqd1:
+              id: 3nwi1wnkw1c0eqd1
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+            bbyuh3g3ypcch327:
+              id: bbyuh3g3ypcch327
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+            hle28mwsz9ig73fj:
+              id: hle28mwsz9ig73fj
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+          sectionIds:
+            - f488sf2mdmis21fr
+            - 8223c6a77fmlu6m4
+            - f9kqgds9jci1y1vz
+            - 3nwi1wnkw1c0eqd1
+            - bbyuh3g3ypcch327
+            - hle28mwsz9ig73fj
+          config:
+            gridSettings:
+              desktop:
+                f488sf2mdmis21fr:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                8223c6a77fmlu6m4:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                f9kqgds9jci1y1vz:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+            gap: normal
+        5djzyjelnffm1bu2:
+          id: 5djzyjelnffm1bu2
+          name: Action
+          component: custom-component
+          config:
+            componentId: a44r0SiGV9AFn2Fj
+      sectionIds:
+        - 2u1ujyd3l49uxkdb
+        - 4d0hjw3napyxbvmk
+        - 5djzyjelnffm1bu2
+      config:
+        gap: normal
+        paddingX: none
+        maxWidth: full
+        paddingY: none
+        gridSettings:
+          desktop:
+            2u1ujyd3l49uxkdb:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            4d0hjw3napyxbvmk:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            5djzyjelnffm1bu2:
+              x: 0
+              y: 2
+              w: 12
+              h: 1
+    dataSource:
+      44ar2hdabcsq8pt6: {}
+      2u1ujyd3l49uxkdb:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= vStackTitle %>
+              style:
+                fontSize: 32px
+                variant: h1
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754037726128-q9f6xufkq
+                  type: text
+                  text: <%= vStackDescription %>
+                  style:
+                    color: text.secondary
+                    fontSize: ""
+                    variant: body1
+      4d0hjw3napyxbvmk: {}
+      f488sf2mdmis21fr: {}
+      8223c6a77fmlu6m4: {}
+      f9kqgds9jci1y1vz: {}
+      5djzyjelnffm1bu2:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: outlined
+                size: large
+                target: _blank
+                needLogin: false
+      3nwi1wnkw1c0eqd1: {}
+      bbyuh3g3ypcch327: {}
+      hle28mwsz9ig73fj: {}
+  - id: nzfgidx4rk5b6h9k
+    name: Layout Center 2+3
+    summary: "A centered 2+3 grid with a clear top-down flow: title → summary → two
+      lead items → three supporting items. It requires exactly five items (no
+      more, no less). Ideal for curated “Top 5” highlights, feature lineups,
+      pricing tiers, or case collections where the first row can read as
+      premium/hero and the second row as supporting. Each item may be a
+      composite block (e.g., image + text), but keep visual rhythm consistent
+      (aligned media, matched heights). Choose this when you want balanced
+      symmetry with a touch of editorial flair; avoid it for uneven content
+      lengths or long copy—use a single-column stack instead."
+    fieldCombinations:
+      - gird2Plus3Description
+      - gird2Plus3Title
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+    section:
+      id: ekxdt5dnblorvqre
+      name: Layout 2+3
+      component: layout-block
+      sections:
+        lwerajfkc6og126r:
+          id: lwerajfkc6og126r
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        z7fsp9ycq1sntxk3:
+          id: z7fsp9ycq1sntxk3
+          name: Cards
+          component: layout-block
+          sections:
+            wk1c4g8ywuyytg9f:
+              id: wk1c4g8ywuyytg9f
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                alignContent: start
+                paddingY: large
+                paddingX: large
+            wp1tpov8npww7vzs:
+              id: wp1tpov8npww7vzs
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                alignContent: start
+                paddingX: large
+                paddingY: large
+            2bo46qeu9374eb2a:
+              id: 2bo46qeu9374eb2a
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                alignContent: start
+                paddingX: large
+                paddingY: large
+            pf5t0gaf8dsvgoj2:
+              id: pf5t0gaf8dsvgoj2
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                alignContent: start
+                paddingX: large
+                paddingY: large
+            z0jsgemt2amu7ary:
+              id: z0jsgemt2amu7ary
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                alignContent: start
+                paddingY: large
+                paddingX: large
+          sectionIds:
+            - wk1c4g8ywuyytg9f
+            - wp1tpov8npww7vzs
+            - 2bo46qeu9374eb2a
+            - pf5t0gaf8dsvgoj2
+            - z0jsgemt2amu7ary
+          config:
+            gridSettings:
+              desktop:
+                wk1c4g8ywuyytg9f:
+                  x: 0
+                  y: 0
+                  w: 7
+                  h: 1
+                wp1tpov8npww7vzs:
+                  x: 7
+                  y: 0
+                  w: 5
+                  h: 1
+                2bo46qeu9374eb2a:
+                  x: 0
+                  y: 1
+                  w: 4
+                  h: 1
+                pf5t0gaf8dsvgoj2:
+                  x: 4
+                  y: 1
+                  w: 4
+                  h: 1
+                z0jsgemt2amu7ary:
+                  x: 8
+                  y: 1
+                  w: 4
+                  h: 1
+            padding: none
+            gap: normal
+            background: transparent
+      sectionIds:
+        - lwerajfkc6og126r
+        - z7fsp9ycq1sntxk3
+      config:
+        gridSettings:
+          desktop:
+            lwerajfkc6og126r:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            z7fsp9ycq1sntxk3:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        padding: large
+        gap: normal
+        maxWidth: full
+        paddingY: none
+        paddingX: none
+    dataSource:
+      ekxdt5dnblorvqre: {}
+      lwerajfkc6og126r:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= gird2Plus3Title %>
+              style:
+                variant: h1
+          e8f3k7m2n9p4q1s5:
+            value: false
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1753379069746-3fn1v41hq
+                  type: text
+                  text: <%= gird2Plus3Description %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+      z7fsp9ycq1sntxk3: {}
+      wk1c4g8ywuyytg9f: {}
+      wp1tpov8npww7vzs: {}
+      2bo46qeu9374eb2a: {}
+      pf5t0gaf8dsvgoj2: {}
+      z0jsgemt2amu7ary: {}
+  - id: iffc0vi14ab50a5q
+    name: Layout Center 3x2 with action
+    summary: >-
+      A centered 3×1 / 3×2 grid with a clear top-down flow: title → summary → 3
+      items (or 6 items) → action.
+
+      Best for symmetric showcases—feature trios, pricing tiers, step groups,
+      partner logos—where each item is a compact composite (image + short text).
+      Use exactly 3 or 6 items to preserve rhythm; avoid 4–5 (use a 2+3 layout
+      for 5, or a vertical stack for long copy). Keep item heights aligned and
+      copy concise; this layout favors quick scanning over storytelling.
+      Responsive note: collapses to 1–2 columns on smaller screens, so prefer
+      succinct titles and consistent media ratios.
+    fieldCombinations:
+      - action.link
+      - action.text
+      - gridTripleDescription
+      - gridTripleTitle
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+    section:
+      id: ql99yv2hc7dmen7o
+      name: Layout 3x2
+      component: layout-block
+      sections:
+        57ghfy2ek7txjnix:
+          id: 57ghfy2ek7txjnix
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        rkgj5dp8bj0ku9np:
+          id: rkgj5dp8bj0ku9np
+          name: Steps
+          component: layout-block
+          sections:
+            gixjtyy2tb60tjgy:
+              id: gixjtyy2tb60tjgy
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+            216gccdrtw6el7yo:
+              id: 216gccdrtw6el7yo
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+            xpzzv4cssqmr4h5y:
+              id: xpzzv4cssqmr4h5y
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+            qzhiyqpscirqoov7:
+              id: qzhiyqpscirqoov7
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+            j5tdn02g00182p09:
+              id: j5tdn02g00182p09
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+            k2ciud4z7r3amy2k:
+              id: k2ciud4z7r3amy2k
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                gap: normal
+                paddingX: large
+                paddingY: large
+                background: background.paper
+                borderRadius: medium
+                alignContent: start
+          sectionIds:
+            - gixjtyy2tb60tjgy
+            - 216gccdrtw6el7yo
+            - xpzzv4cssqmr4h5y
+            - qzhiyqpscirqoov7
+            - j5tdn02g00182p09
+            - k2ciud4z7r3amy2k
+          config:
+            gridSettings:
+              desktop:
+                gixjtyy2tb60tjgy:
+                  x: 0
+                  y: 0
+                  w: 4
+                  h: 1
+                216gccdrtw6el7yo:
+                  x: 4
+                  y: 0
+                  w: 4
+                  h: 1
+                xpzzv4cssqmr4h5y:
+                  x: 8
+                  y: 0
+                  w: 4
+                  h: 1
+                qzhiyqpscirqoov7:
+                  x: 0
+                  y: 1
+                  w: 4
+                  h: 1
+                j5tdn02g00182p09:
+                  x: 4
+                  y: 1
+                  w: 4
+                  h: 1
+                k2ciud4z7r3amy2k:
+                  x: 8
+                  y: 1
+                  w: 4
+                  h: 1
+            gap: normal
+        s7wrqvdrjq4be4ic:
+          id: s7wrqvdrjq4be4ic
+          name: Action
+          component: custom-component
+          config:
+            componentId: a44r0SiGV9AFn2Fj
+      sectionIds:
+        - 57ghfy2ek7txjnix
+        - rkgj5dp8bj0ku9np
+        - s7wrqvdrjq4be4ic
+      config:
+        gridSettings:
+          desktop:
+            57ghfy2ek7txjnix:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            rkgj5dp8bj0ku9np:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            s7wrqvdrjq4be4ic:
+              x: 0
+              y: 2
+              w: 12
+              h: 1
+        gap: normal
+        paddingX: none
+        maxWidth: full
+        paddingY: none
+    dataSource:
+      ql99yv2hc7dmen7o: {}
+      57ghfy2ek7txjnix:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= gridTripleTitle %>
+              style:
+                fontSize: 32px
+                variant: h1
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1754037726128-q9f6xufkq
+                  type: text
+                  text: <%= gridTripleDescription %>
+                  style:
+                    color: text.secondary
+                    fontSize: ""
+                    variant: body1
+      rkgj5dp8bj0ku9np: {}
+      gixjtyy2tb60tjgy: {}
+      216gccdrtw6el7yo: {}
+      xpzzv4cssqmr4h5y: {}
+      s7wrqvdrjq4be4ic:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= action.text %>
+                url: <%= action.link %>
+                variant: contained
+                size: large
+                target: _blank
+                needLogin: false
+      qzhiyqpscirqoov7: {}
+      j5tdn02g00182p09: {}
+      k2ciud4z7r3amy2k: {}
+  - id: fklvxkznzvn86v2e
+    name: Layout Center 2x5
+    summary: >-
+      A 2×5  layout: centered content—title, description, then a two-column grid
+      of items (two per row). Supports 2–10 even number items (≤6 recommended
+      for clarity); best for short copy—avoid with long content. 
+
+
+      Desktop: two columns; mobile: single column.
+    fieldCombinations:
+      - gridEvenDescription
+      - gridEvenTitle
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+      - list.6
+      - list.7
+      - list.8
+      - list.9
+    section:
+      id: y0050xy5xzny5ari
+      name: Layout 2x5
+      component: layout-block
+      sections:
+        ekjlzpwe6z0kaipi:
+          id: ekjlzpwe6z0kaipi
+          name: Cards
+          component: layout-block
+          sections:
+            calwzqfvqplill9n:
+              id: calwzqfvqplill9n
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            eqfpyxsn127d43qd:
+              id: eqfpyxsn127d43qd
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            5q45otvhajst5427:
+              id: 5q45otvhajst5427
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            ok5tw0ml9s9ffvff:
+              id: ok5tw0ml9s9ffvff
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            wdumg5qd54kwdk1c:
+              id: wdumg5qd54kwdk1c
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            2yhwwnodv3vnuz6c:
+              id: 2yhwwnodv3vnuz6c
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            h0ohwdu8qyzttz41:
+              id: h0ohwdu8qyzttz41
+              name: <%= list.6 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            iuwew4ekp2dzhl0g:
+              id: iuwew4ekp2dzhl0g
+              name: <%= list.7 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            0fnsoct1w37gk7xx:
+              id: 0fnsoct1w37gk7xx
+              name: <%= list.8 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+            wgg2soc3ku6ik9s9:
+              id: wgg2soc3ku6ik9s9
+              name: <%= list.9 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile: {}
+                padding: normal
+                background: background.paper
+                gap: normal
+                borderRadius: medium
+                border: none
+                paddingX: large
+                paddingY: large
+          sectionIds:
+            - calwzqfvqplill9n
+            - eqfpyxsn127d43qd
+            - 5q45otvhajst5427
+            - ok5tw0ml9s9ffvff
+            - wdumg5qd54kwdk1c
+            - 2yhwwnodv3vnuz6c
+            - h0ohwdu8qyzttz41
+            - iuwew4ekp2dzhl0g
+            - 0fnsoct1w37gk7xx
+            - wgg2soc3ku6ik9s9
+          config:
+            gridSettings:
+              desktop:
+                calwzqfvqplill9n:
+                  x: 0
+                  y: 0
+                  w: 6
+                  h: 1
+                eqfpyxsn127d43qd:
+                  x: 6
+                  y: 0
+                  w: 6
+                  h: 1
+                5q45otvhajst5427:
+                  x: 0
+                  y: 1
+                  w: 6
+                  h: 1
+                ok5tw0ml9s9ffvff:
+                  x: 6
+                  y: 1
+                  w: 6
+                  h: 1
+                wdumg5qd54kwdk1c:
+                  x: 0
+                  y: 2
+                  w: 6
+                  h: 1
+                2yhwwnodv3vnuz6c:
+                  x: 6
+                  y: 2
+                  w: 6
+                  h: 1
+                h0ohwdu8qyzttz41:
+                  x: 0
+                  y: 3
+                  w: 6
+                  h: 1
+                iuwew4ekp2dzhl0g:
+                  x: 6
+                  y: 3
+                  w: 6
+                  h: 1
+                0fnsoct1w37gk7xx:
+                  x: 0
+                  y: 4
+                  w: 6
+                  h: 1
+                wgg2soc3ku6ik9s9:
+                  x: 6
+                  y: 4
+                  w: 6
+                  h: 1
+            padding: none
+            gap: normal
+            background: transparent
+        q8hzwi9jichddl74:
+          id: q8hzwi9jichddl74
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+      sectionIds:
+        - q8hzwi9jichddl74
+        - ekjlzpwe6z0kaipi
+      config:
+        gridSettings:
+          desktop:
+            ekjlzpwe6z0kaipi:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            q8hzwi9jichddl74:
+              x: 2
+              y: 0
+              w: 8
+              h: 1
+          mobile:
+            ekjlzpwe6z0kaipi:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            q8hzwi9jichddl74:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        padding: large
+        maxWidth: full
+        paddingX: none
+        paddingY: none
+    dataSource:
+      y0050xy5xzny5ari: {}
+      ekjlzpwe6z0kaipi: {}
+      calwzqfvqplill9n: {}
+      eqfpyxsn127d43qd: {}
+      5q45otvhajst5427: {}
+      ok5tw0ml9s9ffvff: {}
+      q8hzwi9jichddl74:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= gridEvenTitle %>
+              style:
+                variant: h1
+          e8f3k7m2n9p4q1s5:
+            value: false
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1758789736331-y7vkch80n
+                  type: text
+                  text: <%= gridEvenDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      wdumg5qd54kwdk1c: {}
+      2yhwwnodv3vnuz6c: {}
+      h0ohwdu8qyzttz41: {}
+      iuwew4ekp2dzhl0g: {}
+      0fnsoct1w37gk7xx: {}
+      wgg2soc3ku6ik9s9: {}

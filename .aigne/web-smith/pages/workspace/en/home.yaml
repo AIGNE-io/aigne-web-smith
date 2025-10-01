@@ -1,67 +1,217 @@
-meta:
-  title: "AIGNE WebSmith | AI-Powered Website Generation"
-  description: "Instantly generate professional, SEO-optimized websites with AIGNE WebSmith. Leverage AI for structure, content, and one-click publishing. Get started in minutes!"
-sections:
-  - name: "hero"
-    summary: "This section is the grand entrance! It's designed to immediately capture attention with a powerful headline, explain the core value proposition of AIGNE WebSmith, and drive visitors straight to the main call-to-action. It sets an energetic and exciting tone for the rest of the page."
-    title: "Build Your Entire Website with a Single Command"
-    description: "Welcome to AIGNE WebSmith! Forget the tedious process of planning, writing, and coding. Our AI-powered tool takes your ideas and instantly generates a complete, professional, SEO-optimized website. It's time to create at the speed of thought!"
-    action:
-      text: "See it on GitHub"
-      link: "https://github.com/AIGNE-io/aigne-web-smith"
-  - name: "features"
-    summary: "This is where we dazzle the audience with the magic behind the curtain. The goal is to break down the core capabilities into exciting, easy-to-understand benefits. Each feature is presented as a solution to a common pain point, making the value feel tangible and personal."
-    title: "Everything You Need, Powered by AI"
-    description: "AIGNE WebSmith isn't just a tool; it's your personal team of web experts. See how our features work together to bring your vision to life effortlessly."
-    list:
-      - title: "AI-Powered Generation"
-        description: "Let our AI be your strategist! It intelligently plans your site's architecture, generates all your content in batches, and bakes in SEO best practices from the start. It even supports multiple languages!"
-      - title: "Professional Template System"
-        description: "No design skills? No problem! Get beautiful, responsive templates compatible with Pages Kit. Our component-based system means your site looks amazing on any device and is ready for visual editing."
-      - title: "Built-in Quality Assurance"
-        description: "Launch with total confidence. WebSmith automatically evaluates your site's structure and content quality. With over 32 test cases, we ensure everything is rock-solid and ready for your audience."
-      - title: "One-Click Publishing"
-        description: "Go live in a flash! Publish your entire website directly to Pages Kit with a single command. You'll get a live link instantly, so you can share your masterpiece with the world."
-  - name: "architecture"
-    summary: "Time to give a peek under the hood, but in a fun, accessible way! This section explains the agent-based architecture to build trust and show the intelligent process behind the scenes, without getting lost in technical jargon. It's about showing *how* we deliver the magic."
-    title: "How the Magic Happens: Our Agent-Powered Workflow"
-    description: "AIGNE WebSmith works like a highly efficient assembly line of AI experts. Each 'Agent' has a special job, passing the project along to the next, ensuring a flawless result every time."
-    list:
-      - title: "Plan & Evaluate"
-        description: "First, our agents analyze your requirements to design the perfect site structure and evaluate its user experience."
-      - title: "Generate Content & Templates"
-        description: "Next, a dedicated team of agents writes all your page content and builds the corresponding Pages Kit templates."
-      - title: "Process & Publish"
-        description: "Finally, our system processes everything in batches and uploads it directly, getting you online in record time."
-  - name: "quickStartIntro"
-    summary: "Let's get hands-on! This section kicks off the quick start guide with an enthusiastic intro, setting the stage for the simple, actionable steps that follow. The goal is to get users excited to try it themselves."
-    title: "Ready in Minutes: Your Quick Start Guide"
-    description: "You're just a few commands away from generating your first AI-powered website. Open your terminal, follow these simple steps, and watch the magic unfold!"
-  - name: "quickStartInstall"
-    summary: "This section provides the first clear, actionable step: installation. By presenting the command in a clean code block, we make it incredibly easy for users to get started, removing any initial friction."
-    title: "Step 1: Install the CLI"
-    description: "First, get the AIGNE command-line tool on your machine. This one-time install gives you access to the full power of WebSmith."
-    code:
-      filename: "Terminal Command"
-      content: "# Install AIGNE CLI\nnpm install -g @aigne/cli"
-  - name: "quickStartGenerate"
-    summary: "This section showcases the core 'generate' function. It explains how to define a website and provides the command, demonstrating the tool's simplicity and power. It turns an abstract idea into a concrete action."
-    title: "Step 2: Define and Generate"
-    description: "Describe your dream website in a simple YAML file. Tell our AI your goals, audience, and style. Then, run the generate command and let it build everything for you!"
-    code:
-      filename: "Example Generation Command"
-      content: "# Create a file like 'my-website.yaml' with your rules\naigne web generate --input @my-website.yaml"
-  - name: "quickStartPublish"
-    summary: "The final step to going live! This section highlights the simplicity of publishing, reinforcing the 'One-Click Publishing' feature and giving users the satisfying feeling of completing the process."
-    title: "Step 3: Go Live!"
-    description: "Once your site is ready, publishing is a breeze. This final command pushes your new website to Pages Kit, making it instantly accessible to the world."
-    code:
-      filename: "Publish Command"
-      content: "# Publish generated pages\naigne web publish"
-  - name: "finalCta"
-    summary: "This is the grand finale! A final, high-energy call-to-action that leaves the user excited and ready to dive in. It reinforces the core benefit (speed and ease) and provides a clear next step to get involved with the project."
-    title: "What Are You Waiting For?"
-    description: "Your next great website is just a command away. Stop dreaming and start building. Install the CLI and see it in action for yourself!"
-    action:
-      text: "Explore the AIGNE Framework"
-      link: "https://www.aigne.io/en/framework"
+"meta":
+  "title": "AIGNE WebSmith | AI-Powered Website Generation"
+  "description": "Generate professional, SEO-optimized websites in minutes with
+    AIGNE WebSmith. Go from a simple idea to a live, multi-page site with one
+    command. Try it now!"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "A high-impact introduction to grab visitor attention,
+      showcasing the core value proposition and providing an immediate,
+      actionable command to get started."
+    "heroTitle": "Build Your Next Website with AI. Instantly."
+    "heroDescription": "Stop wrestling with code and content. AIGNE WebSmith is your
+      AI partner that automates everything from planning and content creation to
+      publishing SEO-optimized templates. Go from idea to live site with a
+      single command!"
+    "code":
+      "filename": "Get Started Now"
+      "content": "npm install -g @aigne/cli"
+    "sectionBackground": "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)"
+  - "sectionName": "features"
+    "sectionSummary": "Highlights the eight core pillars of WebSmith in an
+      energetic, easy-to-scan grid, focusing on the exciting benefits each
+      feature brings to the user experience."
+    "gridEvenTitle": "Everything You Need, Completely Automated"
+    "gridEvenDescription": "WebSmith packs a punch with powerful features designed
+      to make website creation feel like magic. Here’s what you get right out of
+      the box:"
+    "list":
+      - "sectionName": "aiPoweredGeneration"
+        "sectionSummary": "Spotlights the intelligent, automated generation capabilities
+          of WebSmith."
+        "cardTitle": "Intelligent Generation"
+        "cardDescription": "Just describe your vision! Our AI agents intelligently plan
+          your site structure, generate all your content in batches, and even
+          optimize it for search engines."
+        "iconifyIconName": "mdi:robot-happy-outline"
+      - "sectionName": "professionalTemplates"
+        "sectionSummary": "Showcases the high-quality, flexible template system
+          integrated with Pages Kit."
+        "cardTitle": "Professional Templates"
+        "cardDescription": "Get gorgeous, responsive websites every time. We generate
+          Pages Kit-compatible templates using a modern component library that
+          you can even edit visually."
+        "iconifyIconName": "mdi:palette-swatch-outline"
+      - "sectionName": "qualityAssurance"
+        "sectionSummary": "Builds trust by highlighting the built-in mechanisms for
+          ensuring a high-quality final product."
+        "cardTitle": "Built-in Quality Assurance"
+        "cardDescription": "Launch with confidence. Our system automatically evaluates
+          your site’s structure and content quality, backed by 32+ tests to
+          ensure everything works perfectly."
+        "iconifyIconName": "mdi:shield-check-outline"
+      - "sectionName": "oneClickPublishing"
+        "sectionSummary": "Emphasizes the seamless and fast deployment process, a major
+          user benefit."
+        "cardTitle": "One-Click Publishing"
+        "cardDescription": "Why wait? Publish your entire website directly to Pages Kit
+          with a single command. You'll get a live link the moment it's done.
+          It’s that simple!"
+        "iconifyIconName": "mdi:rocket-launch-outline"
+      - "sectionName": "multiLanguageSupport"
+        "sectionSummary": "Showcases the ability to generate and translate content into
+          multiple languages."
+        "cardTitle": "Multi-language Support"
+        "cardDescription": "Reach a global audience! WebSmith supports content
+          generation in both Chinese and English, with easy translation
+          workflows to localize your site effortlessly."
+        "iconifyIconName": "mdi:translate"
+      - "sectionName": "visualEditingReady"
+        "sectionSummary": "Highlights the compatibility with visual editors for easy
+          adjustments."
+        "cardTitle": "Visual Editing Ready"
+        "cardDescription": "Love to tweak the final look? The templates we generate are
+          fully compatible with visual editors, letting you make quick
+          adjustments without ever touching code."
+        "iconifyIconName": "mdi:pencil-ruler"
+      - "sectionName": "componentBasedDesign"
+        "sectionSummary": "Emphasizes the modern, component-based architecture for consistency."
+        "cardTitle": "Component-Based Design"
+        "cardDescription": "Build like a pro with modern components like Hero, CTA, and
+          FAQ. Our integrated library ensures your site looks consistent,
+          polished, and professional."
+        "iconifyIconName": "mdi:view-grid-plus-outline"
+      - "sectionName": "seoOptimized"
+        "sectionSummary": "Highlights the built-in SEO features to help users get discovered."
+        "cardTitle": "SEO Optimized"
+        "cardDescription": "Get discovered from day one! WebSmith follows SEO best
+          practices out-of-the-box, helping your amazing new website rank higher
+          in search results automatically."
+        "iconifyIconName": "mdi:chart-line"
+  - "sectionName": "quickStart"
+    "sectionSummary": "A hands-on, action-oriented guide that demonstrates the
+      simplicity of WebSmith, encouraging users to try it by showing the entire
+      process in one code block."
+    "title": "Go Live in Minutes"
+    "description": "You're closer than you think to a brand new website. Just create
+      a simple YAML file with your vision and let WebSmith handle the rest. It's
+      an absolute breeze!"
+    "code":
+      "name": "my-website.yaml"
+      "content": "# 1. Create your website plan in a file like my-website.yaml
+
+        rules: |
+
+        \  Create a modern SaaS product website that includes:
+
+        \  1. Product introduction and core features
+
+        \  2. Pricing plan comparison
+
+        \  3. Customer success stories
+
+
+        \  Requirements:
+
+        \  - Professional business style
+
+        \  - Highlight product advantages
+
+        \  - Include clear CTA to guide users to trial
+
+        targetAudience: SMB owners and technical decision makers
+
+        locale: en
+
+
+        # 2. Run the generate command!
+
+        aigne web generate --input @my-website.yaml"
+  - "sectionName": "architecture"
+    "sectionSummary": "Provides a peek under the hood at the agent-based
+      architecture, building credibility and showing the sophisticated
+      technology that makes the magic happen."
+    "title": "How It Works: Our Agent-Based Architecture"
+    "description": "WebSmith isn't just one AI—it's a coordinated team of
+      specialized agents! Each agent has a specific job, from planning the
+      structure to generating content and templates, ensuring every part of your
+      site is crafted by an expert."
+    "code":
+      "name": "Agent Workflow"
+      "content": "┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+
+        │  Structure      │    │  Content        │    │  Template       │
+
+        │  Planning       │───▶│  Generation     │───▶│  Generation     │
+
+        │  Agent          │    │  Agent          │    │  Agent          │
+
+        └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+        \         │                       │                       │
+
+        \         ▼                       ▼                       ▼
+
+        ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+
+        │  Evaluation     │    │  Batch          │    │  Upload         │
+
+        │  Agent          │    │  Processing     │    │  Agent          │
+
+        │                 │    │  Agent          │    │                 │
+
+        └─────────────────┘    └─────────────────┘    └─────────────────┘"
+  - "sectionName": "faq"
+    "sectionSummary": "Proactively answers common visitor questions in a clear,
+      conversational format, addressing potential hesitations and building
+      confidence to convert."
+    "vStackTitle": "Your Questions, Answered!"
+    "vStackDescription": "Got questions? We’ve got answers! Here are a few things
+      people often ask about AIGNE WebSmith."
+    "list":
+      - "sectionName": "whatIsWebsmith"
+        "sectionSummary": "Answers the most fundamental question about the product's identity."
+        "cardTitle": "What exactly is AIGNE WebSmith?"
+        "cardDescription": "It's a super-smart, AI-powered tool that builds entire
+          websites for you! It uses the AIGNE Framework to automatically plan
+          your site, write all the content, create the templates, and even
+          publish it online."
+        "iconifyIconName": ""
+      - "sectionName": "whoIsItFor"
+        "sectionSummary": "Clarifies the target audience to help visitors self-identify
+          as potential users."
+        "cardTitle": "Who is this for?"
+        "cardDescription": "It’s perfect for anyone who wants a professional website
+          without the hassle, especially small and medium-sized business owners
+          and technical decision-makers who value speed and quality."
+        "iconifyIconName": ""
+      - "sectionName": "howFastIsIt"
+        "sectionSummary": "Addresses the performance and speed of the generation process."
+        "cardTitle": "How fast can it really build a website?"
+        "cardDescription": "Amazingly fast! A typical 5-page website can be ready in
+          about 2-3 minutes. You can go from an idea to a live link in less time
+          than it takes to brew a pot of coffee."
+        "iconifyIconName": ""
+      - "sectionName": "whatDoesItPublishTo"
+        "sectionSummary": "Explains the integration with Pages Kit, a key part of the workflow."
+        "cardTitle": "Where does my website get published?"
+        "cardDescription": "WebSmith is designed to work seamlessly with Pages Kit. It
+          generates compatible templates and lets you publish your site directly
+          to the platform with a single, simple command."
+        "iconifyIconName": ""
+    "action":
+      "text": ""
+      "link": ""
+  - "sectionName": "finalCta"
+    "sectionSummary": "A final, high-energy call-to-action to drive conversions by
+      encouraging users to explore the project on GitHub or learn more about the
+      underlying framework."
+    "title": "Ready to Build Your Website in Minutes?"
+    "description": "The future of web development is here. Stop building and start
+      generating. Dive into the repository to see the code, or explore the
+      framework that powers it all."
+    "ctaActions":
+      - "text": "Explore on GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "Discover AIGNE Framework"
+        "link": "https://www.aigne.io/en/framework"

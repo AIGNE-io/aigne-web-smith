@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: aigne-web-smith-0929-2
+projectName: aigne-web-smith-0929-matt
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: hbfbbt49-812a-lk83-bt1c-72356783dd65
-projectSlug: aigne-web-smith-0929-2
+projectId: hnfabt49-812a-lk83-bt1c-7m35j783dd65
+projectSlug: aigne-web-smith-0929-matt
 
 # =============================================================================
 # Website Configuration
@@ -47,7 +47,16 @@ targetAudienceTypes:
 websiteScale: singlePage
 
 # Custom Rules: Define specific page generation rules and requirements
-rules: "WebSmith's website should primarily introduce WebSmith to customers in plain language when addressing customers, displaying code only when necessary—such as when running WebSmith with a single click."
+rules: |
+  Follow content playbook and narrative expectations for WebSmith:
+    - Structure the primary narrative for product pages as: Who it's for → Outcomes & Benefits → How it works → Proof & Examples → Pricing & Next Steps → Hosting Options. Ensure each section clearly connects and resolves the reader's next question.
+    - Be explicit about the target user, their problem, WebSmith's value, and differentiation (open, composable, exportable code, deploy anywhere, PagesKit integration, agent workflow). No vague or unprovable claims.
+    - Use direct, grammatically correct language. Prefer concrete, testable statements (e.g., list the actual SEO elements you set) and active verbs (plan, generate, assemble, publish, export). Remove filler, hyperbole, exclamation points, and hedging.
+    - Adopt an arc on landing/overview pages: Problem → Outcome → Proof → How it works → Quick start → Pricing/FAQ → CTA. Above the fold, answer what it is, who it's for, why it's different, and present a primary CTA (verb-driven). Keep "See it on GitHub" tertiary.
+    - Insert proof (logo, quote, data point, or example) before "How it works." Provide at least one complete quick-start flow; omit incomplete steps.
+    - Close with FAQ and pricing/hosting expectations (export/ownership, SEO, hosting, limits). Ensure differentiation, evidence (site example or short demo), and target user clarity.
+    - Tighten information architecture: reduce excessive whitespace, maintain consistent title casing, keep feature tiles concrete (e.g., sitemap and routes, PagesKit components, SEO checks, one-command publish), and make the primary CTA persistent on mobile.
+    - Buttons must be actionable verbs (e.g., "Generate my site"). Remove negative framing; lead with positive outcomes.
 
 # Glossary: Define project-specific terms and definitions
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
@@ -60,6 +69,4 @@ pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
 lastGitHead: b365df20e405d069a47d5c9ed9cca71f1635712b
-# Checkout ID for website deployment service
-checkoutId: ""
 appUrl: https://staging.websmith.aigne.io/

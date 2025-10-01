@@ -1,4 +1,5 @@
 import YAML from "yaml";
+import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
@@ -163,53 +164,163 @@ function printPageDetail(pageDetail) {
 function printSectionSimple(section, index) {
   console.log(`\nSection ${index}`);
 
-  // Extract and display key content fields
+  // Print all fields except 'sectionName' and 'sectionSummary' with recursive handling
   const content = [];
 
-  // FIXME: Update this function when new properties are added to built-in components.
-  // Currently supported properties must be manually added to the content array below.
-  if (section.title) content.push(`Title: ${truncateText(section.title, 80)}`);
-  if (section.description) content.push(`Description: ${truncateText(section.description, 80)}`);
-  if (section.image) content.push(`🖼️ Image`);
-  if (section.code) content.push(`💻 Code`);
-  if (section.action) {
-    const actionText = typeof section.action === "object" ? section.action.text : section.action;
-    content.push(`🔘 ${truncateText(actionText || "Button", 30)}`);
-  }
-  if (section.list && Array.isArray(section.list)) {
-    const listDetails = section.list
-      .map((item, index) => {
-        if (typeof item === "string") {
-          return `${index + 1}. ${truncateText(item, 40)}`;
-        } else if (typeof item === "object" && item !== null) {
-          const itemTitle = item.title || item.name || item.text || "Item";
-          const itemDesc = item.description || item.summary || "";
-          return `${index + 1}. ${truncateText(itemTitle, 25)}${itemDesc ? ` - ${truncateText(itemDesc, 50)}` : ""}`;
-        }
-        return `${index + 1}. ${truncateText(String(item), 40)}`;
-      })
-      .join("\n     ");
-    content.push(`📋 List (${section.list.length} items):\n     ${listDetails}`);
-  }
+  Object.keys(section)
+    .filter((key) => !SECTION_META_FIELDS.includes(key))
+    .forEach((key) => {
+      const value = section[key];
+      const displayText = formatFieldValue(key, value);
+      if (displayText) {
+        content.push(displayText);
+      }
+    });
 
   // Show content in a compact format
   if (content.length > 0) {
     const contentLine = content.join("\n   ");
     console.log(`   ${contentLine}`);
   }
+}
 
-  // Show any custom fields
-  const customFields = Object.keys(section).filter(
-    (key) =>
-      !["name", "summary", "title", "description", "image", "code", "action", "list"].includes(key),
-  );
-
-  if (customFields.length > 0) {
-    const customText = customFields
-      .map((key) => `${key}: ${truncateText(String(section[key]), 15)}`)
-      .join(" • ");
-    console.log(`   📎 ${truncateText(customText, 50)}`);
+function formatFieldValue(key, value, indent = "") {
+  if (value === null || value === undefined) {
+    return null;
   }
+
+  const displayName = getDisplayName(key);
+
+  if (typeof value === "string") {
+    // Special handling for code fields - just show existence
+    if (key.toLowerCase().includes("code") || key.toLowerCase().includes("snippet")) {
+      const prefix = displayName ? `${displayName}` : "💻 Code";
+      return `${indent}${prefix}`;
+    }
+
+    const prefix = displayName ? `${displayName}: ` : "";
+    return `${indent}${prefix}${truncateText(value, 80)}`;
+  }
+
+  if (typeof value === "number" || typeof value === "boolean") {
+    const prefix = displayName ? `${displayName}: ` : "";
+    return `${indent}${prefix}${value}`;
+  }
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) {
+      const prefix = displayName ? `${displayName}: ` : "";
+      return `${indent}${prefix}[]`;
+    }
+
+    const listHeader = displayName
+      ? `${displayName} (${value.length} items):`
+      : `List (${value.length} items):`;
+    const listItems = value
+      .map((item, index) => {
+        if (typeof item === "string") {
+          return `${indent}     ${index + 1}. ${truncateText(item, 80)}`;
+        } else if (typeof item === "object" && item !== null) {
+          const subContent = Object.keys(item)
+            .filter((subKey) => !SECTION_META_FIELDS.includes(subKey))
+            .map((subKey) => formatFieldValue(subKey, item[subKey], "       "))
+            .filter(Boolean)
+            .join("\n");
+          return `${indent}     ${index + 1}. \n${subContent || "Item"}`;
+        } else {
+          return `${indent}     ${index + 1}. ${truncateText(String(item), 80)}`;
+        }
+      })
+      .join("\n");
+
+    return `${indent}📋 ${listHeader}\n${listItems}`;
+  }
+
+  if (typeof value === "object") {
+    // Special handling for code objects - just show existence
+    if (key.toLowerCase().includes("code") || key.toLowerCase().includes("snippet")) {
+      const prefix = displayName ? `${displayName}` : "💻 Code";
+      return `${indent}${prefix}`;
+    }
+
+    const subContent = Object.keys(value)
+      .filter((subKey) => !SECTION_META_FIELDS.includes(subKey))
+      .map((subKey) => formatFieldValue(subKey, value[subKey], `${indent}   `))
+      .filter(Boolean)
+      .join("\n");
+
+    if (subContent) {
+      const prefix = displayName ? `${displayName}:` : "Object:";
+      return `${indent}${prefix}\n${subContent}`;
+    } else {
+      const prefix = displayName ? `${displayName}: ` : "";
+      return `${indent}${prefix}{}`;
+    }
+  }
+
+  const prefix = displayName ? `${displayName}: ` : "";
+  return `${indent}${prefix}${truncateText(String(value), 80)}`;
+}
+
+const fieldMappings = [
+  // Title related - ordered by priority
+  { pattern: "title", display: "Title" },
+  { pattern: "heading", display: "Title" },
+  { pattern: "header", display: "Title" },
+
+  // Description related
+  { pattern: "description", display: "Description" },
+  { pattern: "desc", display: "Description" },
+  { pattern: "content", display: "Content" },
+  { pattern: "text", display: "Text" },
+  { pattern: "body", display: "Content" },
+
+  // Media related
+  { pattern: "image", display: "🖼️ Image" },
+  { pattern: "img", display: "🖼️ Image" },
+  { pattern: "picture", display: "🖼️ Image" },
+  { pattern: "photo", display: "🖼️ Photo" },
+  { pattern: "video", display: "🎥 Video" },
+  { pattern: "audio", display: "🔊 Audio" },
+
+  // Interactive elements
+  { pattern: "action", display: "🔘 Action" },
+  { pattern: "button", display: "🔘 Button" },
+  { pattern: "link", display: "🔗 Link" },
+  { pattern: "url", display: "🔗 URL" },
+  { pattern: "href", display: "🔗 Link" },
+
+  // Code related
+  { pattern: "code", display: "💻 Code" },
+  { pattern: "snippet", display: "💻 Code" },
+  { pattern: "script", display: "💻 Script" },
+
+  // List related
+  { pattern: "list", display: "List" },
+  { pattern: "items", display: "Items" },
+  { pattern: "options", display: "Options" },
+
+  // Common properties
+  { pattern: "id", display: "ID" },
+  { pattern: "type", display: "Type" },
+  { pattern: "style", display: "Style" },
+  { pattern: "class", display: "Class" },
+  { pattern: "value", display: "Value" },
+  { pattern: "placeholder", display: "Placeholder" },
+  { pattern: "label", display: "Label" },
+];
+function getDisplayName(fieldName) {
+  const lowerField = fieldName.toLowerCase();
+
+  // Check for partial matches - find first matching pattern
+  for (const { pattern, display } of fieldMappings) {
+    if (lowerField.includes(pattern.toLowerCase())) {
+      return display;
+    }
+  }
+
+  // If no match found, return null to show value without field name
+  return null;
 }
 
 function truncateText(text, maxLength) {

@@ -1,16 +1,17 @@
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import YAML from "yaml";
 
-export default async function saveTheme({ theme, config }) {
+import { toKebabCase } from "../../utils/utils.mjs";
+
+export default async function saveTheme(
+  { theme, config = "./.aigne/web-smith/config.yaml" },
+  options,
+) {
   if (!theme) {
     return {
       message: chalk.red("Please provide theme data to save"),
-    };
-  }
-  if (!config) {
-    return {
-      message: chalk.red("Please provide a configuration file path"),
     };
   }
 
@@ -19,34 +20,49 @@ export default async function saveTheme({ theme, config }) {
     const cacheDir = join(dirname(config), "themes");
     await fs.mkdir(cacheDir, { recursive: true });
 
-    // Generate theme filename
+    // Generate theme filename using kebab-case
     const themeName = theme.name;
-    const filename = `${themeName}.json`;
+    const kebabCaseName = toKebabCase(themeName);
+    const filename = `${kebabCaseName}.yaml`;
     const filePath = join(cacheDir, filename);
 
-    // Check for existing themes with the same name and delete them
+    // Check for existing themes with the same name and ask for confirmation
     try {
       const files = await fs.readdir(cacheDir);
-      const existingThemes = files.filter((file) => file === `${themeName}.json`);
+      const existingThemes = files.filter((file) => file === filename);
 
-      for (const existingFile of existingThemes) {
-        const existingPath = join(cacheDir, existingFile);
-        await fs.unlink(existingPath);
+      if (existingThemes.length > 0) {
+        const confirmed = await options.prompts.confirm({
+          message: `Theme "${themeName}" already exists. Do you want to overwrite it?`,
+          default: false,
+        });
+
+        if (!confirmed) {
+          return {
+            message: chalk.yellow(`Save cancelled.`),
+          };
+        }
+
+        // Delete existing theme files
+        for (const existingFile of existingThemes) {
+          const existingPath = join(cacheDir, existingFile);
+          await fs.unlink(existingPath);
+        }
       }
     } catch (error) {
       console.warn(chalk.yellow(`Warning: Could not check existing themes: ${error.message}`));
     }
 
-    // Save theme to file as JSON
+    // Save theme to file as YAML
     const themeWithTimestamp = {
       ...theme,
       createdAt: new Date().toISOString(),
     };
-    const content = JSON.stringify(themeWithTimestamp, null, 2);
+    const content = YAML.stringify(themeWithTimestamp, { indent: 2 });
     await fs.writeFile(filePath, content, "utf8");
 
     return {
-      message: chalk.green(`Theme "${themeName}" saved successfully`),
+      message: chalk.green(`Theme "${themeName}" saved as "${filename}"`),
     };
   } catch (error) {
     return {
@@ -67,9 +83,8 @@ saveTheme.input_schema = {
     config: {
       type: "string",
       description: "Configuration file location",
-      default: "./.aigne/web-smith/config.yaml",
     },
   },
 };
 
-saveTheme.taskRenderMode = "hide";
+saveTheme.taskTitle = "Save theme to local storage";

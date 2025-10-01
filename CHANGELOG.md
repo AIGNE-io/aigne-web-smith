@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.3.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.5...v1.3.0-beta.6) (2025-09-30)
+
+
+### Bug Fixes
+
+* **generate:** allow component match fallback on field supersets ([#40](https://github.com/AIGNE-io/aigne-web-smith/issues/40)) ([1a67497](https://github.com/AIGNE-io/aigne-web-smith/commit/1a67497afb053c515a707599b37d5622dddbecbd))
+
+## [1.3.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.4...v1.3.0-beta.5) (2025-09-27)
+
+
+### Features
+
+* **core:** update website content and improve UI components ([#39](https://github.com/AIGNE-io/aigne-web-smith/issues/39)) ([0442939](https://github.com/AIGNE-io/aigne-web-smith/commit/0442939ce0be5cf670d0a4053df5f7faa65bf277))
+
+
+### Bug Fixes
+
+* improve theme agent interaction ([#34](https://github.com/AIGNE-io/aigne-web-smith/issues/34)) ([d062225](https://github.com/AIGNE-io/aigne-web-smith/commit/d062225e6604d2cb1cada731af3cc75ef2aa7e07))
+* update section management tools to handle YAML string input ([#37](https://github.com/AIGNE-io/aigne-web-smith/issues/37)) ([efa1f6d](https://github.com/AIGNE-io/aigne-web-smith/commit/efa1f6d190709b27f78ccba2c274c6cdca199f33))
+
+## [1.3.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.3...v1.3.0-beta.4) (2025-09-26)
+
+
+### Bug Fixes
+
+* **core:** missing clear command in cli ([74eb9bd](https://github.com/AIGNE-io/aigne-web-smith/commit/74eb9bd5b73262cab9ae3f0e995e9279ae0d5f9c))
+
+## [1.3.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.2...v1.3.0-beta.3) (2025-09-26)
+
+
+### Bug Fixes
+
+* **core:** missing component command in cli ([438629f](https://github.com/AIGNE-io/aigne-web-smith/commit/438629f6c967b30a5af695fdf4eb652b77dbed6c))
+* **main:** remove component library useless padding ([44814f8](https://github.com/AIGNE-io/aigne-web-smith/commit/44814f895786cf8ca03533fe57f1b21b7688504e))
+* **main:** remove useless padding ([dc2967b](https://github.com/AIGNE-io/aigne-web-smith/commit/dc2967be6349f9c9193af90e585b6dca47e0f4e9))
+* **main:** remove useless padding ([2bfbff7](https://github.com/AIGNE-io/aigne-web-smith/commit/2bfbff7a004a5ef6c8b8853b23dae29d6457d86b))
+
+## [1.3.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2025-09-25)
+
+
+### Bug Fixes
+
+* **main:** release to 1.3.1-beta.1 ([0f8bd1c](https://github.com/AIGNE-io/aigne-web-smith/commit/0f8bd1ccdffe080c09abee47b1e5659f60030be3))
+
 ## [1.3.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.2.2-beta.1...v1.3.0-beta.1) (2025-09-24)
 
 

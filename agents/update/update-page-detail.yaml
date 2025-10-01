@@ -2,7 +2,10 @@ type: ai
 name: updatePageDetail
 description: Update page detail content based on user feedback and intentions using content modification tools
 instructions:
-  url: ../../prompts/update/update-page-detail.md
+  - role: system
+    url: ../../prompts/update/update-page-detail-system.md
+  - role: user
+    url: ../../prompts/update/update-page-detail-user.md
 input_schema:
   type: object
   properties:

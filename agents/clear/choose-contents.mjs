@@ -1,5 +1,6 @@
-import { rm, stat } from "node:fs/promises";
-import { isAbsolute, relative, resolve as resolvePath } from "node:path";
+import { rm } from "node:fs/promises";
+import { resolve as resolvePath } from "node:path";
+import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
 const TARGET_METADATA = {
   workspace: {
@@ -18,21 +19,6 @@ const TARGET_METADATA = {
 
 const TARGET_KEYS = Object.keys(TARGET_METADATA);
 
-function resolveToAbsolute(value) {
-  if (!value) return undefined;
-  return isAbsolute(value) ? value : resolvePath(process.cwd(), value);
-}
-
-async function pathExists(targetPath) {
-  try {
-    await stat(targetPath);
-    return true;
-  } catch (error) {
-    if (error.code === "ENOENT") return false;
-    throw error;
-  }
-}
-
 function normalizeTarget(value) {
   if (!value) return null;
   const trimmed = value.trim();
@@ -40,11 +26,6 @@ function normalizeTarget(value) {
 
   const lowerMatched = TARGET_KEYS.find((key) => key.toLowerCase() === trimmed.toLowerCase());
   return lowerMatched || null;
-}
-
-function toDisplayPath(targetPath) {
-  const rel = relative(process.cwd(), targetPath);
-  return rel.startsWith("..") ? targetPath : rel || ".";
 }
 
 export default async function chooseContents(input = {}, options = {}) {

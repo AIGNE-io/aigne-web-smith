@@ -34,6 +34,7 @@ jobs:
           suggest_pr_title: true
           path_filters: |
             !docs/*
+            !.aigne/*
             !**/*.md
             !**/package.json
             !**/*.yaml

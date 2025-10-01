@@ -8,9 +8,10 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import _ from "lodash";
 import { nanoid } from "nanoid";
-import { parse } from "yaml";
+import { parse, stringify } from "yaml";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { LIST_KEY, SECTION_META_FIELDS } from "./constants.mjs";
 
 /**
  * ID 生成工具
@@ -232,23 +233,26 @@ export function propertiesToZodSchema(
   return z.object(schemaObj);
 }
 
-const metaFields = ["name", "summary"];
-
-// 提取字段，使用路径格式表示嵌套字段
+// Extract fields using path format to represent nested fields
 export function extractContentFields(obj, prefix = "") {
   const fields = new Set();
 
   Object.keys(obj).forEach((key) => {
-    if (metaFields.includes(key)) return;
+    // skip meta fields
+    if (SECTION_META_FIELDS.includes(key)) return;
 
     const currentPath = prefix ? `${prefix}.${key}` : key;
     const value = obj[key];
 
-    if (Array.isArray(value)) {
-      // fields.add(`${currentPath}`);
+    if (Array.isArray(value) && key === LIST_KEY) {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
+    } else if (typeof value === "object" && value !== null) {
+      // recursive extract sub fields
+      const subFields = extractContentFields(value, currentPath);
+
+      subFields.forEach((field) => fields.add(field));
     } else {
       fields.add(currentPath);
     }
@@ -289,7 +293,7 @@ export function extractFieldCombinations(middleFormatContent) {
     // 收集数组字段信息（用于参考，但不作为主要 fieldCombinations）
     const arrayFields = [];
     Object.keys(section).forEach((key) => {
-      if (metaFields.includes(key)) return;
+      if (SECTION_META_FIELDS.includes(key)) return;
       const value = section[key];
       if (Array.isArray(value)) {
         arrayFields.push({
@@ -304,8 +308,8 @@ export function extractFieldCombinations(middleFormatContent) {
 
     results.push({
       sectionIndex: index,
-      sectionName: section.name,
-      summary: section.summary || "",
+      sectionName: section.sectionName,
+      sectionSummary: section.sectionSummary || "",
       // 主要的字段组合（用于组件匹配）
       fieldCombinations,
       // 数组字段信息（用于参考）
@@ -412,26 +416,60 @@ export function generateFieldConstraints(componentLibrary) {
   // Build constraints text
   let constraints = "";
 
+  const listKeyWithSymbol = `\`${LIST_KEY}\``;
+
   // Atomic fields section
-  constraints += "<fields_information>\n";
-  atomicFields.forEach((item) => {
-    const { field, summary } = item;
-    constraints += `- \`${field}\`: ${summary}\n`;
+  constraints += "<atomic_component_information>\n";
+  const atomicComponentInfo = atomicFields.map((item) => {
+    return {
+      name: item.name,
+      summary: item.summary,
+    };
   });
-  constraints += "</fields_information>\n\n";
+  constraints += stringify(atomicComponentInfo, {
+    aliasDuplicateObjects: false,
+  });
+  constraints += "</atomic_component_information>\n\n";
 
   // Composite combinations section
   constraints += "<allowed_field_combinations>\n";
-  compositeFields.forEach((item) => {
-    constraints += `- \`${JSON.stringify(item.fieldCombinations)}\`: - **${item.name}** ${item.summary}\n`;
+  const allowedFieldCombinations = compositeFields.map((item) => {
+    return {
+      fieldCombinations: JSON.stringify(item.fieldCombinations),
+      name: item.name,
+      summary: item.summary,
+    };
+  });
+  constraints += stringify(allowedFieldCombinations, {
+    aliasDuplicateObjects: false,
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  constraints +=
-    "- You can refer to the information in <fields_information> to understand what each field defines\n";
-  constraints +=
-    "- Each section MUST strictly follow the field combinations listed in <allowed_field_combinations>\n";
-  constraints += "    - DO NOT use any other field combinations\n";
+  //
+  constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
+- Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
+    - The emitted field set of each section (excluding "sectionName" and "sectionSummary") must be exactly equal to the chosen combination—no extra or missing keys.
+- Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
+    - Each ${listKeyWithSymbol} item is itself a section and MUST independently follow <allowed_field_combinations>
+- This constraint applies recursively: all sections at any depth must strictly comply
+- Zero-Tolerance List Misuse:
+    - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
+- Strict List Rules:
+    - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number, and SHOULD include \`sectionName\` and \`sectionSummary\`
+    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>
+    - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
+    - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:
+        ${LIST_KEY}:
+          - "aaaa"   # disallowed
+          - "bbbb"   # disallowed
+`;
+
+  constraints += `- Value-Level Downgrade (fallback when no exact match <allowed_field_combinations> exists):
+    - What it does: Allows using the closest **allowed superset** combination so the **emitted field set still exactly equals** one entry in <allowed_field_combinations>, while hiding secondary UI elements at render time
+    - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space
+    - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules
+    - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`
+`;
 
   return constraints;
 }

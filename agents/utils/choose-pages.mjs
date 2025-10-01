@@ -1,11 +1,39 @@
 import { join } from "node:path";
 import {
   addFeedbackToItems,
+  fileNameToFlatPath,
+  findItemByFlatName,
   findItemByPath,
   getActionText,
   getMainLanguageFiles,
   processSelectedFiles,
 } from "../../utils/pages-finder-utils.mjs";
+
+/**
+ * Create file choice with title display
+ * @param {string} fileName - File name
+ * @param {Array} websiteStructureResult - Website structure data
+ * @returns {Object} Choice object with name and value
+ */
+function createFileChoice(fileName, websiteStructureResult) {
+  const flatName = fileNameToFlatPath(fileName);
+  const foundItem = findItemByFlatName(websiteStructureResult, flatName);
+
+  if (foundItem?.title) {
+    // Show title with path for context: "Home"
+    const displayName = foundItem.title;
+    return {
+      name: displayName,
+      value: fileName,
+    };
+  }
+
+  // Fallback to filename if no title found
+  return {
+    name: fileName,
+    value: fileName,
+  };
+}
 
 /**
  * Choose pages for processing
@@ -55,16 +83,16 @@ export default async function choosePages(
         throw new Error("No pages found in the pages directory");
       }
 
+      // Generate choices once outside the source function
+      const choices = mainLanguageFiles.map((file) =>
+        createFileChoice(file, websiteStructureResult),
+      );
+
       // Let user select files (single or multiple based on multipleSelection parameter)
       if (multipleSelection) {
         selectedFiles = await options.prompts.checkbox({
           message: getActionText(isTranslate, "Select pages to {action}:"),
           source: (term) => {
-            const choices = mainLanguageFiles.map((file) => ({
-              name: file,
-              value: file,
-            }));
-
             if (!term) return choices;
 
             return choices.filter((choice) =>
@@ -82,11 +110,6 @@ export default async function choosePages(
         const selectedFile = await options.prompts.search({
           message: getActionText(isTranslate, "Select page to {action}:"),
           source: (term) => {
-            const choices = mainLanguageFiles.map((file) => ({
-              name: file,
-              value: file,
-            }));
-
             if (!term) return choices;
 
             return choices.filter((choice) =>

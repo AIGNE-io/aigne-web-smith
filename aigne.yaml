@@ -15,6 +15,9 @@ agents:
   # clear
   - ./agents/clear/index.yaml
 
+  # component
+  - ./agents/component/pull-components-team.yaml
+
   # generate
   - ./agents/generate/index.yaml
   # generate component library
@@ -69,11 +72,8 @@ agents:
   - ./agents/translate/analyze-translate-page-detail.mjs
 
   # theme
-  - ./agents/theme/index.mjs
   - ./agents/theme/generate-theme-team.yaml
-  - ./agents/theme/generate-theme.yaml
   - ./agents/theme/apply-theme.mjs
-  - ./agents/theme/save-theme.mjs
 
   # update
   - ./agents/update/index.yaml
@@ -118,8 +118,22 @@ cli:
     - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
     - ./agents/translate/index.yaml
-    - ./agents/theme/index.mjs
+    - name: theme
+      description: Manage and apply website themes
+      agents:
+        - url: ./agents/theme/generate-theme-team.yaml
+          name: generate
+          alias: ['gen']
+        - url: ./agents/theme/apply-theme.mjs
+          name: apply
     - ./agents/prefs/index.mjs
+    - name: component
+      description: Manage and pull components
+      alias: ['comp']
+      agents:
+        - url: ./agents/component/pull-components-team.yaml
+          name: pull
+    - ./agents/clear/index.yaml
 mcp_server:
   agents:
     - ./pages-mcp/get-pages-structure.mjs

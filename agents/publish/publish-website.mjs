@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import chalk from "chalk";
 import fs from "fs-extra";
 import pMap from "p-map";
+import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -14,9 +15,11 @@ import {
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
   PAGES_KIT_DID,
+  PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
 } from "../../utils/constants.mjs";
+import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
@@ -105,6 +108,7 @@ const publishPageFn = async ({
   pageTemplateData,
   routeData,
   dataSourceData,
+  resetProject = false,
 }) => {
   // Build request headers
   const headers = new Headers();
@@ -118,6 +122,7 @@ const publishPageFn = async ({
     pageTemplateData,
     routeData,
     dataSourceData,
+    resetProject,
   });
 
   const requestOptions = {
@@ -201,7 +206,10 @@ export default async function publishWebsite(
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
 
+  let token = "";
+
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
+    const hasCachedCheckoutId = !!config?.checkoutId;
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
@@ -213,10 +221,26 @@ export default async function publishWebsite(
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
+        ...(hasCachedCheckoutId
+          ? [
+              {
+                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
+                value: "new-pagekit-continue",
+              },
+            ]
+          : []),
+        {
+          name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
+          value: "new-pagekit",
+        },
       ],
     });
 
     if (choice === "custom") {
+      console.log(
+        `${chalk.bold("\n💡 Tips")}\n\n` +
+          `Start here to set up your own website:\n${chalk.cyan(PAGES_KIT_STORE_URL)}\n`,
+      );
       const userInput = await options.prompts.input({
         message: "Please enter your website URL:",
         validate: (input) => {
@@ -232,6 +256,27 @@ export default async function publishWebsite(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
+    } else if (["new-pagekit", "new-pagekit-continue"].includes(choice)) {
+      // Deploy a new Pages Kit service
+      try {
+        let id = "";
+        let paymentUrl = "";
+        if (choice === "new-pagekit-continue") {
+          id = config?.checkoutId;
+          paymentUrl = config?.paymentUrl;
+          console.log(`\nResuming your previous website setup...`);
+        } else {
+          console.log(`\nCreating new dedicated website for your pages...`);
+        }
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+
+        appUrl = homeUrl;
+        token = ltToken;
+      } catch (error) {
+        const errorMsg = error?.message || "Unknown error occurred";
+        console.error(`${chalk.red("❌ Failed to create website:")} ${errorMsg}`);
+        return { message: `❌ Website creation failed: ${errorMsg}` };
+      }
     }
   }
 
@@ -248,7 +293,7 @@ export default async function publishWebsite(
     projectId = crypto.randomUUID();
   }
 
-  const accessToken = await getAccessToken(appUrl);
+  const accessToken = await getAccessToken(appUrl, token);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
@@ -358,7 +403,7 @@ export default async function publishWebsite(
     // Step 3: 处理每个页面，使用全局URL映射替换
     const publishResults = await pMap(
       yamlFiles,
-      async (file) => {
+      async (file, index) => {
         const parsedPageContent = pageContents.get(file);
         if (!parsedPageContent) {
           return {
@@ -439,6 +484,7 @@ export default async function publishWebsite(
             pageTemplateData,
             routeData,
             mountPoint,
+            resetProject: index === 0,
             // dataSourceData not needed for now, can be added later
           });
 
@@ -494,7 +540,7 @@ ${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to w
 
 🔗 Published Pages
 
-${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
+${publishedUrls.map((url) => `- ${withoutTrailingSlash(url)}`).join("\n")}
 
 🚀 Next Steps
 
@@ -509,6 +555,9 @@ ${publishedUrls.map((url) => `- ${url}?publishedAt=${Date.now()}`).join("\n")}
   } catch (error) {
     message = `❌ Failed to publish pages: ${error.message}`;
   }
+
+  await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
+
   // clean up tmp work dir
   await fs.rm(pagesDir, { recursive: true, force: true });
   return message ? { message } : {};

@@ -1,36 +1,58 @@
 import YAML from "yaml";
+import {
+  getAddSectionInputJsonSchema,
+  getAddSectionOutputJsonSchema,
+  validateAddSectionInput,
+} from "../../../types/page-detail-schema.mjs";
 
-export default async function addSection({ pageDetail, section, position }) {
-  // Validate required parameters
-  if (!pageDetail) {
-    console.log(
-      "⚠️  Unable to add section: No page detail provided. Please specify the page detail to modify.",
-    );
-    return { pageDetail };
+export default async function addSection(input) {
+  // Validate input using Zod schema
+  const validation = validateAddSectionInput(input);
+  if (!validation.success) {
+    const errorMessage = `Cannot add section: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail: input.pageDetail,
+      message: errorMessage,
+    };
   }
+
+  const { pageDetail, section, position } = validation.data;
 
   // Parse YAML string to object
   let parsedPageDetail;
   try {
     parsedPageDetail = YAML.parse(pageDetail);
   } catch (error) {
-    console.log("⚠️  Unable to parse page detail YAML:", error.message);
-    return { pageDetail };
+    const errorMessage = `Cannot add section: Unable to parse page detail YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
-  if (!section) {
-    console.log(
-      "⚠️  Unable to add section: No section data provided. Please specify the section content you want to add.",
-    );
-    return { pageDetail };
+  // Parse section YAML string to object
+  let parsedSection;
+  try {
+    parsedSection = YAML.parse(section);
+  } catch (error) {
+    const errorMessage = `Cannot add section: Unable to parse section YAML - ${error.message}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Validate section has required properties
-  if (!section.name) {
-    console.log(
-      "⚠️  Unable to add section: Section must have a name. Please provide a unique name for the section.",
-    );
-    return { pageDetail };
+  if (!parsedSection.sectionName) {
+    const errorMessage = "Cannot add section: Section must have a 'sectionName' property.";
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Initialize sections array if it doesn't exist
@@ -39,12 +61,16 @@ export default async function addSection({ pageDetail, section, position }) {
   }
 
   // Check if section with same name already exists
-  const existingSection = parsedPageDetail.sections.find((s) => s.name === section.name);
+  const existingSection = parsedPageDetail.sections.find(
+    (s) => s.sectionName === parsedSection.sectionName,
+  );
   if (existingSection) {
-    console.log(
-      `⚠️  Unable to add section: A section with name '${section.name}' already exists. Please choose a different name for the new section.`,
-    );
-    return { pageDetail };
+    const errorMessage = `Cannot add section: A section with name '${parsedSection.sectionName}' already exists. Choose a different name.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      message: errorMessage,
+    };
   }
 
   // Determine insertion position
@@ -56,7 +82,7 @@ export default async function addSection({ pageDetail, section, position }) {
       insertIndex = Math.max(0, Math.min(position, parsedPageDetail.sections.length));
     } else if (typeof position === "string") {
       // Position is relative to another section
-      const refIndex = parsedPageDetail.sections.findIndex((s) => s.name === position);
+      const refIndex = parsedPageDetail.sections.findIndex((s) => s.sectionName === position);
       if (refIndex !== -1) {
         insertIndex = refIndex + 1; // Insert after the reference section
       }
@@ -65,7 +91,7 @@ export default async function addSection({ pageDetail, section, position }) {
 
   // Create new sections array with the inserted section
   const newSections = [...parsedPageDetail.sections];
-  newSections.splice(insertIndex, 0, section);
+  newSections.splice(insertIndex, 0, parsedSection);
 
   // Create updated page detail
   const updatedPageDetail = {
@@ -73,58 +99,22 @@ export default async function addSection({ pageDetail, section, position }) {
     sections: newSections,
   };
 
+  const positionText =
+    position !== undefined
+      ? ` at position ${insertIndex}`
+      : ` at the end (position ${insertIndex})`;
+  const successMessage = `Successfully added section '${parsedSection.sectionName}'${positionText}.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+
   return {
     pageDetail: YAML.stringify(updatedPageDetail, {
       quotingType: '"',
       defaultStringType: "QUOTE_DOUBLE",
     }),
-    addedSection: section,
-    insertedAt: insertIndex,
+    message: successMessage,
   };
 }
 
-addSection.taskTitle = "Add a new section to page detail";
-addSection.description = "Add a new section to the page detail at a specified position";
-addSection.inputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Current page detail YAML string",
-    },
-    section: {
-      type: "object",
-      description: "Section content to add with at least a name property",
-      properties: {
-        name: { type: "string" },
-        summary: { type: "string" },
-        title: { type: "string" },
-        description: { type: "string" },
-      },
-      required: ["name"],
-    },
-    position: {
-      type: ["number", "string"],
-      description: "Position to insert the section (index number or section name to insert after)",
-    },
-  },
-  required: ["pageDetail", "section"],
-};
-addSection.outputSchema = {
-  type: "object",
-  properties: {
-    pageDetail: {
-      type: "string",
-      description: "Updated page detail YAML string with the new section added",
-    },
-    addedSection: {
-      type: "object",
-      description: "The section that was added",
-    },
-    insertedAt: {
-      type: "number",
-      description: "The index where the section was inserted",
-    },
-  },
-  required: ["pageDetail"],
-};
+addSection.taskTitle = "Add section";
+addSection.description = "Add a new section to the specified page detail at an optional position";
+addSection.inputSchema = getAddSectionInputJsonSchema();
+addSection.outputSchema = getAddSectionOutputJsonSchema();

@@ -2,6 +2,8 @@ import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
 import {
+  BUILTIN_COMPONENT_LIBRARY_NAME,
+  COMPONENTS_DIR,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   MEDIA_KIT_PROTOCOL,
@@ -94,7 +96,7 @@ export default async function loadSources({
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
 
     // @FIXME: 强制添加 components，后续需要修改为通过远程加载
-    paths.push(path.join(import.meta.dirname, "../../assets/components"));
+    paths.push(path.join(import.meta.dirname, "../../", COMPONENTS_DIR));
 
     let allFiles = [];
 
@@ -240,24 +242,26 @@ export default async function loadSources({
         const relativePath = path.relative(process.cwd(), file);
 
         // if it is components, format it and enhance with structured data
-        if (relativePath.includes("assets/components")) {
+        if (relativePath.includes(COMPONENTS_DIR)) {
           // ignore _component
           if (path.basename(file).startsWith("_")) {
             return;
           }
 
           // handle builtin-component-library.yaml separately
-          if (path.basename(file) === "builtin-component-library.yaml") {
+          if (path.basename(file) === BUILTIN_COMPONENT_LIBRARY_NAME) {
             const builtinComponentLibraryContent = parse(content);
-            Object.entries(builtinComponentLibraryContent).forEach(([type, value]) => {
-              value.map((item) => {
-                const isAtomic = type === "atomic";
-                builtinComponentLibrary.push({
-                  ...item,
-                  type,
-                  fieldCombinations: isAtomic ? [item.field] : item.fieldCombinations,
-                  relatedComponents: isAtomic ? [] : item.relatedComponents,
-                });
+            const { atomic, composite } = builtinComponentLibraryContent;
+            atomic.forEach((item) => {
+              builtinComponentLibrary.push({
+                ...item,
+                type: "atomic",
+              });
+            });
+            composite.forEach((item) => {
+              builtinComponentLibrary.push({
+                ...item,
+                type: "composite",
               });
             });
             return;
@@ -362,7 +366,7 @@ export default async function loadSources({
   }
 
   // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Documentation\n\n";
+  let assetsContent = "# Available Media Assets for Website\n\n";
 
   if (mediaFiles.length > 0) {
     // Helper function to determine file type from extension

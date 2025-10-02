@@ -1,8 +1,8 @@
-import { getFileName } from "../../utils/utils.mjs";
+import { getFileName, validatePageDetail } from "../../utils/utils.mjs";
 
 export default async function checkDetailResult({
   websiteStructure,
-  // reviewContent,
+  reviewContent,
   // pagesDir,
   // tmpDir,
   locale,
@@ -26,17 +26,13 @@ export default async function checkDetailResult({
     allowedLinks.add(flatPath);
   });
 
-  // Run comprehensive markdown validation with all checks
-  try {
-    const markdownErrors = [];
+  if (reviewContent) {
+    const validation = validatePageDetail({ pageDetailYaml: reviewContent });
 
-    if (markdownErrors.length > 0) {
+    if (!validation.isValid) {
       isApproved = false;
-      detailFeedback.push(...markdownErrors);
+      detailFeedback.push(validation.validationFeedback);
     }
-  } catch (error) {
-    isApproved = false;
-    detailFeedback.push(`Found markdown validation error in result: ${error.message}`);
   }
 
   return {

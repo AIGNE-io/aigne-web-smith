@@ -79,9 +79,10 @@ export default async function analyzePageDetail(input, options) {
   }
 
   // If file exists, check content validation
-  let _contentValidationFailed = false;
+  let contentValidationFailed = false;
+  let validationResult = {};
   if (detailGenerated && fileContent && websiteStructure) {
-    const validationResult = await checkDetailResult({
+    validationResult = await checkDetailResult({
       websiteStructure,
       reviewContent: fileContent,
       pagesDir,
@@ -90,11 +91,12 @@ export default async function analyzePageDetail(input, options) {
     });
 
     if (!validationResult.isApproved) {
-      _contentValidationFailed = true;
+      contentValidationFailed = true;
     }
   }
 
-  if (detailGenerated) {
+  // If file exists and content validation passed, return
+  if (detailGenerated && !contentValidationFailed) {
     return {
       path,
       pagesDir,
@@ -113,6 +115,8 @@ export default async function analyzePageDetail(input, options) {
     originalWebsiteStructure,
     websiteStructure,
     fieldConstraints,
+    detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
+    content: contentValidationFailed ? fileContent : "",
   });
 
   return {

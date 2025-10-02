@@ -543,4 +543,8 @@ export const LIST_KEY = "list";
 
 export const SECTION_META_FIELDS = ["sectionName", "sectionSummary", "fieldCombinations"];
 
-export const DEFAULT_PAGE_STYLE = { maxWidth: "custom:1440px", paddingY: "none", paddingX: "none" };
+export const DEFAULT_PAGE_STYLE = {
+  maxWidth: "custom:1440px",
+  paddingY: "normal",
+  paddingX: "normal",
+};

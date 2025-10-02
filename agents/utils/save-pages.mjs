@@ -42,7 +42,9 @@ export default async function savePages({
     console.error("Failed to cleanup invalid .yaml files:", err.message);
   }
 
-  const message = `✅ Pages generated successfully! (\`${websiteStructure.length}\` pages → \`${pagesDir}\`)${projectInfoMessage ? `\n${projectInfoMessage}` : ""}
+  const pageCount = websiteStructure.length;
+  const pageWord = pageCount === 1 ? "page" : "pages";
+  const message = `✅ Pages generated successfully! (\`${pageCount}\` ${pageWord} → \`${pagesDir}\`)${projectInfoMessage ? `\n${projectInfoMessage}` : ""}
 
 🚀 Next: Make your website live and generate a shareable link, run: \`aigne web publish\`
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)

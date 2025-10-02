@@ -1,79 +1,149 @@
-meta:
-  title: "WebSmith：AI 驱动的网站生成"
-  description: "使用 WebSmith 即刻生成专业的、经过 SEO 优化的网站。我们的 AI 驱动工具可自动完成从结构规划、内容创建到一键发布的全部流程。"
-sections:
-  - sectionName: "hero"
-    sectionSummary: "立即吸引注意力！本节使用强有力的标题和真实的代码片段来展示生成完整网站是多么容易，从而使价值主张对访问者来说具体而令人兴奋。"
-    verticalHeroTitle: "一个命令构建您的整个网站"
-    verticalHeroDescription: "WebSmith 利用 AI 将您的需求转化为一个完整的、专业的、经过 SEO 优化的网站。从结构规划到内容生成和发布，一切都实现了自动化。"
-    verticalHeroCode:
-      name: "bash"
-      content: "aigne web generate --input @my-website.yaml"
-  - sectionName: "features"
-    sectionSummary: "展示它的魔力！本节将核心优势分解为四个激动人心、易于理解的特性卡片。每张卡片都以清晰的标题和以效益为导向的描述突出了一项关键能力，让 WebSmith 的强大功能变得真实而触手可及。"
-    fourColumnGridTitle: "一站式满足您的所有需求"
-    list:
-      - sectionName: "aiGenerationFeature"
-        sectionSummary: "突出核心的 AI 驱动生成能力。"
-        iconName: "mdi:robot-happy-outline"
-        cardTitle: "AI 驱动生成"
-        cardDescription: "我们的 AI 能够智能规划您的网站结构、生成所有内容并进行 SEO 优化，所有操作一次完成。"
-      - sectionName: "templatesFeature"
-        sectionSummary: "展示专业且灵活的模板系统。"
-        iconName: "mdi:palette-swatch-outline"
-        cardTitle: "专业模板"
-        cardDescription: "获取采用现代组件构建的精美、响应式布局，完全兼容 Pages Kit，便于轻松编辑。"
-      - sectionName: "qualityAssuranceFeature"
-        sectionSummary: "强调内置的质量检查，以确保可靠的输出。"
-        iconName: "mdi:shield-check-outline"
-        cardTitle: "内置质量保证"
-        cardDescription: "我们自动评估您网站的架构和内容质量，以确保每次都能获得专业、一致的结果。"
-      - sectionName: "publishingFeature"
-        sectionSummary: "详细介绍无缝的一键发布流程。"
-        iconName: "mdi:rocket-launch-outline"
-        cardTitle: "一键发布"
-        cardDescription: "数秒内即可上线。将您的整个网站直接发布到 Pages Kit，并立即获取实时链接。"
-  - sectionName: "howItWorks"
-    sectionSummary: "是时候揭开流程的神秘面纱了！本节将引导用户完成从想法到上线网站的简单三步之旅。旨在展示工作流程是多么轻松和合乎逻辑，从而建立信心并鼓励他们尝试。"
-    threeColumnGridTitle: "从想法到上线网站，只需简单三步"
-    list:
-      - sectionName: "stepOneDefine"
-        sectionSummary: "流程的第一步：定义网站愿景。"
-        iconName: "mdi:lightbulb-on-outline"
-        cardTitle: "1. 定义您的愿景"
-        cardDescription: "在一个简单的 YAML 文件中描述您的网站。告诉我们的 AI 您的目标、目标受众和期望的风格。就这么简单！"
-      - sectionName: "stepTwoGenerate"
-        sectionSummary: "第二步：运行生成命令。"
-        iconName: "mdi:auto-fix"
-        cardTitle: "2. 运行一个命令"
-        cardDescription: "执行 `aigne web generate`。我们的 AI 代理会协同工作，规划结构、编写内容并构建模板。"
-      - sectionName: "stepThreePublish"
-        sectionSummary: "最后一步：即时发布网站。"
-        iconName: "mdi:web-check"
-        cardTitle: "3. 即刻上线"
-        cardDescription: "使用 `aigne web publish` 将您的新网站直接部署到 Pages Kit。您的网站已上线，准备好面向全世界！"
-  - sectionName: "faq"
-    sectionSummary: "让我们澄清所有悬而未决的问题！此常见问题解答部分直接解决最常见的疑问，提供快速、清晰的答案。这一切都是为了消除障碍，让开始的决定变得更加容易。"
-    faqTitle: "常见问题"
-    faqList:
-      - question: "什么是 AIGNE WebSmith？"
-        answer: "它是一款 AI 驱动的工具，可自动完成创建专业网站的整个过程，从规划、内容生成到发布到 Pages Kit。"
-      - question: "这款工具适合谁？"
-        answer: "它非常适合希望快速、无需手动操作即可发布高质量、经 SEO 优化的网站的开发人员、中小企业主和技术决策者。"
-      - question: "如何开始使用？"
-        answer: "只需安装 AIGNE CLI (`npm install -g @aigne/cli`)，创建一个包含您网站需求的简单 `yaml` 文件，然后运行 `aigne web generate` 即可。"
-      - question: "我可以自定义生成的网站吗？"
-        answer: "当然可以！WebSmith 会生成标准的 Pages Kit YAML 模板。生成后，您可以进行可视化编辑、调整内容和组件。"
-      - question: "我可以构建哪种类型的网站？"
-        answer: "您可以构建各种类型的网站，包括 SaaS 产品页面、企业网站、作品集和文档门户。只需在规则中指定您的需求即可。"
-      - question: "它支持多种语言吗？"
-        answer: "是的！WebSmith 内置支持生成内容并将其翻译成多种语言，包括英语和中文。"
-  - sectionName: "finalCta"
-    sectionSummary: "压轴环节！这是我们最后一次、充满活力的推动，旨在促使访问者采取行动。一个清晰、有力的标题和两个直接的行动号召，让他们可以极其简单地投入并开始构建。"
-    ctaTitle: "准备好在几分钟内构建您的网站了吗？"
-    ctaDescription: "别再为代码和内容烦恼。让 WebSmith 来处理繁重的工作。立即开始吧。"
-    cta:
-      - text: "立即开始"
-        link: "https://github.com/AIGNE-io/aigne-web-smith"
-      - text: "浏览文档"
-        link: "https://www.aigne.io/web-smith"
+"meta":
+  "title": "AIGNE WebSmith 命令用例 | 全面的开发者命令行指南"
+  "description": "探索 AIGNE WebSmith 的所有命令行用法。本指南涵盖 generate, publish, update,
+    translate 等命令，帮助开发者快速上手并高效构建网站。"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "这是一个英雄部分，旨在通过一个引人注目的标题、简洁的描述和核心的安装与生成命令，立即抓住开发者的注意力，展示 WebSmith 的核心价值。"
+    "verticalHeroTitle": "AIGNE WebSmith 命令行大全"
+    "verticalHeroDescription": "释放 AI 的力量，用一行命令构建、发布和管理您的专业网站。这里是您需要的所有命令和用法。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 安装并生成您的第一个网站
+
+        npm install -g @aigne/cli
+
+        aigne web generate"
+  - "sectionName": "coreFeatures"
+    "sectionSummary": "本节使用四列网格布局，通过图标和简短描述，直观地展示了 WebSmith 的四大核心功能：AI
+      生成、一键发布、轻松管理和组件化扩展，为后续的详细命令介绍提供背景。"
+    "fourColumnGridTitle": "核心功能一览"
+    "list":
+      - "sectionName": "aiGeneration"
+        "sectionSummary": "介绍 AI 驱动的网站生成功能。"
+        "iconName": "mdi:creation-outline"
+        "cardTitle": "AI 驱动生成"
+        "cardDescription": "从需求描述自动规划网站结构、生成内容和模板。"
+      - "sectionName": "oneClickPublish"
+        "sectionSummary": "介绍一键发布功能。"
+        "iconName": "mdi:publish"
+        "cardTitle": "一键发布"
+        "cardDescription": "无缝集成 Pages Kit，将生成的网站一键发布上线。"
+      - "sectionName": "easyManagement"
+        "sectionSummary": "介绍便捷的内容更新与翻译功能。"
+        "iconName": "mdi:update"
+        "cardTitle": "轻松更新与翻译"
+        "cardDescription": "使用简单的命令即可更新网站内容或将其翻译成多种语言。"
+      - "sectionName": "componentExtension"
+        "sectionSummary": "介绍组件化管理功能。"
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "组件化管理"
+        "cardDescription": "通过命令行拉取和管理 Pages Kit 组件，扩展您的网站能力。"
+  - "sectionName": "quickStart"
+    "sectionSummary": "这是一个快速入门指南，通过两个并排的卡片，分步展示了如何安装 CLI 和执行第一个生成命令，为新用户提供了清晰、可操作的上手路径。"
+    "twoColumnGridTitle": "快速入门指南"
+    "list":
+      - "sectionName": "installCli"
+        "sectionSummary": "第一步：安装 AIGNE CLI。"
+        "contentCardTitle": "第一步：安装 CLI"
+        "contentCardDescription": "首先，您需要通过 npm 将 AIGNE CLI 安装到您的系统中。全局安装或本地安装均可。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 全局安装
+
+            npm install -g @aigne/cli
+
+
+            # 或本地安装
+
+            npm install @aigne/cli"
+      - "sectionName": "generateWebsite"
+        "sectionSummary": "第二步：生成您的第一个网站。"
+        "contentCardTitle": "第二步：生成网站"
+        "contentCardDescription": "只需一个简单的命令，即可开始您的网站生成之旅。您可以直接运行，或通过输入文件提供更复杂的需求。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 快速生成
+
+            aigne web generate
+
+
+            # 使用配置文件生成
+
+            aigne web generate --input @my-website.yaml"
+  - "sectionName": "generateCommand"
+    "sectionSummary": "详细介绍 'generate' 命令，用于根据用户需求生成一个完整的网站，包括结构、内容和模板。"
+    "verticalHeroTitle": "generate"
+    "verticalHeroDescription": "根据用户需求生成一个完整的网站，包括结构、内容和模板。这是启动新项目的首选命令，能够将您的想法迅速变为现实。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web generate --input @my-website.yaml"
+  - "sectionName": "publishCommand"
+    "sectionSummary": "详细介绍 'publish' 命令，用于将已生成的网站一键发布到 Pages Kit 平台。"
+    "verticalHeroTitle": "publish"
+    "verticalHeroDescription": "将已生成的网站一键发布到 Pages Kit 平台。发布成功后，您将立即获得一个可公开访问的链接，轻松与世界分享您的作品。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web publish --appUrl \"https://your-website.com\""
+  - "sectionName": "updateCommand"
+    "sectionSummary": "详细介绍 'update' 命令，用于根据新的需求或反馈，智能更新现有网站的页面内容。"
+    "verticalHeroTitle": "update"
+    "verticalHeroDescription": "根据新的需求或反馈，智能更新现有网站的页面内容。无需手动修改文件，AI 会帮您完成内容的迭代和优化。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web update --pages /home --feedback \"更新英雄部分的标题\""
+  - "sectionName": "translateCommand"
+    "sectionSummary": "详细介绍 'translate' 命令，用于将现有网站内容自动翻译成指定的语言。"
+    "verticalHeroTitle": "translate"
+    "verticalHeroDescription": "将现有网站内容自动翻译成指定的语言。轻松扩展您的全球影响力，让不同语言的用户都能访问您的内容。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web translate --pages /home --langs \"en,ja\""
+  - "sectionName": "themeCommand"
+    "sectionSummary": "详细介绍 'theme' 命令，用于管理和应用网站主题。"
+    "verticalHeroTitle": "theme"
+    "verticalHeroDescription": "管理和应用网站主题。无论是从头创建独特的设计，还是应用一个预设的风格，都能轻松搞定，让您的网站焕然一新。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 生成一个新主题
+
+        aigne web theme generate
+
+        # 应用一个已保存的主题
+
+        aigne web theme apply"
+  - "sectionName": "componentCommand"
+    "sectionSummary": "详细介绍 'component' 命令，用于管理和拉取 Pages Kit 组件库。"
+    "verticalHeroTitle": "component"
+    "verticalHeroDescription": "管理和拉取 Pages Kit 组件库。保持您的网站功能与设计与时俱进，轻松集成最新的可用组件。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web component pull --url \"https://your-pages-kit/api/...\""
+  - "sectionName": "advancedUsage"
+    "sectionSummary": "本节以 FAQ 的形式，解答了关于命令参数和高级用法的常见问题，例如如何使用输入文件、如何进行安全发布以及如何集成 MCP
+      服务器，帮助用户更深入地使用工具。"
+    "faqTitle": "高级用法与参数"
+    "faqList":
+      - "question": "如何为 `generate` 命令指定详细规则？"
+        "answer": "您可以通过 `--input` 参数传入一个 YAML 文件，在其中定义 `rules`, `targetAudience`
+          等详细信息，以获得更精确的生成结果。例如：`aigne web generate --input @my-website.yaml`。"
+      - "question": "发布时如何避免覆盖现有页面？"
+        "answer": "使用 `publish` 命令时，可以添加 `--dryRun` 参数进行预览，确认无误后再执行。如需强制覆盖，请使用
+          `--overwrite` 参数。"
+      - "question": "如何拉取指定项目中的组件？"
+        "answer": "使用 `component pull` 命令并提供完整的 URL，其中包含您的项目 ID 和密钥。例如：`aigne web
+          component --url \"https://...\"`"
+      - "question": "支持哪些语言进行 `translate`？"
+        "answer": "目前主要支持中文（zh）和英文（en）之间的互译。您可以在运行命令时通过交互式提示选择目标语言。"
+      - "question": "如何与其他工具集成？"
+        "answer": "WebSmith 提供了一个 MCP 服务器，您可以通过 `aigne web serve-mcp` 启动它，然后通过 API 端点（如
+          `get-pages-structure`）进行集成。"
+  - "sectionName": "finalCta"
+    "sectionSummary": "页面结尾的号召性用语部分，通过一个激励性的标题和清晰的行动按钮（查看 GitHub 和阅读文档），鼓励用户立即开始使用或深入了解项目。"
+    "ctaTitle": "准备好开始构建了吗？"
+    "ctaDescription": "立即安装 AIGNE CLI，体验 AI 驱动的网站开发流程。查看我们的 GitHub 仓库或官方文档以获取更多信息。"
+    "cta":
+      - "text": "查看 GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "阅读官方文档"
+        "link": "https://www.aigne.io/web-smith"

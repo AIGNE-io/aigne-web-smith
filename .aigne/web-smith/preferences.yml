@@ -1,0 +1,13 @@
+rules:
+  - id: pref_2f9261a2e66c5f35
+    active: true
+    scope: page
+    rule: 当一个章节包含多个命令时，应将每个命令拆分到独立的章节中。
+    feedback: 把 Section 4 里面的命令拆分成不同的 section
+    createdAt: 2025-10-02T07:21:57.503Z
+  - id: pref_4bbc3c43ef06ff5b
+    active: true
+    scope: page
+    rule: 对于主要命令参考内容，必须使用能完整展示命令的较大区域布局，不能使用卡片式布局。
+    feedback: 主要命令参考这里不能用这种卡片的方式，因为会导致命令展示不全，需要用更大的展示区域来展示。
+    createdAt: 2025-10-02T06:38:00.535Z

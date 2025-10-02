@@ -1,15 +1,10 @@
-- title: "WebSmith: AI-Powered Website Generation"
-  description: A single-page experience designed to introduce WebSmith and convert
-    visitors into users. The page flows from a compelling Hero section that
-    clarifies the value proposition, followed by sections on Features, How It
-    Works, and Social Proof with testimonials. It concludes with an FAQ to
-    address common questions and a clear Call to Action (CTA) to encourage
-    sign-ups or initial use.
+- title: AIGNE WebSmith 命令用例
+  description: 一个单页网站，全面展示 AIGNE WebSmith
+    的功能和所有命令行用法。页面包含一个引人注目的英雄部分、核心功能亮点、快速入门指南以及详细的命令参考（包括 generate, publish,
+    update, translate, theme, component 等），旨在为开发者提供一个清晰、全面的工具使用手册。
   path: /home
   sourceIds:
     - README.md
-    - package.json
     - aigne.yaml
-    - utils/utils.mjs
-    - utils/constants.mjs
+    - package.json
   parentId: ""

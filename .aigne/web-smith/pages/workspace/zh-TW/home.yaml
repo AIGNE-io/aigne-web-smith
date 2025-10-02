@@ -1,0 +1,142 @@
+"meta":
+  "title": "AIGNE WebSmith 指令範例 | 完整的開發者命令列指南"
+  "description": "探索 AIGNE WebSmith 的所有命令列用法。本指南涵蓋 generate、publish、update、translate 等指令，協助開發者快速上手並高效建置網站。"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "這是一個 Hero 區塊，旨在透過引人注目的標題、精簡的描述與核心的安裝與產生指令，立即抓住開發者的注意力，展現 WebSmith 的核心價值。"
+    "verticalHeroTitle": "AIGNE WebSmith 命令列大全"
+    "verticalHeroDescription": "釋放 AI 的力量，用一行指令建置、發布並管理您的專業網站。這裡是您所需的全部指令與用法。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 安裝並產生您的第一個網站
+
+        npm install -g @aigne/cli
+
+        aigne web generate"
+  - "sectionName": "coreFeatures"
+    "sectionSummary": "本節使用四欄網格版面，透過圖示與簡短描述，直觀地展示 WebSmith 的四大核心功能：AI 產生、一鍵發布、輕鬆管理與元件化擴充，為後續的詳細指令介紹提供背景。"
+    "fourColumnGridTitle": "核心功能一覽"
+    "list":
+      - "sectionName": "aiGeneration"
+        "sectionSummary": "介紹 AI 驅動的網站產生功能。"
+        "iconName": "mdi:creation-outline"
+        "cardTitle": "AI 驅動產生"
+        "cardDescription": "從需求描述自動規劃網站結構、產生內容與範本。"
+      - "sectionName": "oneClickPublish"
+        "sectionSummary": "介紹一鍵發布功能。"
+        "iconName": "mdi:publish"
+        "cardTitle": "一鍵發布"
+        "cardDescription": "無縫整合 Pages Kit，將產生的網站一鍵發布上線。"
+      - "sectionName": "easyManagement"
+        "sectionSummary": "介紹便捷的內容更新與翻譯功能。"
+        "iconName": "mdi:update"
+        "cardTitle": "輕鬆更新與翻譯"
+        "cardDescription": "使用簡單的指令即可更新網站內容，或將其翻譯成多種語言。"
+      - "sectionName": "componentExtension"
+        "sectionSummary": "介紹元件化管理功能。"
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "元件化管理"
+        "cardDescription": "透過命令列拉取並管理 Pages Kit 元件，擴充您的網站能力。"
+  - "sectionName": "quickStart"
+    "sectionSummary": "這是一份快速入門指南，透過兩個並排卡片，逐步展示如何安裝 CLI 並執行第一個產生指令，為新手提供清楚、可操作的上手路徑。"
+    "twoColumnGridTitle": "快速入門指南"
+    "list":
+      - "sectionName": "installCli"
+        "sectionSummary": "第一步：安裝 AIGNE CLI。"
+        "contentCardTitle": "第一步：安裝 CLI"
+        "contentCardDescription": "首先，您需要透過 npm 將 AIGNE CLI 安裝至您的系統。可選擇全域安裝或本機安裝。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 全域安裝
+
+            npm install -g @aigne/cli
+
+
+            # 或本機安裝
+
+            npm install @aigne/cli"
+      - "sectionName": "generateWebsite"
+        "sectionSummary": "第二步：產生您的第一個網站。"
+        "contentCardTitle": "第二步：產生網站"
+        "contentCardDescription": "只需一個簡單的指令，即可開始您的網站產生之旅。您可以直接執行，或透過輸入檔提供更複雜的需求。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 快速產生
+
+            aigne web generate
+
+
+            # 使用設定檔產生
+
+            aigne web generate --input @my-website.yaml"
+  - "sectionName": "generateCommand"
+    "sectionSummary": "詳細介紹 'generate' 指令，用於依據使用者需求產生完整網站，包括結構、內容與範本。"
+    "verticalHeroTitle": "generate"
+    "verticalHeroDescription": "依據使用者需求產生完整網站，包括結構、內容與範本。這是啟動新專案的首選指令，能夠迅速將您的想法化為現實。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web generate --input @my-website.yaml"
+  - "sectionName": "publishCommand"
+    "sectionSummary": "詳細介紹 'publish' 指令，用於將已產生的網站一鍵發布至 Pages Kit 平台。"
+    "verticalHeroTitle": "publish"
+    "verticalHeroDescription": "將已產生的網站一鍵發布至 Pages Kit 平台。發布成功後，您將立即取得一個可公開存取的連結，輕鬆與世界分享您的作品。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web publish --appUrl \"https://your-website.com\""
+  - "sectionName": "updateCommand"
+    "sectionSummary": "詳細介紹 'update' 指令，用於依據新的需求或回饋，智慧更新現有網站的頁面內容。"
+    "verticalHeroTitle": "update"
+    "verticalHeroDescription": "依據新的需求或回饋，智慧更新現有網站的頁面內容。無需手動修改檔案，AI 會協助完成內容的迭代與優化。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web update --pages /home --feedback \"更新 Hero 區塊的標題\""
+  - "sectionName": "translateCommand"
+    "sectionSummary": "詳細介紹 'translate' 指令，用於將現有網站內容自動翻譯成指定語言。"
+    "verticalHeroTitle": "translate"
+    "verticalHeroDescription": "將現有網站內容自動翻譯成指定語言。輕鬆擴展您的全球影響力，讓不同語言的使用者都能存取您的內容。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web translate --pages /home --langs \"en,ja\""
+  - "sectionName": "themeCommand"
+    "sectionSummary": "詳細介紹 'theme' 指令，用於管理與套用網站主題。"
+    "verticalHeroTitle": "theme"
+    "verticalHeroDescription": "管理與套用網站主題。無論是從零建立獨特設計，或套用預設風格，都能輕鬆完成，讓您的網站煥然一新。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 產生一個新主題
+
+        aigne web theme generate
+
+        # 套用一個已儲存的主題
+
+        aigne web theme apply"
+  - "sectionName": "componentCommand"
+    "sectionSummary": "詳細介紹 'component' 指令，用於管理與拉取 Pages Kit 元件庫。"
+    "verticalHeroTitle": "component"
+    "verticalHeroDescription": "管理與拉取 Pages Kit 元件庫。讓您的網站功能與設計與時俱進，輕鬆整合最新可用的元件。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web component pull --url \"https://your-pages-kit/api/...\""
+  - "sectionName": "advancedUsage"
+    "sectionSummary": "本節以 FAQ 形式，解答關於指令參數與進階用法的常見問題，例如如何使用輸入檔、如何進行安全發布，以及如何整合 MCP 伺服器，協助使用者更深入地運用工具。"
+    "faqTitle": "進階用法與參數"
+    "faqList":
+      - "question": "如何為 `generate` 指令指定詳細規則？"
+        "answer": "您可以透過 `--input` 參數傳入一個 YAML 檔，於其中定義 `rules`、`targetAudience` 等詳細資訊，以取得更精確的產生結果。例如：`aigne web generate --input @my-website.yaml`。"
+      - "question": "發布時如何避免覆寫現有頁面？"
+        "answer": "使用 `publish` 指令時，可加入 `--dryRun` 參數進行預覽，確認無誤後再執行。若需強制覆寫，請使用 `--overwrite` 參數。"
+      - "question": "如何拉取指定專案中的元件？"
+        "answer": "使用 `component pull` 指令並提供完整的 URL，其中包含您的專案 ID 與金鑰。例如：`aigne web component --url \"https://...\"`"
+      - "question": "`translate` 支援哪些語言？"
+        "answer": "目前主要支援中文（zh）與英文（en）之間的互譯。您可以在執行指令時透過互動式提示選擇目標語言。"
+      - "question": "如何與其他工具整合？"
+        "answer": "WebSmith 提供一個 MCP 伺服器，您可以透過 `aigne web serve-mcp` 啟動它，接著透過 API 端點（如 `get-pages-structure`）進行整合。"
+  - "sectionName": "finalCta"
+    "sectionSummary": "頁面結尾的號召性用語區塊，透過激勵性的標題與清楚的行動按鈕（查看 GitHub 與閱讀文件），鼓勵使用者立即開始使用或深入了解專案。"
+    "ctaTitle": "準備好開始建置了嗎？"
+    "ctaDescription": "立即安裝 AIGNE CLI，體驗 AI 驅動的網站開發流程。查看我們的 GitHub 儲存庫或官方文件以取得更多資訊。"
+    "cta":
+      - "text": "查看 GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "閱讀官方文件"
+        "link": "https://www.aigne.io/web-smith"

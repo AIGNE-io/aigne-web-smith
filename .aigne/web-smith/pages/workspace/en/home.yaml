@@ -1,79 +1,142 @@
-meta:
-  title: "WebSmith: AI-Powered Website Generation"
-  description: "Generate professional, SEO-optimized websites instantly with WebSmith. Our AI-powered tool automates everything from structure planning to content creation and one-click publishing."
-sections:
-  - sectionName: "hero"
-    sectionSummary: "Grab attention instantly! This section uses a powerful headline and a real code snippet to show just how easy it is to generate a complete website, making the value proposition tangible and exciting for visitors."
-    verticalHeroTitle: "Build Your Entire Website with One Command"
-    verticalHeroDescription: "WebSmith uses AI to turn your requirements into a complete, professional, SEO-optimized website. From structure planning to content generation and publishing, it's all automated."
-    verticalHeroCode:
-      name: "bash"
-      content: "aigne web generate --input @my-website.yaml"
-  - sectionName: "features"
-    sectionSummary: "Let's show off the magic! This section breaks down the core benefits into four exciting, easy-to-digest feature cards. Each card highlights a key capability with a clear title and benefit-driven description to make the power of WebSmith feel real and accessible."
-    fourColumnGridTitle: "Everything You Need, All in One Place"
-    list:
-      - sectionName: "aiGenerationFeature"
-        sectionSummary: "Highlighting the core AI-driven generation capability."
-        iconName: "mdi:robot-happy-outline"
-        cardTitle: "AI-Powered Generation"
-        cardDescription: "Our AI intelligently plans your site structure, generates all your content, and optimizes for SEO, all at once."
-      - sectionName: "templatesFeature"
-        sectionSummary: "Showcasing the professional and flexible template system."
-        iconName: "mdi:palette-swatch-outline"
-        cardTitle: "Professional Templates"
-        cardDescription: "Get beautiful, responsive layouts built with modern components, fully compatible with Pages Kit for easy editing."
-      - sectionName: "qualityAssuranceFeature"
-        sectionSummary: "Emphasizing the built-in quality checks for a reliable output."
-        iconName: "mdi:shield-check-outline"
-        cardTitle: "Built-in Quality Assurance"
-        cardDescription: "We automatically evaluate your site's architecture and content quality to ensure a professional, consistent result every time."
-      - sectionName: "publishingFeature"
-        sectionSummary: "Detailing the seamless one-click publishing process."
-        iconName: "mdi:rocket-launch-outline"
-        cardTitle: "One-Click Publishing"
-        cardDescription: "Go live in seconds. Publish your entire website directly to Pages Kit and get your live link instantly."
-  - sectionName: "howItWorks"
-    sectionSummary: "Time to demystify the process! This section walks users through the simple, three-step journey from idea to live website. It's all about showing how effortless and logical the workflow is, building confidence and encouraging them to try it."
-    threeColumnGridTitle: "From Idea to Live Website in Three Simple Steps"
-    list:
-      - sectionName: "stepOneDefine"
-        sectionSummary: "The first step in the process: defining the website vision."
-        iconName: "mdi:lightbulb-on-outline"
-        cardTitle: "1. Define Your Vision"
-        cardDescription: "Describe your website in a simple YAML file. Tell our AI your goals, target audience, and desired style. It's that easy!"
-      - sectionName: "stepTwoGenerate"
-        sectionSummary: "The second step: running the generation command."
-        iconName: "mdi:auto-fix"
-        cardTitle: "2. Run One Command"
-        cardDescription: "Execute `aigne web generate`. Our AI agents work together to plan the structure, write the content, and build the templates."
-      - sectionName: "stepThreePublish"
-        sectionSummary: "The final step: publishing the website instantly."
-        iconName: "mdi:web-check"
-        cardTitle: "3. Go Live Instantly"
-        cardDescription: "Use `aigne web publish` to deploy your new website directly to Pages Kit. Your site is live and ready for the world!"
-  - sectionName: "faq"
-    sectionSummary: "Let's clear up any lingering questions! This FAQ section tackles the most common queries head-on, providing quick, clear answers. It's all about removing friction and making the decision to start even easier."
-    faqTitle: "Frequently Asked Questions"
-    faqList:
-      - question: "What is AIGNE WebSmith?"
-        answer: "It's an AI-powered tool that automates the entire process of creating a professional website, from planning and content generation to publishing on Pages Kit."
-      - question: "Who is this for?"
-        answer: "It's perfect for developers, SMB owners, and technical decision-makers who want to launch high-quality, SEO-optimized websites quickly without manual effort."
-      - question: "How do I get started?"
-        answer: "Just install the AIGNE CLI (`npm install -g @aigne/cli`), create a simple `yaml` file with your website requirements, and run `aigne web generate`."
-      - question: "Can I customize the generated website?"
-        answer: "Absolutely! WebSmith generates standard Pages Kit YAML templates. You can visually edit them, tweak the content, and adjust the components after generation."
-      - question: "What kind of websites can I build?"
-        answer: "You can build a wide range of sites, including SaaS product pages, corporate sites, portfolios, and documentation portals. Just specify your needs in the rules."
-      - question: "Does it support multiple languages?"
-        answer: "Yes! WebSmith has built-in support for generating and translating content into multiple languages, including English and Chinese."
-  - sectionName: "finalCta"
-    sectionSummary: "The grand finale! This is our final, energetic push to get visitors to take action. A clear, powerful title and two direct calls-to-action make it incredibly simple for them to jump in and start building."
-    ctaTitle: "Ready to Build Your Website in Minutes?"
-    ctaDescription: "Stop wrestling with code and content. Let WebSmith do the heavy lifting. Get started today."
-    cta:
-      - text: "Get Started Now"
-        link: "https://github.com/AIGNE-io/aigne-web-smith"
-      - text: "Explore the Docs"
-        link: "https://www.aigne.io/web-smith"
+"meta":
+  "title": "AIGNE WebSmith Command Use Cases | A Comprehensive Command-Line Guide for Developers"
+  "description": "Explore all command-line usages of AIGNE WebSmith. This guide covers commands such as generate, publish, update, and translate to help developers get started quickly and build websites efficiently."
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "This hero section features a compelling headline, concise description, and core installation and generation commands to capture developers' attention immediately and showcase WebSmith's core value."
+    "verticalHeroTitle": "AIGNE WebSmith Command-Line Reference"
+    "verticalHeroDescription": "Harness AI to build, publish, and manage your professional website with a single command. Here you'll find all the commands and their usage."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 安装并生成您的第一个网站
+
+        npm install -g @aigne/cli
+
+        aigne web generate"
+  - "sectionName": "coreFeatures"
+    "sectionSummary": "This section uses a four-column grid with icons and brief descriptions to present WebSmith's four core capabilities: AI generation, one-click publishing, easy management, and component-based extension, providing context for the detailed command sections that follow."
+    "fourColumnGridTitle": "Core Capabilities at a Glance"
+    "list":
+      - "sectionName": "aiGeneration"
+        "sectionSummary": "Introduces AI-powered site generation."
+        "iconName": "mdi:creation-outline"
+        "cardTitle": "AI-Powered Generation"
+        "cardDescription": "Automatically plans site structure and generates content and templates from your requirements."
+      - "sectionName": "oneClickPublish"
+        "sectionSummary": "Introduces one-click publishing."
+        "iconName": "mdi:publish"
+        "cardTitle": "One-Click Publish"
+        "cardDescription": "Seamlessly integrates with Pages Kit to publish the generated site with one click."
+      - "sectionName": "easyManagement"
+        "sectionSummary": "Introduces convenient content updating and translation."
+        "iconName": "mdi:update"
+        "cardTitle": "Easy Updates and Translation"
+        "cardDescription": "Update site content or translate it into multiple languages with simple commands."
+      - "sectionName": "componentExtension"
+        "sectionSummary": "Introduces component-based management."
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "Component-Based Management"
+        "cardDescription": "Fetch and manage Pages Kit components from the command line to extend your site's capabilities."
+  - "sectionName": "quickStart"
+    "sectionSummary": "This quick-start guide uses two side-by-side cards to walk through installing the CLI and running your first generate command, giving new users a clear, actionable path to get started."
+    "twoColumnGridTitle": "Quick Start Guide"
+    "list":
+      - "sectionName": "installCli"
+        "sectionSummary": "Step 1: Install the AIGNE CLI."
+        "contentCardTitle": "Step 1: Install the CLI"
+        "contentCardDescription": "First, install the AIGNE CLI via npm on your system. You can install it globally or locally."
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 全局安装
+
+            npm install -g @aigne/cli
+
+
+            # 或本地安装
+
+            npm install @aigne/cli"
+      - "sectionName": "generateWebsite"
+        "sectionSummary": "Step 2: Generate your first website."
+        "contentCardTitle": "Step 2: Generate a Website"
+        "contentCardDescription": "Start generating your site with a single command. Run it directly, or provide more complex requirements via an input file."
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 快速生成
+
+            aigne web generate
+
+
+            # 使用配置文件生成
+
+            aigne web generate --input @my-website.yaml"
+  - "sectionName": "generateCommand"
+    "sectionSummary": "Details the 'generate' command, which generates a complete website, including structure, content, and templates, based on user requirements."
+    "verticalHeroTitle": "generate"
+    "verticalHeroDescription": "Generate a complete website—structure, content, and templates—based on your requirements. This is the go-to command for starting a new project, turning your ideas into reality quickly."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web generate --input @my-website.yaml"
+  - "sectionName": "publishCommand"
+    "sectionSummary": "Details the 'publish' command, which publishes the generated site to the Pages Kit platform with one click."
+    "verticalHeroTitle": "publish"
+    "verticalHeroDescription": "Publish the generated site to the Pages Kit platform with one click. After a successful publish, you'll immediately get a publicly accessible link to share your work."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web publish --appUrl \"https://your-website.com\""
+  - "sectionName": "updateCommand"
+    "sectionSummary": "Details the 'update' command, which intelligently updates existing site page content based on new requirements or feedback."
+    "verticalHeroTitle": "update"
+    "verticalHeroDescription": "Intelligently update existing site page content based on new requirements or feedback. No manual file edits needed—AI handles iterations and optimization for you."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web update --pages /home --feedback \"更新英雄部分的标题\""
+  - "sectionName": "translateCommand"
+    "sectionSummary": "Details the 'translate' command, which automatically translates existing site content into the specified languages."
+    "verticalHeroTitle": "translate"
+    "verticalHeroDescription": "Automatically translate existing site content into specified languages. Extend your global reach so users in different languages can access your content."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web translate --pages /home --langs \"en,ja\""
+  - "sectionName": "themeCommand"
+    "sectionSummary": "Details the 'theme' command, used to manage and apply site themes."
+    "verticalHeroTitle": "theme"
+    "verticalHeroDescription": "Manage and apply site themes. Whether creating a unique design from scratch or applying a preset style, it's straightforward and refreshes your site's look."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 生成一个新主题
+
+        aigne web theme generate
+
+        # 应用一个已保存的主题
+
+        aigne web theme apply"
+  - "sectionName": "componentCommand"
+    "sectionSummary": "Details the 'component' command, used to manage and pull from the Pages Kit component library."
+    "verticalHeroTitle": "component"
+    "verticalHeroDescription": "Manage and pull from the Pages Kit component library. Keep your site's functionality and design up to date by easily integrating the latest available components."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web component pull --url \"https://your-pages-kit/api/...\""
+  - "sectionName": "advancedUsage"
+    "sectionSummary": "This section presents an FAQ addressing common questions about command parameters and advanced usage, such as using input files, publishing safely, and integrating with an MCP server, to help users go deeper with the tool."
+    "faqTitle": "Advanced Usage and Parameters"
+    "faqList":
+      - "question": "How do I specify detailed rules for the `generate` command?"
+        "answer": "Pass a YAML file via the `--input` parameter and define details such as `rules` and `targetAudience` to achieve more precise results. Example: `aigne web generate --input @my-website.yaml`."
+      - "question": "How can I avoid overwriting existing pages when publishing?"
+        "answer": "When using the `publish` command, add the `--dryRun` parameter to preview and confirm before executing. To force overwrite, use the `--overwrite` parameter."
+      - "question": "How do I pull components from a specific project?"
+        "answer": "Use the `component pull` command and provide a full URL that includes your project ID and secret. Example: `aigne web component --url \"https://...\"`"
+      - "question": "Which languages are supported for `translate`?"
+        "answer": "Currently, it primarily supports translation between Chinese (zh) and English (en). You can choose the target language via interactive prompts when running the command."
+      - "question": "How do I integrate with other tools?"
+        "answer": "WebSmith provides an MCP server. Start it with `aigne web serve-mcp`, then integrate via API endpoints such as `get-pages-structure`."
+  - "sectionName": "finalCta"
+    "sectionSummary": "The closing call-to-action offers a motivating headline and clear action buttons (View GitHub and Read Docs) to encourage users to start now or learn more."
+    "ctaTitle": "Ready to start building?"
+    "ctaDescription": "Install the AIGNE CLI now to experience an AI-driven website development workflow. Visit our GitHub repository or official documentation for more."
+    "cta":
+      - "text": "View GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "Read the Official Docs"
+        "link": "https://www.aigne.io/web-smith"

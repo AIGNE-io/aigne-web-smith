@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: aigne-web-smith-1002
+projectName: aigne-web-smith
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: hbfbbt49-81ba-lka3-bt1c-5235678lld65
-projectSlug: aigne-web-smith-1002
+projectId: 7ae4cb1c-34c0-423c-83c9-16fe007e95cd
+projectSlug: aigne-web-smith-251002-nate
 
 # =============================================================================
 # Website Configuration
@@ -35,7 +35,7 @@ pagePurpose:
 #   students         - Students / Learners: People seeking educational content or resources
 #   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
 targetAudienceTypes:
-  - customers
+  - developers
 
 # Website Scale: How many pages should your website have?
 # Available options (uncomment and modify as needed):
@@ -47,19 +47,22 @@ targetAudienceTypes:
 websiteScale: singlePage
 
 # Custom Rules: Define specific page generation rules and requirements
-rules: "WebSmith's website should primarily introduce WebSmith to customers in plain language when addressing customers, displaying code only when necessary—such as when running WebSmith with a single click."
+rules: show all web smith command use cases
 
 # Glossary: Define project-specific terms and definitions
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
-locale: en
-translateLanguages: # List of languages to translate the pages to
-  - zh # Example: Chinese translation
-#   - en  # Example: English translation
+locale: zh
+translateLanguages:
+  - en
+  - zh-TW
+  - ja
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: db4d0520dbfafedabefa8c1efdc1311494134409
+lastGitHead: ce313d7f31959f4ad910473b7307b6f67e498ec2
 # Checkout ID for website deployment service
 checkoutId: ""
-appUrl: https://staging.websmith.aigne.io/
+# Payment URL for website deployment service
+paymentUrl: https://s.aigne.io/4rdXmm0W
+appUrl: https://baaarkpqsow7svyyoly4sj22vbirap7nr6foaf7z2qe.slp.abtnet.io

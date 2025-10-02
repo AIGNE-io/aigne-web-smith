@@ -1,0 +1,144 @@
+"meta":
+  "title": "AIGNE WebSmith コマンド使用例 | 開発者向け包括的コマンドラインガイド"
+  "description": "AIGNE WebSmith のすべてのコマンドラインの使い方を網羅。本ガイドは generate, publish, update,
+    translate などのコマンドを取り上げ、開発者がすばやく習得し効率的にサイトを構築できるようにします。"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "開発者の注意をすぐに引きつける見出し、簡潔な説明、および主要なインストールと生成コマンドで、WebSmith の中核価値を提示するヒーローセクションです。"
+    "verticalHeroTitle": "AIGNE WebSmith コマンドライン大全"
+    "verticalHeroDescription": "AI の力を活用し、1 行のコマンドでプロフェッショナルなサイトを構築・公開・管理。必要なコマンドと使い方をすべて揃えました。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 安装并生成您的第一个网站
+
+        npm install -g @aigne/cli
+
+        aigne web generate"
+  - "sectionName": "coreFeatures"
+    "sectionSummary": "このセクションでは 4 列グリッドにより、AI 生成、ワンクリック公開、簡単管理、コンポーネント拡張という WebSmith の4つの中核機能をアイコンと短い説明で直感的に示し、以降の詳細なコマンド解説の背景を提供します。"
+    "fourColumnGridTitle": "中核機能の概要"
+    "list":
+      - "sectionName": "aiGeneration"
+        "sectionSummary": "AI 駆動のサイト生成機能を紹介。"
+        "iconName": "mdi:creation-outline"
+        "cardTitle": "AI 駆動の生成"
+        "cardDescription": "要件の記述からサイト構造・コンテンツ・テンプレートを自動で設計・生成。"
+      - "sectionName": "oneClickPublish"
+        "sectionSummary": "ワンクリック公開機能を紹介。"
+        "iconName": "mdi:publish"
+        "cardTitle": "ワンクリック公開"
+        "cardDescription": "Pages Kit とシームレスに統合し、生成したサイトをワンクリックで公開。"
+      - "sectionName": "easyManagement"
+        "sectionSummary": "便利なコンテンツ更新と翻訳機能を紹介。"
+        "iconName": "mdi:update"
+        "cardTitle": "簡単な更新と翻訳"
+        "cardDescription": "シンプルなコマンドでサイト内容を更新したり、多言語に翻訳できます。"
+      - "sectionName": "componentExtension"
+        "sectionSummary": "コンポーネント型管理機能を紹介。"
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "コンポーネント型管理"
+        "cardDescription": "コマンドラインで Pages Kit のコンポーネントを取得・管理し、サイトの能力を拡張。"
+  - "sectionName": "quickStart"
+    "sectionSummary": "クイックスタートガイドです。2 枚の並列カードで、CLI のインストールと最初の生成コマンドの実行手順を段階的に示し、新規ユーザーに明確で実行可能な導入パスを提供します。"
+    "twoColumnGridTitle": "クイックスタートガイド"
+    "list":
+      - "sectionName": "installCli"
+        "sectionSummary": "ステップ1：AIGNE CLI をインストール。"
+        "contentCardTitle": "ステップ1：CLI をインストール"
+        "contentCardDescription": "まず npm で AIGNE CLI をシステムにインストールします。グローバルインストールでもローカルインストールでも構いません。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 全局安装
+
+            npm install -g @aigne/cli
+
+
+            # 或本地安装
+
+            npm install @aigne/cli"
+      - "sectionName": "generateWebsite"
+        "sectionSummary": "ステップ2：最初のサイトを生成。"
+        "contentCardTitle": "ステップ2：サイトを生成"
+        "contentCardDescription": "シンプルなコマンドひとつでサイト生成を開始できます。直接実行するか、入力ファイルでより複雑な要件を指定できます。"
+        "contentCardRightCode":
+          "name": "bash"
+          "content": "# 快速生成
+
+            aigne web generate
+
+
+            # 使用配置文件生成
+
+            aigne web generate --input @my-website.yaml"
+  - "sectionName": "generateCommand"
+    "sectionSummary": "「generate」コマンドの詳細。ユーザーの要件に基づき、サイトの構造、コンテンツ、テンプレートを含む完全なサイトを生成します。"
+    "verticalHeroTitle": "generate"
+    "verticalHeroDescription": "ユーザー要件に基づいて、サイトの構造・コンテンツ・テンプレートを含む完全なサイトを生成します。新規プロジェクトの立ち上げに最適で、アイデアを素早く現実にします。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web generate --input @my-website.yaml"
+  - "sectionName": "publishCommand"
+    "sectionSummary": "「publish」コマンドの詳細。生成済みサイトを Pages Kit プラットフォームへワンクリックで公開します。"
+    "verticalHeroTitle": "publish"
+    "verticalHeroDescription": "生成済みのサイトを Pages Kit プラットフォームにワンクリックで公開します。公開が成功すると、すぐに一般公開用のリンクが発行され、作成物を簡単に共有できます。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web publish --appUrl \"https://your-website.com\""
+  - "sectionName": "updateCommand"
+    "sectionSummary": "「update」コマンドの詳細。新しい要件やフィードバックに基づいて、既存サイトのページ内容をインテリジェントに更新します。"
+    "verticalHeroTitle": "update"
+    "verticalHeroDescription": "新しい要件やフィードバックに応じて、既存サイトのページ内容をインテリジェントに更新します。ファイルを手動で編集する必要はなく、AI が内容の反復と最適化を支援します。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web update --pages /home --feedback \"更新英雄部分的标题\""
+  - "sectionName": "translateCommand"
+    "sectionSummary": "「translate」コマンドの詳細。既存サイトのコンテンツを指定した言語に自動翻訳します。"
+    "verticalHeroTitle": "translate"
+    "verticalHeroDescription": "既存サイトのコンテンツを指定した言語に自動翻訳します。グローバルでの到達範囲を容易に拡大し、異なる言語のユーザーにもコンテンツを届けます。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web translate --pages /home --langs \"en,ja\""
+  - "sectionName": "themeCommand"
+    "sectionSummary": "「theme」コマンドの詳細。サイトのテーマを管理・適用します。"
+    "verticalHeroTitle": "theme"
+    "verticalHeroDescription": "サイトのテーマを管理し適用します。独自のデザインを一から作成する場合も、プリセットのスタイルを適用する場合も、手軽に行え、サイトを一新できます。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 生成一个新主题
+
+        aigne web theme generate
+
+        # 应用一个已保存的主题
+
+        aigne web theme apply"
+  - "sectionName": "componentCommand"
+    "sectionSummary": "「component」コマンドの詳細。Pages Kit コンポーネントライブラリを管理・取得します。"
+    "verticalHeroTitle": "component"
+    "verticalHeroDescription": "Pages Kit のコンポーネントライブラリを管理・取得します。サイトの機能とデザインを最新に保ち、利用可能な最新コンポーネントを簡単に統合できます。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "aigne web component pull --url \"https://your-pages-kit/api/...\""
+  - "sectionName": "advancedUsage"
+    "sectionSummary": "このセクションは FAQ 形式で、入力ファイルの使い方、安全に公開する方法、MCP サーバーの統合など、コマンド引数や高度な用法に関するよくある質問に回答し、ユーザーがより深くツールを活用できるよう支援します。"
+    "faqTitle": "高度な使い方とパラメータ"
+    "faqList":
+      - "question": "「`generate`」コマンドに詳細なルールを指定するには？"
+        "answer": "`--input` 引数で YAML ファイルを指定し、その中で `rules` や `targetAudience` などの詳細を定義することで、より精緻な生成結果が得られます。例：`aigne web generate --input @my-website.yaml`。"
+      - "question": "公開時に既存ページの上書きを避けるには？"
+        "answer": "`publish` コマンドで `--dryRun` 引数を付けてプレビューし、問題がないことを確認してから実行してください。強制的に上書きする場合は `--overwrite` を使用します。"
+      - "question": "特定プロジェクトのコンポーネントを取得するには？"
+        "answer": "`component pull` コマンドを使用し、プロジェクト ID とシークレットを含む完全な URL を指定します。例：`aigne web
+          component --url \"https://...\"`"
+      - "question": "`translate` で対応している言語は？"
+        "answer": "現在は主に中国語（zh）と英語（en）の相互翻訳をサポートしています。実行時に対話式プロンプトで対象言語を選択できます。"
+      - "question": "他のツールとどのように統合しますか？"
+        "answer": "WebSmith は MCP サーバーを提供しており、`aigne web serve-mcp` で起動できます。その後、`get-pages-structure` などの API エンドポイントを通じて統合します。"
+  - "sectionName": "finalCta"
+    "sectionSummary": "ページ末尾の CTA セクションです。モチベーションを高める見出しと明確なアクションボタン（GitHub を見る／ドキュメントを読む）で、ユーザーに今すぐの利用や更なる理解を促します。"
+    "ctaTitle": "準備はできましたか？"
+    "ctaDescription": "今すぐ AIGNE CLI をインストールして、AI 駆動のサイト開発フローを体験しましょう。詳しくは GitHub リポジトリまたは公式ドキュメントをご覧ください。"
+    "cta":
+      - "text": "GitHub を見る"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "公式ドキュメントを読む"
+        "link": "https://www.aigne.io/web-smith"

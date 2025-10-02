@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-02T01:03:03.877Z
+  updateAt: 2025-10-02T01:26:33.893Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -151,8 +151,8 @@ composite:
               y: 1
               w: 12
               h: 1
-        paddingX: normal
-        paddingY: normal
+        paddingX: none
+        paddingY: none
         maxWidth: full
         backgroundFullWidth: true
     dataSource:
@@ -634,8 +634,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       indpn8oj1hjz5xgi: {}
       y5sicz61vfbtnhkh: {}
@@ -845,10 +845,15 @@ composite:
         - 4tuso9kup54ii3lr
       config:
         gridSettings:
-          desktop: {}
+          desktop:
+            4tuso9kup54ii3lr:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       dk56zu8ywvq4j0w4: {}
       4tuso9kup54ii3lr:
@@ -1493,8 +1498,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       dinzr9g7tkf4i0hb: {}
       23k0ymxcczj16yoa: {}
@@ -2031,8 +2036,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       lnurr34ly4bms2mj: {}
       7tq9s9k2dd4vl1cr: {}
@@ -2390,8 +2395,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       kgbvq8jstkxjw7a7: {}
       zk6o04gvo091b8d0: {}
@@ -2744,8 +2749,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       defzaa40mkxalvbt: {}
       046kkuh6td6mwa5x: {}
@@ -3011,10 +3016,10 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
+        paddingY: none
         background: transparent
         border: none
-        paddingX: normal
+        paddingX: none
     dataSource:
       i6sghraue7mql8po: {}
       v3rjhl1fwan00ubb: {}
@@ -3229,9 +3234,9 @@ composite:
               y: 1
               w: 4
               h: 1
-        paddingX: normal
+        paddingX: none
         gap: small
-        paddingY: normal
+        paddingY: none
     dataSource:
       1czk48n9pj0ofst7: {}
       v0yqgx0alva8pqgk: {}
@@ -3499,8 +3504,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       zi9a4v9fb69n5mlz: {}
       l10drnpcrae53e1k: {}
@@ -3705,8 +3710,8 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
-        paddingX: normal
+        paddingY: none
+        paddingX: none
     dataSource:
       dwu36jbgrcavws9s: {}
       ur42it6fw530lytn: {}
@@ -3760,56 +3765,41 @@ composite:
               height: 1034
   - id: 1z940esp81pdlnwj
     name: FAQs
-    summary: >-
-      ---
+    summary: >
+      FAQ — Summary (Concise)
 
 
       Structure (top → bottom)
 
+      - Title: `{{faqTitle}}` (centered, 1 line)
 
-      - Title/Headline ({{faqTitle}}, 1 line, centered, introducing the
-      section).
-
-      - FAQ Item List (A vertical stack of interactive question rows).
-          - FAQ Item ({{faqList.N.question}}, A single row containing the question text, left-aligned).
-          - Interactive Element (A "plus" icon (+) or chevron icon on the right side, indicating the question is expandable to reveal the answer).
-          - Answer Content (Implicitly, the answer text, which is hidden and toggles open below the question upon user interaction).
-
-      ---
-
+      - List: accordion items `faqList.N`
+        - Question: `{{faqList.N.question}}` (left-aligned with toggle icon)
+        - Answer: `{{faqList.N.answer}}` (hidden by default, expands on click)
 
       Use when
 
-
-      - You need to address **common user questions and concerns** efficiently
-      on a landing page, product page, or dedicated help page.
-
-      - There is a **large amount of secondary information** that would clutter
-      the page if fully displayed, making an accordion layout necessary to save
-      space.
-
-      - The goal is to provide **quick, targeted answers** without requiring
-      users to navigate away to a separate help documentation page.
-
-      - You need to **improve SEO** by clearly structuring question-and-answer
-      content on the page (often with schema markup).
+      - You need to answer common questions on the same page while saving space.
 
 
-      ---
+      Constraints
+
+      - Title must be clear and direct (e.g., “FAQ”, “Help Center”).
+
+      - Recommend **4–10** items; keep answers short. Link to docs for more
+      detail.
 
 
-      Constraint
+      Item rules
 
+      - **Required:** both `question` and `answer` must be present.
 
-      - The `{{faqTitle}}` must be clear and direct (e.g., "FAQ," "Got
-      Questions?," "Help Center").
+      - **Unique questions:** no duplicates across items.
 
-      - The **question text** must be concise and easily understood; avoid
-      overly long or complex phrasing.
+      - **Not identical:** within an item, the answer must not repeat or
+      trivially restate the question.
 
-      - The **answer content**  should be text-based and **not overly long**; if
-      the answer requires significant detail, link to a full help article
-      instead.
+      - **Concise:** questions ≤ ~90 chars; answers 1–4 short sentences.
     fieldCombinations:
       - faqList.0.answer
       - faqList.0.question
@@ -3865,9 +3855,9 @@ composite:
               y: 0
               w: 12
               h: 1
-        paddingX: normal
+        paddingX: none
         gap: normal
-        paddingY: large
+        paddingY: none
     dataSource:
       lnrxvur80huc9pkr: {}
       k0993buwnj4z96hy:
@@ -4007,9 +3997,9 @@ composite:
               w: 12
               h: 1
         background: transparent
-        paddingY: large
+        paddingY: none
         backgroundFullWidth: false
-        paddingX: normal
+        paddingX: none
     dataSource:
       s6cg81pdo9yhboco: {}
       mot3g0o9qv1y52yd: {}
@@ -4136,9 +4126,9 @@ composite:
               y: 0
               w: 5
               h: 1
-        paddingX: normal
+        paddingX: none
         gap: small
-        paddingY: normal
+        paddingY: none
     dataSource:
       9ur9vrlln7senjzz: {}
       xebzelstnp0vag5c: {}
@@ -4287,10 +4277,10 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: normal
+        paddingY: none
         background: transparent
         border: none
-        paddingX: normal
+        paddingX: none
     dataSource:
       i6sghraue7mql8po: {}
       v3rjhl1fwan00ubb: {}
@@ -4645,13 +4635,8 @@ composite:
               y: 0
               w: 8
               h: 1
-            ub3n1mtbsbtnelgy:
-              x: 0
-              y: 1
-              w: 8
-              h: 1
-        paddingX: normal
-        paddingY: normal
+        paddingX: none
+        paddingY: none
         maxWidth: full
         backgroundFullWidth: true
     dataSource:
@@ -4764,14 +4749,14 @@ composite:
         gridSettings:
           desktop:
             carj7s5ignmoa8r8:
-              x: 8
+              x: 7
               y: 0
-              w: 4
+              w: 5
               h: 1
             clt845zy8uab0yum:
               x: 0
               y: 0
-              w: 8
+              w: 7
               h: 1
         paddingX: none
         gap: normal
@@ -4887,12 +4872,12 @@ composite:
             carj7s5ignmoa8r8:
               x: 0
               y: 0
-              w: 4
+              w: 5
               h: 1
             clt845zy8uab0yum:
-              x: 4
+              x: 5
               y: 0
-              w: 8
+              w: 7
               h: 1
         paddingX: none
         gap: normal

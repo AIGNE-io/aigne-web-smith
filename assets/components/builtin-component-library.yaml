@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-01T15:28:23.375Z
+  updateAt: 2025-10-02T01:03:03.877Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -33,6 +33,11 @@ atomic:
     summary: ""
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Code
+    componentId: 2EHGy3vwxlS9JGr2
+    summary: Code Showcase Component
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
 composite:
   - id: 62jtalg46ddrukv9
     name: Vertical Hero
@@ -40,7 +45,9 @@ composite:
       Structure (top → bottom)
 
       - Headline (1–2 lines, left-aligned)
-       Primary CTA (optional secondary)
+
+      - Primary CTA (optional secondary)
+
       - Large product visual (screenshot/video) with soft corners/shadow
 
 
@@ -598,7 +605,7 @@ composite:
             - 2u6k96rqj9rovmuv
           config:
             gap: small
-            paddingX: large
+            paddingX: none
             alignContent: start
             gridSettings:
               desktop:
@@ -898,20 +905,17 @@ composite:
   - id: osyn2uylw9cdhzpc
     name: User Review
     summary: >-
-      ---
-
-
       Structure (top → bottom)
 
 
-      - Review Content/Quote ({{userReview.content}}, Primary text,
-      left-aligned, can span multiple lines).
+      - Review Content/Quote, Primary text, left-aligned, can span multiple
+      lines).
 
       - User/Source Block (A horizontal block containing user identification
       details).
-          - Avatar/Profile Picture (Implicitly **{{userReview.avatar}}**, small square/circular image, left-aligned).
-          - User Name ({{userReview.userName}}, text, usually bold, right of the avatar).
-          - User Description/Title ({{userReview.description}}, smaller text below the username, e.g., "Verified Buyer," "CEO of Company X").
+          - Avatar/Profile Picture small square/circular image, left-aligned).
+          - User Name, text, usually bold, bottom of the avatar).
+          - User Description/Title (smaller text below the username, e.g., "Verified Buyer," "CEO of Company X").
 
       ---
 
@@ -932,18 +936,12 @@ composite:
       make the review feel authentic.
 
 
-      ---
-
 
       Constraint
 
 
-      - The {{userReview.content}} should be the **longest and most prominent
-      text**, ideally limited to 3-5 lines to avoid overwhelming the card.
-
-      - All three user identification fields ({{userReview.avatar}},
-      {{userReview.userName}}, {{userReview.description}}) should be provided
-      for maximum credibility.
+      - The content should be the **longest and most prominent text**, ideally
+      limited to 3-5 lines to avoid overwhelming the card.
     fieldCombinations:
       - userReview.avatarImage
       - userReview.content
@@ -986,25 +984,25 @@ composite:
                 do35jzobe9fv1z8i:
                   x: 0
                   y: 0
-                  w: 2
+                  w: 6
                   h: 1
                 zf1s9y77l821pofu:
-                  x: 2
-                  y: 0
+                  x: 0
+                  y: 1
                   w: 10
                   h: 1
               mobile:
                 do35jzobe9fv1z8i:
                   x: 0
                   y: 0
-                  w: 2
+                  w: 6
                   h: 1
                 zf1s9y77l821pofu:
-                  x: 2
-                  y: 0
+                  x: 0
+                  y: 1
                   w: 10
                   h: 1
-            gap: normal
+            gap: small
             paddingY: none
             alignContent: center
       sectionIds:
@@ -1102,7 +1100,7 @@ composite:
                     fontSize: 12px
                     variant: caption
   - id: x3qr8bqvlp1flxej
-    name: Layout 4 Column Grid
+    name: Layout 4 Column Grid (Center)
     summary: >-
       Structure (top → bottom)
 
@@ -1154,7 +1152,7 @@ composite:
             - pzudgnjl69fo6zlt
           config:
             gap: small
-            paddingX: large
+            paddingX: none
             alignContent: start
             gridSettings:
               desktop:
@@ -1688,7 +1686,7 @@ composite:
               style:
                 variant: h1
   - id: 0vuzobglsdpms6po
-    name: Layout 2 Column Grid
+    name: Layout 2 Column Grid (Left)
     summary: >-
       Structure (top → bottom)
 
@@ -2891,9 +2889,6 @@ composite:
 
       - Actions: must have ≥1 CTA; allow at most 2. Primary comes first;
       secondary is optional.
-
-      - Accessibility: headline/CTA colors meet WCAG AA; provide
-      splitHeroImageAlt or "" if decorative.
 
 
       Fields
@@ -4169,13 +4164,7 @@ composite:
       - Actions:  allow at most 2 CTA. Primary comes first; secondary is
       optional.
 
-      - Image: splitHeroImage must be a valid asset
-
-      - Accessibility: headline/CTA colors meet WCAG AA; provide
-      splitHeroImageAlt or "" if decorative.
-
-      - Responsive: stack to vertical on small screens (copy first, image
-      second); image is width: 100%, auto height.
+      - Image: must be a valid asset
 
 
       Fields
@@ -4469,15 +4458,15 @@ composite:
     summary: >-
       Structure
 
-      - Left: title (1 line) → short description (1–3 lines).
+      - Left: media area rendered from `contentCardLeftImage`. A thin top rule
+      or accent bar is optional.
 
-      - Right: media area rendered from `contentCardLeftImage` (rounded corners;
-      object-fit: cover). A thin top rule or accent bar is optional.
+      - Right: title (1 line) → short description (1–3 lines).
 
 
       Use when
 
-      - You want copy-first messaging with a supporting visual on the right.
+      - You want copy-first messaging with a supporting visual on the left.
 
       - Works well for feature highlights, updates, or compact promo cards where
       text leads and image reinforces.
@@ -4568,3 +4557,381 @@ composite:
               height: 520
           70d4dvbqgjal3z6j:
             value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+  - id: 8a3uwlxrx6m068os
+    name: Vertical Hero With Code
+    summary: >
+      Structure (top → bottom)
+
+      - Headline (1–2 lines, left-aligned)
+
+      - Large code panel with soft corners and a “terminal” header
+      (traffic-light dots), copy button enabled
+
+
+      Use when
+
+      - You want a one-message first screen where a short, real snippet proves
+      the value (API call, CLI, config, minimal example).
+
+      - You need credibility via executable-looking code instead of long
+      marketing copy.
+
+      - Content is light/medium—no multi-card segmentation.
+    fieldCombinations:
+      - verticalHeroCode.content
+      - verticalHeroCode.name
+      - verticalHeroDescription
+      - verticalHeroTitle
+    section:
+      id: 276uu39ysohk41j1
+      name: Split Hero_2
+      component: layout-block
+      sections:
+        11e4g80knagitd6k:
+          id: 11e4g80knagitd6k
+          name: CTA
+          component: layout-block
+          sections:
+            m0hqbf5jfbc42326:
+              id: m0hqbf5jfbc42326
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            ub3n1mtbsbtnelgy:
+              id: ub3n1mtbsbtnelgy
+              name: Section Layout
+              component: layout-block
+              sections:
+                484sk20bpnfzet2b:
+                  id: 484sk20bpnfzet2b
+                  name: Code
+                  component: custom-component
+                  config:
+                    componentId: 2EHGy3vwxlS9JGr2
+              sectionIds:
+                - 484sk20bpnfzet2b
+              config:
+                gridSettings:
+                  desktop:
+                    484sk20bpnfzet2b:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                border: terminal
+                borderRadius: small
+          sectionIds:
+            - m0hqbf5jfbc42326
+            - ub3n1mtbsbtnelgy
+          config:
+            gridSettings:
+              desktop:
+                m0hqbf5jfbc42326:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            paddingY: normal
+            gap: normal
+            maxWidth: full
+      sectionIds:
+        - 11e4g80knagitd6k
+      config:
+        gridSettings:
+          desktop:
+            11e4g80knagitd6k:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+            ub3n1mtbsbtnelgy:
+              x: 0
+              y: 1
+              w: 8
+              h: 1
+        paddingX: normal
+        paddingY: normal
+        maxWidth: full
+        backgroundFullWidth: true
+    dataSource:
+      276uu39ysohk41j1: {}
+      11e4g80knagitd6k: {}
+      m0hqbf5jfbc42326:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= verticalHeroTitle %>
+              style:
+                variant: h1
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759364500601-4gbj76l4x
+                  type: text
+                  text: <%= verticalHeroDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      484sk20bpnfzet2b:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= verticalHeroCode.content %>
+          qvxiyadgn5bj6oq8:
+            value: false
+          c4kvf6b7zyskk8m:
+            value: false
+          b2jrz12ik7esf93z:
+            value: <%= verticalHeroCode.name %>
+          7mp2u9tibl03thp6:
+            value: shell
+          d8hvf7cxz93jk5p:
+            value: 1rem
+      ub3n1mtbsbtnelgy: {}
+  - id: vbchbwqocrjf19yr
+    name: Content Card With Left Code
+    summary: >-
+      Structure
+
+      - Left: code area rendered from `contentCardLeftCode`. A thin top rule or
+      accent bar is optional.
+
+      - Right: title (1 line) → short description (1–3 lines).
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting code on the left.
+
+      - Works well for feature highlights, updates, or compact promo cards where
+      text leads and code reinforces.
+
+
+      Constraints
+
+      - `contentCardLeftCode` must be a valid code string
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+    fieldCombinations:
+      - contentCardDescription
+      - contentCardLeftCode.content
+      - contentCardLeftCode.name
+      - contentCardTitle
+    section:
+      id: v0yqgx0alva8pqgk
+      name: Card01
+      component: layout-block
+      sections:
+        carj7s5ignmoa8r8:
+          id: carj7s5ignmoa8r8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        clt845zy8uab0yum:
+          id: clt845zy8uab0yum
+          name: Section Layout
+          component: layout-block
+          sections:
+            x25tzyojrqnm2l2j:
+              id: x25tzyojrqnm2l2j
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - x25tzyojrqnm2l2j
+          config:
+            gridSettings:
+              desktop:
+                x25tzyojrqnm2l2j:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+            border: terminal
+      sectionIds:
+        - carj7s5ignmoa8r8
+        - clt845zy8uab0yum
+      config:
+        gridSettings:
+          desktop:
+            carj7s5ignmoa8r8:
+              x: 8
+              y: 0
+              w: 4
+              h: 1
+            clt845zy8uab0yum:
+              x: 0
+              y: 0
+              w: 8
+              h: 1
+        paddingX: none
+        gap: normal
+        paddingY: none
+        background: transparent
+        border: none
+        borderRadius: none
+        alignContent: start
+    dataSource:
+      v0yqgx0alva8pqgk: {}
+      carj7s5ignmoa8r8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      x25tzyojrqnm2l2j:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= contentCardLeftCode.content %>
+          b2jrz12ik7esf93z:
+            value: <%= contentCardLeftCode.name %>
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          qvxiyadgn5bj6oq8:
+            value: true
+      clt845zy8uab0yum: {}
+  - id: a74ltdll9gxt3dxd
+    name: Content Card With Right Code
+    summary: >-
+      Structure
+
+      - Left: title (1 line) → short description (1–3 lines).
+
+      - Right: code area rendered from `contentCardRightCode` (rounded corners;
+      object-fit: cover). A thin top rule or accent bar is optional.
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting code on the right.
+
+      - Works well for feature highlights, updates, or compact promo cards where
+      text leads and code reinforces.
+
+
+      Constraints
+
+      - `contentCardRightCode` must be a valid code string
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+    fieldCombinations:
+      - contentCardDescription
+      - contentCardRightCode.content
+      - contentCardRightCode.name
+      - contentCardTitle
+    section:
+      id: v0yqgx0alva8pqgk
+      name: Card01
+      component: layout-block
+      sections:
+        carj7s5ignmoa8r8:
+          id: carj7s5ignmoa8r8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        clt845zy8uab0yum:
+          id: clt845zy8uab0yum
+          name: Section Layout
+          component: layout-block
+          sections:
+            x25tzyojrqnm2l2j:
+              id: x25tzyojrqnm2l2j
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - x25tzyojrqnm2l2j
+          config:
+            gridSettings:
+              desktop:
+                x25tzyojrqnm2l2j:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+            border: terminal
+      sectionIds:
+        - carj7s5ignmoa8r8
+        - clt845zy8uab0yum
+      config:
+        gridSettings:
+          desktop:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 4
+              h: 1
+            clt845zy8uab0yum:
+              x: 4
+              y: 0
+              w: 8
+              h: 1
+        paddingX: none
+        gap: normal
+        paddingY: none
+        background: transparent
+        border: none
+        borderRadius: none
+        alignContent: start
+    dataSource:
+      v0yqgx0alva8pqgk: {}
+      carj7s5ignmoa8r8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      x25tzyojrqnm2l2j:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= contentCardRightCode.content %>
+          b2jrz12ik7esf93z:
+            value: <%= contentCardRightCode.name %>
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          qvxiyadgn5bj6oq8:
+            value: true
+      clt845zy8uab0yum: {}

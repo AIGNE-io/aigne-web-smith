@@ -1,11 +1,9 @@
 type: team
 name: generateImageTeam
 description: Generate images for the website
-task_render_mode: collapse
 task_title: Generate images for the website
 skills:
   - type: team
-    task_render_mode: hide
     skills:
       - ./generate-image.yaml
     iterate_on: imageRequirements

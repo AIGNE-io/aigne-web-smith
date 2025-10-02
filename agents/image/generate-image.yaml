@@ -6,6 +6,7 @@ instructions: |
 
   **Technical Requirements:**
   - High resolution (minimum 1920px width) for retina displays
+  - Aspect ratio: 16:9 (landscape orientation)
   - Web-optimized color palette with balanced saturation
   - Sharp focus on primary subject with appropriate depth of field
 
@@ -26,6 +27,7 @@ instructions: |
   - Clear foreground-background separation for better readability
   - Versatile composition suitable for various viewport sizes
   - Professional polish appropriate for product landing pages and marketing materials
+  - Sufficient vertical padding/whitespace at top and bottom to ensure main subject remains visible when cropped
 input_schema:
   type: object
   properties:

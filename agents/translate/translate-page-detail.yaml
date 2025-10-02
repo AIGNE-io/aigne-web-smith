@@ -23,9 +23,4 @@ input_schema:
   required:
     - language
     - content
-output_schema:
-  type: object
-  properties:
-    translation:
-      type: string
-      description: Translation of the page detail
+output_key: translation

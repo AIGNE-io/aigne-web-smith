@@ -4,7 +4,7 @@ import {
   validateMovePageInput,
 } from "../../../types/website-structure-schema.mjs";
 
-export default async function movePage(input) {
+export default async function movePage(input, options) {
   // Validate input using Zod schema
   const validation = validateMovePageInput(input);
   if (!validation.success) {
@@ -16,7 +16,12 @@ export default async function movePage(input) {
     };
   }
 
-  const { websiteStructure, path, newParentId, newPath } = validation.data;
+  const { path, newParentId, newPath } = validation.data;
+  let websiteStructure = options.context?.userContext?.currentStructure;
+
+  if (!websiteStructure) {
+    websiteStructure = input.websiteStructure;
+  }
 
   // Find the page to move
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
@@ -123,7 +128,12 @@ export default async function movePage(input) {
     websiteStructure.filter((item) => item.parentId === path).length > 0
       ? ` (also updated ${websiteStructure.filter((item) => item.parentId === path).length} child page(s))`
       : "";
-  const successMessage = `Successfully moved page '${pageToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
+  const successMessage = `movePage executed successfully.
+  Successfully moved page '${pageToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.
+  Check if this version of websiteStructure meets user feedback, if so, all operations have been successfully executed.`;
+
+  // update shared website structure
+  options.context.userContext.currentStructure = updatedStructure;
 
   return {
     websiteStructure: updatedStructure,

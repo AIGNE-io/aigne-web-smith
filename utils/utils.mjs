@@ -14,6 +14,7 @@ import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:p
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
+import { z } from "zod";
 import {
   detectResolvableConflicts,
   generateConflictResolutionRules,
@@ -30,6 +31,30 @@ import {
   TARGET_AUDIENCES,
   WEBSITE_SCALE,
 } from "./constants.mjs";
+
+const pageDetailMetaSchema = z
+  .object({
+    title: z.string().min(1, "meta.title is required"),
+    description: z.string().min(1, "meta.description is required"),
+  })
+  .catchall(z.unknown());
+
+const pageDetailSectionSchema = z
+  .object({
+    sectionName: z.string().min(1, "sections[].sectionName is required"),
+    sectionSummary: z
+      .string()
+      .min(1, "sections[].sectionSummary must be a non-empty string")
+      .optional(),
+  })
+  .catchall(z.unknown());
+
+const pageDetailSchema = z
+  .object({
+    meta: pageDetailMetaSchema,
+    sections: z.array(pageDetailSectionSchema).min(1, "sections must contain at least one section"),
+  })
+  .catchall(z.unknown());
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -81,6 +106,112 @@ export function processContent({ content }) {
     const newLink = hash ? `${flatPath}#${hash}` : flatPath;
     return `[${text}](${newLink})`;
   });
+}
+
+export function validatePageDetail({ pageDetailYaml }) {
+  if (typeof pageDetailYaml !== "string") {
+    return {
+      isValid: false,
+      validationFeedback: "Expected pageDetailYaml to be a string",
+      errors: [
+        {
+          path: "pageDetailYaml",
+          message: "pageDetailYaml must be provided as a string",
+          code: "INVALID_INPUT_TYPE",
+        },
+      ],
+    };
+  }
+
+  const trimmed = pageDetailYaml.trim();
+  if (!trimmed) {
+    return {
+      isValid: false,
+      validationFeedback: "Received empty YAML content",
+      errors: [
+        {
+          path: "pageDetailYaml",
+          message: "YAML content must not be empty",
+          code: "EMPTY_CONTENT",
+        },
+      ],
+    };
+  }
+
+  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+    return {
+      isValid: false,
+      validationFeedback: "Detected JSON structure; please output YAML with key-value pairs",
+      errors: [
+        {
+          path: "pageDetailYaml",
+          message: "JSON output is not allowed for page detail content",
+          code: "JSON_DETECTED",
+        },
+      ],
+    };
+  }
+
+  let parsed;
+  try {
+    parsed = parse(pageDetailYaml);
+  } catch (parseError) {
+    return {
+      isValid: false,
+      validationFeedback: `YAML syntax error: ${parseError.message}`,
+      errors: [
+        {
+          path: "yaml_syntax",
+          message: `Invalid YAML syntax: ${parseError.message}`,
+          code: "YAML_SYNTAX_ERROR",
+        },
+      ],
+    };
+  }
+
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return {
+      isValid: false,
+      validationFeedback: "Parsed YAML must be an object containing meta and sections",
+      errors: [
+        {
+          path: "pageDetailYaml",
+          message: "Root YAML node must be a mapping/object",
+          code: "INVALID_ROOT_TYPE",
+        },
+      ],
+    };
+  }
+
+  const validationResult = pageDetailSchema.safeParse(parsed);
+  if (validationResult.success) {
+    return {
+      isValid: true,
+      validationFeedback: "Page detail YAML validation passed",
+      parsedData: validationResult.data,
+    };
+  }
+
+  const issues = validationResult.error?.errors || validationResult.error?.issues || [];
+  const errors = issues.map((issue) => ({
+    path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || "unknown"),
+    message: issue.message || "Validation failed",
+    code: issue.code || "VALIDATION_ERROR",
+  }));
+
+  const summary =
+    errors.length === 1 ? "Found 1 validation error:" : `Found ${errors.length} validation errors:`;
+
+  const details = errors
+    .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+    .join("\n");
+
+  return {
+    isValid: false,
+    validationFeedback: `${summary}\n${details}`,
+    errors,
+    errorCount: errors.length,
+  };
 }
 // Helper function to generate filename based on language
 export const getFileName = ({ fileName }) => {

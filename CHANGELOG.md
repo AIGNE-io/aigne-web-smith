@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.3.1-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.3...v1.3.1-beta.4) (2025-10-02)
+
+
+### Bug Fixes
+
+* **ux:** use shared context for faster structure and page tuning ([#85](https://github.com/AIGNE-io/aigne-web-smith/issues/85)) ([7ebb1db](https://github.com/AIGNE-io/aigne-web-smith/commit/7ebb1db4ea8ef9020ae89a3a40b1e4a00b78fad7))
+
+## [1.3.1-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.2...v1.3.1-beta.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* **ux:** tune wording for publish success output ([d16c410](https://github.com/AIGNE-io/aigne-web-smith/commit/d16c41009d4196452207b3d3ed0d71c6b99254a9))
+
+## [1.3.1-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.1...v1.3.1-beta.2) (2025-10-02)
+
+
+### Bug Fixes
+
+* **ux:** tune wording for generate success output ([#54](https://github.com/AIGNE-io/aigne-web-smith/issues/54)) ([b24f240](https://github.com/AIGNE-io/aigne-web-smith/commit/b24f240d2f42235ffceccd8cb28a31105697dc34))
+
+## [1.3.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.0...v1.3.1-beta.1) (2025-10-02)
+
+
+### Bug Fixes
+
+* **core:** add YAML schema validation for page details ([#52](https://github.com/AIGNE-io/aigne-web-smith/issues/52)) ([f72c7de](https://github.com/AIGNE-io/aigne-web-smith/commit/f72c7decda36ea1299a4b38803b00efa61ad06ee))
+
+## [1.3.1-beta.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.8...v1.3.1-beta.0) (2025-10-02)
+
+
+### Miscellaneous Chores
+
+* release v1.3.1-beta.0 ([869df06](https://github.com/AIGNE-io/aigne-web-smith/commit/869df064d12b55a284e274042c59c8cd5bbf65a1))
+
 ## [1.3.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.7...v1.3.0-beta.8) (2025-10-01)
 
 

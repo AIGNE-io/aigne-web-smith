@@ -5,7 +5,7 @@ import {
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
 
-export default async function updateSection(input) {
+export default async function updateSection(input, options) {
   // Validate input using Zod schema
   const validation = validateUpdateSectionInput(input);
   if (!validation.success) {
@@ -17,7 +17,12 @@ export default async function updateSection(input) {
     };
   }
 
-  const { pageDetail, name, updates } = validation.data;
+  const { name, updates } = validation.data;
+  let pageDetail = options.context?.userContext?.currentPageDetail;
+
+  if (!pageDetail) {
+    pageDetail = input.pageDetail;
+  }
 
   // Parse YAML string to object
   let parsedPageDetail;
@@ -95,13 +100,19 @@ export default async function updateSection(input) {
     sections: newSections,
   };
 
-  const successMessage = `Successfully updated section '${name}' with properties: ${updateFields.join(", ")}.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+  const successMessage = `updateSection executed successfully.
+  Successfully updated section '${name}' with properties: ${updateFields.join(", ")}.
+  Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
+
+  const latestPageDetail = YAML.stringify(updatedPageDetail, {
+    quotingType: '"',
+    defaultStringType: "QUOTE_DOUBLE",
+  });
+  // update shared page detail
+  options.context.userContext.currentPageDetail = latestPageDetail;
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail, {
-      quotingType: '"',
-      defaultStringType: "QUOTE_DOUBLE",
-    }),
+    pageDetail: latestPageDetail,
     message: successMessage,
   };
 }

@@ -5,7 +5,7 @@ import {
   validateUpdateMetaInput,
 } from "../../../types/page-detail-schema.mjs";
 
-export default async function updateMeta(input) {
+export default async function updateMeta(input, options) {
   // Validate input using Zod schema
   const validation = validateUpdateMetaInput(input);
   if (!validation.success) {
@@ -17,7 +17,12 @@ export default async function updateMeta(input) {
     };
   }
 
-  const { pageDetail, title, description } = validation.data;
+  const { title, description } = validation.data;
+  let pageDetail = options.context?.userContext?.currentPageDetail;
+
+  if (!pageDetail) {
+    pageDetail = input.pageDetail;
+  }
 
   // Parse YAML string to object
   let parsedPageDetail;
@@ -43,13 +48,19 @@ export default async function updateMeta(input) {
   if (title !== undefined) updatedFields.push(`title to '${title}'`);
   if (description !== undefined) updatedFields.push("description");
 
-  const successMessage = `Successfully updated page meta: ${updatedFields.join(", ")}.\nCheck if the latest version of pageDetail meets user feedback, if so, return the latest version directly.`;
+  const successMessage = `updateMeta executed successfully.
+  Successfully updated page meta: ${updatedFields.join(", ")}.
+  Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
+
+  const latestPageDetail = YAML.stringify(updatedPageDetail, {
+    quotingType: '"',
+    defaultStringType: "QUOTE_DOUBLE",
+  });
+  // update shared page detail
+  options.context.userContext.currentPageDetail = latestPageDetail;
 
   return {
-    pageDetail: YAML.stringify(updatedPageDetail, {
-      quotingType: '"',
-      defaultStringType: "QUOTE_DOUBLE",
-    }),
+    pageDetail: latestPageDetail,
     message: successMessage,
   };
 }

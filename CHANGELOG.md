@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.2...v1.3.1-beta.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* **ux:** tune wording for publish success output ([d16c410](https://github.com/AIGNE-io/aigne-web-smith/commit/d16c41009d4196452207b3d3ed0d71c6b99254a9))
+
 ## [1.3.1-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.1...v1.3.1-beta.2) (2025-10-02)
 
 

@@ -532,20 +532,15 @@ export default async function publishWebsite(
 
       const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 
-      message = `✅ Pages Published Successfully!
+      const pageWord = successCount === 1 ? "page" : "pages";
+      const assetWord = uploadedMediaCount === 1 ? "asset" : "assets";
 
-Successfully published **${successCount}/${totalCount}** pages to your website.
-${uploadedMediaCount > 0 ? `Uploaded **${uploadedMediaCount}** media assets to website.` : ""}
+      message = `✅ Pages published successfully! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
 
-🔗 Published Pages
+🔗 Live URLs:
+${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
-${publishedUrls.map((url) => `- ${withoutTrailingSlash(url)}`).join("\n")}
-
-🚀 Next Steps
-
-1. Share your published pages with your team
-2. Update pages as needed using \`aigne web update\`
-
+💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
     } else {
       const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);

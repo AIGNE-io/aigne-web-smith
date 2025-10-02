@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-02T01:36:17.317Z
-updatedAt: 2025-10-02T01:36:17.317Z
-publishedAt: 2025-10-02T01:36:17.317Z
+createdAt: 2025-10-02T03:38:03.235Z
+updatedAt: 2025-10-02T03:38:03.235Z
+publishedAt: 2025-10-02T03:38:03.235Z
 isPublic: true
 locales:
   en:
@@ -12,8 +12,8 @@ locales:
       paddingX: normal
     title: "WebSmith: AI-Powered Website Generation"
     description: Generate professional, SEO-optimized websites instantly with
-      WebSmith's AI. Go from idea to published site with a single command. Try
-      it now!
+      WebSmith. Our AI-powered tool automates everything from structure planning
+      to content creation and one-click publishing.
     header:
       sticky: true
   zh:
@@ -23,7 +23,7 @@ locales:
       paddingY: normal
       paddingX: normal
     title: WebSmith：AI 驱动的网站生成
-    description: 使用 WebSmith 的 AI 即时生成专业的、经过 SEO 优化的网站。只需一条命令，即可从想法变为已发布的网站。立即试用！
+    description: 使用 WebSmith 即刻生成专业的、经过 SEO 优化的网站。我们的 AI 驱动工具可自动完成从结构规划、内容创建到一键发布的全部流程。
     header:
       sticky: true
 sections:
@@ -1151,7 +1151,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Create Your Entire Website With a Single Command
+            text: Build Your Entire Website with One Command
             style:
               variant: h1
         9ajrz12ik7esfk1z:
@@ -1159,9 +1159,9 @@ dataSource:
             list:
               - id: item-1759364500601-4gbj76l4x
                 type: text
-                text: Let WebSmith's AI handle everything from structure and content to
-                  professional templates. Go from a simple idea to a fully
-                  published, SEO-optimized website in minutes. It's that easy!
+                text: WebSmith uses AI to turn your requirements into a complete, professional,
+                  SEO-optimized website. From structure planning to content
+                  generation and publishing, it's all automated.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1174,7 +1174,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 一条命令创建您的整个网站
+            text: 一个命令构建您的整个网站
             style:
               variant: h1
         9ajrz12ik7esfk1z:
@@ -1182,8 +1182,7 @@ dataSource:
             list:
               - id: item-1759364500601-4gbj76l4x
                 type: text
-                text: 让 WebSmith 的 AI 处理从结构、内容到专业模板的一切事务。只需几分钟，即可从一个简单的想法变为一个完全发布、经过 SEO
-                  优化的网站。就是这么简单！
+                text: WebSmith 利用 AI 将您的需求转化为一个完整的、专业的、经过 SEO 优化的网站。从结构规划到内容生成和发布，一切都实现了自动化。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1192,13 +1191,13 @@ dataSource:
     en:
       properties:
         a7frn5jmx5vpxpt3:
-          value: aigne web generate
+          value: aigne web generate --input @my-website.yaml
         qvxiyadgn5bj6oq8:
           value: false
         c4kvf6b7zyskk8m:
           value: false
         b2jrz12ik7esf93z:
-          value: Terminal
+          value: bash
         7mp2u9tibl03thp6:
           value: shell
         d8hvf7cxz93jk5p:
@@ -1206,13 +1205,13 @@ dataSource:
     zh:
       properties:
         a7frn5jmx5vpxpt3:
-          value: aigne web generate
+          value: aigne web generate --input @my-website.yaml
         qvxiyadgn5bj6oq8:
           value: false
         c4kvf6b7zyskk8m:
           value: false
         b2jrz12ik7esf93z:
-          value: 终端
+          value: bash
         7mp2u9tibl03thp6:
           value: shell
         d8hvf7cxz93jk5p:
@@ -1222,7 +1221,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Everything You Need to Go from Idea to Live Site, Instantly
+            text: Everything You Need, All in One Place
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -1233,7 +1232,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 即时实现从想法到上线网站所需的一切
+            text: 一站式满足您的所有需求
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -1257,8 +1256,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Our AI intelligently plans your site structure, writes all your content,
-                  and handles SEO, so you don't have to.
+                text: Our AI intelligently plans your site structure, generates all your
+                  content, and optimizes for SEO, all at once.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1279,7 +1278,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的 AI 会智能地规划您的网站结构、编写所有内容并处理 SEO，因此您无需亲自动手。
+                text: 我们的 AI 能够智能规划您的网站结构、生成所有内容并进行 SEO 优化，所有操作一次完成。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1318,8 +1317,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Get beautiful, responsive, and fully editable templates built with modern
-                  components, ready for Pages Kit.
+                text: Get beautiful, responsive layouts built with modern components, fully
+                  compatible with Pages Kit for easy editing.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1340,7 +1339,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 获取美观、响应式且完全可编辑的模板，这些模板采用现代组件构建，并已为 Pages Kit 准备就绪。
+                text: 获取采用现代组件构建的精美、响应式布局，完全兼容 Pages Kit，便于轻松编辑。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1371,7 +1370,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Built-in Quality
+            text: Built-in Quality Assurance
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1379,8 +1378,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: We automatically evaluate your site's structure and content quality,
-                  ensuring a professional and polished result every time.
+                text: We automatically evaluate your site's architecture and content quality to
+                  ensure a professional, consistent result every time.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1393,7 +1392,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 内置质量保障
+            text: 内置质量保证
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1401,7 +1400,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们自动评估您网站的结构和内容质量，确保每次都能获得专业且精美的结果。
+                text: 我们自动评估您网站的架构和内容质量，以确保每次都能获得专业、一致的结果。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1440,8 +1439,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Publish your entire website directly to Pages Kit with a single command
-                  and get your live link in seconds.
+                text: Go live in seconds. Publish your entire website directly to Pages Kit and
+                  get your live link instantly.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1462,7 +1461,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 只需一条命令，即可将您的整个网站直接发布到 Pages Kit，并在几秒钟内获得您的实时链接。
+                text: 数秒内即可上线。将您的整个网站直接发布到 Pages Kit，并立即获取实时链接。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1493,7 +1492,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: Launch Your Dream Website in Three Simple Steps
+            text: From Idea to Live Website in Three Simple Steps
             style:
               variant: h2
     zh:
@@ -1504,7 +1503,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 只需三步，轻松上线您的梦想网站
+            text: 从想法到上线网站，只需简单三步
             style:
               variant: h2
   d6415ec1d624285f:
@@ -1516,7 +1515,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 1. Describe Your Idea
+            text: 1. Define Your Vision
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1524,8 +1523,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Tell WebSmith what you need—a SaaS landing page, a portfolio, a blog. Just
-                  describe it in plain language.
+                text: Describe your website in a simple YAML file. Tell our AI your goals,
+                  target audience, and desired style. It's that easy!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1538,7 +1537,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 1. 描述您的想法
+            text: 1. 定义您的愿景
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1546,7 +1545,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 告诉 WebSmith 您需要什么——一个 SaaS 登录页面、一个作品集、一个博客。只需用简单的语言描述即可。
+                text: 在一个简单的 YAML 文件中描述您的网站。告诉我们的 AI 您的目标、目标受众和期望的风格。就这么简单！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1577,7 +1576,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 2. Watch the Magic Happen
+            text: 2. Run One Command
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1585,8 +1584,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Our AI agents plan the structure, write compelling content, and generate a
-                  professional template for your entire site.
+                text: Execute `aigne web generate`. Our AI agents work together to plan the
+                  structure, write the content, and build the templates.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1599,7 +1598,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 2. 见证奇迹发生
+            text: 2. 运行一个命令
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1607,7 +1606,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的 AI 代理会规划结构、撰写引人入胜的内容，并为您的整个网站生成专业模板。
+                text: 执行 `aigne web generate`。我们的 AI 代理会协同工作，规划结构、编写内容并构建模板。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1638,7 +1637,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 3. Go Live!
+            text: 3. Go Live Instantly
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1646,8 +1645,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: With one final command, publish your brand-new website directly to Pages
-                  Kit and share it with the world.
+                text: Use `aigne web publish` to deploy your new website directly to Pages Kit.
+                  Your site is live and ready for the world!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1660,7 +1659,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 3. 上线！
+            text: 3. 即刻上线
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1668,7 +1667,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 只需最后一条命令，即可将您全新的网站直接发布到 Pages Kit，并与全世界分享。
+                text: 使用 `aigne web publish` 将您的新网站直接部署到 Pages Kit。您的网站已上线，准备好面向全世界！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1725,27 +1724,28 @@ dataSource:
         4221qi1bxy322mf4:
           value:
             - title: What is AIGNE WebSmith?
-              answer: It's an AI-powered tool that automatically generates complete,
-                professional websites—from structure and content to
-                templates—based on your descriptions. It's built on the powerful
-                AIGNE Framework.
+              answer: It's an AI-powered tool that automates the entire process of creating a
+                professional website, from planning and content generation to
+                publishing on Pages Kit.
+            - title: Who is this for?
+              answer: It's perfect for developers, SMB owners, and technical decision-makers
+                who want to launch high-quality, SEO-optimized websites quickly
+                without manual effort.
+            - title: How do I get started?
+              answer: Just install the AIGNE CLI (`npm install -g @aigne/cli`), create a
+                simple `yaml` file with your website requirements, and run
+                `aigne web generate`.
+            - title: Can I customize the generated website?
+              answer: Absolutely! WebSmith generates standard Pages Kit YAML templates. You
+                can visually edit them, tweak the content, and adjust the
+                components after generation.
             - title: What kind of websites can I build?
-              answer: You can create a wide variety of sites, including modern SaaS product
-                pages, portfolios, blogs, and corporate websites. Just tell the
-                AI what you need!
-            - title: Do I need to know how to code?
-              answer: Not at all! You describe your website in plain English. WebSmith handles
-                all the technical work and generates the necessary files for
-                you. Basic command-line familiarity is helpful for running the
-                tool.
-            - title: How do I publish my website?
-              answer: It's incredibly simple. After generating your site, you run a single
-                'aigne web publish' command, and WebSmith uploads everything
-                directly to the Pages Kit platform for you.
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
+              answer: You can build a wide range of sites, including SaaS product pages,
+                corporate sites, portfolios, and documentation portals. Just
+                specify your needs in the rules.
+            - title: Does it support multiple languages?
+              answer: Yes! WebSmith has built-in support for generating and translating
+                content into multiple languages, including English and Chinese.
             - title: ""
               answer: ""
             - title: ""
@@ -1759,18 +1759,18 @@ dataSource:
         4221qi1bxy322mf4:
           value:
             - title: 什么是 AIGNE WebSmith？
-              answer: 它是一款 AI 驱动的工具，可以根据您的描述自动生成完整的专业网站——从结构、内容到模板。它基于强大的 AIGNE 框架构建。
-            - title: 我可以构建什么样的网站？
-              answer: 您可以创建各种各样的网站，包括现代 SaaS 产品页面、作品集、博客和企业网站。只需告诉 AI 您需要什么即可！
-            - title: 我需要懂编程吗？
-              answer: 完全不需要！您只需用简单的英语描述您的网站。WebSmith 会处理所有技术工作并为您生成必要的文件。熟悉基本的命令行操作有助于运行该工具。
-            - title: 我如何发布我的网站？
-              answer: 非常简单。生成您的网站后，您只需运行一条 'aigne web publish' 命令，WebSmith 就会为您将所有内容直接上传到
-                Pages Kit 平台。
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
+              answer: 它是一款 AI 驱动的工具，可自动完成创建专业网站的整个过程，从规划、内容生成到发布到 Pages Kit。
+            - title: 这款工具适合谁？
+              answer: 它非常适合希望快速、无需手动操作即可发布高质量、经 SEO 优化的网站的开发人员、中小企业主和技术决策者。
+            - title: 如何开始使用？
+              answer: 只需安装 AIGNE CLI (`npm install -g @aigne/cli`)，创建一个包含您网站需求的简单 `yaml`
+                文件，然后运行 `aigne web generate` 即可。
+            - title: 我可以自定义生成的网站吗？
+              answer: 当然可以！WebSmith 会生成标准的 Pages Kit YAML 模板。生成后，您可以进行可视化编辑、调整内容和组件。
+            - title: 我可以构建哪种类型的网站？
+              answer: 您可以构建各种类型的网站，包括 SaaS 产品页面、企业网站、作品集和文档门户。只需在规则中指定您的需求即可。
+            - title: 它支持多种语言吗？
+              answer: 是的！WebSmith 内置支持生成内容并将其翻译成多种语言，包括英语和中文。
             - title: ""
               answer: ""
             - title: ""
@@ -1787,16 +1787,15 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop wrestling with code and complex builders. Let AI do the heavy
-                  lifting. Get started with WebSmith for free and launch your
-                  site today!
+                text: Stop wrestling with code and content. Let WebSmith do the heavy lifting.
+                  Get started today.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Ready to Build Your Next Website in Minutes?
+            text: Ready to Build Your Website in Minutes?
             style:
               color: ""
               variant: h1
@@ -1811,14 +1810,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 告别与代码和复杂构建工具的斗争。让 AI 来完成繁重的工作。立即免费开始使用 WebSmith，今天就上线您的网站！
+                text: 别再为代码和内容烦恼。让 WebSmith 来处理繁重的工作。立即开始吧。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 准备好在几分钟内构建您的下一个网站了吗？
+            text: 准备好在几分钟内构建您的网站了吗？
             style:
               color: ""
               variant: h1
@@ -1840,11 +1839,11 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: Explore on GitHub
+              text: Explore the Docs
               variant: outlined
               borderColor: common.white
               size: large
-              url: https://github.com/AIGNE-io/aigne-web-smith
+              url: https://www.aigne.io/web-smith
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:
@@ -1862,11 +1861,11 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 在 GitHub 上探索
+              text: 浏览文档
               variant: outlined
               borderColor: common.white
               size: large
-              url: https://github.com/AIGNE-io/aigne-web-smith
+              url: https://www.aigne.io/web-smith
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:

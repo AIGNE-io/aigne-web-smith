@@ -40,4 +40,8 @@ Translation Constraints:
     - Technical terms should still be translated if they have standard equivalents
     - Proper nouns (API, URL, GitHub, etc.) remain untranslated
 
+- Page detail translation, must be a valid YAML document.
+- The YAML must strictly follow the defined page semantic structure (include meta and sections), with correct indentation and hierarchy.
+- Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
+
 </output_constraints>

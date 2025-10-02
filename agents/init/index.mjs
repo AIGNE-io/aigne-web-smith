@@ -16,10 +16,13 @@ import {
 import {
   detectSystemLanguage,
   getAvailablePaths,
+  getPagePurpose,
   getProjectInfo,
+  getTargetAudienceTypes,
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
+import { listRepoFiles } from "../utils/datasource.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -202,10 +205,12 @@ export default async function init(
   // 8. Source code paths
   console.log("\n📁 [8/8]: DataSource Paths");
   console.log(
-    "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content, ./src)",
+    "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content)",
   );
-  console.log("💡 You can use glob patterns (e.g., docs/**/*.md, content/**/*.json, src/**/*.ts)");
-  console.log("💡 If no paths are configured, './' will be used as default");
+  console.log("💡 You can use glob patterns like docs/**/*.md");
+  console.log(
+    "💡 If no paths provided, we will suggest source paths based on the working directory",
+  );
 
   const sourcePaths = [];
   while (true) {
@@ -281,8 +286,32 @@ export default async function init(
     }
   }
 
-  // If no paths entered, use default
-  input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
+  // If no paths entered, automatically suggest source paths
+  if (sourcePaths.length === 0) {
+    const suggestSourcePathAgent = options.context.agents["suggestSourcePath"];
+    const result = await options.context.invoke(suggestSourcePathAgent, {
+      sourceFiles: (await listRepoFiles(process.cwd())).map((file) => `- ${file.path}`).join("\n"),
+      pagePurpose: getPagePurpose(prioritizedPurposes).join("\n"),
+      targetAudienceTypes: getTargetAudienceTypes(audienceChoices).join("\n"),
+    });
+    const selectedFiles = result.selectedFiles.map((file) => file.path);
+    const finalSelectedFiles = await options.prompts.checkbox({
+      message: "Review the suggested source paths:",
+      choices: selectedFiles.map((file) => ({
+        name: `${file}`,
+        value: file,
+      })),
+      validate: (input) => {
+        if (input.length === 0) {
+          return "Please select at least one source path.";
+        }
+        return true;
+      },
+    });
+    input.sourcesPath = finalSelectedFiles;
+  } else {
+    input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
+  }
 
   // Save project info to config
   const projectInfo = await getProjectInfo();
@@ -296,7 +325,7 @@ export default async function init(
     : "";
 
   // Generate YAML content
-  const yamlContent = generateYAML(input, outputPath);
+  const yamlContent = generateYAML(input);
 
   // Save file
   try {
@@ -404,10 +433,7 @@ export function generateYAML(input) {
   const targetAudienceTypesSection = yamlStringify({
     targetAudienceTypes: config.targetAudienceTypes,
   }).trim();
-  yaml += `${targetAudienceTypesSection.replace(
-    /^targetAudienceTypes:/,
-    "targetAudienceTypes:",
-  )}\n\n`;
+  yaml += `${targetAudienceTypesSection.replace(/^targetAudienceTypes:/, "targetAudienceTypes:")}\n\n`;
 
   // Website Scale with all available options
   yaml += "# Website Scale: How many pages should your website have?\n";
@@ -451,20 +477,15 @@ export function generateYAML(input) {
 
   // Directory and source path configurations - safely serialize
   const pagesDirSection = yamlStringify({ pagesDir: config.pagesDir }).trim();
-  yaml += `${pagesDirSection.replace(
-    /^pagesDir:/,
-    "pagesDir:",
-  )}  # Directory to save generated pages\n`;
+  yaml += `${pagesDirSection.replace(/^pagesDir:/, "pagesDir:")}  # Directory to save generated pages\n`;
 
   const sourcesPathSection = yamlStringify({
     sourcesPath: config.sourcesPath,
   }).trim();
-  yaml += `${sourcesPathSection.replace(
-    /^sourcesPath:/,
-    "sourcesPath:  # Source code paths to analyze",
-  )}\n`;
+  yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
 
   return yaml;
 }
 
 init.description = "Generate a configuration file for the website generation process";
+init.task_title = "Generate website configuration";

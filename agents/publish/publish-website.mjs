@@ -149,7 +149,7 @@ const publishPageFn = async ({
   }
 
   if (!response.ok) {
-    throw new Error(result?.error || result);
+    throw new Error(result?.message || result?.error || result);
   }
 
   return {
@@ -544,10 +544,11 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 `;
     } else {
       const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);
-      message = `❌ Failed to publish pages: ${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "- " : ""}${JSON.stringify(e)}`).join("\n")}`;
+
+      message = `❌ Failed to publish pages: \n${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "- " : ""}${typeof e === "string" ? e : JSON.stringify(e)}`).join("\n")}`;
     }
   } catch (error) {
-    message = `❌ Failed to publish pages: ${JSON.stringify(error?.message || error)}`;
+    message = `❌ Failed to publish pages: ${typeof error === "string" ? error : JSON.stringify(error?.message || error)}`;
   }
 
   await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");

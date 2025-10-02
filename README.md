@@ -15,7 +15,7 @@ AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AI
 
 - **Pages Kit Integration**: Direct generation of Pages Kit-compatible YAML templates
 - **Component-based Design**: Supports modern components like Hero, CTA, FAQ, Content Cards
-- **Builtin Component Library**: Integrated component library with validation and management
+- **Built-in Component Library**: Integrated component library with validation and management
 - **Responsive Layout**: Automatic adaptation for mobile and desktop displays
 - **Visual Editing**: Generated templates support visual editing and adjustments
 
@@ -308,7 +308,7 @@ This project is licensed under the Elastic License 2.0 - see the [LICENSE](LICEN
 - 📖 [WebSmith Official Website](https://www.aigne.io/web-smith)
 - 🌐 [AIGNE Framework](https://www.aigne.io/en/framework)
 - 🎯 [Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
-- 💻 [Github Repo](https://github.com/AIGNE-io/aigne-web-smith)
+- 💻 [GitHub Repo](https://github.com/AIGNE-io/aigne-web-smith)
 - 🐛 [Report Issues](https://github.com/AIGNE-io/aigne-web-smith/issues)
 
 ---

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.0...v1.3.1-beta.1) (2025-10-02)
+
+
+### Bug Fixes
+
+* **core:** add YAML schema validation for page details ([#52](https://github.com/AIGNE-io/aigne-web-smith/issues/52)) ([f72c7de](https://github.com/AIGNE-io/aigne-web-smith/commit/f72c7decda36ea1299a4b38803b00efa61ad06ee))
+
 ## [1.3.1-beta.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.8...v1.3.1-beta.0) (2025-10-02)
 
 

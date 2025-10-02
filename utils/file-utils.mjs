@@ -246,10 +246,6 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
             mdContent += `## Description\n\n${imageReq.imageDescription}\n\n`;
           }
 
-          if (imageReq.pageContext) {
-            mdContent += `## Page Context\n\n${imageReq.pageContext}\n\n`;
-          }
-
           // Write markdown file
           await writeFile(mdPath, mdContent, "utf8");
 

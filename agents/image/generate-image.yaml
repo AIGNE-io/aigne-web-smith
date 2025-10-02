@@ -2,7 +2,30 @@ type: image
 name: generateImage
 image_model: google/gemini-2.5-flash-image-preview
 instructions: |
-  {{aiPrompt}} , high resolution, web design friendly, professional, clear, relevant to AI/tech industry, clean composition, vibrant colors but not distracting, soft lighting, modern aesthetic, suitable for a product landing page. Avoid busy backgrounds, ensure main subject is prominent.
+  {{aiPrompt}}
+
+  **Technical Requirements:**
+  - High resolution (minimum 1920px width) for retina displays
+  - Web-optimized color palette with balanced saturation
+  - Sharp focus on primary subject with appropriate depth of field
+
+  **Composition Guidelines:**
+  - Clean, uncluttered layout with clear visual hierarchy
+  - Balanced negative space for text overlay compatibility
+  - Professional framing that emphasizes the main subject
+  - Centered or rule-of-thirds composition as appropriate for web context
+
+  **Visual Style:**
+  - Modern, contemporary aesthetic aligned with current web design trends
+  - Soft, natural lighting with subtle shadows for depth
+  - Harmonious color scheme that complements typical web UI elements
+  - Smooth gradients and polished surfaces where applicable
+
+  **Web-Specific Optimizations:**
+  - Simple, non-distracting backgrounds that allow UI elements to overlay
+  - Clear foreground-background separation for better readability
+  - Versatile composition suitable for various viewport sizes
+  - Professional polish appropriate for product landing pages and marketing materials
 input_schema:
   type: object
   properties:

@@ -53,3 +53,6 @@ output_schema:
         Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
   required:
     - content
+skills:
+  - ../../image/generate-image-team.yaml
+

@@ -1,17 +1,16 @@
 type: team
 name: generateImageTeam
 description: Generate images for the website
+task_render_mode: collapse
+task_title: Generate images for the website
 skills:
-  - ../image/generate-image.yaml
-  # - type: transform
-  #   task_render_mode: hide
-  #   jsonata: |
-  #     $merge([
-  #       $
-  #     ])
-
-iterate_on: imageRequirements
-concurrency: 3
+  - type: team
+    task_render_mode: hide
+    skills:
+      - ./generate-image.yaml
+    iterate_on: imageRequirements
+    concurrency: 3
+  - ./save-images.mjs
 input_schema:
   type: object
   properties:
@@ -29,7 +28,10 @@ input_schema:
           imageDescription:
             type: string
             description: Describe the content displayed in the image and in what context it is suitable for use
-          pageContext:
-            type: string
-            description: Which page this image is intended for
       description: The AI prompt to generate the image.
+output_schema:
+  type: object
+  properties:
+    message:
+      type: string
+      description: A message describing the result of the image generation.

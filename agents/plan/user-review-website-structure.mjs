@@ -37,6 +37,9 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
+
+  // share current structure with updateWebsiteStructure agent
+  options.context.userContext.currentStructure = currentStructure;
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -65,15 +68,13 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
 
     try {
       // Call updateWebsiteStructure agent with feedback
-      const result = await options.context.invoke(refineAgent, {
+      await options.context.invoke(refineAgent, {
         ...rest,
         feedback: feedback.trim(),
         websiteStructure: currentStructure,
       });
 
-      if (result.websiteStructure) {
-        currentStructure = result.websiteStructure;
-      }
+      currentStructure = options.context.userContext.currentStructure;
 
       // Print current website structure in a user-friendly format
       printWebsiteStructure(currentStructure);

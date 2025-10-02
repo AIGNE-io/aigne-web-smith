@@ -4,7 +4,7 @@ import {
   validateDeletePageInput,
 } from "../../../types/website-structure-schema.mjs";
 
-export default async function deletePage(input) {
+export default async function deletePage(input, options) {
   // Validate input using Zod schema
   const validation = validateDeletePageInput(input);
   if (!validation.success) {
@@ -16,7 +16,12 @@ export default async function deletePage(input) {
     };
   }
 
-  const { websiteStructure, path } = validation.data;
+  const { path } = validation.data;
+  let websiteStructure = options.context?.userContext?.currentStructure;
+
+  if (!websiteStructure) {
+    websiteStructure = input.websiteStructure;
+  }
 
   // Find the page to delete
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
@@ -34,7 +39,7 @@ export default async function deletePage(input) {
   // Check if any other pages have this page as parent
   const childPages = websiteStructure.filter((item) => item.parentId === path);
   if (childPages.length > 0) {
-    const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
+    const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
@@ -45,7 +50,12 @@ export default async function deletePage(input) {
   // Remove the page from the website structure
   const updatedStructure = websiteStructure.filter((_, index) => index !== pageIndex);
 
-  const successMessage = `Successfully deleted page '${pageToDelete.title}' from path '${path}'.`;
+  const successMessage = `deletePage executed successfully.
+  Successfully deleted page '${pageToDelete.title}' from path '${path}'.
+  Check if this version of websiteStructure meets user feedback, if so, all operations have been successfully executed.`;
+
+  // update shared website structure
+  options.context.userContext.currentStructure = updatedStructure;
 
   return {
     websiteStructure: updatedStructure,

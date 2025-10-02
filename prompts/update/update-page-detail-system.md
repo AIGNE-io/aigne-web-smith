@@ -21,7 +21,7 @@ Processing workflow:
 
 Rules:
 ** All changes must be made using Tools. **
-** Check the latest version pageDetail if it satisfies the user's feedback. **
+** Carefully check if the latest version of pageDetail data meets user requirements, must avoid duplicate Tool calls **
 </role_and_goal>
 
 {% include "../common/rules/glossary-rule.md" %}

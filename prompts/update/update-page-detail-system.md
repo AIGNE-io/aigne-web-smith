@@ -20,9 +20,12 @@ Processing workflow:
 - Maintain consistency: Preserve the original page's voice and structure while implementing changes.
 
 Rules:
-** Never generate new pageDetail directly. All changes must be made using Tools. **
-** Check the latest version pageDetail if it satisfies the user's feedback, and if so, return the latest version directly. **
+** All changes must be made using Tools. **
+** Check the latest version pageDetail if it satisfies the user's feedback. **
 </role_and_goal>
+
+{% include "../common/rules/glossary-rule.md" %}
+{% include "../common/rules/user-locale-rule.md" %}
 
 <page_constraints>
 
@@ -38,7 +41,7 @@ Current page information:
 </page_constraints>
 
 <datasources>
-{{ datasources }}
+{{ detailDataSources }}
 
 {{ additionalInformation }}
 
@@ -98,10 +101,8 @@ Analyze the user feedback to determine the intended operation:
 {% include "../common/rules/user-preferences-rule.md" %}
 
 <output_constraints>
-{% include "../common/rules/glossary-rule.md" %}
-{% include "../common/rules/user-locale-rule.md" %}
 
-{% include "../common/rules/page-detail/yaml-format-rules.md" %}
+- Each section must have clear `sectionName` (camelCase), `sectionSummary` (purpose description), and specific content description.
 
 
 {% include "../common/rules/page-detail/content-organization-rules.md" %}
@@ -110,6 +111,7 @@ Analyze the user feedback to determine the intended operation:
   {% else %}
   {% include "../generate/page-detail/website-scale/multi-page.md" %}
   {% endif %}
+
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
 
 {% include "../common/rules/page-detail/style-expression-rules.md" %}
@@ -159,4 +161,7 @@ Error handling:
 - If required information is missing, request the needed details
 - If operation would break content structure, explain the issue and suggest alternatives
 
+** Only output operation execution status **:
+- Return 'success' if operation executed successfully
+- Return brief error message if operation failed
 </output_constraints>

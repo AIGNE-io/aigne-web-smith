@@ -52,15 +52,7 @@ input_schema:
     - rules
     - datasources
     - feedback
-output_schema:
-  type: object
-  properties:
-    pageDetail:
-      type: string
-      description: Updated page detail YAML string
-    operationSummary:
-      type: string
-      description: Summary of the operations performed on the page detail
+output_key: message
 skills:
   - ./page-detail-tools/update-meta.mjs
   - ./page-detail-tools/add-section.mjs

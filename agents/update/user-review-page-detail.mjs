@@ -49,6 +49,12 @@ export default async function userReviewPageDetail(
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
+
+  // share current page detail with updatePageDetail agent
+  options.context.userContext.currentPageDetail = YAML.stringify(currentPageDetail, {
+    quotingType: '"',
+    defaultStringType: "QUOTE_DOUBLE",
+  });
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -84,7 +90,7 @@ export default async function userReviewPageDetail(
 
     try {
       // Call updatePageDetail agent with feedback
-      const result = await options.context.invoke(updateAgent, {
+      await options.context.invoke(updateAgent, {
         ...rest,
         feedback: feedback.trim(),
         pageDetail: YAML.stringify(currentPageDetail),
@@ -92,14 +98,7 @@ export default async function userReviewPageDetail(
         fieldConstraints,
       });
 
-      if (result.pageDetail) {
-        // Parse the returned YAML string back to object
-        if (typeof result.pageDetail === "string") {
-          currentPageDetail = YAML.parse(result.pageDetail);
-        } else {
-          currentPageDetail = result.pageDetail;
-        }
-      }
+      currentPageDetail = YAML.parse(options.context.userContext.currentPageDetail);
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];

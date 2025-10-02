@@ -549,10 +549,10 @@ ${publishedUrls.map((url) => `- ${withoutTrailingSlash(url)}`).join("\n")}
 `;
     } else {
       const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);
-      message = `❌ Failed to publish pages: ${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "\n- " : ""}${e}`).join("")}`;
+      message = `❌ Failed to publish pages: ${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "- " : ""}${JSON.stringify(e)}`).join("\n")}`;
     }
   } catch (error) {
-    message = `❌ Failed to publish pages: ${error.message}`;
+    message = `❌ Failed to publish pages: ${JSON.stringify(error?.message || error)}`;
   }
 
   await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");

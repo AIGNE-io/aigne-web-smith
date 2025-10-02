@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.3.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.7...v1.3.0-beta.8) (2025-10-01)
+
+
+### Features
+
+* update builtin component library and enhance template processing ([#48](https://github.com/AIGNE-io/aigne-web-smith/issues/48)) ([77c2e0b](https://github.com/AIGNE-io/aigne-web-smith/commit/77c2e0bf5977d9f3aa71069fca5331b08fdc10df))
+
+## [1.3.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.6...v1.3.0-beta.7) (2025-10-01)
+
+
+### Features
+
+* add custom rules input to website initialization flow ([#44](https://github.com/AIGNE-io/aigne-web-smith/issues/44)) ([537da6f](https://github.com/AIGNE-io/aigne-web-smith/commit/537da6f053f3bcab0cdfbadc8ca93ab3611d1f20))
+* add paid website deployment service integration ([#42](https://github.com/AIGNE-io/aigne-web-smith/issues/42)) ([d340fae](https://github.com/AIGNE-io/aigne-web-smith/commit/d340fae12c199649c230aa5f92bff97ed689bebd))
+* **auth:** add user role requirement for publish authorization ([#46](https://github.com/AIGNE-io/aigne-web-smith/issues/46)) ([a7ae2fa](https://github.com/AIGNE-io/aigne-web-smith/commit/a7ae2fafee11ea6738d31ef9b666c202783eda43))
+* support nested subcommands in theme and component ([#45](https://github.com/AIGNE-io/aigne-web-smith/issues/45)) ([0f30d7b](https://github.com/AIGNE-io/aigne-web-smith/commit/0f30d7b531b7f24848bb671da3041709dfb05707))
+
+
+### Bug Fixes
+
+* **ux:** improve error message for website creation failure ([#47](https://github.com/AIGNE-io/aigne-web-smith/issues/47)) ([0de0ba1](https://github.com/AIGNE-io/aigne-web-smith/commit/0de0ba16a94660b0199c1111bd188a0c37c00558))
+
 ## [1.3.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.0-beta.5...v1.3.0-beta.6) (2025-09-30)
 
 

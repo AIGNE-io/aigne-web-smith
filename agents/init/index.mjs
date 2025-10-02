@@ -52,7 +52,7 @@ export default async function init(
 
   // 1. Primary purpose - what type of website are you building?
   const purposeChoices = await options.prompts.checkbox({
-    message: "📝 [1/7]: What type of website are you building? (Select all that apply)",
+    message: "📝 [1/8]: What type of website are you building? (Select all that apply)",
     choices: Object.entries(PAGE_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -100,7 +100,7 @@ export default async function init(
 
   // 2. Target audience - who will visit your website most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/7]: Who is the primary audience for your website?",
+    message: "👥 [2/8]: Who is the primary audience for your website?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({

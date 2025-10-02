@@ -104,6 +104,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
       appLogo: DEFAULT_APP_LOGO,
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
+        url.searchParams.set("required_roles", "owner,admin,pagesEditor");
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }

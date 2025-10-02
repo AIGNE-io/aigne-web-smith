@@ -108,110 +108,166 @@ export function processContent({ content }) {
   });
 }
 
-export function validatePageDetail({ pageDetailYaml }) {
-  if (typeof pageDetailYaml !== "string") {
+export function validatePageDetail({ pageDetailYaml, allowArrayFallback = false }) {
+  const errors = [];
+
+  const toErrorKey = (error) => `${error.path}:${error.code}`;
+
+  const buildInvalidResult = () => {
+    const summary =
+      errors.length === 1
+        ? "Found 1 validation error:"
+        : `Found ${errors.length} validation errors:`;
+    const details = errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+
     return {
       isValid: false,
-      validationFeedback: "Expected pageDetailYaml to be a string",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "pageDetailYaml must be provided as a string",
-          code: "INVALID_INPUT_TYPE",
-        },
-      ],
+      validationFeedback: `${summary}\n${details}`,
+      errors,
+      errorCount: errors.length,
     };
+  };
+
+  if (typeof pageDetailYaml !== "string") {
+    errors.push({
+      path: "pageDetailYaml",
+      message: "pageDetailYaml must be provided as a string",
+      code: "INVALID_INPUT_TYPE",
+    });
+    return buildInvalidResult();
   }
 
   const trimmed = pageDetailYaml.trim();
   if (!trimmed) {
-    return {
-      isValid: false,
-      validationFeedback: "Received empty YAML content",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "YAML content must not be empty",
-          code: "EMPTY_CONTENT",
-        },
-      ],
-    };
-  }
-
-  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-    return {
-      isValid: false,
-      validationFeedback: "Detected JSON structure; please output YAML with key-value pairs",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "JSON output is not allowed for page detail content",
-          code: "JSON_DETECTED",
-        },
-      ],
-    };
+    errors.push({
+      path: "pageDetailYaml",
+      message: "YAML or JSON content must not be empty",
+      code: "EMPTY_CONTENT",
+    });
+    return buildInvalidResult();
   }
 
   let parsed;
+  let normalizedContent;
+  let normalizedFromArray = false;
   try {
     parsed = parse(pageDetailYaml);
   } catch (parseError) {
-    return {
-      isValid: false,
-      validationFeedback: `YAML syntax error: ${parseError.message}`,
-      errors: [
-        {
-          path: "yaml_syntax",
-          message: `Invalid YAML syntax: ${parseError.message}`,
-          code: "YAML_SYNTAX_ERROR",
-        },
-      ],
-    };
+    errors.push({
+      path: "yaml_syntax",
+      message: `Invalid YAML or JSON syntax: ${parseError.message}`,
+      code: "YAML_SYNTAX_ERROR",
+    });
+    return buildInvalidResult();
   }
 
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    return {
-      isValid: false,
-      validationFeedback: "Parsed YAML must be an object containing meta and sections",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "Root YAML node must be a mapping/object",
-          code: "INVALID_ROOT_TYPE",
-        },
-      ],
-    };
+  if (Array.isArray(parsed)) {
+    if (!allowArrayFallback) {
+      errors.push({
+        path: "pageDetailYaml",
+        message: "Root array is not allowed when allowArrayFallback is false",
+        code: "ARRAY_ROOT_NOT_ALLOWED",
+      });
+      return buildInvalidResult();
+    }
+
+    if (parsed.length === 0) {
+      errors.push({
+        path: "pageDetailYaml",
+        message: "Root array must contain at least one detail object",
+        code: "EMPTY_ARRAY_ROOT",
+      });
+      return buildInvalidResult();
+    }
+
+    const firstNode = parsed[0];
+    normalizedFromArray = true;
+    if (trimmed.startsWith("[")) {
+      normalizedContent = JSON.stringify(firstNode, null, 2);
+    } else {
+      normalizedContent = yamlStringify(firstNode).trimEnd();
+    }
+    parsed = firstNode;
+  }
+
+  const isRootObject = parsed != null && typeof parsed === "object" && !Array.isArray(parsed);
+
+  if (!isRootObject) {
+    errors.push({
+      path: "pageDetailYaml",
+      message: "Root node must be an object containing meta and sections",
+      code: "INVALID_ROOT_TYPE",
+    });
+    return buildInvalidResult();
   }
 
   const validationResult = pageDetailSchema.safeParse(parsed);
-  if (validationResult.success) {
-    return {
+  if (validationResult.success && errors.length === 0) {
+    const result = {
       isValid: true,
       validationFeedback: "Page detail YAML validation passed",
       parsedData: validationResult.data,
     };
+
+    if (normalizedContent) {
+      result.normalizedContent = normalizedContent;
+      result.normalizedFromArray = normalizedFromArray;
+    }
+    return result;
   }
 
-  const issues = validationResult.error?.errors || validationResult.error?.issues || [];
-  const errors = issues.map((issue) => ({
-    path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || "unknown"),
-    message: issue.message || "Validation failed",
-    code: issue.code || "VALIDATION_ERROR",
-  }));
+  const existingErrorKeys = new Set(errors.map(toErrorKey));
+  const issues = validationResult.success
+    ? []
+    : validationResult.error?.errors || validationResult.error?.issues || [];
 
-  const summary =
-    errors.length === 1 ? "Found 1 validation error:" : `Found ${errors.length} validation errors:`;
+  for (const issue of issues) {
+    const path = Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || "unknown");
+    let code = issue.code || "VALIDATION_ERROR";
+    let message = issue.message || "Validation failed";
 
-  const details = errors
-    .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
-    .join("\n");
+    if (path === "meta" && issue.code === "invalid_type") {
+      if (issue.received === "undefined") {
+        code = "MISSING_META";
+        message = "meta field is required";
+      } else {
+        code = "INVALID_META_TYPE";
+        message = "meta must be an object";
+      }
+    } else if (path === "sections" && issue.code === "invalid_type") {
+      if (issue.received === "undefined") {
+        code = "MISSING_SECTIONS";
+        message = "sections field is required";
+      } else {
+        code = "INVALID_SECTIONS_TYPE";
+        message = "sections must be an array of section objects";
+      }
+    }
 
-  return {
-    isValid: false,
-    validationFeedback: `${summary}\n${details}`,
-    errors,
-    errorCount: errors.length,
-  };
+    const error = { path, message, code };
+    const key = toErrorKey(error);
+    if (!existingErrorKeys.has(key)) {
+      existingErrorKeys.add(key);
+      errors.push(error);
+    }
+  }
+
+  if (errors.length === 0) {
+    const result = {
+      isValid: true,
+      validationFeedback: "Page detail YAML validation passed",
+      parsedData: validationResult.success ? validationResult.data : parsed,
+    };
+    if (normalizedContent) {
+      result.normalizedContent = normalizedContent;
+      result.normalizedFromArray = normalizedFromArray;
+    }
+    return result;
+  }
+
+  return buildInvalidResult();
 }
 // Helper function to generate filename based on language
 export const getFileName = ({ fileName }) => {

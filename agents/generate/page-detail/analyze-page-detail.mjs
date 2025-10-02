@@ -79,7 +79,7 @@ export default async function analyzePageDetail(input, options) {
   }
 
   // If file exists, check content validation
-  let contentValidationFailed = false;
+  let isContentValidationFailed = false;
   let validationResult = {};
   if (detailGenerated && fileContent && websiteStructure) {
     validationResult = await checkDetailResult({
@@ -91,12 +91,12 @@ export default async function analyzePageDetail(input, options) {
     });
 
     if (!validationResult.isApproved) {
-      contentValidationFailed = true;
+      isContentValidationFailed = true;
     }
   }
 
   // If file exists and content validation passed, return
-  if (detailGenerated && !contentValidationFailed) {
+  if (detailGenerated && !isContentValidationFailed) {
     return {
       path,
       pagesDir,
@@ -115,8 +115,8 @@ export default async function analyzePageDetail(input, options) {
     originalWebsiteStructure,
     websiteStructure,
     fieldConstraints,
-    detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
-    content: contentValidationFailed ? fileContent : "",
+    detailFeedback: isContentValidationFailed ? validationResult.detailFeedback : "",
+    content: isContentValidationFailed ? fileContent : "",
   });
 
   return {

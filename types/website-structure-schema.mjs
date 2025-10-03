@@ -15,7 +15,6 @@ export const websiteStructureSchema = z.array(pageItemSchema);
 
 // Add page schemas
 export const addPageInputSchema = z.object({
-  websiteStructure: websiteStructureSchema,
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
@@ -30,7 +29,6 @@ export const addPageOutputSchema = z.object({
 
 // Delete page schemas
 export const deletePageInputSchema = z.object({
-  websiteStructure: websiteStructureSchema,
   path: z.string().min(1, "Path is required"),
 });
 
@@ -41,7 +39,6 @@ export const deletePageOutputSchema = z.object({
 
 // Move page schemas
 export const movePageInputSchema = z.object({
-  websiteStructure: websiteStructureSchema,
   path: z.string().min(1, "Path is required"),
   newParentId: z.string().nullable().optional(),
   newPath: z.string().startsWith("/", 'New path must start with "/"'),
@@ -55,7 +52,6 @@ export const movePageOutputSchema = z.object({
 // Update page schemas
 export const updatePageInputSchema = z
   .object({
-    websiteStructure: websiteStructureSchema,
     path: z.string().min(1, "Path is required"),
     title: z.string().min(1).optional(),
     description: z.string().min(1).optional(),
@@ -79,7 +75,6 @@ export const getAddPageInputJsonSchema = () => {
   const schema = zodToJsonSchema(addPageInputSchema);
   // Add custom descriptions
   if (schema.properties) {
-    schema.properties.websiteStructure.description = "Current website structure array";
     schema.properties.title.description = "Title of the new page";
     schema.properties.description.description = "Description of the new page";
     schema.properties.path.description =
@@ -104,7 +99,6 @@ export const getAddPageOutputJsonSchema = () => {
 export const getDeletePageInputJsonSchema = () => {
   const schema = zodToJsonSchema(deletePageInputSchema);
   if (schema.properties) {
-    schema.properties.websiteStructure.description = "Current website structure array";
     schema.properties.path.description = "URL path of the page to delete";
   }
   return schema;
@@ -123,7 +117,6 @@ export const getDeletePageOutputJsonSchema = () => {
 export const getMovePageInputJsonSchema = () => {
   const schema = zodToJsonSchema(movePageInputSchema);
   if (schema.properties) {
-    schema.properties.websiteStructure.description = "Current website structure array";
     schema.properties.path.description = "URL path of the page to move";
     schema.properties.newParentId.description =
       "Path of the new parent page (leave empty for top-level)";
@@ -146,7 +139,6 @@ export const getMovePageOutputJsonSchema = () => {
 export const getUpdatePageInputJsonSchema = () => {
   const schema = zodToJsonSchema(updatePageInputSchema);
   if (schema.properties) {
-    schema.properties.websiteStructure.description = "Current website structure array";
     schema.properties.path.description = "URL path of the page to update";
     schema.properties.title.description = "New title for the page (optional)";
     schema.properties.description.description = "New description for the page (optional)";

@@ -4,7 +4,7 @@ import {
   validateUpdatePageInput,
 } from "../../../types/website-structure-schema.mjs";
 
-export default async function updatePage(input) {
+export default async function updatePage(input, options) {
   // Validate input using Zod schema
   const validation = validateUpdatePageInput(input);
   if (!validation.success) {
@@ -16,7 +16,12 @@ export default async function updatePage(input) {
     };
   }
 
-  const { websiteStructure, path, title, description, sourceIds } = validation.data;
+  const { path, title, description, sourceIds } = validation.data;
+  let websiteStructure = options.context?.userContext?.currentStructure;
+
+  if (!websiteStructure) {
+    websiteStructure = input.websiteStructure;
+  }
 
   // Find the page to update
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
@@ -48,7 +53,12 @@ export default async function updatePage(input) {
   if (description !== undefined) updatedFields.push(`description`);
   if (sourceIds !== undefined) updatedFields.push(`sourceIds (${sourceIds.length} sources)`);
 
-  const successMessage = `Successfully updated page '${originalPage.title}' at path '${path}': ${updatedFields.join(", ")}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
+  const successMessage = `updatePage executed successfully.
+  Successfully updated page '${originalPage.title}' at path '${path}': ${updatedFields.join(", ")}.
+  Check if this version of websiteStructure meets user feedback, if so, all operations have been successfully executed.`;
+
+  // update shared website structure
+  options.context.userContext.currentStructure = updatedStructure;
 
   return {
     websiteStructure: updatedStructure,

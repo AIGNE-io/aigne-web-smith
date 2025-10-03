@@ -1,12 +1,8 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
-// Common page detail input schema (YAML string)
-const pageDetailYamlSchema = z.string().min(1, "Page detail is required");
-
 // Add section schemas
 export const addSectionInputSchema = z.object({
-  pageDetail: pageDetailYamlSchema,
   section: z.string().min(1, "Section content is required"),
   position: z.union([z.number(), z.string()]).optional(),
 });
@@ -18,7 +14,6 @@ export const addSectionOutputSchema = z.object({
 
 // Delete section schemas
 export const deleteSectionInputSchema = z.object({
-  pageDetail: pageDetailYamlSchema,
   name: z.string().min(1, "Section name is required"),
 });
 
@@ -29,7 +24,6 @@ export const deleteSectionOutputSchema = z.object({
 
 // Move section schemas
 export const moveSectionInputSchema = z.object({
-  pageDetail: pageDetailYamlSchema,
   name: z.string().min(1, "Section name is required"),
   position: z.union([z.number(), z.string()]),
 });
@@ -42,7 +36,6 @@ export const moveSectionOutputSchema = z.object({
 // Update meta schemas
 export const updateMetaInputSchema = z
   .object({
-    pageDetail: pageDetailYamlSchema,
     title: z.string().min(1).optional(),
     description: z.string().min(1).optional(),
   })
@@ -57,7 +50,6 @@ export const updateMetaOutputSchema = z.object({
 
 // Update section schemas
 export const updateSectionInputSchema = z.object({
-  pageDetail: pageDetailYamlSchema,
   name: z.string().min(1, "Section name is required"),
   updates: z.string().min(1, "Section updates are required"),
 });
@@ -71,7 +63,6 @@ export const updateSectionOutputSchema = z.object({
 export const getAddSectionInputJsonSchema = () => {
   const schema = zodToJsonSchema(addSectionInputSchema);
   if (schema.properties) {
-    schema.properties.pageDetail.description = "Current page detail YAML string";
     schema.properties.section.description =
       "YAML string containing the section content to add (must include a 'sectionName' property)";
     schema.properties.position.description =
@@ -93,7 +84,6 @@ export const getAddSectionOutputJsonSchema = () => {
 export const getDeleteSectionInputJsonSchema = () => {
   const schema = zodToJsonSchema(deleteSectionInputSchema);
   if (schema.properties) {
-    schema.properties.pageDetail.description = "Current page detail YAML string";
     schema.properties.name.description = "Name of the section to delete";
   }
   return schema;
@@ -112,7 +102,6 @@ export const getDeleteSectionOutputJsonSchema = () => {
 export const getMoveSectionInputJsonSchema = () => {
   const schema = zodToJsonSchema(moveSectionInputSchema);
   if (schema.properties) {
-    schema.properties.pageDetail.description = "Current page detail YAML string";
     schema.properties.name.description = "Name of the section to move";
     schema.properties.position.description =
       "New position for the section (index number or section name to insert after)";
@@ -133,7 +122,6 @@ export const getMoveSectionOutputJsonSchema = () => {
 export const getUpdateMetaInputJsonSchema = () => {
   const schema = zodToJsonSchema(updateMetaInputSchema);
   if (schema.properties) {
-    schema.properties.pageDetail.description = "Current page detail YAML string";
     schema.properties.title.description = "New page title (optional)";
     schema.properties.description.description = "New page description (optional)";
   }
@@ -154,7 +142,6 @@ export const getUpdateMetaOutputJsonSchema = () => {
 export const getUpdateSectionInputJsonSchema = () => {
   const schema = zodToJsonSchema(updateSectionInputSchema);
   if (schema.properties) {
-    schema.properties.pageDetail.description = "Current page detail YAML string";
     schema.properties.name.description = "Name of the section to update";
     schema.properties.updates.description =
       "YAML string containing the updates to apply to the section";

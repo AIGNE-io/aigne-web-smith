@@ -4,7 +4,7 @@ import {
   validateAddPageInput,
 } from "../../../types/website-structure-schema.mjs";
 
-export default async function addPage(input) {
+export default async function addPage(input, options) {
   // Validate input using Zod schema
   const validation = validateAddPageInput(input);
   if (!validation.success) {
@@ -16,7 +16,12 @@ export default async function addPage(input) {
     };
   }
 
-  const { websiteStructure, title, description, path, parentId, sourceIds } = validation.data;
+  const { title, description, path, parentId, sourceIds } = validation.data;
+  let websiteStructure = options.context?.userContext?.currentStructure;
+
+  if (!websiteStructure) {
+    websiteStructure = input.websiteStructure;
+  }
 
   // Validate parent exists if parentId is provided
   if (parentId && parentId !== "null") {
@@ -54,7 +59,12 @@ export default async function addPage(input) {
   // Add the new page to the website structure
   const updatedStructure = [...websiteStructure, newPage];
 
-  const successMessage = `Successfully added page '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level page"}.\nCheck if the latest version of websiteStructure meets user feedback, if so, return the latest version directly.`;
+  const successMessage = `**addPage executed successfully.**
+  Successfully added page '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level page"}.
+  Check if this version of websiteStructure meets user feedback, if so, all operations have been successfully executed.`;
+
+  // update shared website structure
+  options.context.userContext.currentStructure = updatedStructure;
 
   return {
     websiteStructure: updatedStructure,

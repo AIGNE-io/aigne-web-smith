@@ -33,13 +33,7 @@ input_schema:
   required:
     - websiteStructure
     - feedback
-output_schema:
-  type: object
-  properties:
-    websiteStructure: ../schema/website-structure.yaml
-    operationSummary:
-      type: string
-      description: Summary of the operations performed on the website structure
+output_key: message
 skills:
   - ./website-structure-tools/add-page.mjs
   - ./website-structure-tools/delete-page.mjs

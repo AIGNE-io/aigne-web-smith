@@ -1307,33 +1307,15 @@ export function processConfigFields(config) {
   }
 
   // Process page purpose (array) - restructured format
-  if (config.pagePurpose && Array.isArray(config.pagePurpose)) {
-    const purposeItems = config.pagePurpose
-      .map((key) => {
-        const style = PAGE_STYLES[key];
-        if (!style) return null;
-        const lines = style.content.split("\n").filter((line) => line.trim());
-        return `  - ${style.name}:\n    - Goal: ${style.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
-      })
-      .filter(Boolean);
-
-    if (purposeItems.length > 0) {
-      allRulesContent.push(`- Page Purpose:\n${purposeItems.join("\n")}`);
-    }
+  const pagePurposeItems = getPagePurpose(config.pagePurpose);
+  if (pagePurposeItems.length > 0) {
+    allRulesContent.push(`- Page Purpose:\n${pagePurposeItems.join("\n")}`);
   }
 
   // Process target audience types (array) - restructured format
   let audienceNames = "";
   if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
-    const audienceItems = config.targetAudienceTypes
-      .map((key) => {
-        const audience = TARGET_AUDIENCES[key];
-        if (!audience) return null;
-        const lines = audience.content.split("\n").filter((line) => line.trim());
-        return `  - ${audience.name}:\n    - Description: ${audience.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
-      })
-      .filter(Boolean);
-
+    const audienceItems = getTargetAudienceTypes(config.targetAudienceTypes);
     if (audienceItems.length > 0) {
       allRulesContent.push(`- Target Audience:\n${audienceItems.join("\n")}`);
     }
@@ -1392,6 +1374,36 @@ export function processConfigFields(config) {
   }
 
   return processed;
+}
+
+export function getPagePurpose(pagePurpose) {
+  // Process page purpose (array) - restructured format
+  if (pagePurpose && Array.isArray(pagePurpose)) {
+    return pagePurpose
+      .map((key) => {
+        const style = PAGE_STYLES[key];
+        if (!style) return null;
+        const lines = style.content.split("\n").filter((line) => line.trim());
+        return `  - ${style.name}:\n    - Goal: ${style.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
+      })
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+export function getTargetAudienceTypes(targetAudienceTypes) {
+  if (targetAudienceTypes && Array.isArray(targetAudienceTypes)) {
+    return targetAudienceTypes
+      .map((key) => {
+        const audience = TARGET_AUDIENCES[key];
+        if (!audience) return null;
+        const lines = audience.content.split("\n").filter((line) => line.trim());
+        return `  - ${audience.name}:\n    - Description: ${audience.description}\n${lines.map((line) => `    - ${line}`).join("\n")}`;
+      })
+      .filter(Boolean);
+  }
+  return [];
 }
 
 /**

@@ -23,13 +23,4 @@ input_schema:
   required:
     - language
     - content
-output_schema:
-  type: object
-  properties:
-    translation:
-      type: string
-      description: >
-        Page detail translation, must be a valid YAML document.
-        The YAML must strictly follow the defined page semantic structure
-        (include meta and sections), with correct indentation and hierarchy.
-        Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
+output_key: translation

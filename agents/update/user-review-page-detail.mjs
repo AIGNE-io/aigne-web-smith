@@ -1,7 +1,6 @@
 import YAML from "yaml";
 import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
-import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
 export default async function userReviewPageDetail(
   { content, componentLibrary, ...rest },
@@ -49,6 +48,14 @@ export default async function userReviewPageDetail(
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
+
+  const yamlOptions = {
+    quotingType: '"',
+    defaultStringType: "QUOTE_DOUBLE",
+  };
+
+  // share current page detail with updatePageDetail agent
+  options.context.userContext.currentPageDetail = YAML.stringify(currentPageDetail, yamlOptions);
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -74,47 +81,18 @@ export default async function userReviewPageDetail(
       break;
     }
 
-    // Get user preferences
-    const structureRules = getActiveRulesForScope("page", []);
-    const globalRules = getActiveRulesForScope("global", []);
-    const allApplicableRules = [...structureRules, ...globalRules];
-    const ruleTexts = allApplicableRules.map((rule) => rule.rule);
-    const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
     const fieldConstraints = generateFieldConstraints(componentLibrary);
 
     try {
       // Call updatePageDetail agent with feedback
-      const result = await options.context.invoke(updateAgent, {
+      await options.context.invoke(updateAgent, {
         ...rest,
         feedback: feedback.trim(),
-        pageDetail: YAML.stringify(currentPageDetail),
-        userPreferences,
+        pageDetail: YAML.stringify(currentPageDetail, yamlOptions),
         fieldConstraints,
       });
 
-      if (result.pageDetail) {
-        // Parse the returned YAML string back to object
-        if (typeof result.pageDetail === "string") {
-          currentPageDetail = YAML.parse(result.pageDetail);
-        } else {
-          currentPageDetail = result.pageDetail;
-        }
-      }
-
-      // Check if feedback should be saved as user preference
-      const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
-      if (feedbackRefinerAgent) {
-        try {
-          await options.context.invoke(feedbackRefinerAgent, {
-            feedback: feedback.trim(),
-            stage: "page_refine",
-            selectedPaths: [rest.path],
-          });
-        } catch (refinerError) {
-          console.warn(`Failed to save user preference: ${refinerError.message}`);
-          console.warn("Feedback applied but not saved as preference.");
-        }
-      }
+      currentPageDetail = YAML.parse(options.context.userContext.currentPageDetail);
 
       // Print updated page detail
       printPageDetail(currentPageDetail);
@@ -130,10 +108,7 @@ export default async function userReviewPageDetail(
   }
 
   return {
-    content: YAML.stringify(currentPageDetail, {
-      quotingType: '"',
-      defaultStringType: "QUOTE_DOUBLE",
-    }),
+    content: YAML.stringify(currentPageDetail, yamlOptions),
   };
 }
 

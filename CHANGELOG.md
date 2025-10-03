@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.4...v1.4.0-beta.4) (2025-10-03)
+
+
+### Features
+
+* support smart source suggesting to reduce token/time cost ([#87](https://github.com/AIGNE-io/aigne-web-smith/issues/87)) ([cca5477](https://github.com/AIGNE-io/aigne-web-smith/commit/cca54771f8bb5dbe68e187279a75ee9730b96921))
+
+## [1.3.1-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.3...v1.3.1-beta.4) (2025-10-02)
+
+
+### Bug Fixes
+
+* **ux:** use shared context for faster structure and page tuning ([#85](https://github.com/AIGNE-io/aigne-web-smith/issues/85)) ([7ebb1db](https://github.com/AIGNE-io/aigne-web-smith/commit/7ebb1db4ea8ef9020ae89a3a40b1e4a00b78fad7))
+
 ## [1.3.1-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.2...v1.3.1-beta.3) (2025-10-02)
 
 

@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
-import { glob } from "glob";
+import fg from "fast-glob";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -188,13 +188,14 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
   });
 
   try {
-    const files = await glob(patterns, {
+    const files = await fg(patterns, {
       cwd: dir,
       ignore: allIgnorePatterns.length > 0 ? allIgnorePatterns : undefined,
-      absolute: true,
-      nodir: true, // Only return files, not directories
-      dot: false, // Don't include dot files by default
-      gitignore: true, // Enable .gitignore support
+      onlyFiles: true,
+      dot: false,
+      stats: false,
+      followSymbolicLinks: false,
+      suppressErrors: true, // don't throw on permission errors
     });
 
     return files;

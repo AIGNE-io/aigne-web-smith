@@ -22,7 +22,7 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
-import { listRepoFiles } from "../utils/datasource.mjs";
+import { listContentRelevantFiles } from "../utils/datasource.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -122,15 +122,7 @@ export default async function init(
   // Save target audience choices as keys
   input.targetAudienceTypes = audienceChoices;
 
-  // 3. Custom rules - any specific requirements for the website?
-  const rulesInput = await options.prompts.input({
-    message:
-      "📋 [3/8]: Any custom rules or requirements for your website? (Optional, press Enter to skip)",
-    default: "",
-  });
-  input.rules = rulesInput.trim();
-
-  // 4. Website scale - how many pages should be generated?
+  // 3. Website scale - how many pages should be generated?
   // Determine default based on priority: Purpose > Audience
   const getScaleDefault = () => {
     // Check priority order: purposes -> audiences
@@ -151,7 +143,7 @@ export default async function init(
   const defaultScale = getScaleDefault();
 
   const scaleChoice = await options.prompts.select({
-    message: "📊 [4/8]: How many pages should your website have?",
+    message: "📊 [3/8]: How many pages should your website have?",
     choices: Object.entries(WEBSITE_SCALE).map(([key, scale]) => ({
       name: `${scale.name}`,
       description: scale.description,
@@ -169,7 +161,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/8]: Choose primary website language:",
+    message: "🌐 [4/8]: Choose primary website language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -186,7 +178,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [6/8]: Select translation languages:",
+    message: "🔄 [5/8]: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -195,15 +187,15 @@ export default async function init(
 
   input.translateLanguages = translateLanguageChoices;
 
-  // 7. Website pages directory
+  // 6. Website pages directory
   const pagesDirInput = await options.prompts.input({
-    message: `📁 [7/8]: Where to save generated website pages:`,
+    message: `📁 [6/8]: Where to save generated website pages:`,
     default: `${outputPath}/pages`,
   });
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
-  // 8. Source code paths
-  console.log("\n📁 [8/8]: DataSource Paths");
+  // 7. Source code paths
+  console.log("\n📁 [7/8]: DataSource Paths");
   console.log(
     "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content)",
   );
@@ -287,31 +279,48 @@ export default async function init(
   }
 
   // If no paths entered, automatically suggest source paths
-  if (sourcePaths.length === 0) {
-    const suggestSourcePathAgent = options.context.agents["suggestSourcePath"];
-    const result = await options.context.invoke(suggestSourcePathAgent, {
-      sourceFiles: (await listRepoFiles(process.cwd())).map((file) => `- ${file.path}`).join("\n"),
-      pagePurpose: getPagePurpose(prioritizedPurposes).join("\n"),
-      targetAudienceTypes: getTargetAudienceTypes(audienceChoices).join("\n"),
-    });
-    const selectedFiles = result.selectedFiles.map((file) => file.path);
-    const finalSelectedFiles = await options.prompts.checkbox({
-      message: "Review the suggested source paths:",
-      choices: selectedFiles.map((file) => ({
-        name: `${file}`,
-        value: file,
-      })),
-      validate: (input) => {
-        if (input.length === 0) {
-          return "Please select at least one source path.";
-        }
-        return true;
-      },
-    });
-    input.sourcesPath = finalSelectedFiles;
+  if (sourcePaths.length === 0 || (sourcePaths.length === 1 && sourcePaths[0] === "./")) {
+    const relevantFiles = await listContentRelevantFiles(process.cwd());
+    if (relevantFiles.length > 0) {
+      const suggestSourcePathAgent = options.context.agents["suggestSourcePath"];
+      const result = await options.context.invoke(suggestSourcePathAgent, {
+        sourceFiles: relevantFiles.map((file) => `- ${file.path}`).join("\n"),
+        pagePurpose: getPagePurpose(prioritizedPurposes).join("\n"),
+        targetAudienceTypes: getTargetAudienceTypes(audienceChoices).join("\n"),
+        maxFiles: 50,
+      });
+      const selectedFiles = result.selectedFiles.map((file) => file.path);
+      const finalSelectedFiles = await options.prompts.checkbox({
+        message: "Review the suggested source paths:",
+        choices: selectedFiles.map((file) => ({
+          name: `${file}`,
+          value: file,
+        })),
+        validate: (input) => {
+          if (input.length === 0) {
+            return "Please select at least one source path.";
+          }
+          return true;
+        },
+      });
+      input.sourcesPath = finalSelectedFiles;
+    } else {
+      console.log(
+        "⚠️ Seems we've got an empty directory, will use the entire directory as datasource.",
+      );
+      input.sourcesPath = ["./"];
+    }
   } else {
-    input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
+    input.sourcesPath = sourcePaths.filter((path) => path !== "./");
   }
+
+  // 8. Custom rules - any specific requirements for the website?
+  const rulesInput = await options.prompts.input({
+    message:
+      "📋 [8/8]: Any custom rules or requirements for your website? (Optional, press Enter to skip)",
+    default: "",
+  });
+  input.rules = rulesInput.trim();
 
   // Save project info to config
   const projectInfo = await getProjectInfo();
@@ -336,12 +345,12 @@ export default async function init(
     await mkdir(dirPath, { recursive: true });
 
     await writeFile(filePath, yamlContent, "utf8");
-    console.log(`\n🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
     // Print YAML content for user review
-    console.log(chalk.cyan("---"));
+    console.log(chalk.cyan("----"));
     console.log(chalk.cyan(yamlContent));
-    console.log(chalk.cyan("---"));
-    console.log("💡 You can edit the configuration file anytime to modify settings.\n");
+    console.log(chalk.cyan("----"));
+    console.log(`🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
+    console.log("💡 You can edit the configuration file anytime to modify settings.");
     console.log(`🚀 Run ${chalk.cyan("'aigne web generate'")} to start website generation!\n`);
 
     return {};

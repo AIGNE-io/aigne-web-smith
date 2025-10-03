@@ -1,5 +1,6 @@
 import { extname } from "node:path";
 import fg from "fast-glob";
+import { loadGitignore } from "../../utils/file-utils.mjs";
 
 // Common patterns to ignore
 const DEFAULT_IGNORE = [
@@ -51,6 +52,8 @@ const DEFAULT_IGNORE = [
   // Lock files
   "**/package-lock.json",
   "**/yarn.lock",
+  "**/lerna.json",
+  "**/turbo.json",
   "**/pnpm-lock.yaml",
   "**/composer.lock",
   "**/Gemfile.lock",
@@ -70,9 +73,9 @@ const DEFAULT_IGNORE = [
   "**/coverage**",
   "**/babel**",
   "**/jest**",
+  "**/eslint**",
   "**/LICENSE**",
   "**/tsconfig**",
-  "**/.nyc_output/**",
 
   // Test files (JavaScript, TypeScript, Python, Ruby, Go, Rust, etc.)
   "**/*.test.js",
@@ -121,9 +124,13 @@ export async function listRepoFiles(dirPath, options = {}) {
     maxSize = 1 * 1024 * 1024, // 1MB default
   } = options;
 
+  const gitignorePatterns = await loadGitignore(dirPath);
+
   const files = await fg("**/*", {
     cwd: dirPath,
-    ignore: [...DEFAULT_IGNORE, ...additionalIgnore],
+    ignore: Array.from(
+      new Set([...DEFAULT_IGNORE, ...additionalIgnore, ...(gitignorePatterns || [])]),
+    ),
     onlyFiles: true,
     dot: includeHidden,
     stats: true,
@@ -140,4 +147,50 @@ export async function listRepoFiles(dirPath, options = {}) {
       size: file.stats?.size,
       extension: extname(file.path),
     }));
+}
+
+export async function listContentRelevantFiles(dirPath, options = {}) {
+  const allFiles = await listRepoFiles(dirPath, options);
+
+  // Content-relevant extensions
+  const contentExtensions = new Set([
+    ".md",
+    ".mdx",
+    ".txt",
+    ".rst", // Documentation
+    ".json",
+    ".yaml",
+    ".yml",
+    ".toml", // Structured data (non-lock)
+    ".csv",
+    ".tsv", // Data files
+  ]);
+
+  // Content-relevant filenames (case-insensitive)
+  const contentFilenames = new Set([
+    "readme",
+    "contributing",
+    "changelog",
+    "license",
+    "package.json",
+    "composer.json",
+    "cargo.toml",
+  ]);
+
+  return allFiles.filter((file) => {
+    const filename = file.name.toLowerCase();
+    const ext = file.extension.toLowerCase();
+
+    // Include by extension
+    if (contentExtensions.has(ext)) return true;
+
+    // Include by filename
+    const nameWithoutExt = filename.replace(ext, "");
+    if (contentFilenames.has(nameWithoutExt)) return true;
+
+    // Include docs/content directories
+    if (file.path.match(/^(docs|content|documentation|pages|blog)\//)) return true;
+
+    return false;
+  });
 }

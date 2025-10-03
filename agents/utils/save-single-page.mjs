@@ -13,6 +13,7 @@ export default async function saveSinglePage({
   parentId,
   isTranslate = false,
   isShowMessage = false,
+  throwErrorIfInvalid = false,
   componentLibrary,
 }) {
   let effectiveContent = content;
@@ -23,9 +24,13 @@ export default async function saveSinglePage({
   });
 
   if (!validation.isValid) {
-    const error = new Error(validation.validationFeedback || "Page detail validation failed");
-    error.validationErrors = validation.errors;
-    throw error;
+    if (throwErrorIfInvalid) {
+      const error = new Error(validation.validationFeedback || "Page detail validation failed");
+      error.validationErrors = validation.errors;
+      throw error;
+    }
+    // only log error
+    console.error(`⚠️ Page Detail Validation Failed: ${validation.validationFeedback}`);
   }
 
   if (validation.normalizedContent) {

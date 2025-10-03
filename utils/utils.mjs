@@ -22,6 +22,7 @@ import {
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
+  LIST_KEY,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
   PAGES_OUTPUT_DIR,
@@ -31,6 +32,7 @@ import {
   TARGET_AUDIENCES,
   WEBSITE_SCALE,
 } from "./constants.mjs";
+import { extractContentFields } from "./generate-helper.mjs";
 
 const pageDetailMetaSchema = z
   .object({
@@ -55,6 +57,177 @@ const pageDetailSchema = z
     sections: z.array(pageDetailSectionSchema).min(1, "sections must contain at least one section"),
   })
   .catchall(z.unknown());
+
+function normalizeFieldList(fields = []) {
+  return Array.from(
+    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
+  ).sort();
+}
+
+function stripNumericSegments(field) {
+  return field
+    .split(".")
+    .filter((segment) => !/^\d+$/.test(segment))
+    .join(".");
+}
+
+function hasNumericSegment(field) {
+  return field.split(".").some((segment) => /^\d+$/.test(segment));
+}
+
+function buildFieldCombinationIndex(componentLibrary = []) {
+  if (!Array.isArray(componentLibrary) || componentLibrary.length === 0) {
+    return null;
+  }
+
+  const byKey = new Map();
+  const entries = [];
+
+  componentLibrary.forEach((component) => {
+    if (!component || component.type !== "composite") return;
+    const comboFields = normalizeFieldList(component.fieldCombinations || []);
+    if (comboFields.length === 0) return;
+
+    const key = comboFields.join("|");
+    let entry = byKey.get(key);
+    if (!entry) {
+      entry = {
+        key,
+        fields: comboFields,
+        fieldSet: new Set(comboFields),
+        components: new Set(),
+      };
+      byKey.set(key, entry);
+      entries.push(entry);
+    }
+
+    const componentName = component.name || component.id || "unknown";
+    entry.components.add(componentName);
+  });
+
+  return entries.length > 0 ? { byKey, entries } : null;
+}
+
+function findClosestFieldCombination(fields, index, { requireSuperset = false } = {}) {
+  if (!index || index.entries.length === 0) {
+    return null;
+  }
+
+  const sourceSet = new Set(fields);
+  let bestMatch = null;
+
+  index.entries.forEach((entry) => {
+    const allowedSet = entry.fieldSet || new Set(entry.fields);
+    const extra = fields.filter((field) => !allowedSet.has(field));
+    if (requireSuperset && extra.length > 0) {
+      return;
+    }
+
+    const missing = entry.fields.filter((field) => !sourceSet.has(field));
+    const penalty = requireSuperset ? missing.length : extra.length + missing.length;
+
+    if (!bestMatch || penalty < bestMatch.penalty) {
+      bestMatch = {
+        entry,
+        extra,
+        missing,
+        penalty,
+      };
+    }
+  });
+
+  return bestMatch;
+}
+
+function validateSectionFieldCombination({ section, sectionPath, index, errors, existingKeys }) {
+  if (!section || typeof section !== "object" || Array.isArray(section) || !index) {
+    return;
+  }
+
+  const fields = normalizeFieldList(extractContentFields(section));
+  const normalizedIndexFreeFields = new Set(fields.map(stripNumericSegments));
+  if (fields.length > 0) {
+    const key = fields.join("|");
+    const exactEntry = index.byKey?.get(key);
+
+    if (!exactEntry) {
+      const supersetMatch = findClosestFieldCombination(fields, index, { requireSuperset: true });
+      const isListOnlyMissing =
+        supersetMatch &&
+        supersetMatch.extra.length === 0 &&
+        supersetMatch.missing.every((field) => {
+          if (!hasNumericSegment(field)) return false;
+          const normalized = stripNumericSegments(field);
+          return normalizedIndexFreeFields.has(normalized);
+        });
+
+      if (isListOnlyMissing) {
+        // Allow shorter list instances; compose-pages-data will prune placeholders.
+      } else {
+        const closest = findClosestFieldCombination(fields, index);
+        let message = `${sectionPath} has unsupported field combination: [${fields.join(", ")}].`;
+
+        if (closest) {
+          const { entry, extra, missing } = closest;
+          const suggestionParts = [];
+          if (extra.length > 0) {
+            suggestionParts.push(`remove extra fields [${extra.join(", ")}]`);
+          }
+          if (missing.length > 0) {
+            suggestionParts.push(`add required fields [${missing.join(", ")}]`);
+          }
+          const componentNames = Array.from(entry?.components ?? []);
+          if (componentNames.length > 0) {
+            suggestionParts.push(`match component(s): ${componentNames.join(", ")}`);
+          }
+
+          if (suggestionParts.length > 0) {
+            message += ` Suggested fix: ${suggestionParts.join("; ")}.`;
+          }
+        }
+
+        const error = {
+          path: sectionPath,
+          message,
+          code: "UNKNOWN_FIELD_COMBINATION",
+        };
+
+        const errorKey = `${error.path}:${error.code}`;
+        if (!existingKeys || !existingKeys.has(errorKey)) {
+          errors.push(error);
+          existingKeys?.add(errorKey);
+        }
+      }
+    }
+  }
+
+  const listItems = section[LIST_KEY];
+  if (Array.isArray(listItems)) {
+    listItems.forEach((item, indexOfItem) => {
+      const itemPath = `${sectionPath}.${LIST_KEY}.${indexOfItem}`;
+      if (item && typeof item === "object" && !Array.isArray(item)) {
+        validateSectionFieldCombination({
+          section: item,
+          sectionPath: itemPath,
+          index,
+          errors,
+          existingKeys,
+        });
+      } else if (item != null) {
+        const error = {
+          path: itemPath,
+          message: `${itemPath} must be an object with valid section fields`,
+          code: "INVALID_LIST_ITEM_TYPE",
+        };
+        const errorKey = `${error.path}:${error.code}`;
+        if (!existingKeys || !existingKeys.has(errorKey)) {
+          errors.push(error);
+          existingKeys?.add(errorKey);
+        }
+      }
+    });
+  }
+}
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -108,110 +281,175 @@ export function processContent({ content }) {
   });
 }
 
-export function validatePageDetail({ pageDetailYaml }) {
-  if (typeof pageDetailYaml !== "string") {
+export function validatePageDetail({
+  pageDetailYaml,
+  allowArrayFallback = false,
+  componentLibrary,
+}) {
+  const errors = [];
+  const fieldCombinationIndex = buildFieldCombinationIndex(componentLibrary);
+
+  const toErrorKey = (error) => `${error.path}:${error.code}`;
+
+  const buildInvalidResult = () => {
+    const summary =
+      errors.length === 1
+        ? "Found 1 validation error:"
+        : `Found ${errors.length} validation errors:`;
+    const details = errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+
     return {
       isValid: false,
-      validationFeedback: "Expected pageDetailYaml to be a string",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "pageDetailYaml must be provided as a string",
-          code: "INVALID_INPUT_TYPE",
-        },
-      ],
+      validationFeedback: `${summary}\n${details}`,
+      errors,
+      errorCount: errors.length,
     };
+  };
+
+  if (typeof pageDetailYaml !== "string") {
+    errors.push({
+      path: "pageDetailYaml",
+      message: "pageDetailYaml must be provided as a string",
+      code: "INVALID_INPUT_TYPE",
+    });
+    return buildInvalidResult();
   }
 
   const trimmed = pageDetailYaml.trim();
   if (!trimmed) {
-    return {
-      isValid: false,
-      validationFeedback: "Received empty YAML content",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "YAML content must not be empty",
-          code: "EMPTY_CONTENT",
-        },
-      ],
-    };
-  }
-
-  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-    return {
-      isValid: false,
-      validationFeedback: "Detected JSON structure; please output YAML with key-value pairs",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "JSON output is not allowed for page detail content",
-          code: "JSON_DETECTED",
-        },
-      ],
-    };
+    errors.push({
+      path: "pageDetailYaml",
+      message: "YAML or JSON content must not be empty",
+      code: "EMPTY_CONTENT",
+    });
+    return buildInvalidResult();
   }
 
   let parsed;
+  let normalizedContent;
+  let normalizedFromArray = false;
   try {
     parsed = parse(pageDetailYaml);
   } catch (parseError) {
-    return {
-      isValid: false,
-      validationFeedback: `YAML syntax error: ${parseError.message}`,
-      errors: [
-        {
-          path: "yaml_syntax",
-          message: `Invalid YAML syntax: ${parseError.message}`,
-          code: "YAML_SYNTAX_ERROR",
-        },
-      ],
-    };
+    errors.push({
+      path: "yaml_syntax",
+      message: `Invalid YAML or JSON syntax: ${parseError.message}`,
+      code: "YAML_SYNTAX_ERROR",
+    });
+    return buildInvalidResult();
   }
 
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    return {
-      isValid: false,
-      validationFeedback: "Parsed YAML must be an object containing meta and sections",
-      errors: [
-        {
-          path: "pageDetailYaml",
-          message: "Root YAML node must be a mapping/object",
-          code: "INVALID_ROOT_TYPE",
-        },
-      ],
-    };
+  if (Array.isArray(parsed)) {
+    if (!allowArrayFallback) {
+      errors.push({
+        path: "pageDetailYaml",
+        message: "Root array is not allowed when allowArrayFallback is false",
+        code: "ARRAY_ROOT_NOT_ALLOWED",
+      });
+      return buildInvalidResult();
+    }
+
+    if (parsed.length === 0) {
+      errors.push({
+        path: "pageDetailYaml",
+        message: "Root array must contain at least one detail object",
+        code: "EMPTY_ARRAY_ROOT",
+      });
+      return buildInvalidResult();
+    }
+
+    const firstNode = parsed[0];
+    normalizedFromArray = true;
+    if (trimmed.startsWith("[")) {
+      normalizedContent = JSON.stringify(firstNode, null, 2);
+    } else {
+      normalizedContent = yamlStringify(firstNode).trimEnd();
+    }
+    parsed = firstNode;
+  }
+
+  const isRootObject = parsed != null && typeof parsed === "object" && !Array.isArray(parsed);
+
+  if (!isRootObject) {
+    errors.push({
+      path: "pageDetailYaml",
+      message: "Root node must be an object containing meta and sections",
+      code: "INVALID_ROOT_TYPE",
+    });
+    return buildInvalidResult();
   }
 
   const validationResult = pageDetailSchema.safeParse(parsed);
-  if (validationResult.success) {
-    return {
-      isValid: true,
-      validationFeedback: "Page detail YAML validation passed",
-      parsedData: validationResult.data,
-    };
+  const existingErrorKeys = new Set(errors.map(toErrorKey));
+  const issues = validationResult.success
+    ? []
+    : validationResult.error?.errors || validationResult.error?.issues || [];
+
+  for (const issue of issues) {
+    const path = Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || "unknown");
+    let code = issue.code || "VALIDATION_ERROR";
+    let message = issue.message || "Validation failed";
+
+    if (path === "meta" && issue.code === "invalid_type") {
+      if (issue.received === "undefined") {
+        code = "MISSING_META";
+        message = "meta field is required";
+      } else {
+        code = "INVALID_META_TYPE";
+        message = "meta must be an object";
+      }
+    } else if (path === "sections" && issue.code === "invalid_type") {
+      if (issue.received === "undefined") {
+        code = "MISSING_SECTIONS";
+        message = "sections field is required";
+      } else {
+        code = "INVALID_SECTIONS_TYPE";
+        message = "sections must be an array of section objects";
+      }
+    }
+
+    const error = { path, message, code };
+    const key = toErrorKey(error);
+    if (!existingErrorKeys.has(key)) {
+      existingErrorKeys.add(key);
+      errors.push(error);
+    }
   }
 
-  const issues = validationResult.error?.errors || validationResult.error?.issues || [];
-  const errors = issues.map((issue) => ({
-    path: Array.isArray(issue.path) ? issue.path.join(".") : String(issue.path || "unknown"),
-    message: issue.message || "Validation failed",
-    code: issue.code || "VALIDATION_ERROR",
-  }));
+  const parsedDataForValidation = validationResult.success ? validationResult.data : parsed;
 
-  const summary =
-    errors.length === 1 ? "Found 1 validation error:" : `Found ${errors.length} validation errors:`;
+  if (
+    errors.length === 0 &&
+    fieldCombinationIndex &&
+    Array.isArray(parsedDataForValidation?.sections)
+  ) {
+    parsedDataForValidation.sections.forEach((section, index) => {
+      validateSectionFieldCombination({
+        section,
+        sectionPath: `sections.${index}`,
+        index: fieldCombinationIndex,
+        errors,
+        existingKeys: existingErrorKeys,
+      });
+    });
+  }
 
-  const details = errors
-    .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
-    .join("\n");
+  if (errors.length === 0) {
+    const result = {
+      isValid: true,
+      validationFeedback: "Page detail YAML validation passed",
+      parsedData: parsedDataForValidation,
+    };
+    if (normalizedContent) {
+      result.normalizedContent = normalizedContent;
+      result.normalizedFromArray = normalizedFromArray;
+    }
+    return result;
+  }
 
-  return {
-    isValid: false,
-    validationFeedback: `${summary}\n${details}`,
-    errors,
-    errorCount: errors.length,
-  };
+  return buildInvalidResult();
 }
 // Helper function to generate filename based on language
 export const getFileName = ({ fileName }) => {

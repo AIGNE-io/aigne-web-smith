@@ -18,7 +18,10 @@ skills:
             { "reviewContent": content }
           ])
     reflection:
-      reviewer: ../../utils/check-detail-result.mjs
+      reviewer:
+        url: ../../utils/check-detail-result.mjs
+        default_input:
+          allowArrayFallback: true
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true

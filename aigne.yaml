@@ -21,12 +21,12 @@ agents:
   # generate
   - ./agents/generate/index.yaml
   # generate component library
-  - ./agents/generate/component-library/load-component-library.mjs
-  - ./agents/generate/component-library/analyze-component-library.mjs
-  - ./agents/generate/component-library/generate-component-library.yaml
-  - ./agents/generate/component-library/parse-component-library.mjs
-  - ./agents/generate/component-library/save-component-library.mjs
-  - ./agents/generate/component-library/validate-component-library.mjs
+  # - ./agents/generate/component-library/load-component-library.mjs
+  # - ./agents/generate/component-library/analyze-component-library.mjs
+  # - ./agents/generate/component-library/generate-component-library.yaml
+  # - ./agents/generate/component-library/parse-component-library.mjs
+  # - ./agents/generate/component-library/save-component-library.mjs
+  # - ./agents/generate/component-library/validate-component-library.mjs
   # generate page detail
   - ./agents/generate/page-detail/batch-generate-page-detail.yaml
   - ./agents/generate/page-detail/generate-page-detail.yaml
@@ -36,6 +36,7 @@ agents:
   - ./agents/generate/page-data/compose-pages-data.mjs
   - ./agents/generate/page-data/save-pages-data.mjs
   - ./agents/generate/page-data/validate-pages-data.mjs
+  - ./agents/generate/page-detail/load-page-detail.mjs
 
   # init
   - ./agents/init/index.mjs
@@ -118,13 +119,13 @@ cli:
       agents:
         - url: ./agents/theme/generate-theme-team.yaml
           name: generate
-          alias: ['gen']
+          alias: ["gen"]
         - url: ./agents/theme/apply-theme.mjs
           name: apply
     - ./agents/prefs/index.mjs
     - name: component
       description: Manage and pull components
-      alias: ['comp']
+      alias: ["comp"]
       agents:
         - url: ./agents/component/pull-components-team.yaml
           name: pull

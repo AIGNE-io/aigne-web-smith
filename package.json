@@ -28,6 +28,7 @@
     "@aigne/gemini": "^0.14.0",
     "@aigne/openai": "^0.16.0",
     "@blocklet/payment-broker-client": "^1.21.5",
+    "adm-zip": "^0.5.16",
     "chalk": "^5.5.0",
     "dompurify": "^3.2.6",
     "fast-glob": "^3.3.3",

@@ -1,4 +1,4 @@
-import { savePageWithTranslations } from "../../utils/utils.mjs";
+import { savePageWithTranslations, validatePageDetail } from "../../utils/utils.mjs";
 
 export default async function saveSinglePage({
   path,
@@ -13,10 +13,28 @@ export default async function saveSinglePage({
   parentId,
   isTranslate = false,
   isShowMessage = false,
+  componentLibrary,
 }) {
+  let effectiveContent = content;
+  const validation = validatePageDetail({
+    pageDetailYaml: effectiveContent,
+    allowArrayFallback: true,
+    componentLibrary,
+  });
+
+  if (!validation.isValid) {
+    const error = new Error(validation.validationFeedback || "Page detail validation failed");
+    error.validationErrors = validation.errors;
+    throw error;
+  }
+
+  if (validation.normalizedContent) {
+    effectiveContent = validation.normalizedContent;
+  }
+
   await savePageWithTranslations({
     path,
-    content,
+    content: effectiveContent,
     pagesDir,
     tmpDir,
     translates,
@@ -33,7 +51,7 @@ export default async function saveSinglePage({
 
   return {
     path,
-    content,
+    content: effectiveContent,
     title,
     description,
     sourceIds,

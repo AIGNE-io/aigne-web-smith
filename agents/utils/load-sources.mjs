@@ -399,12 +399,24 @@ export default async function loadSources({
     }
   }
 
+  const componentLibrary = builtinComponentLibrary;
+
+  if (!componentLibrary.length) {
+    throw new Error("❌ Component library is empty, please check the component library exists.");
+  }
+
+  const componentLibraryData = {
+    hash: "mock-hash",
+    componentLibrary,
+  };
+
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
-    builtinComponentLibrary,
+    componentLibrary,
+    componentLibraryData,
     content,
     originalWebsiteStructure,
     files,

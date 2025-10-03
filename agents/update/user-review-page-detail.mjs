@@ -3,7 +3,7 @@ import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 
 export default async function userReviewPageDetail(
-  { content, builtinComponentLibrary, ...rest },
+  { content, componentLibrary, ...rest },
   options,
 ) {
   // Check if page detail content exists
@@ -81,7 +81,7 @@ export default async function userReviewPageDetail(
       break;
     }
 
-    const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
+    const fieldConstraints = generateFieldConstraints(componentLibrary);
 
     try {
       // Call updatePageDetail agent with feedback

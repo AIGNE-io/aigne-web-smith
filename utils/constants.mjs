@@ -548,3 +548,9 @@ export const DEFAULT_PAGE_STYLE = {
   paddingY: "normal",
   paddingX: "normal",
 };
+
+export const EMPTY_VALUE = "___EMPTY_VALUE___";
+
+export const KEEP_CONFIG_KEYS = ["paddingX", "paddingY", "borderRadius", "border"];
+
+export const BUNDLE_FILENAME = "publish-bundle.json";

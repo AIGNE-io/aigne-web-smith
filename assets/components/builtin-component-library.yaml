@@ -1,15 +1,15 @@
 meta:
-  updateAt: 2025-10-02T01:26:33.893Z
+  updateAt: 2025-10-03T06:29:27.297Z
 atomic:
+  - name: LogoV1
+    componentId: k2m4p6r8t0v2x4z6
+    summary: A component to display a heading and a list of logos with links
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
   - name: RichText
     componentId: xoHu0J44322kDYc-
     summary: A RichText component primarily displays the title and description,
       supporting customization of font color.
-    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
-    blockletTitle: ArcBlock Home Site Component
-  - name: Action
-    componentId: a44r0SiGV9AFn2Fj
-    summary: Action buttons component with alignment and customization support
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: Media
@@ -17,15 +17,15 @@ atomic:
     summary: A universal media component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Action
+    componentId: a44r0SiGV9AFn2Fj
+    summary: Action buttons component with alignment and customization support
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
   - name: Icon
     componentId: YwuDiIbyyF5vfGpt
     summary: An Iconify-based icon component that accepts Iconify tokens. Supports
       `fontSize`, `iconName` and `color` properties. Wrapper by MUI Box.
-    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
-    blockletTitle: ArcBlock Home Site Component
-  - name: LogoV1
-    componentId: k2m4p6r8t0v2x4z6
-    summary: A component to display a heading and a list of logos with links
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: FaqComponentV2
@@ -39,6 +39,315 @@ atomic:
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
 composite:
+  - id: ew7g0ufx6umek1d6
+    name: Logo Wall
+    summary: |-
+      
+      Structure
+      - Optional section title: `{{logoWallTitle}}`
+      - Logo row(s): repeatable items from `logoWallList[]`, each with:
+        - `logoWallList.N.image` (SVG/PNG with transparent background)
+        - `logoWallList.N.link` (optional; external URL)
+
+      Use when
+      - You want quick social proof via partner/customer/press logos.
+      - Works best as a lightweight band between sections, not a hero.
+    fieldCombinations:
+      - logoWallList.0.image
+      - logoWallList.0.link
+      - logoWallList.1.image
+      - logoWallList.1.link
+      - logoWallList.2.image
+      - logoWallList.2.link
+      - logoWallList.3.image
+      - logoWallList.3.link
+      - logoWallList.4.image
+      - logoWallList.4.link
+      - logoWallList.5.image
+      - logoWallList.5.link
+      - logoWallList.6.image
+      - logoWallList.6.link
+      - logoWallList.7.image
+      - logoWallList.7.link
+      - logoWallList.8.image
+      - logoWallList.8.link
+      - logoWallList.9.image
+      - logoWallList.9.link
+      - logoWallTitle
+    section:
+      id: dk56zu8ywvq4j0w4
+      name: Logo Bar/Wall_2
+      component: layout-block
+      sections:
+        4tuso9kup54ii3lr:
+          id: 4tuso9kup54ii3lr
+          name: LogoV1
+          component: custom-component
+          config:
+            componentId: k2m4p6r8t0v2x4z6
+      sectionIds:
+        - 4tuso9kup54ii3lr
+      config:
+        gridSettings:
+          desktop:
+            4tuso9kup54ii3lr:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        paddingX: none
+    dataSource:
+      dk56zu8ywvq4j0w4: {}
+      4tuso9kup54ii3lr:
+        properties:
+          f2h4j6l8n0p2r4t6:
+            value:
+              text: <%= logoWallTitle %>
+              style:
+                color: ""
+                fontSize: 16px
+          v8x0z2b4d6f8h0j2:
+            value:
+              - image:
+                  url: <%= logoWallList.0.image %>
+                  mediaKitUrl: <%= logoWallList.0.image %>
+                  width: 0
+                link: <%= logoWallList.0.link %>
+              - image:
+                  url: <%= logoWallList.1.image %>
+                  mediaKitUrl: <%= logoWallList.1.image %>
+                link: <%= logoWallList.1.link %>
+              - image:
+                  url: <%= logoWallList.2.image %>
+                  mediaKitUrl: <%= logoWallList.2.image %>
+                link: <%= logoWallList.2.link %>
+              - image:
+                  url: <%= logoWallList.3.image %>
+                  mediaKitUrl: <%= logoWallList.3.image %>
+                link: <%= logoWallList.3.link %>
+              - image:
+                  url: <%= logoWallList.4.image %>
+                  mediaKitUrl: <%= logoWallList.4.image %>
+                link: <%= logoWallList.4.link %>
+              - image:
+                  url: <%= logoWallList.5.image %>
+                  mediaKitUrl: <%= logoWallList.5.image %>
+                link: <%= logoWallList.5.link %>
+              - image:
+                  url: <%= logoWallList.6.image %>
+                  mediaKitUrl: <%= logoWallList.6.image %>
+                link: <%= logoWallList.6.link %>
+              - image:
+                  url: <%= logoWallList.7.image %>
+                  mediaKitUrl: <%= logoWallList.7.image %>
+                link: <%= logoWallList.7.link %>
+              - image:
+                  url: <%= logoWallList.8.image %>
+                  mediaKitUrl: <%= logoWallList.8.image %>
+                link: <%= logoWallList.8.link %>
+              - image:
+                  url: <%= logoWallList.9.image %>
+                  mediaKitUrl: <%= logoWallList.9.image %>
+                link: <%= logoWallList.9.link %>
+  - id: osyn2uylw9cdhzpc
+    name: User Review
+    summary: >-
+      Structure (top → bottom)
+
+
+      - Review Content/Quote, Primary text, left-aligned, can span multiple
+      lines).
+
+      - User/Source Block (A horizontal block containing user identification
+      details).
+          - Avatar/Profile Picture small square/circular image, left-aligned).
+          - User Name, text, usually bold, bottom of the avatar).
+          - User Description/Title (smaller text below the username, e.g., "Verified Buyer," "CEO of Company X").
+
+      ---
+
+
+      Use when
+
+
+      - You need to display **social proof or testimonials** to build trust and
+      credibility for a product, service, or feature.
+
+      - The user feedback is provided as a **direct quote** and is the main
+      focus of the component.
+
+      - The component is used in a **group (carousel or grid)** to showcase
+      diverse user experiences.
+
+      - You want to provide **clear attribution** (name, title, and picture) to
+      make the review feel authentic.
+
+
+
+      Constraint
+
+
+      - The content should be the **longest and most prominent text**, ideally
+      limited to 3-5 lines to avoid overwhelming the card.
+    fieldCombinations:
+      - userReview.avatarImage
+      - userReview.content
+      - userReview.description
+      - userReview.userName
+    section:
+      id: crdmoiee60y82o70
+      name: Card01
+      component: layout-block
+      sections:
+        cgksquknkrfo5m42:
+          id: cgksquknkrfo5m42
+          name: Comment
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        th9r84johvojpr6s:
+          id: th9r84johvojpr6s
+          name: User
+          component: layout-block
+          sections:
+            do35jzobe9fv1z8i:
+              id: do35jzobe9fv1z8i
+              name: Media
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+            zf1s9y77l821pofu:
+              id: zf1s9y77l821pofu
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - do35jzobe9fv1z8i
+            - zf1s9y77l821pofu
+          config:
+            gridSettings:
+              desktop:
+                do35jzobe9fv1z8i:
+                  x: 0
+                  y: 0
+                  w: 6
+                  h: 1
+                zf1s9y77l821pofu:
+                  x: 0
+                  y: 1
+                  w: 10
+                  h: 1
+              mobile:
+                do35jzobe9fv1z8i:
+                  x: 0
+                  y: 0
+                  w: 6
+                  h: 1
+                zf1s9y77l821pofu:
+                  x: 0
+                  y: 1
+                  w: 10
+                  h: 1
+            gap: small
+            paddingY: none
+            alignContent: center
+      sectionIds:
+        - cgksquknkrfo5m42
+        - th9r84johvojpr6s
+      config:
+        gridSettings:
+          desktop:
+            cgksquknkrfo5m42:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            th9r84johvojpr6s:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+          mobile:
+            zf1s9y77l821pofu:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+              id: zf1s9y77l821pofu
+            do35jzobe9fv1z8i:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+              id: do35jzobe9fv1z8i
+        background: transparent
+        paddingX: none
+        paddingY: none
+        borderRadius: none
+        gap: large
+        border: none
+        alignContent: space-between
+    dataSource:
+      crdmoiee60y82o70: {}
+      cgksquknkrfo5m42:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759143324880-zr95ywd04
+                  type: text
+                  text: <%= userReview.content %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      th9r84johvojpr6s: {}
+      do35jzobe9fv1z8i:
+        properties:
+          x8beiec3fxx5des1:
+            value: 40px
+          5fjm8opvqth7wk71:
+            value: 40px
+          dxn6zvv5bn6dn3mr:
+            value: cover
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= userReview.avatarImage %>
+              mediaKitUrl: <%= userReview.avatarImage %>
+              width: 84
+              height: 84
+          02dp1e6zfq2xwkt3:
+            value: 1:1
+          jjv0hvr8wrixt1f3:
+            value: 1
+      zf1s9y77l821pofu:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= userReview.userName %>
+              style:
+                variant: body2
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759143440656-yo4jiraka
+                  type: text
+                  text: <%= userReview.description %>
+                  style:
+                    color: ""
+                    fontSize: 12px
+                    variant: caption
   - id: 62jtalg46ddrukv9
     name: Vertical Hero
     summary: >-
@@ -217,7 +526,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 3-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -795,315 +1104,6 @@ composite:
             value: primary.main
           529qbwiam7oypw8e:
             value: 40px
-  - id: ew7g0ufx6umek1d6
-    name: Logo Wall
-    summary: |-
-      
-      Structure
-      - Optional section title: `{{logoWallTitle}}`
-      - Logo row(s): repeatable items from `logoWallList[]`, each with:
-        - `logoWallList.N.image` (SVG/PNG with transparent background)
-        - `logoWallList.N.link` (optional; external URL)
-
-      Use when
-      - You want quick social proof via partner/customer/press logos.
-      - Works best as a lightweight band between sections, not a hero.
-    fieldCombinations:
-      - logoWallList.0.image
-      - logoWallList.0.link
-      - logoWallList.1.image
-      - logoWallList.1.link
-      - logoWallList.2.image
-      - logoWallList.2.link
-      - logoWallList.3.image
-      - logoWallList.3.link
-      - logoWallList.4.image
-      - logoWallList.4.link
-      - logoWallList.5.image
-      - logoWallList.5.link
-      - logoWallList.6.image
-      - logoWallList.6.link
-      - logoWallList.7.image
-      - logoWallList.7.link
-      - logoWallList.8.image
-      - logoWallList.8.link
-      - logoWallList.9.image
-      - logoWallList.9.link
-      - logoWallTitle
-    section:
-      id: dk56zu8ywvq4j0w4
-      name: Logo Bar/Wall_2
-      component: layout-block
-      sections:
-        4tuso9kup54ii3lr:
-          id: 4tuso9kup54ii3lr
-          name: LogoV1
-          component: custom-component
-          config:
-            componentId: k2m4p6r8t0v2x4z6
-      sectionIds:
-        - 4tuso9kup54ii3lr
-      config:
-        gridSettings:
-          desktop:
-            4tuso9kup54ii3lr:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-        gap: normal
-        paddingY: none
-        paddingX: none
-    dataSource:
-      dk56zu8ywvq4j0w4: {}
-      4tuso9kup54ii3lr:
-        properties:
-          f2h4j6l8n0p2r4t6:
-            value:
-              text: <%= logoWallTitle %>
-              style:
-                color: ""
-                fontSize: 16px
-          v8x0z2b4d6f8h0j2:
-            value:
-              - image:
-                  url: <%= logoWallList.0.image %>
-                  mediaKitUrl: <%= logoWallList.0.image %>
-                  width: 0
-                link: <%= logoWallList.0.link %>
-              - image:
-                  url: <%= logoWallList.1.image %>
-                  mediaKitUrl: <%= logoWallList.1.image %>
-                link: <%= logoWallList.1.link %>
-              - image:
-                  url: <%= logoWallList.2.image %>
-                  mediaKitUrl: <%= logoWallList.2.image %>
-                link: <%= logoWallList.2.link %>
-              - image:
-                  url: <%= logoWallList.3.image %>
-                  mediaKitUrl: <%= logoWallList.3.image %>
-                link: <%= logoWallList.3.link %>
-              - image:
-                  url: <%= logoWallList.4.image %>
-                  mediaKitUrl: <%= logoWallList.4.image %>
-                link: <%= logoWallList.4.link %>
-              - image:
-                  url: <%= logoWallList.5.image %>
-                  mediaKitUrl: <%= logoWallList.5.image %>
-                link: <%= logoWallList.5.link %>
-              - image:
-                  url: <%= logoWallList.6.image %>
-                  mediaKitUrl: <%= logoWallList.6.image %>
-                link: <%= logoWallList.6.link %>
-              - image:
-                  url: <%= logoWallList.7.image %>
-                  mediaKitUrl: <%= logoWallList.7.image %>
-                link: <%= logoWallList.7.link %>
-              - image:
-                  url: <%= logoWallList.8.image %>
-                  mediaKitUrl: <%= logoWallList.8.image %>
-                link: <%= logoWallList.8.link %>
-              - image:
-                  url: <%= logoWallList.9.image %>
-                  mediaKitUrl: <%= logoWallList.9.image %>
-                link: <%= logoWallList.9.link %>
-  - id: osyn2uylw9cdhzpc
-    name: User Review
-    summary: >-
-      Structure (top → bottom)
-
-
-      - Review Content/Quote, Primary text, left-aligned, can span multiple
-      lines).
-
-      - User/Source Block (A horizontal block containing user identification
-      details).
-          - Avatar/Profile Picture small square/circular image, left-aligned).
-          - User Name, text, usually bold, bottom of the avatar).
-          - User Description/Title (smaller text below the username, e.g., "Verified Buyer," "CEO of Company X").
-
-      ---
-
-
-      Use when
-
-
-      - You need to display **social proof or testimonials** to build trust and
-      credibility for a product, service, or feature.
-
-      - The user feedback is provided as a **direct quote** and is the main
-      focus of the component.
-
-      - The component is used in a **group (carousel or grid)** to showcase
-      diverse user experiences.
-
-      - You want to provide **clear attribution** (name, title, and picture) to
-      make the review feel authentic.
-
-
-
-      Constraint
-
-
-      - The content should be the **longest and most prominent text**, ideally
-      limited to 3-5 lines to avoid overwhelming the card.
-    fieldCombinations:
-      - userReview.avatarImage
-      - userReview.content
-      - userReview.description
-      - userReview.userName
-    section:
-      id: crdmoiee60y82o70
-      name: Card01
-      component: layout-block
-      sections:
-        cgksquknkrfo5m42:
-          id: cgksquknkrfo5m42
-          name: Comment
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
-        th9r84johvojpr6s:
-          id: th9r84johvojpr6s
-          name: User
-          component: layout-block
-          sections:
-            do35jzobe9fv1z8i:
-              id: do35jzobe9fv1z8i
-              name: Media
-              component: custom-component
-              config:
-                componentId: xoHu0JPjPs122kaaa-
-            zf1s9y77l821pofu:
-              id: zf1s9y77l821pofu
-              name: RichText
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-          sectionIds:
-            - do35jzobe9fv1z8i
-            - zf1s9y77l821pofu
-          config:
-            gridSettings:
-              desktop:
-                do35jzobe9fv1z8i:
-                  x: 0
-                  y: 0
-                  w: 6
-                  h: 1
-                zf1s9y77l821pofu:
-                  x: 0
-                  y: 1
-                  w: 10
-                  h: 1
-              mobile:
-                do35jzobe9fv1z8i:
-                  x: 0
-                  y: 0
-                  w: 6
-                  h: 1
-                zf1s9y77l821pofu:
-                  x: 0
-                  y: 1
-                  w: 10
-                  h: 1
-            gap: small
-            paddingY: none
-            alignContent: center
-      sectionIds:
-        - cgksquknkrfo5m42
-        - th9r84johvojpr6s
-      config:
-        gridSettings:
-          desktop:
-            cgksquknkrfo5m42:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-            th9r84johvojpr6s:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-          mobile:
-            zf1s9y77l821pofu:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-              id: zf1s9y77l821pofu
-            do35jzobe9fv1z8i:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-              id: do35jzobe9fv1z8i
-        background: transparent
-        paddingX: none
-        paddingY: none
-        borderRadius: none
-        gap: large
-        border: none
-        alignContent: space-between
-    dataSource:
-      crdmoiee60y82o70: {}
-      cgksquknkrfo5m42:
-        properties:
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1759143324880-zr95ywd04
-                  type: text
-                  text: <%= userReview.content %>
-                  style:
-                    color: ""
-                    fontSize: 16px
-                    variant: body1
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-      th9r84johvojpr6s: {}
-      do35jzobe9fv1z8i:
-        properties:
-          x8beiec3fxx5des1:
-            value: 40px
-          5fjm8opvqth7wk71:
-            value: 40px
-          dxn6zvv5bn6dn3mr:
-            value: cover
-          7m5pz8nefl5j9hqq:
-            value:
-              url: <%= userReview.avatarImage %>
-              mediaKitUrl: <%= userReview.avatarImage %>
-              width: 84
-              height: 84
-          02dp1e6zfq2xwkt3:
-            value: 1:1
-          jjv0hvr8wrixt1f3:
-            value: 1
-      zf1s9y77l821pofu:
-        properties:
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= userReview.userName %>
-              style:
-                variant: body2
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1759143440656-yo4jiraka
-                  type: text
-                  text: <%= userReview.description %>
-                  style:
-                    color: ""
-                    fontSize: 12px
-                    variant: caption
   - id: x3qr8bqvlp1flxej
     name: Layout 4 Column Grid (Center)
     summary: >-
@@ -1112,7 +1112,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 4-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -1698,7 +1698,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 2-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -2071,7 +2071,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 3-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -3315,7 +3315,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: space-between
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -4047,92 +4047,6 @@ composite:
             value: 16
           v5utpm7bu9yvdpnq:
             value: center
-  - id: vji435chmnif2118
-    name: Layout Bento Grid 2
-    summary: >-
-      Structure
-
-      - Two-cell bento grid in one row
-
-      - Each cell hosts a child section/card/media block; shared gap, padding,
-      border, and radius settings.
-
-
-      Use when
-
-      - You need to present two peer items of equal weight (e.g., feature vs.
-      feature, plan vs. plan, before vs. after).
-
-      - Good for A/B comparisons or pairing a narrative card with a visual card.
-
-
-      Constraints
-
-      - Item count is exactly 2; if you have 1 or 3+ items, choose another
-      layout.
-    fieldCombinations:
-      - list.0
-      - list.1
-    section:
-      id: 9ur9vrlln7senjzz
-      name: Bento Grids_2
-      component: layout-block
-      sections:
-        xebzelstnp0vag5c:
-          id: xebzelstnp0vag5c
-          name: <%= list.0 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: transparent
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        yvbfss906axhksok:
-          id: yvbfss906axhksok
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-      sectionIds:
-        - xebzelstnp0vag5c
-        - yvbfss906axhksok
-      config:
-        gridSettings:
-          desktop:
-            xebzelstnp0vag5c:
-              x: 0
-              y: 0
-              w: 7
-              h: 1
-            yvbfss906axhksok:
-              x: 7
-              y: 0
-              w: 5
-              h: 1
-        paddingX: none
-        gap: small
-        paddingY: none
-    dataSource:
-      9ur9vrlln7senjzz: {}
-      xebzelstnp0vag5c: {}
-      yvbfss906axhksok: {}
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Left Image
     summary: >-
@@ -4339,6 +4253,92 @@ composite:
               mediaKitUrl: ""
               width: 2445
               height: 1394
+  - id: vji435chmnif2118
+    name: Layout Bento Grid 2
+    summary: >-
+      Structure
+
+      - Two-cell bento grid in one row
+
+      - Each cell hosts a child section/card/media block; shared gap, padding,
+      border, and radius settings.
+
+
+      Use when
+
+      - You need to present two peer items of equal weight (e.g., feature vs.
+      feature, plan vs. plan, before vs. after).
+
+      - Good for A/B comparisons or pairing a narrative card with a visual card.
+
+
+      Constraints
+
+      - Item count is exactly 2; if you have 1 or 3+ items, choose another
+      layout.
+    fieldCombinations:
+      - list.0
+      - list.1
+    section:
+      id: 9ur9vrlln7senjzz
+      name: Bento Grids_2
+      component: layout-block
+      sections:
+        xebzelstnp0vag5c:
+          id: xebzelstnp0vag5c
+          name: <%= list.0 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: transparent
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+        yvbfss906axhksok:
+          id: yvbfss906axhksok
+          name: <%= list.1 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+      sectionIds:
+        - xebzelstnp0vag5c
+        - yvbfss906axhksok
+      config:
+        gridSettings:
+          desktop:
+            xebzelstnp0vag5c:
+              x: 0
+              y: 0
+              w: 7
+              h: 1
+            yvbfss906axhksok:
+              x: 7
+              y: 0
+              w: 5
+              h: 1
+        paddingX: none
+        gap: small
+        paddingY: none
+    dataSource:
+      9ur9vrlln7senjzz: {}
+      xebzelstnp0vag5c: {}
+      yvbfss906axhksok: {}
   - id: uv25ogna0wj0jqa9
     name: Content Card With Right Image
     summary: >-
@@ -4703,6 +4703,9 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
+
+      - Only allowed in single-column containers; prohibited when the parent
+      layout has two or more columns (e.g., 1x2, 2x2, 2+3, grid).
     fieldCombinations:
       - contentCardDescription
       - contentCardLeftCode.content
@@ -4797,6 +4800,8 @@ composite:
           d8hvf7cxz93jk5p:
             value: 1rem
           qvxiyadgn5bj6oq8:
+            value: false
+          c4kvf6b7zyskk8m:
             value: true
       clt845zy8uab0yum: {}
   - id: a74ltdll9gxt3dxd
@@ -4824,6 +4829,9 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
+
+      - Only allowed in single-column containers; prohibited when the parent
+      layout has two or more columns (e.g., 1x2, 2x2, 2+3, grid).
     fieldCombinations:
       - contentCardDescription
       - contentCardRightCode.content
@@ -4879,6 +4887,17 @@ composite:
               y: 0
               w: 7
               h: 1
+          mobile:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            clt845zy8uab0yum:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
         paddingX: none
         gap: normal
         paddingY: none
@@ -4918,5 +4937,480 @@ composite:
           d8hvf7cxz93jk5p:
             value: 1rem
           qvxiyadgn5bj6oq8:
-            value: true
+            value: false
       clt845zy8uab0yum: {}
+  - id: 6rjjiox93r9xsqii
+    name: Content Card With Bottom Code
+    summary: >-
+      Structure
+
+      - Top: title (1 line) → short description (1–3 lines).
+
+      - Bottom: code area rendered from `contentCardBottomCode` (rounded
+      corners; object-fit: cover). A thin top rule or accent bar is optional.
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting code on the bottom.
+
+      - Works well for feature highlights, updates, or compact promo cards where
+      text leads and code reinforces.
+
+
+      Constraints
+
+      - `contentCardBottomCode` must be a valid code string
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+
+      - Allowed in single-column and two-column containers; prohibited when the
+      parent layout has three or more columns (e.g., 1x3, 2x3, 2+3, grid ≥3
+      cols).
+    fieldCombinations:
+      - contentCardBottomCode.content
+      - contentCardBottomCode.name
+      - contentCardDescription
+      - contentCardTitle
+    section:
+      id: v0yqgx0alva8pqgk
+      name: Card01
+      component: layout-block
+      sections:
+        carj7s5ignmoa8r8:
+          id: carj7s5ignmoa8r8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        clt845zy8uab0yum:
+          id: clt845zy8uab0yum
+          name: Section Layout
+          component: layout-block
+          sections:
+            x25tzyojrqnm2l2j:
+              id: x25tzyojrqnm2l2j
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - x25tzyojrqnm2l2j
+          config:
+            gridSettings:
+              desktop:
+                x25tzyojrqnm2l2j:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+            border: terminal
+      sectionIds:
+        - carj7s5ignmoa8r8
+        - clt845zy8uab0yum
+      config:
+        gridSettings:
+          desktop:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            clt845zy8uab0yum:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingX: none
+        gap: normal
+        paddingY: none
+        background: transparent
+        border: none
+        borderRadius: none
+        alignContent: space-between
+    dataSource:
+      v0yqgx0alva8pqgk: {}
+      carj7s5ignmoa8r8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      x25tzyojrqnm2l2j:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= contentCardBottomCode.content %>
+          b2jrz12ik7esf93z:
+            value: <%= contentCardBottomCode.name %>
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          qvxiyadgn5bj6oq8:
+            value: false
+      clt845zy8uab0yum: {}
+  - id: gsrvjuqb7uquc7pt
+    name: Layout 1 Column Grid (Center)
+    summary: >-
+      Structure (top → bottom)
+
+      - Section title (optional subtitle)
+
+      - Single-column stack of cards (full-width in the section)
+       
+      Use when
+
+      - You’re listing peer items of equal weight where vertical scanning beats
+      side-by-side comparison.  
+
+      - Ideal for long copy, mixed media, or items that need richer per-item
+      structure.  
+
+      - Recommended total items: **3–4** (supports 1–6; prefer ≤6 for
+      readability).
+
+
+      Constraints
+
+      - **Layout:** Single-column section only; cards stack vertically with
+      consistent spacing.  
+
+      - **Complex content allowed:** A card may include richer blocks (media,
+      rich text, code, CTAs, sublists, small inline components). Keep layout
+      **vertical** inside the card; if you must split, use at most a **1×2
+      inline sub-layout**—avoid deeper or multi-row grids.  
+
+      - **Validation:** If any card uses a complex slot, the section still
+      renders as **one column**; do not auto-upgrade to multi-column/grid.
+    fieldCombinations:
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+      - oneColumnGridTitle
+    section:
+      id: indpn8oj1hjz5xgi
+      name: Testimonials/Reviews
+      component: layout-block
+      sections:
+        zs5zxkki8pbiuapz:
+          id: zs5zxkki8pbiuapz
+          name: Cards
+          component: layout-block
+          sections:
+            crdmoiee60y82o70:
+              id: crdmoiee60y82o70
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+            n7xlbofkiq7940sm:
+              id: n7xlbofkiq7940sm
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+            8fum6qlr7ehf7q07:
+              id: 8fum6qlr7ehf7q07
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+            5467p5g14tf9ulet:
+              id: 5467p5g14tf9ulet
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+            lbdakrlx804aa294:
+              id: lbdakrlx804aa294
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+            fn3pjkdsg3erq5wn:
+              id: fn3pjkdsg3erq5wn
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: small
+                paddingY: small
+                borderRadius: small
+                gap: large
+                border: solid
+                alignContent: space-between
+          sectionIds:
+            - crdmoiee60y82o70
+            - n7xlbofkiq7940sm
+            - 8fum6qlr7ehf7q07
+            - 5467p5g14tf9ulet
+            - lbdakrlx804aa294
+            - fn3pjkdsg3erq5wn
+          config:
+            gridSettings:
+              desktop:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+                5467p5g14tf9ulet:
+                  x: 0
+                  y: 3
+                  w: 12
+                  h: 1
+                lbdakrlx804aa294:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                fn3pjkdsg3erq5wn:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+              mobile:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+            gap: normal
+            paddingX: none
+        y5sicz61vfbtnhkh:
+          id: y5sicz61vfbtnhkh
+          name: Title
+          component: layout-block
+          sections:
+            2u6k96rqj9rovmuv:
+              id: 2u6k96rqj9rovmuv
+              name: LayoutTitle
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - 2u6k96rqj9rovmuv
+          config:
+            gap: small
+            paddingX: none
+            alignContent: start
+            gridSettings:
+              desktop:
+                2u6k96rqj9rovmuv:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+              mobile:
+                2u6k96rqj9rovmuv:
+                  id: 2u6k96rqj9rovmuv
+      sectionIds:
+        - y5sicz61vfbtnhkh
+        - zs5zxkki8pbiuapz
+      config:
+        gridSettings:
+          desktop:
+            zs5zxkki8pbiuapz:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            y5sicz61vfbtnhkh:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        paddingX: none
+    dataSource:
+      indpn8oj1hjz5xgi: {}
+      y5sicz61vfbtnhkh: {}
+      2u6k96rqj9rovmuv:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= oneColumnGridTitle %>
+              style:
+                variant: h2
+      zs5zxkki8pbiuapz: {}
+      crdmoiee60y82o70: {}
+      n7xlbofkiq7940sm: {}
+      8fum6qlr7ehf7q07: {}
+      5467p5g14tf9ulet: {}
+      lbdakrlx804aa294: {}
+      fn3pjkdsg3erq5wn: {}

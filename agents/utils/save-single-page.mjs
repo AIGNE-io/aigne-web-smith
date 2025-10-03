@@ -13,11 +13,13 @@ export default async function saveSinglePage({
   parentId,
   isTranslate = false,
   isShowMessage = false,
+  componentLibrary,
 }) {
   let effectiveContent = content;
   const validation = validatePageDetail({
     pageDetailYaml: effectiveContent,
     allowArrayFallback: true,
+    componentLibrary,
   });
 
   if (!validation.isValid) {

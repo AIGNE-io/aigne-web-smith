@@ -22,6 +22,7 @@ import {
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
+  LIST_KEY,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
   PAGES_OUTPUT_DIR,
@@ -31,6 +32,7 @@ import {
   TARGET_AUDIENCES,
   WEBSITE_SCALE,
 } from "./constants.mjs";
+import { extractContentFields } from "./generate-helper.mjs";
 
 const pageDetailMetaSchema = z
   .object({
@@ -55,6 +57,182 @@ const pageDetailSchema = z
     sections: z.array(pageDetailSectionSchema).min(1, "sections must contain at least one section"),
   })
   .catchall(z.unknown());
+
+function normalizeFieldList(fields = []) {
+  return Array.from(
+    new Set(
+      (fields || [])
+        .filter((field) => typeof field === "string")
+        .map((field) => field.trim())
+        .filter((field) => field.length > 0),
+    ),
+  ).sort();
+}
+
+function stripNumericSegments(field) {
+  return field
+    .split(".")
+    .filter((segment) => !/^\d+$/.test(segment))
+    .join(".");
+}
+
+function hasNumericSegment(field) {
+  return field.split(".").some((segment) => /^\d+$/.test(segment));
+}
+
+function buildFieldCombinationIndex(componentLibrary = []) {
+  if (!Array.isArray(componentLibrary) || componentLibrary.length === 0) {
+    return null;
+  }
+
+  const byKey = new Map();
+  const entries = [];
+
+  componentLibrary.forEach((component) => {
+    if (!component || component.type !== "composite") return;
+    const comboFields = normalizeFieldList(component.fieldCombinations || []);
+    if (comboFields.length === 0) return;
+
+    const key = comboFields.join("|");
+    let entry = byKey.get(key);
+    if (!entry) {
+      entry = {
+        key,
+        fields: comboFields,
+        fieldSet: new Set(comboFields),
+        components: new Set(),
+      };
+      byKey.set(key, entry);
+      entries.push(entry);
+    }
+
+    const componentName = component.name || component.id || "unknown";
+    entry.components.add(componentName);
+  });
+
+  return entries.length > 0 ? { byKey, entries } : null;
+}
+
+function findClosestFieldCombination(fields, index, { requireSuperset = false } = {}) {
+  if (!index || index.entries.length === 0) {
+    return null;
+  }
+
+  const sourceSet = new Set(fields);
+  let bestMatch = null;
+
+  index.entries.forEach((entry) => {
+    const allowedSet = entry.fieldSet || new Set(entry.fields);
+    const extra = fields.filter((field) => !allowedSet.has(field));
+    if (requireSuperset && extra.length > 0) {
+      return;
+    }
+
+    const missing = entry.fields.filter((field) => !sourceSet.has(field));
+    const penalty = requireSuperset ? missing.length : extra.length + missing.length;
+
+    if (!bestMatch || penalty < bestMatch.penalty) {
+      bestMatch = {
+        entry,
+        extra,
+        missing,
+        penalty,
+      };
+    }
+  });
+
+  return bestMatch;
+}
+
+function validateSectionFieldCombination({ section, sectionPath, index, errors, existingKeys }) {
+  if (!section || typeof section !== "object" || Array.isArray(section) || !index) {
+    return;
+  }
+
+  const fields = normalizeFieldList(extractContentFields(section));
+  const normalizedIndexFreeFields = new Set(fields.map(stripNumericSegments));
+  if (fields.length > 0) {
+    const key = fields.join("|");
+    const exactEntry = index.byKey?.get(key);
+
+    if (!exactEntry) {
+      const supersetMatch = findClosestFieldCombination(fields, index, { requireSuperset: true });
+      const isListOnlyMissing =
+        supersetMatch &&
+        supersetMatch.extra.length === 0 &&
+        supersetMatch.missing.every((field) => {
+          if (!hasNumericSegment(field)) return false;
+          const normalized = stripNumericSegments(field);
+          return normalizedIndexFreeFields.has(normalized);
+        });
+
+      if (isListOnlyMissing) {
+        // Allow shorter list instances; compose-pages-data will prune placeholders.
+      } else {
+        const closest = findClosestFieldCombination(fields, index);
+        let message = `${sectionPath} has unsupported field combination: [${fields.join(", ")}].`;
+
+        if (closest) {
+          const { entry, extra, missing } = closest;
+          const suggestionParts = [];
+          if (extra.length > 0) {
+            suggestionParts.push(`remove extra fields [${extra.join(", ")}]`);
+          }
+          if (missing.length > 0) {
+            suggestionParts.push(`add required fields [${missing.join(", ")}]`);
+          }
+          const componentNames = Array.from(entry?.components ?? []);
+          if (componentNames.length > 0) {
+            suggestionParts.push(`match component(s): ${componentNames.join(", ")}`);
+          }
+
+          if (suggestionParts.length > 0) {
+            message += ` Suggested fix: ${suggestionParts.join("; ")}.`;
+          }
+        }
+
+        const error = {
+          path: sectionPath,
+          message,
+          code: "UNKNOWN_FIELD_COMBINATION",
+        };
+
+        const errorKey = `${error.path}:${error.code}`;
+        if (!existingKeys || !existingKeys.has(errorKey)) {
+          errors.push(error);
+          existingKeys?.add(errorKey);
+        }
+      }
+    }
+  }
+
+  const listItems = section[LIST_KEY];
+  if (Array.isArray(listItems)) {
+    listItems.forEach((item, indexOfItem) => {
+      const itemPath = `${sectionPath}.${LIST_KEY}.${indexOfItem}`;
+      if (item && typeof item === "object" && !Array.isArray(item)) {
+        validateSectionFieldCombination({
+          section: item,
+          sectionPath: itemPath,
+          index,
+          errors,
+          existingKeys,
+        });
+      } else if (item != null) {
+        const error = {
+          path: itemPath,
+          message: `${itemPath} must be an object with valid section fields`,
+          code: "INVALID_LIST_ITEM_TYPE",
+        };
+        const errorKey = `${error.path}:${error.code}`;
+        if (!existingKeys || !existingKeys.has(errorKey)) {
+          errors.push(error);
+          existingKeys?.add(errorKey);
+        }
+      }
+    });
+  }
+}
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -108,8 +286,13 @@ export function processContent({ content }) {
   });
 }
 
-export function validatePageDetail({ pageDetailYaml, allowArrayFallback = false }) {
+export function validatePageDetail({
+  pageDetailYaml,
+  allowArrayFallback = false,
+  componentLibrary,
+}) {
   const errors = [];
+  const fieldCombinationIndex = buildFieldCombinationIndex(componentLibrary);
 
   const toErrorKey = (error) => `${error.path}:${error.code}`;
 
@@ -204,20 +387,6 @@ export function validatePageDetail({ pageDetailYaml, allowArrayFallback = false 
   }
 
   const validationResult = pageDetailSchema.safeParse(parsed);
-  if (validationResult.success && errors.length === 0) {
-    const result = {
-      isValid: true,
-      validationFeedback: "Page detail YAML validation passed",
-      parsedData: validationResult.data,
-    };
-
-    if (normalizedContent) {
-      result.normalizedContent = normalizedContent;
-      result.normalizedFromArray = normalizedFromArray;
-    }
-    return result;
-  }
-
   const existingErrorKeys = new Set(errors.map(toErrorKey));
   const issues = validationResult.success
     ? []
@@ -254,11 +423,29 @@ export function validatePageDetail({ pageDetailYaml, allowArrayFallback = false 
     }
   }
 
+  const parsedDataForValidation = validationResult.success ? validationResult.data : parsed;
+
+  if (
+    errors.length === 0 &&
+    fieldCombinationIndex &&
+    Array.isArray(parsedDataForValidation?.sections)
+  ) {
+    parsedDataForValidation.sections.forEach((section, index) => {
+      validateSectionFieldCombination({
+        section,
+        sectionPath: `sections.${index}`,
+        index: fieldCombinationIndex,
+        errors,
+        existingKeys: existingErrorKeys,
+      });
+    });
+  }
+
   if (errors.length === 0) {
     const result = {
       isValid: true,
       validationFeedback: "Page detail YAML validation passed",
-      parsedData: validationResult.success ? validationResult.data : parsed,
+      parsedData: parsedDataForValidation,
     };
     if (normalizedContent) {
       result.normalizedContent = normalizedContent;

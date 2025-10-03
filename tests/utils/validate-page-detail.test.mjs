@@ -1,6 +1,51 @@
 import { describe, expect, test } from "bun:test";
 import { validatePageDetail } from "../../utils/utils.mjs";
 
+const sampleComponentLibrary = [
+  {
+    type: "composite",
+    name: "Hero",
+    fieldCombinations: ["heroTitle", "heroDescription"],
+  },
+  {
+    type: "composite",
+    name: "HeroWithCta",
+    fieldCombinations: ["heroTitle", "heroDescription", "heroCta.text", "heroCta.url"],
+  },
+  {
+    type: "composite",
+    name: "ListSection",
+    fieldCombinations: ["list.0", "list.1"],
+  },
+  {
+    type: "composite",
+    name: "FAQs",
+    fieldCombinations: [
+      "faqTitle",
+      "faqList.0.question",
+      "faqList.0.answer",
+      "faqList.1.question",
+      "faqList.1.answer",
+      "faqList.2.question",
+      "faqList.2.answer",
+      "faqList.3.question",
+      "faqList.3.answer",
+      "faqList.4.question",
+      "faqList.4.answer",
+      "faqList.5.question",
+      "faqList.5.answer",
+      "faqList.6.question",
+      "faqList.6.answer",
+      "faqList.7.question",
+      "faqList.7.answer",
+      "faqList.8.question",
+      "faqList.8.answer",
+      "faqList.9.question",
+      "faqList.9.answer",
+    ],
+  },
+];
+
 describe("validatePageDetail", () => {
   test("accepts valid YAML input", () => {
     const yamlContent = `
@@ -120,5 +165,92 @@ sections:
     const codes = result.errors.map((error) => error.code);
     expect(codes).toContain("MISSING_META");
     expect(codes).toContain("MISSING_SECTIONS");
+  });
+
+  test("validates section fields against component library", () => {
+    const yamlContent = `
+meta:
+  title: "Hero"
+  description: "Page"
+sections:
+  - sectionName: "Hero"
+    sectionSummary: "Main hero"
+    heroTitle: "Welcome"
+    heroDescription: "Discover more"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    expect(result.isValid).toBe(true);
+  });
+
+  test("allows shorter list instances when template provides superset indices", () => {
+    const yamlContent = `
+meta:
+  title: "List"
+  description: "Page"
+sections:
+  - sectionName: "Logos"
+    sectionSummary: "Logo list"
+    list:
+      - sectionName: "LogoItem"
+        sectionSummary: "Item"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    expect(result.isValid).toBe(true);
+  });
+
+  test("allows shorter indexed object arrays when template expects more entries", () => {
+    const yamlContent = `
+meta:
+  title: "FAQ"
+  description: "Questions"
+sections:
+  - sectionName: "FAQSection"
+    sectionSummary: "FAQs"
+    faqTitle: "Common Questions"
+    faqList:
+      - question: "What is A?"
+        answer: "Answer A"
+      - question: "What is B?"
+        answer: "Answer B"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    expect(result.isValid).toBe(true);
+  });
+
+  test("reports error when section fields do not match component library", () => {
+    const yamlContent = `
+meta:
+  title: "Hero"
+  description: "Page"
+sections:
+  - sectionName: "Hero"
+    sectionSummary: "Main hero"
+    heroTitle: "Welcome"
+    unknownField: "unsupported"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors.some((error) => error.code === "UNKNOWN_FIELD_COMBINATION")).toBe(true);
+    expect(result.validationFeedback).toContain("unsupported field combination");
   });
 });

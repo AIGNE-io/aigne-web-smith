@@ -32,7 +32,7 @@ skills:
       - ../utils/save-single-page.mjs
     iterate_on: selectedPages
     concurrency: 10
-  - ../generate/component-library/load-component-library.mjs
+  - ../generate/page-detail/load-page-detail.mjs
   - type: team
     name: analyzeComponentLibrary and batchTranslatePageDetail
     model: openai/gpt-5

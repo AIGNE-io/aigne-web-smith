@@ -4,7 +4,7 @@ import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
 export default async function userReviewPageDetail(
-  { content, builtinComponentLibrary, ...rest },
+  { content, componentLibrary, ...rest },
   options,
 ) {
   // Check if page detail content exists
@@ -80,7 +80,7 @@ export default async function userReviewPageDetail(
     const allApplicableRules = [...structureRules, ...globalRules];
     const ruleTexts = allApplicableRules.map((rule) => rule.rule);
     const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
-    const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
+    const fieldConstraints = generateFieldConstraints(componentLibrary);
 
     try {
       // Call updatePageDetail agent with feedback

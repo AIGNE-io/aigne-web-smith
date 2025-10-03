@@ -6,6 +6,7 @@ export default async function checkDetailResult({
   // pagesDir,
   // tmpDir,
   locale,
+  componentLibrary,
 }) {
   let isApproved = true;
   const detailFeedback = [];
@@ -27,7 +28,10 @@ export default async function checkDetailResult({
   });
 
   if (reviewContent) {
-    const validation = validatePageDetail({ pageDetailYaml: reviewContent });
+    const validation = validatePageDetail({
+      pageDetailYaml: reviewContent,
+      componentLibrary,
+    });
 
     if (!validation.isValid) {
       isApproved = false;

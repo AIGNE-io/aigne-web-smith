@@ -1,6 +1,10 @@
 import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
-export default function transformDetailDatasources({ defaultDatasources = [], sourceIds, datasourcesList }) {
+export default function transformDetailDatasources({
+  defaultDatasources = [],
+  sourceIds,
+  datasourcesList,
+}) {
   // Build a map for fast lookup, with path normalization for compatibility
   const dsMap = Object.fromEntries(
     (datasourcesList || []).map((ds) => {

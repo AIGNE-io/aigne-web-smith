@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2025-10-03)
+
+
+### Bug Fixes
+
+* auto include media files in page datasources ([#92](https://github.com/AIGNE-io/aigne-web-smith/issues/92)) ([5b68310](https://github.com/AIGNE-io/aigne-web-smith/commit/5b68310348c97fa578084bdf876ed6dc2a5fe421))
+
 ## [1.4.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2025-10-03)
 
 

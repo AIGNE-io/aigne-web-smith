@@ -1,6 +1,6 @@
 import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
-export default function transformDetailDatasources({ sourceIds, datasourcesList }) {
+export default function transformDetailDatasources({ defaultDatasources = [], sourceIds, datasourcesList }) {
   // Build a map for fast lookup, with path normalization for compatibility
   const dsMap = Object.fromEntries(
     (datasourcesList || []).map((ds) => {
@@ -9,8 +9,11 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
     }),
   );
 
+  // Merge defaultDatasources with sourceIds and remove duplicates
+  const allSourceIds = [...new Set([...(defaultDatasources || []), ...(sourceIds || [])])];
+
   // Collect formatted contents in order, with path normalization
-  const contents = (sourceIds || [])
+  const contents = allSourceIds
     .filter((id) => {
       const normalizedId = normalizePath(id);
       return dsMap[normalizedId];
@@ -20,14 +23,6 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
       const relativeId = toRelativePath(id);
       return `// sourceId: ${relativeId}\n${dsMap[normalizedId]}\n\n`;
     });
-
-  // Use all media.md files as datasources for each page
-  const mediaFiles = (datasourcesList || []).filter((ds) => {
-    return ds.sourceId.toLowerCase().endsWith("media.md");
-  });
-  mediaFiles.forEach((file) => {
-    contents.push(`// sourceId: ${file.sourceId}\n${file.content}\n\n`);
-  });
 
   return { detailDataSources: contents.join("") };
 }

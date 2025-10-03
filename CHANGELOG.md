@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2025-10-03)
+
+
+### Bug Fixes
+
+* adjust the prompt for the update agent ([#95](https://github.com/AIGNE-io/aigne-web-smith/issues/95)) ([b5c7376](https://github.com/AIGNE-io/aigne-web-smith/commit/b5c737653124b809e0bfe631eb99f71f28df787e))
+
 ## [1.4.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2025-10-03)
 
 

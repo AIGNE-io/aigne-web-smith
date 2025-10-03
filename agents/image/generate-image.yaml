@@ -21,6 +21,7 @@ instructions: |
   - Soft, natural lighting with subtle shadows for depth
   - Harmonious color scheme that complements typical web UI elements
   - Smooth gradients and polished surfaces where applicable
+  - Site primary color: #7C3AED, the image color scheme needs to match.
 
   **Web-Specific Optimizations:**
   - Simple, non-distracting backgrounds that allow UI elements to overlay

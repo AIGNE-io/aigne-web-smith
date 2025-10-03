@@ -39,6 +39,7 @@ agents:
 
   # init
   - ./agents/init/index.mjs
+  - ./agents/init/suggest-source-path.yaml
 
   # plan
   - ./agents/plan/index.yaml

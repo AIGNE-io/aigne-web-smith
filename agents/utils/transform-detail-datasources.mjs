@@ -23,7 +23,7 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
 
   // Use all media.md files as datasources for each page
   const mediaFiles = (datasourcesList || []).filter((ds) => {
-    return ds.sourceId.endsWith(".md") && ds.sourceId.includes("media.md");
+    return ds.sourceId.toLowerCase().endsWith("media.md");
   });
   mediaFiles.forEach((file) => {
     contents.push(`// sourceId: ${file.sourceId}\n${file.content}\n\n`);

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2025-10-03)
+
+
+### Bug Fixes
+
+* **core:** more stable generate workflow ([#89](https://github.com/AIGNE-io/aigne-web-smith/issues/89)) ([2c5340b](https://github.com/AIGNE-io/aigne-web-smith/commit/2c5340b1ca4ede8d563f490540d2df063fec6e5a))
+
 ## [1.4.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.4...v1.4.0-beta.4) (2025-10-03)
 
 

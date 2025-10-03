@@ -300,8 +300,8 @@ export default async function publishWebsite(
 
   const sitemapPath = join(pagesDir, "_sitemap.yaml");
 
-  // Construct boardMeta object
-  const boardMeta = {
+  // Construct websiteMeta object
+  const websiteMeta = {
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
@@ -443,7 +443,7 @@ export default async function publishWebsite(
           slug: path,
           templateConfig: {
             isTemplate: true,
-            ...boardMeta,
+
             sourceFile: file,
           },
         };
@@ -455,7 +455,6 @@ export default async function publishWebsite(
           path: routePath,
           displayName: routePath,
           meta: {
-            ...boardMeta,
             sourceFile: file,
             sitemapTitle: matchingSitemapItem?.title,
             sitemapPath: matchingSitemapItem?.path,

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-03T04:28:59.453Z
+  updateAt: 2025-10-03T05:02:30.495Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -5345,7 +5345,7 @@ composite:
                   y: 2
                   w: 12
                   h: 1
-            gap: small
+            gap: normal
             paddingX: none
         y5sicz61vfbtnhkh:
           id: y5sicz61vfbtnhkh

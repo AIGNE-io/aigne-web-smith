@@ -30,7 +30,7 @@ export default async function saveSinglePage({
       throw error;
     }
     // only log error
-    console.error(`⚠️ Page detail validation failed: ${validation.validationFeedback}`);
+    console.error(`⚠️ Page Detail Validation Failed: ${validation.validationFeedback}`);
   }
 
   if (validation.normalizedContent) {

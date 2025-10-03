@@ -73,11 +73,14 @@ import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
-import { DEFAULT_PAGE_STYLE, LIST_KEY } from "../../../utils/constants.mjs";
+import {
+  DEFAULT_PAGE_STYLE,
+  EMPTY_VALUE,
+  KEEP_CONFIG_KEYS,
+  LIST_KEY,
+} from "../../../utils/constants.mjs";
 import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
-
-const EMPTY_VALUE = "___EMPTY_VALUE___";
 
 const getEmptyValue = (_key) => {
   return EMPTY_VALUE;
@@ -778,7 +781,7 @@ function replaceSlotWithChild(slot, childSection) {
     childSection.config = {
       ...childSection.config,
       // 这些 key 是跟 list 布局相关的，其它的都会影响到内容本身，所以不能 pick
-      ..._.pick(placeholderNode.config, ["paddingX", "paddingY", "borderRadius", "border"]),
+      ..._.pick(placeholderNode.config, KEEP_CONFIG_KEYS),
     };
   }
 

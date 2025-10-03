@@ -393,6 +393,9 @@ export function generateYAML(input) {
     // Paths
     pagesDir: input.pagesDir || "./aigne/web-smith/pages",
     sourcesPath: input.sourcesPath || [],
+
+    // Default datasources to include in every page
+    defaultDatasources: input.defaultDatasources || ["./media.md"],
   };
 
   // Generate comments and structure
@@ -492,6 +495,12 @@ export function generateYAML(input) {
     sourcesPath: config.sourcesPath,
   }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
+
+  // Default datasources included in every page
+  const defaultDatasourcesSection = yamlStringify({
+    defaultDatasources: config.defaultDatasources,
+  }).trim();
+  yaml += `${defaultDatasourcesSection.replace(/^defaultDatasources:/, "defaultDatasources:  # Default datasources included in every page")}\n`;
 
   return yaml;
 }

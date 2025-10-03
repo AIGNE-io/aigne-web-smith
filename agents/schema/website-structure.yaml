@@ -16,7 +16,9 @@ items:
       description: Parent node path, null for top-level
     sourceIds:
       type: array
-      description: Associated sourceIds from datasources, cannot be empty
+      description: |
+        Associated sourceIds from datasources, cannot be empty
+        **For each page, you must include as sourceIds the files that contain media resource descriptions or screenshot information.**
       items:
         type: string
   required:

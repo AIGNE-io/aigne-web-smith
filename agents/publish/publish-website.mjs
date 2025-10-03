@@ -56,11 +56,29 @@ function scanForProtocolUrls(obj, foundUrls, protocol) {
  * @param {string} protocol - 要替换的协议
  * @returns {Object} 处理后的页面数据对象
  */
-function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
+function replacePageProtocolUrls(
+  pageData,
+  protocolToUrlMap,
+  protocol,
+  // default format function: only use pathname as value
+  formatFn = (value) => {
+    try {
+      const url = new URL(value);
+      return url.pathname;
+    } catch {
+      return value;
+    }
+  },
+) {
   function replaceUrls(obj) {
     if (typeof obj === "string") {
       if (obj.startsWith(protocol)) {
-        return protocolToUrlMap[obj] || obj;
+        const value = protocolToUrlMap[obj];
+        if (!value) {
+          return obj;
+        }
+
+        return formatFn(value);
       }
       return obj;
     } else if (Array.isArray(obj)) {
@@ -399,6 +417,11 @@ export default async function publishWebsite(
         parsedPageContent,
         mediaKitToUrlMap,
         MEDIA_KIT_PROTOCOL,
+        (value) => {
+          // get hashName and compact with /uploads/, remove mediaKit prefix
+          const hashName = value.split("/").pop();
+          return join("/uploads", hashName);
+        },
       );
 
       processedPageContent = replacePageProtocolUrls(

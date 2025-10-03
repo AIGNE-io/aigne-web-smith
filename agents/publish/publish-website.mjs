@@ -11,6 +11,7 @@ import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 
 import {
+  BUNDLE_FILENAME,
   DEFAULT_APP_URL,
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
@@ -19,6 +20,7 @@ import {
   TMP_DIR,
   TMP_PAGES_DIR,
 } from "../../utils/constants.mjs";
+
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
@@ -116,8 +118,6 @@ function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
 
   return linkToPathMap;
 }
-
-const BUNDLE_FILENAME = "publish-bundle.json";
 
 const publishBundleFn = async ({ bundleBuffer, appUrl, mountPoint, accessToken }) => {
   const headers = new Headers();

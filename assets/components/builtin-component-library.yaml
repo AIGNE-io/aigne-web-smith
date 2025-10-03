@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-03T05:02:30.495Z
+  updateAt: 2025-10-03T06:29:27.297Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -3315,7 +3315,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: space-between
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -5029,7 +5029,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: space-between
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:

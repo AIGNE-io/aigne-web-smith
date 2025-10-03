@@ -20,7 +20,7 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
       const relativeId = toRelativePath(id);
       return `// sourceId: ${relativeId}\n${dsMap[normalizedId]}\n\n`;
     });
-  
+
   // Use all media.md files as datasources for each page
   const mediaFiles = (datasourcesList || []).filter((ds) => {
     return ds.sourceId.endsWith(".md") && ds.sourceId.includes("media.md");

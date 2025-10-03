@@ -972,7 +972,7 @@ function processNode(node, compositeComponents, sectionIndex) {
       });
     }
   } else {
-    log("🟡 [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
+    log("❌ [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
   }
 
   const result = {

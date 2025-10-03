@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.4...v1.4.0-beta.4) (2025-10-03)
+
+
+### Features
+
+* support smart source suggesting to reduce token/time cost ([#87](https://github.com/AIGNE-io/aigne-web-smith/issues/87)) ([cca5477](https://github.com/AIGNE-io/aigne-web-smith/commit/cca54771f8bb5dbe68e187279a75ee9730b96921))
+
 ## [1.3.1-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.3...v1.3.1-beta.4) (2025-10-02)
 
 

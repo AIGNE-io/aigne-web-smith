@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
 import { basename, join } from "node:path";
+import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
-import pMap from "p-map";
 import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
@@ -99,46 +99,20 @@ function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
   return linkToPathMap;
 }
 
-const publishPageFn = async ({
-  projectData,
-  appUrl,
-  mountPoint,
-  accessToken,
-  force = true,
-  pageTemplateData,
-  routeData,
-  dataSourceData,
-  resetProject = false,
-}) => {
-  // Build request headers
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  headers.append("Authorization", `Bearer ${accessToken}`);
+const BUNDLE_FILENAME = "publish-bundle.json";
 
-  // Build request body - using /upload-data SDK interface format
-  const requestBody = JSON.stringify({
-    projectData,
-    force,
-    pageTemplateData,
-    routeData,
-    dataSourceData,
-    resetProject,
+const publishBundleFn = async ({ bundleBuffer, appUrl, mountPoint, accessToken }) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${accessToken}`);
+  headers.append("Content-Type", "application/zip");
+
+  const response = await fetch(join(appUrl, mountPoint || "/", "/api/sdk/upload-data"), {
+    method: "POST",
+    headers,
+    body: bundleBuffer,
+    redirect: "follow",
   });
 
-  const requestOptions = {
-    method: "POST",
-    headers: headers,
-    body: requestBody,
-    redirect: "follow",
-  };
-
-  // Send request to Pages Kit API
-  const response = await fetch(
-    join(appUrl, mountPoint || "/", "/api/sdk/upload-data"),
-    requestOptions,
-  );
-
-  // Handle response
   let result;
   const responseText = await response.text();
 
@@ -154,7 +128,7 @@ const publishPageFn = async ({
 
   return {
     success: true,
-    result: result,
+    result,
   };
 };
 
@@ -300,8 +274,8 @@ export default async function publishWebsite(
 
   const sitemapPath = join(pagesDir, "_sitemap.yaml");
 
-  // Construct websiteMeta object
-  const websiteMeta = {
+  // Construct meta object
+  const meta = {
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
@@ -361,7 +335,6 @@ export default async function publishWebsite(
 
     // Step 1: 扫描所有页面，收集需要处理的协议 URLs
     const allUsedMediaKitUrls = new Set();
-    const allUsedLinkUrls = new Set();
     const pageContents = new Map();
 
     for (const file of yamlFiles) {
@@ -374,9 +347,6 @@ export default async function publishWebsite(
 
         // 扫描这个页面中的 mediakit:// URL
         scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, MEDIA_KIT_PROTOCOL);
-
-        // 扫描这个页面中的 link:// URL
-        scanForProtocolUrls(parsedPageContent, allUsedLinkUrls, LINK_PROTOCOL);
       } catch (error) {
         console.warn(`Failed to read file ${file}: ${error.message}`);
       }
@@ -399,135 +369,153 @@ export default async function publishWebsite(
       appUrl,
     });
 
-    // Step 3: 处理每个页面，使用全局URL映射替换
-    const publishResults = await pMap(
-      yamlFiles,
-      async (file, index) => {
-        const parsedPageContent = pageContents.get(file);
-        if (!parsedPageContent) {
-          return {
-            file,
-            success: false,
-            error: "Failed to parse page content",
-          };
-        }
+    const manifestPages = [];
+    const localFailures = [];
 
-        // Find corresponding sitemap path information
-        const fileBaseName = basename(file, ".yaml");
-        const matchingSitemapItem = sitemapPaths.find(
-          (item) =>
-            item.cleanPath === fileBaseName ||
-            item.cleanPath.endsWith(`/${fileBaseName}`) ||
-            item.cleanPath.replace(/\//g, "-") === fileBaseName,
-        );
+    for (const file of yamlFiles) {
+      const parsedPageContent = pageContents.get(file);
+      if (!parsedPageContent) {
+        localFailures.push({
+          file,
+          success: false,
+          error: "Failed to parse page content",
+          scope: "page",
+          code: "PAGE_PARSE_ERROR",
+        });
+        continue;
+      }
 
-        const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
+      const fileBaseName = basename(file, ".yaml");
+      const matchingSitemapItem = sitemapPaths.find(
+        (item) =>
+          item.cleanPath === fileBaseName ||
+          item.cleanPath.endsWith(`/${fileBaseName}`) ||
+          item.cleanPath.replace(/\//g, "-") === fileBaseName,
+      );
 
-        // Replace mediakit:// URLs with uploaded URLs
-        let processedPageContent = replacePageProtocolUrls(
-          parsedPageContent,
-          mediaKitToUrlMap,
-          MEDIA_KIT_PROTOCOL,
-        );
+      const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
 
-        // Replace link:// URLs with actual paths
-        processedPageContent = replacePageProtocolUrls(
-          processedPageContent,
-          linkToPathMap,
-          LINK_PROTOCOL,
-        );
+      let processedPageContent = replacePageProtocolUrls(
+        parsedPageContent,
+        mediaKitToUrlMap,
+        MEDIA_KIT_PROTOCOL,
+      );
 
-        const pageTemplateData = {
-          ...processedPageContent,
-          // Add project-related metadata
-          slug: path,
-          templateConfig: {
-            isTemplate: true,
+      processedPageContent = replacePageProtocolUrls(
+        processedPageContent,
+        linkToPathMap,
+        LINK_PROTOCOL,
+      );
 
-            sourceFile: file,
-          },
-        };
+      const pageTemplateData = {
+        ...processedPageContent,
+        slug: path,
+        templateConfig: {
+          isTemplate: true,
+          ...meta,
+          sourceFile: file,
+        },
+      };
 
-        const routePath = formatRoutePath(path);
+      const routePath = formatRoutePath(path);
 
-        // Construct route data
-        const routeData = {
-          path: routePath,
-          displayName: routePath,
-          meta: {
-            sourceFile: file,
-            sitemapTitle: matchingSitemapItem?.title,
-            sitemapPath: matchingSitemapItem?.path,
-          },
-        };
+      const routeData = {
+        path: routePath,
+        displayName: routePath,
+        meta: {
+          ...meta,
+          sourceFile: file,
+          sitemapTitle: matchingSitemapItem?.title,
+          sitemapPath: matchingSitemapItem?.path,
+        },
+      };
 
-        const projectData = {
-          id: projectId,
-          name: projectName,
-          description: projectDesc,
-          logo: projectLogo,
-          slug: projectSlug,
-        };
+      manifestPages.push({
+        sourceFile: file,
+        pageTemplateData,
+        routeData,
+      });
+    }
 
-        try {
-          const {
-            success: pageSuccess,
-            result,
-            projectId: newProjectId,
-          } = await publishPageFn({
-            projectData,
-            appUrl,
-            accessToken,
-            force: true,
-            pageTemplateData,
-            routeData,
-            mountPoint,
-            resetProject: index === 0,
-            // dataSourceData not needed for now, can be added later
-          });
+    const projectData = {
+      id: projectId,
+      name: projectName,
+      description: projectDesc,
+      logo: projectLogo,
+      slug: projectSlug,
+    };
 
-          return {
-            file,
-            success: pageSuccess,
-            result,
-            projectId: newProjectId,
-          };
-        } catch (error) {
-          return {
-            file,
-            success: false,
-            error: error.message,
-          };
-        }
-      },
-      { concurrency: 1 },
-    );
+    let remoteResults = [];
+    let newProjectId = projectId;
 
-    // Use overall results to determine success status
-    const overallSuccess = publishResults.every((result) => result?.success);
+    if (manifestPages.length > 0) {
+      const manifest = {
+        version: 1,
+        meta,
+        project: {
+          projectData,
+          resetProject: true,
+          force: true,
+        },
+        pages: manifestPages,
+      };
+
+      const bundleZip = new AdmZip();
+      bundleZip.addFile(BUNDLE_FILENAME, Buffer.from(JSON.stringify(manifest), "utf-8"));
+
+      const bundleBuffer = bundleZip.toBuffer();
+
+      try {
+        const { result } = await publishBundleFn({
+          bundleBuffer,
+          appUrl,
+          mountPoint,
+          accessToken,
+        });
+
+        remoteResults = Array.isArray(result?.pages) ? result.pages : [];
+        newProjectId = result?.projectId || projectId;
+      } catch (error) {
+        localFailures.push({
+          file: "bundle",
+          success: false,
+          error: error.message,
+        });
+      }
+    }
+
+    const publishResults = [
+      ...localFailures,
+      ...remoteResults.map((entry) => ({
+        file: entry?.sourceFile,
+        success: entry?.success,
+        error: entry?.error || entry?.message,
+        data: entry?.data,
+        projectId: entry?.projectId,
+        scope: entry?.scope || (entry?.sourceFile ? "page" : "project"),
+        code: entry?.code,
+      })),
+    ];
+
+    const totalCount = publishResults.length;
+    const successCount = publishResults.filter((result) => result?.success).length;
+    const overallSuccess = totalCount > 0 && successCount === totalCount;
     const success = overallSuccess;
-    const newProjectId = publishResults.find((r) => r.projectId)?.projectId || projectId;
 
     // Save values to config.yaml if publish was successful
     if (success) {
-      // Save appUrl to config only when not using environment variable
       if (!useEnvAppUrl) {
         await saveValueToConfig("appUrl", appUrl);
       }
 
-      // Save projectId to config if it was provided by user input or auto-created
       const shouldSaveProjectId = !hasProjectIdInConfig || projectId !== newProjectId;
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
 
-      const successCount = publishResults.filter((r) => r?.success).length;
-      const totalCount = publishResults.length;
-
-      // Extract URLs from successful results
       const publishedUrls = publishResults
-        .filter((result) => result?.success && result?.result?.data?.url)
-        .map((result) => result.result.data.url);
+        .filter((result) => result?.success && result?.data?.url)
+        .map((result) => result.data.url);
 
       const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 
@@ -541,10 +529,36 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
+    } else if (totalCount === 0) {
+      message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {
-      const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);
+      const failedEntries = publishResults.filter((r) => !r?.success);
+      const seenGlobalErrors = new Set();
+      const formattedFailures = [];
 
-      message = `❌ Failed to publish pages: \n${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "- " : ""}${typeof e === "string" ? e : JSON.stringify(e)}`).join("\n")}`;
+      failedEntries.forEach((entry) => {
+        const scope = entry?.scope;
+
+        // only show global error once
+        if (scope && scope !== "page") {
+          const key = `${scope}:${entry?.code || entry?.error}`;
+          if (seenGlobalErrors.has(key)) {
+            return;
+          }
+          seenGlobalErrors.add(key);
+        }
+
+        const label = entry?.file ? `${entry.file}: ` : "";
+        const detail =
+          typeof entry?.error === "string" ? entry.error : JSON.stringify(entry?.error || entry);
+        formattedFailures.push(`${label}${detail}`);
+      });
+
+      if (formattedFailures.length === 1) {
+        message = `❌ Failed to publish pages: ${formattedFailures[0]}`;
+      } else {
+        message = `❌ Failed to publish pages: \n${formattedFailures.map((item) => `- ${item}`).join("\n")}`;
+      }
     }
   } catch (error) {
     message = `❌ Failed to publish pages: ${typeof error === "string" ? error : JSON.stringify(error?.message || error)}`;

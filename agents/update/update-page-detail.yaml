@@ -3,9 +3,9 @@ name: updatePageDetail
 description: Update page detail content based on user feedback and intentions using content modification tools
 instructions:
   - role: system
-    url: ../../prompts/update/update-page-detail-system.md
+    url: ../../prompts/update/page-detail/system-prompt.md
   - role: user
-    url: ../../prompts/update/update-page-detail-user.md
+    url: ../../prompts/update/page-detail/user-prompt.md
 input_schema:
   type: object
   properties:

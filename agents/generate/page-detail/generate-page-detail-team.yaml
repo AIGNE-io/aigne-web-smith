@@ -35,7 +35,9 @@ skills:
       ])
   # will translate page detail next workflow
   # - ../../translate/translate-page-detail-team.yaml
-  - ../../utils/save-single-page.mjs
+  - url: ../../utils/save-single-page.mjs
+    default_input:
+      throwErrorIfInvalid: true
 input_schema:
   type: object
   properties:

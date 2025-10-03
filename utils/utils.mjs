@@ -60,12 +60,7 @@ const pageDetailSchema = z
 
 function normalizeFieldList(fields = []) {
   return Array.from(
-    new Set(
-      (fields || [])
-        .filter((field) => typeof field === "string")
-        .map((field) => field.trim())
-        .filter((field) => field.length > 0),
-    ),
+    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
   ).sort();
 }
 

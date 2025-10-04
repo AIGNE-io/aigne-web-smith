@@ -43,7 +43,7 @@ export function ensureGitRepo() {
       execSync("git init", { cwd, stdio: "ignore" });
 
       // Create .gitignore to exclude temporary files
-      const gitignore = "workspace/\n*.tmp\n";
+      const gitignore = "*.tmp\n";
       writeFileSync(join(cwd, ".gitignore"), gitignore);
 
       // Initial commit
@@ -70,15 +70,22 @@ function recordUpdateGit({ operation, feedback, pagePath = null }) {
   try {
     const cwd = join(process.cwd(), WEB_SMITH_DIR);
 
-    // Stage changed files
-    execSync("git add pages/ config.yaml preferences.yml history.yaml 2>/dev/null || true", {
-      cwd,
-      stdio: "ignore",
-    });
+    // Stage changed files (only if they exist)
+    const filesToAdd = ["pages/", "config.yaml", "preferences.yml", "history.yaml"]
+      .filter((file) => existsSync(join(cwd, file)))
+      .join(" ");
+
+    if (filesToAdd) {
+      execSync(`git add ${filesToAdd}`, {
+        cwd,
+        stdio: "ignore",
+      });
+    }
 
     // Check if there are changes to commit
     try {
       execSync("git diff --cached --quiet", { cwd, stdio: "ignore" });
+      console.log("✓ No update history changes to commit");
       return; // No changes
     } catch {
       // Has changes, continue
@@ -97,8 +104,9 @@ Timestamp: ${timestamp}`;
       cwd,
       stdio: "ignore",
     });
+    console.log("✓ Update history committed successfully");
   } catch (error) {
-    console.warn("Git commit failed:", error.message);
+    console.warn("Update history commit failed:", error.message);
   }
 }
 
@@ -166,6 +174,8 @@ export function recordUpdate({ operation, feedback, pagePath = null }) {
     // Initialize git repo on first update if not exists
     ensureGitRepo();
     recordUpdateGit({ operation, feedback, pagePath });
+  } else {
+    console.warn("Git is not available, skipping git based update history");
   }
 }
 

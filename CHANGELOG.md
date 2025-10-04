@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.7...v1.4.0-beta.8) (2025-10-04)
+
+
+### Features
+
+* support both simple and git-based update history ([#98](https://github.com/AIGNE-io/aigne-web-smith/issues/98)) ([e2c0597](https://github.com/AIGNE-io/aigne-web-smith/commit/e2c0597cb866a3ed974f30c06d54bde8288f76a8))
+
 ## [1.4.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2025-10-03)
 
 

@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { WEB_SMITH_DIR } from "../../utils/constants.mjs";
 import { getHistory, isGitAvailable, recordUpdate } from "../../utils/history-utils.mjs";
 
-const TEST_DIR = join(process.cwd(), ".aigne/web-smith-test");
+const TEST_DIR = join(process.cwd(), `${WEB_SMITH_DIR}-test`);
 const ORIGINAL_CWD = process.cwd();
 
 describe("History Utils - Unified", () => {
@@ -117,8 +118,8 @@ describe("History Utils - Unified", () => {
 
   test("handles corrupted history file gracefully", () => {
     // Create corrupted YAML file
-    const historyPath = join(process.cwd(), ".aigne/web-smith", "history.yaml");
-    mkdirSync(join(process.cwd(), ".aigne/web-smith"), { recursive: true });
+    const historyPath = join(process.cwd(), WEB_SMITH_DIR, "history.yaml");
+    mkdirSync(join(process.cwd(), WEB_SMITH_DIR), { recursive: true });
     writeFileSync(historyPath, "invalid: yaml: content: [[[", "utf8");
 
     const history = getHistory();
@@ -126,13 +127,13 @@ describe("History Utils - Unified", () => {
     expect(history.entries.length).toBe(0);
   });
 
-  test("creates .aigne/web-smith directory if not exists", () => {
+  test(`creates ${WEB_SMITH_DIR} directory if not exists`, () => {
     recordUpdate({
       operation: "page_update",
       feedback: "Test",
     });
 
-    const webSmithDir = join(process.cwd(), ".aigne/web-smith");
+    const webSmithDir = join(process.cwd(), WEB_SMITH_DIR);
     expect(existsSync(webSmithDir)).toBe(true);
   });
 

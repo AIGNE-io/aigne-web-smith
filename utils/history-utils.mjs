@@ -1,9 +1,10 @@
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, stringify } from "yaml";
+import { WEB_SMITH_DIR } from "./constants.mjs";
+import { ensureDir } from "./utils.mjs";
 
-const WEB_SMITH_DIR = ".aigne/web-smith";
 const HISTORY_FILE = "history.yaml";
 
 /**
@@ -19,17 +20,7 @@ export function isGitAvailable() {
 }
 
 /**
- * Ensure .aigne/web-smith directory exists
- */
-function ensureWebSmithDir() {
-  const dir = join(process.cwd(), WEB_SMITH_DIR);
-  if (!existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
-  }
-}
-
-/**
- * Initialize git repo in .aigne/web-smith if not exists
+ * Initialize git repo in WEB_SMITH_DIR if not exists
  */
 export function ensureGitRepo() {
   if (!isGitAvailable()) return false;
@@ -110,8 +101,9 @@ function recordUpdateGit({ feedback }) {
  */
 function recordUpdateYaml({ operation, feedback, pagePath = null }) {
   try {
-    ensureWebSmithDir();
-    const historyPath = join(process.cwd(), WEB_SMITH_DIR, HISTORY_FILE);
+    const webSmithDir = join(process.cwd(), WEB_SMITH_DIR);
+    ensureDir(webSmithDir);
+    const historyPath = join(webSmithDir, HISTORY_FILE);
 
     // Read existing history
     let history = { entries: [] };

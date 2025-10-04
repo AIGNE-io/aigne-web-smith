@@ -52,7 +52,7 @@ export function ensureGitRepo() {
         stdio: "ignore",
       });
 
-      console.log("✓ Git history tracking initialized");
+      console.log("✔ Git history tracking initialized");
       return true;
     } catch (error) {
       console.warn("Failed to initialize git history:", error.message);
@@ -85,26 +85,21 @@ function recordUpdateGit({ operation, feedback, pagePath = null }) {
     // Check if there are changes to commit
     try {
       execSync("git diff --cached --quiet", { cwd, stdio: "ignore" });
-      console.log("✓ No update history changes to commit");
+      console.log("✔ No update history changes to commit");
       return; // No changes
     } catch {
       // Has changes, continue
     }
 
-    // Build commit message
-    const timestamp = new Date().toISOString();
-    const pageInfo = pagePath ? `\nPage: ${pagePath}` : "";
-    const message = `User feedback: ${feedback}
-
-Operation: ${operation}${pageInfo}
-Timestamp: ${timestamp}`;
+    // Build commit message (only user feedback)
+    const message = feedback;
 
     // Commit
     execSync(`git commit -m ${JSON.stringify(message)}`, {
       cwd,
       stdio: "ignore",
     });
-    console.log("✓ Update history committed successfully");
+    console.log("✔ Update history committed successfully");
   } catch (error) {
     console.warn("Update history commit failed:", error.message);
   }

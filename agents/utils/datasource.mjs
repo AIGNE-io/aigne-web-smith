@@ -189,7 +189,8 @@ export async function listContentRelevantFiles(dirPath, options = {}) {
     if (contentFilenames.has(nameWithoutExt)) return true;
 
     // Include docs/content directories
-    if (file.path.match(/^(doc|docs|screenshot|screenshots|content|documentation|pages|blog)\//)) return true;
+    if (file.path.match(/^(doc|docs|screenshot|screenshots|content|documentation|pages|blog)\//))
+      return true;
 
     return false;
   });

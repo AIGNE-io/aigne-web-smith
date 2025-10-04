@@ -1,6 +1,7 @@
 import YAML from "yaml";
 import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
+import { recordUpdate } from "../../utils/history-utils.mjs";
 
 export default async function userReviewPageDetail(
   { content, componentLibrary, ...rest },
@@ -93,6 +94,13 @@ export default async function userReviewPageDetail(
       });
 
       currentPageDetail = YAML.parse(options.context.userContext.currentPageDetail);
+
+      // Record the update (both YAML + Git)
+      recordUpdate({
+        operation: "page_update",
+        feedback: feedback.trim(),
+        pagePath: rest.path,
+      });
 
       // Print updated page detail
       printPageDetail(currentPageDetail);

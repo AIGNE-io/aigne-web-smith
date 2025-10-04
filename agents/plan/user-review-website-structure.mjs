@@ -1,3 +1,4 @@
+import { recordUpdate } from "../../utils/history-utils.mjs";
 import {
   printWebsiteStructure,
   updateWebsiteScaleIfNeeded,
@@ -75,6 +76,12 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
       });
 
       currentStructure = options.context.userContext.currentStructure;
+
+      // Record the update (both YAML + Git)
+      recordUpdate({
+        operation: "structure_update",
+        feedback: feedback.trim(),
+      });
 
       // Print current website structure in a user-friendly format
       printWebsiteStructure(currentStructure);

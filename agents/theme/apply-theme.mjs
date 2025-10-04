@@ -7,7 +7,7 @@ import YAML from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getBlockletConfig } from "../../utils/blocklet.mjs";
-import { DEFAULT_APP_URL } from "../../utils/constants.mjs";
+import { DEFAULT_APP_URL, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
 import { loadConfigFromFile } from "../../utils/utils.mjs";
 
@@ -155,10 +155,7 @@ async function uploadThemeData(appUrl, accessToken, blockletDid, themeData) {
   return await response.json();
 }
 
-export default async function applyTheme(
-  { appUrl, config = "./.aigne/web-smith/config.yaml" },
-  options,
-) {
+export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PATH }, options) {
   // Step 1: Process appUrl
   try {
     let finalAppUrl;

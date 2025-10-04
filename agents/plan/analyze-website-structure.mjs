@@ -1,7 +1,7 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
-import { PAGE_FILE_EXTENSION } from "../../utils/constants.mjs";
+import { PAGE_FILE_EXTENSION, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
@@ -33,7 +33,7 @@ export default async function analyzeWebsiteStructure(
     });
 
     if (choice === "later") {
-      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/web-smith/config.yaml")}`);
+      console.log(`\nConfiguration file: ${chalk.cyan(WEB_SMITH_CONFIG_PATH)}`);
       console.log(
         "Review and edit your configuration as needed, then run 'aigne web generate' to continue.",
       );
@@ -165,7 +165,7 @@ export default async function analyzeWebsiteStructure(
         }
 
         if (hasUpdated) {
-          message = `\n### Auto-updated Project Info to \`.aigne/web-smith/config.yaml\`\n\n${message}\n\n`;
+          message = `\n### Auto-updated Project Info to \`${WEB_SMITH_CONFIG_PATH}\`\n\n${message}\n\n`;
         }
       }
     } catch (error) {

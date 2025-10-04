@@ -554,3 +554,6 @@ export const EMPTY_VALUE = "___EMPTY_VALUE___";
 export const KEEP_CONFIG_KEYS = ["paddingX", "paddingY", "borderRadius", "border"];
 
 export const BUNDLE_FILENAME = "publish-bundle.json";
+
+export const WEB_SMITH_DIR = ".aigne/web-smith";
+export const WEB_SMITH_CONFIG_PATH = `./${WEB_SMITH_DIR}/config.yaml`;

@@ -25,7 +25,7 @@ skills:
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
-    task_title: Generate detail for '{{ title }}'
+    task_title: Generate '{{ title }}'
   - type: transform
     task_render_mode: hide
     jsonata: |

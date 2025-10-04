@@ -66,7 +66,7 @@ export function ensureGitRepo() {
 /**
  * Record update using git commit (if available)
  */
-function recordUpdateGit({ operation, feedback, pagePath = null }) {
+function recordUpdateGit({ feedback }) {
   try {
     const cwd = join(process.cwd(), WEB_SMITH_DIR);
 

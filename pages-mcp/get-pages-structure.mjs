@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { PAGES_OUTPUT_DIR } from "../utils/constants.mjs";
+import { PAGES_OUTPUT_DIR, WEB_SMITH_DIR } from "../utils/constants.mjs";
 
 const structureDir = path.join(
   process.cwd(),
-  "./.aigne/web-smith",
+  WEB_SMITH_DIR,
   PAGES_OUTPUT_DIR,
   "website-structure.yaml",
 );

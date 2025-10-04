@@ -30,6 +30,7 @@ import {
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  WEB_SMITH_DIR,
   WEBSITE_SCALE,
 } from "./constants.mjs";
 import { extractContentFields } from "./generate-helper.mjs";
@@ -553,7 +554,7 @@ export async function saveGitHeadToConfig(gitHead) {
   }
 
   try {
-    const webSmithDir = path.join(process.cwd(), "./.aigne/web-smith");
+    const webSmithDir = path.join(process.cwd(), WEB_SMITH_DIR);
     if (!existsSync(webSmithDir)) {
       mkdirSync(webSmithDir, { recursive: true });
     }
@@ -726,7 +727,7 @@ export function hasFileChangesBetweenCommits(
  * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
  */
 export async function loadConfigFromFile() {
-  const configPath = path.join(process.cwd(), "./.aigne/web-smith", "config.yaml");
+  const configPath = path.join(process.cwd(), WEB_SMITH_DIR, "config.yaml");
 
   try {
     if (!existsSync(configPath)) {
@@ -888,7 +889,7 @@ export async function saveValueToConfig(key, value, comment) {
   }
 
   try {
-    const webSmithDir = path.join(process.cwd(), "./.aigne/web-smith");
+    const webSmithDir = path.join(process.cwd(), WEB_SMITH_DIR);
     if (!existsSync(webSmithDir)) {
       mkdirSync(webSmithDir, { recursive: true });
     }
@@ -1264,9 +1265,9 @@ export function processConfigFields(config) {
   const defaults = {
     locale: "en",
     sourcesPath: ["./"],
-    pagesDir: "./.aigne/web-smith/pages",
-    outputDir: "./.aigne/web-smith/output",
-    tmpDir: "./.aigne/web-smith/workspace",
+    pagesDir: `${WEB_SMITH_DIR}/pages`,
+    outputDir: `${WEB_SMITH_DIR}/output`,
+    tmpDir: `${WEB_SMITH_DIR}/workspace`,
     translateLanguages: [],
     rules: "",
     targetAudience: "",

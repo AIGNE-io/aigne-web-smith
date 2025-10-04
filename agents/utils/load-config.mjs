@@ -3,6 +3,7 @@ import path from "node:path";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse } from "yaml";
+import { WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
@@ -59,7 +60,7 @@ loadConfig.input_schema = {
   properties: {
     config: {
       type: "string",
-      default: "./.aigne/web-smith/config.yaml",
+      default: WEB_SMITH_CONFIG_PATH,
     },
     appUrl: {
       type: "string",

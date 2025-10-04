@@ -87,6 +87,9 @@ agents:
   - ./agents/update/page-detail-tools/update-section.mjs
   - ./agents/update/page-detail-tools/move-section.mjs
 
+  # history
+  - ./agents/history/view.mjs
+
   # utils
   - ./agents/utils/check-detail-result.mjs
   - ./agents/utils/check-feedback-refiner.mjs
@@ -129,6 +132,12 @@ cli:
       agents:
         - url: ./agents/component/pull-components-team.yaml
           name: pull
+    - name: history
+      description: View update history
+      agents:
+        - url: ./agents/history/view.mjs
+          name: view
+          alias: ["log", "list"]
     - ./agents/clear/index.yaml
 mcp_server:
   agents:

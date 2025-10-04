@@ -2,8 +2,9 @@ import { randomBytes } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, stringify } from "yaml";
+import { WEB_SMITH_DIR } from "./constants.mjs";
 
-const PREFERENCES_DIR = ".aigne/web-smith";
+const PREFERENCES_DIR = WEB_SMITH_DIR;
 const PREFERENCES_FILE = "preferences.yml";
 
 /**

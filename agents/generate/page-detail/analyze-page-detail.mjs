@@ -128,4 +128,4 @@ export default async function analyzePageDetail(input, options) {
     detailGenerated,
   };
 }
-analyzePageDetail.taskTitle = "Analyze if '{{ title }}' needs generation";
+analyzePageDetail.taskTitle = "Check '{{ title }}'";

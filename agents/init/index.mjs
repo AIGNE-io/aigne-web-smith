@@ -11,6 +11,7 @@ import {
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  WEB_SMITH_DIR,
   WEBSITE_SCALE,
 } from "../../utils/constants.mjs";
 import {
@@ -35,7 +36,7 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = ".aigne/web-smith", fileName = "config.yaml", skipIfExists = false },
+  { outputPath = WEB_SMITH_DIR, fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
   if (skipIfExists) {

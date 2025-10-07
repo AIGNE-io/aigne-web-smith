@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-03T06:29:27.297Z
+  updateAt: 2025-10-07T13:11:03.201Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -38,6 +38,16 @@ atomic:
     summary: Code Showcase Component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Discuss Kit Blog List
+    componentId: bKJH63vdZlE8pQrX
+    summary: A component to display blog posts from DiscussKit
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
+  - name: ArcblockArchitect
+    componentId: xoHu0JPjPs1kDYc-
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
 composite:
   - id: ew7g0ufx6umek1d6
     name: Logo Wall
@@ -5414,3 +5424,538 @@ composite:
       5467p5g14tf9ulet: {}
       lbdakrlx804aa294: {}
       fn3pjkdsg3erq5wn: {}
+  - id: 70e1ovto8gm1oyew
+    name: Blog List
+    summary: >-
+      Structure (top → bottom)
+
+      - Title (`{{blogTitle}}`) and optional subtitle (`{{blogDescription}}`).
+
+      - CTA (`{{blogMoreButtonText}}`)
+
+      - Dynamic list of blog cards fetched from `{{blogUrl}}`.
+         -  Optional blog badge (`{{blogLabel}}`).
+
+      Use when
+
+      - The site’s rules/design system explicitly define a “Blog List/Feed”
+      component or section type.
+
+      - Both `{{blogTitle}}` and `{{blogUrl}}` are present and non-empty.
+
+      - The page needs a dynamic or regularly updated list of posts, displayed
+      as cards or rows.
+
+
+      Constraints
+
+      - Component scope: use only for a Blog List/Feed component as defined by
+      the site; do not apply to generic card lists or non-blog feeds.
+
+      - Data source: `blogUrl` is required and must resolve to a valid feed or
+      list endpoint; on failure, render a visible error state (no blank areas).
+    fieldCombinations:
+      - blogDescription
+      - blogLabel
+      - blogMoreButtonText
+      - blogTitle
+      - blogUrl
+    section:
+      id: yajvezy1bhoy2bya
+      name: Discuss Kit Layout
+      component: layout-block
+      sections:
+        f46vvwk50us90h2s:
+          id: f46vvwk50us90h2s
+          name: DiscussKitBlogList
+          component: custom-component
+          config:
+            componentId: bKJH63vdZlE8pQrX
+        rqe21u6rh80y944k:
+          id: rqe21u6rh80y944k
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+      sectionIds:
+        - rqe21u6rh80y944k
+        - f46vvwk50us90h2s
+      config:
+        gridSettings:
+          desktop:
+            f46vvwk50us90h2s:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            rqe21u6rh80y944k:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+    dataSource:
+      yajvezy1bhoy2bya: {}
+      f46vvwk50us90h2s:
+        properties:
+          9lnca5mjgvkm149u:
+            value: What's New
+          evkkmikqh1nva4sz:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          vd9lwxt1sp8y3wxa:
+            value: 4
+          n69b5nkel10qkdk4:
+            value: What's New
+          7jylpcgpg8zzdalp:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          g171m3hlfe3due0k:
+            value: View More
+          gs1rn5jmxfvpxptx:
+            value: ""
+          9ajrz12ik7esfk1z:
+            value: ""
+          yi1oj4rq1eziup1d:
+            value: <%= blogMoreButtonText %>
+          gioetxz8d13jabz6:
+            value: ""
+          bl0rimfebwbencoj:
+            value: ""
+          1j34jdhdptp2xm5e:
+            value: <%= blogLabel %>
+          gpy89bsxc6ovvlsp:
+            value: <%= blogUrl %>
+      rqe21u6rh80y944k:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= blogTitle %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759819722033-9oviivaa6
+                  type: text
+                  text: <%= blogDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+  - id: a2gxhm99ccmcuj5a
+    name: ArcBlock Architect Hero
+    summary: >-
+      Structure (top → bottom)
+
+      - Background image with gradient overlay
+
+      - Main title (`architectTitle`) and short description
+      (`architectDescription`)
+
+      - Stacked architecture groups (`architectList` and `architectItemDetail`)
+
+
+      Use when
+
+      - The site’s structure explicitly defines an **ArcBlock Architect Hero**
+      component.
+
+      - Only use when both `architectTitle` and `architectList` are present and
+      non-empty.
+
+
+      Constraints
+
+      - Component scope: strictly limited to **ArcBlock Architect Hero**; do not
+      use for generic product grids or unrelated architectures.
+    fieldCombinations:
+      - architectDescription
+      - architectTitle
+      - moreText
+    section:
+      id: 4i8wtkryty2brpoq
+      name: Architect Layout
+      component: layout-block
+      sections:
+        p7siab63myreybx3:
+          id: p7siab63myreybx3
+          name: Architect
+          component: custom-component
+          config:
+            componentId: xoHu0JPjPs1kDYc-
+      sectionIds:
+        - p7siab63myreybx3
+      config:
+        gridSettings:
+          desktop:
+            p7siab63myreybx3:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+    dataSource:
+      4i8wtkryty2brpoq: {}
+      p7siab63myreybx3:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= architectTitle %>
+              style:
+                color: "#EEE"
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1752119205855-uy8ax4k9f
+                  type: text
+                  text: <%= architectDescription %>
+                  style:
+                    color: "#EEE"
+                    fontSize: 16px
+          kdeafu2txl0xy66m:
+            value:
+              - name: Applications
+                type: group
+                icon: "    https://www.arcblock.io/image-bin/uploads/f9c0c9df9247e8a82d309d9e0c\
+                  9ae623.svg"
+              - name: NFT Studio
+                icon: "        https://www.arcblock.io/image-bin/uploads/5542354d3d33e5fcd21156\
+                  2ee734da01.png?imageFilter=resize&w=100&f=webp"
+              - name: AIGNE
+                hoverColor: "#eef2ff"
+                icon: "        https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9d\
+                  d30aec44fc.png?imageFilter=resize&w=100&f=webp"
+                type: 3d
+              - name: Creator Studio
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37f00c7d0f623b62ecaa4c95386c62c6.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: Aistro
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/b83c22b9f92e4837c2e21bb6fb831f1a.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Launcher
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6cb1e2aa568509e1a874bf7ae1666c26.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/b4725a994a65bf08559c12d9f6012927.svg
+              - name: Blocklet Store
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6db33268d4d1662c4e91eaee159c1312.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/293171dc73e6029561db2403cf5e4f2e.svg
+              - name: Web3 Kit
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/f409e3bdc7a2b42ba8fba9bae286aeda.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/4443d4d2cf4ca865250e8287d4a76753.svg
+              - name: AI Kit
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/9745710dce319d9bf117516ad5d1f811.svg
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Framework
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/eb1cf5d60cd85c42362920c49e3768cb.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6a1ff43786d5fc385c1480c10f97a951.svg
+              - name: Blocklet Server
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/1dfcb220953bb14e3fea8dd9e7f2e6e8.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/973f8ace02c9682b75b0ffe4e2e6b4a3.svg
+              - name: DID Spaces
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/fb3d25d6fcd3f35c5431782a35bef879.svg
+                type: 3d
+              - name: OCAP
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/012d66a02bd6d1313a936b66f097d853.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/621d197db2bb4c3e99a2829ea2d71e9c.svg
+              - name: ABT Network
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/deb5982d012f2d0cf63c635554a4bc59.svg
+                type: 3d
+              - name: DID
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/71eea946246150766324008427d2f63d.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/e08d3a959455878a9720447edfe54d39.svg
+              - name: Verifiable Credentials
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/124d7d13d19687c933a048e64e646bc4.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/29a8d818b78953c89f715740ecd5ce29.svg
+              - name: DID Wallet
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg
+                type: 3d
+              - name: DID Connect
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/e50db773681365ff785a7e982b748740.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: DID:Names
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/db36f9832a99d4dccb21a30ff269bb22.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: Components
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/613e56a253a7c4f336e8f9edd9e461ca.svg
+                type: group
+              - name: Compute
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/f8abc480196d30638ff02df81ba6f14f.svg
+                type: group
+              - name: Storage
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/28a0bc7b8b41e5561b403d830fd22152.svg
+                type: group
+              - name: Blockchain
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/6a4325c8b956acbf7492e192887dc5c5.svg
+                type: group
+              - name: IDENTITY
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/0ffc0094aaf2f988c4bb3f487d4530e0.svg
+                type: group
+          h0ewzuvbyu03idlp:
+            value: full
+          13qrfs2zqzmaxuvm:
+            value: >
+              - name: Applications
+                title: Born For Apps
+                description: >-
+                  ArcBlock is born for applications. ArcBlock enables decentralized
+                  applications to have a user experience comparable to traditional
+                  applications, and empowers users to have full ownership of their own
+                  identity, data, and assets.
+
+                  In the ArcBlock ecosystem, there are not only a large number of ready-to-use
+                  applications, but also the flexibility to customize and combine them
+                  according to users' needs.
+                url: 'https://www.arcblock.io/content/collections/en/dapps'
+                list:
+                  - name: NFT Studio
+                    title: NFT Studio
+                    description: >-
+                      NFT Studio is a suite tailored for NFT creators. NFT Studio includes all
+                      the tools needed to launch an NFT project, from creation, distribution,
+                      minting, sales, to the marketplace, everything is available. NFT Studio
+                      can also integrate with AIGC and other technologies to achieve efficient
+                      AI-assisted creation.
+                    url: 'https://www.arcblock.io/content/collections/en/nft-studio'
+                  - name: AIGNE
+                    title: 'AIGNE: AI Apps Engine'
+                    description: >-
+                      AIGNE empowers AI for application development. AIGNE makes it easy to
+                      access and utilize large language models (LLM) and generative AI (AIGC)
+                      with a completely code-free approach, allowing anyone to build complete
+                      applications using AI.
+                    url: 'https://www.arcblock.io/content/collections/en/aigne'
+                  - name: Creator Studio
+                    title: Content Creators' Swiss Knife
+                    description: >-
+                      No matter if you are ready to start your own blog, newsletter, e-book,
+                      course, or provide offline services, Creator Studio can meet your needs.
+
+                      Creator Studio is a suite that provides everything content creators need
+                      to independently establish their own services.
+                    url: 'https://www.arcblock.io/content/collections/en/creator-studio'
+                  - name: Aistro
+                    title: 'Aistro: AI + Astrology'
+                    description: >-
+                      Aistro is an astrology application built using an artificial
+                      intelligence large language model (LLM).
+
+                      Aistro is built entirely using the AIGNE tool on the ArcBlock platform
+                      and serves as a template consumer application for both AIGNE and
+                      ArcBlock.
+                    url: 'https://www.arcblock.io/content/collections/en/aistro'
+                  - name: More...
+                    title: Apps Showcase
+                    description: >-
+                      The application of ArcBlock is composed of reusable Blocklet components,
+                      so it can form a super rich application ecosystem. Check out our
+                      numerous successful application showcases.
+                    url: 'https://www.arcblock.io/content/collections/en/app-showcase'
+              - name: Components
+                title: Reusable Software Components
+                url: 'https://www.arcblock.io/content/collections/en/components'
+                description: >-
+                  The core feature of ArcBlock is reusable and composable software components,
+                  which we call Blocklets. Any component or application on ArcBlock is a
+                  Blocklet, or composed of Blocklets.
+                list:
+                  - name: Blocklet Launcher
+                    title: Launch Starting Point
+                    description: >-
+                      Blocklet Launcher is the starting point for running decentralized
+                      applications, and it brings excellent user experience for decentralized
+                      applications to be comparable to traditional web.
+
+                      Blocklet Launcher itself is a Blocklet, and anyone can run their own
+                      dedicated Launcher.
+                    url: 'https://www.arcblock.io/content/collections/en/blocklet-launcher'
+                  - name: Blocklet Store
+                    title: App Store For Blocklets
+                    description: >-
+                      The Blocklet Store is Blocklet's App Store. The Blocklet Store and
+                      Blocklet Launcher work together and can be accessed from within each
+                      Blocklet seamlessly.The Blocklet Store itself is also a Blocklet, and
+                      anyone can run their own dedicated Store.
+                    url: 'https://www.arcblock.io/content/collections/en/blocklet-store'
+                  - name: Web3 Kit
+                    title: Web3 App Building Blocks
+                    description: >-
+                      The Web3 Kit provides a series of commonly used basic components for
+                      building applications, allowing developers to no longer need to reinvent
+                      the wheel, but instead focus entirely on their unique application
+                      features.
+                    url: 'https://www.arcblock.io/content/collections/en/web3-kit'
+                  - name: AI Kit
+                    title: AI Empowerment For Any Apps
+                    description: >-
+                      The AI Kit enables any application to have AI capabilities and provides
+                      access to various AI backends.
+                    url: 'https://www.arcblock.io/content/collections/en/ai-kit'
+                  - name: More...
+                    title: Blocklet Showcase
+                    description: >-
+                      ArcBlock has a rich Blocklet ecosystem, and anyone can contribute
+                      Blocklets to the ecosystem and receive a continuous stream of income
+                      from it! Check out our numerous successful showcases in the Blocklet
+                      ecosystem.
+                    url: 'https://www.arcblock.io/content/collections/en/blocklet-showcase'
+              - list:
+                  - name: Compute
+                    title: Decentralized Compute
+                    url: 'https://www.arcblock.io/content/collections/en/compute'
+                    description: >-
+                      ArcBlock takes decentralized computing to a new level by adopting the
+                      principle of 'separation of compute and storage'. All applications and
+                      components in ArcBlock are Blocklets, which run on a unified and
+                      standardized Blocklet Service.
+                    list:
+                      - name: Blocklet Framework
+                        title: Blocklet Framework
+                        description: |-
+                          All applications and components in ArcBlock are Blocklets.
+                          Blocklets make software reusable and composable possible.
+                        url: 'https://www.arcblock.io/content/collections/en/blocklet'
+                      - name: Blocklet Server
+                        title: Blocklet Server
+                        description: >-
+                          Blocklet server is a standardized foundational component that serves
+                          as a container service for running Blocklets.
+                        url: 'https://www.arcblock.io/content/collections/en/blocklet-server'
+                  - name: Storage
+                    title: Decentralized Storage
+                    description: >-
+                      Decentralized storage is the foundation of decentralized applications.
+                      ArcBlock adopts the principle of 'separation of computation and
+                      storage'.
+                    url: 'https://www.arcblock.io/content/collections/en/did-spaces'
+                    list:
+                      - name: DID Spaces
+                        title: 'DID:Spaces'
+                        description: >-
+                          DID:Spaces is a decentralized storage space protocol based on DID.
+                          DID:Spaces can combine with traditional cloud storage service
+                          protocols (such as S3) and decentralized storage services (such as
+                          IPFS, etc.) to create an unprecedented user-controlled data usage
+                          experience for users and applications.
+                        url: 'https://www.arcblock.io/content/collections/en/did-spaces'
+                  - name: Blockchain
+                    title: Blockchain
+                    description: >-
+                      Blockchain is used to ensure the security of assets, fair and
+                      transparent transactions. ArcBlock's basic services such as billing and
+                      operational support are implemented using blockchain technology.
+                      ArcBlock is optimized for blockchains.
+                    url: 'https://www.arcblock.io/content/collections/en/blockchain'
+                    list:
+                      - name: OCAP
+                        title: Open Chain Access Protocol
+                        description: >-
+                          Applications on ArcBlock can support almost any mainstream
+                          blockchain service, including Bitcoin, Ethereum, various
+                          Ethereum-compatible chains, Solana, etc.
+                        url: 'https://www.arcblock.io/content/collections/en/ocap'
+                      - name: ABT Network
+                        title: ABT Network
+                        description: >-
+                          ABT Network is ArcBlock's high-performance native blockchain system.
+                          ABT Network is also the core of ArcBlock's Billing and Operations
+                          Support System (BoSS).
+                        url: 'https://www.arcblock.io/content/collections/en/abt-network'
+              - name: IDENTITY
+                title: Self-sovereign Identity Layer
+                description: >-
+                  The foundation layer of the ArcBlock Architect.
+
+                  Decentralized identity, also known as self-sovereign identity, is a
+                  framework for identity that is based on open standards. It utilizes digital
+                  identifiers and verifiable credentials that are owned by the individual,
+                  independent, and facilitate trusted data exchange. Its objective is to
+                  safeguard privacy and ensure secure online interactions by employing
+                  blockchains, distributed ledger technology, and private/public key
+                  cryptography.
+                url: 'https://www.arcblock.io/content/collections/en/self-sovereign-identity'
+                list:
+                  - name: DID
+                    title: Decentralized Identity(DID)
+                    description: >-
+                      Everything in ArcBlock is identified by its DID.
+
+                      A decentralized identity approach enables individuals, groups, and
+                      objects to interact with one another in a transparent and secure manner
+                      within an identity trust framework. Each entity has control over their
+                      own digital identity and credentials.
+                    url: 'https://www.arcblock.io/content/collections/en/did'
+                  - name: Verifiable Credentials
+                    title: Verifiable Credentials(VC)
+                    description: >-
+                      Verifiable Credentials are the primary applications of DID.
+
+                      Verifiable Credentials are identity claims or attestations, such as
+                      evidence of employment or student identification, official memberships,
+                      or any other information issued by a trusted source. Individuals can
+                      access and manage their verifiable credentials through a secure,
+                      encrypted digital wallet stored on a smart device.
+
+                      In ArcBlock, VC is widely used in various aspects such as user identity,
+                      access control, permission management, NFT, etc.
+                    url: 'https://www.arcblock.io/content/collections/en/verifiable-credential'
+                  - name: DID Wallet
+                    title: 'DID:Wallet'
+                    description: >-
+                      DID:Wallet is an intelligent digital wallet that uses DID technology to
+                      manage digital identities and digital assets. DID:Wallet supports
+                      multiple chains, multiple assets, and multiple protocols.
+                    url: 'https://www.arcblock.io/content/collections/en/did-wallet'
+                  - name: DID Connect
+                    title: 'DID:Connect'
+                    description: >-
+                      DID:Connect is an application connection protocol based on DID. Through
+                      DID:Connect, users can easily use their decentralized identity to manage
+                      their identity and access permissions across various applications.
+                    url: 'https://www.arcblock.io/content/collections/en/did-connect'
+                  - name: DID:Names
+                    title: DID:Names
+                    description: >-
+                      The DID:Names uses DIDs to achieve service naming, service discovery, and service dispatch. The DID:Names is a supplement to the traditional Internet Domain Name Service (DNS) and can work in synergy with DNS.
+                    url: 'https://www.arcblock.io/content/collections/en/did-name-service'

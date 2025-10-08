@@ -465,7 +465,7 @@ export default async function publishWebsite(
       name: projectName,
       description: projectDesc,
       logo: projectLogo,
-      slug: projectSlug,
+      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
     };
 
     let remoteResults = [];

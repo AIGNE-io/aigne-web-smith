@@ -76,6 +76,16 @@ function hasNumericSegment(field) {
   return field.split(".").some((segment) => /^\d+$/.test(segment));
 }
 
+function collapseFieldAfterFirstNumeric(field) {
+  const segments = field.split(".");
+  const firstNumericIndex = segments.findIndex((segment) => /^\d+$/.test(segment));
+  if (firstNumericIndex <= 0) {
+    return field;
+  }
+
+  return segments.slice(0, firstNumericIndex).join(".");
+}
+
 function buildFieldCombinationIndex(componentLibrary = []) {
   if (!Array.isArray(componentLibrary) || componentLibrary.length === 0) {
     return null;
@@ -149,9 +159,19 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
   const normalizedIndexFreeFields = new Set(fields.map(stripNumericSegments));
   if (fields.length > 0) {
     const key = fields.join("|");
-    const exactEntry = index.byKey?.get(key);
+    let matchingEntry = index.byKey?.get(key);
 
-    if (!exactEntry) {
+    if (!matchingEntry) {
+      const collapsedFields = normalizeFieldList(
+        fields.map((field) => collapseFieldAfterFirstNumeric(field)).filter(Boolean),
+      );
+      const collapsedKey = collapsedFields.join("|");
+      if (collapsedKey && collapsedKey !== key) {
+        matchingEntry = index.byKey?.get(collapsedKey);
+      }
+    }
+
+    if (!matchingEntry) {
       const supersetMatch = findClosestFieldCombination(fields, index, { requireSuperset: true });
       const isListOnlyMissing =
         supersetMatch &&

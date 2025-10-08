@@ -445,7 +445,6 @@ export function generateFieldConstraints(componentLibrary) {
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  //
   constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
 - Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
     - The emitted field set of each section (excluding "sectionName" and "sectionSummary") must be exactly equal to the chosen combination—no extra or missing keys.
@@ -456,7 +455,7 @@ export function generateFieldConstraints(componentLibrary) {
     - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
 - Strict List Rules:
     - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number, and SHOULD include \`sectionName\` and \`sectionSummary\`
-    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>
+    - Item Combination: All ${listKeyWithSymbol} items must share the same chosen combination from <allowed_field_combinations> and each item must follow it strictly—never mix different component combinations inside the same list
     - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
     - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:
         ${LIST_KEY}:
@@ -469,6 +468,13 @@ export function generateFieldConstraints(componentLibrary) {
     - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space
     - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules
     - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`
+`;
+
+  constraints += `- How to use components correctly:
+    - Any component whose name contains "Hero" must be used as a standalone section—never place it inside a \`${LIST_KEY}\` item, and Value-Level Downgrade cannot bypass this restriction
+    - For any combination that includes \`${LIST_KEY}\`, every list item must reuse the exact same component combination so the list remains visually consistent—do not mix different components in the same list
+    - If the shared component combination includes orientation-style fields (e.g., left/right layout options), you may vary those field values across list items to improve pacing—never swap to a different component, only adjust the orientation within the same combination
+    - Keep button labels short, direct, and prefix/suffix-free—avoid decorative symbols like dashes so the action stays immediately clear
 `;
 
   return constraints;

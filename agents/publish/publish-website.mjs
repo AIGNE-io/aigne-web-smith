@@ -273,10 +273,15 @@ export default async function publishWebsite(
 
   // Now handle projectId after appUrl is finalized
   const hasProjectIdInConfig = config?.projectId;
+  const hasProjectSlugInConfig = config?.projectSlug;
 
   // Use projectId from config if not provided as parameter
   if (!projectId && hasProjectIdInConfig) {
     projectId = config.projectId;
+  }
+
+  if (!projectSlug && hasProjectSlugInConfig) {
+    projectSlug = config.projectSlug;
   }
 
   // Prompt for projectId if still not available
@@ -465,11 +470,12 @@ export default async function publishWebsite(
       name: projectName,
       description: projectDesc,
       logo: projectLogo,
-      slug: projectSlug,
+      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
     };
 
     let remoteResults = [];
     let newProjectId = projectId;
+    let newProjectSlug = projectSlug;
 
     if (manifestPages.length > 0) {
       const manifest = {
@@ -498,6 +504,22 @@ export default async function publishWebsite(
 
         remoteResults = Array.isArray(result?.pages) ? result.pages : [];
         newProjectId = result?.projectId || projectId;
+        newProjectSlug = result?.projectSlug ?? projectSlug;
+
+        if (!newProjectSlug) {
+          const firstRemoteSuccess = remoteResults.find(
+            (entry) => entry?.success && entry?.projectSlug,
+          );
+          if (firstRemoteSuccess?.projectSlug) {
+            newProjectSlug = firstRemoteSuccess.projectSlug;
+          }
+        }
+
+        if (projectSlug && newProjectSlug && newProjectSlug !== projectSlug) {
+          console.log(
+            `\n${chalk.yellow("ℹ️ Project slug was automatically updated due to conflict:")} ${chalk.cyan(newProjectSlug)}`,
+          );
+        }
       } catch (error) {
         localFailures.push({
           file: "bundle",
@@ -515,6 +537,7 @@ export default async function publishWebsite(
         error: entry?.error || entry?.message,
         data: entry?.data,
         projectId: entry?.projectId,
+        projectSlug: entry?.projectSlug,
         scope: entry?.scope || (entry?.sourceFile ? "page" : "project"),
         code: entry?.code,
       })),
@@ -534,6 +557,12 @@ export default async function publishWebsite(
       const shouldSaveProjectId = !hasProjectIdInConfig || projectId !== newProjectId;
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
+      }
+
+      const shouldSaveProjectSlug =
+        !!newProjectSlug && (!hasProjectSlugInConfig || projectSlug !== newProjectSlug);
+      if (shouldSaveProjectSlug) {
+        await saveValueToConfig("projectSlug", newProjectSlug);
       }
 
       const publishedUrls = publishResults

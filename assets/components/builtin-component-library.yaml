@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-03T06:29:27.297Z
+  updateAt: 2025-10-08T04:45:46.089Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -38,6 +38,16 @@ atomic:
     summary: Code Showcase Component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Discuss Kit Blog List
+    componentId: bKJH63vdZlE8pQrX
+    summary: A component to display blog posts from DiscussKit
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
+  - name: ArcblockArchitect
+    componentId: xoHu0JPjPs1kDYc-
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
 composite:
   - id: ew7g0ufx6umek1d6
     name: Logo Wall
@@ -585,8 +595,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -614,8 +624,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -643,8 +653,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -672,8 +682,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -701,8 +711,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -730,8 +740,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -759,8 +769,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -788,8 +798,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -817,8 +827,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -1197,8 +1207,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1226,8 +1236,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1255,8 +1265,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1284,8 +1294,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1313,8 +1323,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1342,8 +1352,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1371,8 +1381,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1400,8 +1410,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -5414,3 +5424,316 @@ composite:
       5467p5g14tf9ulet: {}
       lbdakrlx804aa294: {}
       fn3pjkdsg3erq5wn: {}
+  - id: 70e1ovto8gm1oyew
+    name: Blog List
+    summary: >-
+      Structure (top → bottom)
+
+      - Title (`{{blogTitle}}`) and optional subtitle (`{{blogDescription}}`).
+
+      - CTA (`{{blogMoreButtonText}}`)
+
+      - Dynamic list of blog cards fetched from `{{blogUrl}}`.
+         -  Optional blog badge (`{{blogLabel}}`).
+
+      Use when
+
+      - The site’s rules/design system explicitly define a “Blog List/Feed”
+      component or section type.
+
+      - Both `{{blogTitle}}` and `{{blogUrl}}` are present and non-empty.
+
+      - The page needs a dynamic or regularly updated list of posts, displayed
+      as cards or rows.
+
+
+      Constraints
+
+      - Component scope: use only for a Blog List/Feed component as defined by
+      the site; do not apply to generic card lists or non-blog feeds.
+
+      - Data source: `blogUrl` is required and must resolve to a valid feed or
+      list endpoint; on failure, render a visible error state (no blank areas).
+    fieldCombinations:
+      - blogDescription
+      - blogLabel
+      - blogMoreButtonText
+      - blogTitle
+      - blogUrl
+    section:
+      id: yajvezy1bhoy2bya
+      name: Discuss Kit Layout
+      component: layout-block
+      sections:
+        f46vvwk50us90h2s:
+          id: f46vvwk50us90h2s
+          name: DiscussKitBlogList
+          component: custom-component
+          config:
+            componentId: bKJH63vdZlE8pQrX
+        rqe21u6rh80y944k:
+          id: rqe21u6rh80y944k
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+      sectionIds:
+        - rqe21u6rh80y944k
+        - f46vvwk50us90h2s
+      config:
+        gridSettings:
+          desktop:
+            f46vvwk50us90h2s:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            rqe21u6rh80y944k:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+    dataSource:
+      yajvezy1bhoy2bya: {}
+      f46vvwk50us90h2s:
+        properties:
+          9lnca5mjgvkm149u:
+            value: What's New
+          evkkmikqh1nva4sz:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          vd9lwxt1sp8y3wxa:
+            value: 4
+          n69b5nkel10qkdk4:
+            value: What's New
+          7jylpcgpg8zzdalp:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          g171m3hlfe3due0k:
+            value: View More
+          gs1rn5jmxfvpxptx:
+            value: ""
+          9ajrz12ik7esfk1z:
+            value: ""
+          yi1oj4rq1eziup1d:
+            value: <%= blogMoreButtonText %>
+          gioetxz8d13jabz6:
+            value: ""
+          bl0rimfebwbencoj:
+            value: ""
+          1j34jdhdptp2xm5e:
+            value: <%= blogLabel %>
+          gpy89bsxc6ovvlsp:
+            value: <%= blogUrl %>
+      rqe21u6rh80y944k:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= blogTitle %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759819722033-9oviivaa6
+                  type: text
+                  text: <%= blogDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+  - id: a2gxhm99ccmcuj5a
+    name: ArcBlock Architect Hero
+    summary: >-
+      Structure (top → bottom)
+
+      - Background image with gradient overlay
+
+      - Main title (`architectTitle`) and short description
+      (`architectDescription`)
+
+      - Stacked architecture groups (`architectList` and `architectItemDetail`)
+
+
+      Use when
+
+      - The site’s structure explicitly defines an **ArcBlock Architect Hero**
+      component.
+
+      - Only use when both `architectTitle` and `architectList` are present and
+      non-empty.
+
+
+      Constraints
+
+      - Component scope: strictly limited to **ArcBlock Architect Hero**; do not
+      use for generic product grids or unrelated architectures.
+    fieldCombinations:
+      - architectDescription
+      - architectList
+      - architectTitle
+      - moreText
+    section:
+      id: 4i8wtkryty2brpoq
+      name: Architect Layout
+      component: layout-block
+      sections:
+        p7siab63myreybx3:
+          id: p7siab63myreybx3
+          name: Architect
+          component: custom-component
+          config:
+            componentId: xoHu0JPjPs1kDYc-
+      sectionIds:
+        - p7siab63myreybx3
+      config:
+        gridSettings:
+          desktop:
+            p7siab63myreybx3:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+    dataSource:
+      4i8wtkryty2brpoq: {}
+      p7siab63myreybx3:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= architectTitle %>
+              style:
+                color: "#EEE"
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1752119205855-uy8ax4k9f
+                  type: text
+                  text: <%= architectDescription %>
+                  style:
+                    color: "#EEE"
+                    fontSize: 16px
+          kdeafu2txl0xy66m:
+            value:
+              - name: Applications
+                type: group
+                icon: "    https://www.arcblock.io/image-bin/uploads/f9c0c9df9247e8a82d309d9e0c\
+                  9ae623.svg"
+              - name: NFT Studio
+                icon: "        https://www.arcblock.io/image-bin/uploads/5542354d3d33e5fcd21156\
+                  2ee734da01.png?imageFilter=resize&w=100&f=webp"
+              - name: AIGNE
+                hoverColor: "#eef2ff"
+                icon: "        https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9d\
+                  d30aec44fc.png?imageFilter=resize&w=100&f=webp"
+                type: 3d
+              - name: Creator Studio
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37f00c7d0f623b62ecaa4c95386c62c6.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: Aistro
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/b83c22b9f92e4837c2e21bb6fb831f1a.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Launcher
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6cb1e2aa568509e1a874bf7ae1666c26.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/b4725a994a65bf08559c12d9f6012927.svg
+              - name: Blocklet Store
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6db33268d4d1662c4e91eaee159c1312.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/293171dc73e6029561db2403cf5e4f2e.svg
+              - name: Web3 Kit
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/f409e3bdc7a2b42ba8fba9bae286aeda.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/4443d4d2cf4ca865250e8287d4a76753.svg
+              - name: AI Kit
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/9745710dce319d9bf117516ad5d1f811.svg
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Framework
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/eb1cf5d60cd85c42362920c49e3768cb.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6a1ff43786d5fc385c1480c10f97a951.svg
+              - name: Blocklet Server
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/1dfcb220953bb14e3fea8dd9e7f2e6e8.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/973f8ace02c9682b75b0ffe4e2e6b4a3.svg
+              - name: DID Spaces
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/fb3d25d6fcd3f35c5431782a35bef879.svg
+                type: 3d
+              - name: OCAP
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/012d66a02bd6d1313a936b66f097d853.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/621d197db2bb4c3e99a2829ea2d71e9c.svg
+              - name: ABT Network
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/deb5982d012f2d0cf63c635554a4bc59.svg
+                type: 3d
+              - name: DID
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/71eea946246150766324008427d2f63d.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/e08d3a959455878a9720447edfe54d39.svg
+              - name: Verifiable Credentials
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/124d7d13d19687c933a048e64e646bc4.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/29a8d818b78953c89f715740ecd5ce29.svg
+              - name: DID Wallet
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg
+                type: 3d
+              - name: DID Connect
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/e50db773681365ff785a7e982b748740.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: DID:Names
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/db36f9832a99d4dccb21a30ff269bb22.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: Components
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/613e56a253a7c4f336e8f9edd9e461ca.svg
+                type: group
+              - name: Compute
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/f8abc480196d30638ff02df81ba6f14f.svg
+                type: group
+              - name: Storage
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/28a0bc7b8b41e5561b403d830fd22152.svg
+                type: group
+              - name: Blockchain
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/6a4325c8b956acbf7492e192887dc5c5.svg
+                type: group
+              - name: IDENTITY
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/0ffc0094aaf2f988c4bb3f487d4530e0.svg
+                type: group
+          h0ewzuvbyu03idlp:
+            value: full
+          13qrfs2zqzmaxuvm:
+            value: <%= architectList %>

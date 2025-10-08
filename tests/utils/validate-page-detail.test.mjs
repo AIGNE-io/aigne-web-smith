@@ -44,6 +44,11 @@ const sampleComponentLibrary = [
       "faqList.9.answer",
     ],
   },
+  {
+    type: "composite",
+    name: "ArcBlockArchitectHero",
+    fieldCombinations: ["architectDescription", "architectList", "architectTitle", "moreText"],
+  },
 ];
 
 describe("validatePageDetail", () => {
@@ -252,5 +257,40 @@ sections:
     expect(result.isValid).toBe(false);
     expect(result.errors.some((error) => error.code === "UNKNOWN_FIELD_COMBINATION")).toBe(true);
     expect(result.validationFeedback).toContain("unsupported field combination");
+  });
+
+  test("accepts sections when list items expand beyond component base field", () => {
+    const yamlContent = `
+meta:
+  title: "Architect"
+  description: "ArcBlock"
+sections:
+  - sectionName: "ArcBlock Architect Hero"
+    sectionSummary: "Team overview"
+    architectTitle: "Our Architects"
+    architectDescription: "Meet the builders"
+    architectList:
+      - name: "Alice"
+        title: "Lead Architect"
+        description: "Focuses on chain services"
+        url: "https://example.com/alice"
+        list:
+          - "Chain"
+          - "Node"
+      - name: "Bob"
+        title: "Co-Architect"
+        url: "https://example.com/bob"
+        list:
+          - "DApp"
+          - "Wallet"
+    moreText: "See the full team"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    expect(result.isValid).toBe(true);
   });
 });

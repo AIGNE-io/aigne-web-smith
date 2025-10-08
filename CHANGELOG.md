@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0...v1.4.1-beta) (2025-10-08)
+
+
+### Bug Fixes
+
+* polish compose page data match fieldCombitions logic ([#102](https://github.com/AIGNE-io/aigne-web-smith/issues/102)) ([dec8f6f](https://github.com/AIGNE-io/aigne-web-smith/commit/dec8f6f432bf11ed10dfc7d45d407b6857578e71))
+
 ## [1.4.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.8...v1.4.0) (2025-10-05)
 
 

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-08T01:18:01.082Z
+  updateAt: 2025-10-08T04:45:46.089Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -595,8 +595,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -624,8 +624,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -653,8 +653,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -682,8 +682,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -711,8 +711,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -740,8 +740,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -769,8 +769,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -798,8 +798,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -827,8 +827,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: large
                 border: solid
@@ -1207,8 +1207,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1236,8 +1236,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1265,8 +1265,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1294,8 +1294,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1323,8 +1323,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1352,8 +1352,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1381,8 +1381,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid
@@ -1410,8 +1410,8 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
                 gap: none
                 border: solid

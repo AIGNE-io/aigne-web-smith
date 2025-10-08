@@ -1,5 +1,6 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import imageSize from "image-size";
 import { parse } from "yaml";
 import {
   BUILTIN_COMPONENT_LIBRARY_NAME,
@@ -8,7 +9,7 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
-import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
+import { getFilesWithGlob, getMimeType, loadGitignore } from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
 import {
   getCurrentGitHead,
@@ -219,6 +220,9 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
+  const MIN_IMAGE_WIDTH = 800;
+  const filteredImageCount = { count: 0 };
+
   await Promise.all(
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
@@ -229,13 +233,37 @@ export default async function loadSources({
         const fileName = path.basename(file);
         const description = path.parse(fileName).name;
 
-        mediaFiles.push({
+        const mediaItem = {
           name: fileName,
           path: relativePath,
           type: getFileType(relativePath),
           mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
           description,
-        });
+          mimetype: getMimeType(file),
+        };
+
+        // For image files, get dimensions and filter by width
+        if (mediaItem.type === "image") {
+          try {
+            const buffer = await readFile(file);
+            const dimensions = imageSize(buffer);
+            mediaItem.width = dimensions.width;
+            mediaItem.height = dimensions.height;
+
+            // Filter out images with width less than MIN_IMAGE_WIDTH
+            if (dimensions.width < MIN_IMAGE_WIDTH) {
+              filteredImageCount.count++;
+              console.log(
+                `ℹ️  Filtered low-resolution image: ${fileName} (${dimensions.width}x${dimensions.height}px, minimum width: ${MIN_IMAGE_WIDTH}px)`,
+              );
+              return;
+            }
+          } catch (err) {
+            console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
+          }
+        }
+
+        mediaFiles.push(mediaItem);
       } else {
         // This is a source file
         const content = await readFile(file, "utf8");
@@ -300,6 +328,13 @@ export default async function loadSources({
       }
     }),
   );
+
+  // Log summary of filtered images
+  if (filteredImageCount.count > 0) {
+    console.log(
+      `\nTotal ${filteredImageCount.count} low-resolution image(s) filtered for better web display quality (minimum width: ${MIN_IMAGE_WIDTH}px)\n`,
+    );
+  }
 
   // Get the last structure plan result
   let originalWebsiteStructure;
@@ -533,6 +568,9 @@ loadSources.output_schema = {
           path: { type: "string" },
           type: { type: "string" },
           mediaKitPath: { type: "string" },
+          height: { type: "number" },
+          width: { type: "number" },
+          mimetype: { type: "string" },
         },
       },
     },

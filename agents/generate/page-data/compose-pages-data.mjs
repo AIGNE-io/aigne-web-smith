@@ -164,12 +164,31 @@ function getNestedValue(obj, path) {
 }
 function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {
+    const exactMatch = obj.match(/^<%=\s*([^%]+)\s*%>$/);
+    if (exactMatch) {
+      const keyTrimmed = exactMatch[1].trim();
+      const v = getNestedValue(data, keyTrimmed);
+      const hasValue = !_.isNil(v) && !(typeof v === "string" && v.trim() === "");
+      recordPlaceholder(stats, hasValue);
+      if (!hasValue) return getEmptyValue(keyTrimmed);
+      if (Array.isArray(v) || (v && typeof v === "object")) {
+        return _.cloneDeep(v);
+      }
+      return v;
+    }
+
     return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_m, key) => {
       const keyTrimmed = key.trim();
       const v = getNestedValue(data, keyTrimmed);
       const hasValue = !_.isNil(v) && !(typeof v === "string" && v.trim() === "");
       recordPlaceholder(stats, hasValue);
-      return hasValue ? v : getEmptyValue(keyTrimmed);
+      if (!hasValue) {
+        return getEmptyValue(keyTrimmed);
+      }
+      if (Array.isArray(v) || (v && typeof v === "object")) {
+        return JSON.stringify(v);
+      }
+      return v;
     });
   }
   if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data, stats));
@@ -275,6 +294,20 @@ function normalizeFieldList(fields = []) {
   ).sort();
 }
 
+function hasNumericSegment(field) {
+  return field.split(".").some((segment) => /^\d+$/.test(segment));
+}
+
+function collapseFieldAfterFirstNumeric(field) {
+  const segments = field.split(".");
+  const firstNumericIndex = segments.findIndex((segment) => /^\d+$/.test(segment));
+  if (firstNumericIndex <= 0) {
+    return field;
+  }
+
+  return segments.slice(0, firstNumericIndex).join(".");
+}
+
 function arraysEqual(a = [], b = []) {
   if (a.length !== b.length) return false;
   for (let i = 0; i < a.length; i += 1) {
@@ -286,12 +319,17 @@ function arraysEqual(a = [], b = []) {
 function findBestComponentMatch(sectionFields, compositeComponents) {
   const normalizedSectionFields = normalizeFieldList(sectionFields);
   const sectionFieldSet = new Set(normalizedSectionFields);
+  const collapsedSectionFieldSet = new Set(
+    normalizedSectionFields.map((field) => collapseFieldAfterFirstNumeric(field)),
+  );
 
   let bestMatch = null;
 
   compositeComponents.forEach((component) => {
     const componentFields = normalizeFieldList(component.fieldCombinations || []);
     if (componentFields.length === 0) return;
+
+    const componentFieldSet = new Set(componentFields);
 
     // 精确匹配优先，保持原有行为
     if (arraysEqual(componentFields, normalizedSectionFields)) {
@@ -309,16 +347,22 @@ function findBestComponentMatch(sectionFields, compositeComponents) {
     if (normalizedSectionFields.length === 0) return;
 
     // 仅当组件字段覆盖 section 字段时才考虑回退逻辑
-    const componentFieldSet = new Set(componentFields);
-    const hasAllSectionFields = normalizedSectionFields.every((field) =>
-      componentFieldSet.has(field),
-    );
+    const hasAllSectionFields = normalizedSectionFields.every((field) => {
+      if (componentFieldSet.has(field)) {
+        return true;
+      }
+      if (!hasNumericSegment(field)) {
+        return false;
+      }
+      const collapsed = collapseFieldAfterFirstNumeric(field);
+      return collapsed !== field && componentFieldSet.has(collapsed);
+    });
     if (!hasAllSectionFields) return;
 
-    const extraCount = componentFields.reduce(
-      (count, field) => count + (sectionFieldSet.has(field) ? 0 : 1),
-      0,
-    );
+    const extraCount = componentFields.reduce((count, field) => {
+      if (sectionFieldSet.has(field) || collapsedSectionFieldSet.has(field)) return count;
+      return count + 1;
+    }, 0);
 
     // 在没有精确匹配时，选择冗余字段最少的候选
     if (!bestMatch || bestMatch.type !== "exact") {
@@ -339,6 +383,13 @@ function findBestComponentMatch(sectionFields, compositeComponents) {
   });
 
   return bestMatch;
+}
+
+export { findBestComponentMatch };
+
+// Exported for unit tests to verify template substitution behaviour.
+export function __testProcessSimpleTemplate(value, data) {
+  return processSimpleTemplate(value, data);
 }
 
 /**

@@ -6,3 +6,5 @@
   - External links (http/https/mailto) sourced from <datasources> are encouraged for outbound CTAs; verify they do not duplicate internal navigation.
   - Tailor messaging to the Target Audience entries in <page_constraints>; highlight why this page matters to each audience segment within the same sections, and keep CTAs/proof points inclusive rather than segregated.
   - Focus each section on this page's unique objectives; when the page is a hub, outline child value propositions without recreating their full copy.
+  - Reserve cross-page CTA buttons for pivotal journeys only; avoid reciprocal loops (e.g., Home → Docs → Home) and lean on site navigation or breadcrumbs for routine backtracking.
+  - Differentiate page identities: give the homepage a flagship narrative (broad promise + primary conversion) and ensure second-level pages spotlight their own purpose with varied section mixes, hero tones, and proof types—never replicate an entire section stack verbatim across pages.

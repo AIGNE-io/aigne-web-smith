@@ -381,12 +381,7 @@ export async function batchUploadMediaFiles({
   const filesToUpload = [];
 
   mediaFiles.forEach((media) => {
-    if (
-      media.mediaKitPath &&
-      media.path &&
-      media.type === "image" &&
-      allUsedMediaKitUrls.has(media.mediaKitPath)
-    ) {
+    if (media.mediaKitPath && media.path && allUsedMediaKitUrls.has(media.mediaKitPath)) {
       filesToUpload.push(media);
     }
   });

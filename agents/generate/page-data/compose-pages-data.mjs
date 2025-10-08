@@ -331,7 +331,7 @@ function findBestComponentMatch(sectionFields, compositeComponents) {
 
     const componentFieldSet = new Set(componentFields);
 
-    // 精确匹配优先，保持原有行为
+    // Prioritize exact matches to maintain existing behavior
     if (arraysEqual(componentFields, normalizedSectionFields)) {
       if (!bestMatch || bestMatch.type !== "exact") {
         bestMatch = {

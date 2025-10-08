@@ -517,7 +517,7 @@ export default async function publishWebsite(
 
         if (projectSlug && newProjectSlug && newProjectSlug !== projectSlug) {
           console.log(
-            `\n${chalk.yellow("ℹ️ Project slug was updated to:")} ${chalk.cyan(newProjectSlug)}`,
+            `\n${chalk.yellow("ℹ️ Project slug was automatically updated due to conflict:")} ${chalk.cyan(newProjectSlug)}`,
           );
         }
       } catch (error) {

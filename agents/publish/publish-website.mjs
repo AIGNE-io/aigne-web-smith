@@ -19,6 +19,8 @@ import {
   PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
+  DEFAULT_PROJECT_ID,
+  DEFAULT_PROJECT_SLUG,
 } from "../../utils/constants.mjs";
 
 import { deploy } from "../../utils/deploy.mjs";
@@ -162,9 +164,12 @@ export default async function publishWebsite(
     mediaFiles,
     websiteStructure,
     pagesDir: rootDir,
+    locale,
+    translateLanguages = [],
   },
   options,
 ) {
+  const locales = new Set([locale, ...translateLanguages]).values();
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
   await fs.mkdir(pagesDir, {
@@ -197,6 +202,9 @@ export default async function publishWebsite(
   const config = await loadConfigFromFile();
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
+
+  let shouldSyncLocales = false;
+  let shouldSyncNavigations = false;
 
   let token = "";
 
@@ -249,7 +257,19 @@ export default async function publishWebsite(
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
     } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
-      // Deploy a new Pages Kit service
+      // upload to default project
+      config.projectId = DEFAULT_PROJECT_ID;
+      config.projectSlug = DEFAULT_PROJECT_SLUG;
+
+      if (options?.prompts?.confirm) {
+        const shouldSyncAll = await options.prompts.confirm({
+          message: "Sync locales and navigation to the new dedicated website?",
+          default: true,
+        });
+        shouldSyncLocales = shouldSyncAll;
+        shouldSyncNavigations = shouldSyncAll;
+      }
+
       try {
         let id = "";
         let paymentUrl = "";

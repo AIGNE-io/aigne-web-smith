@@ -217,13 +217,13 @@ export default async function publishWebsite(
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
-                value: "new-pagekit-continue",
+                value: "new-pages-kit-continue",
               },
             ]
           : []),
         {
           name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
-          value: "new-pagekit",
+          value: "new-pages-kit",
         },
       ],
     });
@@ -248,12 +248,12 @@ export default async function publishWebsite(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (["new-pagekit", "new-pagekit-continue"].includes(choice)) {
+    } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
       // Deploy a new Pages Kit service
       try {
         let id = "";
         let paymentUrl = "";
-        if (choice === "new-pagekit-continue") {
+        if (choice === "new-pages-kit-continue") {
           id = config?.checkoutId;
           paymentUrl = config?.paymentUrl;
           console.log(`\nResuming your previous website setup...`);

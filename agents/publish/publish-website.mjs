@@ -267,7 +267,7 @@ export default async function publishWebsite(
 
       if (options?.prompts?.confirm) {
         const shouldSyncAll = await options.prompts.confirm({
-          message: "Sync locales and navigation to the new dedicated website?",
+          message: "Publish pages to the new dedicated website with locales and navigations?",
           default: true,
         });
         shouldWithLocales = shouldSyncAll;

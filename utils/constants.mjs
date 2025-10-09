@@ -346,7 +346,7 @@ export const MEDIA_KIT_PROTOCOL = "mediakit://";
 export const DEFAULT_APP_LOGO =
   "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";
 
-export const DEFAULT_APP_URL = "https://staging.websmith.aigne.io";
+export const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
 // Pages Kit DID for web-smith
 export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-08T09:33:04.791Z
+  updateAt: 2025-10-09T10:54:29.201Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -3007,7 +3007,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -3015,7 +3015,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: transparent
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -3111,7 +3113,7 @@ composite:
               width: 2445
               height: 1394
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: lk8yij39qlfqbsho
     name: Layout Bento Grid 2+3
     summary: >-
@@ -3376,7 +3378,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: 5ewf592p0c7fsuzx
     name: Feature Section
     summary: >
@@ -4061,6 +4063,92 @@ composite:
             value: 16
           v5utpm7bu9yvdpnq:
             value: center
+  - id: vji435chmnif2118
+    name: Layout Bento Grid 2
+    summary: >-
+      Structure
+
+      - Two-cell bento grid in one row
+
+      - Each cell hosts a child section/card/media block; shared gap, padding,
+      border, and radius settings.
+
+
+      Use when
+
+      - You need to present two peer items of equal weight (e.g., feature vs.
+      feature, plan vs. plan, before vs. after).
+
+      - Good for A/B comparisons or pairing a narrative card with a visual card.
+
+
+      Constraints
+
+      - Item count is exactly 2; if you have 1 or 3+ items, choose another
+      layout.
+    fieldCombinations:
+      - list.0
+      - list.1
+    section:
+      id: 9ur9vrlln7senjzz
+      name: Bento Grids_2
+      component: layout-block
+      sections:
+        xebzelstnp0vag5c:
+          id: xebzelstnp0vag5c
+          name: <%= list.0 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: transparent
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+        yvbfss906axhksok:
+          id: yvbfss906axhksok
+          name: <%= list.1 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+      sectionIds:
+        - xebzelstnp0vag5c
+        - yvbfss906axhksok
+      config:
+        gridSettings:
+          desktop:
+            xebzelstnp0vag5c:
+              x: 0
+              y: 0
+              w: 7
+              h: 1
+            yvbfss906axhksok:
+              x: 7
+              y: 0
+              w: 5
+              h: 1
+        paddingX: none
+        gap: small
+        paddingY: none
+    dataSource:
+      9ur9vrlln7senjzz: {}
+      xebzelstnp0vag5c: {}
+      yvbfss906axhksok: {}
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -4164,7 +4252,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -4172,7 +4260,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: transparent
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -4268,93 +4358,7 @@ composite:
               width: 2445
               height: 1394
           jjv0hvr8wrixt1f3:
-            value: 2
-  - id: vji435chmnif2118
-    name: Layout Bento Grid 2
-    summary: >-
-      Structure
-
-      - Two-cell bento grid in one row
-
-      - Each cell hosts a child section/card/media block; shared gap, padding,
-      border, and radius settings.
-
-
-      Use when
-
-      - You need to present two peer items of equal weight (e.g., feature vs.
-      feature, plan vs. plan, before vs. after).
-
-      - Good for A/B comparisons or pairing a narrative card with a visual card.
-
-
-      Constraints
-
-      - Item count is exactly 2; if you have 1 or 3+ items, choose another
-      layout.
-    fieldCombinations:
-      - list.0
-      - list.1
-    section:
-      id: 9ur9vrlln7senjzz
-      name: Bento Grids_2
-      component: layout-block
-      sections:
-        xebzelstnp0vag5c:
-          id: xebzelstnp0vag5c
-          name: <%= list.0 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: transparent
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        yvbfss906axhksok:
-          id: yvbfss906axhksok
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-      sectionIds:
-        - xebzelstnp0vag5c
-        - yvbfss906axhksok
-      config:
-        gridSettings:
-          desktop:
-            xebzelstnp0vag5c:
-              x: 0
-              y: 0
-              w: 7
-              h: 1
-            yvbfss906axhksok:
-              x: 7
-              y: 0
-              w: 5
-              h: 1
-        paddingX: none
-        gap: small
-        paddingY: none
-    dataSource:
-      9ur9vrlln7senjzz: {}
-      xebzelstnp0vag5c: {}
-      yvbfss906axhksok: {}
+            value: 1
   - id: uv25ogna0wj0jqa9
     name: Content Card With Image (Right)
     summary: >-
@@ -4458,7 +4462,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: xco17kxsbava3uww
     name: Content Card With Image (Left)
     summary: >-
@@ -4562,7 +4566,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: 8a3uwlxrx6m068os
     name: Vertical Hero With Code
     summary: >
@@ -6331,7 +6335,7 @@ composite:
               sectionIds:
                 - olbcrzc2vfacgzee
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     olbcrzc2vfacgzee:
@@ -6340,6 +6344,8 @@ composite:
                       w: 12
                       h: 1
                 background: transparent
+                paddingX: small
+                paddingY: small
           sectionIds:
             - htopl3pjyf0q8zwd
             - cmn6ks6n975ltkry
@@ -6448,4 +6454,4 @@ composite:
           5fjm8opvqth7wk71:
             value: 100%
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1

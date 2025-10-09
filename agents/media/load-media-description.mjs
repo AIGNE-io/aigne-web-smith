@@ -175,10 +175,6 @@ loadMediaDescription.input_schema = {
       },
       description: "Array of media file objects (images/videos)",
     },
-    assetsContent: {
-      type: "string",
-      description: "Original assets content from load-sources",
-    },
     pagesDir: {
       type: "string",
       description: "Base directory for pages",

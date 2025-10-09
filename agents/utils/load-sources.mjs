@@ -400,25 +400,6 @@ export default async function loadSources({
     }
   }
 
-  // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Website\n\n";
-
-  if (mediaFiles.length > 0) {
-    // Helper function to determine file type from extension
-
-    const mediaYaml = mediaFiles;
-
-    assetsContent += "```yaml\n";
-    assetsContent += "assets:\n";
-    mediaYaml.forEach((asset) => {
-      assetsContent += `  - name: "${asset.name}"\n`;
-      assetsContent += `    path: "${asset.path}"\n`;
-      assetsContent += `    type: "${asset.type}"\n`;
-      assetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
-    });
-    assetsContent += "```\n";
-  }
-
   // Count words and lines in allSources
   let totalWords = 0;
   let totalLines = 0;
@@ -458,7 +439,6 @@ export default async function loadSources({
     modifiedFiles,
     totalWords,
     totalLines,
-    assetsContent,
     mediaFiles,
   };
 }
@@ -554,10 +534,6 @@ loadSources.output_schema = {
       type: "array",
       items: { type: "string" },
       description: "Array of modified files since last generation",
-    },
-    assetsContent: {
-      type: "string",
-      description: "Markdown content for available media assets",
     },
     mediaFiles: {
       type: "array",

@@ -82,8 +82,6 @@ export default async function loadMediaDescription(input, options) {
   const newDescriptions = {};
   if (mediaToDescribe.length > 0) {
     try {
-      const descAgent = options.context.agents["generateMediaDescription"];
-      descAgent.inputFileKey = "mediaFile";
       // Use batch team agent for concurrent processing
       const results = await options.context.invoke(
         options.context.agents["batchGenerateMediaDescription"],

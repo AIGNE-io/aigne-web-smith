@@ -254,7 +254,7 @@ export default async function loadSources({
             if (dimensions.width < minImageWidth) {
               filteredImageCount.count++;
               console.log(
-                `ℹ️  Filtered low-resolution image: ${fileName} (${dimensions.width}x${dimensions.height}px, minimum width: ${minImageWidth}px)`,
+                `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
               );
               return;
             }

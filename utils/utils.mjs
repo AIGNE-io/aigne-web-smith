@@ -1644,3 +1644,75 @@ export function clearDirExcept(dir, keep = []) {
     }
   }
 }
+
+export function sanitizeNavigationId(path) {
+  if (!path || typeof path !== "string") {
+    return "unknown-nav";
+  }
+
+  const trimmed = path.replace(/^\/+|\/+$/g, "");
+  if (!trimmed) {
+    return "home";
+  }
+
+  const normalized = trimmed
+    .replace(/[^\w-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return normalized || "nav";
+}
+
+export function generateNavigationId(path, usedIds) {
+  const base = sanitizeNavigationId(path);
+  let candidate = base;
+  let index = 1;
+
+  while (usedIds.has(candidate)) {
+    candidate = `${base}-${index}`;
+    index += 1;
+  }
+
+  usedIds.add(candidate);
+  return candidate;
+}
+
+export function buildNavigationEntries(entries = []) {
+  if (!Array.isArray(entries) || entries.length === 0) {
+    return [];
+  }
+
+  const usedIds = new Set();
+  const pathToId = new Map();
+
+  entries.forEach((entry) => {
+    const id = generateNavigationId(entry?.path || "", usedIds);
+    pathToId.set(entry?.path, id);
+  });
+
+  return entries.map((entry) => {
+    const id = pathToId.get(entry?.path);
+    const parentId = entry?.parentPath ? pathToId.get(entry.parentPath) : undefined;
+    const title =
+      typeof entry?.title === "string" && entry.title.trim().length > 0
+        ? entry.title.trim()
+        : entry?.path;
+    const navigation = {
+      id,
+      title,
+      link: entry?.path,
+      description: entry?.description,
+      section: "header",
+      visible: true,
+    };
+
+    if (parentId) {
+      navigation.parent = parentId;
+    }
+
+    if (typeof entry?.description === "string" && entry.description.trim().length > 0) {
+      navigation.description = entry.description.trim();
+    }
+
+    return navigation;
+  });
+}

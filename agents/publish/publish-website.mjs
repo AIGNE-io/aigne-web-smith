@@ -13,20 +13,25 @@ import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 import {
   BUNDLE_FILENAME,
   DEFAULT_APP_URL,
+  DEFAULT_PROJECT_ID,
+  DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
   PAGES_KIT_DID,
   PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
-  DEFAULT_PROJECT_ID,
-  DEFAULT_PROJECT_SLUG,
 } from "../../utils/constants.mjs";
 
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import {
+  buildNavigationEntries,
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../../utils/utils.mjs";
 
 const formatRoutePath = (path) => {
   if (path === "/home") {
@@ -166,10 +171,12 @@ export default async function publishWebsite(
     pagesDir: rootDir,
     locale,
     translateLanguages = [],
+    navigation: syncNavigationsOption,
+    locales: syncLocalesOption,
   },
   options,
 ) {
-  const locales = new Set([locale, ...translateLanguages]).values();
+  const locales = Array.from(new Set([locale, ...translateLanguages]));
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
   await fs.mkdir(pagesDir, {
@@ -203,8 +210,8 @@ export default async function publishWebsite(
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
 
-  let shouldSyncLocales = false;
-  let shouldSyncNavigations = false;
+  let shouldSyncLocales = syncLocalesOption || false;
+  let shouldSyncNavigations = syncNavigationsOption || false;
 
   let token = "";
 
@@ -260,6 +267,8 @@ export default async function publishWebsite(
       // upload to default project
       config.projectId = DEFAULT_PROJECT_ID;
       config.projectSlug = DEFAULT_PROJECT_SLUG;
+      projectId = DEFAULT_PROJECT_ID;
+      projectSlug = DEFAULT_PROJECT_SLUG;
 
       if (options?.prompts?.confirm) {
         const shouldSyncAll = await options.prompts.confirm({
@@ -322,10 +331,6 @@ export default async function publishWebsite(
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
-    languages: [
-      ...(config?.locale ? [config.locale] : []),
-      ...(config?.translateLanguages || []),
-    ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
   };
 
   let message;
@@ -342,7 +347,7 @@ export default async function publishWebsite(
     }
 
     // Recursive function to extract all paths from sitemap
-    function extractAllPaths(sitemapItems) {
+    function extractAllPaths(sitemapItems, parentPath) {
       const paths = [];
       if (!Array.isArray(sitemapItems)) return paths;
 
@@ -354,11 +359,12 @@ export default async function publishWebsite(
             path: item.path,
             cleanPath,
             title: item.title,
+            parentPath,
           });
         }
         // Recursively process child items
         if (item.children && Array.isArray(item.children)) {
-          paths.push(...extractAllPaths(item.children));
+          paths.push(...extractAllPaths(item.children, item.path));
         }
       });
 
@@ -369,6 +375,7 @@ export default async function publishWebsite(
     const sitemapPaths = sitemapContent
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
+    const navigationEntries = shouldSyncNavigations ? buildNavigationEntries(sitemapPaths) : [];
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
@@ -498,6 +505,14 @@ export default async function publishWebsite(
     let newProjectSlug = projectSlug;
 
     if (manifestPages.length > 0) {
+      if (shouldSyncLocales && locales.length > 0) {
+        meta.locales = locales;
+      }
+
+      if (shouldSyncNavigations && navigationEntries.length > 0) {
+        meta.navigations = navigationEntries;
+      }
+
       const manifest = {
         version: 1,
         meta,
@@ -646,6 +661,14 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 publishWebsite.input_schema = {
   type: "object",
   properties: {
+    navigation: {
+      type: "boolean",
+      description: "Sync navigation to website",
+    },
+    locales: {
+      type: "boolean",
+      description: "Sync locales to website",
+    },
     pagesDir: {
       type: "string",
       description: "The directory of the pages",

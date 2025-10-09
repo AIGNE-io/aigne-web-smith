@@ -1,15 +1,16 @@
 - title: "WebSmith: AI-Powered Website Generation"
-  description: A single-page experience designed to introduce WebSmith and convert
-    visitors into users. The page flows from a compelling Hero section that
-    clarifies the value proposition, followed by sections on Features, How It
-    Works, and Social Proof with testimonials. It concludes with an FAQ to
-    address common questions and a clear Call to Action (CTA) to encourage
-    sign-ups or initial use.
+  description: A single-page landing site introducing AIGNE WebSmith to potential
+    customers. The page flows from a compelling Hero section that states the
+    core value proposition, into a detailed Features section covering AI-powered
+    generation, professional templates, quality assurance, and one-click
+    publishing. It then presents a simple 'How It Works' guide to demonstrate
+    ease of use, and concludes with a strong Call to Action to encourage user
+    conversion.
   path: /home
   sourceIds:
     - README.md
     - package.json
     - aigne.yaml
-    - utils/utils.mjs
+    - .cursor/rules/media.md
     - utils/constants.mjs
   parentId: ""

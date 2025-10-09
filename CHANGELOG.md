@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta...v1.4.1-beta.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* tune prompt and update component library ([#104](https://github.com/AIGNE-io/aigne-web-smith/issues/104)) ([3046098](https://github.com/AIGNE-io/aigne-web-smith/commit/304609865e03fd0fbc677d68964c799b31b51652))
+
 ## [1.4.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0...v1.4.1-beta) (2025-10-08)
 
 

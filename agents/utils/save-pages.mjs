@@ -246,8 +246,8 @@ function generateSitemapYaml(
           translateLanguages,
         });
 
-        if (navigationEntry) {
-          navigationEntries.push(navigationEntry);
+        if (navigationEntry.length > 0) {
+          navigationEntries.push(...navigationEntry);
         }
 
         const children = item.__children;
@@ -288,26 +288,40 @@ function generateSitemapYaml(
       rootLinkLocales[localeKey] = withLeadingSlash(joinURL(`${localeKey}`, "/"));
     }
 
+    const rootNavEntries = [
+      {
+        id: `${rootNavigationId}-header`,
+        section: "header",
+        visible: true,
+        title: rootTitleLocales,
+        link: rootLinkLocales,
+      },
+      {
+        id: `${rootNavigationId}-footer`,
+        section: "footer",
+        visible: true,
+        title: rootTitleLocales,
+        link: rootLinkLocales,
+      },
+    ];
+
     navigationEntries
       .filter((entry) => !entry.parent)
       .forEach((entry) => {
-        entry.parent = rootNavigationId;
+        const targetRoot = entry.section === "footer" ? rootNavEntries[1].id : rootNavEntries[0].id;
+        entry.parent = targetRoot;
       });
 
-    navigationEntries.unshift({
-      id: rootNavigationId,
-      section: determineNavigationSection(),
-      visible: true,
-      title: rootTitleLocales,
-      link: rootLinkLocales,
-    });
+    navigationEntries.unshift(...rootNavEntries);
   }
 
   if (navigationEntries.length > 0) {
     sitemapData.navigations = navigationEntries;
   }
 
-  return yamlStringify(sitemapData);
+  return yamlStringify(sitemapData, {
+    aliasDuplicateObjects: false,
+  });
 }
 
 function buildPageMetaMap(allPagesKitYaml = []) {
@@ -398,10 +412,14 @@ function buildNavigationEntry({
   mainLocale,
   translateLanguages = [],
 }) {
-  if (!path) return null;
+  if (!path) return [];
 
-  const navigationId = generateNavigationId(path, usedNavigationIds);
-  pathToNavigationId.set(path, navigationId);
+  const sections = determineNavigationSections(pageMeta?.meta);
+  if (sections.length === 0) {
+    return [];
+  }
+
+  const baseNavigationId = generateNavigationId(path, usedNavigationIds);
 
   const locales = pageMeta?.locales || {};
   const localeKeys = new Set(
@@ -412,24 +430,36 @@ function buildNavigationEntry({
   const descriptionLocales = buildLocaleStrings(locales, localeKeys, "description");
   const linkLocales = buildLinkLocales(locales, localeKeys, path);
 
-  const navigation = {
-    id: navigationId,
-    section: determineNavigationSection(pageMeta?.meta),
-    visible: true,
-    title: titleLocales,
-    link: linkLocales,
-  };
-
-  if (Object.keys(descriptionLocales).length > 0) {
-    navigation.description = descriptionLocales;
-  }
-
   const parentId = parentPath ? pathToNavigationId.get(parentPath) : undefined;
-  if (parentId) {
-    navigation.parent = parentId;
+
+  const entries = sections.map((section, index) => {
+    const navigation = {
+      id:
+        index === 0
+          ? baseNavigationId
+          : generateNavigationId(`${path}#${section}`, usedNavigationIds),
+      section,
+      visible: true,
+      title: titleLocales,
+      link: linkLocales,
+    };
+
+    if (Object.keys(descriptionLocales).length > 0) {
+      navigation.description = descriptionLocales;
+    }
+
+    if (parentId) {
+      navigation.parent = parentId;
+    }
+
+    return navigation;
+  });
+
+  if (entries.length > 0) {
+    pathToNavigationId.set(path, entries[0].id);
   }
 
-  return navigation;
+  return entries;
 }
 
 function buildLocaleStrings(locales, localeKeys, field, fallback) {
@@ -458,6 +488,22 @@ function buildLinkLocales(locales, localeKeys, defaultPath) {
   return result;
 }
 
-function determineNavigationSection(_meta = {}) {
-  return "header";
+function determineNavigationSections(meta = {}) {
+  const rawSection = meta?.navigationSection ?? meta?.section;
+
+  let sections = [];
+  if (Array.isArray(rawSection)) {
+    sections = rawSection;
+  } else if (typeof rawSection === "string" && rawSection.trim().length > 0) {
+    sections = rawSection
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  if (sections.length === 0) {
+    sections = ["header", "footer"];
+  }
+
+  return Array.from(new Set(sections));
 }

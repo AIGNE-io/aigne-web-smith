@@ -239,7 +239,7 @@ export default async function loadSources({
           type: getFileType(relativePath),
           mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
           description,
-          mimetype: getMimeType(file),
+          mimeType: getMimeType(file),
         };
 
         // For image files, get dimensions and filter by width
@@ -570,7 +570,7 @@ loadSources.output_schema = {
           mediaKitPath: { type: "string" },
           height: { type: "number" },
           width: { type: "number" },
-          mimetype: { type: "string" },
+          mimeType: { type: "string" },
         },
       },
     },

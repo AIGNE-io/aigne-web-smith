@@ -166,8 +166,8 @@ export default async function publishWebsite(
     pagesDir: rootDir,
     locale,
     translateLanguages = [],
-    navigation: syncNavigationsOption,
-    locales: syncLocalesOption,
+    "with-navigations": withNavigationsOption,
+    "with-locales": withLocalesOption,
   },
   options,
 ) {
@@ -205,8 +205,8 @@ export default async function publishWebsite(
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
 
-  let shouldSyncLocales = syncLocalesOption || false;
-  let shouldSyncNavigations = syncNavigationsOption || false;
+  let shouldWithLocales = withLocalesOption || false;
+  let shouldWithNavigations = withNavigationsOption || false;
 
   let token = "";
 
@@ -270,8 +270,8 @@ export default async function publishWebsite(
           message: "Sync locales and navigation to the new dedicated website?",
           default: true,
         });
-        shouldSyncLocales = shouldSyncAll;
-        shouldSyncNavigations = shouldSyncAll;
+        shouldWithLocales = shouldSyncAll;
+        shouldWithNavigations = shouldSyncAll;
       }
 
       try {
@@ -378,7 +378,7 @@ export default async function publishWebsite(
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
-    const navigationEntries = shouldSyncNavigations
+    const navigationEntries = shouldWithNavigations
       ? sitemapContent?.navigations?.map((item) => {
           item.title = JSON.stringify(item.title);
           item.description = JSON.stringify(item.description);
@@ -524,11 +524,11 @@ export default async function publishWebsite(
     let newProjectSlug = projectSlug;
 
     if (manifestPages.length > 0) {
-      if (shouldSyncLocales && locales.length > 0) {
+      if (shouldWithLocales && locales.length > 0) {
         meta.locales = locales;
       }
 
-      if (shouldSyncNavigations && navigationEntries.length > 0) {
+      if (shouldWithNavigations && navigationEntries.length > 0) {
         meta.navigations = navigationEntries;
       }
 
@@ -680,13 +680,13 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 publishWebsite.input_schema = {
   type: "object",
   properties: {
-    navigation: {
+    "with-navigations": {
       type: "boolean",
-      description: "Sync navigation to website",
+      description: "Publish to website with navigation",
     },
-    locales: {
+    "with-locales": {
       type: "boolean",
-      description: "Sync locales to website",
+      description: "Publish to website with locales",
     },
     pagesDir: {
       type: "string",

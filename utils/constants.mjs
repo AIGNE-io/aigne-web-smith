@@ -348,6 +348,10 @@ export const DEFAULT_APP_LOGO =
 
 export const DEFAULT_APP_URL = "https://websmith.aigne.io";
 
+// Default application URL for the document deployment website.
+export const CLOUD_SERVICE_URL_PROD = "https://websmith.aigne.io";
+export const CLOUD_SERVICE_URL_STAGING = "https://staging.websmith.aigne.io";
+
 // Pages Kit DID for web-smith
 export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
 

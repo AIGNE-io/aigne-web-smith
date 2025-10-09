@@ -14,6 +14,7 @@ import {
  * @param {string} params.pagesDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @param {Array<{filePath: string, content: string}>} [params.allPagesKitYaml]
+ * @param {string} [params.projectName]
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function savePages({
@@ -24,6 +25,7 @@ export default async function savePages({
   locale,
   projectInfoMessage,
   allPagesKitYaml,
+  projectName,
 }) {
   // Save current git HEAD to config.yaml for change detection
   try {
@@ -40,6 +42,7 @@ export default async function savePages({
       allPagesKitYaml,
       locale,
       translateLanguages,
+      projectName,
     );
     const sitemapPath = join(outputDir, "_sitemap.yaml");
     await writeFile(sitemapPath, sitemap, "utf8");
@@ -172,6 +175,7 @@ function generateSitemapYaml(
   allPagesKitYaml = [],
   mainLocale,
   translateLanguages = [],
+  projectName,
 ) {
   const pageMetaMap = buildPageMetaMap(allPagesKitYaml);
   const navigationEntries = [];
@@ -256,9 +260,48 @@ function generateSitemapYaml(
     return items;
   }
 
+  const sitemapItems = walk(root);
+
   const sitemapData = {
-    sitemap: walk(root),
+    sitemap: sitemapItems,
   };
+
+  // append root node if multi pages
+  if (
+    Array.isArray(sitemapItems) &&
+    sitemapItems.length > 1 &&
+    typeof projectName === "string" &&
+    projectName.trim().length > 0
+  ) {
+    const normalizedProjectName = projectName.trim();
+    const localeKeys = new Set([mainLocale, ...translateLanguages].filter(Boolean));
+    if (localeKeys.size === 0) {
+      localeKeys.add("en");
+    }
+
+    const rootNavigationId = generateNavigationId(`/${normalizedProjectName}`, usedNavigationIds);
+
+    const rootTitleLocales = {};
+    const rootLinkLocales = {};
+    for (const localeKey of localeKeys) {
+      rootTitleLocales[localeKey] = normalizedProjectName;
+      rootLinkLocales[localeKey] = withLeadingSlash(joinURL(`${localeKey}`, "/"));
+    }
+
+    navigationEntries
+      .filter((entry) => !entry.parent)
+      .forEach((entry) => {
+        entry.parent = rootNavigationId;
+      });
+
+    navigationEntries.unshift({
+      id: rootNavigationId,
+      section: determineNavigationSection(),
+      visible: true,
+      title: rootTitleLocales,
+      link: rootLinkLocales,
+    });
+  }
 
   if (navigationEntries.length > 0) {
     sitemapData.navigations = navigationEntries;
@@ -415,14 +458,6 @@ function buildLinkLocales(locales, localeKeys, defaultPath) {
   return result;
 }
 
-function determineNavigationSection(meta = {}) {
-  if (typeof meta?.navigationSection === "string" && meta.navigationSection.trim().length > 0) {
-    return meta.navigationSection.trim();
-  }
-
-  if (typeof meta?.section === "string" && meta.section.trim().length > 0) {
-    return meta.section.trim();
-  }
-
+function determineNavigationSection(_meta = {}) {
   return "header";
 }

@@ -12,7 +12,7 @@ import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 
 import {
   BUNDLE_FILENAME,
-  DEFAULT_APP_URL,
+  CLOUD_SERVICE_URL_PROD,
   DEFAULT_PROJECT_ID,
   DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
@@ -202,7 +202,7 @@ export default async function publishWebsite(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
+  const isCloudServiceUrl = appUrl === CLOUD_SERVICE_URL_PROD;
   const hasAppUrlInConfig = config?.appUrl;
 
   let shouldWithLocales = withLocalesOption || false;
@@ -210,13 +210,13 @@ export default async function publishWebsite(
 
   let token = "";
 
-  if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
+  if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
     const hasCachedCheckoutId = !!config?.checkoutId;
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: `${chalk.blue(`WebSmith Cloud (${DEFAULT_APP_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
@@ -317,7 +317,9 @@ export default async function publishWebsite(
 
   try {
     // publish to websmith website ignore admin passport
-    requiredAdminPassport = !(new URL(appUrl).hostname === new URL(DEFAULT_APP_URL).hostname);
+    requiredAdminPassport = !(
+      new URL(appUrl).hostname === new URL(CLOUD_SERVICE_URL_PROD).hostname
+    );
   } catch (_error) {}
 
   const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
@@ -695,7 +697,7 @@ publishWebsite.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: DEFAULT_APP_URL,
+      default: CLOUD_SERVICE_URL_PROD,
     },
     projectId: {
       type: "string",

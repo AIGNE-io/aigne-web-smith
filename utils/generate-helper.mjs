@@ -13,29 +13,13 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { LIST_KEY, SECTION_META_FIELDS } from "./constants.mjs";
 
+export { generateDeterministicId } from "./utils.mjs";
+
 /**
  * ID 生成工具
  */
 export function generateRandomId(length = 16) {
   return nanoid(length);
-}
-
-/**
- * 从文本生成确定的16位16进制ID
- * 相同的文本内容总是产生相同的ID
- * @param {string} text - 输入文本
- * @returns {string} 16位16进制ID
- */
-export function generateDeterministicId(text, length = 16) {
-  if (typeof text !== "string") {
-    if (typeof text === "object") {
-      text = JSON.stringify(text);
-    } else {
-      text = String(text);
-    }
-  }
-
-  return createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
 }
 
 /**

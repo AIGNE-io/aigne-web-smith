@@ -9,6 +9,7 @@ import {
   rmSync,
   statSync,
 } from "node:fs";
+
 import fs from "node:fs/promises";
 import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import slugify from "slugify";
@@ -1672,6 +1673,26 @@ export function generateNavigationId(path, usedIds) {
     index += 1;
   }
 
+  candidate = generateDeterministicId(candidate);
+
   usedIds.add(candidate);
   return candidate;
+}
+
+/**
+ * 从文本生成确定的16位16进制ID
+ * 相同的文本内容总是产生相同的ID
+ * @param {string} text - 输入文本
+ * @returns {string} 16位16进制ID
+ */
+export function generateDeterministicId(text, length = 16) {
+  if (typeof text !== "string") {
+    if (typeof text === "object") {
+      text = JSON.stringify(text);
+    } else {
+      text = String(text);
+    }
+  }
+
+  return crypto.createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
 }

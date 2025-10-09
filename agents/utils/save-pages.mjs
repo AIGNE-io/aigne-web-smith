@@ -1,13 +1,19 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { stringify as yamlStringify } from "yaml";
-import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
+import { joinURL, withLeadingSlash } from "ufo";
+import { parse as yamlParse, stringify as yamlStringify } from "yaml";
+import {
+  generateNavigationId,
+  getCurrentGitHead,
+  saveGitHeadToConfig,
+} from "../../utils/utils.mjs";
 
 /**
  * @param {Object} params
  * @param {Array<{path: string, content: string, title: string}>} params.websiteStructure
  * @param {string} params.pagesDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
+ * @param {Array<{filePath: string, content: string}>} [params.allPagesKitYaml]
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function savePages({
@@ -17,6 +23,7 @@ export default async function savePages({
   translateLanguages = [],
   locale,
   projectInfoMessage,
+  allPagesKitYaml,
 }) {
   // Save current git HEAD to config.yaml for change detection
   try {
@@ -28,7 +35,12 @@ export default async function savePages({
 
   // Generate _sitemap.yaml
   try {
-    const sitemap = generateSitemapYaml(websiteStructure);
+    const sitemap = generateSitemapYaml(
+      websiteStructure,
+      allPagesKitYaml,
+      locale,
+      translateLanguages,
+    );
     const sitemapPath = join(outputDir, "_sitemap.yaml");
     await writeFile(sitemapPath, sitemap, "utf8");
   } catch (err) {
@@ -155,12 +167,26 @@ async function cleanupDirectoryFiles(dirPath, expectedFiles, results, dirType) {
 }
 
 // Generate sitemap YAML content, support nested structure, and the order is consistent with websiteStructure
-function generateSitemapYaml(websiteStructure) {
+function generateSitemapYaml(
+  websiteStructure,
+  allPagesKitYaml = [],
+  mainLocale,
+  translateLanguages = [],
+) {
+  const pageMetaMap = buildPageMetaMap(allPagesKitYaml);
+  const navigationEntries = [];
+  const usedNavigationIds = new Set();
+  const pathToNavigationId = new Map();
+
   // Build tree structure
   const root = {};
   for (const { path, title, parentId } of websiteStructure) {
     const relPath = path.replace(/^\//, "");
-    const segments = relPath.split("/");
+    const segments = relPath.split("/").filter(Boolean);
+    if (segments.length === 0) {
+      // Keep placeholder for root ("/") paths to avoid generating empty keys
+      segments.push("");
+    }
     let node = root;
     for (let i = 0; i < segments.length; i++) {
       const seg = segments[i];
@@ -170,8 +196,12 @@ function generateSitemapYaml(websiteStructure) {
           __title: null,
           __fullPath: segments.slice(0, i + 1).join("/"),
           __parentId: parentId,
+          __metaKey: normalizePathToKey(segments.slice(0, i + 1).join("/")),
         };
-      if (i === segments.length - 1) node[seg].__title = title;
+      if (i === segments.length - 1) {
+        node[seg].__title = title;
+        node[seg].__metaKey = normalizePathToKey(segments.slice(0, i + 1).join("/"));
+      }
       node = node[seg].__children;
     }
   }
@@ -185,10 +215,37 @@ function generateSitemapYaml(websiteStructure) {
 
       const flatFile = fullSegments.join("/");
       if (item.__title) {
+        const fullPath = `/${flatFile}`;
         const sitemapItem = {
           title: item.__title,
-          path: `/${flatFile}`,
+          path: fullPath,
         };
+        const metaKey = item.__metaKey || normalizePathToKey(fullSegments.join("/"));
+        const pageMeta = pageMetaMap.get(metaKey);
+        if (pageMeta) {
+          if (pageMeta.locales && Object.keys(pageMeta.locales).length > 0) {
+            sitemapItem.locales = pageMeta.locales;
+          }
+          if (pageMeta.meta && Object.keys(pageMeta.meta).length > 0) {
+            sitemapItem.meta = pageMeta.meta;
+          }
+        }
+        const parentPath = parentSegments.length > 0 ? `/${parentSegments.join("/")}` : undefined;
+        const navigationEntry = buildNavigationEntry({
+          path: fullPath,
+          title: item.__title,
+          parentPath,
+          pageMeta,
+          usedNavigationIds,
+          pathToNavigationId,
+          mainLocale,
+          translateLanguages,
+        });
+
+        if (navigationEntry) {
+          navigationEntries.push(navigationEntry);
+        }
+
         const children = item.__children;
         if (Object.keys(children).length > 0) {
           sitemapItem.children = walk(children, fullSegments);
@@ -203,5 +260,169 @@ function generateSitemapYaml(websiteStructure) {
     sitemap: walk(root),
   };
 
+  if (navigationEntries.length > 0) {
+    sitemapData.navigations = navigationEntries;
+  }
+
   return yamlStringify(sitemapData);
+}
+
+function buildPageMetaMap(allPagesKitYaml = []) {
+  const map = new Map();
+  if (!Array.isArray(allPagesKitYaml)) return map;
+
+  for (const entry of allPagesKitYaml) {
+    if (!entry || typeof entry.filePath !== "string" || typeof entry.content !== "string") {
+      continue;
+    }
+
+    let parsed;
+    try {
+      parsed = yamlParse(entry.content);
+    } catch (err) {
+      console.warn(
+        `Failed to parse page YAML for sitemap metadata (${entry.filePath}): ${err.message}`,
+      );
+      continue;
+    }
+
+    const localesMeta = extractLocalesMeta(parsed?.locales);
+    const pageMeta = pickDefined({
+      file: entry.filePath,
+      id: parsed?.id,
+      createdAt: parsed?.createdAt,
+      updatedAt: parsed?.updatedAt,
+      publishedAt: parsed?.publishedAt,
+      isPublic: parsed?.isPublic,
+    });
+
+    const key = normalizePathToKey(entry.filePath);
+
+    map.set(key, {
+      locales: localesMeta,
+      meta: pageMeta,
+    });
+  }
+
+  return map;
+}
+
+function extractLocalesMeta(locales) {
+  if (!locales || typeof locales !== "object") return {};
+
+  const allowedFields = ["title", "description", "image", "style", "backgroundColor", "header"];
+  const localeMeta = {};
+
+  for (const [locale, data] of Object.entries(locales)) {
+    if (!data || typeof data !== "object") continue;
+    const sanitized = {};
+
+    for (const field of allowedFields) {
+      if (data[field] !== undefined) {
+        sanitized[field] = data[field];
+      }
+    }
+
+    if (Object.keys(sanitized).length > 0) {
+      localeMeta[locale] = sanitized;
+    }
+  }
+
+  return localeMeta;
+}
+
+function normalizePathToKey(value) {
+  if (typeof value !== "string" || value.length === 0) return "";
+  return value
+    .replace(/^\//, "")
+    .replace(/\.ya?ml$/i, "")
+    .replace(/\//g, "-");
+}
+
+function pickDefined(object) {
+  return Object.fromEntries(
+    Object.entries(object || {}).filter(([, value]) => value !== undefined && value !== null),
+  );
+}
+
+function buildNavigationEntry({
+  path,
+  title,
+  parentPath,
+  pageMeta,
+  usedNavigationIds,
+  pathToNavigationId,
+  mainLocale,
+  translateLanguages = [],
+}) {
+  if (!path) return null;
+
+  const navigationId = generateNavigationId(path, usedNavigationIds);
+  pathToNavigationId.set(path, navigationId);
+
+  const locales = pageMeta?.locales || {};
+  const localeKeys = new Set(
+    [mainLocale, ...translateLanguages, ...Object.keys(locales || {})].filter(Boolean),
+  );
+
+  const titleLocales = buildLocaleStrings(locales, localeKeys, "title", title);
+  const descriptionLocales = buildLocaleStrings(locales, localeKeys, "description");
+  const linkLocales = buildLinkLocales(locales, localeKeys, path);
+
+  const navigation = {
+    id: navigationId,
+    section: determineNavigationSection(pageMeta?.meta),
+    visible: true,
+    title: titleLocales,
+    link: linkLocales,
+  };
+
+  if (Object.keys(descriptionLocales).length > 0) {
+    navigation.description = descriptionLocales;
+  }
+
+  const parentId = parentPath ? pathToNavigationId.get(parentPath) : undefined;
+  if (parentId) {
+    navigation.parent = parentId;
+  }
+
+  return navigation;
+}
+
+function buildLocaleStrings(locales, localeKeys, field, fallback) {
+  const result = {};
+  for (const locale of localeKeys) {
+    const value = locales?.[locale]?.[field];
+    if (value !== undefined && value !== null && `${value}`.length > 0) {
+      result[locale] = value;
+    } else if (fallback !== undefined && field === "title") {
+      result[locale] = fallback;
+    }
+  }
+  return result;
+}
+
+function buildLinkLocales(locales, localeKeys, defaultPath) {
+  const result = {};
+  for (const locale of localeKeys) {
+    const localeLink = locales?.[locale]?.link;
+    if (typeof localeLink === "string" && localeLink.trim().length > 0) {
+      result[locale] = localeLink.trim();
+    } else {
+      result[locale] = withLeadingSlash(joinURL(`${locale}`, defaultPath));
+    }
+  }
+  return result;
+}
+
+function determineNavigationSection(meta = {}) {
+  if (typeof meta?.navigationSection === "string" && meta.navigationSection.trim().length > 0) {
+    return meta.navigationSection.trim();
+  }
+
+  if (typeof meta?.section === "string" && meta.section.trim().length > 0) {
+    return meta.section.trim();
+  }
+
+  return "header";
 }

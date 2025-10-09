@@ -59,7 +59,7 @@ translateLanguages: # List of languages to translate the pages to
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: f713cf8ad7afa132f338f608d299a01940c7bb4f
+lastGitHead: c1f748d293e9b599d6eead347b36dddcceabc200
 # Checkout ID for website deployment service
 checkoutId: ""
 appUrl: https://staging.websmith.aigne.io/

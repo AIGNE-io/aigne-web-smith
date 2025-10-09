@@ -1304,7 +1304,8 @@ export default async function composePagesData(input) {
   });
 
   log("🎉 [composePagesData] done");
-  return { ...input };
+
+  return { ...input, allPagesKitYaml };
 }
 
 composePagesData.taskTitle = "Compose Pages Data";

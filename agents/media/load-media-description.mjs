@@ -26,7 +26,9 @@ export default async function loadMediaDescription(input, options) {
   const { mediaFiles = [], pagesDir } = input;
 
   // Filter to get image and video files
-  const mediaFilesToProcess = mediaFiles.filter((file) => file.type === "image" || file.type === "video");
+  const mediaFilesToProcess = mediaFiles.filter(
+    (file) => file.type === "image" || file.type === "video",
+  );
 
   if (mediaFilesToProcess.length === 0) {
     return {};
@@ -65,12 +67,14 @@ export default async function loadMediaDescription(input, options) {
         ...mediaFile,
         hash: mediaHash,
         path: mediaFile.path,
-        mediaFile: [{
-          type: 'local',
-          path: absolutePath,
-          filename: mediaFile.name,
-          mimeType: mediaFile.mimeType,
-        }]
+        mediaFile: [
+          {
+            type: "local",
+            path: absolutePath,
+            filename: mediaFile.name,
+            mimeType: mediaFile.mimeType,
+          },
+        ],
       });
     }
   }
@@ -78,7 +82,7 @@ export default async function loadMediaDescription(input, options) {
   const newDescriptions = {};
   if (mediaToDescribe.length > 0) {
     try {
-      const descAgent =  options.context.agents["generateMediaDescription"];
+      const descAgent = options.context.agents["generateMediaDescription"];
       descAgent.inputFileKey = "mediaFile";
       // Use batch team agent for concurrent processing
       const results = await options.context.invoke(
@@ -192,4 +196,3 @@ loadMediaDescription.output_schema = {
     },
   },
 };
-

@@ -90,6 +90,7 @@ export default async function loadSources({
   projectId,
   useDefaultPatterns = true,
   lastGitHead,
+  minImageWidth = 800,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
 
@@ -220,7 +221,6 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
-  const MIN_IMAGE_WIDTH = 800;
   const filteredImageCount = { count: 0 };
 
   await Promise.all(
@@ -250,11 +250,11 @@ export default async function loadSources({
             mediaItem.width = dimensions.width;
             mediaItem.height = dimensions.height;
 
-            // Filter out images with width less than MIN_IMAGE_WIDTH
-            if (dimensions.width < MIN_IMAGE_WIDTH) {
+            // Filter out images with width less than minImageWidth
+            if (dimensions.width < minImageWidth) {
               filteredImageCount.count++;
               console.log(
-                `ℹ️  Filtered low-resolution image: ${fileName} (${dimensions.width}x${dimensions.height}px, minimum width: ${MIN_IMAGE_WIDTH}px)`,
+                `ℹ️  Filtered low-resolution image: ${fileName} (${dimensions.width}x${dimensions.height}px, minimum width: ${minImageWidth}px)`,
               );
               return;
             }
@@ -332,7 +332,7 @@ export default async function loadSources({
   // Log summary of filtered images
   if (filteredImageCount.count > 0) {
     console.log(
-      `\nTotal ${filteredImageCount.count} low-resolution image(s) filtered for better web display quality (minimum width: ${MIN_IMAGE_WIDTH}px)\n`,
+      `\nTotal ${filteredImageCount.count} low-resolution image(s) filtered for better web display quality (minimum width: ${minImageWidth}px)\n`,
     );
   }
 
@@ -478,6 +478,10 @@ loadSources.input_schema = {
     lastGitHead: {
       type: "string",
       description: "The git HEAD from last generation for change detection",
+    },
+    minImageWidth: {
+      type: "number",
+      description: "Minimum image width in pixels to include",
     },
   },
   required: [],

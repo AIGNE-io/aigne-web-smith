@@ -3,7 +3,7 @@ import { basename, join } from "node:path";
 import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
-import { withoutTrailingSlash } from "ufo";
+import { joinURL, withLeadingSlash, withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -26,12 +26,7 @@ import {
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
-import {
-  buildNavigationEntries,
-  getGithubRepoUrl,
-  loadConfigFromFile,
-  saveValueToConfig,
-} from "../../utils/utils.mjs";
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 const formatRoutePath = (path) => {
   if (path === "/home") {
@@ -375,7 +370,24 @@ export default async function publishWebsite(
     const sitemapPaths = sitemapContent
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
-    const navigationEntries = shouldSyncNavigations ? buildNavigationEntries(sitemapPaths) : [];
+
+    const navigationEntries = shouldSyncNavigations
+      ? sitemapContent?.navigations?.map((item) => {
+          item.title = JSON.stringify(item.title);
+          item.description = JSON.stringify(item.description);
+
+          item.link = JSON.stringify(
+            Object.fromEntries(
+              Object.entries(item.link).map(([locale, href]) => [
+                locale,
+                withLeadingSlash(joinURL(mountPoint, href)),
+              ]),
+            ),
+          );
+
+          return item;
+        })
+      : [];
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);

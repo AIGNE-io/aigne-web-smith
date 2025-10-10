@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-10T02:32:30.732Z
+  updateAt: 2025-10-10T14:52:07.791Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -48,6 +48,11 @@ atomic:
     summary: ""
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Arcblock Home Site Component
+  - name: ComparisonTable
+    componentId: -b71JoAi_lXSY8MP
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
 composite:
   - id: ew7g0ufx6umek1d6
     name: Logo Wall
@@ -1017,19 +1022,16 @@ composite:
 
       Constraints (Linear icons only)
 
-      - `{{iconName}}` must be a **linear-style Iconify icon** and must exist in
-      `<available_iconify_tokens>` (preferred) or be verifiably resolvable in
-      the Iconify catalog.
+      - `{{iconName}}` must be a **linear-style Iconify icon**, prioritize the
+      use of `lucide` Icon Library
 
       - Only allow **linear-style families or naming patterns**:
-        - Allowed families (examples; adopt as needed): `lucide:*`, `tabler:*`, `line-md:*`, `icon-park-outline:*`, `solar:linear-*`, `mdi-light:*`, `material-symbols:...-outline`, and `ri:*` variants ending with `-line`.
         - Allowed suffix/patterns: `*-line`, `*-outline`, `*-stroke`, `*-linear`.
       - **Do not** use filled/solid icons (e.g., `*-fill`, `*-solid`, regular
       `mdi:*`, or `material-symbols:*` variants like `-rounded`/`-filled`).
 
-      - Tokens must be lowercase `prefix:name` (e.g., `lucide:bolt`,
-      `ri:home-line`), with no spaces, extra colons, file extensions, or query
-      strings.
+      - Tokens must be lowercase `prefix:name` (e.g., `lucide:bolt`), with no
+      spaces, extra colons, file extensions, or query strings.
 
       - **Do not** guess or synthesize tokens. If no valid linear icon is
       available, **omit the icon** and use the iconless variant (retain
@@ -6459,3 +6461,716 @@ composite:
             value: 100%
           jjv0hvr8wrixt1f3:
             value: 1
+  - id: arpghy2x1gujtdu7
+    name: Comparison Table
+    summary: >
+      # Component: ComparisonTable
+
+
+      A data-driven table for side-by-side comparison of **up to 4 entities**
+      (columns) and **up to 12 features** (rows).  
+
+      Data sources: `entities`, `features`, `matrix`. Supports tooltips,
+      highlighting, and CTAs.
+
+
+      > Optional fields may be empty or omitted; they won’t render.
+
+
+      ---
+
+
+      ## Structure
+
+
+      ### Header
+
+      - **Table Title (required)** → `{{comparisonTableTitle}}`  
+
+      - **Feature Column Title (required)** → `{{featureTitle}}`  
+
+      - **Entity Columns (≤4)**:  
+        - `{{entities.N.label}}` (label)  
+        - `{{entities.N.subTitle}}` (subtitle, e.g., price/spec)  
+        - `{{entities.N.action.label}}` / `{{entities.N.action.url}}` (optional CTA)  
+        - `{{entities.N.highlight}}` (optional emphasis)
+
+      ### Body
+
+      - **Feature Rows (≤12)**  
+        - Left cell: `{{features.N.label}}` + optional `{{features.N.tooltip}}`  
+        - Value cells per entity:  
+          - `{{matrix.feature_X.entity_Y.value}}` (text/number/boolean)  
+          - optional `{{matrix.feature_X.entity_Y.tooltip}}`  
+          - optional `{{matrix.feature_X.entity_Y.highlight}}`
+
+      ---
+
+
+      ## When to Use
+
+      - Pricing/plan tiers, product variants, capability matrices, or service
+      levels.  
+
+      - Users need fast, side-by-side decisions with comparable attributes.
+
+
+      ---
+
+
+      ## Constraints
+
+      - **Counts**: `entities ≤ 4`, `features ≤ 12`; `matrix` covers every
+      feature × entity.  
+
+      - **IDs**: unique `entities[].id` and `features[].id`, consistent with
+      `matrix` keys.  
+
+      - **Content**: cell text ≤ 20 chars; tooltips ≤ 120 chars; consistent
+      units (GB, %, Users).  
+
+      - **Design**: balanced columns; at most one highlighted column; meet WCAG
+      AA contrast.  
+
+      - **Responsive**: enable horizontal scroll or collapse to stacked cards on
+      small screens.
+    fieldCombinations:
+      - comparisonTableTitle
+      - entities.0.action.label
+      - entities.0.action.tooltip
+      - entities.0.action.url
+      - entities.0.description
+      - entities.0.highlight
+      - entities.0.icon
+      - entities.0.label
+      - entities.0.subTitle
+      - entities.1.action.label
+      - entities.1.action.tooltip
+      - entities.1.action.url
+      - entities.1.description
+      - entities.1.highlight
+      - entities.1.icon
+      - entities.1.label
+      - entities.1.subTitle
+      - entities.2.action.label
+      - entities.2.action.tooltip
+      - entities.2.action.url
+      - entities.2.description
+      - entities.2.highlight
+      - entities.2.icon
+      - entities.2.label
+      - entities.2.subTitle
+      - entities.3.action.label
+      - entities.3.action.tooltip
+      - entities.3.action.url
+      - entities.3.description
+      - entities.3.highlight
+      - entities.3.icon
+      - entities.3.label
+      - entities.3.subTitle
+      - featureTitle
+      - features.0.icon
+      - features.0.label
+      - features.0.tooltip
+      - features.1.icon
+      - features.1.label
+      - features.1.tooltip
+      - features.10.icon
+      - features.10.label
+      - features.10.tooltip
+      - features.11.icon
+      - features.11.label
+      - features.11.tooltip
+      - features.2.icon
+      - features.2.label
+      - features.2.tooltip
+      - features.3.icon
+      - features.3.label
+      - features.3.tooltip
+      - features.4.icon
+      - features.4.label
+      - features.4.tooltip
+      - features.5.icon
+      - features.5.label
+      - features.5.tooltip
+      - features.6.icon
+      - features.6.label
+      - features.6.tooltip
+      - features.7.icon
+      - features.7.label
+      - features.7.tooltip
+      - features.8.icon
+      - features.8.label
+      - features.8.tooltip
+      - features.9.icon
+      - features.9.label
+      - features.9.tooltip
+      - matrix.feature_0.entity_0.highlight
+      - matrix.feature_0.entity_0.tooltip
+      - matrix.feature_0.entity_0.value
+      - matrix.feature_0.entity_1.highlight
+      - matrix.feature_0.entity_1.tooltip
+      - matrix.feature_0.entity_1.value
+      - matrix.feature_0.entity_2.highlight
+      - matrix.feature_0.entity_2.tooltip
+      - matrix.feature_0.entity_2.value
+      - matrix.feature_0.entity_3.highlight
+      - matrix.feature_0.entity_3.tooltip
+      - matrix.feature_0.entity_3.value
+      - matrix.feature_1.entity_0.highlight
+      - matrix.feature_1.entity_0.tooltip
+      - matrix.feature_1.entity_0.value
+      - matrix.feature_1.entity_1.highlight
+      - matrix.feature_1.entity_1.tooltip
+      - matrix.feature_1.entity_1.value
+      - matrix.feature_1.entity_2.highlight
+      - matrix.feature_1.entity_2.tooltip
+      - matrix.feature_1.entity_2.value
+      - matrix.feature_1.entity_3.highlight
+      - matrix.feature_1.entity_3.tooltip
+      - matrix.feature_1.entity_3.value
+      - matrix.feature_10.entity_0.highlight
+      - matrix.feature_10.entity_0.tooltip
+      - matrix.feature_10.entity_0.value
+      - matrix.feature_10.entity_1.highlight
+      - matrix.feature_10.entity_1.tooltip
+      - matrix.feature_10.entity_1.value
+      - matrix.feature_10.entity_2.highlight
+      - matrix.feature_10.entity_2.tooltip
+      - matrix.feature_10.entity_2.value
+      - matrix.feature_10.entity_3.highlight
+      - matrix.feature_10.entity_3.tooltip
+      - matrix.feature_10.entity_3.value
+      - matrix.feature_11.entity_0.highlight
+      - matrix.feature_11.entity_0.tooltip
+      - matrix.feature_11.entity_0.value
+      - matrix.feature_11.entity_1.highlight
+      - matrix.feature_11.entity_1.tooltip
+      - matrix.feature_11.entity_1.value
+      - matrix.feature_11.entity_2.highlight
+      - matrix.feature_11.entity_2.tooltip
+      - matrix.feature_11.entity_2.value
+      - matrix.feature_11.entity_3.highlight
+      - matrix.feature_11.entity_3.tooltip
+      - matrix.feature_11.entity_3.value
+      - matrix.feature_2.entity_0.highlight
+      - matrix.feature_2.entity_0.tooltip
+      - matrix.feature_2.entity_0.value
+      - matrix.feature_2.entity_1.highlight
+      - matrix.feature_2.entity_1.tooltip
+      - matrix.feature_2.entity_1.value
+      - matrix.feature_2.entity_2.highlight
+      - matrix.feature_2.entity_2.tooltip
+      - matrix.feature_2.entity_2.value
+      - matrix.feature_2.entity_3.highlight
+      - matrix.feature_2.entity_3.tooltip
+      - matrix.feature_2.entity_3.value
+      - matrix.feature_3.entity_0.highlight
+      - matrix.feature_3.entity_0.tooltip
+      - matrix.feature_3.entity_0.value
+      - matrix.feature_3.entity_1.highlight
+      - matrix.feature_3.entity_1.tooltip
+      - matrix.feature_3.entity_1.value
+      - matrix.feature_3.entity_2.highlight
+      - matrix.feature_3.entity_2.tooltip
+      - matrix.feature_3.entity_2.value
+      - matrix.feature_3.entity_3.highlight
+      - matrix.feature_3.entity_3.tooltip
+      - matrix.feature_3.entity_3.value
+      - matrix.feature_4.entity_0.highlight
+      - matrix.feature_4.entity_0.tooltip
+      - matrix.feature_4.entity_0.value
+      - matrix.feature_4.entity_1.highlight
+      - matrix.feature_4.entity_1.tooltip
+      - matrix.feature_4.entity_1.value
+      - matrix.feature_4.entity_2.highlight
+      - matrix.feature_4.entity_2.tooltip
+      - matrix.feature_4.entity_2.value
+      - matrix.feature_4.entity_3.highlight
+      - matrix.feature_4.entity_3.tooltip
+      - matrix.feature_4.entity_3.value
+      - matrix.feature_5.entity_0.highlight
+      - matrix.feature_5.entity_0.tooltip
+      - matrix.feature_5.entity_0.value
+      - matrix.feature_5.entity_1.highlight
+      - matrix.feature_5.entity_1.tooltip
+      - matrix.feature_5.entity_1.value
+      - matrix.feature_5.entity_2.highlight
+      - matrix.feature_5.entity_2.tooltip
+      - matrix.feature_5.entity_2.value
+      - matrix.feature_5.entity_3.highlight
+      - matrix.feature_5.entity_3.tooltip
+      - matrix.feature_5.entity_3.value
+      - matrix.feature_6.entity_0.highlight
+      - matrix.feature_6.entity_0.tooltip
+      - matrix.feature_6.entity_0.value
+      - matrix.feature_6.entity_1.highlight
+      - matrix.feature_6.entity_1.tooltip
+      - matrix.feature_6.entity_1.value
+      - matrix.feature_6.entity_2.highlight
+      - matrix.feature_6.entity_2.tooltip
+      - matrix.feature_6.entity_2.value
+      - matrix.feature_6.entity_3.highlight
+      - matrix.feature_6.entity_3.tooltip
+      - matrix.feature_6.entity_3.value
+      - matrix.feature_7.entity_0.highlight
+      - matrix.feature_7.entity_0.tooltip
+      - matrix.feature_7.entity_0.value
+      - matrix.feature_7.entity_1.highlight
+      - matrix.feature_7.entity_1.tooltip
+      - matrix.feature_7.entity_1.value
+      - matrix.feature_7.entity_2.highlight
+      - matrix.feature_7.entity_2.tooltip
+      - matrix.feature_7.entity_2.value
+      - matrix.feature_7.entity_3.highlight
+      - matrix.feature_7.entity_3.tooltip
+      - matrix.feature_7.entity_3.value
+      - matrix.feature_8.entity_0.highlight
+      - matrix.feature_8.entity_0.tooltip
+      - matrix.feature_8.entity_0.value
+      - matrix.feature_8.entity_1.highlight
+      - matrix.feature_8.entity_1.tooltip
+      - matrix.feature_8.entity_1.value
+      - matrix.feature_8.entity_2.highlight
+      - matrix.feature_8.entity_2.tooltip
+      - matrix.feature_8.entity_2.value
+      - matrix.feature_8.entity_3.highlight
+      - matrix.feature_8.entity_3.tooltip
+      - matrix.feature_8.entity_3.value
+      - matrix.feature_9.entity_0.highlight
+      - matrix.feature_9.entity_0.tooltip
+      - matrix.feature_9.entity_0.value
+      - matrix.feature_9.entity_1.highlight
+      - matrix.feature_9.entity_1.tooltip
+      - matrix.feature_9.entity_1.value
+      - matrix.feature_9.entity_2.highlight
+      - matrix.feature_9.entity_2.tooltip
+      - matrix.feature_9.entity_2.value
+      - matrix.feature_9.entity_3.highlight
+      - matrix.feature_9.entity_3.tooltip
+      - matrix.feature_9.entity_3.value
+    section:
+      id: 6w0i4jvkvm55pbim
+      name: Section Layout
+      component: layout-block
+      sections:
+        67lux8ugz3y24yz8:
+          id: 67lux8ugz3y24yz8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        ywslygs2dnkxq2o5:
+          id: ywslygs2dnkxq2o5
+          name: Section Layout
+          component: layout-block
+          sections:
+            8tit1juipc7g1xs2:
+              id: 8tit1juipc7g1xs2
+              name: ComparisonTable
+              component: custom-component
+              config:
+                componentId: -b71JoAi_lXSY8MP
+          sectionIds:
+            - 8tit1juipc7g1xs2
+          config:
+            gridSettings:
+              desktop:
+                8tit1juipc7g1xs2:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+      sectionIds:
+        - 67lux8ugz3y24yz8
+        - ywslygs2dnkxq2o5
+      config:
+        gridSettings:
+          desktop:
+            67lux8ugz3y24yz8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            ywslygs2dnkxq2o5:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        textAlign: left
+    dataSource:
+      6w0i4jvkvm55pbim: {}
+      67lux8ugz3y24yz8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= comparisonTableTitle %>
+              style:
+                variant: h1
+      ywslygs2dnkxq2o5: {}
+      8tit1juipc7g1xs2:
+        properties:
+          bm5nin5dwota4vwj:
+            value:
+              entities:
+                - id: entity_0
+                  label: <%= entities.0.label %>
+                  subTitle: <%= entities.0.subTitle %>
+                  description: <%= entities.0.description %>
+                  icon: <%= entities.0.icon %>
+                  highlight: <%= entities.0.highlight %>
+                  action:
+                    label: <%= entities.0.action.label %>
+                    url: <%= entities.0.action.url %>
+                    tooltip: <%= entities.0.action.tooltip %>
+                - id: entity_1
+                  label: <%= entities.1.label %>
+                  subTitle: <%= entities.1.subTitle %>
+                  description: <%= entities.1.description %>
+                  icon: <%= entities.1.icon %>
+                  highlight: <%= entities.1.highlight %>
+                  action:
+                    label: <%= entities.1.action.label %>
+                    url: <%= entities.1.action.url %>
+                    tooltip: <%= entities.1.action.tooltip %>
+                - id: entity_2
+                  label: <%= entities.2.label %>
+                  subTitle: <%= entities.2.subTitle %>
+                  description: <%= entities.2.description %>
+                  icon: <%= entities.2.icon %>
+                  highlight: <%= entities.2.highlight %>
+                  action:
+                    label: <%= entities.2.action.label %>
+                    url: <%= entities.2.action.url %>
+                    tooltip: <%= entities.2.action.tooltip %>
+                - id: entity_3
+                  label: <%= entities.3.label %>
+                  subTitle: <%= entities.3.subTitle %>
+                  description: <%= entities.3.description %>
+                  icon: <%= entities.3.icon %>
+                  highlight: <%= entities.3.highlight %>
+                  action:
+                    label: <%= entities.3.action.label %>
+                    url: <%= entities.3.action.url %>
+                    tooltip: <%= entities.3.action.tooltip %>
+              features:
+                - id: feature_0
+                  label: <%= features.0.label %>
+                  tooltip: <%= features.0.tooltip %>
+                  icon: <%= features.0.icon %>
+                - id: feature_1
+                  label: <%= features.1.label %>
+                  tooltip: <%= features.1.tooltip %>
+                  icon: <%= features.1.icon %>
+                - id: feature_2
+                  label: <%= features.2.label %>
+                  tooltip: <%= features.2.tooltip %>
+                  icon: <%= features.2.icon %>
+                - id: feature_3
+                  label: <%= features.3.label %>
+                  tooltip: <%= features.3.tooltip %>
+                  icon: <%= features.3.icon %>
+                - id: feature_4
+                  label: <%= features.4.label %>
+                  tooltip: <%= features.4.tooltip %>
+                  icon: <%= features.4.icon %>
+                - id: feature_5
+                  label: <%= features.5.label %>
+                  tooltip: <%= features.5.tooltip %>
+                  icon: <%= features.5.icon %>
+                - id: feature_6
+                  label: <%= features.6.label %>
+                  tooltip: <%= features.6.tooltip %>
+                  icon: <%= features.6.icon %>
+                - id: feature_7
+                  label: <%= features.7.label %>
+                  tooltip: <%= features.7.tooltip %>
+                  icon: <%= features.7.icon %>
+                - id: feature_8
+                  label: <%= features.8.label %>
+                  tooltip: <%= features.8.tooltip %>
+                  icon: <%= features.8.icon %>
+                - id: feature_9
+                  label: <%= features.9.label %>
+                  tooltip: <%= features.9.tooltip %>
+                  icon: <%= features.9.icon %>
+                - id: feature_10
+                  label: <%= features.10.label %>
+                  tooltip: <%= features.10.tooltip %>
+                  icon: <%= features.10.icon %>
+                - id: feature_11
+                  label: <%= features.11.label %>
+                  tooltip: <%= features.11.tooltip %>
+                  icon: <%= features.11.icon %>
+              matrix: |-
+                {
+                  "feature_0": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_0.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_0.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_0.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_0.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_0.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_0.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_0.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_0.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_0.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_0.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_0.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_0.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_1": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_1.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_1.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_1.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_1.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_1.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_1.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_1.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_1.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_1.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_1.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_1.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_1.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_2": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_2.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_2.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_2.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_2.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_2.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_2.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_2.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_2.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_2.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_2.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_2.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_2.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_3": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_3.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_3.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_3.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_3.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_3.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_3.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_3.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_3.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_3.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_3.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_3.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_3.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_4": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_4.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_4.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_4.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_4.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_4.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_4.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_4.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_4.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_4.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_4.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_4.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_4.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_5": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_5.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_5.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_5.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_5.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_5.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_5.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_5.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_5.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_5.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_5.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_5.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_5.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_6": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_6.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_6.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_6.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_6.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_6.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_6.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_6.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_6.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_6.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_6.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_6.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_6.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_7": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_7.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_7.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_7.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_7.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_7.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_7.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_7.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_7.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_7.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_7.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_7.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_7.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_8": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_8.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_8.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_8.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_8.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_8.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_8.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_8.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_8.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_8.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_8.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_8.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_8.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_9": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_9.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_9.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_9.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_9.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_9.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_9.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_9.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_9.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_9.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_9.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_9.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_9.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_10": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_10.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_10.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_10.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_10.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_10.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_10.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_10.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_10.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_10.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_10.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_10.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_10.entity_3.highlight %>"
+                    }
+                  },
+                  "feature_11": {
+                    "entity_0": {
+                      "value": "<%= matrix.feature_11.entity_0.value %>",
+                      "tooltip": "<%= matrix.feature_11.entity_0.tooltip %>",
+                      "highlight": "<%= matrix.feature_11.entity_0.highlight %>"
+                    },
+                    "entity_1": {
+                      "value": "<%= matrix.feature_11.entity_1.value %>",
+                      "tooltip": "<%= matrix.feature_11.entity_1.tooltip %>",
+                      "highlight": "<%= matrix.feature_11.entity_1.highlight %>"
+                    },
+                    "entity_2": {
+                      "value": "<%= matrix.feature_11.entity_2.value %>",
+                      "tooltip": "<%= matrix.feature_11.entity_2.tooltip %>",
+                      "highlight": "<%= matrix.feature_11.entity_2.highlight %>"
+                    },
+                    "entity_3": {
+                      "value": "<%= matrix.feature_11.entity_3.value %>",
+                      "tooltip": "<%= matrix.feature_11.entity_3.tooltip %>",
+                      "highlight": "<%= matrix.feature_11.entity_3.highlight %>"
+                    }
+                  }
+                }
+          x9k2m5p8q1w3r7t6:
+            value: <%= featureTitle %>

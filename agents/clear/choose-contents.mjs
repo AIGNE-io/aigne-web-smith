@@ -1,5 +1,6 @@
 import { rm } from "node:fs/promises";
 import { resolve as resolvePath } from "node:path";
+import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
 const TARGET_METADATA = {
@@ -14,6 +15,10 @@ const TARGET_METADATA = {
   websiteConfig: {
     label: "website configuration",
     description: "Remove website configuration, you need to re-run 'aigne web init' again.",
+  },
+  authTokens: {
+    label: "authorizations",
+    description: "Clear published site authorizations.",
   },
 };
 
@@ -53,6 +58,11 @@ export default async function chooseContents(input = {}, options = {}) {
       path: configCandidate,
       label: TARGET_METADATA.websiteConfig.label,
       description: TARGET_METADATA.websiteConfig.description,
+    },
+    authTokens: {
+      path: WEB_SMITH_ENV_FILE,
+      label: TARGET_METADATA.authTokens.label,
+      description: TARGET_METADATA.authTokens.description,
     },
   };
 
@@ -135,19 +145,35 @@ export default async function chooseContents(input = {}, options = {}) {
 
     try {
       const existed = await pathExists(targetPath);
-      await rm(targetPath, { recursive: true, force: true });
 
-      if (target === "websiteConfig" && existed) {
-        configCleared = true;
+      if (target === "authTokens") {
+        const clearAgent = options.context?.agents?.["clearAuthTokens"];
+        if (!clearAgent) {
+          throw new Error("Clear agent clearAuthTokens not found in context");
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      } else {
+        await rm(targetPath, { recursive: true, force: true });
+
+        if (target === "websiteConfig" && existed) {
+          configCleared = true;
+        }
+
+        results.push({
+          status: existed ? "removed" : "noop",
+          message: existed
+            ? `🧹 Cleared ${definition.label} (${displayPath})`
+            : `📦 ${definition.label} already empty (${displayPath})`,
+          path: displayPath,
+        });
       }
-
-      results.push({
-        status: existed ? "removed" : "noop",
-        message: existed
-          ? `🧹 Cleared ${definition.label} (${displayPath})`
-          : `📦 ${definition.label} already empty (${displayPath})`,
-        path: displayPath,
-      });
     } catch (error) {
       results.push({
         status: "error",

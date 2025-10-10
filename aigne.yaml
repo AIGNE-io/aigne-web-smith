@@ -14,6 +14,7 @@ agents:
 
   # clear
   - ./agents/clear/index.yaml
+  - ./agents/clear/clear-auth-tokens.mjs
 
   # component
   - ./agents/component/pull-components-team.yaml

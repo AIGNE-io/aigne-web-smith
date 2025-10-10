@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-10T14:52:07.791Z
+  updateAt: 2025-10-10T15:31:39.239Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -6463,292 +6463,279 @@ composite:
             value: 1
   - id: arpghy2x1gujtdu7
     name: Comparison Table
-    summary: >
-      # Component: ComparisonTable
+    summary: >-
+      # Component: ComparisonTable — Authoring Guide for AI
 
 
-      A data-driven table for side-by-side comparison of **up to 4 entities**
-      (columns) and **up to 12 features** (rows).  
+      Use this guide to fill placeholders only for a side-by-side comparison
+      table.  
 
-      Data sources: `entities`, `features`, `matrix`. Supports tooltips,
-      highlighting, and CTAs.
-
-
-      > Optional fields may be empty or omitted; they won’t render.
+      Do not change structure, keys, or IDs.
 
 
-      ---
+      ## Scope & Limits
+
+      - Entities ≤ 4 (columns): e0..e3
+
+      - Features ≤ 10 (rows): f0..f9
+
+      - Matrix = features × entities (every fM has values for every eN)
+
+      - Required titles: {{comparisonTableTitle}}, {{featureTitle}}
 
 
-      ## Structure
+      ## Immutable IDs & Order
+
+      - Do not edit entities[i].id or features[j].id
+        - Entity IDs: e0, e1, e2, e3
+        - Feature IDs: f0, f1, …, f9
+      - Do not reorder or rename entities/features
+
+      - Do not add/remove entities or features
+
+      - Matrix keys must use these IDs exactly: "matrix": { "f0": { "e0": {...},
+      ... } }
 
 
-      ### Header
-
-      - **Table Title (required)** → `{{comparisonTableTitle}}`  
-
-      - **Feature Column Title (required)** → `{{featureTitle}}`  
-
-      - **Entity Columns (≤4)**:  
-        - `{{entities.N.label}}` (label)  
-        - `{{entities.N.subTitle}}` (subtitle, e.g., price/spec)  
-        - `{{entities.N.action.label}}` / `{{entities.N.action.url}}` (optional CTA)  
-        - `{{entities.N.highlight}}` (optional emphasis)
-
-      ### Body
-
-      - **Feature Rows (≤12)**  
-        - Left cell: `{{features.N.label}}` + optional `{{features.N.tooltip}}`  
-        - Value cells per entity:  
-          - `{{matrix.feature_X.entity_Y.value}}` (text/number/boolean)  
-          - optional `{{matrix.feature_X.entity_Y.tooltip}}`  
-          - optional `{{matrix.feature_X.entity_Y.highlight}}`
-
-      ---
+      Changing IDs or order breaks the mapping.
 
 
-      ## When to Use
+      ## Placeholder Convention (short)
 
-      - Pricing/plan tiers, product variants, capability matrices, or service
-      levels.  
+      - Entities (e)
+        - {{e.N.l}} label
+        - {{e.N.s}} subTitle
+        - {{e.N.d}} description (optional)
+        - {{e.N.i}} icon (optional)
+        - {{e.N.h}} highlight (optional)
+        - {{e.N.al}} action.label (optional)
+        - {{e.N.au}} action.url (optional)
+        - {{e.N.at}} action.tooltip (optional)
+      - Features (f)
+        - {{f.M.l}} label
+        - {{f.M.t}} tooltip (optional)
+        - {{f.M.i}} icon (optional)
+      - Matrix (m), cell for feature M and entity N
+        - {{m.fM.eN.v}} value (text/number/boolean)
+        - {{m.fM.eN.t}} tooltip (optional, ≤120 chars)
+        - {{m.fM.eN.h}} highlight (optional)
 
-      - Users need fast, side-by-side decisions with comparable attributes.
+      Index ranges: M ∈ [0..9], N ∈ [0..3].
 
 
-      ---
+      ## Required Fields to Fill
+
+      - {{comparisonTableTitle}}
+
+      - {{featureTitle}}
+
+      - For each entity: {{e.N.l}} (s/d/i/h/al/au/at optional)
+
+      - For each feature: {{f.M.l}} (t/i optional)
+
+      - For each matrix cell: {{m.fM.eN.v}} (t/h optional)
 
 
-      ## Constraints
+      Optional placeholders may be left blank or omitted; the UI will not render
+      them.
 
-      - **Counts**: `entities ≤ 4`, `features ≤ 12`; `matrix` covers every
-      feature × entity.  
 
-      - **IDs**: unique `entities[].id` and `features[].id`, consistent with
-      `matrix` keys.  
+      ## Content Rules
 
-      - **Content**: cell text ≤ 20 chars; tooltips ≤ 120 chars; consistent
-      units (GB, %, Users).  
+      - Cell text ≤ 20 characters
 
-      - **Design**: balanced columns; at most one highlighted column; meet WCAG
-      AA contrast.  
+      - Tooltips ≤ 120 characters, plain text
 
-      - **Responsive**: enable horizontal scroll or collapse to stacked cards on
-      small screens.
+      - Consistent units/terms (GB, %, users)
+
+      - Use highlight sparingly (ideally one primary column)
+
+      - Boolean values render as ✓/✕
     fieldCombinations:
       - comparisonTableTitle
-      - entities.0.action.label
-      - entities.0.action.tooltip
-      - entities.0.action.url
-      - entities.0.description
-      - entities.0.highlight
-      - entities.0.icon
-      - entities.0.label
-      - entities.0.subTitle
-      - entities.1.action.label
-      - entities.1.action.tooltip
-      - entities.1.action.url
-      - entities.1.description
-      - entities.1.highlight
-      - entities.1.icon
-      - entities.1.label
-      - entities.1.subTitle
-      - entities.2.action.label
-      - entities.2.action.tooltip
-      - entities.2.action.url
-      - entities.2.description
-      - entities.2.highlight
-      - entities.2.icon
-      - entities.2.label
-      - entities.2.subTitle
-      - entities.3.action.label
-      - entities.3.action.tooltip
-      - entities.3.action.url
-      - entities.3.description
-      - entities.3.highlight
-      - entities.3.icon
-      - entities.3.label
-      - entities.3.subTitle
+      - e.0.al
+      - e.0.at
+      - e.0.au
+      - e.0.d
+      - e.0.h
+      - e.0.i
+      - e.0.l
+      - e.0.s
+      - e.1.al
+      - e.1.at
+      - e.1.au
+      - e.1.d
+      - e.1.h
+      - e.1.i
+      - e.1.l
+      - e.1.s
+      - e.2.al
+      - e.2.at
+      - e.2.au
+      - e.2.d
+      - e.2.h
+      - e.2.i
+      - e.2.l
+      - e.2.s
+      - e.3.al
+      - e.3.at
+      - e.3.au
+      - e.3.d
+      - e.3.h
+      - e.3.i
+      - e.3.l
+      - e.3.s
+      - f.0.i
+      - f.0.l
+      - f.0.t
+      - f.1.i
+      - f.1.l
+      - f.1.t
+      - f.2.i
+      - f.2.l
+      - f.2.t
+      - f.3.i
+      - f.3.l
+      - f.3.t
+      - f.4.i
+      - f.4.l
+      - f.4.t
+      - f.5.i
+      - f.5.l
+      - f.5.t
+      - f.6.i
+      - f.6.l
+      - f.6.t
+      - f.7.i
+      - f.7.l
+      - f.7.t
+      - f.8.i
+      - f.8.l
+      - f.8.t
+      - f.9.i
+      - f.9.l
+      - f.9.t
       - featureTitle
-      - features.0.icon
-      - features.0.label
-      - features.0.tooltip
-      - features.1.icon
-      - features.1.label
-      - features.1.tooltip
-      - features.10.icon
-      - features.10.label
-      - features.10.tooltip
-      - features.11.icon
-      - features.11.label
-      - features.11.tooltip
-      - features.2.icon
-      - features.2.label
-      - features.2.tooltip
-      - features.3.icon
-      - features.3.label
-      - features.3.tooltip
-      - features.4.icon
-      - features.4.label
-      - features.4.tooltip
-      - features.5.icon
-      - features.5.label
-      - features.5.tooltip
-      - features.6.icon
-      - features.6.label
-      - features.6.tooltip
-      - features.7.icon
-      - features.7.label
-      - features.7.tooltip
-      - features.8.icon
-      - features.8.label
-      - features.8.tooltip
-      - features.9.icon
-      - features.9.label
-      - features.9.tooltip
-      - matrix.feature_0.entity_0.highlight
-      - matrix.feature_0.entity_0.tooltip
-      - matrix.feature_0.entity_0.value
-      - matrix.feature_0.entity_1.highlight
-      - matrix.feature_0.entity_1.tooltip
-      - matrix.feature_0.entity_1.value
-      - matrix.feature_0.entity_2.highlight
-      - matrix.feature_0.entity_2.tooltip
-      - matrix.feature_0.entity_2.value
-      - matrix.feature_0.entity_3.highlight
-      - matrix.feature_0.entity_3.tooltip
-      - matrix.feature_0.entity_3.value
-      - matrix.feature_1.entity_0.highlight
-      - matrix.feature_1.entity_0.tooltip
-      - matrix.feature_1.entity_0.value
-      - matrix.feature_1.entity_1.highlight
-      - matrix.feature_1.entity_1.tooltip
-      - matrix.feature_1.entity_1.value
-      - matrix.feature_1.entity_2.highlight
-      - matrix.feature_1.entity_2.tooltip
-      - matrix.feature_1.entity_2.value
-      - matrix.feature_1.entity_3.highlight
-      - matrix.feature_1.entity_3.tooltip
-      - matrix.feature_1.entity_3.value
-      - matrix.feature_10.entity_0.highlight
-      - matrix.feature_10.entity_0.tooltip
-      - matrix.feature_10.entity_0.value
-      - matrix.feature_10.entity_1.highlight
-      - matrix.feature_10.entity_1.tooltip
-      - matrix.feature_10.entity_1.value
-      - matrix.feature_10.entity_2.highlight
-      - matrix.feature_10.entity_2.tooltip
-      - matrix.feature_10.entity_2.value
-      - matrix.feature_10.entity_3.highlight
-      - matrix.feature_10.entity_3.tooltip
-      - matrix.feature_10.entity_3.value
-      - matrix.feature_11.entity_0.highlight
-      - matrix.feature_11.entity_0.tooltip
-      - matrix.feature_11.entity_0.value
-      - matrix.feature_11.entity_1.highlight
-      - matrix.feature_11.entity_1.tooltip
-      - matrix.feature_11.entity_1.value
-      - matrix.feature_11.entity_2.highlight
-      - matrix.feature_11.entity_2.tooltip
-      - matrix.feature_11.entity_2.value
-      - matrix.feature_11.entity_3.highlight
-      - matrix.feature_11.entity_3.tooltip
-      - matrix.feature_11.entity_3.value
-      - matrix.feature_2.entity_0.highlight
-      - matrix.feature_2.entity_0.tooltip
-      - matrix.feature_2.entity_0.value
-      - matrix.feature_2.entity_1.highlight
-      - matrix.feature_2.entity_1.tooltip
-      - matrix.feature_2.entity_1.value
-      - matrix.feature_2.entity_2.highlight
-      - matrix.feature_2.entity_2.tooltip
-      - matrix.feature_2.entity_2.value
-      - matrix.feature_2.entity_3.highlight
-      - matrix.feature_2.entity_3.tooltip
-      - matrix.feature_2.entity_3.value
-      - matrix.feature_3.entity_0.highlight
-      - matrix.feature_3.entity_0.tooltip
-      - matrix.feature_3.entity_0.value
-      - matrix.feature_3.entity_1.highlight
-      - matrix.feature_3.entity_1.tooltip
-      - matrix.feature_3.entity_1.value
-      - matrix.feature_3.entity_2.highlight
-      - matrix.feature_3.entity_2.tooltip
-      - matrix.feature_3.entity_2.value
-      - matrix.feature_3.entity_3.highlight
-      - matrix.feature_3.entity_3.tooltip
-      - matrix.feature_3.entity_3.value
-      - matrix.feature_4.entity_0.highlight
-      - matrix.feature_4.entity_0.tooltip
-      - matrix.feature_4.entity_0.value
-      - matrix.feature_4.entity_1.highlight
-      - matrix.feature_4.entity_1.tooltip
-      - matrix.feature_4.entity_1.value
-      - matrix.feature_4.entity_2.highlight
-      - matrix.feature_4.entity_2.tooltip
-      - matrix.feature_4.entity_2.value
-      - matrix.feature_4.entity_3.highlight
-      - matrix.feature_4.entity_3.tooltip
-      - matrix.feature_4.entity_3.value
-      - matrix.feature_5.entity_0.highlight
-      - matrix.feature_5.entity_0.tooltip
-      - matrix.feature_5.entity_0.value
-      - matrix.feature_5.entity_1.highlight
-      - matrix.feature_5.entity_1.tooltip
-      - matrix.feature_5.entity_1.value
-      - matrix.feature_5.entity_2.highlight
-      - matrix.feature_5.entity_2.tooltip
-      - matrix.feature_5.entity_2.value
-      - matrix.feature_5.entity_3.highlight
-      - matrix.feature_5.entity_3.tooltip
-      - matrix.feature_5.entity_3.value
-      - matrix.feature_6.entity_0.highlight
-      - matrix.feature_6.entity_0.tooltip
-      - matrix.feature_6.entity_0.value
-      - matrix.feature_6.entity_1.highlight
-      - matrix.feature_6.entity_1.tooltip
-      - matrix.feature_6.entity_1.value
-      - matrix.feature_6.entity_2.highlight
-      - matrix.feature_6.entity_2.tooltip
-      - matrix.feature_6.entity_2.value
-      - matrix.feature_6.entity_3.highlight
-      - matrix.feature_6.entity_3.tooltip
-      - matrix.feature_6.entity_3.value
-      - matrix.feature_7.entity_0.highlight
-      - matrix.feature_7.entity_0.tooltip
-      - matrix.feature_7.entity_0.value
-      - matrix.feature_7.entity_1.highlight
-      - matrix.feature_7.entity_1.tooltip
-      - matrix.feature_7.entity_1.value
-      - matrix.feature_7.entity_2.highlight
-      - matrix.feature_7.entity_2.tooltip
-      - matrix.feature_7.entity_2.value
-      - matrix.feature_7.entity_3.highlight
-      - matrix.feature_7.entity_3.tooltip
-      - matrix.feature_7.entity_3.value
-      - matrix.feature_8.entity_0.highlight
-      - matrix.feature_8.entity_0.tooltip
-      - matrix.feature_8.entity_0.value
-      - matrix.feature_8.entity_1.highlight
-      - matrix.feature_8.entity_1.tooltip
-      - matrix.feature_8.entity_1.value
-      - matrix.feature_8.entity_2.highlight
-      - matrix.feature_8.entity_2.tooltip
-      - matrix.feature_8.entity_2.value
-      - matrix.feature_8.entity_3.highlight
-      - matrix.feature_8.entity_3.tooltip
-      - matrix.feature_8.entity_3.value
-      - matrix.feature_9.entity_0.highlight
-      - matrix.feature_9.entity_0.tooltip
-      - matrix.feature_9.entity_0.value
-      - matrix.feature_9.entity_1.highlight
-      - matrix.feature_9.entity_1.tooltip
-      - matrix.feature_9.entity_1.value
-      - matrix.feature_9.entity_2.highlight
-      - matrix.feature_9.entity_2.tooltip
-      - matrix.feature_9.entity_2.value
-      - matrix.feature_9.entity_3.highlight
-      - matrix.feature_9.entity_3.tooltip
-      - matrix.feature_9.entity_3.value
+      - m.f0.e0.h
+      - m.f0.e0.t
+      - m.f0.e0.v
+      - m.f0.e1.h
+      - m.f0.e1.t
+      - m.f0.e1.v
+      - m.f0.e2.h
+      - m.f0.e2.t
+      - m.f0.e2.v
+      - m.f0.e3.h
+      - m.f0.e3.t
+      - m.f0.e3.v
+      - m.f1.e0.h
+      - m.f1.e0.t
+      - m.f1.e0.v
+      - m.f1.e1.h
+      - m.f1.e1.t
+      - m.f1.e1.v
+      - m.f1.e2.h
+      - m.f1.e2.t
+      - m.f1.e2.v
+      - m.f1.e3.h
+      - m.f1.e3.t
+      - m.f1.e3.v
+      - m.f2.e0.h
+      - m.f2.e0.t
+      - m.f2.e0.v
+      - m.f2.e1.h
+      - m.f2.e1.t
+      - m.f2.e1.v
+      - m.f2.e2.h
+      - m.f2.e2.t
+      - m.f2.e2.v
+      - m.f2.e3.h
+      - m.f2.e3.t
+      - m.f2.e3.v
+      - m.f3.e0.h
+      - m.f3.e0.t
+      - m.f3.e0.v
+      - m.f3.e1.h
+      - m.f3.e1.t
+      - m.f3.e1.v
+      - m.f3.e2.h
+      - m.f3.e2.t
+      - m.f3.e2.v
+      - m.f3.e3.h
+      - m.f3.e3.t
+      - m.f3.e3.v
+      - m.f4.e0.h
+      - m.f4.e0.t
+      - m.f4.e0.v
+      - m.f4.e1.h
+      - m.f4.e1.t
+      - m.f4.e1.v
+      - m.f4.e2.h
+      - m.f4.e2.t
+      - m.f4.e2.v
+      - m.f4.e3.h
+      - m.f4.e3.t
+      - m.f4.e3.v
+      - m.f5.e0.h
+      - m.f5.e0.t
+      - m.f5.e0.v
+      - m.f5.e1.h
+      - m.f5.e1.t
+      - m.f5.e1.v
+      - m.f5.e2.h
+      - m.f5.e2.t
+      - m.f5.e2.v
+      - m.f5.e3.h
+      - m.f5.e3.t
+      - m.f5.e3.v
+      - m.f6.e0.h
+      - m.f6.e0.t
+      - m.f6.e0.v
+      - m.f6.e1.h
+      - m.f6.e1.t
+      - m.f6.e1.v
+      - m.f6.e2.h
+      - m.f6.e2.t
+      - m.f6.e2.v
+      - m.f6.e3.h
+      - m.f6.e3.t
+      - m.f6.e3.v
+      - m.f7.e0.h
+      - m.f7.e0.t
+      - m.f7.e0.v
+      - m.f7.e1.h
+      - m.f7.e1.t
+      - m.f7.e1.v
+      - m.f7.e2.h
+      - m.f7.e2.t
+      - m.f7.e2.v
+      - m.f7.e3.h
+      - m.f7.e3.t
+      - m.f7.e3.v
+      - m.f8.e0.h
+      - m.f8.e0.t
+      - m.f8.e0.v
+      - m.f8.e1.h
+      - m.f8.e1.t
+      - m.f8.e1.v
+      - m.f8.e2.h
+      - m.f8.e2.t
+      - m.f8.e2.v
+      - m.f8.e3.h
+      - m.f8.e3.t
+      - m.f8.e3.v
+      - m.f9.e0.h
+      - m.f9.e0.t
+      - m.f9.e0.v
+      - m.f9.e1.h
+      - m.f9.e1.t
+      - m.f9.e1.v
+      - m.f9.e2.h
+      - m.f9.e2.t
+      - m.f9.e2.v
+      - m.f9.e3.h
+      - m.f9.e3.t
+      - m.f9.e3.v
     section:
       id: 6w0i4jvkvm55pbim
       name: Section Layout
@@ -6816,359 +6803,307 @@ composite:
           bm5nin5dwota4vwj:
             value:
               entities:
-                - id: entity_0
-                  label: <%= entities.0.label %>
-                  subTitle: <%= entities.0.subTitle %>
-                  description: <%= entities.0.description %>
-                  icon: <%= entities.0.icon %>
-                  highlight: <%= entities.0.highlight %>
+                - id: e0
+                  label: <%= e.0.l %>
+                  subTitle: <%= e.0.s %>
+                  description: <%= e.0.d %>
+                  icon: <%= e.0.i %>
+                  highlight: <%= e.0.h %>
                   action:
-                    label: <%= entities.0.action.label %>
-                    url: <%= entities.0.action.url %>
-                    tooltip: <%= entities.0.action.tooltip %>
-                - id: entity_1
-                  label: <%= entities.1.label %>
-                  subTitle: <%= entities.1.subTitle %>
-                  description: <%= entities.1.description %>
-                  icon: <%= entities.1.icon %>
-                  highlight: <%= entities.1.highlight %>
+                    label: <%= e.0.al %>
+                    url: <%= e.0.au %>
+                    tooltip: <%= e.0.at %>
+                - id: e1
+                  label: <%= e.1.l %>
+                  subTitle: <%= e.1.s %>
+                  description: <%= e.1.d %>
+                  icon: <%= e.1.i %>
+                  highlight: <%= e.1.h %>
                   action:
-                    label: <%= entities.1.action.label %>
-                    url: <%= entities.1.action.url %>
-                    tooltip: <%= entities.1.action.tooltip %>
-                - id: entity_2
-                  label: <%= entities.2.label %>
-                  subTitle: <%= entities.2.subTitle %>
-                  description: <%= entities.2.description %>
-                  icon: <%= entities.2.icon %>
-                  highlight: <%= entities.2.highlight %>
+                    label: <%= e.1.al %>
+                    url: <%= e.1.au %>
+                    tooltip: <%= e.1.at %>
+                - id: e2
+                  label: <%= e.2.l %>
+                  subTitle: <%= e.2.s %>
+                  description: <%= e.2.d %>
+                  icon: <%= e.2.i %>
+                  highlight: <%= e.2.h %>
                   action:
-                    label: <%= entities.2.action.label %>
-                    url: <%= entities.2.action.url %>
-                    tooltip: <%= entities.2.action.tooltip %>
-                - id: entity_3
-                  label: <%= entities.3.label %>
-                  subTitle: <%= entities.3.subTitle %>
-                  description: <%= entities.3.description %>
-                  icon: <%= entities.3.icon %>
-                  highlight: <%= entities.3.highlight %>
+                    label: <%= e.2.al %>
+                    url: <%= e.2.au %>
+                    tooltip: <%= e.2.at %>
+                - id: e3
+                  label: <%= e.3.l %>
+                  subTitle: <%= e.3.s %>
+                  description: <%= e.3.d %>
+                  icon: <%= e.3.i %>
+                  highlight: <%= e.3.h %>
                   action:
-                    label: <%= entities.3.action.label %>
-                    url: <%= entities.3.action.url %>
-                    tooltip: <%= entities.3.action.tooltip %>
+                    label: <%= e.3.al %>
+                    url: <%= e.3.au %>
+                    tooltip: <%= e.3.at %>
               features:
-                - id: feature_0
-                  label: <%= features.0.label %>
-                  tooltip: <%= features.0.tooltip %>
-                  icon: <%= features.0.icon %>
-                - id: feature_1
-                  label: <%= features.1.label %>
-                  tooltip: <%= features.1.tooltip %>
-                  icon: <%= features.1.icon %>
-                - id: feature_2
-                  label: <%= features.2.label %>
-                  tooltip: <%= features.2.tooltip %>
-                  icon: <%= features.2.icon %>
-                - id: feature_3
-                  label: <%= features.3.label %>
-                  tooltip: <%= features.3.tooltip %>
-                  icon: <%= features.3.icon %>
-                - id: feature_4
-                  label: <%= features.4.label %>
-                  tooltip: <%= features.4.tooltip %>
-                  icon: <%= features.4.icon %>
-                - id: feature_5
-                  label: <%= features.5.label %>
-                  tooltip: <%= features.5.tooltip %>
-                  icon: <%= features.5.icon %>
-                - id: feature_6
-                  label: <%= features.6.label %>
-                  tooltip: <%= features.6.tooltip %>
-                  icon: <%= features.6.icon %>
-                - id: feature_7
-                  label: <%= features.7.label %>
-                  tooltip: <%= features.7.tooltip %>
-                  icon: <%= features.7.icon %>
-                - id: feature_8
-                  label: <%= features.8.label %>
-                  tooltip: <%= features.8.tooltip %>
-                  icon: <%= features.8.icon %>
-                - id: feature_9
-                  label: <%= features.9.label %>
-                  tooltip: <%= features.9.tooltip %>
-                  icon: <%= features.9.icon %>
-                - id: feature_10
-                  label: <%= features.10.label %>
-                  tooltip: <%= features.10.tooltip %>
-                  icon: <%= features.10.icon %>
-                - id: feature_11
-                  label: <%= features.11.label %>
-                  tooltip: <%= features.11.tooltip %>
-                  icon: <%= features.11.icon %>
+                - id: f0
+                  label: <%= f.0.l %>
+                  tooltip: <%= f.0.t %>
+                  icon: <%= f.0.i %>
+                - id: f1
+                  label: <%= f.1.l %>
+                  tooltip: <%= f.1.t %>
+                  icon: <%= f.1.i %>
+                - id: f2
+                  label: <%= f.2.l %>
+                  tooltip: <%= f.2.t %>
+                  icon: <%= f.2.i %>
+                - id: f3
+                  label: <%= f.3.l %>
+                  tooltip: <%= f.3.t %>
+                  icon: <%= f.3.i %>
+                - id: f4
+                  label: <%= f.4.l %>
+                  tooltip: <%= f.4.t %>
+                  icon: <%= f.4.i %>
+                - id: f5
+                  label: <%= f.5.l %>
+                  tooltip: <%= f.5.t %>
+                  icon: <%= f.5.i %>
+                - id: f6
+                  label: <%= f.6.l %>
+                  tooltip: <%= f.6.t %>
+                  icon: <%= f.6.i %>
+                - id: f7
+                  label: <%= f.7.l %>
+                  tooltip: <%= f.7.t %>
+                  icon: <%= f.7.i %>
+                - id: f8
+                  label: <%= f.8.l %>
+                  tooltip: <%= f.8.t %>
+                  icon: <%= f.8.i %>
+                - id: f9
+                  label: <%= f.9.l %>
+                  tooltip: <%= f.9.t %>
+                  icon: <%= f.9.i %>
               matrix: |-
                 {
-                  "feature_0": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_0.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_0.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_0.entity_0.highlight %>"
+                  "f0": {
+                    "e0": {
+                      "value": "<%= m.f0.e0.v %>",
+                      "tooltip": "<%= m.f0.e0.t %>",
+                      "highlight": "<%= m.f0.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_0.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_0.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_0.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f0.e1.v %>",
+                      "tooltip": "<%= m.f0.e1.t %>",
+                      "highlight": "<%= m.f0.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_0.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_0.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_0.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f0.e2.v %>",
+                      "tooltip": "<%= m.f0.e2.t %>",
+                      "highlight": "<%= m.f0.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_0.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_0.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_0.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f0.e3.v %>",
+                      "tooltip": "<%= m.f0.e3.t %>",
+                      "highlight": "<%= m.f0.e3.h %>"
                     }
                   },
-                  "feature_1": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_1.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_1.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_1.entity_0.highlight %>"
+                  "f1": {
+                    "e0": {
+                      "value": "<%= m.f1.e0.v %>",
+                      "tooltip": "<%= m.f1.e0.t %>",
+                      "highlight": "<%= m.f1.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_1.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_1.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_1.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f1.e1.v %>",
+                      "tooltip": "<%= m.f1.e1.t %>",
+                      "highlight": "<%= m.f1.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_1.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_1.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_1.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f1.e2.v %>",
+                      "tooltip": "<%= m.f1.e2.t %>",
+                      "highlight": "<%= m.f1.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_1.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_1.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_1.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f1.e3.v %>",
+                      "tooltip": "<%= m.f1.e3.t %>",
+                      "highlight": "<%= m.f1.e3.h %>"
                     }
                   },
-                  "feature_2": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_2.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_2.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_2.entity_0.highlight %>"
+                  "f2": {
+                    "e0": {
+                      "value": "<%= m.f2.e0.v %>",
+                      "tooltip": "<%= m.f2.e0.t %>",
+                      "highlight": "<%= m.f2.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_2.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_2.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_2.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f2.e1.v %>",
+                      "tooltip": "<%= m.f2.e1.t %>",
+                      "highlight": "<%= m.f2.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_2.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_2.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_2.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f2.e2.v %>",
+                      "tooltip": "<%= m.f2.e2.t %>",
+                      "highlight": "<%= m.f2.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_2.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_2.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_2.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f2.e3.v %>",
+                      "tooltip": "<%= m.f2.e3.t %>",
+                      "highlight": "<%= m.f2.e3.h %>"
                     }
                   },
-                  "feature_3": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_3.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_3.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_3.entity_0.highlight %>"
+                  "f3": {
+                    "e0": {
+                      "value": "<%= m.f3.e0.v %>",
+                      "tooltip": "<%= m.f3.e0.t %>",
+                      "highlight": "<%= m.f3.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_3.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_3.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_3.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f3.e1.v %>",
+                      "tooltip": "<%= m.f3.e1.t %>",
+                      "highlight": "<%= m.f3.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_3.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_3.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_3.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f3.e2.v %>",
+                      "tooltip": "<%= m.f3.e2.t %>",
+                      "highlight": "<%= m.f3.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_3.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_3.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_3.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f3.e3.v %>",
+                      "tooltip": "<%= m.f3.e3.t %>",
+                      "highlight": "<%= m.f3.e3.h %>"
                     }
                   },
-                  "feature_4": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_4.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_4.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_4.entity_0.highlight %>"
+                  "f4": {
+                    "e0": {
+                      "value": "<%= m.f4.e0.v %>",
+                      "tooltip": "<%= m.f4.e0.t %>",
+                      "highlight": "<%= m.f4.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_4.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_4.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_4.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f4.e1.v %>",
+                      "tooltip": "<%= m.f4.e1.t %>",
+                      "highlight": "<%= m.f4.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_4.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_4.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_4.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f4.e2.v %>",
+                      "tooltip": "<%= m.f4.e2.t %>",
+                      "highlight": "<%= m.f4.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_4.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_4.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_4.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f4.e3.v %>",
+                      "tooltip": "<%= m.f4.e3.t %>",
+                      "highlight": "<%= m.f4.e3.h %>"
                     }
                   },
-                  "feature_5": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_5.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_5.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_5.entity_0.highlight %>"
+                  "f5": {
+                    "e0": {
+                      "value": "<%= m.f5.e0.v %>",
+                      "tooltip": "<%= m.f5.e0.t %>",
+                      "highlight": "<%= m.f5.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_5.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_5.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_5.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f5.e1.v %>",
+                      "tooltip": "<%= m.f5.e1.t %>",
+                      "highlight": "<%= m.f5.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_5.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_5.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_5.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f5.e2.v %>",
+                      "tooltip": "<%= m.f5.e2.t %>",
+                      "highlight": "<%= m.f5.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_5.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_5.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_5.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f5.e3.v %>",
+                      "tooltip": "<%= m.f5.e3.t %>",
+                      "highlight": "<%= m.f5.e3.h %>"
                     }
                   },
-                  "feature_6": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_6.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_6.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_6.entity_0.highlight %>"
+                  "f6": {
+                    "e0": {
+                      "value": "<%= m.f6.e0.v %>",
+                      "tooltip": "<%= m.f6.e0.t %>",
+                      "highlight": "<%= m.f6.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_6.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_6.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_6.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f6.e1.v %>",
+                      "tooltip": "<%= m.f6.e1.t %>",
+                      "highlight": "<%= m.f6.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_6.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_6.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_6.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f6.e2.v %>",
+                      "tooltip": "<%= m.f6.e2.t %>",
+                      "highlight": "<%= m.f6.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_6.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_6.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_6.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f6.e3.v %>",
+                      "tooltip": "<%= m.f6.e3.t %>",
+                      "highlight": "<%= m.f6.e3.h %>"
                     }
                   },
-                  "feature_7": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_7.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_7.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_7.entity_0.highlight %>"
+                  "f7": {
+                    "e0": {
+                      "value": "<%= m.f7.e0.v %>",
+                      "tooltip": "<%= m.f7.e0.t %>",
+                      "highlight": "<%= m.f7.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_7.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_7.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_7.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f7.e1.v %>",
+                      "tooltip": "<%= m.f7.e1.t %>",
+                      "highlight": "<%= m.f7.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_7.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_7.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_7.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f7.e2.v %>",
+                      "tooltip": "<%= m.f7.e2.t %>",
+                      "highlight": "<%= m.f7.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_7.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_7.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_7.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f7.e3.v %>",
+                      "tooltip": "<%= m.f7.e3.t %>",
+                      "highlight": "<%= m.f7.e3.h %>"
                     }
                   },
-                  "feature_8": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_8.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_8.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_8.entity_0.highlight %>"
+                  "f8": {
+                    "e0": {
+                      "value": "<%= m.f8.e0.v %>",
+                      "tooltip": "<%= m.f8.e0.t %>",
+                      "highlight": "<%= m.f8.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_8.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_8.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_8.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f8.e1.v %>",
+                      "tooltip": "<%= m.f8.e1.t %>",
+                      "highlight": "<%= m.f8.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_8.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_8.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_8.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f8.e2.v %>",
+                      "tooltip": "<%= m.f8.e2.t %>",
+                      "highlight": "<%= m.f8.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_8.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_8.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_8.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f8.e3.v %>",
+                      "tooltip": "<%= m.f8.e3.t %>",
+                      "highlight": "<%= m.f8.e3.h %>"
                     }
                   },
-                  "feature_9": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_9.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_9.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_9.entity_0.highlight %>"
+                  "f9": {
+                    "e0": {
+                      "value": "<%= m.f9.e0.v %>",
+                      "tooltip": "<%= m.f9.e0.t %>",
+                      "highlight": "<%= m.f9.e0.h %>"
                     },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_9.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_9.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_9.entity_1.highlight %>"
+                    "e1": {
+                      "value": "<%= m.f9.e1.v %>",
+                      "tooltip": "<%= m.f9.e1.t %>",
+                      "highlight": "<%= m.f9.e1.h %>"
                     },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_9.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_9.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_9.entity_2.highlight %>"
+                    "e2": {
+                      "value": "<%= m.f9.e2.v %>",
+                      "tooltip": "<%= m.f9.e2.t %>",
+                      "highlight": "<%= m.f9.e2.h %>"
                     },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_9.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_9.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_9.entity_3.highlight %>"
-                    }
-                  },
-                  "feature_10": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_10.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_10.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_10.entity_0.highlight %>"
-                    },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_10.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_10.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_10.entity_1.highlight %>"
-                    },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_10.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_10.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_10.entity_2.highlight %>"
-                    },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_10.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_10.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_10.entity_3.highlight %>"
-                    }
-                  },
-                  "feature_11": {
-                    "entity_0": {
-                      "value": "<%= matrix.feature_11.entity_0.value %>",
-                      "tooltip": "<%= matrix.feature_11.entity_0.tooltip %>",
-                      "highlight": "<%= matrix.feature_11.entity_0.highlight %>"
-                    },
-                    "entity_1": {
-                      "value": "<%= matrix.feature_11.entity_1.value %>",
-                      "tooltip": "<%= matrix.feature_11.entity_1.tooltip %>",
-                      "highlight": "<%= matrix.feature_11.entity_1.highlight %>"
-                    },
-                    "entity_2": {
-                      "value": "<%= matrix.feature_11.entity_2.value %>",
-                      "tooltip": "<%= matrix.feature_11.entity_2.tooltip %>",
-                      "highlight": "<%= matrix.feature_11.entity_2.highlight %>"
-                    },
-                    "entity_3": {
-                      "value": "<%= matrix.feature_11.entity_3.value %>",
-                      "tooltip": "<%= matrix.feature_11.entity_3.tooltip %>",
-                      "highlight": "<%= matrix.feature_11.entity_3.highlight %>"
+                    "e3": {
+                      "value": "<%= m.f9.e3.v %>",
+                      "tooltip": "<%= m.f9.e3.t %>",
+                      "highlight": "<%= m.f9.e3.h %>"
                     }
                   }
                 }

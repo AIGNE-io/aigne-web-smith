@@ -32,13 +32,18 @@ export default async function clearDeploymentConfig(input = {}) {
     const configContent = await readFile(configFilePath, 'utf-8')
     const doc = yaml.parseDocument(configContent)
 
-    if (doc.has('appUrl')) {
-      doc.delete('appUrl')
+    if (doc.has("appUrl")) {
+      doc.delete("appUrl");
       await writeFile(
         configFilePath,
-        doc.toString({ keepSourceTokens: true, indent: 2, lineWidth: 0, minContentWidth: 0 }),
-        'utf-8',
-      )
+        doc.toString({
+          keepSourceTokens: true,
+          indent: 2,
+          lineWidth: 0,
+          minContentWidth: 0,
+        }),
+        "utf-8",
+      );
     }
 
     return {

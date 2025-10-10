@@ -1,0 +1,7 @@
+rules:
+  - id: pref_f25159494408c284
+    active: true
+    scope: structure
+    rule: Do not generate 'License' and 'Contributing' documents or sections.
+    feedback: Remove License and Contributing
+    createdAt: 2025-10-10T06:53:40.523Z

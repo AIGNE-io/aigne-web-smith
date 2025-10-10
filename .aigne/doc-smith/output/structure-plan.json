@@ -1,0 +1,300 @@
+[
+  {
+    "title": "Overview",
+    "description": "Provides a high-level introduction to AIGNE WebSmith, explaining what it does, its key features, and how it helps users automatically create professional websites.",
+    "path": "/overview",
+    "sourceIds": [
+      "README.md",
+      "package.json",
+      "ROADMAP.md",
+      "aigne.yaml",
+      "CLAUDE.md"
+    ],
+    "parentId": ""
+  },
+  {
+    "title": "Getting Started",
+    "description": "Guides new users through the essential first steps, from installation to generating and viewing their first website in under 30 minutes.",
+    "path": "/getting-started",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/init/index.mjs"
+    ],
+    "parentId": ""
+  },
+  {
+    "title": "Installation",
+    "description": "Provides step-by-step instructions on how to install the AIGNE CLI, which is required to use WebSmith.",
+    "path": "/getting-started/installation",
+    "sourceIds": [
+      "README.md"
+    ],
+    "parentId": "/getting-started"
+  },
+  {
+    "title": "Preparing Your Content",
+    "description": "Explains what kind of content and information you should have ready to help the AI generate the best possible website for your needs.",
+    "path": "/getting-started/preparing-your-content",
+    "sourceIds": [
+      "README.md",
+      "agents/init/suggest-source-path.yaml",
+      "agents/utils/load-sources.mjs",
+      "ROADMAP.md"
+    ],
+    "parentId": "/getting-started"
+  },
+  {
+    "title": "Your First Website",
+    "description": "A quick, hands-on tutorial that walks you through creating a simple configuration file and using a single command to generate a complete website.",
+    "path": "/getting-started/your-first-website",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/init/index.mjs",
+      "agents/generate/index.yaml"
+    ],
+    "parentId": "/getting-started"
+  },
+  {
+    "title": "Core Tasks",
+    "description": "Explains how to perform common day-to-day operations with WebSmith, such as publishing your site, updating content, and managing translations.",
+    "path": "/core-tasks",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "CLAUDE.md"
+    ],
+    "parentId": ""
+  },
+  {
+    "title": "Generating a Website",
+    "description": "Details the 'generate' command and explains how to define your website requirements in the configuration file for the AI to build.",
+    "path": "/core-tasks/generating-a-website",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/generate/index.yaml"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Publishing Your Website",
+    "description": "Learn about the different options available for publishing your website, from the free WebSmith Cloud to your own custom domain.",
+    "path": "/core-tasks/publishing-your-website",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/publish/index.yaml",
+      "agents/publish/publish-website.mjs",
+      "utils/deploy.mjs",
+      "utils/auth-utils.mjs",
+      "utils/blocklet.mjs"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Publish to WebSmith Cloud",
+    "description": "Learn how to publish your website to the free WebSmith Cloud hosting.",
+    "path": "/core-tasks/publishing-your-website/cloud",
+    "sourceIds": [
+      "agents/publish/index.yaml",
+      "agents/publish/publish-website.mjs",
+      "utils/deploy.mjs",
+      "utils/auth-utils.mjs"
+    ],
+    "parentId": "/core-tasks/publishing-your-website"
+  },
+  {
+    "title": "Publish to your own website",
+    "description": "Learn how to publish your website to your own existing website infrastructure.",
+    "path": "/core-tasks/publishing-your-website/custom",
+    "sourceIds": [
+      "agents/publish/index.yaml",
+      "agents/publish/publish-website.mjs",
+      "utils/deploy.mjs",
+      "utils/auth-utils.mjs",
+      "utils/blocklet.mjs"
+    ],
+    "parentId": "/core-tasks/publishing-your-website"
+  },
+  {
+    "title": "Publish to a new dedicated website",
+    "description": "Learn how to create and publish to a new dedicated website with custom domain and hosting.",
+    "path": "/core-tasks/publishing-your-website/new-dedicated-website",
+    "sourceIds": [
+      "agents/publish/index.yaml",
+      "agents/publish/publish-website.mjs",
+      "utils/deploy.mjs"
+    ],
+    "parentId": "/core-tasks/publishing-your-website"
+  },
+  {
+    "title": "Updating Website Content",
+    "description": "Learn how to use the 'update' command to make changes or provide feedback to refine the content on your existing pages.",
+    "path": "/core-tasks/updating-website-content",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/update/index.yaml",
+      "agents/plan/update-website-structure.yaml",
+      "agents/update/update-page-detail.yaml"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Updating Website Structure",
+    "description": "Learn how to modify the overall structure of your website, such as adding, removing, or reorganizing pages.",
+    "path": "/core-tasks/updating-website-content/updating-website-structure",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/plan/index.yaml",
+      "agents/plan/update-website-structure.yaml",
+      "agents/plan/website-structure-tools/add-page.mjs",
+      "agents/plan/website-structure-tools/delete-page.mjs",
+      "agents/plan/website-structure-tools/update-page.mjs",
+      "agents/plan/website-structure-tools/move-page.mjs",
+      "types/website-structure-schema.mjs"
+    ],
+    "parentId": "/core-tasks/updating-website-content"
+  },
+  {
+    "title": "Updating Page Content",
+    "description": "Learn how to refine the content and details within an individual webpage.",
+    "path": "/core-tasks/updating-website-content/updating-page-content",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/update/index.yaml",
+      "agents/update/update-page-detail.yaml",
+      "agents/update/page-detail-tools/add-section.mjs",
+      "agents/update/page-detail-tools/delete-section.mjs",
+      "agents/update/page-detail-tools/update-section.mjs",
+      "agents/update/page-detail-tools/move-section.mjs",
+      "types/page-detail-schema.mjs"
+    ],
+    "parentId": "/core-tasks/updating-website-content"
+  },
+  {
+    "title": "Translating Your Content",
+    "description": "Explains how to use the 'translate' command to automatically create different language versions of your website pages.",
+    "path": "/core-tasks/translating-your-content",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/translate/index.yaml",
+      "agents/translate/choose-language.mjs",
+      "agents/translate/translate-page-detail-team.yaml"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Managing Themes",
+    "description": "Covers how to use the 'theme' command to generate and apply different visual styles and color schemes to your website.",
+    "path": "/core-tasks/managing-themes",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/theme/generate-theme-team.yaml",
+      "agents/theme/apply-theme.mjs",
+      "agents/theme/save-theme.mjs",
+      "utils/theme-utils.mjs"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Managing Components",
+    "description": "Explains how to use the 'component' command to pull and update the component library used to build your website's visual elements.",
+    "path": "/core-tasks/managing-components",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/component/pull-components-team.yaml",
+      "agents/component/pull-components.mjs",
+      "assets/components/builtin-component-library.yaml"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Using the Interactive Chat",
+    "description": "Learn how to use the 'chat' command to interactively build and modify your website in a conversational way.",
+    "path": "/core-tasks/using-the-interactive-chat",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/chat/index.yaml"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Managing Preferences",
+    "description": "Explains how to use the 'prefs' command to view, manage, and clear saved user preferences to customize WebSmith's behavior.",
+    "path": "/core-tasks/managing-preferences",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/prefs/index.mjs",
+      "utils/preferences-utils.mjs",
+      "prompts/utils/feedback-refiner.md"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Viewing Update History",
+    "description": "Learn how to use the 'history' command to review a log of all previous updates made to your website content and structure.",
+    "path": "/core-tasks/viewing-update-history",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/history/view.mjs",
+      "utils/history-utils.mjs"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Clearing Workspace and Data",
+    "description": "Shows you how to use the 'clear' command to safely remove generated files, workspace data, or the entire configuration.",
+    "path": "/core-tasks/clearing-generated-content",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/clear/index.yaml",
+      "agents/clear/choose-contents.mjs"
+    ],
+    "parentId": "/core-tasks"
+  },
+  {
+    "title": "Reference",
+    "description": "Provides detailed reference material, including a complete list of commands, version history, and licensing information.",
+    "path": "/reference",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "CHANGELOG.md",
+      "LICENSE.md",
+      "CONTRIBUTE.md"
+    ],
+    "parentId": ""
+  },
+  {
+    "title": "Command Line Reference",
+    "description": "A comprehensive guide to all available commands and their parameters, for users who want to explore advanced capabilities.",
+    "path": "/reference/command-line-reference",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/prefs/index.mjs",
+      "agents/history/view.mjs",
+      "agents/clear/index.yaml",
+      "agents/component/pull-components-team.yaml",
+      "agents/theme/generate-theme-team.yaml",
+      "CLAUDE.md"
+    ],
+    "parentId": "/reference"
+  },
+  {
+    "title": "Changelog",
+    "description": "Lists all the updates, bug fixes, and new features that have been added to AIGNE WebSmith over time.",
+    "path": "/reference/changelog",
+    "sourceIds": [
+      "CHANGELOG.md",
+      "RELEASE.md"
+    ],
+    "parentId": "/reference"
+  }
+]

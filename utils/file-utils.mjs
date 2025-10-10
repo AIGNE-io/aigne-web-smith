@@ -151,6 +151,38 @@ export async function loadGitignore(dir) {
 }
 
 /**
+ * Get MIME type from file path based on extension
+ * @param {string} filePath - File path
+ * @returns {string} MIME type
+ */
+export function getMimeType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  const mimeTypes = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+    ".bmp": "image/bmp",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
+    ".heic": "image/heic",
+    ".heif": "image/heif",
+    ".mp4": "video/mp4",
+    ".mpeg": "video/mpeg",
+    ".mpg": "video/mpg",
+    ".mov": "video/mov",
+    ".avi": "video/avi",
+    ".flv": "video/x-flv",
+    ".mkv": "video/x-matroska",
+    ".webm": "video/webm",
+    ".wmv": "video/wmv",
+    ".m4v": "video/x-m4v",
+    ".3gpp": "video/3gpp",
+  };
+  return mimeTypes[ext] || "application/octet-stream";
+}
+
+/**
  * Get files using glob patterns
  * @param {string} dir - Directory to search
  * @param {string[]} includePatterns - Include patterns

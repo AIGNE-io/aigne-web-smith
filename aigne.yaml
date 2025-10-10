@@ -39,6 +39,11 @@ agents:
   - ./agents/generate/page-data/validate-pages-data.mjs
   - ./agents/generate/page-detail/load-page-detail.mjs
 
+  # media
+  - ./agents/media/load-media-description.mjs
+  - ./agents/media/batch-generate-media-description.yaml
+  - ./agents/media/generate-media-description.yaml
+
   # init
   - ./agents/init/index.mjs
   - ./agents/init/suggest-source-path.yaml

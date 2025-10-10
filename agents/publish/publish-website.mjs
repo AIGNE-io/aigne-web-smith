@@ -26,14 +26,12 @@ import {
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-
-const formatRoutePath = (path) => {
-  if (path === "/home") {
-    return "/";
-  }
-  return path;
-};
+import {
+  formatRoutePath,
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../../utils/utils.mjs";
 
 /**
  * 递归扫描对象中的指定协议值

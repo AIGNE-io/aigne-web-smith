@@ -4,6 +4,7 @@ import { joinURL, withLeadingSlash } from "ufo";
 import { parse as yamlParse, stringify as yamlStringify } from "yaml";
 import { NAVIGATIONS_FILE_NAME } from "../../utils/constants.mjs";
 import {
+  formatRoutePath,
   generateNavigationId,
   getCurrentGitHead,
   saveGitHeadToConfig,
@@ -355,7 +356,7 @@ function generateSitemapYaml(
     const rootLinkLocales = {};
     for (const localeKey of localeKeys) {
       rootTitleLocales[localeKey] = normalizedProjectName;
-      rootLinkLocales[localeKey] = withLeadingSlash(joinURL(`${localeKey}`, "/"));
+      rootLinkLocales[localeKey] = formatRoutePath(withLeadingSlash(joinURL(`${localeKey}`, "/")));
     }
 
     const rootNavEntries = [
@@ -571,10 +572,10 @@ function buildLinkLocales(locales, localeKeys, defaultPath) {
   for (const locale of localeKeys) {
     const localeLink = locales?.[locale]?.link;
     if (typeof localeLink === "string" && localeLink.trim().length > 0) {
-      result[locale] = localeLink.trim();
+      result[locale] = formatRoutePath(localeLink.trim());
     } else {
       // unnecessary combine locale and path
-      result[locale] = withLeadingSlash(defaultPath);
+      result[locale] = formatRoutePath(withLeadingSlash(defaultPath));
     }
   }
   return result;

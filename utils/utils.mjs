@@ -1742,3 +1742,10 @@ export function validateWebsiteStructure(websiteStructure, locales = []) {
     message,
   };
 }
+
+export const formatRoutePath = (path) => {
+  if (path === "/home") {
+    return "/";
+  }
+  return path;
+};

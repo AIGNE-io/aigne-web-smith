@@ -9,24 +9,19 @@ items:
     path:
       type: string
       description: URL path starting with /, no language prefix, homepage uses /home
-    navigations:
-      type: array
-      items:
-        type: object
-        properties:
-          title:
-            type: string
-            description: Short navigation label (10–18 characters, 2–3 words)
-          description:
-            type: string
-            description: Concise navigation summary within 20–40 characters
-          locale:
-            type: string
-            description: Language code, such as zh, en, ja, etc.
-        required:
-          - title
-          - description
-          - locale
+    navigation:
+      type: object
+      description: Navigation metadata shown to users
+      properties:
+        title:
+          type: string
+          description: Short navigation label (10–18 characters, 2–3 words)
+        description:
+          type: string
+          description: User-facing action summary (20–40 characters) describing what visitors can do
+      required:
+        - title
+        - description
     parentId:
       type:
         - string
@@ -50,4 +45,4 @@ items:
     - description
     - path
     - sourceIds
-    - navigations
+    - navigation

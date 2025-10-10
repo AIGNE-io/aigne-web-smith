@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-09T12:58:03.701Z
-updatedAt: 2025-10-09T12:58:03.701Z
-publishedAt: 2025-10-09T12:58:03.701Z
+createdAt: 2025-10-10T06:41:36.659Z
+updatedAt: 2025-10-10T06:41:36.659Z
+publishedAt: 2025-10-10T06:41:36.659Z
 isPublic: true
 locales:
   en:
@@ -118,7 +118,7 @@ sections:
               2595d95961e10014:
                 x: 0
                 y: 0
-                w: 6
+                w: 5
                 h: 1
               ccdf0179b25ef747:
                 x: 6

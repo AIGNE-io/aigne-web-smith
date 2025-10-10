@@ -1698,17 +1698,13 @@ export function generateDeterministicId(text, length = 16) {
 }
 
 /**
- * 验证站点结构的导航是否覆盖所有目标语言
+ * 验证站点结构的导航存在
  * @param {Array} websiteStructure - 站点结构数组
  * @param {Array<string>} locales - 需要覆盖的语言列表
  * @returns {{isValid: boolean, missingLocales: Array<{path: string, missing: string[]}>, message: string}}
  */
 export function validateWebsiteStructure(websiteStructure, locales = []) {
-  const normalizedLocales = Array.isArray(locales)
-    ? Array.from(new Set(locales.filter(Boolean).map((locale) => locale.trim()))).filter(Boolean)
-    : [];
-
-  if (!Array.isArray(websiteStructure) || normalizedLocales.length === 0) {
+  if (!Array.isArray(websiteStructure) || locales?.length === 0) {
     return {
       isValid: true,
       missingLocales: [],
@@ -1719,20 +1715,11 @@ export function validateWebsiteStructure(websiteStructure, locales = []) {
   const missingLocales = [];
 
   websiteStructure.forEach((item, index) => {
-    const navigations = Array.isArray(item?.navigations) ? item.navigations : [];
-    const existingLocales = new Set(
-      navigations
-        .map((nav) => nav?.locale)
-        .filter((locale) => typeof locale === "string" && locale.trim().length > 0)
-        .map((locale) => locale.trim()),
-    );
-
-    const missing = normalizedLocales.filter((locale) => !existingLocales.has(locale));
-
-    if (missing.length > 0) {
+    const navigation = item?.navigation;
+    if (!navigation) {
       missingLocales.push({
         path: typeof item?.path === "string" && item.path ? item.path : `index:${index}`,
-        missing,
+        missing: locales,
       });
     }
   });

@@ -4,15 +4,14 @@ import chalk from "chalk";
 import { PAGE_FILE_EXTENSION, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
-  getCurrentGitHead,
   getProjectInfo,
-  hasFileChangesBetweenCommits,
   loadConfigFromFile,
   saveValueToConfig,
+  validateWebsiteStructure,
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, ...rest },
+  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, locale, ...rest },
   options,
 ) {
   // Check if originalWebsiteStructure is empty and prompt user
@@ -68,16 +67,20 @@ export default async function analyzeWebsiteStructure(
         // If _sitemap file doesn't exist, it means last execution was interrupted, no need to regenerate
         shouldRegenerate = false;
       }
-    } else {
-      // Check if there are relevant file changes since last generation
-      const currentGitHead = getCurrentGitHead();
-      if (currentGitHead && currentGitHead !== lastGitHead) {
-        const hasChanges = hasFileChangesBetweenCommits(lastGitHead, currentGitHead);
-        if (hasChanges) {
-          // @FIXME: 临时禁用
-          shouldRegenerate = false;
-        }
-      }
+    }
+
+    // validate website structure to check if navigation is complete
+    const validationResult = validateWebsiteStructure(originalWebsiteStructure, [locale]);
+
+    if (!validationResult.isValid) {
+      shouldRegenerate = true;
+      const missingDetails = validationResult.missingLocales
+        .map((item) => `- ${item.path}: missing ${item.missing.join(", ")}`)
+        .join("\n");
+
+      finalFeedback = `${finalFeedback ? `${finalFeedback}\n\n` : ""}Missing navigation in existing structure.\n${missingDetails}\nEnsure navigation exists for locale: ${locale}.`;
+
+      shouldRegenerate = true;
     }
 
     if (shouldRegenerate) {

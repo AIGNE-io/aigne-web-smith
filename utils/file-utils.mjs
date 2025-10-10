@@ -165,12 +165,19 @@ export function getMimeType(filePath) {
     ".bmp": "image/bmp",
     ".webp": "image/webp",
     ".svg": "image/svg+xml",
+    ".heic": "image/heic",
+    ".heif": "image/heif",
     ".mp4": "video/mp4",
-    ".mov": "video/quicktime",
-    ".avi": "video/x-msvideo",
+    ".mpeg": "video/mpeg",
+    ".mpg": "video/mpg",
+    ".mov": "video/mov",
+    ".avi": "video/avi",
+    ".flv": "video/x-flv",
     ".mkv": "video/x-matroska",
     ".webm": "video/webm",
+    ".wmv": "video/wmv",
     ".m4v": "video/x-m4v",
+    ".3gpp": "video/3gpp",
   };
   return mimeTypes[ext] || "application/octet-stream";
 }

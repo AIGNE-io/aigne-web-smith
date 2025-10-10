@@ -401,7 +401,7 @@ export function generateYAML(input) {
     media: {
       // Image filtering settings
       minImageWidth: input.minImageWidth || 800,
-    }
+    },
   };
 
   // Generate comments and structure

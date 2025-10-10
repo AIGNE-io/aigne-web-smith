@@ -1,17 +1,52 @@
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse, stringify } from "yaml";
 import { WEB_SMITH_DIR } from "../../utils/constants.mjs";
 
+const SIZE_THRESHOLD = 10 * 1024 * 1024; // 10MB
+
+// Supported MIME types for Gemini AI
+const SUPPORTED_IMAGE_TYPES = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+]);
+
+const SUPPORTED_VIDEO_TYPES = new Set([
+  "video/mp4",
+  "video/mpeg",
+  "video/mov",
+  "video/avi",
+  "video/x-flv",
+  "video/mpg",
+  "video/webm",
+  "video/wmv",
+  "video/3gpp",
+]);
+
 /**
- * Calculate hash for a media file using absolute path
+ * Calculate hash for a media file
+ * For files < 10MB: use file content
+ * For files >= 10MB: use path + size + mtime to avoid memory issues
  * @param {string} absolutePath - The absolute path to the media file
- * @returns {string} - The hash of the file path
+ * @returns {Promise<string>} - The hash of the file
  */
-function calculateMediaHash(absolutePath) {
-  return createHash("sha256").update(absolutePath).digest("hex");
+async function calculateMediaHash(absolutePath) {
+  const stats = await stat(absolutePath);
+
+  if (stats.size < SIZE_THRESHOLD) {
+    // Small file: use full content
+    const content = await readFile(absolutePath);
+    return createHash("sha256").update(content).digest("hex");
+  }
+
+  // Large file: use path + size + mtime
+  const hashInput = `${absolutePath}:${stats.size}:${stats.mtimeMs}`;
+  return createHash("sha256").update(hashInput).digest("hex");
 }
 
 /**
@@ -25,14 +60,16 @@ function calculateMediaHash(absolutePath) {
 export default async function loadMediaDescription(input, options) {
   const { mediaFiles = [], pagesDir } = input;
 
-  // Filter to get image and video files
-  const mediaFilesToProcess = mediaFiles.filter(
-    (file) => file.type === "image" || file.type === "video",
-  );
-
-  if (mediaFilesToProcess.length === 0) {
-    return {};
-  }
+  // Filter to get image and video files with supported MIME types
+  const mediaFilesToProcess = mediaFiles.filter((file) => {
+    if (file.type === "image") {
+      return SUPPORTED_IMAGE_TYPES.has(file.mimeType);
+    }
+    if (file.type === "video") {
+      return SUPPORTED_VIDEO_TYPES.has(file.mimeType);
+    }
+    return false;
+  });
 
   // Path to media description cache file - use WEB_SMITH_DIR to avoid pagesDir changes
   const cacheFilePath = path.join(process.cwd(), WEB_SMITH_DIR, "media-description.yaml");
@@ -54,12 +91,14 @@ export default async function loadMediaDescription(input, options) {
   const mediaHashMap = new Map();
 
   const absolutePagesDir = path.resolve(process.cwd(), pagesDir);
+
+  // Only process media files that need AI description
   for (const mediaFile of mediaFilesToProcess) {
     // Convert relative path to absolute path for consistent hashing
     // mediaFiles.path is relative to pagesDir
     // First resolve pagesDir to absolute path, then join with media path
     const absolutePath = path.join(absolutePagesDir, mediaFile.path);
-    const mediaHash = calculateMediaHash(absolutePath);
+    const mediaHash = await calculateMediaHash(absolutePath);
     mediaHashMap.set(mediaFile.path, mediaHash);
 
     if (!cache[mediaHash]) {
@@ -78,6 +117,7 @@ export default async function loadMediaDescription(input, options) {
       });
     }
   }
+
   // Generate descriptions for media files without cache - use team agent for concurrent processing
   const newDescriptions = {};
   if (mediaToDescribe.length > 0) {

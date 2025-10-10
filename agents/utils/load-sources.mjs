@@ -19,8 +19,20 @@ import {
 
 const getFileType = (filePath) => {
   const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
+  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
+  const videoExts = [
+    ".mp4",
+    ".mpeg",
+    ".mpg",
+    ".mov",
+    ".avi",
+    ".flv",
+    ".mkv",
+    ".webm",
+    ".wmv",
+    ".m4v",
+    ".3gpp",
+  ];
 
   if (imageExts.includes(ext)) return "image";
   if (videoExts.includes(ext)) return "video";
@@ -93,7 +105,7 @@ export default async function loadSources({
   media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
-  const { minImageWidth } = media || {minImageWidth: 800};
+  const { minImageWidth } = media || { minImageWidth: 800 };
 
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
@@ -206,12 +218,19 @@ export default async function loadSources({
     ".bmp",
     ".webp",
     ".svg",
+    ".heic",
+    ".heif",
     ".mp4",
+    ".mpeg",
+    ".mpg",
     ".mov",
     ".avi",
+    ".flv",
     ".mkv",
     ".webm",
+    ".wmv",
     ".m4v",
+    ".3gpp",
   ];
 
   // Separate source files from media files

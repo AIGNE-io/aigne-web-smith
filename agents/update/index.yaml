@@ -20,6 +20,7 @@ skills:
       ])
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
+  - ../media/load-media-description.mjs
   - url: ../utils/choose-pages.mjs
     default_input:
       requiredFeedback: false

@@ -3,7 +3,7 @@ import { basename, join } from "node:path";
 import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
-import { joinURL, withLeadingSlash, withoutTrailingSlash } from "ufo";
+import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
@@ -333,6 +333,7 @@ export default async function publishWebsite(
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
+    languages: locales || [],
   };
 
   let message;
@@ -378,29 +379,7 @@ export default async function publishWebsite(
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
-    const navigationEntries = shouldWithNavigations
-      ? sitemapContent?.navigations?.map((item) => {
-          const isRootItem = !item.parent;
-          item.title = JSON.stringify(item.title);
-          item.description = JSON.stringify(item.description);
-
-          item.link = JSON.stringify(
-            Object.fromEntries(
-              Object.entries(item.link).map(([locale, pathname]) => {
-                // projectSlug
-                // @FIXME: 这个需要给到后端拼接
-                if (isRootItem) {
-                  return [locale, withLeadingSlash(joinURL(locale, mountPoint, projectSlug))];
-                }
-
-                return [locale, withLeadingSlash(pathname)];
-              }),
-            ),
-          );
-
-          return item;
-        })
-      : [];
+    const navigationEntries = shouldWithNavigations ? sitemapContent?.navigations : [];
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);

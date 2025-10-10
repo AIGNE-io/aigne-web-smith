@@ -41,6 +41,11 @@ export default async function loadConfig({ config, appUrl }) {
       },
     );
 
+    // collect locales
+    const locales = Array.from(
+      new Set([parsedConfig?.locale, ...(parsedConfig?.translateLanguages || [])]),
+    ).filter(Boolean);
+
     // Parse new configuration fields and convert keys to actual content
     const processedConfig = processConfigFields(parsedConfig);
 
@@ -48,6 +53,7 @@ export default async function loadConfig({ config, appUrl }) {
       lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
       ...processedConfig,
+      locales,
     };
   } catch (error) {
     console.error(`Error parsing config file: ${error.message}`);

@@ -1696,3 +1696,62 @@ export function generateDeterministicId(text, length = 16) {
 
   return crypto.createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
 }
+
+/**
+ * 验证站点结构的导航是否覆盖所有目标语言
+ * @param {Array} websiteStructure - 站点结构数组
+ * @param {Array<string>} locales - 需要覆盖的语言列表
+ * @returns {{isValid: boolean, missingLocales: Array<{path: string, missing: string[]}>, message: string}}
+ */
+export function validateWebsiteStructure(websiteStructure, locales = []) {
+  const normalizedLocales = Array.isArray(locales)
+    ? Array.from(new Set(locales.filter(Boolean).map((locale) => locale.trim()))).filter(Boolean)
+    : [];
+
+  if (!Array.isArray(websiteStructure) || normalizedLocales.length === 0) {
+    return {
+      isValid: true,
+      missingLocales: [],
+      message: "",
+    };
+  }
+
+  const missingLocales = [];
+
+  websiteStructure.forEach((item, index) => {
+    const navigations = Array.isArray(item?.navigations) ? item.navigations : [];
+    const existingLocales = new Set(
+      navigations
+        .map((nav) => nav?.locale)
+        .filter((locale) => typeof locale === "string" && locale.trim().length > 0)
+        .map((locale) => locale.trim()),
+    );
+
+    const missing = normalizedLocales.filter((locale) => !existingLocales.has(locale));
+
+    if (missing.length > 0) {
+      missingLocales.push({
+        path: typeof item?.path === "string" && item.path ? item.path : `index:${index}`,
+        missing,
+      });
+    }
+  });
+
+  if (missingLocales.length === 0) {
+    return {
+      isValid: true,
+      missingLocales: [],
+      message: "",
+    };
+  }
+
+  const message = missingLocales
+    .map((entry) => `${entry.path} -> missing locales: ${entry.missing.join(", ")}`)
+    .join("\n");
+
+  return {
+    isValid: false,
+    missingLocales,
+    message,
+  };
+}

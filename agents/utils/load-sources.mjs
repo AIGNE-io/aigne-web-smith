@@ -89,6 +89,7 @@ export default async function loadSources({
   projectId,
   useDefaultPatterns = true,
   lastGitHead,
+  locale,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
 
@@ -301,7 +302,7 @@ export default async function loadSources({
     }),
   );
 
-  // Get the last structure plan result
+  // Get the last website structure
   let originalWebsiteStructure;
   const websiteStructurePath = path.join(tmpDir, "website-structure.yaml");
   try {
@@ -310,6 +311,19 @@ export default async function loadSources({
     if (websiteStructureResult) {
       try {
         originalWebsiteStructure = parse(websiteStructureResult);
+
+        // if item not exist navigation, fallback to title and description
+        originalWebsiteStructure.forEach((item) => {
+          if (!item.navigations) {
+            item.navigations = [
+              {
+                title: item.title,
+                description: item.description,
+                locale,
+              },
+            ];
+          }
+        });
       } catch (err) {
         console.error(`Failed to parse website-structure.yaml: ${err.message}`);
       }

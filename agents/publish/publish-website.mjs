@@ -164,14 +164,12 @@ export default async function publishWebsite(
     mediaFiles,
     websiteStructure,
     pagesDir: rootDir,
-    locale,
-    translateLanguages = [],
+    locales,
     "with-navigations": withNavigationsOption,
     "with-locales": withLocalesOption,
   },
   options,
 ) {
-  const locales = Array.from(new Set([locale, ...translateLanguages]));
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
   await fs.mkdir(pagesDir, {

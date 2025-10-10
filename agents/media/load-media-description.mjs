@@ -53,11 +53,11 @@ export default async function loadMediaDescription(input, options) {
   const mediaToDescribe = [];
   const mediaHashMap = new Map();
 
+  const absolutePagesDir = path.resolve(process.cwd(), pagesDir);
   for (const mediaFile of mediaFilesToProcess) {
     // Convert relative path to absolute path for consistent hashing
     // mediaFiles.path is relative to pagesDir
     // First resolve pagesDir to absolute path, then join with media path
-    const absolutePagesDir = path.resolve(process.cwd(), pagesDir);
     const absolutePath = path.join(absolutePagesDir, mediaFile.path);
     const mediaHash = calculateMediaHash(absolutePath);
     mediaHashMap.set(mediaFile.path, mediaHash);

@@ -398,8 +398,10 @@ export function generateYAML(input) {
     // Default datasources to include in every page
     defaultDatasources: input.defaultDatasources || ["./media.md"],
 
-    // Image filtering settings
-    minImageWidth: input.minImageWidth || 800,
+    media: {
+      // Image filtering settings
+      minImageWidth: input.minImageWidth || 800,
+    }
   };
 
   // Generate comments and structure
@@ -507,10 +509,10 @@ export function generateYAML(input) {
   yaml += `${defaultDatasourcesSection.replace(/^defaultDatasources:/, "defaultDatasources:  # Default datasources included in every page")}\n`;
 
   // Image filtering settings
-  const minImageWidthSection = yamlStringify({
-    minImageWidth: config.minImageWidth,
+  const mediaInfoSection = yamlStringify({
+    media: config.media,
   }).trim();
-  yaml += `# Only images wider than this value (in pixels) will be used in page generation\n${minImageWidthSection}\n`;
+  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\n${mediaInfoSection}\n`;
 
   return yaml;
 }

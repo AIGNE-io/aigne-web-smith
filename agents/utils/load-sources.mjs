@@ -90,9 +90,10 @@ export default async function loadSources({
   projectId,
   useDefaultPatterns = true,
   lastGitHead,
-  minImageWidth = 800,
+  media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
+  const { minImageWidth } = media || {minImageWidth: 800};
 
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
@@ -221,7 +222,7 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
-  const filteredImageCount = { count: 0 };
+  let filteredImageCount = 0;
 
   await Promise.all(
     files.map(async (file) => {
@@ -252,7 +253,7 @@ export default async function loadSources({
 
             // Filter out images with width less than minImageWidth
             if (dimensions.width < minImageWidth) {
-              filteredImageCount.count++;
+              filteredImageCount++;
               console.log(
                 `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
               );
@@ -330,9 +331,9 @@ export default async function loadSources({
   );
 
   // Log summary of filtered images
-  if (filteredImageCount.count > 0) {
+  if (filteredImageCount > 0) {
     console.log(
-      `\nTotal ${filteredImageCount.count} low-resolution image(s) filtered for better web display quality (minimum width: ${minImageWidth}px)\n`,
+      `\nTotal ${filteredImageCount} low-resolution image(s) filtered for better web display quality (minimum width: ${minImageWidth}px)\n`,
     );
   }
 
@@ -479,9 +480,11 @@ loadSources.input_schema = {
       type: "string",
       description: "The git HEAD from last generation for change detection",
     },
-    minImageWidth: {
-      type: "number",
-      description: "Minimum image width in pixels to include",
+    media: {
+      minImageWidth: {
+        type: "number",
+        description: "Minimum image width in pixels to include",
+      },
     },
   },
   required: [],

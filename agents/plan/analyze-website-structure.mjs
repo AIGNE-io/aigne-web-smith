@@ -19,14 +19,14 @@ export default async function analyzeWebsiteStructure(
   if (!originalWebsiteStructure) {
     const choice = await options.prompts.select({
       message:
-        "Your project configuration is complete. Would you like to generate the website structure now?",
+        "Project configured successfully. Generate the website structure now?",
       choices: [
         {
-          name: "Generate now - Start generating the website structure",
+          name: "Yes, generate now",
           value: "generate",
         },
         {
-          name: "Review configuration first - Edit configuration before generating",
+          name: "No, review configuration first",
           value: "later",
         },
       ],

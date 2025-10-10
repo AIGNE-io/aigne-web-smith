@@ -23,7 +23,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
         value: "no",
       },
       {
-        name: "Yes, edit structure (titles, pages, organization)",
+        name: "Yes, edit structure (e.g. change page titles or add About page)",
         value: "yes",
       },
     ],
@@ -47,7 +47,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the structure?\n" +
-        "  • Rename, reorganize, add, or remove pages\n\n" +
+        "  • e.g. rename pages, add a blog section, or remove unused ones\n\n" +
         "  Press Enter to finish reviewing:",
     });
 

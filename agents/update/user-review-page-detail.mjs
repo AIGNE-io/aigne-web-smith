@@ -34,7 +34,7 @@ export default async function userReviewPageDetail(
         value: "no",
       },
       {
-        name: "Yes, edit content (sections, metadata, content structure)",
+        name: "Yes, edit content (e.g. adjust sections or update titles)",
         value: "yes",
       },
     ],
@@ -63,8 +63,8 @@ export default async function userReviewPageDetail(
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the page detail?\n" +
-        "  • Update meta information (title, description)\n" +
-        "  • Add, remove, update, or reorder sections\n" +
+        "  • Update page info (e.g. change title or description)\n" +
+        "  • Adjust sections (e.g. add new sections, remove old ones, or reorder them)\n" +
         "  Press Enter to finish reviewing:",
     });
 

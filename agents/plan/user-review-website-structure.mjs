@@ -16,8 +16,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
 
   // Ask user if they want to review the website structure
   const needReview = await options.prompts.select({
-    message:
-      "Review the structure above. Do you want to make changes?",
+    message: "Review the structure above. Do you want to make changes?",
     choices: [
       {
         name: "No, looks good",

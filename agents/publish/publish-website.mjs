@@ -571,26 +571,29 @@ export default async function publishWebsite(
           url: result.data.url,
           path: result.data.route?.path,
         }));
-      const pathToIndexMap = websiteStructure?.reduce((map, page, index) => {
-        const routePath = formatRoutePath(page.path);
-        map[routePath] = index;
-        return map;
-      }, {}) || {};
+      const pathToIndexMap =
+        websiteStructure?.reduce((map, page, index) => {
+          const routePath = formatRoutePath(page.path);
+          map[routePath] = index;
+          return map;
+        }, {}) || {};
 
       // Sort: first by websiteStructure order, then alphabetically for unmatched paths
-      const publishedUrls = publishedPaths.sort((a, b) => {
-        const aIndex = pathToIndexMap[a.path];
-        const bIndex = pathToIndexMap[b.path];
-        
-        if (aIndex !== undefined && bIndex !== undefined) {
-          return aIndex - bIndex;
-        }
-        
-        if (aIndex !== undefined) return -1;
-        if (bIndex !== undefined) return 1;
-        
-        return (a.path || '').localeCompare(b.path || '');
-      }).map(v => v.url);
+      const publishedUrls = publishedPaths
+        .sort((a, b) => {
+          const aIndex = pathToIndexMap[a.path];
+          const bIndex = pathToIndexMap[b.path];
+
+          if (aIndex !== undefined && bIndex !== undefined) {
+            return aIndex - bIndex;
+          }
+
+          if (aIndex !== undefined) return -1;
+          if (bIndex !== undefined) return 1;
+
+          return (a.path || "").localeCompare(b.path || "");
+        })
+        .map((v) => v.url);
 
       const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 

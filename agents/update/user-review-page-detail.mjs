@@ -27,8 +27,7 @@ export default async function userReviewPageDetail(
 
   // Ask user if they want to review the page detail
   const needReview = await options.prompts.select({
-    message:
-      "Review the content above. Do you want to make changes?",
+    message: "Review the content above. Do you want to make changes?",
     choices: [
       {
         name: "No, looks good",

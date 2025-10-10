@@ -47,7 +47,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the structure?\n" +
-        "  • e.g. rename pages, add a blog section, or remove unused ones\n\n" +
+        "  • e.g. rename pages, add about page, remove price page\n\n" +
         "  Press Enter to finish reviewing:",
     });
 

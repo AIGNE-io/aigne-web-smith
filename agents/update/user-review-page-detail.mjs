@@ -63,9 +63,11 @@ export default async function userReviewPageDetail(
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the page detail?\n" +
-        "  • Update page info (e.g. change title or description)\n" +
-        "  • Adjust sections (e.g. add new sections, remove old ones, or reorder them)\n" +
-        "  Press Enter to finish reviewing:",
+        "Examples:\n" +
+        "  • Add a section to display FAQ\n" +
+        "  • Remove section 3\n" +
+        "  • Move section 4 to the bottom\n" +
+        "Press Enter to finish reviewing:",
     });
 
     // If no feedback, break the loop

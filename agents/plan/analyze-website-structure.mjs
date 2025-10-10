@@ -18,8 +18,7 @@ export default async function analyzeWebsiteStructure(
   // Check if originalWebsiteStructure is empty and prompt user
   if (!originalWebsiteStructure) {
     const choice = await options.prompts.select({
-      message:
-        "Project configured successfully. Generate the website structure now?",
+      message: "Project configured successfully. Generate the website structure now?",
       choices: [
         {
           name: "Yes, generate now",

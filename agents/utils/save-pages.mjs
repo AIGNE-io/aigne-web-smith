@@ -486,7 +486,8 @@ function buildLinkLocales(locales, localeKeys, defaultPath) {
     if (typeof localeLink === "string" && localeLink.trim().length > 0) {
       result[locale] = localeLink.trim();
     } else {
-      result[locale] = withLeadingSlash(joinURL(`${locale}`, defaultPath));
+      // unnecessary combine locale and path
+      result[locale] = withLeadingSlash(defaultPath);
     }
   }
   return result;

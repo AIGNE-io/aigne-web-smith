@@ -382,15 +382,21 @@ export default async function publishWebsite(
 
     const navigationEntries = shouldWithNavigations
       ? sitemapContent?.navigations?.map((item) => {
+          const isRootItem = !item.parent;
           item.title = JSON.stringify(item.title);
           item.description = JSON.stringify(item.description);
 
           item.link = JSON.stringify(
             Object.fromEntries(
-              Object.entries(item.link).map(([locale, href]) => [
-                locale,
-                withLeadingSlash(joinURL(mountPoint, href)),
-              ]),
+              Object.entries(item.link).map(([locale, pathname]) => {
+                // projectSlug
+                // @FIXME: 这个需要给到后端拼接
+                if (isRootItem) {
+                  return [locale, withLeadingSlash(joinURL(locale, mountPoint, projectSlug))];
+                }
+
+                return [locale, withLeadingSlash(pathname)];
+              }),
             ),
           );
 

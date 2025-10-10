@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-09T13:32:31.824Z
+  updateAt: 2025-10-10T02:32:30.732Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -3035,7 +3035,7 @@ composite:
                 olqgpzr8gs34gpp7:
                   x: 0
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 6
@@ -4278,9 +4278,9 @@ composite:
             gridSettings:
               desktop:
                 olqgpzr8gs34gpp7:
-                  x: 6
+                  x: 7
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 0
@@ -4662,7 +4662,7 @@ composite:
             11e4g80knagitd6k:
               x: 0
               y: 0
-              w: 8
+              w: 6
               h: 1
         paddingX: none
         paddingY: normal
@@ -6019,7 +6019,7 @@ composite:
             bwjpae48rsf3z3ao:
               x: 0
               y: 0
-              w: 6
+              w: 5
               h: 1
             whids9c4yl47179j:
               x: 6

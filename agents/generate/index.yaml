@@ -11,6 +11,7 @@ skills:
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
   - ../plan/analyze-website-structure.mjs
+  - ../translate/navigations/analyze-translate-navigations.mjs
   - url: ../utils/save-output.mjs
     default_input:
       saveKey: websiteStructure
@@ -32,7 +33,7 @@ skills:
     name: analyzeComponentLibrary and batchTranslatePageDetail
     # model: openai/gpt-5
     skills:
-      - ../translate/batch-translate-page-detail.yaml
+      - ../translate/page-detail/batch-translate-page-detail.yaml
       # - ./component-library/analyze-component-library.mjs
     mode: parallel
   - ./page-data/compose-pages-data.mjs

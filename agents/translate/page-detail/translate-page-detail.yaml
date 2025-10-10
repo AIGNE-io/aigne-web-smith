@@ -2,9 +2,9 @@ name: translatePageDetail
 description: Translate the page detail to another language
 instructions:
   - role: system
-    url: ../../prompts/translate/system-prompt.md
+    url: ../../../prompts/translate/page-detail/system-prompt.md
   - role: user
-    url: ../../prompts/translate/user-prompt.md
+    url: ../../../prompts/translate/page-detail/user-prompt.md
 input_schema:
   type: object
   properties:

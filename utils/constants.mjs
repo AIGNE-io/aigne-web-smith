@@ -564,3 +564,5 @@ export const WEB_SMITH_CONFIG_PATH = `./${WEB_SMITH_DIR}/config.yaml`;
 
 export const DEFAULT_PROJECT_ID = "pg4d0000-0000-4000-a000-000000000000";
 export const DEFAULT_PROJECT_SLUG = "/";
+
+export const NAVIGATIONS_FILE_NAME = "_navigations.yaml";

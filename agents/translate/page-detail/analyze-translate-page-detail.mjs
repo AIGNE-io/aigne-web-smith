@@ -1,4 +1,4 @@
-import choosePages from "../utils/choose-pages.mjs";
+import choosePages from "../../utils/choose-pages.mjs";
 import chooseLanguage from "./choose-language.mjs";
 
 /**
@@ -7,7 +7,7 @@ import chooseLanguage from "./choose-language.mjs";
  * @param {Array} params.selectedPages - Selected pages to analyze
  * @returns {Promise<Object>} Analysis result with pages that need translation
  */
-export default async function analyzeTranslateNavigation(input, options) {
+export default async function analyzeTranslatePageDetail(input, options) {
   const {
     websiteStructureResult,
     translateLanguages,
@@ -66,5 +66,6 @@ export default async function analyzeTranslateNavigation(input, options) {
     selectedPages: needTranslateSelectedPages,
   };
 }
-analyzeTranslateNavigation.task_title =
-  "Analyze navigation to determine what needs to be translated";
+
+analyzeTranslatePageDetail.task_title =
+  "Analyze page content to determine what needs to be translated";

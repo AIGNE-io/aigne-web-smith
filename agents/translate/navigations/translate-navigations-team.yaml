@@ -1,15 +1,15 @@
 type: team
-name: translatePageDetailTeam
-description: Batch translate page detail to multiple languages
+name: translateNavigationsTeam
+description: Batch translate navigations to multiple languages
 skills:
   - type: team
-    name: translatePageDetail
+    name: translateNavigations
     task_render_mode: collapse
     skills:
-      - url: ../utils/find-user-preferences-by-path.mjs
+      - url: ../../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: translation
-      - ./translate-page-detail.yaml
+      - ./translate-navigations.yaml
       - type: transform
         jsonata: |
           $merge([
@@ -17,11 +17,11 @@ skills:
             { "reviewContent": translation }
           ])
     reflection:
-      reviewer: ../utils/check-detail-result.mjs
+      reviewer: ../../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
-    task_title: Translate '{{ title }}' to '{{ language }}'
+    task_title: Translate '{{ path }}' navigation to '{{ missingLanguages }}'
 input_schema:
   type: object
   properties:
@@ -46,6 +46,6 @@ output_schema:
             type: string
           translation:
             type: string
-iterate_on: translates
+iterate_on: needTranslateNavigations
 mode: sequential
 concurrency: 10

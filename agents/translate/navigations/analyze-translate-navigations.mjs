@@ -1,8 +1,9 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { readFile, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import { NAVIGATIONS_FILE_NAME } from "../../../utils/constants.mjs";
+import { ensureDir } from "../../../utils/utils.mjs";
 
 /**
  * Analyze page content to determine what needs to be translated
@@ -15,9 +16,7 @@ export default async function analyzeTranslateNavigations(input, options) {
 
   if (!originalWebsiteStructure?.length) {
     // skip
-    return {
-      selectedNavigations: [],
-    };
+    return {};
   }
 
   const selectedNavigationsMap = {};
@@ -28,11 +27,10 @@ export default async function analyzeTranslateNavigations(input, options) {
       const mainFileTmpDir = join(tmpDir, currentLocale);
 
       let localeNavigations = [];
+      const navigationsFilePath = join(mainFileTmpDir, NAVIGATIONS_FILE_NAME);
 
       try {
-        localeNavigations = parse(
-          await readFile(join(mainFileTmpDir, NAVIGATIONS_FILE_NAME), "utf-8"),
-        );
+        localeNavigations = parse(await readFile(navigationsFilePath, "utf-8"));
       } catch (_error) {
         // find if existing navigation is translated
         if (currentLocale === locale) {
@@ -54,12 +52,14 @@ export default async function analyzeTranslateNavigations(input, options) {
       }
 
       originalWebsiteStructure.forEach((page) => {
-        const { navigation, path } = page;
+        const { navigation: baseNavigation, path } = page;
         const item = localeNavigationsGroupByPath?.[path];
         selectedNavigationsMap[path] ??= {
           path: path,
-          baseNavigation: navigation,
-          navigation: {},
+          baseNavigation,
+          navigation: {
+            [locale]: baseNavigation,
+          },
           missingLanguages: new Set(),
         };
 
@@ -77,13 +77,13 @@ export default async function analyzeTranslateNavigations(input, options) {
   );
 
   if (needTranslateNavigations?.length) {
-    console.warn(2222, needTranslateNavigations);
-
     const formatNeedTranslateNavigations = needTranslateNavigations.map((item) => {
       return {
         ...item,
-        content: stringify(item.baseNavigation),
-        missingLanguages: Array.from(item.missingLanguages),
+        content: stringify(item.navigation, {
+          aliasDuplicateObjects: false,
+        }),
+        missingLanguages: Array.from(item.missingLanguages).filter((item) => item !== locale),
       };
     });
 
@@ -92,6 +92,7 @@ export default async function analyzeTranslateNavigations(input, options) {
       {
         ...input,
         needTranslateNavigations: formatNeedTranslateNavigations,
+        mainLocale: locale,
       },
       {
         ...options,
@@ -99,12 +100,45 @@ export default async function analyzeTranslateNavigations(input, options) {
       },
     );
 
-    console.warn(2222, needTranslateNavigations, translateNavigationsResult);
+    translateNavigationsResult.needTranslateNavigations?.map(async (item) => {
+      const { path, navigationTranslation } = item;
+      const translationMap = parse(navigationTranslation);
+      selectedNavigationsMap[path].navigation = {
+        ...selectedNavigationsMap[path].navigation,
+        ...translationMap,
+      };
+    });
   }
 
-  return {
-    selectedNavigations: needTranslateNavigations,
-  };
+  const navigationOutputByLocale = {};
+
+  Object.values(selectedNavigationsMap).forEach(({ path, navigation }) => {
+    Object.entries(navigation).forEach(([currentLocale, navigationContent]) => {
+      navigationOutputByLocale[currentLocale] ??= [];
+      navigationOutputByLocale[currentLocale].push({
+        path,
+        navigation: navigationContent,
+      });
+    });
+  });
+
+  await Promise.all(
+    Object.entries(navigationOutputByLocale).map(([currentLocale, navigations]) => {
+      const mainFileTmpDir = join(tmpDir, currentLocale);
+      const navigationsFilePath = join(mainFileTmpDir, NAVIGATIONS_FILE_NAME);
+
+      ensureDir(dirname(navigationsFilePath));
+
+      return writeFile(
+        navigationsFilePath,
+        stringify(navigations, {
+          aliasDuplicateObjects: false,
+        }),
+      );
+    }),
+  );
+
+  return {};
 }
 analyzeTranslateNavigations.task_title =
   "Analyze navigations to determine what needs to be translated";

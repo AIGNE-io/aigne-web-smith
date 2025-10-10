@@ -2,6 +2,14 @@
 {{content}}
 </content>
 
+<mainLocale>
+{{mainLocale}}
+</mainLocale>
+
+<missingLanguages>
+{{missingLanguages}}
+</missingLanguages>
+
 {% if (feedback or detailFeedback) %}
 <feedback>
 

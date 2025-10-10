@@ -1,0 +1,4 @@
+- path: /home
+  navigation:
+    title: Accueil
+    description: Découvrez la création de site par IA.

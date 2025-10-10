@@ -18,6 +18,7 @@ input_schema:
           - workspace
           - generatedPages
           - websiteConfig
+          - deploymentConfig
           - authTokens
     pagesDir:
       type: string

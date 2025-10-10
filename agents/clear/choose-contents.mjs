@@ -6,19 +6,23 @@ import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.
 const TARGET_METADATA = {
   workspace: {
     label: "workspace",
-    description: "Remove workspace such as website structure before regenerating.",
+    description: "Remove workspace files (structure, templates, temp data). Requires full regeneration.",
   },
   generatedPages: {
     label: "generated pages",
-    description: "Remove previously generated pages.",
+    description: "Remove all generated page files. Run 'aigne web generate' to recreate.",
   },
   websiteConfig: {
     label: "website configuration",
-    description: "Remove website configuration, you need to re-run 'aigne web init' again.",
+    description: "Remove config file. Run 'aigne web init' to recreate settings.",
+  },
+  deploymentConfig: {
+    label: "deployment config",
+    description: "Remove appUrl from config file. Deployment settings will be cleared.",
   },
   authTokens: {
     label: "authorizations",
-    description: "Clear published site authorizations.",
+    description: "Clear auth tokens. Re-authenticate to publish sites.",
   },
 };
 
@@ -58,6 +62,11 @@ export default async function chooseContents(input = {}, options = {}) {
       path: configCandidate,
       label: TARGET_METADATA.websiteConfig.label,
       description: TARGET_METADATA.websiteConfig.description,
+    },
+    deploymentConfig: {
+      path: configCandidate,
+      label: TARGET_METADATA.deploymentConfig.label,
+      description: TARGET_METADATA.deploymentConfig.description,
     },
     authTokens: {
       path: WEB_SMITH_ENV_FILE,
@@ -150,6 +159,19 @@ export default async function chooseContents(input = {}, options = {}) {
         const clearAgent = options.context?.agents?.["clearAuthTokens"];
         if (!clearAgent) {
           throw new Error("Clear agent clearAuthTokens not found in context");
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      } else if (target === "deploymentConfig") {
+        const clearAgent = options.context?.agents?.["clearDeploymentConfig"];
+        if (!clearAgent) {
+          throw new Error("Clear agent clearDeploymentConfig not found in context");
         }
 
         const result = await options.context.invoke(clearAgent, input);

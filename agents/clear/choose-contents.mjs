@@ -206,7 +206,7 @@ export default async function chooseContents(input = {}, options = {}) {
       } else if (target === "mediaDescription") {
         const clearAgent = options.context?.agents?.["clearMediaDescription"];
         if (!clearAgent) {
-          throw new Error("Clear agent clearMediaDescription not found in context");
+          throw new Error("Required agent 'clearMediaDescription' not found in context. Please ensure the agent is properly registered.");
         }
 
         const result = await options.context.invoke(clearAgent, input);

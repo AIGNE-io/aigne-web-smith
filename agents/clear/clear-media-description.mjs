@@ -108,7 +108,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
       );
     }
 
-    const header = `🧹 Successfully cleared media descriptions!`;
+    const header = `✨ Successfully cleared media descriptions`;
     const detailLines = results.join("\n");
 
     const message = [header, "", detailLines, ""].filter(Boolean).join("\n");
@@ -119,7 +119,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
     };
   } catch (error) {
     return {
-      message: `Failed to clear media descriptions: ${error.message}`,
+      message: `Error clearing media descriptions: ${error.message}`,
       error: true,
     };
   }

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-11T06:53:35.563Z
+  updateAt: 2025-10-11T09:32:16.682Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -6500,93 +6500,79 @@ composite:
   - id: arpghy2x1gujtdu7
     name: Comparison Table
     summary: >-
-      # Component: ComparisonTable — Authoring Guide for AI
+      urpose: fill placeholders only for a side-by-side table. **Do NOT** change
+      structure, keys, or IDs.
 
 
-      Use this guide to fill placeholders only for a side-by-side comparison
-      table.  
+      SCOPE
 
-      Do not change structure, keys, or IDs.
+      - Entities ≤4: e0–e3; Features ≤10: f0–f9.
 
+      - Full matrix: every fM has values for every eN.
 
-      ## Scope & Limits
-
-      - Entities ≤ 4 (columns): e0..e3
-
-      - Features ≤ 10 (rows): f0..f9
-
-      - Matrix = features × entities (every fM has values for every eN)
-
-      - Required titles: {{comparisonTableTitle}}, {{featureTitle}}
+      - Required: {{comparisonTableTitle}}, {{featureTitle}}.
 
 
-      ## Immutable IDs & Order
+      IDs & ORDER (immutable)
 
-      - Do not edit entities[i].id or features[j].id
-        - Entity IDs: e0, e1, e2, e3
-        - Feature IDs: f0, f1, …, f9
-      - Do not reorder or rename entities/features
+      - Do not edit IDs; do not add/remove/reorder/rename.
 
-      - Do not add/remove entities or features
-
-      - Matrix keys must use these IDs exactly: "matrix": { "f0": { "e0": {...},
-      ... } }
+      - Matrix keys use exact IDs: `"matrix": { "f0": { "e0": {...} } }`.
 
 
-      Changing IDs or order breaks the mapping.
+      PLACEHOLDERS
+
+      - Entities: {{e.N.l}} label; {{e.N.s}} subTitle; {{e.N.d}} description?;
+      {{e.N.i}} icon?; {{e.N.h}} highlight?; {{e.N.al}} action.label?;
+      {{e.N.au}} action.url?; {{e.N.at}} action.tooltip?.
+
+      - Features: {{f.M.l}} label; {{f.M.t}} tooltip?; {{f.M.i}} icon?.
+
+      - Cells: {{m.fM.eN.v}} value; {{m.fM.eN.t}} tooltip?; {{m.fM.eN.h}}
+      highlight?.
+
+      - Index ranges: M=0..9, N=0..3.
 
 
-      ## Placeholder Convention (short)
+      REQUIRED FILLS
 
-      - Entities (e)
-        - {{e.N.l}} label
-        - {{e.N.s}} subTitle
-        - {{e.N.d}} description (optional)
-        - {{e.N.i}} icon (optional)
-        - {{e.N.h}} highlight (optional)
-        - {{e.N.al}} action.label (optional)
-        - {{e.N.au}} action.url (optional)
-        - {{e.N.at}} action.tooltip (optional)
-      - Features (f)
-        - {{f.M.l}} label
-        - {{f.M.t}} tooltip (optional)
-        - {{f.M.i}} icon (optional)
-      - Matrix (m), cell for feature M and entity N
-        - {{m.fM.eN.v}} value (text/number/boolean)
-        - {{m.fM.eN.t}} tooltip (optional, ≤120 chars)
-        - {{m.fM.eN.h}} highlight (optional)
+      - Titles above; each entity: {{e.N.l}}; each feature: {{f.M.l}}; each
+      cell: {{m.fM.eN.v}}.
 
-      Index ranges: M ∈ [0..9], N ∈ [0..3].
+      - Optionals may be empty but **must exist** (see Empty & Structure).
 
 
-      ## Required Fields to Fill
+      CONTENT RULES
 
-      - {{comparisonTableTitle}}
+      - Cell text ≤20 chars; tooltips ≤120 (plain text).
 
-      - {{featureTitle}}
+      - Consistent units/terms (GB, %, users).
 
-      - For each entity: {{e.N.l}} (s/d/i/h/al/au/at optional)
-
-      - For each feature: {{f.M.l}} (t/i optional)
-
-      - For each matrix cell: {{m.fM.eN.v}} (t/h optional)
+      - Booleans render ✓/✕; use highlight sparingly (ideally one column).
 
 
-      Optional placeholders may be left blank or omitted; the UI will not render
-      them.
+      EMPTY & STRUCTURE (strict key preservation)
+
+      - For any optional or currently unset field: **keep the key**, set value
+      to empty string `""`.
+
+      - Applies to: `e.*` (l/s/d/i/h/al/au/at), `f.*` (l/t/i), `m.fM.eN.*`
+      (v/t/h), and `action.{label,url,tooltip}`.
+
+      - Numeric/boolean fields that are “unset” also use `""` as placeholder.
+
+      - **Never** output `null`/`undefined`/`false`/`0` or delete keys.
+
+      - Every matrix cell must contain `v`, `t`, `h` (values may be `""`).
 
 
-      ## Content Rules
+      LENGTH LIMITS
 
-      - Cell text ≤ 20 characters
+      - Any string ≤ **2048** chars (global cap).
 
-      - Tooltips ≤ 120 characters, plain text
+      - Field caps still apply: `v` ≤20; `t` ≤120.
 
-      - Consistent units/terms (GB, %, users)
-
-      - Use highlight sparingly (ideally one primary column)
-
-      - Boolean values render as ✓/✕
+      - When limits overlap, enforce the **strictest**.
     fieldCombinations:
       - comparisonTableTitle
       - e.0.al

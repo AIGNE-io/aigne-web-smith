@@ -1,4 +1,4 @@
-import { log, savePageWithTranslations, validatePageDetail } from "../../utils/utils.mjs";
+import { savePageWithTranslations, validatePageDetail } from "../../utils/utils.mjs";
 
 export default async function saveSinglePage({
   path,
@@ -30,7 +30,7 @@ export default async function saveSinglePage({
       throw error;
     }
     // only log error
-    log(`⚠️ Page Detail Validation Failed: ${validation.validationFeedback}`);
+    console.error(`⚠️ Page Detail Validation Failed: ${validation.validationFeedback}`);
   }
 
   if (validation.normalizedContent) {

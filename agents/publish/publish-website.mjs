@@ -1,12 +1,13 @@
 import crypto from "node:crypto";
 import { basename, join } from "node:path";
+import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
 import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
-import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 
 import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 
@@ -32,6 +33,8 @@ import {
   loadConfigFromFile,
   saveValueToConfig,
 } from "../../utils/utils.mjs";
+
+const BASE_URL = process.env.WEB_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
 /**
  * 递归扫描对象中的指定协议值
@@ -207,7 +210,18 @@ export default async function publishWebsite(
   let token = "";
 
   if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
-    const hasCachedCheckoutId = !!config?.checkoutId;
+    const authToken = await getOfficialAccessToken(BASE_URL);
+
+    if (!authToken) {
+      throw new Error("Failed to get official access token");
+    }
+
+    const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+    const { sessionId, paymentLink } = await client.checkCacheSession({
+      needShortUrl: true,
+      sessionId: config?.checkoutId,
+    });
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
@@ -219,7 +233,7 @@ export default async function publishWebsite(
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId
+        ...(sessionId
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
@@ -274,8 +288,8 @@ export default async function publishWebsite(
         let id = "";
         let paymentUrl = "";
         if (choice === "new-pages-kit-continue") {
-          id = config?.checkoutId;
-          paymentUrl = config?.paymentUrl;
+          id = sessionId;
+          paymentUrl = paymentLink;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);

@@ -36,7 +36,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
       const filename = path.basename(mediaPath);
       const description = cache[hash]?.description || "";
       const truncatedDesc =
-        description.length > 50 ? `${description.slice(0, 50)}...` : description;
+        description.length > 80 ? `${description.slice(0, 80)}...` : description;
 
       return {
         name: filename,

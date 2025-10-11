@@ -31,7 +31,7 @@ const TARGET_METADATA = {
       `Delete appUrl from './${toDisplayPath(finalConfigPath)}'.`,
   },
   mediaDescription: {
-    label: "media descriptions",
+    label: "media file descriptions",
     description: ({ mediaDescriptionPath }) =>
       `Delete AI-generated descriptions in './${toDisplayPath(mediaDescriptionPath)}' (will regenerate on next generation).`,
   },
@@ -114,7 +114,12 @@ export default async function chooseContents(input = {}, options = {}) {
         .map(([value, def]) => ({
           name: def.label,
           value,
-          description: def.description({ outputDir, tmpDir, finalConfigPath, mediaDescriptionPath }),
+          description: def.description({
+            outputDir,
+            tmpDir,
+            finalConfigPath,
+            mediaDescriptionPath,
+          }),
         }));
 
       if (choices.length === 0) {

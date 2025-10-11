@@ -349,8 +349,6 @@ export const MEDIA_KIT_PROTOCOL = "mediakit://";
 export const DEFAULT_APP_LOGO =
   "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";
 
-export const DEFAULT_APP_URL = "https://websmith.aigne.io";
-
 // Default application URL for the document deployment website.
 export const CLOUD_SERVICE_URL_PROD = "https://websmith.aigne.io";
 export const CLOUD_SERVICE_URL_STAGING = "https://staging.websmith.aigne.io";

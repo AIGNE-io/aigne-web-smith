@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-08T10:15:43.977Z
-updatedAt: 2025-10-08T10:15:43.977Z
-publishedAt: 2025-10-08T10:15:43.977Z
+createdAt: 2025-10-10T08:32:43.507Z
+updatedAt: 2025-10-10T08:32:43.507Z
+publishedAt: 2025-10-10T08:32:43.507Z
 isPublic: true
 locales:
   en:
@@ -94,7 +94,7 @@ sections:
             sectionIds:
               - f98b98ffd13b8a1d
             config:
-              borderRadius: medium
+              borderRadius: small
               gridSettings:
                 desktop:
                   f98b98ffd13b8a1d:
@@ -102,7 +102,9 @@ sections:
                     y: 0
                     w: 12
                     h: 1
-              background: transparent
+              background: background.paper
+              paddingX: small
+              paddingY: small
         sectionIds:
           - 2595d95961e10014
           - ccdf0179b25ef747
@@ -116,7 +118,7 @@ sections:
               2595d95961e10014:
                 x: 0
                 y: 0
-                w: 6
+                w: 5
                 h: 1
               ccdf0179b25ef747:
                 x: 6
@@ -1036,7 +1038,7 @@ dataSource:
             width: 2445
             height: 1394
         jjv0hvr8wrixt1f3:
-          value: 2
+          value: 1
     zh:
       properties:
         7m5pz8nefl5j9hqq:
@@ -1046,7 +1048,7 @@ dataSource:
             width: 2445
             height: 1394
         jjv0hvr8wrixt1f3:
-          value: 2
+          value: 1
   1817a56164d329c8:
     en:
       properties:

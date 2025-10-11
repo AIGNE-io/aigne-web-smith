@@ -20,13 +20,13 @@ skills:
   - url: ../utils/choose-pages.mjs
     default_input:
       isTranslate: true
-  - url: ./choose-language.mjs
+  - url: ./page-detail/choose-language.mjs
     default_input:
       requiredFeedback: true
   - type: team
     name: batchTranslatePageDetail
     skills:
-      - ./translate-page-detail-team.yaml
+      - ./page-detail/translate-page-detail-team.yaml
       - url: ../utils/save-single-page.mjs
         default_input:
           isTranslate: true

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-08T09:33:04.791Z
+  updateAt: 2025-10-10T15:31:39.239Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -48,6 +48,11 @@ atomic:
     summary: ""
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Arcblock Home Site Component
+  - name: ComparisonTable
+    componentId: -b71JoAi_lXSY8MP
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
 composite:
   - id: ew7g0ufx6umek1d6
     name: Logo Wall
@@ -458,7 +463,7 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: <%= verticalHeroImage %>
+                background: transparent
           sectionIds:
             - 11e4g80knagitd6k
             - nkcldfr0e4u1h78q
@@ -542,8 +547,12 @@ composite:
         properties:
           7m5pz8nefl5j9hqq:
             value:
-              url: ""
-              mediaKitUrl: ""
+              url: <%= verticalHeroImage %>
+              mediaKitUrl: <%= verticalHeroImage %>
+              width: 2190
+              height: 1488
+          jjv0hvr8wrixt1f3:
+            value: 1
       3xpr3dmnu732mxt5: {}
   - id: y3xj6g77rkta4stf
     name: Layout 3 Column Grid (Center)
@@ -1013,19 +1022,16 @@ composite:
 
       Constraints (Linear icons only)
 
-      - `{{iconName}}` must be a **linear-style Iconify icon** and must exist in
-      `<available_iconify_tokens>` (preferred) or be verifiably resolvable in
-      the Iconify catalog.
+      - `{{iconName}}` must be a **linear-style Iconify icon**, prioritize the
+      use of `lucide` Icon Library
 
       - Only allow **linear-style families or naming patterns**:
-        - Allowed families (examples; adopt as needed): `lucide:*`, `tabler:*`, `line-md:*`, `icon-park-outline:*`, `solar:linear-*`, `mdi-light:*`, `material-symbols:...-outline`, and `ri:*` variants ending with `-line`.
         - Allowed suffix/patterns: `*-line`, `*-outline`, `*-stroke`, `*-linear`.
       - **Do not** use filled/solid icons (e.g., `*-fill`, `*-solid`, regular
       `mdi:*`, or `material-symbols:*` variants like `-rounded`/`-filled`).
 
-      - Tokens must be lowercase `prefix:name` (e.g., `lucide:bolt`,
-      `ri:home-line`), with no spaces, extra colons, file extensions, or query
-      strings.
+      - Tokens must be lowercase `prefix:name` (e.g., `lucide:bolt`), with no
+      spaces, extra colons, file extensions, or query strings.
 
       - **Do not** guess or synthesize tokens. If no valid linear icon is
       available, **omit the icon** and use the iconless variant (retain
@@ -3007,7 +3013,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -3015,7 +3021,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: transparent
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -3029,7 +3037,7 @@ composite:
                 olqgpzr8gs34gpp7:
                   x: 0
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 6
@@ -3111,7 +3119,7 @@ composite:
               width: 2445
               height: 1394
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: lk8yij39qlfqbsho
     name: Layout Bento Grid 2+3
     summary: >-
@@ -3376,7 +3384,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: 5ewf592p0c7fsuzx
     name: Feature Section
     summary: >
@@ -4061,6 +4069,92 @@ composite:
             value: 16
           v5utpm7bu9yvdpnq:
             value: center
+  - id: vji435chmnif2118
+    name: Layout Bento Grid 2
+    summary: >-
+      Structure
+
+      - Two-cell bento grid in one row
+
+      - Each cell hosts a child section/card/media block; shared gap, padding,
+      border, and radius settings.
+
+
+      Use when
+
+      - You need to present two peer items of equal weight (e.g., feature vs.
+      feature, plan vs. plan, before vs. after).
+
+      - Good for A/B comparisons or pairing a narrative card with a visual card.
+
+
+      Constraints
+
+      - Item count is exactly 2; if you have 1 or 3+ items, choose another
+      layout.
+    fieldCombinations:
+      - list.0
+      - list.1
+    section:
+      id: 9ur9vrlln7senjzz
+      name: Bento Grids_2
+      component: layout-block
+      sections:
+        xebzelstnp0vag5c:
+          id: xebzelstnp0vag5c
+          name: <%= list.0 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: transparent
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+        yvbfss906axhksok:
+          id: yvbfss906axhksok
+          name: <%= list.1 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: space-between
+      sectionIds:
+        - xebzelstnp0vag5c
+        - yvbfss906axhksok
+      config:
+        gridSettings:
+          desktop:
+            xebzelstnp0vag5c:
+              x: 0
+              y: 0
+              w: 7
+              h: 1
+            yvbfss906axhksok:
+              x: 7
+              y: 0
+              w: 5
+              h: 1
+        paddingX: none
+        gap: small
+        paddingY: none
+    dataSource:
+      9ur9vrlln7senjzz: {}
+      xebzelstnp0vag5c: {}
+      yvbfss906axhksok: {}
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -4164,7 +4258,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -4172,7 +4266,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: transparent
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -4184,9 +4280,9 @@ composite:
             gridSettings:
               desktop:
                 olqgpzr8gs34gpp7:
-                  x: 6
+                  x: 7
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 0
@@ -4268,93 +4364,7 @@ composite:
               width: 2445
               height: 1394
           jjv0hvr8wrixt1f3:
-            value: 2
-  - id: vji435chmnif2118
-    name: Layout Bento Grid 2
-    summary: >-
-      Structure
-
-      - Two-cell bento grid in one row
-
-      - Each cell hosts a child section/card/media block; shared gap, padding,
-      border, and radius settings.
-
-
-      Use when
-
-      - You need to present two peer items of equal weight (e.g., feature vs.
-      feature, plan vs. plan, before vs. after).
-
-      - Good for A/B comparisons or pairing a narrative card with a visual card.
-
-
-      Constraints
-
-      - Item count is exactly 2; if you have 1 or 3+ items, choose another
-      layout.
-    fieldCombinations:
-      - list.0
-      - list.1
-    section:
-      id: 9ur9vrlln7senjzz
-      name: Bento Grids_2
-      component: layout-block
-      sections:
-        xebzelstnp0vag5c:
-          id: xebzelstnp0vag5c
-          name: <%= list.0 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: transparent
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        yvbfss906axhksok:
-          id: yvbfss906axhksok
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-      sectionIds:
-        - xebzelstnp0vag5c
-        - yvbfss906axhksok
-      config:
-        gridSettings:
-          desktop:
-            xebzelstnp0vag5c:
-              x: 0
-              y: 0
-              w: 7
-              h: 1
-            yvbfss906axhksok:
-              x: 7
-              y: 0
-              w: 5
-              h: 1
-        paddingX: none
-        gap: small
-        paddingY: none
-    dataSource:
-      9ur9vrlln7senjzz: {}
-      xebzelstnp0vag5c: {}
-      yvbfss906axhksok: {}
+            value: 1
   - id: uv25ogna0wj0jqa9
     name: Content Card With Image (Right)
     summary: >-
@@ -4458,7 +4468,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: xco17kxsbava3uww
     name: Content Card With Image (Left)
     summary: >-
@@ -4562,7 +4572,7 @@ composite:
           70d4dvbqgjal3z6j:
             value: ""
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
   - id: 8a3uwlxrx6m068os
     name: Vertical Hero With Code
     summary: >
@@ -4654,7 +4664,7 @@ composite:
             11e4g80knagitd6k:
               x: 0
               y: 0
-              w: 8
+              w: 6
               h: 1
         paddingX: none
         paddingY: normal
@@ -6011,7 +6021,7 @@ composite:
             bwjpae48rsf3z3ao:
               x: 0
               y: 0
-              w: 6
+              w: 5
               h: 1
             whids9c4yl47179j:
               x: 6
@@ -6331,7 +6341,7 @@ composite:
               sectionIds:
                 - olbcrzc2vfacgzee
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     olbcrzc2vfacgzee:
@@ -6340,6 +6350,8 @@ composite:
                       w: 12
                       h: 1
                 background: transparent
+                paddingX: small
+                paddingY: small
           sectionIds:
             - htopl3pjyf0q8zwd
             - cmn6ks6n975ltkry
@@ -6448,4 +6460,652 @@ composite:
           5fjm8opvqth7wk71:
             value: 100%
           jjv0hvr8wrixt1f3:
-            value: 2
+            value: 1
+  - id: arpghy2x1gujtdu7
+    name: Comparison Table
+    summary: >-
+      # Component: ComparisonTable — Authoring Guide for AI
+
+
+      Use this guide to fill placeholders only for a side-by-side comparison
+      table.  
+
+      Do not change structure, keys, or IDs.
+
+
+      ## Scope & Limits
+
+      - Entities ≤ 4 (columns): e0..e3
+
+      - Features ≤ 10 (rows): f0..f9
+
+      - Matrix = features × entities (every fM has values for every eN)
+
+      - Required titles: {{comparisonTableTitle}}, {{featureTitle}}
+
+
+      ## Immutable IDs & Order
+
+      - Do not edit entities[i].id or features[j].id
+        - Entity IDs: e0, e1, e2, e3
+        - Feature IDs: f0, f1, …, f9
+      - Do not reorder or rename entities/features
+
+      - Do not add/remove entities or features
+
+      - Matrix keys must use these IDs exactly: "matrix": { "f0": { "e0": {...},
+      ... } }
+
+
+      Changing IDs or order breaks the mapping.
+
+
+      ## Placeholder Convention (short)
+
+      - Entities (e)
+        - {{e.N.l}} label
+        - {{e.N.s}} subTitle
+        - {{e.N.d}} description (optional)
+        - {{e.N.i}} icon (optional)
+        - {{e.N.h}} highlight (optional)
+        - {{e.N.al}} action.label (optional)
+        - {{e.N.au}} action.url (optional)
+        - {{e.N.at}} action.tooltip (optional)
+      - Features (f)
+        - {{f.M.l}} label
+        - {{f.M.t}} tooltip (optional)
+        - {{f.M.i}} icon (optional)
+      - Matrix (m), cell for feature M and entity N
+        - {{m.fM.eN.v}} value (text/number/boolean)
+        - {{m.fM.eN.t}} tooltip (optional, ≤120 chars)
+        - {{m.fM.eN.h}} highlight (optional)
+
+      Index ranges: M ∈ [0..9], N ∈ [0..3].
+
+
+      ## Required Fields to Fill
+
+      - {{comparisonTableTitle}}
+
+      - {{featureTitle}}
+
+      - For each entity: {{e.N.l}} (s/d/i/h/al/au/at optional)
+
+      - For each feature: {{f.M.l}} (t/i optional)
+
+      - For each matrix cell: {{m.fM.eN.v}} (t/h optional)
+
+
+      Optional placeholders may be left blank or omitted; the UI will not render
+      them.
+
+
+      ## Content Rules
+
+      - Cell text ≤ 20 characters
+
+      - Tooltips ≤ 120 characters, plain text
+
+      - Consistent units/terms (GB, %, users)
+
+      - Use highlight sparingly (ideally one primary column)
+
+      - Boolean values render as ✓/✕
+    fieldCombinations:
+      - comparisonTableTitle
+      - e.0.al
+      - e.0.at
+      - e.0.au
+      - e.0.d
+      - e.0.h
+      - e.0.i
+      - e.0.l
+      - e.0.s
+      - e.1.al
+      - e.1.at
+      - e.1.au
+      - e.1.d
+      - e.1.h
+      - e.1.i
+      - e.1.l
+      - e.1.s
+      - e.2.al
+      - e.2.at
+      - e.2.au
+      - e.2.d
+      - e.2.h
+      - e.2.i
+      - e.2.l
+      - e.2.s
+      - e.3.al
+      - e.3.at
+      - e.3.au
+      - e.3.d
+      - e.3.h
+      - e.3.i
+      - e.3.l
+      - e.3.s
+      - f.0.i
+      - f.0.l
+      - f.0.t
+      - f.1.i
+      - f.1.l
+      - f.1.t
+      - f.2.i
+      - f.2.l
+      - f.2.t
+      - f.3.i
+      - f.3.l
+      - f.3.t
+      - f.4.i
+      - f.4.l
+      - f.4.t
+      - f.5.i
+      - f.5.l
+      - f.5.t
+      - f.6.i
+      - f.6.l
+      - f.6.t
+      - f.7.i
+      - f.7.l
+      - f.7.t
+      - f.8.i
+      - f.8.l
+      - f.8.t
+      - f.9.i
+      - f.9.l
+      - f.9.t
+      - featureTitle
+      - m.f0.e0.h
+      - m.f0.e0.t
+      - m.f0.e0.v
+      - m.f0.e1.h
+      - m.f0.e1.t
+      - m.f0.e1.v
+      - m.f0.e2.h
+      - m.f0.e2.t
+      - m.f0.e2.v
+      - m.f0.e3.h
+      - m.f0.e3.t
+      - m.f0.e3.v
+      - m.f1.e0.h
+      - m.f1.e0.t
+      - m.f1.e0.v
+      - m.f1.e1.h
+      - m.f1.e1.t
+      - m.f1.e1.v
+      - m.f1.e2.h
+      - m.f1.e2.t
+      - m.f1.e2.v
+      - m.f1.e3.h
+      - m.f1.e3.t
+      - m.f1.e3.v
+      - m.f2.e0.h
+      - m.f2.e0.t
+      - m.f2.e0.v
+      - m.f2.e1.h
+      - m.f2.e1.t
+      - m.f2.e1.v
+      - m.f2.e2.h
+      - m.f2.e2.t
+      - m.f2.e2.v
+      - m.f2.e3.h
+      - m.f2.e3.t
+      - m.f2.e3.v
+      - m.f3.e0.h
+      - m.f3.e0.t
+      - m.f3.e0.v
+      - m.f3.e1.h
+      - m.f3.e1.t
+      - m.f3.e1.v
+      - m.f3.e2.h
+      - m.f3.e2.t
+      - m.f3.e2.v
+      - m.f3.e3.h
+      - m.f3.e3.t
+      - m.f3.e3.v
+      - m.f4.e0.h
+      - m.f4.e0.t
+      - m.f4.e0.v
+      - m.f4.e1.h
+      - m.f4.e1.t
+      - m.f4.e1.v
+      - m.f4.e2.h
+      - m.f4.e2.t
+      - m.f4.e2.v
+      - m.f4.e3.h
+      - m.f4.e3.t
+      - m.f4.e3.v
+      - m.f5.e0.h
+      - m.f5.e0.t
+      - m.f5.e0.v
+      - m.f5.e1.h
+      - m.f5.e1.t
+      - m.f5.e1.v
+      - m.f5.e2.h
+      - m.f5.e2.t
+      - m.f5.e2.v
+      - m.f5.e3.h
+      - m.f5.e3.t
+      - m.f5.e3.v
+      - m.f6.e0.h
+      - m.f6.e0.t
+      - m.f6.e0.v
+      - m.f6.e1.h
+      - m.f6.e1.t
+      - m.f6.e1.v
+      - m.f6.e2.h
+      - m.f6.e2.t
+      - m.f6.e2.v
+      - m.f6.e3.h
+      - m.f6.e3.t
+      - m.f6.e3.v
+      - m.f7.e0.h
+      - m.f7.e0.t
+      - m.f7.e0.v
+      - m.f7.e1.h
+      - m.f7.e1.t
+      - m.f7.e1.v
+      - m.f7.e2.h
+      - m.f7.e2.t
+      - m.f7.e2.v
+      - m.f7.e3.h
+      - m.f7.e3.t
+      - m.f7.e3.v
+      - m.f8.e0.h
+      - m.f8.e0.t
+      - m.f8.e0.v
+      - m.f8.e1.h
+      - m.f8.e1.t
+      - m.f8.e1.v
+      - m.f8.e2.h
+      - m.f8.e2.t
+      - m.f8.e2.v
+      - m.f8.e3.h
+      - m.f8.e3.t
+      - m.f8.e3.v
+      - m.f9.e0.h
+      - m.f9.e0.t
+      - m.f9.e0.v
+      - m.f9.e1.h
+      - m.f9.e1.t
+      - m.f9.e1.v
+      - m.f9.e2.h
+      - m.f9.e2.t
+      - m.f9.e2.v
+      - m.f9.e3.h
+      - m.f9.e3.t
+      - m.f9.e3.v
+    section:
+      id: 6w0i4jvkvm55pbim
+      name: Section Layout
+      component: layout-block
+      sections:
+        67lux8ugz3y24yz8:
+          id: 67lux8ugz3y24yz8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        ywslygs2dnkxq2o5:
+          id: ywslygs2dnkxq2o5
+          name: Section Layout
+          component: layout-block
+          sections:
+            8tit1juipc7g1xs2:
+              id: 8tit1juipc7g1xs2
+              name: ComparisonTable
+              component: custom-component
+              config:
+                componentId: -b71JoAi_lXSY8MP
+          sectionIds:
+            - 8tit1juipc7g1xs2
+          config:
+            gridSettings:
+              desktop:
+                8tit1juipc7g1xs2:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+      sectionIds:
+        - 67lux8ugz3y24yz8
+        - ywslygs2dnkxq2o5
+      config:
+        gridSettings:
+          desktop:
+            67lux8ugz3y24yz8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            ywslygs2dnkxq2o5:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        textAlign: left
+    dataSource:
+      6w0i4jvkvm55pbim: {}
+      67lux8ugz3y24yz8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= comparisonTableTitle %>
+              style:
+                variant: h1
+      ywslygs2dnkxq2o5: {}
+      8tit1juipc7g1xs2:
+        properties:
+          bm5nin5dwota4vwj:
+            value:
+              entities:
+                - id: e0
+                  label: <%= e.0.l %>
+                  subTitle: <%= e.0.s %>
+                  description: <%= e.0.d %>
+                  icon: <%= e.0.i %>
+                  highlight: <%= e.0.h %>
+                  action:
+                    label: <%= e.0.al %>
+                    url: <%= e.0.au %>
+                    tooltip: <%= e.0.at %>
+                - id: e1
+                  label: <%= e.1.l %>
+                  subTitle: <%= e.1.s %>
+                  description: <%= e.1.d %>
+                  icon: <%= e.1.i %>
+                  highlight: <%= e.1.h %>
+                  action:
+                    label: <%= e.1.al %>
+                    url: <%= e.1.au %>
+                    tooltip: <%= e.1.at %>
+                - id: e2
+                  label: <%= e.2.l %>
+                  subTitle: <%= e.2.s %>
+                  description: <%= e.2.d %>
+                  icon: <%= e.2.i %>
+                  highlight: <%= e.2.h %>
+                  action:
+                    label: <%= e.2.al %>
+                    url: <%= e.2.au %>
+                    tooltip: <%= e.2.at %>
+                - id: e3
+                  label: <%= e.3.l %>
+                  subTitle: <%= e.3.s %>
+                  description: <%= e.3.d %>
+                  icon: <%= e.3.i %>
+                  highlight: <%= e.3.h %>
+                  action:
+                    label: <%= e.3.al %>
+                    url: <%= e.3.au %>
+                    tooltip: <%= e.3.at %>
+              features:
+                - id: f0
+                  label: <%= f.0.l %>
+                  tooltip: <%= f.0.t %>
+                  icon: <%= f.0.i %>
+                - id: f1
+                  label: <%= f.1.l %>
+                  tooltip: <%= f.1.t %>
+                  icon: <%= f.1.i %>
+                - id: f2
+                  label: <%= f.2.l %>
+                  tooltip: <%= f.2.t %>
+                  icon: <%= f.2.i %>
+                - id: f3
+                  label: <%= f.3.l %>
+                  tooltip: <%= f.3.t %>
+                  icon: <%= f.3.i %>
+                - id: f4
+                  label: <%= f.4.l %>
+                  tooltip: <%= f.4.t %>
+                  icon: <%= f.4.i %>
+                - id: f5
+                  label: <%= f.5.l %>
+                  tooltip: <%= f.5.t %>
+                  icon: <%= f.5.i %>
+                - id: f6
+                  label: <%= f.6.l %>
+                  tooltip: <%= f.6.t %>
+                  icon: <%= f.6.i %>
+                - id: f7
+                  label: <%= f.7.l %>
+                  tooltip: <%= f.7.t %>
+                  icon: <%= f.7.i %>
+                - id: f8
+                  label: <%= f.8.l %>
+                  tooltip: <%= f.8.t %>
+                  icon: <%= f.8.i %>
+                - id: f9
+                  label: <%= f.9.l %>
+                  tooltip: <%= f.9.t %>
+                  icon: <%= f.9.i %>
+              matrix: |-
+                {
+                  "f0": {
+                    "e0": {
+                      "value": "<%= m.f0.e0.v %>",
+                      "tooltip": "<%= m.f0.e0.t %>",
+                      "highlight": "<%= m.f0.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f0.e1.v %>",
+                      "tooltip": "<%= m.f0.e1.t %>",
+                      "highlight": "<%= m.f0.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f0.e2.v %>",
+                      "tooltip": "<%= m.f0.e2.t %>",
+                      "highlight": "<%= m.f0.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f0.e3.v %>",
+                      "tooltip": "<%= m.f0.e3.t %>",
+                      "highlight": "<%= m.f0.e3.h %>"
+                    }
+                  },
+                  "f1": {
+                    "e0": {
+                      "value": "<%= m.f1.e0.v %>",
+                      "tooltip": "<%= m.f1.e0.t %>",
+                      "highlight": "<%= m.f1.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f1.e1.v %>",
+                      "tooltip": "<%= m.f1.e1.t %>",
+                      "highlight": "<%= m.f1.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f1.e2.v %>",
+                      "tooltip": "<%= m.f1.e2.t %>",
+                      "highlight": "<%= m.f1.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f1.e3.v %>",
+                      "tooltip": "<%= m.f1.e3.t %>",
+                      "highlight": "<%= m.f1.e3.h %>"
+                    }
+                  },
+                  "f2": {
+                    "e0": {
+                      "value": "<%= m.f2.e0.v %>",
+                      "tooltip": "<%= m.f2.e0.t %>",
+                      "highlight": "<%= m.f2.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f2.e1.v %>",
+                      "tooltip": "<%= m.f2.e1.t %>",
+                      "highlight": "<%= m.f2.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f2.e2.v %>",
+                      "tooltip": "<%= m.f2.e2.t %>",
+                      "highlight": "<%= m.f2.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f2.e3.v %>",
+                      "tooltip": "<%= m.f2.e3.t %>",
+                      "highlight": "<%= m.f2.e3.h %>"
+                    }
+                  },
+                  "f3": {
+                    "e0": {
+                      "value": "<%= m.f3.e0.v %>",
+                      "tooltip": "<%= m.f3.e0.t %>",
+                      "highlight": "<%= m.f3.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f3.e1.v %>",
+                      "tooltip": "<%= m.f3.e1.t %>",
+                      "highlight": "<%= m.f3.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f3.e2.v %>",
+                      "tooltip": "<%= m.f3.e2.t %>",
+                      "highlight": "<%= m.f3.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f3.e3.v %>",
+                      "tooltip": "<%= m.f3.e3.t %>",
+                      "highlight": "<%= m.f3.e3.h %>"
+                    }
+                  },
+                  "f4": {
+                    "e0": {
+                      "value": "<%= m.f4.e0.v %>",
+                      "tooltip": "<%= m.f4.e0.t %>",
+                      "highlight": "<%= m.f4.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f4.e1.v %>",
+                      "tooltip": "<%= m.f4.e1.t %>",
+                      "highlight": "<%= m.f4.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f4.e2.v %>",
+                      "tooltip": "<%= m.f4.e2.t %>",
+                      "highlight": "<%= m.f4.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f4.e3.v %>",
+                      "tooltip": "<%= m.f4.e3.t %>",
+                      "highlight": "<%= m.f4.e3.h %>"
+                    }
+                  },
+                  "f5": {
+                    "e0": {
+                      "value": "<%= m.f5.e0.v %>",
+                      "tooltip": "<%= m.f5.e0.t %>",
+                      "highlight": "<%= m.f5.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f5.e1.v %>",
+                      "tooltip": "<%= m.f5.e1.t %>",
+                      "highlight": "<%= m.f5.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f5.e2.v %>",
+                      "tooltip": "<%= m.f5.e2.t %>",
+                      "highlight": "<%= m.f5.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f5.e3.v %>",
+                      "tooltip": "<%= m.f5.e3.t %>",
+                      "highlight": "<%= m.f5.e3.h %>"
+                    }
+                  },
+                  "f6": {
+                    "e0": {
+                      "value": "<%= m.f6.e0.v %>",
+                      "tooltip": "<%= m.f6.e0.t %>",
+                      "highlight": "<%= m.f6.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f6.e1.v %>",
+                      "tooltip": "<%= m.f6.e1.t %>",
+                      "highlight": "<%= m.f6.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f6.e2.v %>",
+                      "tooltip": "<%= m.f6.e2.t %>",
+                      "highlight": "<%= m.f6.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f6.e3.v %>",
+                      "tooltip": "<%= m.f6.e3.t %>",
+                      "highlight": "<%= m.f6.e3.h %>"
+                    }
+                  },
+                  "f7": {
+                    "e0": {
+                      "value": "<%= m.f7.e0.v %>",
+                      "tooltip": "<%= m.f7.e0.t %>",
+                      "highlight": "<%= m.f7.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f7.e1.v %>",
+                      "tooltip": "<%= m.f7.e1.t %>",
+                      "highlight": "<%= m.f7.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f7.e2.v %>",
+                      "tooltip": "<%= m.f7.e2.t %>",
+                      "highlight": "<%= m.f7.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f7.e3.v %>",
+                      "tooltip": "<%= m.f7.e3.t %>",
+                      "highlight": "<%= m.f7.e3.h %>"
+                    }
+                  },
+                  "f8": {
+                    "e0": {
+                      "value": "<%= m.f8.e0.v %>",
+                      "tooltip": "<%= m.f8.e0.t %>",
+                      "highlight": "<%= m.f8.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f8.e1.v %>",
+                      "tooltip": "<%= m.f8.e1.t %>",
+                      "highlight": "<%= m.f8.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f8.e2.v %>",
+                      "tooltip": "<%= m.f8.e2.t %>",
+                      "highlight": "<%= m.f8.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f8.e3.v %>",
+                      "tooltip": "<%= m.f8.e3.t %>",
+                      "highlight": "<%= m.f8.e3.h %>"
+                    }
+                  },
+                  "f9": {
+                    "e0": {
+                      "value": "<%= m.f9.e0.v %>",
+                      "tooltip": "<%= m.f9.e0.t %>",
+                      "highlight": "<%= m.f9.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f9.e1.v %>",
+                      "tooltip": "<%= m.f9.e1.t %>",
+                      "highlight": "<%= m.f9.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f9.e2.v %>",
+                      "tooltip": "<%= m.f9.e2.t %>",
+                      "highlight": "<%= m.f9.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f9.e3.v %>",
+                      "tooltip": "<%= m.f9.e3.t %>",
+                      "highlight": "<%= m.f9.e3.h %>"
+                    }
+                  }
+                }
+          x9k2m5p8q1w3r7t6:
+            value: <%= featureTitle %>

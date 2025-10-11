@@ -6,7 +6,7 @@ skills:
     name: translatePageDetail
     task_render_mode: collapse
     skills:
-      - url: ../utils/find-user-preferences-by-path.mjs
+      - url: ../../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: translation
       - ./translate-page-detail.yaml
@@ -17,7 +17,7 @@ skills:
             { "reviewContent": translation }
           ])
     reflection:
-      reviewer: ../utils/check-detail-result.mjs
+      reviewer: ../../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true

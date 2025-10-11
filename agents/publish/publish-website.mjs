@@ -12,7 +12,9 @@ import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 
 import {
   BUNDLE_FILENAME,
-  DEFAULT_APP_URL,
+  CLOUD_SERVICE_URL_PROD,
+  DEFAULT_PROJECT_ID,
+  DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
   PAGES_KIT_DID,
@@ -24,14 +26,12 @@ import {
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-
-const formatRoutePath = (path) => {
-  if (path === "/home") {
-    return "/";
-  }
-  return path;
-};
+import {
+  formatRoutePath,
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../../utils/utils.mjs";
 
 /**
  * 递归扫描对象中的指定协议值
@@ -162,6 +162,9 @@ export default async function publishWebsite(
     mediaFiles,
     websiteStructure,
     pagesDir: rootDir,
+    locales,
+    "with-navigations": withNavigationsOption,
+    "with-locales": withLocalesOption,
   },
   options,
 ) {
@@ -195,18 +198,21 @@ export default async function publishWebsite(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
+  const isCloudServiceUrl = appUrl === CLOUD_SERVICE_URL_PROD;
   const hasAppUrlInConfig = config?.appUrl;
+
+  let shouldWithLocales = withLocalesOption || false;
+  let shouldWithNavigations = withNavigationsOption || false;
 
   let token = "";
 
-  if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
+  if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
     const hasCachedCheckoutId = !!config?.checkoutId;
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: `${chalk.blue(`WebSmith Cloud (${DEFAULT_APP_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
@@ -217,13 +223,13 @@ export default async function publishWebsite(
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
-                value: "new-pagekit-continue",
+                value: "new-pages-kit-continue",
               },
             ]
           : []),
         {
           name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
-          value: "new-pagekit",
+          value: "new-pages-kit",
         },
       ],
     });
@@ -248,12 +254,26 @@ export default async function publishWebsite(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (["new-pagekit", "new-pagekit-continue"].includes(choice)) {
-      // Deploy a new Pages Kit service
+    } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
+      // upload to default project
+      config.projectId = DEFAULT_PROJECT_ID;
+      config.projectSlug = DEFAULT_PROJECT_SLUG;
+      projectId = DEFAULT_PROJECT_ID;
+      projectSlug = DEFAULT_PROJECT_SLUG;
+
+      if (options?.prompts?.confirm) {
+        const shouldSyncAll = await options.prompts.confirm({
+          message: "Publish pages to the new dedicated website with locales and navigations?",
+          default: true,
+        });
+        shouldWithLocales = shouldSyncAll;
+        shouldWithNavigations = shouldSyncAll;
+      }
+
       try {
         let id = "";
         let paymentUrl = "";
-        if (choice === "new-pagekit-continue") {
+        if (choice === "new-pages-kit-continue") {
           id = config?.checkoutId;
           paymentUrl = config?.paymentUrl;
           console.log(`\nResuming your previous website setup...`);
@@ -289,7 +309,16 @@ export default async function publishWebsite(
     projectId = crypto.randomUUID();
   }
 
-  const accessToken = await getAccessToken(appUrl, token);
+  let requiredAdminPassport = true;
+
+  try {
+    // publish to websmith website ignore admin passport
+    requiredAdminPassport = !(
+      new URL(appUrl).hostname === new URL(CLOUD_SERVICE_URL_PROD).hostname
+    );
+  } catch (_error) {}
+
+  const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
@@ -302,10 +331,7 @@ export default async function publishWebsite(
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
-    languages: [
-      ...(config?.locale ? [config.locale] : []),
-      ...(config?.translateLanguages || []),
-    ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
+    languages: locales || [],
   };
 
   let message;
@@ -322,7 +348,7 @@ export default async function publishWebsite(
     }
 
     // Recursive function to extract all paths from sitemap
-    function extractAllPaths(sitemapItems) {
+    function extractAllPaths(sitemapItems, parentPath) {
       const paths = [];
       if (!Array.isArray(sitemapItems)) return paths;
 
@@ -334,11 +360,12 @@ export default async function publishWebsite(
             path: item.path,
             cleanPath,
             title: item.title,
+            parentPath,
           });
         }
         // Recursively process child items
         if (item.children && Array.isArray(item.children)) {
-          paths.push(...extractAllPaths(item.children));
+          paths.push(...extractAllPaths(item.children, item.path));
         }
       });
 
@@ -349,6 +376,8 @@ export default async function publishWebsite(
     const sitemapPaths = sitemapContent
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
+
+    const navigationEntries = shouldWithNavigations ? sitemapContent?.navigations : [];
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
@@ -478,6 +507,14 @@ export default async function publishWebsite(
     let newProjectSlug = projectSlug;
 
     if (manifestPages.length > 0) {
+      if (shouldWithLocales && locales.length > 0) {
+        meta.locales = locales;
+      }
+
+      if (shouldWithNavigations && navigationEntries.length > 0) {
+        meta.navigations = navigationEntries;
+      }
+
       const manifest = {
         version: 1,
         meta,
@@ -652,6 +689,14 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 publishWebsite.input_schema = {
   type: "object",
   properties: {
+    "with-navigations": {
+      type: "boolean",
+      description: "Publish to website with navigation",
+    },
+    "with-locales": {
+      type: "boolean",
+      description: "Publish to website with locales",
+    },
     pagesDir: {
       type: "string",
       description: "The directory of the pages",
@@ -659,7 +704,7 @@ publishWebsite.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: DEFAULT_APP_URL,
+      default: CLOUD_SERVICE_URL_PROD,
     },
     projectId: {
       type: "string",

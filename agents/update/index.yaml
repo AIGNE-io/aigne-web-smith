@@ -38,7 +38,7 @@ skills:
     name: batchTranslatePageDetail
     # model: openai/gpt-5
     skills:
-      - url: ../translate/batch-translate-page-detail.yaml
+      - url: ../translate/page-detail/batch-translate-page-detail.yaml
         default_input:
           skipIfExists: false
     mode: parallel

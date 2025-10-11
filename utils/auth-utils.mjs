@@ -26,9 +26,10 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} appUrl - The application URL
  * @param {string} ltToken - Optional token from deployment service
+ * @param {boolean} requiredAdminPassport - whether to require admin passport
  * @returns {Promise<string>} - The access token
  */
-export async function getAccessToken(appUrl, ltToken = "") {
+export async function getAccessToken(appUrl, ltToken = "", requiredAdminPassport = true) {
   const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
@@ -104,7 +105,10 @@ export async function getAccessToken(appUrl, ltToken = "") {
       appLogo: DEFAULT_APP_LOGO,
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
-        url.searchParams.set("required_roles", "owner,admin,pagesEditor");
+        if (requiredAdminPassport) {
+          url.searchParams.set("required_roles", "owner,admin,pagesEditor");
+        }
+
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }

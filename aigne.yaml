@@ -71,12 +71,18 @@ agents:
   - ./agents/publish/publish-website.mjs
 
   # translate
+  # translate page detail
   - ./agents/translate/index.yaml
-  - ./agents/translate/translate-page-detail.yaml
-  - ./agents/translate/choose-language.mjs
-  - ./agents/translate/translate-page-detail-team.yaml
-  - ./agents/translate/batch-translate-page-detail.yaml
-  - ./agents/translate/analyze-translate-page-detail.mjs
+  - ./agents/translate/page-detail/translate-page-detail.yaml
+  - ./agents/translate/page-detail/choose-language.mjs
+  - ./agents/translate/page-detail/translate-page-detail-team.yaml
+  - ./agents/translate/page-detail/batch-translate-page-detail.yaml
+  - ./agents/translate/page-detail/analyze-translate-page-detail.mjs
+
+  # translate navigations
+  - ./agents/translate/navigations/analyze-translate-navigations.mjs
+  - ./agents/translate/navigations/translate-navigations-team.yaml
+  - ./agents/translate/navigations/translate-navigations.yaml
 
   # theme
   - ./agents/theme/generate-theme-team.yaml

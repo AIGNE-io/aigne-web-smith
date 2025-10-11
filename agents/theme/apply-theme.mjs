@@ -7,7 +7,7 @@ import YAML from "yaml";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getBlockletConfig } from "../../utils/blocklet.mjs";
-import { DEFAULT_APP_URL, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
+import { CLOUD_SERVICE_URL_PROD, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
 import { loadConfigFromFile } from "../../utils/utils.mjs";
 
@@ -175,7 +175,7 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     } else {
       // If no appUrl parameter, use config file or default value
       const configData = await loadConfigFromFile();
-      finalAppUrl = configData?.appUrl || DEFAULT_APP_URL;
+      finalAppUrl = configData?.appUrl || CLOUD_SERVICE_URL_PROD;
     }
 
     // Step 2: Get access token

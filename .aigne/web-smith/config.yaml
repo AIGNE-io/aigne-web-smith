@@ -55,11 +55,13 @@ rules: "WebSmith's website should primarily introduce WebSmith to customers in p
 locale: en
 translateLanguages: # List of languages to translate the pages to
   - zh # Example: Chinese translation
+  - ja
+  - fr
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: f713cf8ad7afa132f338f608d299a01940c7bb4f
+lastGitHead: 04532bd7af21d3b8b55f17fa5d500e754488fba6
 # Checkout ID for website deployment service
 checkoutId: ""
 appUrl: https://staging.websmith.aigne.io/

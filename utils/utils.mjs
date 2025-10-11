@@ -9,6 +9,7 @@ import {
   rmSync,
   statSync,
 } from "node:fs";
+
 import fs from "node:fs/promises";
 import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import slugify from "slugify";
@@ -1644,3 +1645,107 @@ export function clearDirExcept(dir, keep = []) {
     }
   }
 }
+
+export function sanitizeNavigationId(path) {
+  if (!path || typeof path !== "string") {
+    return "unknown-nav";
+  }
+
+  const trimmed = path.replace(/^\/+|\/+$/g, "");
+  if (!trimmed) {
+    return "home";
+  }
+
+  const normalized = trimmed
+    .replace(/[^\w-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return normalized || "nav";
+}
+
+export function generateNavigationId(path, usedIds) {
+  const base = sanitizeNavigationId(path);
+  let candidate = base;
+  let index = 1;
+
+  while (usedIds.has(candidate)) {
+    candidate = `${base}-${index}`;
+    index += 1;
+  }
+
+  candidate = generateDeterministicId(candidate);
+
+  usedIds.add(candidate);
+  return candidate;
+}
+
+/**
+ * 从文本生成确定的16位16进制ID
+ * 相同的文本内容总是产生相同的ID
+ * @param {string} text - 输入文本
+ * @returns {string} 16位16进制ID
+ */
+export function generateDeterministicId(text, length = 16) {
+  if (typeof text !== "string") {
+    if (typeof text === "object") {
+      text = JSON.stringify(text);
+    } else {
+      text = String(text);
+    }
+  }
+
+  return crypto.createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
+}
+
+/**
+ * 验证站点结构的导航存在
+ * @param {Array} websiteStructure - 站点结构数组
+ * @param {Array<string>} locales - 需要覆盖的语言列表
+ * @returns {{isValid: boolean, missingLocales: Array<{path: string, missing: string[]}>, message: string}}
+ */
+export function validateWebsiteStructure(websiteStructure, locales = []) {
+  if (!Array.isArray(websiteStructure) || locales?.length === 0) {
+    return {
+      isValid: true,
+      missingLocales: [],
+      message: "",
+    };
+  }
+
+  const missingLocales = [];
+
+  websiteStructure.forEach((item, index) => {
+    const navigation = item?.navigation;
+    if (!navigation) {
+      missingLocales.push({
+        path: typeof item?.path === "string" && item.path ? item.path : `index:${index}`,
+        missing: locales,
+      });
+    }
+  });
+
+  if (missingLocales.length === 0) {
+    return {
+      isValid: true,
+      missingLocales: [],
+      message: "",
+    };
+  }
+
+  const message = missingLocales
+    .map((entry) => `${entry.path} -> missing locales: ${entry.missing.join(", ")}`)
+    .join("\n");
+
+  return {
+    isValid: false,
+    missingLocales,
+    message,
+  };
+}
+
+export const formatRoutePath = (path) => {
+  if (path === "/home") {
+    return "/";
+  }
+  return path;
+};

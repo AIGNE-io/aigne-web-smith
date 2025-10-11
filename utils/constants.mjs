@@ -349,7 +349,9 @@ export const MEDIA_KIT_PROTOCOL = "mediakit://";
 export const DEFAULT_APP_LOGO =
   "https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg";
 
-export const DEFAULT_APP_URL = "https://staging.websmith.aigne.io";
+// Default application URL for the document deployment website.
+export const CLOUD_SERVICE_URL_PROD = "https://websmith.aigne.io";
+export const CLOUD_SERVICE_URL_STAGING = "https://staging.websmith.aigne.io";
 
 // Pages Kit DID for web-smith
 export const PAGES_KIT_DID = "z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o";
@@ -550,4 +552,9 @@ export const BUNDLE_FILENAME = "publish-bundle.json";
 
 export const WEB_SMITH_DIR = ".aigne/web-smith";
 export const WEB_SMITH_CONFIG_PATH = `./${WEB_SMITH_DIR}/config.yaml`;
+
+export const DEFAULT_PROJECT_ID = "pg4d0000-0000-4000-a000-000000000000";
+export const DEFAULT_PROJECT_SLUG = "/";
+
+export const NAVIGATIONS_FILE_NAME = "_navigations.yaml";
 export const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");

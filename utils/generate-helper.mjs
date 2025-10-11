@@ -13,29 +13,13 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { LIST_KEY, SECTION_META_FIELDS } from "./constants.mjs";
 
+export { generateDeterministicId } from "./utils.mjs";
+
 /**
  * ID 生成工具
  */
 export function generateRandomId(length = 16) {
   return nanoid(length);
-}
-
-/**
- * 从文本生成确定的16位16进制ID
- * 相同的文本内容总是产生相同的ID
- * @param {string} text - 输入文本
- * @returns {string} 16位16进制ID
- */
-export function generateDeterministicId(text, length = 16) {
-  if (typeof text !== "string") {
-    if (typeof text === "object") {
-      text = JSON.stringify(text);
-    } else {
-      text = String(text);
-    }
-  }
-
-  return createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
 }
 
 /**
@@ -358,6 +342,114 @@ export function getAllFieldCombinations(middleFormatFiles, { includeArrayFields 
 
   // 使用lodash深度去重（基于数组内容而不是引用）并排序
   return _.uniqWith(allFields, _.isEqual);
+}
+
+/**
+ * 标准化字段列表，去除空值并保证排序一致
+ * @param {Array<string>} fields
+ * @returns {Array<string>}
+ */
+export function normalizeFieldList(fields = []) {
+  return Array.from(
+    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
+  ).sort();
+}
+
+function hasNumericSegment(field) {
+  return field.split(".").some((segment) => /^\d+$/.test(segment));
+}
+
+function collapseFieldAfterFirstNumeric(field) {
+  const segments = field.split(".");
+  const firstNumericIndex = segments.findIndex((segment) => /^\d+$/.test(segment));
+  if (firstNumericIndex <= 0) {
+    return field;
+  }
+
+  return segments.slice(0, firstNumericIndex).join(".");
+}
+
+function arraysEqual(a = [], b = []) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+/**
+ * 根据字段组合匹配最佳组件
+ * @param {Array<string>} sectionFields
+ * @param {Array<Object>} compositeComponents
+ * @returns {{component: Object, type: string, penalty: number, fieldCount: number}|null}
+ */
+export function findBestComponentMatch(sectionFields, compositeComponents) {
+  const normalizedSectionFields = normalizeFieldList(sectionFields);
+  const sectionFieldSet = new Set(normalizedSectionFields);
+  const collapsedSectionFieldSet = new Set(
+    normalizedSectionFields.map((field) => collapseFieldAfterFirstNumeric(field)),
+  );
+
+  let bestMatch = null;
+
+  compositeComponents.forEach((component) => {
+    const componentFields = normalizeFieldList(component.fieldCombinations || []);
+    if (componentFields.length === 0) return;
+
+    const componentFieldSet = new Set(componentFields);
+
+    // 优先精确匹配，保持当前行为
+    if (arraysEqual(componentFields, normalizedSectionFields)) {
+      if (!bestMatch || bestMatch.type !== "exact") {
+        bestMatch = {
+          component,
+          type: "exact",
+          penalty: 0,
+          fieldCount: componentFields.length,
+        };
+      }
+      return;
+    }
+
+    if (normalizedSectionFields.length === 0) return;
+
+    // 仅考虑覆盖 section 字段的组件
+    const hasAllSectionFields = normalizedSectionFields.every((field) => {
+      if (componentFieldSet.has(field)) {
+        return true;
+      }
+      if (!hasNumericSegment(field)) {
+        return false;
+      }
+      const collapsed = collapseFieldAfterFirstNumeric(field);
+      return collapsed !== field && componentFieldSet.has(collapsed);
+    });
+    if (!hasAllSectionFields) return;
+
+    const extraCount = componentFields.reduce((count, field) => {
+      if (sectionFieldSet.has(field) || collapsedSectionFieldSet.has(field)) return count;
+      return count + 1;
+    }, 0);
+
+    // 没有精确匹配时，选择冗余字段最少的候选
+    if (!bestMatch || bestMatch.type !== "exact") {
+      const shouldReplace =
+        !bestMatch ||
+        extraCount < bestMatch.penalty ||
+        (extraCount === bestMatch.penalty && componentFields.length < bestMatch.fieldCount);
+
+      if (shouldReplace) {
+        bestMatch = {
+          component,
+          type: "superset",
+          penalty: extraCount,
+          fieldCount: componentFields.length,
+        };
+      }
+    }
+  });
+
+  return bestMatch;
 }
 
 /**

@@ -20,4 +20,4 @@
 </feedback>
 {% endif %}
 
-{% include "../common/rules/user-preferences-rule.md" %}
+{% include "../../common/rules/user-preferences-rule.md" %}

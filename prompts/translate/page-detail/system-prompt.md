@@ -22,7 +22,7 @@ Processing workflow:
 </role_and_goal>
 
 <output_constraints>
-{% include "../common/rules/glossary-rule.md" %}
+{% include "../../common/rules/glossary-rule.md" %}
 
 Translation Constraints:
 
@@ -42,6 +42,6 @@ Translation Constraints:
 
 - Page detail translation, must be a valid YAML document.
 - The YAML must strictly follow the defined page semantic structure (include meta and sections), with correct indentation and hierarchy.
-- Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
+- Do not wrap the YAML output inside markdown code fences (`yaml ... `).
 
 </output_constraints>

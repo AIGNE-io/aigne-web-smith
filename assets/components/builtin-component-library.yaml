@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-10T15:31:39.239Z
+  updateAt: 2025-10-11T06:53:35.563Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -88,7 +88,6 @@ composite:
       - logoWallList.8.link
       - logoWallList.9.image
       - logoWallList.9.link
-      - logoWallTitle
     section:
       id: dk56zu8ywvq4j0w4
       name: Logo Bar/Wall_2
@@ -119,7 +118,7 @@ composite:
         properties:
           f2h4j6l8n0p2r4t6:
             value:
-              text: <%= logoWallTitle %>
+              text: ""
               style:
                 color: ""
                 fontSize: 16px
@@ -5760,16 +5759,52 @@ composite:
             value: <%= architectList %>
   - id: ji71gkjxc3jdtrgd
     name: Centered Hero
+    summary: >-
+      **Structure (Top → Bottom)**
+
+      - Primary Title (`{{centeredHeroTitle}}`, one line or up to two lines,
+      centered, highest visual weight)
+
+      - Subtitle (`{{centeredHeroDescription}}`, up to 1–2 short paragraphs,
+      centered)
+
+      - Actions (`{{centeredHeroActions.N.text}}` +
+      `{{centeredHeroActions.N.link}}`; one primary required, one secondary
+      optional; horizontally centered)
+
+      - Optional Media (`{{sectionBackground}}` or decorative media; keep
+      low-noise to preserve contrast)
+
+
+      **Use when**
+
+      - You must quickly answer what it is, why it matters, and the next step on
+      a landing/product page’s first screen.
+
+      - A single core proposition; users should grasp it in 3–5 seconds.
+
+      - You prefer symmetry and focus over a left–right split.
+
+
+      **Constraints**
+
+      - Visual hierarchy: `centeredHeroTitle` > `centeredHeroDescription` >
+      `centeredHeroActions`.
+
+      - At least **one** primary action (`centeredHeroActions.0.*` recommended).
+      Keep total buttons ≤ 2.
+
+      - Copy length:
+        - `centeredHeroTitle` ≤ 60 chars.
+        - `centeredHeroDescription` ≤ 140 chars per paragraph, up to 2 paragraphs.
+        - Button labels 2–4 words, verb-first.
     fieldCombinations:
       - centeredHeroActions.0.link
       - centeredHeroActions.0.text
       - centeredHeroActions.1.link
       - centeredHeroActions.1.text
-      - centeredHeroActions.N.link
-      - centeredHeroActions.N.text
       - centeredHeroDescription
       - centeredHeroTitle
-      - sectionBackground
     section:
       id: jg8x6gda6gmyb1d7
       name: Centered Hero
@@ -5832,6 +5867,7 @@ composite:
             paddingX: none
             borderRadius: small
             paddingY: none
+            background: transparent
       sectionIds:
         - n86dteb4apjak8i3
       config:

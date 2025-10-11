@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.3...v1.5.0-beta.4) (2025-10-11)
+
+
+### Bug Fixes
+
+* **core:** update built-in component library for better matching ([#116](https://github.com/AIGNE-io/aigne-web-smith/issues/116)) ([25ad435](https://github.com/AIGNE-io/aigne-web-smith/commit/25ad435bb73e76fc64978e6b7534c14d9c52d549))
+
 ## [1.5.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.2...v1.5.0-beta.3) (2025-10-11)
 
 

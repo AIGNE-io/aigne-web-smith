@@ -23,6 +23,7 @@ import {
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
+  ENABLE_LOGS,
   LIST_KEY,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
@@ -1749,3 +1750,9 @@ export const formatRoutePath = (path) => {
   }
   return path;
 };
+
+export const log = (...args) => ENABLE_LOGS && console.log(...args);
+export const logError = (...args) => ENABLE_LOGS && console.error(...args);
+
+// 小工具：path 数组可视化
+export const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));

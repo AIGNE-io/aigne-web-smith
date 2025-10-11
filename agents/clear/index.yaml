@@ -18,6 +18,8 @@ input_schema:
           - workspace
           - generatedPages
           - websiteConfig
+          - deploymentConfig
+          - authTokens
     pagesDir:
       type: string
       description: Override the pages directory root

@@ -1,3 +1,6 @@
+import { homedir } from "node:os";
+import { join } from "node:path";
+
 // Default file patterns for inclusion and exclusion
 export const DEFAULT_INCLUDE_PATTERNS = [
   // Python
@@ -438,17 +441,13 @@ export const CONFLICT_RESOLUTION_RULES = {
 // Resolution strategy descriptions
 export const RESOLUTION_STRATEGIES = {
   layered_structure: (items) =>
-    `Detected "${items.join(
-      '" and "',
-    )}" purpose conflict. Resolution strategy: Create layered page structure
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered page structure
 - Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
 - API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
 - Ensure sections complement rather than conflict with each other`,
 
   separate_sections: (items) =>
-    `Detected "${items.join(
-      '" and "',
-    )}" purpose conflict. Resolution strategy: Create separate sections
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create separate sections
 - Quick start section: Uses "get started" style - focuses on practical operations, completable within 30 minutes
 - System understanding section: Uses "understand system" style - dedicated to explaining architecture, concepts, design decision rationale
 - Meet different depth needs through clear section separation`,
@@ -470,25 +469,19 @@ export const RESOLUTION_STRATEGIES = {
 - Create dedicated problem diagnosis index for quick location`,
 
   separate_user_paths: (items) =>
-    `Detected "${items.join(
-      '" and "',
-    )}" audience conflict. Resolution strategy: Create separate user paths
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Create separate user paths
 - User guide path: Uses "end users" style - simple language, UI operations, screenshot instructions, business outcome oriented
 - Developer guide path: Uses "developers" style - code-first, technical precision, SDK examples, configuration snippets
 - Provide clear path navigation for users to choose appropriate entry point`,
 
   role_based_sections: (items) =>
-    `Detected "${items.join(
-      '" and "',
-    )}" audience conflict. Resolution strategy: Organize content by role
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Organize content by role
 - Create dedicated sections for different roles, each section uses corresponding audience style
 - Ensure content depth and expression precisely match the needs and background of corresponding audience
 - Provide cross-references between sections to facilitate collaborative understanding between roles`,
 
   progressive_disclosure: (items) =>
-    `Detected "${items.join(
-      '" and "',
-    )}" audience conflict. Resolution strategy: Use progressive information disclosure
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Use progressive information disclosure
 - Overview level: Uses "decision makers" style - high-level architecture diagrams, decision points, business value
 - Detail level: Uses "developers" style - technical implementation details, code examples, best practices
 - Ensure smooth transition from strategic to tactical`,
@@ -566,3 +559,4 @@ export const DEFAULT_PROJECT_ID = "pg4d0000-0000-4000-a000-000000000000";
 export const DEFAULT_PROJECT_SLUG = "/";
 
 export const NAVIGATIONS_FILE_NAME = "_navigations.yaml";
+export const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");

@@ -1,6 +1,7 @@
 import { rm } from "node:fs/promises";
 import { resolve as resolvePath } from "node:path";
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
+import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
 const TARGET_METADATA = {
@@ -29,6 +30,11 @@ const TARGET_METADATA = {
     description: ({ finalConfigPath }) =>
       `Delete appUrl from './${toDisplayPath(finalConfigPath)}'.`,
   },
+  mediaDescription: {
+    label: "media file descriptions",
+    description: ({ mediaDescriptionPath }) =>
+      `Delete AI-generated descriptions in './${toDisplayPath(mediaDescriptionPath)}' (will regenerate on next generation).`,
+  },
 };
 
 const TARGET_KEYS = Object.keys(TARGET_METADATA);
@@ -51,6 +57,7 @@ export default async function chooseContents(input = {}, options = {}) {
   const workspaceCandidate = resolveToAbsolute(tmpDir);
   const generatedPagesCandidate = resolveToAbsolute(outputDir);
   const configCandidate = resolveToAbsolute(finalConfigPath);
+  const mediaDescriptionPath = getMediaDescriptionCachePath();
 
   const targetsDefinition = {
     workspace: {
@@ -78,6 +85,11 @@ export default async function chooseContents(input = {}, options = {}) {
       label: TARGET_METADATA.authTokens.label,
       description: TARGET_METADATA.authTokens.description,
     },
+    mediaDescription: {
+      path: mediaDescriptionPath,
+      label: TARGET_METADATA.mediaDescription.label,
+      description: TARGET_METADATA.mediaDescription.description,
+    },
   };
 
   const availabilityEntries = await Promise.all(
@@ -102,7 +114,12 @@ export default async function chooseContents(input = {}, options = {}) {
         .map(([value, def]) => ({
           name: def.label,
           value,
-          description: def.description({ outputDir, tmpDir, finalConfigPath }),
+          description: def.description({
+            outputDir,
+            tmpDir,
+            finalConfigPath,
+            mediaDescriptionPath,
+          }),
         }));
 
       if (choices.length === 0) {
@@ -177,6 +194,21 @@ export default async function chooseContents(input = {}, options = {}) {
         const clearAgent = options.context?.agents?.["clearDeploymentConfig"];
         if (!clearAgent) {
           throw new Error("Clear agent clearDeploymentConfig not found in context");
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      } else if (target === "mediaDescription") {
+        const clearAgent = options.context?.agents?.["clearMediaDescription"];
+        if (!clearAgent) {
+          throw new Error(
+            "Required agent 'clearMediaDescription' not found in context. Please ensure the agent is properly registered.",
+          );
         }
 
         const result = await options.context.invoke(clearAgent, input);

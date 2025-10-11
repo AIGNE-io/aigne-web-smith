@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse, stringify } from "yaml";
-import { WEB_SMITH_DIR } from "../../utils/constants.mjs";
+import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 
 const SIZE_THRESHOLD = 10 * 1024 * 1024; // 10MB
 
@@ -72,7 +72,7 @@ export default async function loadMediaDescription(input, options) {
   });
 
   // Path to media description cache file - use WEB_SMITH_DIR to avoid pagesDir changes
-  const cacheFilePath = path.join(process.cwd(), WEB_SMITH_DIR, "media-description.yaml");
+  const cacheFilePath = getMediaDescriptionCachePath();
 
   // Load existing cache
   let cache = {};

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2025-10-11)
+
+
+### Bug Fixes
+
+* more reliable session check in website publishing ([#111](https://github.com/AIGNE-io/aigne-web-smith/issues/111)) ([4eb3525](https://github.com/AIGNE-io/aigne-web-smith/commit/4eb35253d977820a8934080d3519b6c1cf030e63))
+* persist project ID and slug after self-hosted publish ([#110](https://github.com/AIGNE-io/aigne-web-smith/issues/110)) ([e3de418](https://github.com/AIGNE-io/aigne-web-smith/commit/e3de418603fb9b0318747915dc365a23888dc8e4))
+
 ## [1.5.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta.1...v1.5.0-beta.1) (2025-10-11)
 
 

@@ -9,23 +9,23 @@ importers:
   .:
     dependencies:
       '@aigne/aigne-hub':
-        specifier: ^0.10.0
-        version: 0.10.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.10.1
+        version: 0.10.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/anthropic':
-        specifier: ^0.14.0
-        version: 0.14.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^0.14.1
+        version: 0.14.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
-        specifier: ^1.49.1
-        version: 1.49.1(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)
+        specifier: ^1.50.0
+        version: 1.50.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
-        specifier: ^1.61.0
-        version: 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^1.62.0
+        version: 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/gemini':
-        specifier: ^0.14.0
-        version: 0.14.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.14.1
+        version: 0.14.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/openai':
-        specifier: ^0.16.0
-        version: 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.16.1
+        version: 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@blocklet/payment-broker-client':
         specifier: ^1.21.10
         version: 1.21.10
@@ -123,42 +123,42 @@ importers:
 
 packages:
 
-  '@aigne/agent-library@1.21.46':
-    resolution: {integrity: sha512-Ac4CFrFYqByZ8FW1DOLwyzYeWbQo1efD2u/+86CpTx4CjUNVhbcmaxA2Ea/KNVG0hUez/U3+LbP7uqufiPQdEw==}
+  '@aigne/agent-library@1.21.47':
+    resolution: {integrity: sha512-Za//vn/87FunpKLN5z4ssHgFTLfPAqqC1g6wc1HGE1nm7eBZgYmQ+9rj04nhV6ARX8mKVf6fJjxt1tLKD7GfFQ==}
 
-  '@aigne/agentic-memory@1.0.46':
-    resolution: {integrity: sha512-JHJthUsBdJ+g5HN8xROdASr/v2iYkvAl135oenDMjIfg6NTAPH/eok9q+iSXc5oucck/sTRI2sdzCoea89IIWg==}
+  '@aigne/agentic-memory@1.0.47':
+    resolution: {integrity: sha512-NSlWDrKzxS23wZdE6k/Majzmw+7gqsRVRK7nVMA5wSzaEWwWNDzUdqF8iT/QT164O87/J8ZMEMb84wlhqaAmHw==}
 
-  '@aigne/aigne-hub@0.10.0':
-    resolution: {integrity: sha512-D4RXO8jjS+dR9CkaZW1miS6pjXYJ+pbkxNgEyVoWngYw9MKX94spOWX3QYWMYiJMGBuEKkPGCkWvzOM7OLVdAA==}
+  '@aigne/aigne-hub@0.10.1':
+    resolution: {integrity: sha512-nEvTG3zK4qWuITg3P7eom24ajhAGgIt5uaOvQJQow4aaXG8F+ZZbOZKCruS7QOuW6woUieC+S3zMuli+xdHTVA==}
 
-  '@aigne/anthropic@0.14.0':
-    resolution: {integrity: sha512-3EIiqBBCkiS3ee8s7oQ7eGulYZUR8f0GSR0s5noqlKbWsRqJ2zKfjWx4SRNetdXDmAJTAwhvCwabmxojuOmwYQ==}
+  '@aigne/anthropic@0.14.1':
+    resolution: {integrity: sha512-rCOikym+AWNdnKqNxQwBfaJFPUWFchH9Z8ZnmoE9WfCsK4UQRzl52I+CqmkWFNZJp+AqYuS2gMc3MVB/VtWlfg==}
 
-  '@aigne/bedrock@0.10.5':
-    resolution: {integrity: sha512-lMq+rzdjWg8MgQ1nJw28/6HfAwQd0LtMztwEX6uJMr7wJ4TNeL4k5mYVUkOCPybf32eg6xHoT9Z1e0YUR7pjwg==}
+  '@aigne/bedrock@0.10.6':
+    resolution: {integrity: sha512-PwuJxBAPCQxCgb8ork/mSGxoH0uXaVUhyt1u0lypPHX7R+Bgw5CxqPyp5NfPEGiQ/n/ARUHCt+xGesPl8Oj6iQ==}
 
-  '@aigne/cli@1.49.1':
-    resolution: {integrity: sha512-MP8sHnKbwIAyRYdw56w1mNzM+06h0ESD+FSHJrltyg27PpJ2PRdgnojchL4SXYimBVFeBm4gYVwCF05x/V1BZQ==}
+  '@aigne/cli@1.50.0':
+    resolution: {integrity: sha512-3BvZl5vscpvL5agfKknWJogb8ErijES3iOLm63tqF1o0SaBPrE/g8RbhBBdgojjBltzRF774QINXHMMlKr9Hww==}
     hasBin: true
 
-  '@aigne/core@1.61.0':
-    resolution: {integrity: sha512-Qoppb5rw9vB5tKPP3vm0EA9+roWni6jXbVJlgDRz7jUkThx4RzYAuo5WmNLjI5L0GF7mFXJ3XOFc8ZlAKu39Iw==}
+  '@aigne/core@1.62.0':
+    resolution: {integrity: sha512-zh2Ofa0fPKeFcFzyu9HEsXs/i5kxaiedBXL5MDnZRTdO2jIeu+oUwBs8GgQml0nVwDYKAU7dStGTyE8TIpMwfg==}
 
-  '@aigne/deepseek@0.7.46':
-    resolution: {integrity: sha512-3ZYcHg3QOFuxjRmnqMyK5pYSjPC0L4urg6F7ReHMVjdaFzIl8g5so0RiIYP/tEOiwEkoZoxOW53VQT7HYRSZ4Q==}
+  '@aigne/deepseek@0.7.47':
+    resolution: {integrity: sha512-gtiaa2ym+PTX+GvJbwgcGlJ+1NBcITHPKZG9wv2hd+Mh1BH7RrHqkh1zRWvAubXp75WgGs37pJ7O3E7Bgk+WLg==}
 
-  '@aigne/default-memory@1.2.9':
-    resolution: {integrity: sha512-9k8Sv4Tn2pBg/C1hQQhGMfnr15N1jZmgrDhhAF3/L0oiH0Z1FGHsu4uwe6x03K23Gg9z6MzO5Tq3LUA9IRYr3A==}
+  '@aigne/default-memory@1.2.10':
+    resolution: {integrity: sha512-CdtAu/WNy0p1Fjqtb8BMScz7xdcjB52QAP8hUXYDcUjN+855UuGp1YYz8iiQ1C2t/dZRziSMI4eMaYjpWR9kRw==}
 
-  '@aigne/doubao@1.1.0':
-    resolution: {integrity: sha512-pxz1rTVsPkfHim/nWiia4wXBXfkadM1knu+2QsP4sCmetNn1eTauAIwKa5rx/9TtkwTgQCO0l9UummPSROX26g==}
+  '@aigne/doubao@1.1.1':
+    resolution: {integrity: sha512-UZ/qchRbL+OO8mIhvwCPXWipToKqQ5u7iuOA8MsM9OK9Q5cEsvHB3Bnw6QnCtbxEvKXJ1vUUF8ADSrFsDoueHg==}
 
-  '@aigne/gemini@0.14.0':
-    resolution: {integrity: sha512-SxemCZr3N//fDgjCbdti4ODvDRfT66aeElDEdx4jYLwuJJ2c69MLw8zwrColTP1q0nm5HDYSB7fW41m047cwbQ==}
+  '@aigne/gemini@0.14.1':
+    resolution: {integrity: sha512-nIm/cbxjwLfJSbGpDspSGbzB01s73vdJXp7cr+kG4C5R9VR80uhj3HGMh9/b5XuO6aBFp9smp7W0ETkVAkda1g==}
 
-  '@aigne/ideogram@0.4.0':
-    resolution: {integrity: sha512-YAnCRI5xXAwoq0Cgt2kOgUL1i15eTQejYxfI0ZL/ErMKVfz+D0vUDXkFzIPC3IE716pnoaJ0clkh+q/rVBZ5HQ==}
+  '@aigne/ideogram@0.4.1':
+    resolution: {integrity: sha512-JEcWjI9h+ZDc5ioiAky7ZKUEDAKb+FZi7lk8IHoKDoD3usJKMu4uSAxAX4aXZ7LGSL5wUm4HdZpv6X88da9c1Q==}
 
   '@aigne/json-schema-to-zod@1.3.3':
     resolution: {integrity: sha512-8QsF5Vm/Znj16KAvfNIoXghSB7XzGGp+HHoI3CWyuFLX6DbI0YrzRm3EpKo87OhbpdtiWQurC0bidkH2cbsYNQ==}
@@ -175,32 +175,40 @@ packages:
     peerDependencies:
       marked: '>=1 <17'
 
-  '@aigne/observability-api@0.11.0':
-    resolution: {integrity: sha512-6UAJy5fDjrR73MlvnT5Hs+1c/3tA8vf3/0sB7lJjQDlbR+/xEhXnmeBMOowUR0rB2Fo2xq9P5DpeyK6lE4g5dQ==}
+  '@aigne/observability-api@0.11.1':
+    resolution: {integrity: sha512-ty1kYRgrjA0zVZaBmRmislLOaP1jVfC/wuG1m81IpSHPMhzxizX+tquZeqqN8WjptV7mvKXcAQlLTdc7zBi0Cg==}
 
-  '@aigne/ollama@0.7.46':
-    resolution: {integrity: sha512-e7Hh/1UonXHbZxoQq4PGMWRvRRbLIYGTTAXuqdYBq3Jp4avKlAoa7UyJxmCHEuoJD0QSSNNz2dwSr2TpKSYN3Q==}
+  '@aigne/ollama@0.7.47':
+    resolution: {integrity: sha512-XRMt9s5ZpjDbXM/UpO6kU+K0NYWJmz1vJZsTotv7OjeL7uMpyis5D/ydu68Qg0aCxsATQi1T0M7psycRyMk+ZQ==}
 
-  '@aigne/open-router@0.7.46':
-    resolution: {integrity: sha512-GiF7owsPyzpANt0tsV7ImXvuUnP9AGpBROib0E/UCTQ6MmuMDdc3rXXkLeW0pna3rnSx3U2hpsnsLL6T9Lnyzw==}
+  '@aigne/open-router@0.7.47':
+    resolution: {integrity: sha512-JEC7ErAYe5CpuopTAHaTwswiBPNzOBZX7hw7qBtqObcnXKwEZCltX9u63iDlNC/pwf6YTIJKUGTUnoiP/80QwQ==}
 
-  '@aigne/openai@0.16.0':
-    resolution: {integrity: sha512-SzF8RCk2XkFQF6P7QSMR/PrM5Xm4vZvOgncAXMYdEgH1N7V3uYub/TY4VLnuJyyP8+9AQ+bAXRvfllGK0EVNpg==}
+  '@aigne/openai@0.16.1':
+    resolution: {integrity: sha512-VEBYjflqrbeocK/gaqaUzvPz6lGM5z4b75leJgc5d/ta2YiQxqTRuduEBi+raTz6xHvOGiG9691ruYHk2QfQew==}
 
   '@aigne/platform-helpers@0.6.3':
     resolution: {integrity: sha512-DwbN6FjEOK/ssTae4cfRL2ANXFijoVs3gw6KYTv0LPSdqpecco7nkK5ZFqQ62Yn34/flNYHN/eLYPMvia6SOjQ==}
 
-  '@aigne/poe@1.0.26':
-    resolution: {integrity: sha512-ZzeQeAgZyPHrHc8YvPqhwQkFSoumhf1+JJToSQ7Ddllf+IdjOePMVzLepvXXBzPW2DvW6pRGuHMo6V/Bd+VCBw==}
+  '@aigne/poe@1.0.27':
+    resolution: {integrity: sha512-kiUq942Dk9LLs8+QXDLXkdfy261z4yIpGL6TOybzFSFZCg8PW8L8Hm8L85cktg0kIDw0s+Nsychd568IVEeONA==}
 
   '@aigne/sqlite@0.4.2':
     resolution: {integrity: sha512-xjSPeKDU01p5wMTaFOM6ZWEnt6dFeen+MsgCzbQUGkoHHHKSjjGNeHbhZ/Rar4f4ilp2jLeg9bmlTx779fpTOw==}
 
-  '@aigne/transport@0.15.9':
-    resolution: {integrity: sha512-1jwEfNSmV3N2xI47ICqMhpSYRlidHkJXjx23yjnJGAYzRidJXq51Mak8zkW1O7lvsjfSp7V0sjySKSeK0i7VCQ==}
+  '@aigne/transport@0.15.10':
+    resolution: {integrity: sha512-hRihan55Tcaanzk98S/HfONJcUKTm/tRDV071PN+tu5oNHD46i9lm5CdxI4ueP87l2g/E0wUoYkuZnCIz32A3g==}
 
-  '@aigne/xai@0.7.46':
-    resolution: {integrity: sha512-FjjKG/U6ej3HwZp0Gf1rqxxU3mw2oPijNaLL5xfnsvzwsHWDHyRUq9tDx0j9F4Kz8W3Q9CjIaRBkhIEYMlT9bg==}
+  '@aigne/uuid@13.0.1':
+    resolution: {integrity: sha512-28GrlAzaE1RkCQhkBn953gOd0hvCOAlZzjs4R5xPRphyNgZtDf058i2VfGDTyGvcVVkLhhoTy7s85srOM52krQ==}
+    hasBin: true
+
+  '@aigne/xai@0.7.47':
+    resolution: {integrity: sha512-bStPuzZh+FkR/K71+6UytZBqmUD8/hqhQ6Fb/jbZ1PQCzIo8g9B2QC3ZWeEdrTTBGJcnT+FRtJbIHJK81IFLCw==}
+
+  '@alcalzone/ansi-tokenize@0.2.0':
+    resolution: {integrity: sha512-qI/5TaaaCZE4yeSZ83lu0+xi1r88JSxUjnH4OP/iZF7+KKZ75u3ee5isd0LxX+6N8U0npL61YrpbthILHB6BnA==}
+    engines: {node: '>=18'}
 
   '@antfu/install-pkg@1.1.0':
     resolution: {integrity: sha512-MGQsmw10ZyI+EJo45CdSER4zEb+p31LpDAFp2Z3gkSd1yqVZGi0Ebx++YTEMonJy4oChEMLsxZ64j8FH6sSqtQ==}
@@ -1632,8 +1640,8 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  ansi-regex@6.1.0:
-    resolution: {integrity: sha512-7HSX4QQb4CspciLpVFwyRe79O3xsIZDDLER21kERQ71oaPodF8jL725AgJMFAYbooIqolJoRLuM81SpeUkpkvA==}
+  ansi-regex@6.2.2:
+    resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
     engines: {node: '>=12'}
 
   ansi-styles@4.3.0:
@@ -1667,6 +1675,10 @@ packages:
   asn1js@3.0.6:
     resolution: {integrity: sha512-UOCGPYbl0tv8+006qks/dTgV9ajs97X2p0FAbyS2iyCRrmLSRolDaHdp+v/CLgnzHc3fVB+CwYiUmei7ndFcgA==}
     engines: {node: '>=12.0.0'}
+
+  auto-bind@5.0.1:
+    resolution: {integrity: sha512-ooviqdwwgfIfNmDwo94wlshcdzfO64XV0Cg6oDsDYBJfITDz1EngD2z7DkbvCWn+XIMsIqW27sEVF6qcpJrRcg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   await-to-js@3.0.0:
     resolution: {integrity: sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==}
@@ -1812,6 +1824,10 @@ packages:
     resolution: {integrity: sha512-/lzGpEWL/8PfI0BmBOPRwp0c/wFNX1RdUML3jK/RcSBA9T8mZDdQpqYBKtCFTOfQbwPqWEOpjqW+Fnayc0969g==}
     engines: {node: '>=10'}
 
+  cli-cursor@4.0.0:
+    resolution: {integrity: sha512-VGtlMu3x/4DOtIUwEkRezxUZ2lBacNJCHash0N0WeZDBS+7Ux1dm3XWAgWYxLJFMMdOeXMHXorshEFhbMSGelg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
     engines: {node: '>=18'}
@@ -1843,6 +1859,10 @@ packages:
   cliui@9.0.1:
     resolution: {integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==}
     engines: {node: '>=20'}
+
+  code-excerpt@4.0.0:
+    resolution: {integrity: sha512-xxodCmBen3iy2i0WtAK8FlFNrRzjUqjRsMfho58xT/wvZU1YTM3fCnRjcy1gJPMepaRlgm/0e6w8SpWHpn3/cA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   coincident@1.2.3:
     resolution: {integrity: sha512-Uxz3BMTWIslzeWjuQnizGWVg0j6khbvHUQ8+5BdM7WuJEm4ALXwq3wluYoB+uF68uPBz/oUOeJnYURKyfjexlA==}
@@ -1882,6 +1902,10 @@ packages:
   content-type@1.0.5:
     resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
     engines: {node: '>= 0.6'}
+
+  convert-to-spaces@2.0.1:
+    resolution: {integrity: sha512-rcQ1bsQO9799wq24uE5AM2tAILy4gXGIK/njFWcVQkGNZ96edlpY+A7bjwvzjYvLDyzmG1MmMLZhpcsb+klNMQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   cookie-parser@1.4.7:
     resolution: {integrity: sha512-nGUvgXnotP3BsjiLX2ypbQnWoGUPIIfHQNZkkC668ntrzGWEZVW70HDEB1qnNGMicPje6EttlIgzo51YSwNQGw==}
@@ -2314,12 +2338,19 @@ packages:
     resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
     engines: {node: '>= 0.4'}
 
+  es-toolkit@1.40.0:
+    resolution: {integrity: sha512-8o6w0KFmU0CiIl0/Q/BCEOabF2IJaELM1T2PWj6e8KqzHv1gdx+7JtFnDwOx1kJH/isJ5NwlDG1nCr1HrRF94Q==}
+
   escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
     engines: {node: '>=6'}
 
   escape-html@1.0.3:
     resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
+
+  escape-string-regexp@2.0.0:
+    resolution: {integrity: sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==}
+    engines: {node: '>=8'}
 
   escape-string-regexp@5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
@@ -2609,8 +2640,25 @@ packages:
   import-in-the-middle@1.14.2:
     resolution: {integrity: sha512-5tCuY9BV8ujfOpwtAGgsTx9CGUapcFMEEyByLv1B+v2+6DhAcw+Zr0nhQT7uwaZ7DiourxFEscghOR8e1aPLQw==}
 
+  indent-string@5.0.0:
+    resolution: {integrity: sha512-m6FAo/spmsW2Ab2fU35JTYwtOKa2yAwXSwgjSv1TJzh4Mh7mC3lzAOVLBprb72XsTrgkEIsl7YrFNAiDiRhIGg==}
+    engines: {node: '>=12'}
+
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+
+  ink@6.3.1:
+    resolution: {integrity: sha512-3wGwITGrzL6rkWsi2gEKzgwdafGn4ZYd3u4oRp+sOPvfoxEHlnoB5Vnk9Uy5dMRUhDOqF3hqr4rLQ4lEzBc2sQ==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@types/react': '>=19.0.0'
+      react: '>=19.0.0'
+      react-devtools-core: ^6.1.2
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react-devtools-core:
+        optional: true
 
   inquirer@12.9.6:
     resolution: {integrity: sha512-603xXOgyfxhuis4nfnWaZrMaotNT0Km9XwwBNWUKbIDqeCY89jGr2F9YPEMiNhU6XjIP4VoWISMBFfcc5NgrTw==}
@@ -2674,6 +2722,11 @@ packages:
   is-glob@4.0.3:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
     engines: {node: '>=0.10.0'}
+
+  is-in-ci@2.0.0:
+    resolution: {integrity: sha512-cFeerHriAnhrQSbpAxL37W1wcJKUUX07HyLWZCW1URJT/ra3GyUTzBgUnh24TMVfNTV2Hij2HLxkPHFZfOZy5w==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   is-inside-container@1.0.0:
     resolution: {integrity: sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==}
@@ -3241,6 +3294,10 @@ packages:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
 
+  patch-console@2.0.0:
+    resolution: {integrity: sha512-0YNdUceMdaQwoKce1gatDScmMo5pu/tfABfnzEqeG0gtTmd7mh/WcwgUjtAeOU7N8nFFlbQBnFK2gXW5fGvmMA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   path-data-parser@0.1.0:
     resolution: {integrity: sha512-NOnmBpt5Y2RWbuv0LMzsayp3lVylAHLPUTut412ZA3l+C4uw4ZVkQbjShYCQ8TCpUMdPapr4YjUqLYD6v68j+w==}
 
@@ -3273,6 +3330,7 @@ packages:
   phin@3.7.1:
     resolution: {integrity: sha512-GEazpTWwTZaEQ9RhL7Nyz0WwqilbqgLahDM3D0hxWwmVDI52nXEybHqiN6/elwpkJBhcuj+WbBu+QfT0uhPGfQ==}
     engines: {node: '>= 8'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -3377,6 +3435,16 @@ packages:
     resolution: {integrity: sha512-9G8cA+tuMS75+6G/TzW8OtLzmBDMo8p1JRxN5AZ+LAp8uxGA8V8GZm4GQ4/N5QNQEnLmg6SS7wyuSmbKepiKqA==}
     engines: {node: '>= 0.10'}
 
+  react-reconciler@0.32.0:
+    resolution: {integrity: sha512-2NPMOzgTlG0ZWdIf3qG+dcbLSoAc/uLfOwckc3ofy5sSK0pLJqnQLpUFxvGcN2rlXSjnVtGeeFLNimCQEj5gOQ==}
+    engines: {node: '>=0.10.0'}
+    peerDependencies:
+      react: ^19.1.0
+
+  react@19.2.0:
+    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
+    engines: {node: '>=0.10.0'}
+
   readable-stream@4.7.0:
     resolution: {integrity: sha512-oIGGmcpTLwPga8Bn6/Z75SVaH1z5dUut2ibSyAMVhmUggWpmDn2dapB0n7f8nwaSiRtepAsfJyfXIO5DCVAODg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -3423,6 +3491,10 @@ packages:
     resolution: {integrity: sha512-NPRy+/ncIMeDlTAsuqwKIiferiawhefFJtkNSW0qZJEqMEb+qBt/77B/jGeeek+F0uOeN05CDa6HXbbIgtVX4w==}
     engines: {node: '>= 0.4'}
     hasBin: true
+
+  restore-cursor@4.0.0:
+    resolution: {integrity: sha512-I9fPXU9geO9bHOt9pHHOhOkYerIMsmVaWB0rA2AI9ERh/+x/i7MV5HKBNrg+ljO5eoPVgCcnFuRjJ9uH6I/3eg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   restore-cursor@5.1.0:
     resolution: {integrity: sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==}
@@ -3477,6 +3549,9 @@ packages:
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
+
+  scheduler@0.26.0:
+    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
 
   send@1.2.0:
     resolution: {integrity: sha512-uaW0WwXKpL9blXE2o0bRhoL2EGXIrZxQ2ZQ4mgcfoBxdFmQold+qWsD2jLrfZ0trjKL6vOw0j//eAwcALFjKSw==}
@@ -3560,6 +3635,10 @@ packages:
       kysely:
         optional: true
 
+  stack-utils@2.0.6:
+    resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
+    engines: {node: '>=10'}
+
   statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
@@ -3586,6 +3665,10 @@ packages:
   string-width@7.2.0:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
+
+  string-width@8.1.0:
+    resolution: {integrity: sha512-Kxl3KJGb/gxkaUMOjRsQ8IrXiGW75O4E3RPjFIINOVH8AMl2SQ/yWdTzWwF3FevIX9LcMAjJW+GRwAlAbTSXdg==}
+    engines: {node: '>=20'}
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
@@ -3792,10 +3875,6 @@ packages:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
-    hasBin: true
-
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -3987,6 +4066,9 @@ packages:
     resolution: {integrity: sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==}
     engines: {node: '>=18'}
 
+  yoga-layout@3.2.1:
+    resolution: {integrity: sha512-0LPOt3AxKqMdFBZA3HBAt/t/8vIKq7VaQYbuA8WxCgung+p9TVyKRYdpvCb80HcdTN2NkbIKbhNwKUfm3tQywQ==}
+
   zod-from-json-schema@0.0.5:
     resolution: {integrity: sha512-zYEoo86M1qpA1Pq6329oSyHLS785z/mTwfr9V1Xf/ZLhuuBGaMlDGu/pDVGVUe4H4oa1EFgWZT53DP0U3oT9CQ==}
 
@@ -4006,16 +4088,16 @@ packages:
 
 snapshots:
 
-  '@aigne/agent-library@1.21.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agent-library@1.21.47(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/sqlite': 0.4.2(@opentelemetry/api@1.9.0)
+      '@aigne/uuid': 13.0.1
       drizzle-orm: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
       fastq: 1.19.1
       jsonata: 2.1.0
       jsonschema: 1.5.0
-      uuid: 13.0.0
       yaml: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4055,11 +4137,11 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/agentic-memory@1.0.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agentic-memory@1.0.47(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.9(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.10(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4098,22 +4180,22 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/aigne-hub@0.10.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/aigne-hub@0.10.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/anthropic': 0.14.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/bedrock': 0.10.5(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/deepseek': 0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/doubao': 1.1.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/gemini': 0.14.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/ideogram': 0.4.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/ollama': 0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/open-router': 0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/anthropic': 0.14.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/bedrock': 0.10.6(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/deepseek': 0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/doubao': 1.1.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/gemini': 0.14.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/ideogram': 0.4.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/ollama': 0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/open-router': 0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/platform-helpers': 0.6.3
-      '@aigne/poe': 1.0.26(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/transport': 0.15.9(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/xai': 0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/poe': 1.0.27(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/transport': 0.15.10(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/xai': 0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@smithy/node-http-handler': 4.2.1
       https-proxy-agent: 7.0.6
       ufo: 1.6.1
@@ -4157,9 +4239,9 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/anthropic@0.14.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/anthropic@0.14.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/platform-helpers': 0.6.3
       '@anthropic-ai/sdk': 0.63.1(zod@3.25.76)
       zod: 3.25.76
@@ -4198,11 +4280,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/bedrock@0.10.5(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/bedrock@0.10.6(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/uuid': 13.0.1
       '@aws-sdk/client-bedrock-runtime': 3.896.0
-      uuid: 13.0.0
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4240,18 +4322,18 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/cli@1.49.1(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)':
+  '@aigne/cli@1.50.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)':
     dependencies:
-      '@aigne/agent-library': 1.21.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/agentic-memory': 1.0.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/aigne-hub': 0.10.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.9(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/agent-library': 1.21.47(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/agentic-memory': 1.0.47(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/aigne-hub': 0.10.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.10(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
       '@aigne/listr2': 1.0.10
       '@aigne/marked-terminal': 7.3.2(marked@16.3.0)
-      '@aigne/observability-api': 0.11.0(@libsql/client@0.15.15)
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/observability-api': 0.11.1(@libsql/client@0.15.15)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@fast-csv/format': 5.0.5
       '@inquirer/core': 10.2.2(@types/node@24.0.15)
       '@inquirer/figures': 1.0.13
@@ -4262,6 +4344,7 @@ snapshots:
       '@ocap/mcrypto': 1.25.3
       '@smithy/node-http-handler': 4.2.1
       ansi-escapes: 7.1.1
+      ansi-regex: 6.2.2
       boxen: 8.0.1
       chalk: 5.6.2
       cli-table3: 0.6.5
@@ -4271,6 +4354,7 @@ snapshots:
       glob: 11.0.3
       gradient-string: 3.0.0
       https-proxy-agent: 7.0.6
+      ink: 6.3.1(react@19.2.0)
       inquirer: 12.9.6(@types/node@24.0.15)
       log-update: 7.0.1
       marked: 16.3.0
@@ -4279,6 +4363,9 @@ snapshots:
       openai: 5.23.0(ws@8.18.3)(zod@3.25.76)
       p-wait-for: 5.0.2
       prettier: 3.6.2
+      react: 19.2.0
+      string-width: 8.1.0
+      strip-ansi: 7.1.2
       tar: 7.4.3
       terminal-image: 4.0.0
       terminal-link: 5.0.0
@@ -4303,6 +4390,7 @@ snapshots:
       - '@types/better-sqlite3'
       - '@types/node'
       - '@types/pg'
+      - '@types/react'
       - '@types/sql.js'
       - '@upstash/redis'
       - '@vercel/postgres'
@@ -4323,17 +4411,19 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-devtools-core
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/core@1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/core@1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
-      '@aigne/observability-api': 0.11.0(@libsql/client@0.15.15)
+      '@aigne/observability-api': 0.11.1(@libsql/client@0.15.15)
       '@aigne/platform-helpers': 0.6.3
+      '@aigne/uuid': 13.0.1
       '@inquirer/prompts': 7.8.6(@types/node@24.0.15)
       '@modelcontextprotocol/sdk': 1.18.1
       '@opentelemetry/api': 1.9.0
@@ -4355,7 +4445,6 @@ snapshots:
       raw-body: 3.0.1
       strict-event-emitter: 0.5.1
       ufo: 1.6.1
-      uuid: 13.0.0
       yaml: 2.8.1
       zod: 3.25.76
       zod-from-json-schema: 0.0.5
@@ -4395,9 +4484,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/deepseek@0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/deepseek@0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4434,12 +4523,12 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/default-memory@1.2.9(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/default-memory@1.2.10(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/sqlite': 0.4.2(@opentelemetry/api@1.9.0)
+      '@aigne/uuid': 13.0.1
       drizzle-orm: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
-      uuid: 13.0.0
       yaml: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4478,9 +4567,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/doubao@1.1.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/doubao@1.1.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       ufo: 1.6.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4519,12 +4608,12 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/gemini@0.14.0(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/gemini@0.14.1(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/platform-helpers': 0.6.3
+      '@aigne/uuid': 13.0.1
       '@google/genai': 1.20.0(@modelcontextprotocol/sdk@1.18.1)
-      uuid: 13.0.0
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4564,9 +4653,9 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/ideogram@0.4.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/ideogram@0.4.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       ufo: 1.6.1
       zod: 3.25.67
     transitivePeerDependencies:
@@ -4620,7 +4709,7 @@ snapshots:
   '@aigne/marked-terminal@7.3.2(marked@16.3.0)':
     dependencies:
       ansi-escapes: 7.1.1
-      ansi-regex: 6.1.0
+      ansi-regex: 6.2.2
       chalk: 5.6.2
       cli-highlight: 2.1.11
       cli-table3: 0.6.5
@@ -4628,9 +4717,10 @@ snapshots:
       node-emoji: 2.2.0
       supports-hyperlinks: 3.2.0
 
-  '@aigne/observability-api@0.11.0(@libsql/client@0.15.15)':
+  '@aigne/observability-api@0.11.1(@libsql/client@0.15.15)':
     dependencies:
       '@aigne/sqlite': 0.4.2(@opentelemetry/api@1.9.0)
+      '@aigne/uuid': 13.0.1
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-node': 0.205.0(@opentelemetry/api@1.9.0)
@@ -4646,7 +4736,6 @@ snapshots:
       mime: 4.1.0
       terminal-link: 5.0.0
       ufo: 1.6.1
-      uuid: 13.0.0
       yaml: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4682,9 +4771,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/ollama@0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/ollama@0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4721,9 +4810,9 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/open-router@0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/open-router@0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4760,12 +4849,12 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/openai@0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/openai@0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.62.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/platform-helpers': 0.6.3
+      '@aigne/uuid': 13.0.1
       openai: 5.23.0(ws@8.18.3)(zod@3.25.76)
-      uuid: 13.0.0
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4809,9 +4898,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aigne/poe@1.0.26(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/poe@1.0.27(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4885,9 +4974,9 @@ snapshots:
       - sqlite3
       - utf-8-validate
 
-  '@aigne/transport@0.15.9(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/transport@0.15.10(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       content-type: 1.0.5
       p-retry: 7.0.0
       raw-body: 3.0.1
@@ -4928,9 +5017,11 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/xai@0.7.46(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/uuid@13.0.1': {}
+
+  '@aigne/xai@0.7.47(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.1(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4966,6 +5057,11 @@ snapshots:
       - supports-color
       - utf-8-validate
       - ws
+
+  '@alcalzone/ansi-tokenize@0.2.0':
+    dependencies:
+      ansi-styles: 6.2.1
+      is-fullwidth-code-point: 5.0.0
 
   '@antfu/install-pkg@1.1.0':
     dependencies:
@@ -7049,7 +7145,7 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  ansi-regex@6.1.0: {}
+  ansi-regex@6.2.2: {}
 
   ansi-styles@4.3.0:
     dependencies:
@@ -7080,6 +7176,8 @@ snapshots:
       pvtsutils: 1.3.6
       pvutils: 1.1.3
       tslib: 2.8.1
+
+  auto-bind@5.0.1: {}
 
   await-to-js@3.0.0: {}
 
@@ -7231,6 +7329,10 @@ snapshots:
 
   cli-boxes@3.0.0: {}
 
+  cli-cursor@4.0.0:
+    dependencies:
+      restore-cursor: 4.0.0
+
   cli-cursor@5.0.0:
     dependencies:
       restore-cursor: 5.1.0
@@ -7275,6 +7377,10 @@ snapshots:
       strip-ansi: 7.1.2
       wrap-ansi: 9.0.2
 
+  code-excerpt@4.0.0:
+    dependencies:
+      convert-to-spaces: 2.0.1
+
   coincident@1.2.3:
     dependencies:
       '@ungap/structured-clone': 1.3.0
@@ -7310,6 +7416,8 @@ snapshots:
       safe-buffer: 5.2.1
 
   content-type@1.0.5: {}
+
+  convert-to-spaces@2.0.1: {}
 
   cookie-parser@1.4.7:
     dependencies:
@@ -7656,9 +7764,13 @@ snapshots:
     dependencies:
       es-errors: 1.3.0
 
+  es-toolkit@1.40.0: {}
+
   escalade@3.2.0: {}
 
   escape-html@1.0.3: {}
+
+  escape-string-regexp@2.0.0: {}
 
   escape-string-regexp@5.0.0: {}
 
@@ -8001,7 +8113,39 @@ snapshots:
       cjs-module-lexer: 1.4.3
       module-details-from-path: 1.0.4
 
+  indent-string@5.0.0: {}
+
   inherits@2.0.4: {}
+
+  ink@6.3.1(react@19.2.0):
+    dependencies:
+      '@alcalzone/ansi-tokenize': 0.2.0
+      ansi-escapes: 7.1.1
+      ansi-styles: 6.2.1
+      auto-bind: 5.0.1
+      chalk: 5.6.2
+      cli-boxes: 3.0.0
+      cli-cursor: 4.0.0
+      cli-truncate: 4.0.0
+      code-excerpt: 4.0.0
+      es-toolkit: 1.40.0
+      indent-string: 5.0.0
+      is-in-ci: 2.0.0
+      patch-console: 2.0.0
+      react: 19.2.0
+      react-reconciler: 0.32.0(react@19.2.0)
+      signal-exit: 3.0.7
+      slice-ansi: 7.1.2
+      stack-utils: 2.0.6
+      string-width: 7.2.0
+      type-fest: 4.41.0
+      widest-line: 5.0.0
+      wrap-ansi: 9.0.2
+      ws: 8.18.3
+      yoga-layout: 3.2.1
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   inquirer@12.9.6(@types/node@24.0.15):
     dependencies:
@@ -8051,6 +8195,8 @@ snapshots:
   is-glob@4.0.3:
     dependencies:
       is-extglob: 2.1.1
+
+  is-in-ci@2.0.0: {}
 
   is-inside-container@1.0.0:
     dependencies:
@@ -8830,6 +8976,8 @@ snapshots:
 
   parseurl@1.3.3: {}
 
+  patch-console@2.0.0: {}
+
   path-data-parser@0.1.0: {}
 
   path-key@3.1.1: {}
@@ -8961,6 +9109,13 @@ snapshots:
       iconv-lite: 0.7.0
       unpipe: 1.0.0
 
+  react-reconciler@0.32.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+      scheduler: 0.26.0
+
+  react@19.2.0: {}
+
   readable-stream@4.7.0:
     dependencies:
       abort-controller: 3.0.0
@@ -9048,6 +9203,11 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
+  restore-cursor@4.0.0:
+    dependencies:
+      onetime: 5.1.2
+      signal-exit: 3.0.7
+
   restore-cursor@5.1.0:
     dependencies:
       onetime: 7.0.0
@@ -9101,6 +9261,8 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
+
+  scheduler@0.26.0: {}
 
   send@1.2.0:
     dependencies:
@@ -9205,6 +9367,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  stack-utils@2.0.6:
+    dependencies:
+      escape-string-regexp: 2.0.0
+
   statuses@2.0.1: {}
 
   statuses@2.0.2: {}
@@ -9231,6 +9397,11 @@ snapshots:
       get-east-asian-width: 1.3.0
       strip-ansi: 7.1.2
 
+  string-width@8.1.0:
+    dependencies:
+      get-east-asian-width: 1.3.0
+      strip-ansi: 7.1.2
+
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -9241,7 +9412,7 @@ snapshots:
 
   strip-ansi@7.1.2:
     dependencies:
-      ansi-regex: 6.1.0
+      ansi-regex: 6.2.2
 
   strip-final-newline@2.0.0: {}
 
@@ -9447,8 +9618,6 @@ snapshots:
 
   uuid@11.1.0: {}
 
-  uuid@13.0.0: {}
-
   uuid@9.0.1: {}
 
   vary@1.1.2: {}
@@ -9633,6 +9802,8 @@ snapshots:
   yocto-queue@1.2.1: {}
 
   yoctocolors-cjs@2.1.3: {}
+
+  yoga-layout@3.2.1: {}
 
   zod-from-json-schema@0.0.5:
     dependencies:

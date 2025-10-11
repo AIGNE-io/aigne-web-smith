@@ -27,15 +27,14 @@ export default async function userReviewPageDetail(
 
   // Ask user if they want to review the page detail
   const needReview = await options.prompts.select({
-    message:
-      "Would you like to optimize this page?\n  You can edit sections, metadata, and content structure.",
+    message: "Review the content above. Do you want to make changes?",
     choices: [
       {
-        name: "Looks good - proceed with current content",
+        name: "No, looks good",
         value: "no",
       },
       {
-        name: "Yes, optimize the content",
+        name: "Yes, edit content (e.g. adjust sections or update titles)",
         value: "yes",
       },
     ],
@@ -64,9 +63,11 @@ export default async function userReviewPageDetail(
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the page detail?\n" +
-        "  • Update meta information (title, description)\n" +
-        "  • Add, remove, update, or reorder sections\n" +
-        "  Press Enter to finish reviewing:",
+        "Examples:\n" +
+        "  • Add a section to display FAQ\n" +
+        "  • Remove section 3\n" +
+        "  • Move section 4 to the bottom\n" +
+        "Press Enter to finish reviewing:",
     });
 
     // If no feedback, break the loop

@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta.1...v1.5.0-beta.1) (2025-10-11)
+
+
+### Features
+
+* **publish:** add navigation and locale support for website publishing ([#107](https://github.com/AIGNE-io/aigne-web-smith/issues/107)) ([157718c](https://github.com/AIGNE-io/aigne-web-smith/commit/157718c32ef7610eb527a352c1744e853cc8a896))
+* support filter and describe and use media files with AI ([#106](https://github.com/AIGNE-io/aigne-web-smith/issues/106)) ([154c8b3](https://github.com/AIGNE-io/aigne-web-smith/commit/154c8b3426cd2a82e50110e7e36ffb489c40f328))
+
+
+### Bug Fixes
+
+* tune update tips and support clearing authorizations ([#109](https://github.com/AIGNE-io/aigne-web-smith/issues/109)) ([b1ee259](https://github.com/AIGNE-io/aigne-web-smith/commit/b1ee2590b896eece1df398309dab53a2d098b97f))
+
 ## [1.4.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta...v1.4.1-beta.1) (2025-10-08)
 
 

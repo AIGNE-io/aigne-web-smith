@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.2...v1.5.0-beta.3) (2025-10-11)
+
+
+### Features
+
+* support clear media file descriptions ([#113](https://github.com/AIGNE-io/aigne-web-smith/issues/113)) ([8b34b83](https://github.com/AIGNE-io/aigne-web-smith/commit/8b34b83e4ea9936fbc5de9c1e8b971135c6b116c))
+
+
+### Bug Fixes
+
+* **publish:** enhance access token retrieval and session check logic ([#114](https://github.com/AIGNE-io/aigne-web-smith/issues/114)) ([a401380](https://github.com/AIGNE-io/aigne-web-smith/commit/a4013804e0c559685e4dcdfac19965d1f5a71022))
+
 ## [1.5.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2025-10-11)
 
 

@@ -27,7 +27,6 @@ export async function deploy(id, cachedUrl) {
   const client = new BrokerClient({
     baseUrl: BASE_URL,
     authToken,
-    paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
   });
 
   console.log(`🚀 Starting deployment...`);

@@ -158,7 +158,7 @@ export async function getAccessToken(appUrl, ltToken = "", requiredAdminPassport
  * @param {string} baseUrl - The official service URL
  * @returns {Promise<string>} - The access token
  */
-export async function getOfficialAccessToken(baseUrl) {
+export async function getOfficialAccessToken(baseUrl, openPage = true) {
   // Early parameter validation
   if (!baseUrl) {
     throw new Error("The baseUrl parameter is required for getting the official access token.");
@@ -190,6 +190,10 @@ export async function getOfficialAccessToken(baseUrl) {
 
   // If token is found, return it
   if (accessToken) {
+    return accessToken;
+  }
+
+  if (!openPage) {
     return accessToken;
   }
 

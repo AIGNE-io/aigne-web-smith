@@ -153,7 +153,7 @@ export default function renderComparisonTable(section, { indent = "" } = {}) {
   }
 
   if (section.featureTitle) {
-    parts.push(`${indent}Title: ${section.featureTitle}`);
+    parts.push(`${indent}Feature Title: ${section.featureTitle}`);
   }
 
   parts.push(buildEntitiesOutput(filteredEntities, indent));

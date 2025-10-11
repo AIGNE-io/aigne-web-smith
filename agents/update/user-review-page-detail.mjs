@@ -1,7 +1,12 @@
 import YAML from "yaml";
 import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
-import { generateFieldConstraints } from "../../utils/generate-helper.mjs";
+import {
+  extractContentFields,
+  findBestComponentMatch,
+  generateFieldConstraints,
+} from "../../utils/generate-helper.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
+import { getSectionFormatterByMatch } from "./formatters/index.mjs";
 
 export default async function userReviewPageDetail(
   { content, componentLibrary, ...rest },
@@ -22,8 +27,12 @@ export default async function userReviewPageDetail(
     return { content };
   }
 
+  const compositeComponents = Array.isArray(componentLibrary)
+    ? componentLibrary.filter((comp) => comp?.type === "composite")
+    : [];
+
   // Print current page detail in a user-friendly format
-  printPageDetail(parsedPageDetail);
+  printPageDetail(parsedPageDetail, compositeComponents);
 
   // Ask user if they want to review the page detail
   const needReview = await options.prompts.select({
@@ -104,7 +113,7 @@ export default async function userReviewPageDetail(
       });
 
       // Print updated page detail
-      printPageDetail(currentPageDetail);
+      printPageDetail(currentPageDetail, compositeComponents);
     } catch (error) {
       console.error("Error processing feedback:", {
         type: error.name,
@@ -121,7 +130,7 @@ export default async function userReviewPageDetail(
   };
 }
 
-function printPageDetail(pageDetail) {
+function printPageDetail(pageDetail, compositeComponents = []) {
   console.log("\n📄 Page Detail:");
   console.log("=".repeat(60));
 
@@ -136,7 +145,7 @@ function printPageDetail(pageDetail) {
     console.log("-".repeat(60));
 
     pageDetail.sections.forEach((section, index) => {
-      printSectionSimple(section, index + 1);
+      printSectionSimple(section, index + 1, compositeComponents);
     });
   } else {
     console.log(`\n📋 Sections: None`);
@@ -145,8 +154,14 @@ function printPageDetail(pageDetail) {
   console.log(`\n${"=".repeat(60)}`);
 }
 
-function printSectionSimple(section, index) {
+function printSectionSimple(section, index, compositeComponents = []) {
   console.log(`\nSection ${index}`);
+
+  const specialRendering = renderSpecialSection(section, compositeComponents);
+  if (specialRendering) {
+    console.log(specialRendering);
+    return;
+  }
 
   // Print all fields except 'sectionName' and 'sectionSummary' with recursive handling
   const content = [];
@@ -310,6 +325,37 @@ function getDisplayName(fieldName) {
 function truncateText(text, maxLength) {
   if (!text) return "";
   return text.length > maxLength ? `${text.substring(0, maxLength - 3)}...` : text;
+}
+
+function renderSpecialSection(section, compositeComponents = []) {
+  if (!section || typeof section !== "object") return null;
+  if (!Array.isArray(compositeComponents) || compositeComponents.length === 0) return null;
+
+  const sectionFields = extractContentFields(section);
+  if (!sectionFields || sectionFields.length === 0) return null;
+
+  const matchResult = findBestComponentMatch(sectionFields, compositeComponents);
+  const formatter = getSectionFormatterByMatch(matchResult);
+  if (!formatter) return null;
+
+  try {
+    const output = formatter(section, {
+      indent: "   ",
+      matchResult,
+      compositeComponents,
+    });
+    if (typeof output === "string" && output.trim().length > 0) {
+      return output;
+    }
+  } catch (error) {
+    console.warn("Failed to render section preview via formatter:", {
+      sectionName: section?.sectionName,
+      componentId: matchResult?.component?.id,
+      error: error?.message,
+    });
+  }
+
+  return null;
 }
 
 userReviewPageDetail.taskTitle = "User review and modify page detail content";

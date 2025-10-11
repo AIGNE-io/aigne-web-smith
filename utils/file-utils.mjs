@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
+import { WEB_SMITH_DIR } from "./constants.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -180,6 +181,14 @@ export function getMimeType(filePath) {
     ".3gpp": "video/3gpp",
   };
   return mimeTypes[ext] || "application/octet-stream";
+}
+
+/**
+ * Get media description cache file path
+ * @returns {string} Absolute path to media-description.yaml
+ */
+export function getMediaDescriptionCachePath() {
+  return path.join(process.cwd(), WEB_SMITH_DIR, "media-description.yaml");
 }
 
 /**

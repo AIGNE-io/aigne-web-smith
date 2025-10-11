@@ -76,6 +76,7 @@ import { parse, stringify } from "yaml";
 import {
   DEFAULT_PAGE_STYLE,
   EMPTY_VALUE,
+  ENABLE_LOGS,
   KEEP_CONFIG_KEYS,
   LIST_KEY,
 } from "../../../utils/constants.mjs";
@@ -84,6 +85,7 @@ import {
   findBestComponentMatch,
   generateDeterministicId,
 } from "../../../utils/generate-helper.mjs";
+import { fmtPath, log, logError } from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 const getEmptyValue = (_key) => {
@@ -114,14 +116,6 @@ function replaceEmptyValueDeep(node) {
   }
   return node;
 }
-
-// ============= Logging =============
-const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
-const log = (...args) => ENABLE_LOGS && console.log(...args);
-const logError = (...args) => ENABLE_LOGS && console.error(...args);
-
-// 小工具：path 数组可视化
-const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));
 
 // ============= IO Utils =============
 async function readMiddleFormatFile(tmpDir, locale, fileName) {

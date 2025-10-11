@@ -203,6 +203,7 @@ export default async function publishWebsite(
 
   let shouldWithLocales = withLocalesOption || false;
   let shouldWithNavigations = withNavigationsOption || false;
+  let publishToSelfHostedBlocklet = false;
 
   let token = "";
 
@@ -255,9 +256,12 @@ export default async function publishWebsite(
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
     } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
+      publishToSelfHostedBlocklet = true;
+
       // upload to default project
       config.projectId = DEFAULT_PROJECT_ID;
       config.projectSlug = DEFAULT_PROJECT_SLUG;
+
       projectId = DEFAULT_PROJECT_ID;
       projectSlug = DEFAULT_PROJECT_SLUG;
 
@@ -591,13 +595,15 @@ export default async function publishWebsite(
         await saveValueToConfig("appUrl", appUrl);
       }
 
-      const shouldSaveProjectId = !hasProjectIdInConfig || projectId !== newProjectId;
+      const shouldSaveProjectId =
+        !hasProjectIdInConfig || projectId !== newProjectId || publishToSelfHostedBlocklet;
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
 
       const shouldSaveProjectSlug =
-        !!newProjectSlug && (!hasProjectSlugInConfig || projectSlug !== newProjectSlug);
+        !!newProjectSlug &&
+        (!hasProjectSlugInConfig || projectSlug !== newProjectSlug || publishToSelfHostedBlocklet);
       if (shouldSaveProjectSlug) {
         await saveValueToConfig("projectSlug", newProjectSlug);
       }

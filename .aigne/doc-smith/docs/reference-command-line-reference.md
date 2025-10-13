@@ -38,11 +38,11 @@ aigne web generate --input @path/to/your/config.yaml
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `config` | The path to the website configuration file. This is typically provided via the `--input` flag. | String | Yes |
-| `glossary` | A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format `@<file>`. | String | No |
-| `forceRegenerate` | If set to `true`, this forces the regeneration of all pages, even if they already exist. | Boolean | No |
+<x-field-group>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file. This is typically provided via the --input flag."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format @<file>."></x-field>
+  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="If set to true, this forces the regeneration of all pages, even if they already exist."></x-field>
+</x-field-group>
 
 ### publish
 Publishes the generated website files to a Pages Kit instance. This command handles the batch upload and provides status monitoring.
@@ -56,11 +56,11 @@ aigne web publish --appUrl "https://your-pages-kit-url.com"
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `appUrl` | The base URL of the target Pages Kit website where the pages will be published. | String | No |
-| `with-navigations` | If set to `true`, publishes website navigation data along with the pages. | Boolean | No |
-| `with-locales` | If set to `true`, publishes website locale and language settings. | Boolean | No |
+<x-field-group>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="The base URL of the target Pages Kit website where the pages will be published."></x-field>
+  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website navigation data along with the pages."></x-field>
+  <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website locale and language settings."></x-field>
+</x-field-group>
 
 ### update
 Updates the content of an existing website based on user feedback. This command can be used to refine text, add new sections, or modify page structures.
@@ -74,11 +74,11 @@ aigne web update --pages "/about-us" --feedback "Add a new section for team memb
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `pages` | An array of page paths to update (e.g., `/about-us`, `/contact`). | Array | No |
-| `feedback` | A detailed description of the changes or improvements required for the content. | String | No |
-| `glossary` | A file containing a glossary of terms for consistency. Use the format `@<file>`. | String | No |
+<x-field-group>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to update (e.g., /about-us, /contact)."></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="A detailed description of the changes or improvements required for the content."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistency. Use the format @<file>."></x-field>
+</x-field-group>
 
 ### translate
 Translates the content of existing website pages into one or more specified languages.
@@ -90,12 +90,12 @@ aigne web translate --pages "/home" --langs "fr,de,es"
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `pages` | An array of page paths to translate. | Array | No |
-| `langs` | An array of language codes to translate the content into. Available codes include: `en`, `zh`, `zh-TW`, `ja`, `fr`, `de`, `es`, `it`, `ru`, `ko`, `pt`, `ar`. | Array | No |
-| `feedback` | Specific instructions or feedback to improve the quality of the translation. | String | No |
-| `glossary` | A file containing a glossary of terms for consistent translation. Use the format `@<file>`. | String | No |
+<x-field-group>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to translate."></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="An array of language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="Specific instructions or feedback to improve the quality of the translation."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistent translation. Use the format @<file>."></x-field>
+</x-field-group>
 
 ### theme
 Manages the visual themes of your website. You can generate new themes based on your design preferences and apply them to your site.
@@ -112,10 +112,10 @@ aigne web theme generate --name "MyCustomTheme" --config @path/to/config.yaml
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `name` | A unique name for the new theme. | String | No |
-| `config` | The path to the website configuration file to base the theme on. | String | No |
+<x-field-group>
+  <x-field data-name="name" data-type="String" data-required="false" data-desc="A unique name for the new theme."></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="The path to the website configuration file to base the theme on."></x-field>
+</x-field-group>
 
 **`apply`**
 Applies a previously generated theme to the website.
@@ -142,9 +142,9 @@ aigne web component pull --url "https://your-pages-kit/api/..."
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `url` | The full URL provided by your Pages Kit instance to pull the component library. | String | Yes |
+<x-field-group>
+  <x-field data-name="url" data-type="String" data-required="true" data-desc="The full URL provided by your Pages Kit instance to pull the component library."></x-field>
+</x-field-group>
 
 ### chat
 Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. The chat agent can access all other commands.
@@ -170,12 +170,12 @@ aigne web prefs --remove --id "pref_abc123"
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `--list` | Displays a formatted list of all saved user preferences. | Flag | No |
-| `--remove` | Removes one or more preferences. Requires the `--id` parameter or will prompt for selection. | Flag | No |
-| `--toggle` | Toggles the active status of one or more preferences. Requires `--id` or will prompt. | Flag | No |
-| `--id` | An array of preference IDs to be managed (removed or toggled). | Array | Only when using `--remove` or `--toggle` non-interactively. |
+<x-field-group>
+  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="Displays a formatted list of all saved user preferences."></x-field>
+  <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="Removes one or more preferences. Requires the --id parameter or will prompt for selection."></x-field>
+  <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="Toggles the active status of one or more preferences. Requires --id or will prompt."></x-field>
+  <x-field data-name="--id" data-type="Array" data-required="false" data-desc="An array of preference IDs to be managed (removed or toggled). Required only when using --remove or --toggle non-interactively."></x-field>
+</x-field-group>
 
 ### history
 Provides a view of the update history for your website content and structure.
@@ -203,13 +203,13 @@ aigne web clear --targets workspace generatedPages
 
 **Parameters:**
 
-| Parameter | Description | Type | Required |
-| :--- | :--- | :--- | :--- |
-| `targets` | An array of items to clear without prompting. Possible values: `workspace`, `generatedPages`, `websiteConfig`, `deploymentConfig`, `authTokens`, `mediaDescription`. | Array | No |
-| `pagesDir` | Overrides the default directory path for your source pages. | String | No |
-| `tmpDir` | Overrides the default directory path for the temporary workspace. | String | No |
-| `outputDir` | Overrides the default directory path for the generated pages. | String | No |
-| `configPath` | Overrides the default path for the configuration file. | String | No |
+<x-field-group>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: workspace, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
+  <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for your source pages."></x-field>
+  <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the temporary workspace."></x-field>
+  <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the generated pages."></x-field>
+  <x-field data-name="configPath" data-type="String" data-required="false" data-desc="Overrides the default path for the configuration file."></x-field>
+</x-field-group>
 
 ## Summary
 

@@ -1,4 +1,8 @@
 entries:
+  - timestamp: 2025-10-13T10:08:35.415Z
+    operation: document_update
+    feedback: All parameters should be described using the x-field component.
+    documentPath: /reference/command-line-reference
   - timestamp: 2025-10-13T09:55:07.081Z
     operation: document_update
     feedback: The Target column in the Clearable Targets table uses the original target enumeration values.

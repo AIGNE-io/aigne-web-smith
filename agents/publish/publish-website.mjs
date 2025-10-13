@@ -518,7 +518,7 @@ export default async function publishWebsite(
       id: projectId,
       name: projectName,
       description: projectDesc,
-      logo: projectLogo,
+      icon: projectLogo,
       slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
     };
 

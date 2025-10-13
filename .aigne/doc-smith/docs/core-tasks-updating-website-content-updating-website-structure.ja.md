@@ -1,106 +1,61 @@
-# ウェブサイトの構造を更新する
+# ウェブサイト構造の更新
 
-ウェブサイトの構造は、しばしば情報アーキテクチャとも呼ばれ、そのページの配置と編成を指します。論理的な構造は、ユーザーのナビゲーションと理解にとって不可欠です。AIGNE WebSmithは、ページの追加、削除、更新、または再編成によってウェブサイトの構造を変更するための簡単なプロセスを提供します。
+新しいページの追加、古いページの削除、ナビゲーションの再編成など、ウェブサイトの構造を変更することは、コンテンツを適切で使いやすい状態に保つための重要なタスクです。AIGNE WebSmith は、自然言語のフィードバックを解釈して正確な構造変更を行うAI駆動のワークフローを通じて、このプロセスを容易にします。
 
-これらの構造的な変更は、個別のコマンドで実行されるわけではありません。代わりに、`update` コマンドに明確で自然言語のフィードバックを提供します。AIがあなたの指示を解釈し、必要な変更をウェブサイトの計画に適用します。このドキュメントでは、サイトの構造化に利用できる具体的な操作について概説します。
+このドキュメントでは、`aigne web generate` コマンドを使用してサイトの構造を変更する方法について説明します。このプロセス中、AI agent が自然言語でのフィードバックを解釈し、ページの追加、削除、更新、または移動を行います。利用可能な操作を理解することで、目的のサイトレイアウトを実現するための明確な指示を提供できます。
 
-ページ内のコンテンツの変更に関する詳細は、[ページコンテンツの更新](./core-tasks-updating-website-content-updating-page-content.md)ガイドを参照してください。
+構造変更を適用するための主要なコマンドは `aigne web generate` です。生成プロセス自体の詳細については、[ウェブサイトの生成](./core-tasks-generating-a-website.md) を参照してください。
+## 構造更新のプロセス
 
-## 更新プロセス
+`aigne web generate` コマンドを実行すると、システムはまずコンテンツソースを分析し、ウェブサイトの構造を提案します。その後、この構造を対話形式で確認し、変更する機会が与えられます。
 
-ウェブサイトの構造を変更するには、希望する変更を説明する対話形式のセッションが必要です。システムは、あなたの入力に基づいてこれらの変更を実行するための一連の専門ツールを使用します。
+## インタラクティブな更新ワークフロー
 
-一般的なワークフローは次のとおりです。
-1.  ターミナルで `aigne update` コマンドを実行します。
-2.  システムがフィードバックを求めます。
-3.  行いたい構造的な変更を明確に説明します（例：「新しい『ブログ』ページを追加する」、「『採用情報』ページを『会社概要』の下に移動する」）。
-4.  AIがリクエストを分析し、必要な操作を実行し、更新された構造をレビューと確認のために提示します。
+ウェブサイトの構造を更新するプロセスはインタラクティブです。以下にワークフローの概要を示します。
+
+1.  **生成の開始**: ターミナルで generate コマンドを実行します。
+    ```bash
+    aigne web generate
+    ```
+
+2.  **提案された構造の確認**: ソースを分析した後、CLI は提案された構造を表示し、入力を求めます。
+
+3.  **自然言語でのフィードバックの提供**: プロンプトが表示されたら、希望する変更を平易な英語で入力します。例：
+    > 「最上位にパス `/contact` を持つ 'Contact Us' ページを追加してください。また、`/about/old-team` にあるページを削除してください。」
+
+4.  **確認と承認**: AI がフィードバックを処理し、必要な変更を適用して、修正された構造を表示します。その後、変更を承認してプロセスを完了するか、さらにフィードバックを提供して調整することができます。
 
 ## 主要な構造操作
 
-AIは、ウェブサイトの構造を変更するために4つの基本的な操作を実行できます。これらの操作を理解することで、より効果的なフィードバックを提供できるようになります。
+AI agent はウェブサイトの構造を変更するための4つの基本操作を理解します。これらの操作に沿った明確なフィードバックを提供することで、最も正確な結果が得られます。
 
-### ページの追加
+| 操作 | 説明 | 主要なパラメータ |
+| :--- | :--- | :--- |
+| **追加** | ウェブサイトの構造に新しいページを作成します。 | `title`, `description`, `path`, `parentId`, `sourceIds` |
+| **削除** | 既存のページを構造から削除します。 | `path` |
+| **更新** | 既存のページのメタデータを変更します。 | `path`, `title` (任意), `description` (任意), `sourceIds` (任意) |
+| **移動** | ページを別の親に再配置し、そのパスを変更します。 | `path`, `newParentId`, `newPath` |
 
-この操作は、ウェブサイトの構造内に新しいページを作成します。ページを追加するには、その必須プロパティを提供する必要があります。
+### フィードバックの例
 
-**フィードバックの例：** `"タイトルが「サービス」で、パスが「/services」の新しいページを追加してください。トップレベルのページにしてください。"`
+以下に、特定の構造変更を行うためのフィードバックの表現方法の例をいくつか示します。
 
-新しいページを作成する際には、以下のパラメータが使用されます。
+- **ページの追加:**
+ > 「'/about' セクションの下に 'Our Team' というタイトルの新しいページを追加してください。パスは `/about/team` にしてください。」
 
-<x-field-group>
-  <x-field data-name="title" data-type="string" data-required="true">
-    <x-field-desc markdown>新しいページのタイトル。ナビゲーションや見出しに表示されます。</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="true">
-    <x-field-desc markdown>ページの目的と内容の簡単な説明。</x-field-desc>
-  </x-field>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>ページの一意のURLパス。`/`で始まる必要があります（例：`/about-us`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="parentId" data-type="string" data-required="false">
-    <x-field-desc markdown>親ページのパス。新しいページがサブページの場合、ここに親のパスを指定します。トップレベルのページの場合、これは`null`であるべきです。</x-field-desc>
-  </x-field>
-</x-field-group>
+- **ページの削除:**
+ > 「`/products/legacy` にある 'Legacy Products' ページを削除してください。」
 
-### ページの更新
+- **ページの更新:**
+ > 「`/services` にあるページのタイトルを 'Our Professional Services' に更新してください。」
 
-この操作は、既存のページのタイトルや説明などのメタデータを変更します。変更したいページのパスを指定する必要があります。
-
-**フィードバックの例：** `"「/about」のページを更新して、タイトルを「会社概要」にしてください。"`
-
-既存のページを更新する際には、以下のパラメータが使用されます。
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>更新するページのURLパス。正しいページを特定するために使用されます。</x-field-desc>
-  </x-field>
-  <x-field data-name="title" data-type="string" data-required="false">
-    <x-field-desc markdown>ページの新しいタイトル。</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="false">
-    <x-field-desc markdown>ページの新しい説明。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### ページの移動
-
-この操作は、ウェブサイトの階層内でのページの位置を変更します。ページを別の親に移動したり、URLパスを変更したりできます。これはコンテンツを再編成するのに便利です。
-
-**フィードバックの例：** `"「/team」のページを「/about」の子になるように移動してください。新しいパスは「/about/team」にしてください。"`
-
-ページを移動する際には、以下のパラメータが使用されます。
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>移動したいページの現在のURLパス。</x-field-desc>
-  </x-field>
-  <x-field data-name="newParentId" data-type="string" data-required="false">
-    <x-field-desc markdown>新しい親ページのパス。トップレベルのページにするには、これを省略するか`null`に設定します。</x-field-desc>
-  </x-field>
-  <x-field data-name="newPath" data-type="string" data-required="true">
-    <x-field-desc markdown>ページの新しいURLパス。新しい階層を反映するようにパスを更新するのが標準的な方法です（例：ページを`/about`の下に移動すると、パスは`/about/newpage`のようになります）。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### ページの削除
-
-この操作は、ウェブサイトの構造からページを恒久的に削除します。
-
-**重要：** 子ページ（サブページ）を持つページは直接削除できません。まずその子ページを移動または削除する必要があります。
-
-**フィードバックの例：** `"パス「/archive/old-news」のページを削除してください。"`
-
-ページを削除する際には、以下のパラメータが使用されます。
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>削除したいページのURLパス。</x-field-desc>
-  </x-field>
-</x-field-group>
+- **ページの移動:**
+ > 「現在 `/careers` にある 'Careers' ページを、'/about' ページの子になるように移動してください。新しいパスは `/about/careers` にしてください。」
 
 ## まとめ
 
-`update` コマンドに明確で具体的な指示を提供することで、ウェブサイトの構造を効率的に管理できます。AIが技術的な実行を担当するため、あなたはコンテンツの論理的な編成に集中できます。
+このインタラクティブなプロセスにより、ウェブサイトの構造は常に整理され、最新の状態で、目標に沿ったものになります。システムが技術的な詳細を処理するため、ユーザーはコンテンツの論理的な配置に集中できます。
 
-ページの構造化が完了したら、次のステップはページ内の情報を洗練させることです。詳細については、[ページコンテンツの更新](./core-tasks-updating-website-content-updating-page-content.md)ガイドに進んでください。
+より実践的なガイダンスについては、以下のセクションを参照してください。
+- [ウェブサイトの生成](./core-tasks-generating-a-website.md)
+- [インタラクティブチャットの使用](./core-tasks-using-the-interactive-chat.md)

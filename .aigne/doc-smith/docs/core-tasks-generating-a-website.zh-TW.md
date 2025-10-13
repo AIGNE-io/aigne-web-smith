@@ -1,110 +1,175 @@
-# 生成網站
+# 產生網站
 
-`aigne web generate` 命令是建立新網站的核心功能。它使用 AI 驅動的流程來解讀您的需求、規劃網站結構，並生成所有必要的內容和範本檔案。整個流程由一個設定檔指導，您可以在其中定義網站的目標和規格。
+AIGNE WebSmith 的核心功能是根據您的來源內容和一組定義好的需求，產生一個完整、專業的網站。此過程由 `generate` 指令處理，該指令會調度一系列 AI Agent 來規劃、撰寫並建構您的網站。
 
-本指南將系統性地概述 `generate` 命令，並詳細解析設定檔的參數。若需實作教學，請參閱 [您的第一個網站](./getting-started-your-first-website.md)。
+本指南詳細說明 `generate` 指令，並解釋如何在 `config.yaml` 檔案中定義您網站的需求，該檔案會作為 AI 的主要藍圖。
 
-## `generate` 命令
+## `generate` 指令
 
-生成流程是透過 `generate` 命令啟動的。其主要目的是讀取您的設定、與 AI agents 互動，並在您的本機工作區中建構網站檔案。
+`aigne web generate` 指令會啟動整個網站建立過程。它會讀取您的設定、分析您的來源資料、規劃網站結構、為每個頁面產生內容，並組合最終的檔案。
 
-**用法**
+### 使用方式
 
-```bash Command Line icon=lucide:terminal
+若要執行產生過程，請在您的終端機中執行以下指令：
+
+```bash
 aigne web generate
 ```
 
-**別名**
+您也可以使用別名 `gen` 或 `g`：
 
-為方便起見，您也可以使用較短的別名 `gen` 或 `g`。
-
-```bash Command Line icon=lucide:terminal
-# 這些命令等同於 'aigne web generate'
+```bash
 aigne web gen
-aigne web g
 ```
 
-通常，您會使用一個輸入檔案將您的需求傳遞給該命令。這可以透過 `--input` 旗標，後面加上一個 `@` 符號和您的設定檔路徑來完成。
+### 產生過程
 
-```bash Command Line icon=lucide:terminal
-aigne web generate --input @my-website.yaml
-```
+當您執行 `generate` 指令時，WebSmith 會執行以下操作序列：
 
-## 網站設定檔
+1.  **載入設定**：它會首先尋找並載入 `config.yaml` 檔案，以了解您的高階需求。如果此檔案不存在，它將自動啟動引導式設定來建立一個。
+2.  **分析來源**：AI 會掃描您設定中 `sourcesPath` 指定的文件、Markdown 檔案和其他資料，以了解主題內容。
+3.  **規劃網站結構**：根據目的、受眾和來源內容，AI 會為您的網站提出一個合乎邏輯的網站地圖，概述所有頁面及其層級結構。在內容產生開始前，系統會提示您檢視並核准此結構。
+4.  **產生頁面內容**：對於已核准結構中的每個頁面，AI 會產生詳細內容，包括標題、描述以及由專業元件（如主視覺橫幅、功能列表和常見問答）組成的區塊。
+5.  **儲存網站檔案**：每個頁面的最終結構化內容會以 YAML 檔案形式儲存在您設定中 `pagesDir` 指定的目錄中。這些檔案現在已準備好可以發布。
 
-要生成網站，您必須提供一個 YAML 格式的設定檔。這個檔案作為藍圖，定義了網站的目的、目標受眾、風格和內容需求。AI 會利用這些資訊來對網站的結構、語氣和功能做出明智的決策。
+### 參數
 
-您的設定檔可使用以下參數：
+`generate` 指令接受數個可選參數來自訂其行為。
 
 <x-field-group>
-  <x-field data-name="rules" data-type="string" data-required="true">
-    <x-field-desc markdown>您想建立的網站的詳細描述。這是最關鍵的參數。您應該提供一組清晰、結構化的指令，包括所需的頁面類型（例如，首頁、定價、關於我們）、要突顯的關鍵功能，以及任何對風格或內容的特定要求。規則越精確，AI 就越能根據您的需求量身打造網站。</x-field-desc>
-  </x-field>
-  <x-field data-name="targetAudience" data-type="string" data-required="false">
-    <x-field-desc markdown>網站目標受眾的描述。例如，`小型企業主`、`軟體開發者`或`潛在投資者`。這有助於 AI 適當地調整內容的語言、語氣和複雜度。</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-default="zh" data-required="false">
-    <x-field-desc markdown>網站內容的主要語言。目前支援的值為 `en`（英文）和 `zh`（中文）。預設值為 `zh`。</x-field-desc>
-  </x-field>
-  <x-field data-name="websiteStyle" data-type="string" data-default="business" data-required="false">
-    <x-field-desc markdown>定義網站的整體美學和基調。例如，`business`（商業）、`creative`（創意）、`minimalist`（簡約）或 `tech-focused`（科技導向）。這會影響 AI 在版面配置、圖像和寫作風格上的選擇。</x-field-desc>
-  </x-field>
   <x-field data-name="glossary" data-type="string" data-required="false">
-    <x-field-desc markdown>一份應在整個網站中一致使用的特定術語、產品名稱或行話清單。這能確保術語的準確性。您可以將其以字串形式提供，或使用 `@<檔案路徑>` 語法從檔案中載入。</x-field-desc>
+    <x-field-desc markdown>指定詞彙表檔案的路徑（例如：`@glossary.md`）。這能確保專案特定術語在產生的內容中一致地使用。</x-field-desc>
   </x-field>
-  <x-field data-name="forceRegenerate" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>若設定為 `true`，此命令將從頭開始重新生成所有頁面，忽略先前生成時已存在的任何檔案。當您想要完全重新開始時，這非常有用。</x-field-desc>
-  </x-field>
-  <x-field data-name="projectId" data-type="string" data-required="false">
-    <x-field-desc markdown>您的 Pages Kit 執行個體的專案 ID。雖然生成時並非必要，但在此提供它可以簡化後續的發佈流程。詳情請參閱 [發佈您的網站](./core-tasks-publishing-your-website.md)。</x-field-desc>
+  <x-field data-name="forceRegenerate" data-type="boolean" data-required="false">
+    <x-field-desc markdown>若設定為 `true`，指令將從頭開始重新產生所有頁面，並覆寫任何先前產生的檔案。這在對 `config.yaml` 檔案或來源文件進行重大變更後相當有用。</x-field-desc>
   </x-field>
 </x-field-group>
 
-## 逐步範例
+**使用參數的範例：**
 
-以下是生成網站的實際逐步流程。
+```bash
+# 使用詞彙表檔案重新產生整個網站
+aigne web generate --forceRegenerate --glossary "@glossary.md"
+```
 
-### 步驟 1：建立設定檔
+## 設定檔 (`config.yaml`)
 
-首先，建立一個新的 YAML 檔案來定義您的網站。在此範例中，我們將其命名為 `my-saas-website.yaml`。
+`config.yaml` 檔案是您網站的藍圖。它為 AI 提供了必要的脈絡和限制，以建立一個符合您特定需求的網站。此檔案定義了專案、網站的目的與受眾、語言設定以及檔案位置。
 
-```yaml my-saas-website.yaml icon=lucide:file-text
-rules: |
-  建立一個現代化的 SaaS 產品網站，包含：
-  1. 一個包含產品介紹和核心功能的首頁。
-  2. 一個包含不同方案比較表的定價頁面。
-  3. 一個用於客戶成功案例和見證的頁面。
-  4. 一個專門的技術文件入口網站。
-  5. 一個包含支援表單和聯絡資訊的聯絡頁面。
+以下是 `config.yaml` 檔案中關鍵屬性的詳細說明。
 
-  需求：
-  - 風格應專業且以商業為導向。
-  - 內容必須突顯產品的優勢和獨特賣點。
-  - 包含清晰的行動呼籲（CTA）按鈕，以引導使用者進行免費試用。
+### 設定選項
 
-targetAudience: 中小型企業（SMB）所有者和技術決策者。
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>您的專案或網站的名稱。這將用於元資料和發布。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="false">
+    <x-field-desc markdown>您的專案的簡要描述。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>您的專案標誌的 URL 或本地路徑。</x-field-desc>
+  </x-field>
+  <x-field data-name="pagePurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>一個定義網站主要目標的字串陣列。範例：`productDocumentation`、`marketingLandingPage`、`blog`、`apiReference`。</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>一個識別主要受眾的字串陣列。範例：`developers`、`businessUsers`、`endUsers`、`dataScientists`。</x-field-desc>
+  </x-field>
+  <x-field data-name="websiteScale" data-type="string" data-required="true">
+    <x-field-desc markdown>定義網站的期望規模和複雜度。選項包括 `small`（幾個關鍵頁面）、`standard`（一個全面的網站）和 `large`（一個內容豐富的廣泛網站）。</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>一個用於填寫任何自訂規則或特定指示的欄位，供 AI 在產生過程中遵循，例如語氣、要排除的內容或要強調的特定要點。</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-default="en" data-required="true">
+    <x-field-desc markdown>網站內容的主要語言，以語言代碼指定（例如：`en`、`zh`、`es`）。</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>要將網站翻譯成的語言代碼列表。例如：`['zh', 'fr']`。</x-field-desc>
+  </x-field>
+  <x-field data-name="pagesDir" data-type="string" data-required="true">
+    <x-field-desc markdown>將儲存產生的網站頁面檔案的本地目錄路徑。</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>一個指向您來源內容的檔案路徑或 glob 模式的陣列。AI 將分析這些檔案以產生網站。</x-field-desc>
+  </x-field>
+</x-field-group>
+
+### `config.yaml` 範例
+
+以下是一個完整的 `config.yaml` 檔案範例，並附有註解說明每個部分。
+
+```yaml config.yaml
+# 頁面發布的專案資訊
+projectName: AIGNE WebSmith
+projectDesc: AI-driven website generation tool
+projectLogo: https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg
+projectId: aigne-websmith-docs
+projectSlug: aigne-websmith
+
+# =============================================================================
+# 網站設定
+# =============================================================================
+
+# 目的：您希望讀者達成的最主要成果是什麼？
+# 可用選項（取消註解並根據需要修改）：
+#   productDocumentation - 產品文件：深入的指南、教學和 API 參考。
+#   marketingLandingPage - 行銷登陸頁面：展示產品並轉換訪客。
+#   companyIntroduction - 公司介紹：介紹您公司的願景和團隊。
+#   blog              - 部落格：文章、更新和行業見解。
+#   caseStudies       - 案例研究：客戶成功故事和使用案例。
+#   knowledgeBase     - 知識庫：常見問答和故障排除文章。
+#   apiReference      - API 參考：您 API 的詳細文件。
+#   mixedPurpose      - 混合目的：多個目標的組合。
+pagePurpose:
+  - productDocumentation
+
+# 目標受眾：誰最常閱讀這些內容？
+# 可用選項（取消註解並根據需要修改）：
+#   developers        - 開發者：使用您的產品進行建構的技術使用者。
+#   businessUsers     - 商業使用者：專注於商業價值的非技術使用者。
+#   endUsers          - 終端使用者：使用最終產品的一般受眾。
+#   dataScientists    - 資料科學家：專注於資料和分析的使用者。
+#   investors         - 投資者：對公司潛力感興趣的利害關係人。
+#   jobSeekers        - 求職者：探索您公司的潛在員工。
+targetAudienceTypes:
+  - developers
+
+# 網站規模：您的網站應該有多少頁面？
+# 可用選項（取消註解並根據需要修改）：
+#   small                - 小型：一個包含 3-5 個關鍵頁面的簡潔網站。
+#   standard             - 標準：一個包含 5-10 個頁面的全面網站。
+#   large                - 大型：一個超過 10 個頁面的廣泛網站。
+websiteScale: standard
+
+# 自訂規則：定義特定的頁面產生規則和需求
+rules: '保持正式和技術性的語氣。避免使用行銷術語。專注於實際、按部就班的說明。'
+
+# 詞彙表：定義專案特定的術語和定義
+# glossary: "@glossary.md"  # 包含詞彙表定義的 Markdown 檔案路徑
+
 locale: en
-websiteStyle: business
+# translateLanguages:  # 要將頁面翻譯成的語言列表
+#   - zh  # 範例：中文翻譯
+#   - en  # 範例：英文翻譯
+
+pagesDir: ./aigne-web-smith/pages  # 儲存產生的頁面的目錄
+sourcesPath:  # 要分析的原始碼路徑
+  - ./docs/**/*.md
+  - ./README.md
+defaultDatasources:  # 每個頁面中包含的預設資料來源
+  - ./media.md
+# minImageWidth: 只有寬度大於此值（單位為像素）的圖片才會用於頁面產生
+media:
+  minImageWidth: 800
 ```
-
-### 步驟 2：執行 `generate` 命令
-
-儲存設定檔後，開啟您的終端機並執行 `generate` 命令，使用 `--input` 旗標指向您的檔案。
-
-```bash Command Line icon=lucide:terminal
-aigne web generate --input @my-saas-website.yaml
-```
-
-AI 現在將開始生成流程。它會分析您的規則、規劃網站結構，然後為每個頁面建立內容。您將在終端機中看到進度更新。此流程可能需要幾分鐘時間，具體取決於頁面數量和需求的複雜度。
-
-### 步驟 3：檢閱生成的檔案
-
-命令完成後，生成的網站檔案將儲存在您專案的工作區中。您現在可以檢查這些檔案，查看 AI 建立的結構和內容。
 
 ## 總結
 
-`generate` 命令是一個強大的工具，能將一組簡單的文字需求轉換為一個結構完整的網站。成功結果的關鍵在於您的 YAML 設定檔中清晰且詳細的 `rules` 定義。
+透過結合 `generate` 指令和一個定義完善的 `config.yaml` 檔案，您可以有效率地產生一個完全符合您特定需求的完整網站。此過程自動化了網站結構和內容創作的繁重工作，讓您能專注於提供高品質的來源資料。
 
-生成網站後，下一個合理的步驟是將其發佈。要了解如何操作，請繼續閱讀下一節。
+產生網站後，下一步就是將其發布上線。
 
-- **下一步**：[發佈您的網站](./core-tasks-publishing-your-website.md)
+延伸閱讀：
+*   [發布您的網站](./core-tasks-publishing-your-website.md)

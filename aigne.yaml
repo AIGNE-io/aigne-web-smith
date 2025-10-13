@@ -47,6 +47,11 @@ agents:
   - ./agents/media/batch-generate-media-description.yaml
   - ./agents/media/generate-media-description.yaml
 
+  # image
+  - ./agents/media/image/generate-image.yaml
+  - ./agents/media/image/generate-image-team.yaml
+  - ./agents/media/image/save-images.mjs
+
   # init
   - ./agents/init/index.mjs
   - ./agents/init/suggest-source-path.yaml
@@ -103,10 +108,6 @@ agents:
   - ./agents/update/page-detail-tools/delete-section.mjs
   - ./agents/update/page-detail-tools/update-section.mjs
   - ./agents/update/page-detail-tools/move-section.mjs
-
-  # image
-  - ./agents/image/generate-image.yaml
-  - ./agents/image/generate-image-team.yaml
 
   # history
   - ./agents/history/view.mjs

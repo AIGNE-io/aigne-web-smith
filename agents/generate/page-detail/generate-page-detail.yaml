@@ -54,5 +54,5 @@ output_schema:
   required:
     - content
 skills:
-  - ../../image/generate-image-team.yaml
+  - ../../media/image/generate-image-team.yaml
 

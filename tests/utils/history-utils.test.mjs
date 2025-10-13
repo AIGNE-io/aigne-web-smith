@@ -66,7 +66,6 @@ describe("History Utils", () => {
 
     // Verify YAML record was created
     const history = getHistory();
-    console.log("history123123123", history);
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Test feedback");
     expect(history.entries[0].operation).toBe("page_update");

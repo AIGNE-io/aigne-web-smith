@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
-import { MEDIA_KIT_PROTOCOL } from "../../utils/constants.mjs";
-import { copyGeneratedImages, getFileType } from "../../utils/file-utils.mjs";
+import { copyGeneratedImages } from "../../utils/file-utils.mjs";
+import { buildMediaItem, generateAssetsContent } from "../../utils/media-utils.mjs";
 
 export default async function checkNeedGenerateImages(
   { needsAdditionalImages, imageRequirements = [], assetsContent = "", mediaFiles = [] },
@@ -79,56 +78,19 @@ export default async function checkNeedGenerateImages(
     const updatedMediaFiles = [...mediaFiles];
 
     if (processedImages.length > 0) {
+      const basePath = process.cwd();
+
       for (const processedImage of processedImages) {
         for (const image of processedImage.images) {
-          const fileName = path.basename(image.path);
-          const relativePath = path.relative(process.cwd(), image.path);
-
-          // Read metadata from .md file
-          let description = "";
-          try {
-            description = await readFile(image.metadataPath, "utf8");
-          } catch {
-            // No metadata file
-          }
-
-          const mediaItem = {
-            name: fileName,
-            path: relativePath,
-            type: getFileType(image.path),
-            mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
-          };
-
-          if (description) {
-            mediaItem.description = description;
-          }
-
+          const mediaItem = await buildMediaItem(image.path, basePath, {
+            metadataPath: image.metadataPath,
+          });
           updatedMediaFiles.push(mediaItem);
         }
       }
 
       // Regenerate assetsContent
-      if (updatedMediaFiles.length > 0) {
-        updatedAssetsContent = "# Available Media Assets for Website\n\n";
-        updatedAssetsContent += "```yaml\n";
-        updatedAssetsContent += "assets:\n";
-
-        updatedMediaFiles.forEach((asset) => {
-          updatedAssetsContent += `  - name: "${asset.name}"\n`;
-          updatedAssetsContent += `    path: "${asset.path}"\n`;
-          updatedAssetsContent += `    type: "${asset.type}"\n`;
-          updatedAssetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
-          if (asset.context) {
-            const contextLines = asset.context
-              .split("\n")
-              .map((line) => `      ${line}`)
-              .join("\n");
-            updatedAssetsContent += `    context: |\n${contextLines}\n`;
-          }
-        });
-
-        updatedAssetsContent += "```\n";
-      }
+      updatedAssetsContent = generateAssetsContent(updatedMediaFiles);
     }
 
     return {

@@ -1,22 +1,19 @@
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
-import imageSize from "image-size";
 import { parse } from "yaml";
 import {
   BUILTIN_COMPONENT_LIBRARY_NAME,
   COMPONENTS_DIR,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
-  MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
 import {
-  getFileType,
-  getMimeType,
   isMediaFile,
   loadFilesFromSourcePaths,
   loadMediaFilesFromAssets,
 } from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
+import { buildMediaItem } from "../../utils/media-utils.mjs";
 import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../../utils/utils.mjs";
 
 const formatComponentContent = ({ content, moreContents = false }) => {
@@ -125,36 +122,12 @@ export default async function loadSources({
     files.map(async (file) => {
       if (isMediaFile(file)) {
         // This is a media file
-        const relativePath = path.relative(pagesDir, file);
-        const fileName = path.basename(file);
+        const mediaItem = await buildMediaItem(file, pagesDir, { minImageWidth });
 
-        const mediaItem = {
-          name: fileName,
-          path: relativePath,
-          type: getFileType(relativePath),
-          mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
-          mimeType: getMimeType(file),
-        };
-
-        // For image files, get dimensions and filter by width
-        if (mediaItem.type === "image") {
-          try {
-            const buffer = await readFile(file);
-            const dimensions = imageSize(buffer);
-            mediaItem.width = dimensions.width;
-            mediaItem.height = dimensions.height;
-
-            // Filter out images with width less than minImageWidth
-            if (dimensions.width < minImageWidth) {
-              filteredImageCount++;
-              console.log(
-                `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
-              );
-              return;
-            }
-          } catch (err) {
-            console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
-          }
+        // If filtered out (null), skip
+        if (!mediaItem) {
+          filteredImageCount++;
+          return;
         }
 
         mediaFiles.push(mediaItem);

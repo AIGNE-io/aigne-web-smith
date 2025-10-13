@@ -104,35 +104,6 @@ aigne web component --url "https://your-pages-kit/api/projects/your-project-id/c
 
 ```
 
-### Example Input
-
-Create an input file `my-website.yaml`:
-
-```yaml
-rules: |
-  Create a modern SaaS product website that includes:
-  1. Product introduction and core features
-  2. Pricing plan comparison
-  3. Customer success stories
-  4. Technical documentation portal
-  5. Contact and support pages
-
-  Requirements:
-  - Professional business style
-  - Highlight product advantages and differentiation
-  - Include clear CTA to guide users to trial
-
-targetAudience: SMB owners and technical decision makers
-locale: en
-websiteStyle: business
-```
-
-Then run:
-
-```bash
-aigne web generate --input @my-website.yaml
-```
-
 ## 📁 Project Structure
 
 ```
@@ -224,7 +195,12 @@ bun test --watch
 
 #### chat
 
-Interactive chat interface for website generation.
+Interactive chat interface for website generation and management.
+
+**Features:**
+- Interactive page generation assistant
+- Memory-enabled conversations
+- Access to all other agents (generate, update, publish, translate)
 
 #### generate (aliases: gen, g)
 
@@ -232,30 +208,86 @@ Generate a complete website from user requirements.
 
 **Parameters:**
 
-- `rules` (required): Website requirements description
-- `targetAudience`: Target audience description
-- `locale`: Website language (default: "zh")
-- `websiteStyle`: Website style (default: "business")
-- `projectId`: Pages Kit project ID for publishing
+- `config` (required): Configuration file path (automatically provided via `--input @file.yaml`)
+- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
+- `forceRegenerate` (optional): Force regenerate all pages (boolean)
 
-#### publish
+#### publish (aliases: pub, p)
 
 Publish generated website to Pages Kit.
 
 **Parameters:**
 
-- `projectId` (required): Pages Kit project ID
-- `locale`: Website language
-- `dryRun`: Preview without publishing
-- `overwrite`: Overwrite existing pages
+- `appUrl` (optional): Target website URL where pages will be published
+- `with-navigations` (optional): Publish to website with navigations (boolean)
+- `with-locales` (optional): Publish to website with locales (boolean)
 
 #### translate
 
 Translate existing website content to different languages.
 
-#### update
+**Parameters:**
+
+- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
+- `pages` (optional): Array of page paths to translate
+- `langs` (optional): Array of language codes to translate to (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)
+- `feedback` (optional): Feedback for translation improvement
+
+#### update (alias: up)
 
 Update existing website content with new requirements.
+
+**Parameters:**
+
+- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
+- `pages` (optional): Array of page paths to update
+- `feedback` (optional): Feedback for content improvement
+
+#### theme
+
+Manage website visual themes.
+
+**Subcommands:**
+- `generate` (alias: gen): Generate theme based on website design
+  - `name` (optional): Name for your theme
+  - `config` (optional): Configuration file location
+- `apply`: Apply theme to website
+
+#### component (alias: comp)
+
+Manage component library.
+
+**Subcommands:**
+- `pull`: Pull components from URL
+  - `url` (required): Target pull component URL
+
+#### prefs
+
+Manage user preferences learned from feedback.
+
+**Parameters:**
+- `--list`: List all preferences
+- `--remove`: Remove preferences
+- `--toggle`: Toggle preferences active status
+- `--id`: Array of preference IDs to manage
+
+#### history
+
+View update history.
+
+**Subcommands:**
+- `view` (aliases: log, list): View update history in compact format
+
+#### clear
+
+Clear workspace, generated pages, or configuration.
+
+**Parameters:**
+- `targets` (optional): Array of items to clear without prompting
+- `pagesDir` (optional): Override the pages directory root
+- `tmpDir` (optional): Override the workspace directory
+- `outputDir` (optional): Override the generated pages directory
+- `configPath` (optional): Override the configuration file path
 
 ### MCP Server
 
@@ -264,6 +296,9 @@ WebSmith provides MCP server endpoints for integration:
 - `get-pages-structure`: Retrieve current website structure
 - `get-page-detail`: Get detailed content for specific page
 - `pages-search`: Search within website content
+- `analyze-content-relevance`: Analyze content relevance
+- `analyze-pages-relevance`: Analyze pages relevance
+- `read-page-content`: Read page content
 
 Start MCP server:
 

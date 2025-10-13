@@ -1,97 +1,53 @@
-# 清理工作空间和数据
+# 清理工作区和数据
 
-`clear` 命令提供了一种安全便捷的方式来移除生成的内容、临时工作空间文件或整个网站配置。当您想从一个全新的状态开始生成过程、释放磁盘空间或重置项目设置时，此功能尤其有用。
+`clear` 命令是一个用于管理项目工作区的实用工具。它允许您选择性地移除生成的文件、缓存数据和配置设置。当您想开始一次全新的构建、重置配置或移除敏感的授权数据时，这个命令特别有用。
 
-您可以交互式地运行该命令以选择要移除的特定项目，也可以直接指定目标以进行自动化清理。
+执行该命令是一个破坏性操作。在继续之前，请确保您已备份所有重要数据。
 
-## 命令用法
+## 交互式清理
 
-要在您的终端中启动清理过程，请运行以下命令：
+使用该命令最简单的方法是不带任何参数运行它。这将启动一个交互式提示，您可以在其中选择希望清理的具体项目。
 
-```bash
-aigne clear
+```bash 命令行 icon=lucide:terminal
+aigne web clear
 ```
 
-当不带任何特定目标执行时，该命令会进入交互模式。它将扫描您的项目以查找可移除的项目，并向您呈现一个清单。这是大多数用例的推荐方法，因为它允许您审查将要删除的内容。
-
-```text
-? 选择要清理的项目：
-❯ ◉ 工作空间
-  ◯ 生成的页面
-  ◯ 网站配置
-```
+这将展示一个可移除项目的列表。您可以使用箭头键导航，使用空格键选择项目，然后按 Enter 键确认您的选择。
 
 ## 可清理的目标
 
-`clear` 命令可以移除几种类型的数据，每种数据都有特定的用途。
+下表详细说明了可以清理的具体项目、它们包含的内容以及直接清理它们的命令。
 
-| 目标名称 | 描述 |
-| :--- | :--- |
-| `workspace` | 移除临时文件和中间数据，例如 AI 生成的网站结构。在重新生成网站之前清理此项通常很有用，以确保不使用任何旧数据。 |
-| `generatedPages` | 删除包含最终生成的网站页面和资产的输出目录。 |
-| `websiteConfig` | 移除主 `config.yaml` 文件。**请谨慎使用此选项**，因为你需要运行 `aigne web init` 来创建新配置，然后才能再次生成网站。 |
+| 目标名称 | 命令标志 | 描述 |
+| :--- | :--- | :--- |
+| 工作区 | `workspace` | 移除临时工作区目录 (`./.websmith/tmp`)，网站结构在生成前在此规划和存储。您的原始源内容不受影响。 |
+| 生成的页面 | `generatedPages` | 从输出目录 (`./.websmith/dist`) 中删除所有最终的网站文件。这将移除您网站的已发布版本，但网站结构和源内容保持不变。 |
+| 网站配置 | `websiteConfig` | 删除主 `config.yaml` 文件。**注意：** 此操作不可逆。您需要运行 `aigne web init` 来生成一个新的配置文件。 |
+| 授权 | `authTokens` | 删除 `.env.websmith` 文件，该文件存储身份验证令牌。清理后，您需要为发布等操作重新授权 CLI。 |
+| 部署配置 | `deploymentConfig` | 仅从您的 `config.yaml` 文件中移除 `appUrl` 键。这对于在不删除整个网站配置的情况下重置部署目标很有用。 |
+| 媒体文件描述 | `mediaDescription` | 删除为您的媒体资产缓存的、由 AI 生成的描述。这些描述将在您下次运行 `generate` 命令时自动重新生成。 |
 
-## 清理特定目标
+## 非交互式清理
 
-对于脚本或非交互式使用，您可以通过将项目名称作为参数传递给命令来指定要清理的项目。您可以提供一个或多个目标。
+要绕过交互式提示，您可以使用 `--targets` 标志，后跟一个或多个目标名称。这对于编写脚本或自动化清理任务很有用。
 
-该命令将绕过交互式提示，并立即移除指定的项目。
+### 清理单个目标
+要清理单个项目，请在 `--targets` 标志后指定其名称。
 
-### 示例：清理工作空间和页面
-
-要移除临时工作空间和先前生成的页面而不出现提示，请使用以下命令：
-
-```bash title="Terminal"
-aigne clear workspace generatedPages
+```bash 清理工作区 icon=lucide:terminal
+aigne web clear --targets workspace
 ```
 
-输出将确认哪些项目已被清理，哪些已为空。
+### 清理多个目标
 
-```text
-✅ 清理成功！
+您可以提供一个以空格分隔的目标列表，以一次性清理多个项目。以下示例同时清理了临时工作区和最终生成的页面。
 
-- 🧹 已清理工作空间 (./.tmp)
-- 🧹 已清理生成的页面 (./dist)
+```bash 清理多个目标 icon=lucide:terminal
+aigne web clear --targets workspace generatedPages
 ```
 
-### 示例：清理所有内容
+## 总结
 
-要完全重置您的项目，您可以清理所有可用的目标。
+`clear` 命令提供了一种安全可控的方式来管理您项目的生成资产和配置。使用交互模式进行引导式清理，或使用 `--targets` 标志进行直接的自动化控制。请务必谨慎操作，尤其是在清理 `websiteConfig` 时，以避免意外的数据丢失。
 
-```bash title="Terminal"
-aigne clear workspace generatedPages websiteConfig
-```
-
-运行此命令后，您将需要重新初始化您的项目。
-
-```text
-✅ 清理成功！
-
-- 🧹 已清理工作空间 (./.tmp)
-- 🧹 已清理生成的页面 (./dist)
-- 🧹 已清理网站配置 (./config.yaml)
-
-👉 运行 `aigne web init` 来生成一个新的配置文件。
-```
-
-## 参数
-
-`clear` 命令接受几个可选参数以覆盖默认路径，从而可以对清理过程进行更高级的控制。
-
-<x-field-group>
-  <x-field data-name="targets" data-type="array">
-    <x-field-desc markdown="true">一个字符串数组，用于指定无需提示即可清理的项目。有效选项为 `workspace`、`generatedPages` 和 `websiteConfig`。</x-field-desc>
-  </x-field>
-  <x-field data-name="pagesDir" data-type="string">
-    <x-field-desc markdown="true">覆盖源页面的默认目录，这有助于定位 `config.yaml` 文件。</x-field-desc>
-  </x-field>
-  <x-field data-name="tmpDir" data-type="string">
-    <x-field-desc markdown="true">覆盖临时工作空间目录（`.tmp`）的默认路径。</x-field-desc>
-  </x-field>
-  <x-field data-name="outputDir" data-type="string">
-    <x-field-desc markdown="true">覆盖生成的页面输出目录的默认路径。</x-field-desc>
-  </x-field>
-  <x-field data-name="configPath" data-type="string">
-    <x-field-desc markdown="true">提供网站配置文件的直接路径，覆盖任何推断的位置。</x-field-desc>
-  </x-field>
-</x-field-group>
+在清理工作区或生成的页面后，您可能希望继续再次生成网站。更多详情，请参阅[生成网站](./core-tasks-generating-a-website.md)。

@@ -1,285 +1,216 @@
 # Command Line Reference
 
-This document provides a comprehensive reference to all commands available in the AIGNE WebSmith Command Line Interface (CLI). Each command is detailed with its purpose, available parameters, and practical usage examples.
+This document provides a comprehensive reference for all commands available in the AIGNE WebSmith Command Line Interface (CLI). Each entry includes a description of the command's function, its available aliases, and a detailed list of its parameters and options.
 
-This guide is intended for users who require detailed information for advanced operations or automation scripts.
-
-## Command Summary
-
-The following table provides a quick overview of all available `aigne web` subcommands.
-
-| Command | Aliases | Description |
-| :--- | :--- | :--- |
-| `generate` | `gen`, `g` | Generates a complete website from a set of requirements. |
-| `publish` | - | Publishes the generated website content to Pages Kit. |
-| `update` | - | Updates existing website content based on new feedback or requirements. |
-| `translate` | - | Translates existing website pages into different languages. |
-| `chat` | - | Starts an interactive chat session to build and modify your website. |
-| `theme` | - | Manages website visual themes, including generation and application. |
-| `component` | `comp` | Manages the component library used to build the website. |
-| `prefs` | - | Manages user preferences learned from feedback during updates. |
-| `history` | - | Displays a log of all previous updates made to the website. |
-| `clear` | - | Removes generated files, workspace data, or the configuration. |
-
----
+The general syntax for all commands is:
+```bash
+aigne web <command> [subcommand] [options]
+```
 
 ## Main Commands
 
-These commands form the core workflow for creating and managing a website with WebSmith.
+The following table provides a summary of the primary commands available in the AIGNE WebSmith CLI.
+
+| Command | Description |
+| :--- | :--- |
+| [generate](#generate) | Generates a complete website based on a configuration file. |
+| [publish](#publish) | Publishes the generated website content to the Pages Kit platform. |
+| [update](#update) | Modifies the content of an existing website based on new feedback or requirements. |
+| [translate](#translate) | Translates existing website pages into different languages. |
+| [theme](#theme) | Manages the visual themes for the website, including generation and application. |
+| [component](#component) | Manages the component library used to build the website. |
+| [chat](#chat) | Starts an interactive chat session to build and modify your website conversationally. |
+| [prefs](#prefs) | Manages saved user preferences that customize WebSmith's behavior. |
+| [history](#history) | Displays a log of all previous updates made to the website. |
+| [clear](#clear) | Removes generated files, workspace data, or configuration settings. |
+
+---
 
 ### generate
+Generates a complete website from a user-provided configuration file. This command orchestrates the entire process, from planning the site structure to generating page content and templates.
 
-The `generate` command is the primary tool for creating a new website. It orchestrates a series of AI agents to plan the site structure, write content for each page, and compose the final data files.
+**Aliases:** `gen`, `g`
 
-**Usage**
-
+**Usage:**
 ```bash
-aigne web generate [options]
+aigne web generate --input @path/to/your/config.yaml
 ```
 
-**Parameters**
+**Parameters:**
 
 <x-field-group>
-  <x-field data-name="rules" data-type="string" data-required="true">
-    <x-field-desc markdown>A detailed description of the website's requirements, structure, and content. This can be provided as a string or via an input file (e.g., `--input @my-website.yaml`).</x-field-desc>
-  </x-field>
-  <x-field data-name="targetAudience" data-type="string" data-required="false">
-    <x-field-desc markdown>A description of the intended audience for the website. This helps the AI tailor the content's tone and focus.</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-default="zh" data-required="false">
-    <x-field-desc markdown>The target language for the website content (e.g., `en` for English, `zh` for Chinese).</x-field-desc>
-  </x-field>
-  <x-field data-name="websiteStyle" data-type="string" data-default="business" data-required="false">
-    <x-field-desc markdown>The desired visual and textual style for the website (e.g., `business`, `creative`, `minimalist`).</x-field-desc>
-  </x-field>
-  <x-field data-name="projectId" data-type="string" data-required="false">
-    <x-field-desc markdown>The Pages Kit project ID. Providing this helps tailor the generated components and prepares for publishing.</x-field-desc>
-  </x-field>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file. This is typically provided via the --input flag."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format @<file>."></x-field>
+  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="If set to true, this forces the regeneration of all pages, even if they already exist."></x-field>
 </x-field-group>
-
-**Example**
-
-This example uses an external YAML file to provide the generation rules.
-
-```bash title="Generate a website using an input file"
-aigne web generate --input @my-website.yaml
-```
-
-```yaml title="my-website.yaml"
-rules: |
-  Create a modern SaaS product website that includes:
-  1. A homepage with a clear value proposition.
-  2. A features page detailing the product's capabilities.
-  3. A pricing page with multiple subscription tiers.
-  4. A contact page with a form.
-targetAudience: "Small to medium-sized business owners"
-locale: en
-websiteStyle: business
-```
 
 ### publish
+Publishes the generated website files to a Pages Kit instance. This command handles the batch upload and provides status monitoring.
 
-The `publish` command uploads the generated website pages to your Pages Kit project, making them live.
+**Aliases:** `pub`, `p`
 
-**Usage**
-
+**Usage:**
 ```bash
-aigne web publish [options]
+aigne web publish --appUrl "https://your-pages-kit-url.com"
 ```
 
-**Parameters**
+**Parameters:**
 
 <x-field-group>
-  <x-field data-name="projectId" data-type="string" data-required="true">
-    <x-field-desc markdown>The unique identifier for your Pages Kit project where the website will be published.</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-required="false">
-    <x-field-desc markdown>Specifies the language version of the site to publish. If not provided, the default locale will be used.</x-field-desc>
-  </x-field>
-  <x-field data-name="dryRun" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>If set to `true`, the command will simulate the publishing process without making any actual changes, showing what would be uploaded.</x-field-desc>
-  </x-field>
-  <x-field data-name="overwrite" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>If set to `true`, any existing pages on Pages Kit with the same path will be overwritten. Use with caution.</x-field-desc>
-  </x-field>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="The base URL of the target Pages Kit website where the pages will be published."></x-field>
+  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website navigation data along with the pages."></x-field>
+  <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website locale and language settings."></x-field>
 </x-field-group>
-
-**Example**
-
-```bash title="Publish the English version of a site"
-aigne web publish --projectId "your-project-id" --locale en --overwrite
-```
 
 ### update
+Updates the content of an existing website based on user feedback. This command can be used to refine text, add new sections, or modify page structures.
 
-The `update` command allows you to refine existing website content. You can provide feedback or new instructions to modify the structure or details of specific pages.
+**Alias:** `up`
 
-**Usage**
-
+**Usage:**
 ```bash
-aigne web update
+aigne web update --pages "/about-us" --feedback "Add a new section for team members."
 ```
 
-This command runs in an interactive mode, guiding you through the process of selecting pages and providing feedback for updates.
-
-### translate
-
-The `translate` command generates new language versions of your existing website pages. It reads the content from a source locale and creates corresponding pages in the target language.
-
-**Usage**
-
-```bash
-aigne web translate
-```
-
-This command runs in an interactive mode, prompting you to choose the source pages and the target language for translation.
-
-### chat
-
-The `chat` command initiates an interactive, conversational session to build or modify your website. This mode allows you to give instructions in natural language, and the AI will perform the corresponding actions, such as creating new pages, modifying content, or planning the site structure.
-
-**Usage**
-
-```bash
-aigne web chat
-```
-
-## Management Commands
-
-These commands are used for managing assets, configuration, and history related to your website project.
-
-### theme
-
-The `theme` command group is used to manage the visual styling of your website.
-
-#### theme generate
-
-Creates a new theme configuration based on your design requirements.
-
-**Usage**
-
-```bash
-aigne web theme generate --name "My Custom Theme"
-```
-
-**Parameters**
+**Parameters:**
 
 <x-field-group>
-  <x-field data-name="name" data-type="string" data-required="true">
-    <x-field-desc markdown>A unique name for the new theme you are creating.</x-field-desc>
-  </x-field>
-  <x-field data-name="config" data-type="string" data-required="false">
-    <x-field-desc markdown>The path to a configuration file if you need to override default settings.</x-field-desc>
-  </x-field>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to update (e.g., /about-us, /contact)."></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="A detailed description of the changes or improvements required for the content."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistency. Use the format @<file>."></x-field>
 </x-field-group>
 
-#### theme apply
+### translate
+Translates the content of existing website pages into one or more specified languages.
 
-Applies a previously generated theme to your website.
+**Usage:**
+```bash
+aigne web translate --pages "/home" --langs "fr,de,es"
+```
 
-**Usage**
+**Parameters:**
 
+<x-field-group>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to translate."></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="An array of language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="Specific instructions or feedback to improve the quality of the translation."></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistent translation. Use the format @<file>."></x-field>
+</x-field-group>
+
+### theme
+Manages the visual themes of your website. You can generate new themes based on your design preferences and apply them to your site.
+
+#### Subcommands
+
+**`generate`** (Alias: `gen`)
+Generates a new theme configuration based on your website's design.
+
+**Usage:**
+```bash
+aigne web theme generate --name "MyCustomTheme" --config @path/to/config.yaml
+```
+
+**Parameters:**
+
+<x-field-group>
+  <x-field data-name="name" data-type="String" data-required="false" data-desc="A unique name for the new theme."></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="The path to the website configuration file to base the theme on."></x-field>
+</x-field-group>
+
+**`apply`**
+Applies a previously generated theme to the website.
+
+**Usage:**
 ```bash
 aigne web theme apply
 ```
 
-This command runs interactively, allowing you to select which theme to apply.
-
 ### component
+Manages the component library for your website.
 
-The `component` command group manages the library of visual components (e.g., Hero, FAQ, CTA) used to construct your website pages.
+**Alias:** `comp`
 
-#### component pull
+#### Subcommands
 
-Pulls the component library from a specified Pages Kit project URL. This ensures your local project has the latest available components for page generation.
+**`pull`**
+Pulls an updated component library from a specified URL. This ensures your website is built with the latest visual components.
 
-**Usage**
-
+**Usage:**
 ```bash
-aigne web component pull --url "your-pages-kit-url"
+aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 
-**Parameters**
+**Parameters:**
 
 <x-field-group>
-  <x-field data-name="url" data-type="string" data-required="true">
-    <x-field-desc markdown>The full URL to the component pull endpoint of your Pages Kit project. This URL contains the necessary project ID and authentication secrets.</x-field-desc>
-  </x-field>
+  <x-field data-name="url" data-type="String" data-required="true" data-desc="The full URL provided by your Pages Kit instance to pull the component library."></x-field>
 </x-field-group>
+
+### chat
+Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. The chat agent can access all other commands.
+
+**Usage:**
+```bash
+aigne web chat
+```
+
+This command does not take any parameters. It opens an interactive prompt in your terminal.
 
 ### prefs
+Manages user preferences that WebSmith learns from your feedback over time. These preferences help tailor the AI's output to your specific needs.
 
-The `prefs` command allows you to view and manage user preferences that WebSmith has learned from your feedback during content updates. These preferences help the AI better align with your style in future operations.
-
-**Usage**
-
+**Usage:**
 ```bash
-aigne web prefs [action] [options]
-```
-
-**Actions & Parameters**
-
-<x-field-group>
-  <x-field data-name="--list" data-type="boolean" data-required="false">
-    <x-field-desc markdown>Displays all saved preferences, indicating their status (active/inactive), scope, and content.</x-field-desc>
-  </x-field>
-  <x-field data-name="--remove" data-type="boolean" data-required="false">
-    <x-field-desc markdown>Removes one or more preferences. Can be used with `--id` or interactively if no IDs are provided.</x-field-desc>
-  </x-field>
-  <x-field data-name="--toggle" data-type="boolean" data-required="false">
-    <x-field-desc markdown>Toggles the active status of one or more preferences. Can be used with `--id` or interactively.</x-field-desc>
-  </x-field>
-  <x-field data-name="--id" data-type="array" data-required="false">
-    <x-field-desc markdown>Specifies the unique IDs of the preferences to act upon for `--remove` or `--toggle` actions.</x-field-desc>
-  </x-field>
-</x-field-group>
-
-**Examples**
-
-```bash title="List all saved preferences"
+# List all saved preferences
 aigne web prefs --list
-```
 
-```bash title="Remove a specific preference by its ID"
+# Remove a specific preference by its ID
 aigne web prefs --remove --id "pref_abc123"
 ```
 
+**Parameters:**
+
+<x-field-group>
+  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="Displays a formatted list of all saved user preferences."></x-field>
+  <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="Removes one or more preferences. Requires the --id parameter or will prompt for selection."></x-field>
+  <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="Toggles the active status of one or more preferences. Requires --id or will prompt."></x-field>
+  <x-field data-name="--id" data-type="Array" data-required="false" data-desc="An array of preference IDs to be managed (removed or toggled). Required only when using --remove or --toggle non-interactively."></x-field>
+</x-field-group>
+
 ### history
+Provides a view of the update history for your website content and structure.
 
-The `history` command group provides access to the log of changes made to your website.
+#### Subcommands
 
-#### history view
+**`view`** (Aliases: `log`, `list`)
+Displays the update history in a compact, log-style format, similar to `git log`. Each entry includes a unique hash, the date of the update, the operation performed, and the feedback provided.
 
-Displays the update history in a compact, git-log-style format. Each entry includes a unique hash, the date of the change, the operation performed, and the feedback that prompted the update.
-
-**Usage**
-
+**Usage:**
 ```bash
 aigne web history view
 ```
 
+This command does not take any parameters.
+
 ### clear
+Safely removes generated files, workspace data, or configuration settings. This is useful for starting fresh or cleaning up your project directory.
 
-The `clear` command is used to remove generated content and reset parts of your workspace. This is useful for starting fresh or cleaning up disk space.
-
-**Usage**
-
+**Usage:**
 ```bash
-aigne web clear
-```
-
-This command runs in an interactive mode by default, allowing you to select which items to clear. You can also specify targets directly.
-
-**Parameters**
-
-<x-field-group>
-  <x-field data-name="targets" data-type="array" data-required="false">
-    <x-field-desc markdown>An array of items to clear without prompting. Valid values are `workspace`, `generatedPages`, and `websiteConfig`.</x-field-desc>
-  </x-field>
-</x-field-group>
-
-**Example**
-
-```bash title="Clear the workspace and generated pages non-interactively"
+# Clear the temporary workspace and generated pages without being prompted
 aigne web clear --targets workspace generatedPages
 ```
+
+**Parameters:**
+
+<x-field-group>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: workspace, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
+  <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for your source pages."></x-field>
+  <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the temporary workspace."></x-field>
+  <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the generated pages."></x-field>
+  <x-field data-name="configPath" data-type="String" data-required="false" data-desc="Overrides the default path for the configuration file."></x-field>
+</x-field-group>
+
+## Summary
+
+This reference guide covers the primary commands and their parameters for the AIGNE WebSmith CLI. For more detailed, task-oriented instructions, please refer to the guides in the [Core Tasks](./core-tasks.md) section.

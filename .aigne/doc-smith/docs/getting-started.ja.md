@@ -1,60 +1,49 @@
 # はじめに
 
-このガイドでは、AIGNE WebSmith を使用して、初めての本格的で完成されたウェブサイトを生成するための手順をステップバイステップで解説します。全体のプロセスは30分未満で完了するように設計されており、事前のコーディング知識は一切不要です。
+このガイドでは、AIGNE WebSmithを使い始めるための基本的な手順を説明します。この手順に従うことで、30分以内にインストールから最初のウェブサイトの生成、表示までを行うことができます。プロセスは3つの論理的なステージに分かれており、明確で効率的なセットアップを保証します。
 
-この手順に従うことで、必要なツールをインストールし、ウェブサイトの要件を定義し、たった一つのコマンドで全てのページとコンテンツを自動生成することができます。
-
-### プロセスの概要
-
-コンセプトからウェブサイト公開までの道のりは、主に3つのステージで構成されています。各ステージは前のステージを基にした論理的なステップであり、スムーズで予測可能な結果を保証します。
+プロセスを視覚的に理解しやすくするために、これから行う手順の簡単なフローチャートを以下に示します。
 
 ```d2
 direction: down
 
-step1: {
-  label: "1. インストール"
-  shape: oval
-}
-
-step2: {
-  label: "2. コンテンツの準備"
-  shape: oval
-}
-
-step3: {
-  label: "3. 初めてのウェブサイト作成"
-  shape: oval
-}
-
-result: {
-  label: "完成したウェブサイト"
+Install: {
+  label: "1. AIGNE CLIのインストール"
   shape: rectangle
-  style.fill: "#D5E8D4"
 }
 
-step1 -> step2: "CLIツールのインストール"
-step2 -> step3: "ウェブサイトの目標を定義"
-step3 -> result: "ワンコマンドで生成"
+Prepare: {
+  label: "2. コンテンツの準備"
+  shape: rectangle
+}
+
+Generate: {
+  label: "3. 最初のウェブサイトの生成"
+  shape: rectangle
+}
+
+View: {
+  label: "4. ウェブサイトの表示"
+  shape: oval
+}
+
+Install -> Prepare -> Generate -> View
 ```
 
-### 新しいウェブサイト作成への道筋
+スムーズかつ確実に開始するために、以下のガイドに順番に従ってください。
 
-まずは、以下のセクションを順番に進めてください。各セクションには、プロセス各段階の詳細な手順が記載されています。
-
-<x-cards>
-  <x-card data-title="インストール" data-icon="lucide:download" data-href="/getting-started/installation">
-    WebSmithの使用に不可欠なツールであるAIGNEコマンドラインインターフェース（CLI）のインストール方法を、明確にステップバイステップで説明します。
+<x-cards data-columns="3">
+  <x-card data-title="インストール" data-icon="lucide:download-cloud" data-href="/getting-started/installation">
+    WebSmithの使用に必須であるAIGNE CLIのインストール方法をステップバイステップで説明します。
   </x-card>
-  <x-card data-title="コンテンツの準備" data-icon="lucide:clipboard-list" data-href="/getting-started/preparing-your-content">
-    準備しておくべき主要な情報やコンテンツのアイデアについて説明します。適切な準備をすることで、AIがあなたのニーズに最適なウェブサイトを生成する手助けとなります。
+  <x-card data-title="コンテンツの準備" data-icon="lucide:folder-check" data-href="/getting-started/preparing-your-content">
+    AIがあなたのニーズに最適なウェブサイトを生成するために、どのようなコンテンツや情報を準備すべきかを説明します。
   </x-card>
-  <x-card data-title="初めてのウェブサイト作成" data-icon="lucide:rocket" data-href="/getting-started/your-first-website">
-    簡単な設定ファイルを作成し、1つのコマンドで完全なマルチページウェブサイトを生成するまでをガイドする、実践的なチュートリアルです。
+  <x-card data-title="最初のウェブサイト" data-icon="lucide:rocket" data-href="/getting-started/your-first-website">
+    簡単な設定ファイルの作成から、単一のコマンドで完全なウェブサイトを生成するまでの手順を実践的に解説するクイックチュートリアルです。
   </x-card>
 </x-cards>
 
-### まとめ
+このセクションを完了すると、AIGNE WebSmithによって生成された機能的なウェブサイトが完成します。基本的なワークフローを理解し、サイトを管理・強化するためのより高度な機能を探求する準備が整います。
 
-このセクションで説明した手順を完了すると、新しいウェブサイトが正常に生成されているはずです。次のステップは、サイトの管理、更新、公開方法を学ぶことです。
-
-サイトのクラウドへの公開、コンテンツの更新、その他の一般的なタスクの実行に関する詳細なガイドについては、[コアタスク](./core-tasks.md)のセクションに進んでください。
+日常的な操作の詳細については、[コアタスク](./core-tasks.md)のセクションに進んでください。

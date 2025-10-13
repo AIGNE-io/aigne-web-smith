@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import chalk from "chalk";
 import { getHistory } from "../../utils/history-utils.mjs";
 
@@ -15,7 +16,9 @@ export default function viewHistory() {
     // Format: <short-hash> <date> <operation> <feedback>
     const hash = generateShortHash(entry.timestamp);
     const date = formatRelativeDate(entry.timestamp);
-    const operation = entry.operation === "structure_update" ? "structure" : "page";
+    const operation = entry.operation;
+
+    // Handle page path (now a string)
     const pageInfo = entry.page ? chalk.dim(` (${entry.page})`) : "";
 
     // Git-style oneline format
@@ -33,10 +36,11 @@ export default function viewHistory() {
  * Generate a short hash from timestamp (git-style)
  */
 function generateShortHash(timestamp) {
-  const hash = timestamp.replace(/[-:.TZ]/g, "");
-  return hash.substring(hash.length - 7); // Last 7 chars
+  // Create a deterministic hash from timestamp only
+  // This ensures the same timestamp always produces the same hash
+  const hash = createHash("sha1").update(timestamp).digest("hex");
+  return hash.substring(0, 8); // First 8 chars of SHA1 hash
 }
-
 /**
  * Format date in relative time (git-style)
  */

@@ -563,7 +563,9 @@ export function generateFieldConstraints(componentLibrary) {
 `;
 
   constraints += `- How to use components correctly:
-    - Components with "Hero" in their name must be standalone sections—never place them inside a \`${LIST_KEY}\` item. Value-Level Downgrade cannot bypass this restriction.
+    - Components with "Hero" in their name
+      - Must be standalone sections—never place them inside a \`${LIST_KEY}\` item. Value-Level Downgrade cannot bypass this restriction.
+      - Only emit a Hero component as the very first section of the page (index 0); any later section using a Hero-named component must be rejected and replaced with a non-Hero alternative.
     - For combinations including \`${LIST_KEY}\`, all list items must use the same component combination to maintain visual consistency—do not mix different components in a list.
     - When a shared component combination includes orientation-style fields (e.g., left/right layout), you may vary these values across list items for better pacing—adjust only orientation within the same combination.
     - Button labels should be short, direct, and free of prefixes/suffixes—avoid decorative symbols like dashes to maintain clear actions.

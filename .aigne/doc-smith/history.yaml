@@ -1,4 +1,62 @@
 entries:
+  - timestamp: 2025-10-13T09:55:07.081Z
+    operation: document_update
+    feedback: The Target column in the Clearable Targets table uses the original target enumeration values.
+    documentPath: /core-tasks/clearing-generated-content
+  - timestamp: 2025-10-13T09:50:22.388Z
+    operation: document_update
+    feedback: In the theme generation process, there is no step labeled `Name Your Theme`. In the theme
+      application process, the steps `Confirm the Target` and `Final Confirmation` need to be
+      merged.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-13T09:34:18.783Z
+    operation: document_update
+    feedback: Complete the table operations in Core Structural Operations
+    documentPath: /core-tasks/updating-website-content/updating-website-structure
+  - timestamp: 2025-10-13T09:30:04.889Z
+    operation: document_update
+    feedback: Add a section titled `Core Structural Operations`, describing the operations supported by
+      structural adjustments in a simple table, followed by some case examples.
+    documentPath: /core-tasks/updating-website-content/updating-website-structure
+  - timestamp: 2025-10-13T09:25:24.019Z
+    operation: document_update
+    feedback: move section `Command Parameters` next to section `The Update Process`
+    documentPath: /core-tasks/updating-website-content/updating-page-content
+  - timestamp: 2025-10-13T09:22:38.940Z
+    operation: document_update
+    feedback: remove setion `Available Structural Changes`
+    documentPath: /core-tasks/updating-website-content/updating-website-structure
+  - timestamp: 2025-10-13T08:51:27.290Z
+    operation: document_update
+    feedback: To update the website structure, use the `aigne web generate` command. Common examples can
+      be provided to illustrate this.
+    documentPath: /core-tasks/updating-website-content/updating-website-structure
+  - timestamp: 2025-10-13T08:48:08.349Z
+    operation: document_update
+    feedback: Please reference the two sub-articles titled “Updating Website Structure” and “Updating
+      Page Content.”
+    documentPath: /core-tasks/updating-website-content
+  - timestamp: 2025-10-13T08:45:10.163Z
+    operation: document_update
+    feedback: "Briefly describe two scenarios: one involves using `aigne web generate` to update the
+      website structure, and the other involves using `aigne web update` to update page content."
+    documentPath: /core-tasks/updating-website-content
+  - timestamp: 2025-10-13T08:08:40.565Z
+    operation: document_update
+    feedback: Delete `Define Your Website's Purpose and Audience` and start with preparing source documents.
+    documentPath: /getting-started/preparing-your-content
+  - timestamp: 2025-10-13T08:02:44.639Z
+    operation: document_update
+    feedback: generate Describe the generate command parameters using the x-field component.
+    documentPath: /core-tasks/generating-a-website
+  - timestamp: 2025-10-13T02:50:01.693Z
+    operation: document_update
+    feedback: Remove the Status column from the Summary Checklist
+    documentPath: /getting-started/preparing-your-content
+  - timestamp: 2025-10-12T02:42:26.432Z
+    operation: document_update
+    feedback: Add a link to the AIGNE Framework 'https://www.aigne.io/framework'.
+    documentPath: /overview
   - timestamp: 2025-10-10T06:55:07.682Z
     operation: structure_update
     feedback: Rename "Clearing Generated Content" to a more suitable title, since the clear command can

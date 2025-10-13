@@ -1,106 +1,61 @@
 # Updating Website Structure
 
-The structure of a website, often referred to as its information architecture, is the arrangement and organization of its pages. A logical structure is essential for user navigation and understanding. AIGNE WebSmith provides a straightforward process for modifying your website's structure by adding, removing, updating, or reorganizing pages.
+Modifying the structure of your website—such as adding new pages, removing obsolete ones, or reorganizing the navigation—is a critical task for keeping your content relevant and user-friendly. AIGNE WebSmith facilitates this process through an AI-driven workflow that interprets natural language feedback to perform precise structural changes.
 
-These structural modifications are not performed with individual commands. Instead, you provide clear, natural language feedback to the `update` command. The AI interprets your instructions and applies the necessary changes to the website plan. This document outlines the specific operations available for structuring your site.
+This document explains how to modify your site's structure using the `aigne web generate` command. During this process, an AI agent interprets your feedback in natural language to add, remove, update, or move pages. Understanding the available operations helps you provide clear instructions to achieve your desired site layout.
 
-For details on modifying the content within a page, please refer to the [Updating Page Content](./core-tasks-updating-website-content-updating-page-content.md) guide.
+The primary command for applying structural changes is `aigne web generate`. For more details on the generation process itself, see [Generating a Website](./core-tasks-generating-a-website.md).
+## The Structure Update Process
 
-## The Update Process
+When you run the `aigne web generate` command, the system first analyzes your content sources and proposes a website structure. You are then given an opportunity to review and modify this structure interactively.
 
-Modifying your website's structure involves an interactive session where you describe the desired changes. The system uses a set of specialized tools to execute these changes based on your input.
+## Interactive Update Workflow
 
-The general workflow is as follows:
-1.  Run the `aigne update` command in your terminal.
-2.  The system will prompt you for feedback.
-3.  Clearly describe the structural changes you wish to make (e.g., "Add a new 'Blog' page," "Move the 'Careers' page under 'About Us'").
-4.  The AI will analyze your request, perform the necessary operations, and present the updated structure for your review and confirmation.
+The process for updating your website's structure is interactive. Here is a summary of the workflow:
+
+1.  **Initiate Generation**: Run the generate command in your terminal.
+    ```bash
+    aigne web generate
+    ```
+
+2.  **Review Proposed Structure**: After analyzing your sources, the CLI will display the proposed structure and ask for your input.
+
+3.  **Provide Natural Language Feedback**: At the prompt, type your desired changes in plain English. For example:
+    > "Add a 'Contact Us' page at the top level with the path `/contact`. Also, remove the page at `/about/old-team`."
+
+4.  **Review and Approve**: The AI processes your feedback, applies the necessary changes, and displays the revised structure. You can then approve the changes to finalize the process or provide more feedback to refine it further.
 
 ## Core Structural Operations
 
-The AI can perform four fundamental operations to alter your website's structure. Understanding these operations will help you provide more effective feedback.
+The AI agent understands four fundamental operations for modifying the website structure. Providing clear feedback that aligns with these operations will yield the most accurate results.
 
-### Adding a Page
+| Operation | Description | Key Parameters |
+| :--- | :--- | :--- |
+| **Add** | Creates a new page in the website structure. | `title`, `description`, `path`, `parentId`, `sourceIds` |
+| **Delete** | Removes an existing page from the structure. | `path` |
+| **Update** | Modifies the metadata of an existing page. | `path`, `title` (optional), `description` (optional), `sourceIds` (optional) |
+| **Move** | Relocates a page to a different parent, changing its path. | `path`, `newParentId`, `newPath` |
 
-This operation creates a new page within your website's structure. To add a page, you need to provide its essential properties.
+### Examples of Feedback
 
-**Example Feedback:** `"Add a new page titled 'Our Services' with the path '/services'. It should be a top-level page."`
+Here are some examples of how you can phrase your feedback to perform specific structural changes:
 
-The following parameters are used when creating a new page:
+- **Adding a page:**
+ > "Add a new page titled 'Our Team' under the '/about' section. The path should be `/about/team`."
 
-<x-field-group>
-  <x-field data-name="title" data-type="string" data-required="true">
-    <x-field-desc markdown>The title of the new page, which will appear in navigation and headings.</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="true">
-    <x-field-desc markdown>A brief description of the page's purpose and content.</x-field-desc>
-  </x-field>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>The unique URL path for the page. It must begin with a `/` (e.g., `/about-us`).</x-field-desc>
-  </x-field>
-  <x-field data-name="parentId" data-type="string" data-required="false">
-    <x-field-desc markdown>The path of the parent page. If the new page is a sub-page, provide the parent's path here. For a top-level page, this should be `null`.</x-field-desc>
-  </x-field>
-</x-field-group>
+- **Deleting a page:**
+ > "Please remove the 'Legacy Products' page located at `/products/legacy`."
 
-### Updating a Page
+- **Updating a page:**
+ > "Update the title for the page at `/services` to 'Our Professional Services'."
 
-This operation modifies the metadata of an existing page, such as its title or description. You must specify the path of the page you wish to change.
-
-**Example Feedback:** `"Update the page at '/about' to have the title 'About Our Company'."`
-
-The following parameters are used when updating an existing page:
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>The URL path of the page to be updated. This is used to identify the correct page.</x-field-desc>
-  </x-field>
-  <x-field data-name="title" data-type="string" data-required="false">
-    <x-field-desc markdown>The new title for the page.</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="false">
-    <x-field-desc markdown>The new description for the page.</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### Moving a Page
-
-This operation changes a page's position within the website hierarchy. You can move a page to a different parent or change its URL path. This is useful for reorganizing content.
-
-**Example Feedback:** `"Move the page '/team' so it is a child of '/about'. Its new path should be '/about/team'."`
-
-The following parameters are used when moving a page:
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>The current URL path of the page you want to move.</x-field-desc>
-  </x-field>
-  <x-field data-name="newParentId" data-type="string" data-required="false">
-    <x-field-desc markdown>The path of the new parent page. To make it a top-level page, omit this or set it to `null`.</x-field-desc>
-  </x-field>
-  <x-field data-name="newPath" data-type="string" data-required="true">
-    <x-field-desc markdown>The new URL path for the page. It is standard practice to update the path to reflect the new hierarchy (e.g., moving a page under `/about` should result in a path like `/about/newpage`).</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### Deleting a Page
-
-This operation permanently removes a page from the website structure.
-
-**Important:** A page that has child pages (sub-pages) cannot be deleted directly. You must first move or delete its children.
-
-**Example Feedback:** `"Please remove the page at path '/archive/old-news'."`
-
-The following parameters are used when deleting a page:
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>The URL path of the page you wish to delete.</x-field-desc>
-  </x-field>
-</x-field-group>
+- **Moving a page:**
+ > "Move the 'Careers' page, currently at `/careers`, so it becomes a child of the '/about' page. Its new path should be `/about/careers`."
 
 ## Summary
 
-By providing clear and specific instructions to the `update` command, you can efficiently manage your website's structure. The AI handles the technical execution, allowing you to focus on the logical organization of your content.
+This interactive process ensures your website's structure is always organized, up-to-date, and aligned with your goals. The system handles the technical details, allowing you to focus on the logical arrangement of your content.
 
-After structuring your pages, the next step is to refine the information within them. For more information, proceed to the [Updating Page Content](./core-tasks-updating-website-content-updating-page-content.md) guide.
+For more hands-on guidance, please refer to the following sections:
+- [Generating a Website](./core-tasks-generating-a-website.md)
+- [Using the Interactive Chat](./core-tasks-using-the-interactive-chat.md)

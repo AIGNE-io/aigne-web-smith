@@ -1,97 +1,53 @@
 # Clearing Workspace and Data
 
-The `clear` command provides a safe and convenient way to remove generated content, temporary workspace files, or the entire website configuration. This is particularly useful when you want to start a generation process from a clean slate, free up disk space, or reset your project setup.
+The `clear` command is a utility for managing your project's workspace. It allows you to selectively remove generated files, cached data, and configuration settings. This is particularly useful when you want to start a fresh build, reset your configuration, or remove sensitive authorization data.
 
-You can run the command interactively to select specific items for removal or specify the targets directly for automated cleanup.
+Executing the command is a destructive action. Please ensure you have backed up any important data before proceeding.
 
-## Command Usage
+## Interactive Clearing
 
-To initiate the clearing process, run the following command in your terminal:
+The simplest way to use the command is to run it without any arguments. This will launch an interactive prompt where you can select the specific items you wish to clear.
 
-```bash
-aigne clear
+```bash Command Line icon=lucide:terminal
+aigne web clear
 ```
 
-When executed without any specific targets, the command enters an interactive mode. It will scan your project for removable items and present you with a checklist. This is the recommended approach for most use cases as it allows you to review what will be deleted.
-
-```text
-? Select items to clear:
-❯ ◉ workspace
-  ◯ generated pages
-  ◯ website configuration
-```
+This will present a list of available items to remove. You can navigate with the arrow keys, select items with the spacebar, and confirm your selection by pressing Enter.
 
 ## Clearable Targets
 
-The `clear` command can remove several types of data, each with a specific purpose.
+The following table details the specific items that can be cleared, what they contain, and the command to clear them directly.
 
-| Target Name | Description |
-| :--- | :--- |
-| `workspace` | Removes temporary files and intermediate data, such as the AI-generated website structure. Clearing this is often useful before regenerating your site to ensure no old data is used. |
-| `generatedPages` | Deletes the output directory containing the final generated website pages and assets. |
-| `websiteConfig` | Removes the main `config.yaml` file. **Use this with caution**, as you will need to run `aigne web init` to create a new configuration before you can generate the site again. |
+| Target Name | Command Flag | Description |
+| :--- | :--- | :--- |
+| Workspace | `workspace` | Removes the temporary workspace directory (`./.websmith/tmp`) where the website structure is planned and stored before generation. Your original source content is not affected. |
+| Generated Pages | `generatedPages` | Deletes all final website files from the output directory (`./.websmith/dist`). This removes the published version of your site but leaves the website structure and source content intact. |
+| Website Configuration | `websiteConfig` | Deletes the main `config.yaml` file. **Caution:** This action is irreversible. You will need to run `aigne web init` to generate a new configuration file. |
+| Authorizations | `authTokens` | Deletes the `.env.websmith` file, which stores authentication tokens. After clearing, you will need to re-authorize the CLI for operations like publishing. |
+| Deployment Config | `deploymentConfig` | Removes only the `appUrl` key from your `config.yaml` file. This is useful for resetting your deployment target without deleting the entire website configuration. |
+| Media File Descriptions | `mediaDescription` | Deletes the cached, AI-generated descriptions for your media assets. These descriptions will be automatically regenerated the next time you run the `generate` command. |
 
-## Clearing Specific Targets
+## Non-Interactive Clearing
 
-For scripting or non-interactive use, you can specify which items to clear by passing their names as arguments to the command. You can provide one or more targets.
+To bypass the interactive prompt, you can use the `--targets` flag followed by one or more target names. This is useful for scripting or automating cleanup tasks.
 
-The command will bypass the interactive prompt and immediately remove the specified items.
+### Clearing a Single Target
+To clear a single item, specify its name after the `--targets` flag.
 
-### Example: Clearing Workspace and Pages
-
-To remove the temporary workspace and the previously generated pages without being prompted, use the following command:
-
-```bash title="Terminal"
-aigne clear workspace generatedPages
+```bash Clear Workspace icon=lucide:terminal
+aigne web clear --targets workspace
 ```
 
-The output will confirm which items were cleared and which were already empty.
+### Clearing Multiple Targets
 
-```text
-✅ Cleanup successfully!
+You can provide a space-separated list of targets to clear multiple items at once. The following example clears both the temporary workspace and the final generated pages.
 
-- 🧹 Cleared workspace (./.tmp)
-- 🧹 Cleared generated pages (./dist)
+```bash Clear Multiple Targets icon=lucide:terminal
+aigne web clear --targets workspace generatedPages
 ```
 
-### Example: Clearing Everything
+## Summary
 
-To completely reset your project, you can clear all available targets.
+The `clear` command provides a safe and controlled way to manage your project's generated assets and configuration. Use the interactive mode for guided cleanup or the `--targets` flag for direct, automated control. Always exercise caution, especially when clearing the `websiteConfig`, to avoid unintended data loss.
 
-```bash title="Terminal"
-aigne clear workspace generatedPages websiteConfig
-```
-
-After running this command, you will need to re-initialize your project.
-
-```text
-✅ Cleanup successfully!
-
-- 🧹 Cleared workspace (./.tmp)
-- 🧹 Cleared generated pages (./dist)
-- 🧹 Cleared website configuration (./config.yaml)
-
-👉 Run `aigne web init` to generate a fresh configuration file.
-```
-
-## Parameters
-
-The `clear` command accepts several optional parameters to override default paths, allowing for more advanced control over the cleanup process.
-
-<x-field-group>
-  <x-field data-name="targets" data-type="array">
-    <x-field-desc markdown>An array of strings specifying which items to clear without prompting. Valid options are `workspace`, `generatedPages`, and `websiteConfig`.</x-field-desc>
-  </x-field>
-  <x-field data-name="pagesDir" data-type="string">
-    <x-field-desc markdown>Overrides the default directory for your source pages, which helps locate the `config.yaml` file.</x-field-desc>
-  </x-field>
-  <x-field data-name="tmpDir" data-type="string">
-    <x-field-desc markdown>Overrides the default path for the temporary workspace directory (`.tmp`).</x-field-desc>
-  </x-field>
-  <x-field data-name="outputDir" data-type="string">
-    <x-field-desc markdown>Overrides the default path for the generated pages output directory.</x-field-desc>
-  </x-field>
-  <x-field data-name="configPath" data-type="string">
-    <x-field-desc markdown>Provides a direct path to the website configuration file, overriding any inferred locations.</x-field-desc>
-  </x-field>
-</x-field-group>
+After clearing your workspace or generated pages, you may want to proceed with generating the website again. For more details, see [Generating a Website](./core-tasks-generating-a-website.md).

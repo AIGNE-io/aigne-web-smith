@@ -1,4 +1,4 @@
-import choosePages from "../utils/choose-pages.mjs";
+import choosePages from "../../utils/choose-pages.mjs";
 import chooseLanguage from "./choose-language.mjs";
 
 /**

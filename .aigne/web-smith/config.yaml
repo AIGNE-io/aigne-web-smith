@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: aigne-web-smith-1002
+projectName: aigne-web-smith-1008
 projectDesc: ""
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: hbfbbt49-81ba-lka3-bt1c-5235678lld65
-projectSlug: aigne-web-smith-1002
+projectId: hbfbbt49-81ba-gka3-bt1c-52356falldaa
+projectSlug: aigne-web-smith-1008
 
 # =============================================================================
 # Website Configuration
@@ -55,11 +55,13 @@ rules: "WebSmith's website should primarily introduce WebSmith to customers in p
 locale: en
 translateLanguages: # List of languages to translate the pages to
   - zh # Example: Chinese translation
+  - ja
+  - fr
 #   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./
-lastGitHead: db4d0520dbfafedabefa8c1efdc1311494134409
+lastGitHead: 04532bd7af21d3b8b55f17fa5d500e754488fba6
 # Checkout ID for website deployment service
 checkoutId: ""
 appUrl: https://staging.websmith.aigne.io/

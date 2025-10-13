@@ -1,5 +1,6 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import imageSize from "image-size";
 import { parse } from "yaml";
 import {
   BUILTIN_COMPONENT_LIBRARY_NAME,
@@ -8,7 +9,7 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
-import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
+import { getFilesWithGlob, getMimeType, loadGitignore } from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
 import {
   getCurrentGitHead,
@@ -18,8 +19,20 @@ import {
 
 const getFileType = (filePath) => {
   const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
+  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
+  const videoExts = [
+    ".mp4",
+    ".mpeg",
+    ".mpg",
+    ".mov",
+    ".avi",
+    ".flv",
+    ".mkv",
+    ".webm",
+    ".wmv",
+    ".m4v",
+    ".3gpp",
+  ];
 
   if (imageExts.includes(ext)) return "image";
   if (videoExts.includes(ext)) return "video";
@@ -89,8 +102,10 @@ export default async function loadSources({
   projectId,
   useDefaultPatterns = true,
   lastGitHead,
+  media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
+  const { minImageWidth } = media || { minImageWidth: 800 };
 
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
@@ -203,12 +218,19 @@ export default async function loadSources({
     ".bmp",
     ".webp",
     ".svg",
+    ".heic",
+    ".heif",
     ".mp4",
+    ".mpeg",
+    ".mpg",
     ".mov",
     ".avi",
+    ".flv",
     ".mkv",
     ".webm",
+    ".wmv",
     ".m4v",
+    ".3gpp",
   ];
 
   // Separate source files from media files
@@ -236,6 +258,8 @@ export default async function loadSources({
   } catch {
     // Assets directory doesn't exist, skip
   }
+
+  let filteredImageCount = 0;
 
   await Promise.all(
     files.map(async (file) => {
@@ -265,11 +289,33 @@ export default async function loadSources({
           path: relativePath,
           type: getFileType(relativePath),
           mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
+          mimeType: getMimeType(file),
         };
 
         // Add context if available
         if (context) {
           mediaItem.context = context;
+        }
+
+        // For image files, get dimensions and filter by width
+        if (mediaItem.type === "image") {
+          try {
+            const buffer = await readFile(file);
+            const dimensions = imageSize(buffer);
+            mediaItem.width = dimensions.width;
+            mediaItem.height = dimensions.height;
+
+            // Filter out images with width less than minImageWidth
+            if (dimensions.width < minImageWidth) {
+              filteredImageCount++;
+              console.log(
+                `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
+              );
+              return;
+            }
+          } catch (err) {
+            console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
+          }
         }
 
         mediaFiles.push(mediaItem);
@@ -337,6 +383,13 @@ export default async function loadSources({
       }
     }),
   );
+
+  // Log summary of filtered images
+  if (filteredImageCount > 0) {
+    console.log(
+      `\nTotal ${filteredImageCount} low-resolution image(s) filtered for better web display quality (minimum width: ${minImageWidth}px)\n`,
+    );
+  }
 
   // Get the last structure plan result
   let originalWebsiteStructure;
@@ -444,20 +497,32 @@ export default async function loadSources({
     }
   }
 
+  const componentLibrary = builtinComponentLibrary;
+
+  if (!componentLibrary.length) {
+    throw new Error("❌ Component library is empty, please check the component library exists.");
+  }
+
+  const componentLibraryData = {
+    hash: "mock-hash",
+    componentLibrary,
+  };
+
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
     componentList: componentFiles,
     moreContentsComponentList: moreContentsComponentFiles,
-    builtinComponentLibrary,
+    componentLibrary,
+    componentLibraryData,
     content,
     originalWebsiteStructure,
     files,
     modifiedFiles,
     totalWords,
     totalLines,
-    assetsContent,
     mediaFiles,
+    assetsContent,
   };
 }
 
@@ -496,6 +561,12 @@ loadSources.input_schema = {
     lastGitHead: {
       type: "string",
       description: "The git HEAD from last generation for change detection",
+    },
+    media: {
+      minImageWidth: {
+        type: "number",
+        description: "Minimum image width in pixels to include",
+      },
     },
   },
   required: [],
@@ -553,10 +624,6 @@ loadSources.output_schema = {
       items: { type: "string" },
       description: "Array of modified files since last generation",
     },
-    assetsContent: {
-      type: "string",
-      description: "Markdown content for available media assets",
-    },
     mediaFiles: {
       type: "array",
       items: {
@@ -566,6 +633,9 @@ loadSources.output_schema = {
           path: { type: "string" },
           type: { type: "string" },
           mediaKitPath: { type: "string" },
+          height: { type: "number" },
+          width: { type: "number" },
+          mimeType: { type: "string" },
         },
       },
     },

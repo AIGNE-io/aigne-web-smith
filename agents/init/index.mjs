@@ -11,6 +11,7 @@ import {
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
+  WEB_SMITH_DIR,
   WEBSITE_SCALE,
 } from "../../utils/constants.mjs";
 import {
@@ -35,7 +36,7 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = ".aigne/web-smith", fileName = "config.yaml", skipIfExists = false },
+  { outputPath = WEB_SMITH_DIR, fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
   if (skipIfExists) {
@@ -393,6 +394,14 @@ export function generateYAML(input) {
     // Paths
     pagesDir: input.pagesDir || "./aigne/web-smith/pages",
     sourcesPath: input.sourcesPath || [],
+
+    // Default datasources to include in every page
+    defaultDatasources: input.defaultDatasources || ["./media.md"],
+
+    media: {
+      // Image filtering settings
+      minImageWidth: input.minImageWidth || 800,
+    },
   };
 
   // Generate comments and structure
@@ -492,6 +501,18 @@ export function generateYAML(input) {
     sourcesPath: config.sourcesPath,
   }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
+
+  // Default datasources included in every page
+  const defaultDatasourcesSection = yamlStringify({
+    defaultDatasources: config.defaultDatasources,
+  }).trim();
+  yaml += `${defaultDatasourcesSection.replace(/^defaultDatasources:/, "defaultDatasources:  # Default datasources included in every page")}\n`;
+
+  // Image filtering settings
+  const mediaInfoSection = yamlStringify({
+    media: config.media,
+  }).trim();
+  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\n${mediaInfoSection}\n`;
 
   return yaml;
 }

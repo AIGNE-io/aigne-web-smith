@@ -13,29 +13,13 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { LIST_KEY, SECTION_META_FIELDS } from "./constants.mjs";
 
+export { generateDeterministicId } from "./utils.mjs";
+
 /**
  * ID 生成工具
  */
 export function generateRandomId(length = 16) {
   return nanoid(length);
-}
-
-/**
- * 从文本生成确定的16位16进制ID
- * 相同的文本内容总是产生相同的ID
- * @param {string} text - 输入文本
- * @returns {string} 16位16进制ID
- */
-export function generateDeterministicId(text, length = 16) {
-  if (typeof text !== "string") {
-    if (typeof text === "object") {
-      text = JSON.stringify(text);
-    } else {
-      text = String(text);
-    }
-  }
-
-  return createHash("md5").update(text, "utf8").digest("hex").slice(0, length);
 }
 
 /**
@@ -361,6 +345,114 @@ export function getAllFieldCombinations(middleFormatFiles, { includeArrayFields 
 }
 
 /**
+ * 标准化字段列表，去除空值并保证排序一致
+ * @param {Array<string>} fields
+ * @returns {Array<string>}
+ */
+export function normalizeFieldList(fields = []) {
+  return Array.from(
+    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
+  ).sort();
+}
+
+function hasNumericSegment(field) {
+  return field.split(".").some((segment) => /^\d+$/.test(segment));
+}
+
+function collapseFieldAfterFirstNumeric(field) {
+  const segments = field.split(".");
+  const firstNumericIndex = segments.findIndex((segment) => /^\d+$/.test(segment));
+  if (firstNumericIndex <= 0) {
+    return field;
+  }
+
+  return segments.slice(0, firstNumericIndex).join(".");
+}
+
+function arraysEqual(a = [], b = []) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+/**
+ * 根据字段组合匹配最佳组件
+ * @param {Array<string>} sectionFields
+ * @param {Array<Object>} compositeComponents
+ * @returns {{component: Object, type: string, penalty: number, fieldCount: number}|null}
+ */
+export function findBestComponentMatch(sectionFields, compositeComponents) {
+  const normalizedSectionFields = normalizeFieldList(sectionFields);
+  const sectionFieldSet = new Set(normalizedSectionFields);
+  const collapsedSectionFieldSet = new Set(
+    normalizedSectionFields.map((field) => collapseFieldAfterFirstNumeric(field)),
+  );
+
+  let bestMatch = null;
+
+  compositeComponents.forEach((component) => {
+    const componentFields = normalizeFieldList(component.fieldCombinations || []);
+    if (componentFields.length === 0) return;
+
+    const componentFieldSet = new Set(componentFields);
+
+    // 优先精确匹配，保持当前行为
+    if (arraysEqual(componentFields, normalizedSectionFields)) {
+      if (!bestMatch || bestMatch.type !== "exact") {
+        bestMatch = {
+          component,
+          type: "exact",
+          penalty: 0,
+          fieldCount: componentFields.length,
+        };
+      }
+      return;
+    }
+
+    if (normalizedSectionFields.length === 0) return;
+
+    // 仅考虑覆盖 section 字段的组件
+    const hasAllSectionFields = normalizedSectionFields.every((field) => {
+      if (componentFieldSet.has(field)) {
+        return true;
+      }
+      if (!hasNumericSegment(field)) {
+        return false;
+      }
+      const collapsed = collapseFieldAfterFirstNumeric(field);
+      return collapsed !== field && componentFieldSet.has(collapsed);
+    });
+    if (!hasAllSectionFields) return;
+
+    const extraCount = componentFields.reduce((count, field) => {
+      if (sectionFieldSet.has(field) || collapsedSectionFieldSet.has(field)) return count;
+      return count + 1;
+    }, 0);
+
+    // 没有精确匹配时，选择冗余字段最少的候选
+    if (!bestMatch || bestMatch.type !== "exact") {
+      const shouldReplace =
+        !bestMatch ||
+        extraCount < bestMatch.penalty ||
+        (extraCount === bestMatch.penalty && componentFields.length < bestMatch.fieldCount);
+
+      if (shouldReplace) {
+        bestMatch = {
+          component,
+          type: "superset",
+          penalty: extraCount,
+          fieldCount: componentFields.length,
+        };
+      }
+    }
+  });
+
+  return bestMatch;
+}
+
+/**
  * 计算中间格式文件的 hash 值
  * 基于字段组合模式而不是文件内容，避免不相关的变化导致重新生成
  * @param {Array} middleFormatFiles - 中间格式文件数组
@@ -445,7 +537,6 @@ export function generateFieldConstraints(componentLibrary) {
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  //
   constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
 - Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
     - The emitted field set of each section (excluding "sectionName" and "sectionSummary") must be exactly equal to the chosen combination—no extra or missing keys.
@@ -456,7 +547,7 @@ export function generateFieldConstraints(componentLibrary) {
     - A ${listKeyWithSymbol} field is allowed only when the chosen combination **includes \`${LIST_KEY}.N\` (e.g., \`${LIST_KEY}.0\`, \`${LIST_KEY}.1\`)**; otherwise any presence of ${listKeyWithSymbol} invalidates the output and must be rejected.
 - Strict List Rules:
     - Item Structure: Every ${listKeyWithSymbol} item MUST be an object (section), NOT a plain string/number, and SHOULD include \`sectionName\` and \`sectionSummary\`
-    - Item Combination: Each ${listKeyWithSymbol} item independently uses exactly one combination from <allowed_field_combinations>
+    - Item Combination: All ${listKeyWithSymbol} items must share the same chosen combination from <allowed_field_combinations> and each item must follow it strictly—never mix different component combinations inside the same list
     - Count Match: The number of ${listKeyWithSymbol} items MUST equal that count.
     - Fail-Fast Fallback: If any item cannot be assigned a valid combination or counts don’t match, abandon the list-based combination and switch to a non-list compliant combination. Never emit downgraded string items like:
         ${LIST_KEY}:
@@ -469,6 +560,13 @@ export function generateFieldConstraints(componentLibrary) {
     - How to apply: For an element you want hidden, set **all** of its field to the **empty string ""** (all empty). The template MUST NOT render that element or reserve space
     - Not for lists: \`${LIST_KEY}\` and its items MUST NOT use empty-value downgrade; lists still follow explicit \`\${LIST_KEY}.N\` presence and exact count-matching rules
     - Outcome: Field-set equality with <allowed_field_combinations> is preserved. External-link checks apply only to **non-empty** values; empty strings mean "hidden" and MUST NOT be replaced by placeholders, fake URLs, or \`null\`
+`;
+
+  constraints += `- How to use components correctly:
+    - Components with "Hero" in their name must be standalone sections—never place them inside a \`${LIST_KEY}\` item. Value-Level Downgrade cannot bypass this restriction.
+    - For combinations including \`${LIST_KEY}\`, all list items must use the same component combination to maintain visual consistency—do not mix different components in a list.
+    - When a shared component combination includes orientation-style fields (e.g., left/right layout), you may vary these values across list items for better pacing—adjust only orientation within the same combination.
+    - Button labels should be short, direct, and free of prefixes/suffixes—avoid decorative symbols like dashes to maintain clear actions.
 `;
 
   return constraints;

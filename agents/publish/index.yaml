@@ -18,3 +18,9 @@ input_schema:
     appUrl:
       type: string
       description: target website URL where the pages will be published (optional - if not provided, will prompt for interactive input)
+    with-navigations:
+      type: boolean
+      description: publish to website with navigations
+    with-locales:
+      type: boolean
+      description: publish to website with locales

@@ -3,12 +3,10 @@ import { dirname, join } from "node:path";
 import chalk from "chalk";
 import YAML from "yaml";
 
+import { WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { toKebabCase } from "../../utils/utils.mjs";
 
-export default async function saveTheme(
-  { theme, config = "./.aigne/web-smith/config.yaml" },
-  options,
-) {
+export default async function saveTheme({ theme, config = WEB_SMITH_CONFIG_PATH }, options) {
   if (!theme) {
     return {
       message: chalk.red("Please provide theme data to save"),

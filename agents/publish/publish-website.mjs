@@ -1,17 +1,21 @@
 import crypto from "node:crypto";
 import { basename, join } from "node:path";
+import { BrokerClient } from "@blocklet/payment-broker-client/node";
+import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
-import pMap from "p-map";
 import { withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 
-import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 
 import { getComponentMountPoint } from "../../utils/blocklet.mjs";
 
 import {
-  DEFAULT_APP_URL,
+  BUNDLE_FILENAME,
+  CLOUD_SERVICE_URL_PROD,
+  DEFAULT_PROJECT_ID,
+  DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
   MEDIA_KIT_PROTOCOL,
   PAGES_KIT_DID,
@@ -19,17 +23,18 @@ import {
   TMP_DIR,
   TMP_PAGES_DIR,
 } from "../../utils/constants.mjs";
+
 import { deploy } from "../../utils/deploy.mjs";
 import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
 
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import {
+  formatRoutePath,
+  getGithubRepoUrl,
+  loadConfigFromFile,
+  saveValueToConfig,
+} from "../../utils/utils.mjs";
 
-const formatRoutePath = (path) => {
-  if (path === "/home") {
-    return "/";
-  }
-  return path;
-};
+const BASE_URL = process.env.WEB_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
 /**
  * 递归扫描对象中的指定协议值
@@ -56,11 +61,29 @@ function scanForProtocolUrls(obj, foundUrls, protocol) {
  * @param {string} protocol - 要替换的协议
  * @returns {Object} 处理后的页面数据对象
  */
-function replacePageProtocolUrls(pageData, protocolToUrlMap, protocol) {
+function replacePageProtocolUrls(
+  pageData,
+  protocolToUrlMap,
+  protocol,
+  // default format function: only use pathname as value
+  formatFn = (value) => {
+    try {
+      const url = new URL(value);
+      return url.pathname;
+    } catch {
+      return value;
+    }
+  },
+) {
   function replaceUrls(obj) {
     if (typeof obj === "string") {
       if (obj.startsWith(protocol)) {
-        return protocolToUrlMap[obj] || obj;
+        const value = protocolToUrlMap[obj];
+        if (!value) {
+          return obj;
+        }
+
+        return formatFn(value);
       }
       return obj;
     } else if (Array.isArray(obj)) {
@@ -99,46 +122,18 @@ function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
   return linkToPathMap;
 }
 
-const publishPageFn = async ({
-  projectData,
-  appUrl,
-  mountPoint,
-  accessToken,
-  force = true,
-  pageTemplateData,
-  routeData,
-  dataSourceData,
-  resetProject = false,
-}) => {
-  // Build request headers
+const publishBundleFn = async ({ bundleBuffer, appUrl, mountPoint, accessToken }) => {
   const headers = new Headers();
-  headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${accessToken}`);
+  headers.append("Content-Type", "application/zip");
 
-  // Build request body - using /upload-data SDK interface format
-  const requestBody = JSON.stringify({
-    projectData,
-    force,
-    pageTemplateData,
-    routeData,
-    dataSourceData,
-    resetProject,
+  const response = await fetch(join(appUrl, mountPoint || "/", "/api/sdk/upload-data"), {
+    method: "POST",
+    headers,
+    body: bundleBuffer,
+    redirect: "follow",
   });
 
-  const requestOptions = {
-    method: "POST",
-    headers: headers,
-    body: requestBody,
-    redirect: "follow",
-  };
-
-  // Send request to Pages Kit API
-  const response = await fetch(
-    join(appUrl, mountPoint || "/", "/api/sdk/upload-data"),
-    requestOptions,
-  );
-
-  // Handle response
   let result;
   const responseText = await response.text();
 
@@ -149,12 +144,12 @@ const publishPageFn = async ({
   }
 
   if (!response.ok) {
-    throw new Error(result?.error || result);
+    throw new Error(result?.message || result?.error || result);
   }
 
   return {
     success: true,
-    result: result,
+    result,
   };
 };
 
@@ -170,6 +165,9 @@ export default async function publishWebsite(
     mediaFiles,
     websiteStructure,
     pagesDir: rootDir,
+    locales,
+    "with-navigations": withNavigationsOption,
+    "with-locales": withLocalesOption,
   },
   options,
 ) {
@@ -203,35 +201,52 @@ export default async function publishWebsite(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
+  const isCloudServiceUrl = appUrl === CLOUD_SERVICE_URL_PROD;
   const hasAppUrlInConfig = config?.appUrl;
+
+  let shouldWithLocales = withLocalesOption || false;
+  let shouldWithNavigations = withNavigationsOption || false;
+  let publishToSelfHostedBlocklet = false;
 
   let token = "";
 
-  if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
-    const hasCachedCheckoutId = !!config?.checkoutId;
+  if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
+    const authToken = await getOfficialAccessToken(BASE_URL, false);
+
+    let sessionId = "",
+      paymentLink = "";
+    if (authToken) {
+      const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+      const info = await client.checkCacheSession({
+        needShortUrl: true,
+        sessionId: config?.checkoutId,
+      });
+      sessionId = info.sessionId;
+      paymentLink = info.paymentLink;
+    }
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
         {
-          name: `${chalk.blue(`WebSmith Cloud (${DEFAULT_APP_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId
+        ...(sessionId
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
-                value: "new-pagekit-continue",
+                value: "new-pages-kit-continue",
               },
             ]
           : []),
         {
           name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
-          value: "new-pagekit",
+          value: "new-pages-kit",
         },
       ],
     });
@@ -256,14 +271,31 @@ export default async function publishWebsite(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (["new-pagekit", "new-pagekit-continue"].includes(choice)) {
-      // Deploy a new Pages Kit service
+    } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
+      publishToSelfHostedBlocklet = true;
+
+      // upload to default project
+      config.projectId = DEFAULT_PROJECT_ID;
+      config.projectSlug = DEFAULT_PROJECT_SLUG;
+
+      projectId = DEFAULT_PROJECT_ID;
+      projectSlug = DEFAULT_PROJECT_SLUG;
+
+      if (options?.prompts?.confirm) {
+        const shouldSyncAll = await options.prompts.confirm({
+          message: "Publish pages to the new dedicated website with locales and navigations?",
+          default: true,
+        });
+        shouldWithLocales = shouldSyncAll;
+        shouldWithNavigations = shouldSyncAll;
+      }
+
       try {
         let id = "";
         let paymentUrl = "";
-        if (choice === "new-pagekit-continue") {
-          id = config?.checkoutId;
-          paymentUrl = config?.paymentUrl;
+        if (choice === "new-pages-kit-continue") {
+          id = sessionId;
+          paymentUrl = paymentLink;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);
@@ -281,10 +313,15 @@ export default async function publishWebsite(
 
   // Now handle projectId after appUrl is finalized
   const hasProjectIdInConfig = config?.projectId;
+  const hasProjectSlugInConfig = config?.projectSlug;
 
   // Use projectId from config if not provided as parameter
   if (!projectId && hasProjectIdInConfig) {
     projectId = config.projectId;
+  }
+
+  if (!projectSlug && hasProjectSlugInConfig) {
+    projectSlug = config.projectSlug;
   }
 
   // Prompt for projectId if still not available
@@ -292,7 +329,16 @@ export default async function publishWebsite(
     projectId = crypto.randomUUID();
   }
 
-  const accessToken = await getAccessToken(appUrl, token);
+  let requiredAdminPassport = true;
+
+  try {
+    // publish to websmith website ignore admin passport
+    requiredAdminPassport = !(
+      new URL(appUrl).hostname === new URL(CLOUD_SERVICE_URL_PROD).hostname
+    );
+  } catch (_error) {}
+
+  const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
@@ -300,15 +346,12 @@ export default async function publishWebsite(
 
   const sitemapPath = join(pagesDir, "_sitemap.yaml");
 
-  // Construct boardMeta object
-  const boardMeta = {
+  // Construct meta object
+  const meta = {
     category: config?.pagePurpose || [],
     githubRepoUrl: getGithubRepoUrl(),
     commitSha: config?.lastGitHead || "",
-    languages: [
-      ...(config?.locale ? [config.locale] : []),
-      ...(config?.translateLanguages || []),
-    ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
+    languages: locales || [],
   };
 
   let message;
@@ -325,7 +368,7 @@ export default async function publishWebsite(
     }
 
     // Recursive function to extract all paths from sitemap
-    function extractAllPaths(sitemapItems) {
+    function extractAllPaths(sitemapItems, parentPath) {
       const paths = [];
       if (!Array.isArray(sitemapItems)) return paths;
 
@@ -337,11 +380,12 @@ export default async function publishWebsite(
             path: item.path,
             cleanPath,
             title: item.title,
+            parentPath,
           });
         }
         // Recursively process child items
         if (item.children && Array.isArray(item.children)) {
-          paths.push(...extractAllPaths(item.children));
+          paths.push(...extractAllPaths(item.children, item.path));
         }
       });
 
@@ -353,6 +397,8 @@ export default async function publishWebsite(
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
+    const navigationEntries = shouldWithNavigations ? sitemapContent?.navigations : [];
+
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
     const yamlFiles = files.filter(
@@ -361,7 +407,6 @@ export default async function publishWebsite(
 
     // Step 1: 扫描所有页面，收集需要处理的协议 URLs
     const allUsedMediaKitUrls = new Set();
-    const allUsedLinkUrls = new Set();
     const pageContents = new Map();
 
     for (const file of yamlFiles) {
@@ -374,9 +419,6 @@ export default async function publishWebsite(
 
         // 扫描这个页面中的 mediakit:// URL
         scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, MEDIA_KIT_PROTOCOL);
-
-        // 扫描这个页面中的 link:// URL
-        scanForProtocolUrls(parsedPageContent, allUsedLinkUrls, LINK_PROTOCOL);
       } catch (error) {
         console.warn(`Failed to read file ${file}: ${error.message}`);
       }
@@ -399,136 +441,218 @@ export default async function publishWebsite(
       appUrl,
     });
 
-    // Step 3: 处理每个页面，使用全局URL映射替换
-    const publishResults = await pMap(
-      yamlFiles,
-      async (file, index) => {
-        const parsedPageContent = pageContents.get(file);
-        if (!parsedPageContent) {
-          return {
-            file,
-            success: false,
-            error: "Failed to parse page content",
-          };
+    const manifestPages = [];
+    const localFailures = [];
+
+    for (const file of yamlFiles) {
+      const parsedPageContent = pageContents.get(file);
+      if (!parsedPageContent) {
+        localFailures.push({
+          file,
+          success: false,
+          error: "Failed to parse page content",
+          scope: "page",
+          code: "PAGE_PARSE_ERROR",
+        });
+        continue;
+      }
+
+      const fileBaseName = basename(file, ".yaml");
+      const matchingSitemapItem = sitemapPaths.find(
+        (item) =>
+          item.cleanPath === fileBaseName ||
+          item.cleanPath.endsWith(`/${fileBaseName}`) ||
+          item.cleanPath.replace(/\//g, "-") === fileBaseName,
+      );
+
+      const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
+
+      let processedPageContent = replacePageProtocolUrls(
+        parsedPageContent,
+        mediaKitToUrlMap,
+        MEDIA_KIT_PROTOCOL,
+        (value) => {
+          // get hashName and compact with /uploads/, remove mediaKit prefix
+          const hashName = value.split("/").pop();
+          return join("/uploads", hashName);
+        },
+      );
+
+      processedPageContent = replacePageProtocolUrls(
+        processedPageContent,
+        linkToPathMap,
+        LINK_PROTOCOL,
+      );
+
+      const pageTemplateData = {
+        ...processedPageContent,
+        slug: path,
+        templateConfig: {
+          isTemplate: true,
+          ...meta,
+          sourceFile: file,
+        },
+      };
+
+      const routePath = formatRoutePath(path);
+
+      const routeData = {
+        path: routePath,
+        displayName: routePath,
+        meta: {
+          ...meta,
+          sourceFile: file,
+          sitemapTitle: matchingSitemapItem?.title,
+          sitemapPath: matchingSitemapItem?.path,
+        },
+      };
+
+      manifestPages.push({
+        sourceFile: file,
+        pageTemplateData,
+        routeData,
+      });
+    }
+
+    const projectData = {
+      id: projectId,
+      name: projectName,
+      description: projectDesc,
+      logo: projectLogo,
+      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
+    };
+
+    let remoteResults = [];
+    let newProjectId = projectId;
+    let newProjectSlug = projectSlug;
+
+    if (manifestPages.length > 0) {
+      if (shouldWithLocales && locales.length > 0) {
+        meta.locales = locales;
+      }
+
+      if (shouldWithNavigations && navigationEntries.length > 0) {
+        meta.navigations = navigationEntries;
+      }
+
+      const manifest = {
+        version: 1,
+        meta,
+        project: {
+          projectData,
+          resetProject: true,
+          force: true,
+        },
+        pages: manifestPages,
+      };
+
+      const bundleZip = new AdmZip();
+      bundleZip.addFile(BUNDLE_FILENAME, Buffer.from(JSON.stringify(manifest), "utf-8"));
+
+      const bundleBuffer = bundleZip.toBuffer();
+
+      try {
+        const { result } = await publishBundleFn({
+          bundleBuffer,
+          appUrl,
+          mountPoint,
+          accessToken,
+        });
+
+        remoteResults = Array.isArray(result?.pages) ? result.pages : [];
+        newProjectId = result?.projectId || projectId;
+        newProjectSlug = result?.projectSlug ?? projectSlug;
+
+        if (!newProjectSlug) {
+          const firstRemoteSuccess = remoteResults.find(
+            (entry) => entry?.success && entry?.projectSlug,
+          );
+          if (firstRemoteSuccess?.projectSlug) {
+            newProjectSlug = firstRemoteSuccess.projectSlug;
+          }
         }
 
-        // Find corresponding sitemap path information
-        const fileBaseName = basename(file, ".yaml");
-        const matchingSitemapItem = sitemapPaths.find(
-          (item) =>
-            item.cleanPath === fileBaseName ||
-            item.cleanPath.endsWith(`/${fileBaseName}`) ||
-            item.cleanPath.replace(/\//g, "-") === fileBaseName,
-        );
-
-        const path = matchingSitemapItem ? matchingSitemapItem.path : `/${fileBaseName}`;
-
-        // Replace mediakit:// URLs with uploaded URLs
-        let processedPageContent = replacePageProtocolUrls(
-          parsedPageContent,
-          mediaKitToUrlMap,
-          MEDIA_KIT_PROTOCOL,
-        );
-
-        // Replace link:// URLs with actual paths
-        processedPageContent = replacePageProtocolUrls(
-          processedPageContent,
-          linkToPathMap,
-          LINK_PROTOCOL,
-        );
-
-        const pageTemplateData = {
-          ...processedPageContent,
-          // Add project-related metadata
-          slug: path,
-          templateConfig: {
-            isTemplate: true,
-            ...boardMeta,
-            sourceFile: file,
-          },
-        };
-
-        const routePath = formatRoutePath(path);
-
-        // Construct route data
-        const routeData = {
-          path: routePath,
-          displayName: routePath,
-          meta: {
-            ...boardMeta,
-            sourceFile: file,
-            sitemapTitle: matchingSitemapItem?.title,
-            sitemapPath: matchingSitemapItem?.path,
-          },
-        };
-
-        const projectData = {
-          id: projectId,
-          name: projectName,
-          description: projectDesc,
-          logo: projectLogo,
-          slug: projectSlug,
-        };
-
-        try {
-          const {
-            success: pageSuccess,
-            result,
-            projectId: newProjectId,
-          } = await publishPageFn({
-            projectData,
-            appUrl,
-            accessToken,
-            force: true,
-            pageTemplateData,
-            routeData,
-            mountPoint,
-            resetProject: index === 0,
-            // dataSourceData not needed for now, can be added later
-          });
-
-          return {
-            file,
-            success: pageSuccess,
-            result,
-            projectId: newProjectId,
-          };
-        } catch (error) {
-          return {
-            file,
-            success: false,
-            error: error.message,
-          };
+        if (projectSlug && newProjectSlug && newProjectSlug !== projectSlug) {
+          console.log(
+            `\n${chalk.yellow("ℹ️ Project slug was automatically updated due to conflict:")} ${chalk.cyan(newProjectSlug)}`,
+          );
         }
-      },
-      { concurrency: 1 },
-    );
+      } catch (error) {
+        localFailures.push({
+          file: "bundle",
+          success: false,
+          error: error.message,
+        });
+      }
+    }
 
-    // Use overall results to determine success status
-    const overallSuccess = publishResults.every((result) => result?.success);
+    const publishResults = [
+      ...localFailures,
+      ...remoteResults.map((entry) => ({
+        file: entry?.sourceFile,
+        success: entry?.success,
+        error: entry?.error || entry?.message,
+        data: entry?.data,
+        projectId: entry?.projectId,
+        projectSlug: entry?.projectSlug,
+        scope: entry?.scope || (entry?.sourceFile ? "page" : "project"),
+        code: entry?.code,
+      })),
+    ];
+
+    const totalCount = publishResults.length;
+    const successCount = publishResults.filter((result) => result?.success).length;
+    const overallSuccess = totalCount > 0 && successCount === totalCount;
     const success = overallSuccess;
-    const newProjectId = publishResults.find((r) => r.projectId)?.projectId || projectId;
 
     // Save values to config.yaml if publish was successful
     if (success) {
-      // Save appUrl to config only when not using environment variable
       if (!useEnvAppUrl) {
         await saveValueToConfig("appUrl", appUrl);
       }
 
-      // Save projectId to config if it was provided by user input or auto-created
-      const shouldSaveProjectId = !hasProjectIdInConfig || projectId !== newProjectId;
+      const shouldSaveProjectId =
+        !hasProjectIdInConfig || projectId !== newProjectId || publishToSelfHostedBlocklet;
       if (shouldSaveProjectId) {
         await saveValueToConfig("projectId", newProjectId || projectId);
       }
 
-      const successCount = publishResults.filter((r) => r?.success).length;
-      const totalCount = publishResults.length;
+      const shouldSaveProjectSlug =
+        !!newProjectSlug &&
+        (!hasProjectSlugInConfig || projectSlug !== newProjectSlug || publishToSelfHostedBlocklet);
+      if (shouldSaveProjectSlug) {
+        await saveValueToConfig("projectSlug", newProjectSlug);
+      }
 
-      // Extract URLs from successful results
-      const publishedUrls = publishResults
-        .filter((result) => result?.success && result?.result?.data?.url)
-        .map((result) => result.result.data.url);
+      const publishedPaths = publishResults
+        .filter((result) => result?.success && result?.data?.url)
+        .map((result) => ({
+          url: result.data.url,
+          path: result.data.route?.path,
+        }));
+      const pathToIndexMap =
+        websiteStructure?.reduce((map, page, index) => {
+          const routePath = formatRoutePath(page.path);
+          map[routePath] = index;
+          return map;
+        }, {}) || {};
+
+      // Sort: first by websiteStructure order, then alphabetically for unmatched paths
+      const publishedUrls = publishedPaths
+        .sort((a, b) => {
+          const aIndex = pathToIndexMap[a.path];
+          const bIndex = pathToIndexMap[b.path];
+
+          if (aIndex !== undefined && bIndex !== undefined) {
+            return aIndex - bIndex;
+          }
+
+          if (aIndex !== undefined) return -1;
+          if (bIndex !== undefined) return 1;
+
+          return (a.path || "").localeCompare(b.path || "");
+        })
+        .map((v) => v.url);
 
       const uploadedMediaCount = Object.keys(mediaKitToUrlMap).length;
 
@@ -542,12 +666,39 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
+    } else if (totalCount === 0) {
+      message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {
-      const collectErrorMessage = publishResults.filter((r) => !r?.success).map((r) => r?.error);
-      message = `❌ Failed to publish pages: ${collectErrorMessage.map((e) => `${collectErrorMessage?.length > 1 ? "- " : ""}${JSON.stringify(e)}`).join("\n")}`;
+      const failedEntries = publishResults.filter((r) => !r?.success);
+      const seenGlobalErrors = new Set();
+      const formattedFailures = [];
+
+      failedEntries.forEach((entry) => {
+        const scope = entry?.scope;
+
+        // only show global error once
+        if (scope && scope !== "page") {
+          const key = `${scope}:${entry?.code || entry?.error}`;
+          if (seenGlobalErrors.has(key)) {
+            return;
+          }
+          seenGlobalErrors.add(key);
+        }
+
+        const label = entry?.file ? `${entry.file}: ` : "";
+        const detail =
+          typeof entry?.error === "string" ? entry.error : JSON.stringify(entry?.error || entry);
+        formattedFailures.push(`${label}${detail}`);
+      });
+
+      if (formattedFailures.length === 1) {
+        message = `❌ Failed to publish pages: ${formattedFailures[0]}`;
+      } else {
+        message = `❌ Failed to publish pages: \n${formattedFailures.map((item) => `- ${item}`).join("\n")}`;
+      }
     }
   } catch (error) {
-    message = `❌ Failed to publish pages: ${JSON.stringify(error?.message || error)}`;
+    message = `❌ Failed to publish pages: ${typeof error === "string" ? error : JSON.stringify(error?.message || error)}`;
   }
 
   await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
@@ -560,6 +711,14 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 publishWebsite.input_schema = {
   type: "object",
   properties: {
+    "with-navigations": {
+      type: "boolean",
+      description: "Publish to website with navigation",
+    },
+    "with-locales": {
+      type: "boolean",
+      description: "Publish to website with locales",
+    },
     pagesDir: {
       type: "string",
       description: "The directory of the pages",
@@ -567,7 +726,7 @@ publishWebsite.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: DEFAULT_APP_URL,
+      default: CLOUD_SERVICE_URL_PROD,
     },
     projectId: {
       type: "string",

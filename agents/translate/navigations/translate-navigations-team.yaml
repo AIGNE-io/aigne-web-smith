@@ -1,0 +1,51 @@
+type: team
+name: translateNavigationsTeam
+description: Batch translate navigations to multiple languages
+skills:
+  - type: team
+    name: translateNavigations
+    task_render_mode: collapse
+    skills:
+      - url: ../../utils/find-user-preferences-by-path.mjs
+        default_input:
+          scope: translation
+      - ./translate-navigations.yaml
+      - type: transform
+        jsonata: |
+          $merge([
+            $,
+            { "reviewContent": translation }
+          ])
+    reflection:
+      reviewer: ../../utils/check-detail-result.mjs
+      is_approved: isApproved
+      max_iterations: 5
+      return_last_on_max_iterations: true
+    task_title: Translate '{{ path }}' navigation to {{ missingLanguages }}
+input_schema:
+  type: object
+  properties:
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+    content:
+      type: string
+output_schema:
+  type: object
+  properties:
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+          translation:
+            type: string
+iterate_on: needTranslateNavigations
+mode: sequential
+concurrency: 10

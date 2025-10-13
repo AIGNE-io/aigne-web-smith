@@ -19,4 +19,5 @@ skills:
       fileName: website-structure.yaml
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
+  - ../translate/navigations/analyze-translate-navigations.mjs
 task_title: Generate the website structure

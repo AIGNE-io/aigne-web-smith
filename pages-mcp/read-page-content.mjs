@@ -1,9 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+import { WEB_SMITH_DIR } from "../utils/constants.mjs";
 import { getFileName } from "../utils/utils.mjs";
 
-const pagesDir = path.join(process.cwd(), "./.aigne/web-smith", "pages");
+const pagesDir = path.join(process.cwd(), WEB_SMITH_DIR, "pages");
 
 export default async function readPageContent({
   relevantPagePaths,

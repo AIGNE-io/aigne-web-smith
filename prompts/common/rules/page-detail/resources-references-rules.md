@@ -2,9 +2,13 @@
 
 - Media Resources
   - Use media **ONLY** from `<available_media_assets>` and copy each asset’s **`mediaKitPath`** exactly. Do **NOT** invent, paraphrase, or fabricate paths.
-  - Semantic fit: select media only when it clearly matches the section’s intent (topic, tone, purpose). Do **not** repurpose logos/brand marks, icons, illustrations, or product shots outside their intended context.
+  - Determine image placement based on:
+    - Information inferred from the image name
+    - Descriptions provided in the DataSource
+  - Semantic fit: select media only when it clearly matches the section’s intent (topic, tone, purpose).
   - Deduplication: a real asset may appear **at most once** on the page (unless `<datasources>` explicitly requires otherwise).
-  - Prefer **non-media field combinations** if no suitable asset exists; do **not** force a fill.
+  - **Fields named `xxxImage`, `xxxAsset` or `xxxMedia`** can host traditional image assets, video files (mp4, webm, etc.), or their cover frames.
+  - Prefer **non-media field combinations** if no suitable asset exists;
   - **Placeholder (last resort):** use a placeholder **only** when an image is **required for optimal presentation** (i.e., the layout is image-led), there is **no suitable asset** in `<available_media_assets>`, **and** there is **no approved non-media alternative** for that section.
     - Service: `https://placehold.co/{width}x{height}` (optional `?text=Preview`).
     - Defaults (keep aspect ratio):

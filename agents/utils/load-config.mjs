@@ -3,6 +3,7 @@ import path from "node:path";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse } from "yaml";
+import { WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
@@ -40,6 +41,11 @@ export default async function loadConfig({ config, appUrl }) {
       },
     );
 
+    // collect locales
+    const locales = Array.from(
+      new Set([parsedConfig?.locale, ...(parsedConfig?.translateLanguages || [])]),
+    ).filter(Boolean);
+
     // Parse new configuration fields and convert keys to actual content
     const processedConfig = processConfigFields(parsedConfig);
 
@@ -47,6 +53,7 @@ export default async function loadConfig({ config, appUrl }) {
       lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
       ...processedConfig,
+      locales,
     };
   } catch (error) {
     console.error(`Error parsing config file: ${error.message}`);
@@ -59,7 +66,7 @@ loadConfig.input_schema = {
   properties: {
     config: {
       type: "string",
-      default: "./.aigne/web-smith/config.yaml",
+      default: WEB_SMITH_CONFIG_PATH,
     },
     appUrl: {
       type: "string",

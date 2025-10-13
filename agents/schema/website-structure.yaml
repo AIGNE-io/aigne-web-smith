@@ -9,6 +9,19 @@ items:
     path:
       type: string
       description: URL path starting with /, no language prefix, homepage uses /home
+    navigation:
+      type: object
+      description: Navigation metadata shown to users
+      properties:
+        title:
+          type: string
+          description: Short navigation label (10–18 characters, 2–3 words)
+        description:
+          type: string
+          description: User-facing action summary (20–40 characters) describing what visitors can do
+      required:
+        - title
+        - description
     parentId:
       type:
         - string
@@ -16,7 +29,9 @@ items:
       description: Parent node path, null for top-level
     sourceIds:
       type: array
-      description: Associated sourceIds from datasources, cannot be empty
+      description: |
+        Associated sourceIds from datasources, cannot be empty
+        **For each page, you must include as sourceIds the files that contain media resource descriptions or screenshot information.**
       items:
         type: string
   required:
@@ -24,3 +39,4 @@ items:
     - description
     - path
     - sourceIds
+    - navigation

@@ -18,11 +18,14 @@ skills:
             { "reviewContent": content }
           ])
     reflection:
-      reviewer: ../../utils/check-detail-result.mjs
+      reviewer:
+        url: ../../utils/check-detail-result.mjs
+        default_input:
+          allowArrayFallback: true
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
-    task_title: Generate detail for '{{ title }}'
+    task_title: Generate '{{ title }}'
   - type: transform
     task_render_mode: hide
     jsonata: |
@@ -32,7 +35,9 @@ skills:
       ])
   # will translate page detail next workflow
   # - ../../translate/translate-page-detail-team.yaml
-  - ../../utils/save-single-page.mjs
+  - url: ../../utils/save-single-page.mjs
+    default_input:
+      throwErrorIfInvalid: true
 input_schema:
   type: object
   properties:

@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { access, copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
+import { WEB_SMITH_DIR } from "./constants.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -148,6 +149,46 @@ export async function loadGitignore(dir) {
   }
 
   return allPatterns.length > 0 ? [...new Set(allPatterns)] : null;
+}
+
+/**
+ * Get MIME type from file path based on extension
+ * @param {string} filePath - File path
+ * @returns {string} MIME type
+ */
+export function getMimeType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  const mimeTypes = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+    ".bmp": "image/bmp",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
+    ".heic": "image/heic",
+    ".heif": "image/heif",
+    ".mp4": "video/mp4",
+    ".mpeg": "video/mpeg",
+    ".mpg": "video/mpg",
+    ".mov": "video/mov",
+    ".avi": "video/avi",
+    ".flv": "video/x-flv",
+    ".mkv": "video/x-matroska",
+    ".webm": "video/webm",
+    ".wmv": "video/wmv",
+    ".m4v": "video/x-m4v",
+    ".3gpp": "video/3gpp",
+  };
+  return mimeTypes[ext] || "application/octet-stream";
+}
+
+/**
+ * Get media description cache file path
+ * @returns {string} Absolute path to media-description.yaml
+ */
+export function getMediaDescriptionCachePath() {
+  return path.join(process.cwd(), WEB_SMITH_DIR, "media-description.yaml");
 }
 
 /**

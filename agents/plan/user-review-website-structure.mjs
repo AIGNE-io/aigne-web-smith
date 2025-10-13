@@ -1,3 +1,4 @@
+import { recordUpdate } from "../../utils/history-utils.mjs";
 import {
   printWebsiteStructure,
   updateWebsiteScaleIfNeeded,
@@ -15,15 +16,14 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
 
   // Ask user if they want to review the website structure
   const needReview = await options.prompts.select({
-    message:
-      "Would you like to optimize the website structure?\n  You can edit titles, reorganize pages.",
+    message: "Review the structure above. Do you want to make changes?",
     choices: [
       {
-        name: "Looks good - proceed with current structure",
+        name: "No, looks good",
         value: "no",
       },
       {
-        name: "Yes, optimize the structure",
+        name: "Yes, edit structure (e.g. change page titles or add About page)",
         value: "yes",
       },
     ],
@@ -47,7 +47,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the structure?\n" +
-        "  • Rename, reorganize, add, or remove pages\n\n" +
+        "  • e.g. rename pages, add about page, remove price page\n\n" +
         "  Press Enter to finish reviewing:",
     });
 
@@ -75,6 +75,12 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
       });
 
       currentStructure = options.context.userContext.currentStructure;
+
+      // Record the update (both YAML + Git)
+      recordUpdate({
+        operation: "structure_update",
+        feedback: feedback.trim(),
+      });
 
       // Print current website structure in a user-friendly format
       printWebsiteStructure(currentStructure);

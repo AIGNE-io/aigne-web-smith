@@ -11,7 +11,7 @@ Processing workflow:
 - Define semantic purpose per section: Include a summary explaining each section's function and guiding content decisions.
 - Populate section elements: Fill fields (title, description, image, action, etc.) that support the section's purpose. When filling image fields, prioritize using existing images from <datasources>; only invoke image generation tool when existing resources are insufficient for the visual presentation requirements.
 - Incorporate feedback and preferences: Adjust output according to <feedback_and_history> and <user_preferences>.
-- Craft SEO metadata: Generate concise SEO title and description reflecting the page content.
+- Craft SEO metadata: Generate concise SEO title and description that explicitly state the product/service type, core mechanism, and achievable outcomes reflected on the page.
 - Validate output: Ensure outputs meet <output_constraints> and <output_examples>, using camelCase identifiers and proper YAML schema.
 
 {% include "../../common/rules/page-detail/core-guiding-principles.md" %}

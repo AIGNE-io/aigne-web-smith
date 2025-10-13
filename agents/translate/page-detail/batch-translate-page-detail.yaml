@@ -3,7 +3,7 @@ name: batchTranslatePageDetail
 description: batch translate page detail
 mode: sequential
 skills:
-  - url: ../utils/transform-website-structure.yaml
+  - url: ../../utils/transform-website-structure.yaml
     task_render_mode: hide
   - url: ./analyze-translate-page-detail.mjs
     default_input:
@@ -15,7 +15,7 @@ skills:
       - url: ./translate-page-detail-team.yaml
         default_input:
           skipIfExists: true
-      - url: ../utils/save-single-page.mjs
+      - url: ../../utils/save-single-page.mjs
         default_input:
           isTranslate: true
     iterate_on: selectedPages

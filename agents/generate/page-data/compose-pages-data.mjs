@@ -73,11 +73,20 @@ import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
-import { DEFAULT_PAGE_STYLE, LIST_KEY } from "../../../utils/constants.mjs";
-import { extractContentFields, generateDeterministicId } from "../../../utils/generate-helper.mjs";
+import {
+  DEFAULT_PAGE_STYLE,
+  EMPTY_VALUE,
+  ENABLE_LOGS,
+  KEEP_CONFIG_KEYS,
+  LIST_KEY,
+} from "../../../utils/constants.mjs";
+import {
+  extractContentFields,
+  findBestComponentMatch,
+  generateDeterministicId,
+} from "../../../utils/generate-helper.mjs";
+import { fmtPath, log, logError } from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
-
-const EMPTY_VALUE = "___EMPTY_VALUE___";
 
 const getEmptyValue = (_key) => {
   return EMPTY_VALUE;
@@ -107,14 +116,6 @@ function replaceEmptyValueDeep(node) {
   }
   return node;
 }
-
-// ============= Logging =============
-const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
-const log = (...args) => ENABLE_LOGS && console.log(...args);
-const logError = (...args) => ENABLE_LOGS && console.error(...args);
-
-// 小工具：path 数组可视化
-const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));
 
 // ============= IO Utils =============
 async function readMiddleFormatFile(tmpDir, locale, fileName) {
@@ -161,12 +162,31 @@ function getNestedValue(obj, path) {
 }
 function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {
+    const exactMatch = obj.match(/^<%=\s*([^%]+)\s*%>$/);
+    if (exactMatch) {
+      const keyTrimmed = exactMatch[1].trim();
+      const v = getNestedValue(data, keyTrimmed);
+      const hasValue = !_.isNil(v) && !(typeof v === "string" && v.trim() === "");
+      recordPlaceholder(stats, hasValue);
+      if (!hasValue) return getEmptyValue(keyTrimmed);
+      if (Array.isArray(v) || (v && typeof v === "object")) {
+        return _.cloneDeep(v);
+      }
+      return v;
+    }
+
     return obj.replace(/<%=\s*([^%]+)\s*%>/g, (_m, key) => {
       const keyTrimmed = key.trim();
       const v = getNestedValue(data, keyTrimmed);
       const hasValue = !_.isNil(v) && !(typeof v === "string" && v.trim() === "");
       recordPlaceholder(stats, hasValue);
-      return hasValue ? v : getEmptyValue(keyTrimmed);
+      if (!hasValue) {
+        return getEmptyValue(keyTrimmed);
+      }
+      if (Array.isArray(v) || (v && typeof v === "object")) {
+        return JSON.stringify(v);
+      }
+      return v;
     });
   }
   if (Array.isArray(obj)) return obj.map((x) => processSimpleTemplate(x, data, stats));
@@ -265,77 +285,9 @@ function ensureCustomComponentConfig(section) {
   return section;
 }
 
-function normalizeFieldList(fields = []) {
-  // 字段归一化：去重、去空串并排序，保证匹配时顺序一致
-  return Array.from(
-    new Set((fields || []).filter((field) => typeof field === "string" && field.length > 0)),
-  ).sort();
-}
-
-function arraysEqual(a = [], b = []) {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i += 1) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
-}
-
-function findBestComponentMatch(sectionFields, compositeComponents) {
-  const normalizedSectionFields = normalizeFieldList(sectionFields);
-  const sectionFieldSet = new Set(normalizedSectionFields);
-
-  let bestMatch = null;
-
-  compositeComponents.forEach((component) => {
-    const componentFields = normalizeFieldList(component.fieldCombinations || []);
-    if (componentFields.length === 0) return;
-
-    // 精确匹配优先，保持原有行为
-    if (arraysEqual(componentFields, normalizedSectionFields)) {
-      if (!bestMatch || bestMatch.type !== "exact") {
-        bestMatch = {
-          component,
-          type: "exact",
-          penalty: 0,
-          fieldCount: componentFields.length,
-        };
-      }
-      return;
-    }
-
-    if (normalizedSectionFields.length === 0) return;
-
-    // 仅当组件字段覆盖 section 字段时才考虑回退逻辑
-    const componentFieldSet = new Set(componentFields);
-    const hasAllSectionFields = normalizedSectionFields.every((field) =>
-      componentFieldSet.has(field),
-    );
-    if (!hasAllSectionFields) return;
-
-    const extraCount = componentFields.reduce(
-      (count, field) => count + (sectionFieldSet.has(field) ? 0 : 1),
-      0,
-    );
-
-    // 在没有精确匹配时，选择冗余字段最少的候选
-    if (!bestMatch || bestMatch.type !== "exact") {
-      const shouldReplace =
-        !bestMatch ||
-        extraCount < bestMatch.penalty ||
-        (extraCount === bestMatch.penalty && componentFields.length < bestMatch.fieldCount);
-
-      if (shouldReplace) {
-        bestMatch = {
-          component,
-          type: "superset",
-          penalty: extraCount,
-          fieldCount: componentFields.length,
-        };
-      }
-    }
-  });
-
-  return bestMatch;
+// Exported for unit tests to verify template substitution behaviour.
+export function __testProcessSimpleTemplate(value, data) {
+  return processSimpleTemplate(value, data);
 }
 
 /**
@@ -727,88 +679,101 @@ function extractListIndexFromPath(path) {
 }
 
 /** 用一个临时 idMap（from→to）对目标对象进行就地替换（便于 slot 替换后同步 config） */
-// function remapIdsInPlace(obj, fromId, toId) {
-//   const map = new Map([[fromId, toId]]);
-//   const remapped = applyIdMapDeep(obj, map);
-//   // 原地覆盖
-//   if (Array.isArray(obj)) {
-//     obj.length = 0;
-//     remapped.forEach((x) => obj.push(x));
-//   } else if (obj && typeof obj === "object") {
-//     Object.keys(obj).forEach((k) => delete obj[k]);
-//     Object.entries(remapped).forEach(([k, v]) => {
-//       obj[k] = v;
-//     });
-//   }
-//   log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
-// }
+function remapIdsInPlace(obj, fromId, toId) {
+  const map = new Map([[fromId, toId]]);
+  const remapped = applyIdMapDeep(obj, map);
+
+  // 原地覆盖
+  if (Array.isArray(obj)) {
+    obj.length = 0;
+    remapped.forEach((x) => obj.push(x));
+  } else if (obj && typeof obj === "object") {
+    Object.keys(obj).forEach((k) => delete obj[k]);
+    Object.entries(remapped).forEach(([k, v]) => {
+      obj[k] = v;
+    });
+  }
+  log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
+}
 
 /** 用子实例替换占位：同步 sections/sectionIds，并把 parent.config 中占位 id 全量替换为子实例 id */
-// function replaceSlotWithChild(slot, childSection) {
-//   const { parent, placeholderId, position } = slot;
-
-//   if (!parent.sections) parent.sections = {};
-//   if (!parent.sectionIds) parent.sectionIds = [];
-
-//   // 1) 替换 sectionIds 的位置
-//   if (position >= 0 && position < parent.sectionIds.length) {
-//     parent.sectionIds.splice(position, 1, childSection.id);
-//   } else {
-//     logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
-//       placeholderId,
-//       parentId: parent.id,
-//       position,
-//     });
-//     parent.sectionIds.push(childSection.id);
-//   }
-
-//   // 2) 更新 sections 映射：删除占位 → 挂新 child
-//   delete parent.sections[placeholderId];
-//   parent.sections[childSection.id] = childSection;
-
-//   // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
-//   if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
-
-//   log("🔗 [replaceSlotWithChild] slot replaced:", {
-//     parentId: parent.id,
-//     placeholderId,
-//     childId: childSection.id,
-//   });
-// }
-
-/** 挂到占位块自身：把子实例放进占位 slot 的 sections/sectionIds 下（占位保留、父层不动） */
 function replaceSlotWithChild(slot, childSection) {
   const { parent, placeholderId, position } = slot;
-
-  if (!parent?.sections || !parent.sections[placeholderId]) {
-    logError("❌ [replaceSlotWithChild] placeholder node not found on parent:", {
-      parentId: parent?.id,
-      placeholderId,
-    });
-    return;
-  }
-
-  // 1) 找到占位块节点（layout-block，占位名为 {{list.N}} / <%= list.N %>）
   const placeholderNode = parent.sections[placeholderId];
 
-  // 2) 确保占位块具备 sections/sectionIds 容器
-  if (!placeholderNode.sections) placeholderNode.sections = {};
-  if (!Array.isArray(placeholderNode.sectionIds)) placeholderNode.sectionIds = [];
+  if (!parent.sections) parent.sections = {};
+  if (!parent.sectionIds) parent.sectionIds = [];
 
-  placeholderNode.name = `${parent.name}-${position + 1}`;
+  // 1) 替换 sectionIds 的位置
+  if (position >= 0 && position < parent.sectionIds.length) {
+    parent.sectionIds.splice(position, 1, childSection.id);
+  } else {
+    logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
+      placeholderId,
+      parentId: parent.id,
+      position,
+    });
+    parent.sectionIds.push(childSection.id);
+  }
 
-  // 3) 在占位块下面追加子实例（不删除占位本身，也不动父层的结构）
-  placeholderNode.sections[childSection.id] = childSection;
-  placeholderNode.sectionIds.push(childSection.id);
+  // 2) 更新 sections 映射：删除占位 → 挂新 child
+  delete parent.sections[placeholderId];
+  parent.sections[childSection.id] = childSection;
 
-  // 4) 不改 parent.config，不做 remap，保持最小改动
-  log("➕ [replaceSlotWithChild] child appended under placeholder node:", {
+  // 3) 同步 config 中对占位 id 的所有引用（gridSettings 等）
+  if (parent.config) remapIdsInPlace(parent.config, placeholderId, childSection.id);
+
+  childSection.name = `${parent.name}-${position + 1}`;
+
+  // 4) 处理 childSection.config 的内容，需要复用 placeholderNode config 的部分内容，保证整体的一致性
+  if (childSection.config) {
+    childSection.config = {
+      ...childSection.config,
+      // 这些 key 是跟 list 布局相关的，其它的都会影响到内容本身，所以不能 pick
+      ..._.pick(placeholderNode.config, KEEP_CONFIG_KEYS),
+    };
+  }
+
+  log("🔗 [replaceSlotWithChild] slot replaced:", {
     parentId: parent.id,
     placeholderId,
     childId: childSection.id,
-    slotChildren: placeholderNode.sectionIds.length,
   });
 }
+
+/** 挂到占位块自身：把子实例放进占位 slot 的 sections/sectionIds 下（占位保留、父层不动） */
+// function replaceSlotWithChild(slot, childSection) {
+//   const { parent, placeholderId, position } = slot;
+
+//   if (!parent?.sections || !parent.sections[placeholderId]) {
+//     logError("❌ [replaceSlotWithChild] placeholder node not found on parent:", {
+//       parentId: parent?.id,
+//       placeholderId,
+//     });
+//     return;
+//   }
+
+//   // 1) 找到占位块节点（layout-block，占位名为 {{list.N}} / <%= list.N %>）
+//   const placeholderNode = parent.sections[placeholderId];
+
+//   // 2) 确保占位块具备 sections/sectionIds 容器
+//   if (!placeholderNode.sections) placeholderNode.sections = {};
+//   if (!Array.isArray(placeholderNode.sectionIds)) placeholderNode.sectionIds = [];
+
+//   placeholderNode.name = `${parent.name}-${position + 1}`;
+
+//   // 3) 在占位块下面追加子实例（不删除占位本身，也不动父层的结构）
+//   placeholderNode.sections[childSection.id] = childSection;
+//   placeholderNode.sectionIds.push(childSection.id);
+
+//   // 4) 不改 parent.config，不做 remap，保持最小改动
+//   log("➕ [replaceSlotWithChild] child appended under placeholder node:", {
+//     parentId: parent.id,
+//     placeholderId,
+//     childId: childSection.id,
+//     slotChildren: placeholderNode.sectionIds.length,
+//   });
+// }
 
 // ============= Tree Build（只把真实 list 当作子节点；占位块不当子节点） ============
 function collectSectionsHierarchically(section, path = []) {
@@ -972,7 +937,7 @@ function processNode(node, compositeComponents, sectionIndex) {
       });
     }
   } else {
-    log("🟡 [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
+    log("❌ [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
   }
 
   const result = {
@@ -1237,7 +1202,8 @@ export default async function composePagesData(input) {
   });
 
   log("🎉 [composePagesData] done");
-  return { ...input };
+
+  return { ...input, allPagesKitYaml };
 }
 
 composePagesData.taskTitle = "Compose Pages Data";

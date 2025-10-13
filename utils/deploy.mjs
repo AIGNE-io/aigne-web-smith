@@ -2,11 +2,11 @@ import { BrokerClient, STEPS } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import open from "open";
 import { getOfficialAccessToken } from "./auth-utils.mjs";
-import { DEFAULT_APP_URL } from "./constants.mjs";
+import { CLOUD_SERVICE_URL_PROD } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== Configuration ====================
-const BASE_URL = process.env.WEB_SMITH_BASE_URL || DEFAULT_APP_URL;
+const BASE_URL = process.env.WEB_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 const SUCCESS_MESSAGE = {
   en: "Congratulations! Your website has been successfully created. You can return to the command-line tool to continue publishing your pages.",
   zh: "恭喜您，你的网站已创建成功！可以返回命令行工具继续发布你的页面！",
@@ -27,7 +27,6 @@ export async function deploy(id, cachedUrl) {
   const client = new BrokerClient({
     baseUrl: BASE_URL,
     authToken,
-    paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
   });
 
   console.log(`🚀 Starting deployment...`);

@@ -3,9 +3,11 @@ import { getFileName, validatePageDetail } from "../../utils/utils.mjs";
 export default async function checkDetailResult({
   websiteStructure,
   reviewContent,
+  allowArrayFallback = false,
   // pagesDir,
   // tmpDir,
   locale,
+  componentLibrary,
 }) {
   let isApproved = true;
   const detailFeedback = [];
@@ -27,7 +29,11 @@ export default async function checkDetailResult({
   });
 
   if (reviewContent) {
-    const validation = validatePageDetail({ pageDetailYaml: reviewContent });
+    const validation = validatePageDetail({
+      pageDetailYaml: reviewContent,
+      componentLibrary,
+      allowArrayFallback,
+    });
 
     if (!validation.isValid) {
       isApproved = false;

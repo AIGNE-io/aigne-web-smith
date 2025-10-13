@@ -1,7 +1,7 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
-import { SUPPORTED_LANGUAGES } from "../../utils/constants.mjs";
-import { getFileName, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import { SUPPORTED_LANGUAGES } from "../../../utils/constants.mjs";
+import { getFileName, loadConfigFromFile, saveValueToConfig } from "../../../utils/utils.mjs";
 
 /**
  * Interactive language selector for translation from configured languages

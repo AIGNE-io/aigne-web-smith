@@ -18,6 +18,9 @@ input_schema:
           - workspace
           - generatedPages
           - websiteConfig
+          - deploymentConfig
+          - authTokens
+          - mediaDescription
     pagesDir:
       type: string
       description: Override the pages directory root

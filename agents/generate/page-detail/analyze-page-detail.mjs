@@ -15,7 +15,7 @@ export default async function analyzePageDetail(input, options) {
     modifiedFiles,
     // forceRegenerate,
     locale,
-    builtinComponentLibrary,
+    componentLibrary,
     ...rest
   } = input;
 
@@ -88,6 +88,7 @@ export default async function analyzePageDetail(input, options) {
       pagesDir,
       tmpDir,
       locale,
+      componentLibrary,
     });
 
     if (!validationResult.isApproved) {
@@ -105,7 +106,7 @@ export default async function analyzePageDetail(input, options) {
     };
   }
 
-  const fieldConstraints = generateFieldConstraints(builtinComponentLibrary);
+  const fieldConstraints = generateFieldConstraints(componentLibrary);
 
   const result = await options.context.invoke(options.context.agents["generatePageDetailTeam"], {
     ...input,
@@ -127,4 +128,4 @@ export default async function analyzePageDetail(input, options) {
     detailGenerated,
   };
 }
-analyzePageDetail.taskTitle = "Analyze if '{{ title }}' needs generation";
+analyzePageDetail.taskTitle = "Check '{{ title }}'";

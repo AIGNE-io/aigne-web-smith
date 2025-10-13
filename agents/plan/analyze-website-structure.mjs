@@ -1,39 +1,37 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
-import { PAGE_FILE_EXTENSION } from "../../utils/constants.mjs";
+import { PAGE_FILE_EXTENSION, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
-  getCurrentGitHead,
   getProjectInfo,
-  hasFileChangesBetweenCommits,
   loadConfigFromFile,
   saveValueToConfig,
+  validateWebsiteStructure,
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, ...rest },
+  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, locale, ...rest },
   options,
 ) {
   // Check if originalWebsiteStructure is empty and prompt user
   if (!originalWebsiteStructure) {
     const choice = await options.prompts.select({
-      message:
-        "Your project configuration is complete. Would you like to generate the website structure now?",
+      message: "Project configured successfully. Generate the website structure now?",
       choices: [
         {
-          name: "Generate now - Start generating the website structure",
+          name: "Yes, generate now",
           value: "generate",
         },
         {
-          name: "Review configuration first - Edit configuration before generating",
+          name: "No, review configuration first",
           value: "later",
         },
       ],
     });
 
     if (choice === "later") {
-      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/web-smith/config.yaml")}`);
+      console.log(`\nConfiguration file: ${chalk.cyan(WEB_SMITH_CONFIG_PATH)}`);
       console.log(
         "Review and edit your configuration as needed, then run 'aigne web generate' to continue.",
       );
@@ -68,16 +66,20 @@ export default async function analyzeWebsiteStructure(
         // If _sitemap file doesn't exist, it means last execution was interrupted, no need to regenerate
         shouldRegenerate = false;
       }
-    } else {
-      // Check if there are relevant file changes since last generation
-      const currentGitHead = getCurrentGitHead();
-      if (currentGitHead && currentGitHead !== lastGitHead) {
-        const hasChanges = hasFileChangesBetweenCommits(lastGitHead, currentGitHead);
-        if (hasChanges) {
-          // @FIXME: 临时禁用
-          shouldRegenerate = false;
-        }
-      }
+    }
+
+    // validate website structure to check if navigation is complete
+    const validationResult = validateWebsiteStructure(originalWebsiteStructure, [locale]);
+
+    if (!validationResult.isValid) {
+      shouldRegenerate = true;
+      const missingDetails = validationResult.missingLocales
+        .map((item) => `- ${item.path}: missing ${item.missing.join(", ")}`)
+        .join("\n");
+
+      finalFeedback = `${finalFeedback ? `${finalFeedback}\n\n` : ""}Missing navigation in existing structure.\n${missingDetails}\nEnsure navigation exists for locale: ${locale}.`;
+
+      shouldRegenerate = true;
     }
 
     if (shouldRegenerate) {
@@ -165,7 +167,7 @@ export default async function analyzeWebsiteStructure(
         }
 
         if (hasUpdated) {
-          message = `\n### Auto-updated Project Info to \`.aigne/web-smith/config.yaml\`\n\n${message}\n\n`;
+          message = `\n### Auto-updated Project Info to \`${WEB_SMITH_CONFIG_PATH}\`\n\n${message}\n\n`;
         }
       }
     } catch (error) {

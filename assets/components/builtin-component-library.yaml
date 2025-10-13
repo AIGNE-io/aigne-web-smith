@@ -1,15 +1,15 @@
 meta:
-  updateAt: 2025-10-02T01:26:33.893Z
+  updateAt: 2025-10-11T09:32:16.682Z
 atomic:
+  - name: LogoV1
+    componentId: k2m4p6r8t0v2x4z6
+    summary: A component to display a heading and a list of logos with links
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
   - name: RichText
     componentId: xoHu0J44322kDYc-
     summary: A RichText component primarily displays the title and description,
       supporting customization of font color.
-    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
-    blockletTitle: ArcBlock Home Site Component
-  - name: Action
-    componentId: a44r0SiGV9AFn2Fj
-    summary: Action buttons component with alignment and customization support
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: Media
@@ -17,15 +17,15 @@ atomic:
     summary: A universal media component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Action
+    componentId: a44r0SiGV9AFn2Fj
+    summary: Action buttons component with alignment and customization support
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: ArcBlock Home Site Component
   - name: Icon
     componentId: YwuDiIbyyF5vfGpt
     summary: An Iconify-based icon component that accepts Iconify tokens. Supports
       `fontSize`, `iconName` and `color` properties. Wrapper by MUI Box.
-    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
-    blockletTitle: ArcBlock Home Site Component
-  - name: LogoV1
-    componentId: k2m4p6r8t0v2x4z6
-    summary: A component to display a heading and a list of logos with links
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
   - name: FaqComponentV2
@@ -38,763 +38,22 @@ atomic:
     summary: Code Showcase Component
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: ArcBlock Home Site Component
+  - name: Discuss Kit Blog List
+    componentId: bKJH63vdZlE8pQrX
+    summary: A component to display blog posts from DiscussKit
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
+  - name: ArcblockArchitect
+    componentId: xoHu0JPjPs1kDYc-
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Arcblock Home Site Component
+  - name: ComparisonTable
+    componentId: -b71JoAi_lXSY8MP
+    summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
 composite:
-  - id: 62jtalg46ddrukv9
-    name: Vertical Hero
-    summary: >-
-      Structure (top → bottom)
-
-      - Headline (1–2 lines, left-aligned)
-
-      - Primary CTA (optional secondary)
-
-      - Large product visual (screenshot/video) with soft corners/shadow
-
-
-      Use when
-
-      - You want a fast “one message + one action (allowed two actions)” first
-      screen (signup/try/download).
-
-      - Credibility comes from showing the real UI, not long copy.
-
-      - Content is light/medium—no complex segmentation or multi-card layout.
-
-
-      Constraint
-
-      - The {{verticalHeroImage}} must be provided as a valid asset.
-    fieldCombinations:
-      - verticalHeroActions.0.link
-      - verticalHeroActions.0.text
-      - verticalHeroActions.1.link
-      - verticalHeroActions.1.text
-      - verticalHeroImage
-      - verticalHeroTitle
-    section:
-      id: 276uu39ysohk41j1
-      name: Split Hero_2
-      component: layout-block
-      sections:
-        11e4g80knagitd6k:
-          id: 11e4g80knagitd6k
-          name: CTA
-          component: layout-block
-          sections:
-            m0hqbf5jfbc42326:
-              id: m0hqbf5jfbc42326
-              name: Description
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            w69ez1r86joevx7h:
-              id: w69ez1r86joevx7h
-              name: Action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - m0hqbf5jfbc42326
-            - w69ez1r86joevx7h
-          config:
-            gridSettings:
-              desktop:
-                m0hqbf5jfbc42326:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-                w69ez1r86joevx7h:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-            paddingY: normal
-            gap: normal
-            maxWidth: full
-        nkcldfr0e4u1h78q:
-          id: nkcldfr0e4u1h78q
-          name: Image
-          component: layout-block
-          sections:
-            wgzrwz3a8pn6c8ig:
-              id: wgzrwz3a8pn6c8ig
-              name: Media
-              component: custom-component
-              config:
-                componentId: xoHu0JPjPs122kaaa-
-          sectionIds:
-            - wgzrwz3a8pn6c8ig
-          config:
-            borderRadius: small
-            gridSettings:
-              desktop:
-                wgzrwz3a8pn6c8ig:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-            background: <%= verticalHeroImage %>
-      sectionIds:
-        - 11e4g80knagitd6k
-        - nkcldfr0e4u1h78q
-      config:
-        gridSettings:
-          desktop:
-            11e4g80knagitd6k:
-              x: 0
-              y: 0
-              w: 8
-              h: 1
-            nkcldfr0e4u1h78q:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-        paddingX: none
-        paddingY: none
-        maxWidth: full
-        backgroundFullWidth: true
-    dataSource:
-      276uu39ysohk41j1: {}
-      11e4g80knagitd6k: {}
-      m0hqbf5jfbc42326:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= verticalHeroTitle %>
-              style:
-                variant: h1
-      w69ez1r86joevx7h:
-        properties:
-          r8t5y6u7i1o2p3a4:
-            value: 16
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          v9979xeclpsbvn0n:
-            value: flex-start
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= verticalHeroActions.0.text %>
-                url: <%= verticalHeroActions.0.link %>
-                variant: contained
-                size: medium
-                target: _self
-                needLogin: false
-              - type: link
-                text: <%= verticalHeroActions.1.text %>
-                url: <%= verticalHeroActions.1.link %>
-                color: ""
-                borderColor: ""
-                variant: outlined
-                size: medium
-                target: _self
-                startIcon: ""
-                endIcon: ""
-                needLogin: false
-                imageUrl: ""
-                imageUrlDark: ""
-                imageHoverAnimation: true
-                id: btn-1759301837067-smplbej64
-      nkcldfr0e4u1h78q: {}
-      wgzrwz3a8pn6c8ig:
-        properties:
-          7m5pz8nefl5j9hqq:
-            value:
-              url: ""
-              mediaKitUrl: ""
-  - id: y3xj6g77rkta4stf
-    name: Layout 3 Column Grid (Center)
-    summary: >-
-      Structure (top → bottom)
-
-      - Section title (optional subtitle)
-
-      - Responsive 3-column grid of cards
-       Each card: small media/icon → title → short description
-
-      Use when
-
-      - You’re listing peer items of equal weight
-      (features/templates/resources).
-
-      - Scannability matters more than detailed copy.
-
-      - Ideal total items: 3–9.
-
-
-      Constraints
-
-      - Use only when total items are 3, 6, or 9 to prevent layout glitches.
-    fieldCombinations:
-      - list.0
-      - list.1
-      - list.2
-      - list.3
-      - list.4
-      - list.5
-      - list.6
-      - list.7
-      - list.8
-      - threeColumnGridTitle
-    section:
-      id: indpn8oj1hjz5xgi
-      name: Testimonials/Reviews
-      component: layout-block
-      sections:
-        zs5zxkki8pbiuapz:
-          id: zs5zxkki8pbiuapz
-          name: Cards
-          component: layout-block
-          sections:
-            crdmoiee60y82o70:
-              id: crdmoiee60y82o70
-              name: <%= list.0 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            n7xlbofkiq7940sm:
-              id: n7xlbofkiq7940sm
-              name: <%= list.1 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            8fum6qlr7ehf7q07:
-              id: 8fum6qlr7ehf7q07
-              name: <%= list.2 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            5467p5g14tf9ulet:
-              id: 5467p5g14tf9ulet
-              name: <%= list.3 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            lbdakrlx804aa294:
-              id: lbdakrlx804aa294
-              name: <%= list.4 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            fn3pjkdsg3erq5wn:
-              id: fn3pjkdsg3erq5wn
-              name: <%= list.5 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            g77xhg8tv77g4sdf:
-              id: g77xhg8tv77g4sdf
-              name: <%= list.6 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            ltcbx9oihmi91or5:
-              id: ltcbx9oihmi91or5
-              name: <%= list.7 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-            t5wk76nxiadn5xmi:
-              id: t5wk76nxiadn5xmi
-              name: <%= list.8 %>
-              component: layout-block
-              sections: {}
-              sectionIds: []
-              config:
-                gridSettings:
-                  desktop: {}
-                  mobile:
-                    zf1s9y77l821pofu:
-                      x: 0
-                      y: 1
-                      w: 12
-                      h: 1
-                      id: zf1s9y77l821pofu
-                    do35jzobe9fv1z8i:
-                      x: 0
-                      y: 0
-                      w: 12
-                      h: 1
-                      id: do35jzobe9fv1z8i
-                background: background.paper
-                paddingX: small
-                paddingY: small
-                borderRadius: small
-                gap: large
-                border: solid
-                alignContent: space-between
-          sectionIds:
-            - crdmoiee60y82o70
-            - n7xlbofkiq7940sm
-            - 8fum6qlr7ehf7q07
-            - 5467p5g14tf9ulet
-            - lbdakrlx804aa294
-            - fn3pjkdsg3erq5wn
-            - g77xhg8tv77g4sdf
-            - ltcbx9oihmi91or5
-            - t5wk76nxiadn5xmi
-          config:
-            gridSettings:
-              desktop:
-                crdmoiee60y82o70:
-                  x: 0
-                  y: 0
-                  w: 4
-                  h: 1
-                n7xlbofkiq7940sm:
-                  x: 4
-                  y: 0
-                  w: 4
-                  h: 1
-                8fum6qlr7ehf7q07:
-                  x: 8
-                  y: 0
-                  w: 4
-                  h: 1
-                5467p5g14tf9ulet:
-                  x: 0
-                  y: 1
-                  w: 4
-                  h: 1
-                lbdakrlx804aa294:
-                  x: 4
-                  y: 1
-                  w: 4
-                  h: 1
-                fn3pjkdsg3erq5wn:
-                  x: 8
-                  y: 1
-                  w: 4
-                  h: 1
-                g77xhg8tv77g4sdf:
-                  x: 0
-                  y: 2
-                  w: 4
-                  h: 1
-                ltcbx9oihmi91or5:
-                  x: 4
-                  y: 2
-                  w: 4
-                  h: 1
-                t5wk76nxiadn5xmi:
-                  x: 8
-                  y: 2
-                  w: 4
-                  h: 1
-              mobile:
-                crdmoiee60y82o70:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-                n7xlbofkiq7940sm:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-                8fum6qlr7ehf7q07:
-                  x: 0
-                  y: 2
-                  w: 12
-                  h: 1
-            gap: small
-            paddingX: none
-        y5sicz61vfbtnhkh:
-          id: y5sicz61vfbtnhkh
-          name: Title
-          component: layout-block
-          sections:
-            2u6k96rqj9rovmuv:
-              id: 2u6k96rqj9rovmuv
-              name: LayoutTitle
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-          sectionIds:
-            - 2u6k96rqj9rovmuv
-          config:
-            gap: small
-            paddingX: none
-            alignContent: start
-            gridSettings:
-              desktop:
-                2u6k96rqj9rovmuv:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-              mobile:
-                2u6k96rqj9rovmuv:
-                  id: 2u6k96rqj9rovmuv
-      sectionIds:
-        - y5sicz61vfbtnhkh
-        - zs5zxkki8pbiuapz
-      config:
-        gridSettings:
-          desktop:
-            zs5zxkki8pbiuapz:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-            y5sicz61vfbtnhkh:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-        gap: normal
-        paddingY: none
-        paddingX: none
-    dataSource:
-      indpn8oj1hjz5xgi: {}
-      y5sicz61vfbtnhkh: {}
-      2u6k96rqj9rovmuv:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: center
-          kyg0hdy5uqq4gc1o:
-            value: center
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= threeColumnGridTitle %>
-              style:
-                variant: h2
-      zs5zxkki8pbiuapz: {}
-      crdmoiee60y82o70: {}
-      n7xlbofkiq7940sm: {}
-      8fum6qlr7ehf7q07: {}
-      5467p5g14tf9ulet: {}
-      lbdakrlx804aa294: {}
-      fn3pjkdsg3erq5wn: {}
-      g77xhg8tv77g4sdf: {}
-      ltcbx9oihmi91or5: {}
-      t5wk76nxiadn5xmi: {}
-  - id: f2d91hnlgeris63x
-    name: Content Card With Icon
-    summary: >
-      Structure (L→R / T→B)
-
-      - Small icon → bold title (1 line) → short description (1–2 lines). Card
-      supports rounded corners and subtle shadow.
-
-
-      Use when
-
-      - Highlighting a single benefit/capability inside a grid of peer cards
-      (e.g., “Lightning Fast”).
-
-
-      Constraints
-
-      - `{{iconName}}` must reference an **existing Iconify icon**. Emit it
-      **only** if the token appears in `<available_iconify_tokens>` (preferred)
-      or is verifiably resolvable in the Iconify catalog.
-
-      - Format: lowercase `prefix:name` (e.g., `mdi:home`); no spaces, extra
-      colons, file extensions, or query strings.
-
-      - Do **not** guess or synthesize tokens. If no valid token is available,
-      **omit the icon** and use the iconless variant (keep title/description).
-
-      - Icons are not media: **do not** use image placeholders for missing
-      icons.
-    fieldCombinations:
-      - cardDescription
-      - cardTitle
-      - iconName
-    section:
-      id: 0j46nmfzo6xwy59i
-      name: Card01
-      component: layout-block
-      sections:
-        r58h1ogwbiqijh9n:
-          id: r58h1ogwbiqijh9n
-          name: Title
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
-        w9rrqeiqq3ddhnii:
-          id: w9rrqeiqq3ddhnii
-          name: Icon
-          component: layout-block
-          sections:
-            qkiatxm726qb6biu:
-              id: qkiatxm726qb6biu
-              name: Icon
-              component: custom-component
-              config:
-                componentId: YwuDiIbyyF5vfGpt
-          sectionIds:
-            - qkiatxm726qb6biu
-          config:
-            gridSettings:
-              desktop:
-                qkiatxm726qb6biu:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-            background: transparent
-            height: 100%
-            borderRadius: custom:0px
-            alignContent: start
-      sectionIds:
-        - r58h1ogwbiqijh9n
-        - w9rrqeiqq3ddhnii
-      config:
-        gridSettings:
-          desktop:
-            r58h1ogwbiqijh9n:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-            w9rrqeiqq3ddhnii:
-              x: 0
-              y: 0
-              w: 6
-              h: 1
-          mobile:
-            r58h1ogwbiqijh9n:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
-            w9rrqeiqq3ddhnii:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
-        background: transparent
-        paddingX: none
-        paddingY: none
-        borderRadius: none
-        gap: normal
-        border: none
-        alignContent: start
-    dataSource:
-      0j46nmfzo6xwy59i: {}
-      r58h1ogwbiqijh9n:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= cardTitle %>
-              style:
-                variant: h4
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1759143324880-zr95ywd04
-                  type: text
-                  text: <%= cardDescription %>
-                  style:
-                    color: ""
-                    fontSize: 16px
-                    variant: body1
-      w9rrqeiqq3ddhnii: {}
-      qkiatxm726qb6biu:
-        properties:
-          5ek4m0kw9cu0ndns:
-            value: <%= iconName %>
-          gugqsxx3xyveuu8n:
-            value: primary.main
-          529qbwiam7oypw8e:
-            value: 40px
   - id: ew7g0ufx6umek1d6
     name: Logo Wall
     summary: |-
@@ -829,7 +88,6 @@ composite:
       - logoWallList.8.link
       - logoWallList.9.image
       - logoWallList.9.link
-      - logoWallTitle
     section:
       id: dk56zu8ywvq4j0w4
       name: Logo Bar/Wall_2
@@ -860,7 +118,7 @@ composite:
         properties:
           f2h4j6l8n0p2r4t6:
             value:
-              text: <%= logoWallTitle %>
+              text: ""
               style:
                 color: ""
                 fontSize: 16px
@@ -1104,6 +362,788 @@ composite:
                     color: ""
                     fontSize: 12px
                     variant: caption
+  - id: 62jtalg46ddrukv9
+    name: Vertical Hero
+    summary: >-
+      Structure (top → bottom)
+
+      - Headline (1–2 lines, left-aligned)
+
+      - Primary CTA (optional secondary)
+
+      - Large product visual (screenshot/video) with soft corners/shadow
+
+
+      Use when
+
+      - You want a fast “one message + one action (allowed two actions)” first
+      screen (signup/try/download).
+
+      - Credibility comes from showing the real UI, not long copy.
+
+      - Content is light/medium—no complex segmentation or multi-card layout.
+
+
+      Constraint
+
+      - The {{verticalHeroImage}} must be provided as a valid asset.
+    fieldCombinations:
+      - verticalHeroActions.0.link
+      - verticalHeroActions.0.text
+      - verticalHeroActions.1.link
+      - verticalHeroActions.1.text
+      - verticalHeroImage
+      - verticalHeroTitle
+    section:
+      id: 276uu39ysohk41j1
+      name: Split Hero_2
+      component: layout-block
+      sections:
+        3xpr3dmnu732mxt5:
+          id: 3xpr3dmnu732mxt5
+          name: Section Layout
+          component: layout-block
+          sections:
+            11e4g80knagitd6k:
+              id: 11e4g80knagitd6k
+              name: CTA
+              component: layout-block
+              sections:
+                m0hqbf5jfbc42326:
+                  id: m0hqbf5jfbc42326
+                  name: Description
+                  component: custom-component
+                  config:
+                    componentId: xoHu0J44322kDYc-
+                w69ez1r86joevx7h:
+                  id: w69ez1r86joevx7h
+                  name: Action
+                  component: custom-component
+                  config:
+                    componentId: a44r0SiGV9AFn2Fj
+              sectionIds:
+                - m0hqbf5jfbc42326
+                - w69ez1r86joevx7h
+              config:
+                gridSettings:
+                  desktop:
+                    m0hqbf5jfbc42326:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                    w69ez1r86joevx7h:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                paddingY: normal
+                gap: normal
+                maxWidth: full
+            nkcldfr0e4u1h78q:
+              id: nkcldfr0e4u1h78q
+              name: Image
+              component: layout-block
+              sections:
+                wgzrwz3a8pn6c8ig:
+                  id: wgzrwz3a8pn6c8ig
+                  name: Media
+                  component: custom-component
+                  config:
+                    componentId: xoHu0JPjPs122kaaa-
+              sectionIds:
+                - wgzrwz3a8pn6c8ig
+              config:
+                borderRadius: small
+                gridSettings:
+                  desktop:
+                    wgzrwz3a8pn6c8ig:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                background: transparent
+          sectionIds:
+            - 11e4g80knagitd6k
+            - nkcldfr0e4u1h78q
+          config:
+            gridSettings:
+              desktop:
+                11e4g80knagitd6k:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                nkcldfr0e4u1h78q:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            paddingY: normal
+      sectionIds:
+        - 3xpr3dmnu732mxt5
+      config:
+        gridSettings:
+          desktop:
+            3xpr3dmnu732mxt5:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        paddingX: none
+        paddingY: normal
+        maxWidth: full
+        backgroundFullWidth: true
+    dataSource:
+      276uu39ysohk41j1: {}
+      11e4g80knagitd6k: {}
+      m0hqbf5jfbc42326:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= verticalHeroTitle %>
+              style:
+                variant: h1
+      w69ez1r86joevx7h:
+        properties:
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= verticalHeroActions.0.text %>
+                url: <%= verticalHeroActions.0.link %>
+                variant: contained
+                size: medium
+                target: _self
+                needLogin: false
+              - type: link
+                text: <%= verticalHeroActions.1.text %>
+                url: <%= verticalHeroActions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: medium
+                target: _self
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1759301837067-smplbej64
+      nkcldfr0e4u1h78q: {}
+      wgzrwz3a8pn6c8ig:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= verticalHeroImage %>
+              mediaKitUrl: <%= verticalHeroImage %>
+              width: 2190
+              height: 1488
+          jjv0hvr8wrixt1f3:
+            value: 1
+      3xpr3dmnu732mxt5: {}
+  - id: y3xj6g77rkta4stf
+    name: Layout 3 Column Grid (Center)
+    summary: >-
+      Structure (top → bottom)
+
+      - Section title (optional subtitle)
+
+      - Responsive 3-column grid of cards
+
+
+      Use when
+
+      - You’re listing peer items of equal weight
+      (features/templates/resources).
+
+      - Scannability matters more than detailed copy.
+
+      - Ideal total items: 3–9.
+
+
+      Constraints
+
+      - Use only when total items are 3, 6, or 9 to prevent layout glitches.
+    fieldCombinations:
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+      - list.6
+      - list.7
+      - list.8
+      - threeColumnGridTitle
+    section:
+      id: indpn8oj1hjz5xgi
+      name: Testimonials/Reviews
+      component: layout-block
+      sections:
+        zs5zxkki8pbiuapz:
+          id: zs5zxkki8pbiuapz
+          name: Cards
+          component: layout-block
+          sections:
+            crdmoiee60y82o70:
+              id: crdmoiee60y82o70
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            n7xlbofkiq7940sm:
+              id: n7xlbofkiq7940sm
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            8fum6qlr7ehf7q07:
+              id: 8fum6qlr7ehf7q07
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            5467p5g14tf9ulet:
+              id: 5467p5g14tf9ulet
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            lbdakrlx804aa294:
+              id: lbdakrlx804aa294
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            fn3pjkdsg3erq5wn:
+              id: fn3pjkdsg3erq5wn
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            g77xhg8tv77g4sdf:
+              id: g77xhg8tv77g4sdf
+              name: <%= list.6 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            ltcbx9oihmi91or5:
+              id: ltcbx9oihmi91or5
+              name: <%= list.7 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            t5wk76nxiadn5xmi:
+              id: t5wk76nxiadn5xmi
+              name: <%= list.8 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+          sectionIds:
+            - crdmoiee60y82o70
+            - n7xlbofkiq7940sm
+            - 8fum6qlr7ehf7q07
+            - 5467p5g14tf9ulet
+            - lbdakrlx804aa294
+            - fn3pjkdsg3erq5wn
+            - g77xhg8tv77g4sdf
+            - ltcbx9oihmi91or5
+            - t5wk76nxiadn5xmi
+          config:
+            gridSettings:
+              desktop:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 4
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 4
+                  y: 0
+                  w: 4
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 8
+                  y: 0
+                  w: 4
+                  h: 1
+                5467p5g14tf9ulet:
+                  x: 0
+                  y: 1
+                  w: 4
+                  h: 1
+                lbdakrlx804aa294:
+                  x: 4
+                  y: 1
+                  w: 4
+                  h: 1
+                fn3pjkdsg3erq5wn:
+                  x: 8
+                  y: 1
+                  w: 4
+                  h: 1
+                g77xhg8tv77g4sdf:
+                  x: 0
+                  y: 2
+                  w: 4
+                  h: 1
+                ltcbx9oihmi91or5:
+                  x: 4
+                  y: 2
+                  w: 4
+                  h: 1
+                t5wk76nxiadn5xmi:
+                  x: 8
+                  y: 2
+                  w: 4
+                  h: 1
+              mobile:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+            gap: small
+            paddingX: none
+        y5sicz61vfbtnhkh:
+          id: y5sicz61vfbtnhkh
+          name: Title
+          component: layout-block
+          sections:
+            2u6k96rqj9rovmuv:
+              id: 2u6k96rqj9rovmuv
+              name: LayoutTitle
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - 2u6k96rqj9rovmuv
+          config:
+            gap: small
+            paddingX: none
+            alignContent: start
+            gridSettings:
+              desktop:
+                2u6k96rqj9rovmuv:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+              mobile:
+                2u6k96rqj9rovmuv:
+                  id: 2u6k96rqj9rovmuv
+      sectionIds:
+        - y5sicz61vfbtnhkh
+        - zs5zxkki8pbiuapz
+      config:
+        gridSettings:
+          desktop:
+            zs5zxkki8pbiuapz:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            y5sicz61vfbtnhkh:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        paddingX: none
+    dataSource:
+      indpn8oj1hjz5xgi: {}
+      y5sicz61vfbtnhkh: {}
+      2u6k96rqj9rovmuv:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= threeColumnGridTitle %>
+              style:
+                variant: h2
+      zs5zxkki8pbiuapz: {}
+      crdmoiee60y82o70: {}
+      n7xlbofkiq7940sm: {}
+      8fum6qlr7ehf7q07: {}
+      5467p5g14tf9ulet: {}
+      lbdakrlx804aa294: {}
+      fn3pjkdsg3erq5wn: {}
+      g77xhg8tv77g4sdf: {}
+      ltcbx9oihmi91or5: {}
+      t5wk76nxiadn5xmi: {}
+  - id: f2d91hnlgeris63x
+    name: Content Card With Icon
+    summary: >
+      Structure (L→R / T→B)
+
+      - Small linear icon → bold title (1 line) → short description (1–2 lines).
+      Card supports rounded corners and a subtle shadow.
+
+
+      Use when
+
+      - Highlighting a single benefit/capability inside a grid of peer cards
+      (e.g., “Lightning Fast”).
+
+
+      Constraints (Linear icons only)
+
+      - `{{iconName}}` must be a **linear-style Iconify icon**, prioritize the
+      use of `lucide` Icon Library
+
+      - Only allow **linear-style families or naming patterns**:
+        - Allowed suffix/patterns: `*-line`, `*-outline`, `*-stroke`, `*-linear`.
+      - **Do not** use filled/solid icons (e.g., `*-fill`, `*-solid`, regular
+      `mdi:*`, or `material-symbols:*` variants like `-rounded`/`-filled`).
+
+      - Tokens must be lowercase `prefix:name` (e.g., `lucide:bolt`), with no
+      spaces, extra colons, file extensions, or query strings.
+
+      - **Do not** guess or synthesize tokens. If no valid linear icon is
+      available, **omit the icon** and use the iconless variant (retain
+      title/description).
+
+      - Icons are not media: **do not** use image placeholders when an icon is
+      missing.
+    fieldCombinations:
+      - cardDescription
+      - cardTitle
+      - iconName
+    section:
+      id: 0j46nmfzo6xwy59i
+      name: Card01
+      component: layout-block
+      sections:
+        r58h1ogwbiqijh9n:
+          id: r58h1ogwbiqijh9n
+          name: Title
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        w9rrqeiqq3ddhnii:
+          id: w9rrqeiqq3ddhnii
+          name: Icon
+          component: layout-block
+          sections:
+            qkiatxm726qb6biu:
+              id: qkiatxm726qb6biu
+              name: Icon
+              component: custom-component
+              config:
+                componentId: YwuDiIbyyF5vfGpt
+          sectionIds:
+            - qkiatxm726qb6biu
+          config:
+            gridSettings:
+              desktop:
+                qkiatxm726qb6biu:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            background: transparent
+            height: 100%
+            borderRadius: custom:0px
+            alignContent: start
+      sectionIds:
+        - r58h1ogwbiqijh9n
+        - w9rrqeiqq3ddhnii
+      config:
+        gridSettings:
+          desktop:
+            r58h1ogwbiqijh9n:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            w9rrqeiqq3ddhnii:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+          mobile:
+            r58h1ogwbiqijh9n:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            w9rrqeiqq3ddhnii:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        background: transparent
+        paddingX: none
+        paddingY: none
+        borderRadius: none
+        gap: normal
+        border: none
+        alignContent: start
+    dataSource:
+      0j46nmfzo6xwy59i: {}
+      r58h1ogwbiqijh9n:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= cardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759143324880-zr95ywd04
+                  type: text
+                  text: <%= cardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+      w9rrqeiqq3ddhnii: {}
+      qkiatxm726qb6biu:
+        properties:
+          5ek4m0kw9cu0ndns:
+            value: <%= iconName %>
+          gugqsxx3xyveuu8n:
+            value: primary.main
+          529qbwiam7oypw8e:
+            value: 40px
   - id: x3qr8bqvlp1flxej
     name: Layout 4 Column Grid (Center)
     summary: >-
@@ -1112,7 +1152,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 4-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -1197,10 +1237,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             ol4wieo44cw96mst:
@@ -1226,10 +1266,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             6b8bap6q8usvzerc:
@@ -1255,10 +1295,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             u7ip6dvihh8yptxg:
@@ -1284,10 +1324,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             6zp0bwzko9363qi7:
@@ -1313,10 +1353,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             3afva70pja44kpkw:
@@ -1342,10 +1382,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             1jjxyo0qsj8rrif0:
@@ -1371,10 +1411,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
             6f7rfr9atoko3ky8:
@@ -1400,10 +1440,10 @@ composite:
                       h: 1
                       id: do35jzobe9fv1z8i
                 background: background.paper
-                paddingX: small
-                paddingY: custom:24px
+                paddingX: custom:32px
+                paddingY: custom:32px
                 borderRadius: small
-                gap: none
+                gap: normal
                 border: solid
                 alignContent: space-between
           sectionIds:
@@ -1525,24 +1565,21 @@ composite:
       6f7rfr9atoko3ky8: {}
   - id: j9iin73ejyvvsw4j
     name: Metric Card
-    summary: >-
-      ---
-
-
+    summary: >
       Structure (top → bottom)
 
 
-      - Metric Value ({{metricCardData}}, Large, prominent text, usually
-      centered).
+      - Metric Value ({{metricCardData}}, Large, prominent text, always centered
+      and emphasized as the main figure).
 
       - Title/Label ({{metricCardTitle}}, Smaller text, centered, providing
-      context for the value).
+      concise context for the value).
 
       - Description/Subtext ({{metricCardDescription}}, Smallest text, centered,
-      for additional detail or a time period).
+      offering secondary information such as timeframe or comparison).
 
-      - The entire content is contained within a softly bordered/shadowed
-      rectangular card.
+      - The entire content is wrapped in a softly bordered or shadowed
+      rectangular card, maintaining equal padding and balanced alignment.
 
 
       ---
@@ -1551,18 +1588,17 @@ composite:
       Use when
 
 
-      - You need to display a **single, critical key performance indicator
-      (KPI)** or a single piece of quantitative data (e.g., total sales, current
-      users, conversion rate).
+      - You need to highlight a **single, quantifiable KPI** (Key Performance
+      Indicator) such as total users, revenue, uptime, or conversion rate.
 
-      - The data needs to be **immediately visible and comprehensible** at a
-      glance, typically on a dashboard or summary page.
+      - The data should be **instantly legible and comparable** at a glance,
+      especially in dashboard summaries or performance overviews.
 
-      - You must prioritize the **numerical value** over lengthy context or a
-      trend graph.
+      - The **numerical value** is the visual and semantic priority, while
+      context remains secondary.
 
-      - The component is used in a **group (usually 3–6 cards)** to provide a
-      comprehensive summary of a system's status.
+      - Typically used as part of a **multi-card grid (3–6 cards)** representing
+      key system or business metrics.
 
 
       ---
@@ -1571,22 +1607,22 @@ composite:
       Constraint
 
 
-      - The {{metricCardData}} must be a **numerical or quantitative value**
-      (e.g., "12,345", "$45.6M", "85%"), with units included where appropriate
-      (e.g., in the title or data itself).
+      - `{{metricCardData}}` must be a **quantitative value** — strictly
+      numerical or containing numeric units (e.g., "298k", "$45.6M", "85%",
+      "3.2x").  
+        - **Do not** use pure text labels or project names here (e.g., “Primary UI”, “Jetstream2”).  
+        - If textual content is needed, use `impactCard` or `infoCard` instead.
+      - `{{metricCardTitle}}` should be **short, factual, and context-specific**
+      (1–2 words preferred), labeling what the metric measures.
 
-      - The {{metricCardTitle}} must be **short and precise** (1–2 words
-      preferred) to label the metric.
+      - `{{metricCardDescription}}` provides **supporting context**, like
+      timeframe (“Last 30 Days”) or directional comparison (“Up 12% vs Q2”).
 
-      - The {{metricCardDescription}} should be used for supplementary details
-      like the **timeframe** ("Last 30 Days") or a **comparison** ("Up 5% from
-      last week").
-
-      - Avoid using this card to display data that requires extensive text
-      explanation or a visual trend line (like a full chart).
-
-      - Keep the **metric value font size large** relative to the title and
-      description to maintain visual hierarchy.
+      - Maintain a clear **visual hierarchy**:
+        - `metricCardData` > `metricCardTitle` > `metricCardDescription`.
+        - Metric value font size must remain the largest element on the card.
+      - Do not include rich text, icons, or images within this component; it is
+      intended for **pure data visualization**.
     fieldCombinations:
       - metricCardData
       - metricCardDescription
@@ -1698,7 +1734,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 2-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -1712,7 +1748,8 @@ composite:
 
       Constraints
 
-      - Use only when total items are 2, 4, or 6 to prevent layout glitches.
+      - Use only when total items are 2, 4, 6, 8 or 10 to prevent layout
+      glitches.
     fieldCombinations:
       - list.0
       - list.1
@@ -2071,7 +2108,7 @@ composite:
       - Section title (optional subtitle)
 
       - Responsive 3-column grid of cards
-       Each card: small media/icon → title → short description
+
 
       Use when
 
@@ -2876,7 +2913,7 @@ composite:
                 target: _self
                 needLogin: false
   - id: 4rpzyx2cyf24ll1j
-    name: Split Hero With Right Image
+    name: Split Hero With Image (Right)
     summary: >-
       Split Hero (Text Left, Visual Right) — Spec
 
@@ -2975,7 +3012,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -2983,7 +3020,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: <%= splitHeroRightImage %>
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -2997,7 +3036,7 @@ composite:
                 olqgpzr8gs34gpp7:
                   x: 0
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 6
@@ -3016,7 +3055,7 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: none
+        paddingY: normal
         background: transparent
         border: none
         paddingX: none
@@ -3074,13 +3113,15 @@ composite:
         properties:
           7m5pz8nefl5j9hqq:
             value:
-              url: ""
-              mediaKitUrl: ""
+              url: <%= splitHeroRightImage %>
+              mediaKitUrl: <%= splitHeroRightImage %>
               width: 2445
               height: 1394
+          jjv0hvr8wrixt1f3:
+            value: 1
   - id: lk8yij39qlfqbsho
     name: Layout Bento Grid 2+3
-    summary: >
+    summary: >-
       Structure
 
       - Two-row bento grid: **top row 2 cells**, **bottom row 3 cells** (total
@@ -3103,12 +3144,6 @@ composite:
 
       - Must have **exactly 5 items** (2+3). If count differs, pick another
       layout.
-
-      - Keep copy concise (titles + 1–2 lines). Avoid multiline lists inside
-      cells.
-
-      - Maintain WCAG AA contrast for text vs. background; avoid using logos as
-      generic backgrounds.
     fieldCombinations:
       - list.0
       - list.1
@@ -3245,7 +3280,7 @@ composite:
       owz1ef5yvnj8u6z1: {}
       0nijh6cwuc30kiz4: {}
   - id: hxjfqss28cy6pdmd
-    name: Content Card With Bottom Image
+    name: Content Card With Image (Bottom)
     summary: >-
       Structure
 
@@ -3270,8 +3305,6 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       multiline lists inside the card.
-
-      - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
       - contentCardBottomImage
       - contentCardDescription
@@ -3315,7 +3348,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: space-between
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -3348,7 +3381,9 @@ composite:
               width: 1270
               height: 520
           70d4dvbqgjal3z6j:
-            value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+            value: ""
+          jjv0hvr8wrixt1f3:
+            value: 1
   - id: 5ewf592p0c7fsuzx
     name: Feature Section
     summary: >
@@ -3378,8 +3413,6 @@ composite:
 
       - Avoid using logos as background textures; use real screenshots or
       illustrative product scenes
-
-      - Ensure text/background contrast meets WCAG AA
     fieldCombinations:
       - featureSectionBottomImage
       - featureSectionDescription
@@ -3580,8 +3613,6 @@ composite:
       background textures.
 
       - CTA is a single link (no button row); link text ≤ 30 chars.
-
-      - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
       - featureSectionAction.link
       - featureSectionAction.text
@@ -3925,16 +3956,6 @@ composite:
 
       - Copy: title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
-
-      - Contrast: default style is **dark text on a light panel**. If you switch
-      to a dark panel, use **white text** and meet **WCAG AA** contrast
-      (consider a subtle overlay if any media is used).
-
-      - Keep the background low-noise; this block should not compete with the
-      buttons for attention.
-
-      - Spacing: keep consistent vertical padding (e.g., 32–48px) for visual
-      weight parity across pages.
     fieldCombinations:
       - cta.0.link
       - cta.0.text
@@ -4134,7 +4155,7 @@ composite:
       xebzelstnp0vag5c: {}
       yvbfss906axhksok: {}
   - id: 0gxpsejj8mnduiou
-    name: Split Hero With Left Image
+    name: Split Hero With Image (Left)
     summary: >-
       Split Hero (Visual Left, Text Right) — Spec
 
@@ -4236,7 +4257,7 @@ composite:
               sectionIds:
                 - kda8erg44kbygny4
               config:
-                borderRadius: medium
+                borderRadius: small
                 gridSettings:
                   desktop:
                     kda8erg44kbygny4:
@@ -4244,7 +4265,9 @@ composite:
                       y: 0
                       w: 12
                       h: 1
-                background: <%= splitHeroLeftImage %>
+                background: background.paper
+                paddingX: small
+                paddingY: small
           sectionIds:
             - olqgpzr8gs34gpp7
             - 8537b779cckal8ah
@@ -4256,9 +4279,9 @@ composite:
             gridSettings:
               desktop:
                 olqgpzr8gs34gpp7:
-                  x: 6
+                  x: 7
                   y: 0
-                  w: 6
+                  w: 5
                   h: 1
                 8537b779cckal8ah:
                   x: 0
@@ -4277,7 +4300,7 @@ composite:
               w: 12
               h: 1
         gap: normal
-        paddingY: none
+        paddingY: normal
         background: transparent
         border: none
         paddingX: none
@@ -4335,12 +4358,14 @@ composite:
         properties:
           7m5pz8nefl5j9hqq:
             value:
-              url: ""
-              mediaKitUrl: ""
+              url: <%= splitHeroLeftImage %>
+              mediaKitUrl: <%= splitHeroLeftImage %>
               width: 2445
               height: 1394
+          jjv0hvr8wrixt1f3:
+            value: 1
   - id: uv25ogna0wj0jqa9
-    name: Content Card With Right Image
+    name: Content Card With Image (Right)
     summary: >-
       Structure
 
@@ -4364,8 +4389,6 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
-
-      - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
       - contentCardDescription
       - contentCardRightImage
@@ -4409,7 +4432,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: center
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -4442,9 +4465,11 @@ composite:
               width: 1270
               height: 520
           70d4dvbqgjal3z6j:
-            value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+            value: ""
+          jjv0hvr8wrixt1f3:
+            value: 1
   - id: xco17kxsbava3uww
-    name: Content Card With Left Image
+    name: Content Card With Image (Left)
     summary: >-
       Structure
 
@@ -4468,8 +4493,6 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
-
-      - Ensure text/background contrast meets WCAG AA.
     fieldCombinations:
       - contentCardDescription
       - contentCardLeftImage
@@ -4513,7 +4536,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: center
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -4546,7 +4569,9 @@ composite:
               width: 1270
               height: 520
           70d4dvbqgjal3z6j:
-            value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+            value: ""
+          jjv0hvr8wrixt1f3:
+            value: 1
   - id: 8a3uwlxrx6m068os
     name: Vertical Hero With Code
     summary: >
@@ -4622,6 +4647,11 @@ composite:
                   y: 0
                   w: 12
                   h: 1
+                ub3n1mtbsbtnelgy:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
             paddingY: normal
             gap: normal
             maxWidth: full
@@ -4633,10 +4663,10 @@ composite:
             11e4g80knagitd6k:
               x: 0
               y: 0
-              w: 8
+              w: 6
               h: 1
         paddingX: none
-        paddingY: none
+        paddingY: normal
         maxWidth: full
         backgroundFullWidth: true
     dataSource:
@@ -4679,7 +4709,7 @@ composite:
             value: 1rem
       ub3n1mtbsbtnelgy: {}
   - id: vbchbwqocrjf19yr
-    name: Content Card With Left Code
+    name: Content Card With Code (Left)
     summary: >-
       Structure
 
@@ -4703,6 +4733,9 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
+
+      - Only allowed in single-column containers; prohibited when the parent
+      layout has two or more columns (e.g., 1x2, 2x2, 2+3, grid).
     fieldCombinations:
       - contentCardDescription
       - contentCardLeftCode.content
@@ -4764,7 +4797,7 @@ composite:
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: center
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -4797,10 +4830,12 @@ composite:
           d8hvf7cxz93jk5p:
             value: 1rem
           qvxiyadgn5bj6oq8:
+            value: false
+          c4kvf6b7zyskk8m:
             value: true
       clt845zy8uab0yum: {}
   - id: a74ltdll9gxt3dxd
-    name: Content Card With Right Code
+    name: Content Card With Code (Right)
     summary: >-
       Structure
 
@@ -4824,6 +4859,9 @@ composite:
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
+
+      - Only allowed in single-column containers; prohibited when the parent
+      layout has two or more columns (e.g., 1x2, 2x2, 2+3, grid).
     fieldCombinations:
       - contentCardDescription
       - contentCardRightCode.content
@@ -4879,13 +4917,24 @@ composite:
               y: 0
               w: 7
               h: 1
+          mobile:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            clt845zy8uab0yum:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
         paddingX: none
         gap: normal
         paddingY: none
         background: transparent
         border: none
         borderRadius: none
-        alignContent: start
+        alignContent: center
     dataSource:
       v0yqgx0alva8pqgk: {}
       carj7s5ignmoa8r8:
@@ -4918,5 +4967,2167 @@ composite:
           d8hvf7cxz93jk5p:
             value: 1rem
           qvxiyadgn5bj6oq8:
-            value: true
+            value: false
       clt845zy8uab0yum: {}
+  - id: 6rjjiox93r9xsqii
+    name: Content Card With Code (Bottom)
+    summary: >-
+      Structure
+
+      - Top: title (1 line) → short description (1–3 lines).
+
+      - Bottom: code area rendered from `contentCardBottomCode` (rounded
+      corners; object-fit: cover). A thin top rule or accent bar is optional.
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting code on the bottom.
+
+      - Works well for feature highlights, updates, or compact promo cards where
+      text leads and code reinforces.
+
+
+      Constraints
+
+      - `contentCardBottomCode` must be a valid code string
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+
+      - Allowed in single-column and two-column containers; prohibited when the
+      parent layout has three or more columns (e.g., 1x3, 2x3, 2+3, grid ≥3
+      cols).
+    fieldCombinations:
+      - contentCardBottomCode.content
+      - contentCardBottomCode.name
+      - contentCardDescription
+      - contentCardTitle
+    section:
+      id: v0yqgx0alva8pqgk
+      name: Card01
+      component: layout-block
+      sections:
+        carj7s5ignmoa8r8:
+          id: carj7s5ignmoa8r8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        clt845zy8uab0yum:
+          id: clt845zy8uab0yum
+          name: Section Layout
+          component: layout-block
+          sections:
+            x25tzyojrqnm2l2j:
+              id: x25tzyojrqnm2l2j
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - x25tzyojrqnm2l2j
+          config:
+            gridSettings:
+              desktop:
+                x25tzyojrqnm2l2j:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+            border: terminal
+      sectionIds:
+        - carj7s5ignmoa8r8
+        - clt845zy8uab0yum
+      config:
+        gridSettings:
+          desktop:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            clt845zy8uab0yum:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingX: none
+        gap: normal
+        paddingY: none
+        background: transparent
+        border: none
+        borderRadius: none
+        alignContent: space-between
+    dataSource:
+      v0yqgx0alva8pqgk: {}
+      carj7s5ignmoa8r8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      x25tzyojrqnm2l2j:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= contentCardBottomCode.content %>
+          b2jrz12ik7esf93z:
+            value: <%= contentCardBottomCode.name %>
+          d8hvf7cxz93jk5p:
+            value: 1rem
+          qvxiyadgn5bj6oq8:
+            value: false
+      clt845zy8uab0yum: {}
+  - id: gsrvjuqb7uquc7pt
+    name: Layout 1 Column Grid (Center)
+    summary: >-
+      Structure (top → bottom)
+
+      - Section title (optional subtitle)
+
+      - Single-column stack of cards (full-width in the section)
+       
+      Use when
+
+      - You’re listing peer items of equal weight where vertical scanning beats
+      side-by-side comparison.  
+
+      - Ideal for long copy, mixed media, or items that need richer per-item
+      structure.  
+
+      - Recommended total items: **3–4** (supports 1–6; prefer ≤6 for
+      readability).
+
+
+      Constraints
+
+      - **Layout:** Single-column section only; cards stack vertically with
+      consistent spacing.  
+
+      - **Complex content allowed:** A card may include richer blocks (media,
+      rich text, code, CTAs, sublists, small inline components). Keep layout
+      **vertical** inside the card; if you must split, use at most a **1×2
+      inline sub-layout**—avoid deeper or multi-row grids.  
+
+      - **Validation:** If any card uses a complex slot, the section still
+      renders as **one column**; do not auto-upgrade to multi-column/grid.
+    fieldCombinations:
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+      - list.4
+      - list.5
+      - oneColumnGridTitle
+    section:
+      id: indpn8oj1hjz5xgi
+      name: Testimonials/Reviews
+      component: layout-block
+      sections:
+        zs5zxkki8pbiuapz:
+          id: zs5zxkki8pbiuapz
+          name: Cards
+          component: layout-block
+          sections:
+            crdmoiee60y82o70:
+              id: crdmoiee60y82o70
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            n7xlbofkiq7940sm:
+              id: n7xlbofkiq7940sm
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            8fum6qlr7ehf7q07:
+              id: 8fum6qlr7ehf7q07
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            5467p5g14tf9ulet:
+              id: 5467p5g14tf9ulet
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            lbdakrlx804aa294:
+              id: lbdakrlx804aa294
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+            fn3pjkdsg3erq5wn:
+              id: fn3pjkdsg3erq5wn
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                  mobile:
+                    zf1s9y77l821pofu:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: zf1s9y77l821pofu
+                    do35jzobe9fv1z8i:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: do35jzobe9fv1z8i
+                background: background.paper
+                paddingX: custom:32px
+                paddingY: custom:32px
+                borderRadius: small
+                gap: normal
+                border: solid
+                alignContent: space-between
+          sectionIds:
+            - crdmoiee60y82o70
+            - n7xlbofkiq7940sm
+            - 8fum6qlr7ehf7q07
+            - 5467p5g14tf9ulet
+            - lbdakrlx804aa294
+            - fn3pjkdsg3erq5wn
+          config:
+            gridSettings:
+              desktop:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+                5467p5g14tf9ulet:
+                  x: 0
+                  y: 3
+                  w: 12
+                  h: 1
+                lbdakrlx804aa294:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                fn3pjkdsg3erq5wn:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+              mobile:
+                crdmoiee60y82o70:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                n7xlbofkiq7940sm:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                8fum6qlr7ehf7q07:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+            gap: normal
+            paddingX: none
+        y5sicz61vfbtnhkh:
+          id: y5sicz61vfbtnhkh
+          name: Title
+          component: layout-block
+          sections:
+            2u6k96rqj9rovmuv:
+              id: 2u6k96rqj9rovmuv
+              name: LayoutTitle
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - 2u6k96rqj9rovmuv
+          config:
+            gap: small
+            paddingX: none
+            alignContent: start
+            gridSettings:
+              desktop:
+                2u6k96rqj9rovmuv:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+              mobile:
+                2u6k96rqj9rovmuv:
+                  id: 2u6k96rqj9rovmuv
+      sectionIds:
+        - y5sicz61vfbtnhkh
+        - zs5zxkki8pbiuapz
+      config:
+        gridSettings:
+          desktop:
+            zs5zxkki8pbiuapz:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            y5sicz61vfbtnhkh:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        paddingX: none
+    dataSource:
+      indpn8oj1hjz5xgi: {}
+      y5sicz61vfbtnhkh: {}
+      2u6k96rqj9rovmuv:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= oneColumnGridTitle %>
+              style:
+                variant: h2
+      zs5zxkki8pbiuapz: {}
+      crdmoiee60y82o70: {}
+      n7xlbofkiq7940sm: {}
+      8fum6qlr7ehf7q07: {}
+      5467p5g14tf9ulet: {}
+      lbdakrlx804aa294: {}
+      fn3pjkdsg3erq5wn: {}
+  - id: 70e1ovto8gm1oyew
+    name: Blog List
+    summary: >-
+      Structure (top → bottom)
+
+      - Title (`{{blogTitle}}`) and optional subtitle (`{{blogDescription}}`).
+
+      - CTA (`{{blogMoreButtonText}}`)
+
+      - Dynamic list of blog cards fetched from `{{blogUrl}}`.
+         -  Optional blog badge (`{{blogLabel}}`).
+
+      Use when
+
+      - The site’s rules/design system explicitly define a “Blog List/Feed”
+      component or section type.
+
+      - Both `{{blogTitle}}` and `{{blogUrl}}` are present and non-empty.
+
+      - The page needs a dynamic or regularly updated list of posts, displayed
+      as cards or rows.
+
+
+      Constraints
+
+      - Component scope: use only for a Blog List/Feed component as defined by
+      the site; do not apply to generic card lists or non-blog feeds.
+
+      - Data source: `blogUrl` is required and must resolve to a valid feed or
+      list endpoint; on failure, render a visible error state (no blank areas).
+    fieldCombinations:
+      - blogDescription
+      - blogLabel
+      - blogMoreButtonText
+      - blogTitle
+      - blogUrl
+    section:
+      id: yajvezy1bhoy2bya
+      name: Discuss Kit Layout
+      component: layout-block
+      sections:
+        f46vvwk50us90h2s:
+          id: f46vvwk50us90h2s
+          name: DiscussKitBlogList
+          component: custom-component
+          config:
+            componentId: bKJH63vdZlE8pQrX
+        rqe21u6rh80y944k:
+          id: rqe21u6rh80y944k
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+      sectionIds:
+        - rqe21u6rh80y944k
+        - f46vvwk50us90h2s
+      config:
+        gridSettings:
+          desktop:
+            f46vvwk50us90h2s:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            rqe21u6rh80y944k:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+    dataSource:
+      yajvezy1bhoy2bya: {}
+      f46vvwk50us90h2s:
+        properties:
+          9lnca5mjgvkm149u:
+            value: What's New
+          evkkmikqh1nva4sz:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          vd9lwxt1sp8y3wxa:
+            value: 4
+          n69b5nkel10qkdk4:
+            value: What's New
+          7jylpcgpg8zzdalp:
+            value: Stay up-to-date with the latest updates from ArcBlock's ecosystem
+          g171m3hlfe3due0k:
+            value: View More
+          gs1rn5jmxfvpxptx:
+            value: ""
+          9ajrz12ik7esfk1z:
+            value: ""
+          yi1oj4rq1eziup1d:
+            value: <%= blogMoreButtonText %>
+          gioetxz8d13jabz6:
+            value: ""
+          bl0rimfebwbencoj:
+            value: ""
+          1j34jdhdptp2xm5e:
+            value: <%= blogLabel %>
+          gpy89bsxc6ovvlsp:
+            value: <%= blogUrl %>
+      rqe21u6rh80y944k:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= blogTitle %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759819722033-9oviivaa6
+                  type: text
+                  text: <%= blogDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+  - id: a2gxhm99ccmcuj5a
+    name: ArcBlock Architect Hero
+    summary: >-
+      Structure (top → bottom)
+
+      - Background image with gradient overlay
+
+      - Main title (`architectTitle`) and short description
+      (`architectDescription`)
+
+      - Stacked architecture groups (`architectList` and `architectItemDetail`)
+
+
+      Use when
+
+      - The site’s structure explicitly defines an **ArcBlock Architect Hero**
+      component.
+
+      - Only use when both `architectTitle` and `architectList` are present and
+      non-empty.
+
+
+      Constraints
+
+      - Component scope: strictly limited to **ArcBlock Architect Hero**; do not
+      use for generic product grids or unrelated architectures.
+    fieldCombinations:
+      - architectDescription
+      - architectList
+      - architectTitle
+      - moreText
+    section:
+      id: 4i8wtkryty2brpoq
+      name: Architect Layout
+      component: layout-block
+      sections:
+        p7siab63myreybx3:
+          id: p7siab63myreybx3
+          name: Architect
+          component: custom-component
+          config:
+            componentId: xoHu0JPjPs1kDYc-
+      sectionIds:
+        - p7siab63myreybx3
+      config:
+        gridSettings:
+          desktop:
+            p7siab63myreybx3:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+    dataSource:
+      4i8wtkryty2brpoq: {}
+      p7siab63myreybx3:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= architectTitle %>
+              style:
+                color: "#EEE"
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1752119205855-uy8ax4k9f
+                  type: text
+                  text: <%= architectDescription %>
+                  style:
+                    color: "#EEE"
+                    fontSize: 16px
+          kdeafu2txl0xy66m:
+            value:
+              - name: Applications
+                type: group
+                icon: "    https://www.arcblock.io/image-bin/uploads/f9c0c9df9247e8a82d309d9e0c\
+                  9ae623.svg"
+              - name: NFT Studio
+                icon: "        https://www.arcblock.io/image-bin/uploads/5542354d3d33e5fcd21156\
+                  2ee734da01.png?imageFilter=resize&w=100&f=webp"
+              - name: AIGNE
+                hoverColor: "#eef2ff"
+                icon: "        https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9d\
+                  d30aec44fc.png?imageFilter=resize&w=100&f=webp"
+                type: 3d
+              - name: Creator Studio
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37f00c7d0f623b62ecaa4c95386c62c6.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: Aistro
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/b83c22b9f92e4837c2e21bb6fb831f1a.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Launcher
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6cb1e2aa568509e1a874bf7ae1666c26.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/b4725a994a65bf08559c12d9f6012927.svg
+              - name: Blocklet Store
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/6db33268d4d1662c4e91eaee159c1312.png?imageFilter=resize&w=100&f=webp
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/293171dc73e6029561db2403cf5e4f2e.svg
+              - name: Web3 Kit
+                hoverColor: "#818cf8"
+                icon: https://www.arcblock.io/image-bin/uploads/f409e3bdc7a2b42ba8fba9bae286aeda.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/4443d4d2cf4ca865250e8287d4a76753.svg
+              - name: AI Kit
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/9745710dce319d9bf117516ad5d1f811.svg
+                type: 3d
+              - name: <%= moreText %>
+                hoverColor: "#FFEE58"
+                icon: https://www.arcblock.io/image-bin/uploads/4a2183c255734e2b054a58a90db3b17e.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/072d8a78cd428b202da6e39f21d8fab5.svg
+              - name: Blocklet Framework
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/eb1cf5d60cd85c42362920c49e3768cb.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6a1ff43786d5fc385c1480c10f97a951.svg
+              - name: Blocklet Server
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/1dfcb220953bb14e3fea8dd9e7f2e6e8.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/973f8ace02c9682b75b0ffe4e2e6b4a3.svg
+              - name: DID Spaces
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/fb3d25d6fcd3f35c5431782a35bef879.svg
+                type: 3d
+              - name: OCAP
+                hoverColor: "#2dd4bf"
+                icon: https://www.arcblock.io/image-bin/uploads/012d66a02bd6d1313a936b66f097d853.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/621d197db2bb4c3e99a2829ea2d71e9c.svg
+              - name: ABT Network
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/deb5982d012f2d0cf63c635554a4bc59.svg
+                type: 3d
+              - name: DID
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/71eea946246150766324008427d2f63d.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/e08d3a959455878a9720447edfe54d39.svg
+              - name: Verifiable Credentials
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/124d7d13d19687c933a048e64e646bc4.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/29a8d818b78953c89f715740ecd5ce29.svg
+              - name: DID Wallet
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg
+                type: 3d
+              - name: DID Connect
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/e50db773681365ff785a7e982b748740.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: DID:Names
+                hoverColor: "#60a5fa"
+                icon: https://www.arcblock.io/image-bin/uploads/db36f9832a99d4dccb21a30ff269bb22.svg
+                type: 3d
+                hoverIcon: https://www.arcblock.io/image-bin/uploads/6986e9a25855ce926d904c5abb70c4b2.svg
+              - name: Components
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/613e56a253a7c4f336e8f9edd9e461ca.svg
+                type: group
+              - name: Compute
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/f8abc480196d30638ff02df81ba6f14f.svg
+                type: group
+              - name: Storage
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/28a0bc7b8b41e5561b403d830fd22152.svg
+                type: group
+              - name: Blockchain
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/6a4325c8b956acbf7492e192887dc5c5.svg
+                type: group
+              - name: IDENTITY
+                hoverColor: "#eef2ff"
+                icon: https://www.arcblock.io/image-bin/uploads/0ffc0094aaf2f988c4bb3f487d4530e0.svg
+                type: group
+          h0ewzuvbyu03idlp:
+            value: full
+          13qrfs2zqzmaxuvm:
+            value: <%= architectList %>
+  - id: ji71gkjxc3jdtrgd
+    name: Centered Hero
+    summary: >-
+      **Structure (Top → Bottom)**
+
+      - Primary Title (`{{centeredHeroTitle}}`, one line or up to two lines,
+      centered, highest visual weight)
+
+      - Subtitle (`{{centeredHeroDescription}}`, up to 1–2 short paragraphs,
+      centered)
+
+      - Actions (`{{centeredHeroActions.N.text}}` +
+      `{{centeredHeroActions.N.link}}`; one primary required, one secondary
+      optional; horizontally centered)
+
+      - Optional Media (`{{sectionBackground}}` or decorative media; keep
+      low-noise to preserve contrast)
+
+
+      **Use when**
+
+      - You must quickly answer what it is, why it matters, and the next step on
+      a landing/product page’s first screen.
+
+      - A single core proposition; users should grasp it in 3–5 seconds.
+
+      - You prefer symmetry and focus over a left–right split.
+
+
+      **Constraints**
+
+      - Visual hierarchy: `centeredHeroTitle` > `centeredHeroDescription` >
+      `centeredHeroActions`.
+
+      - At least **one** primary action (`centeredHeroActions.0.*` recommended).
+      Keep total buttons ≤ 2.
+
+      - Copy length:
+        - `centeredHeroTitle` ≤ 60 chars.
+        - `centeredHeroDescription` ≤ 140 chars per paragraph, up to 2 paragraphs.
+        - Button labels 2–4 words, verb-first.
+    fieldCombinations:
+      - centeredHeroActions.0.link
+      - centeredHeroActions.0.text
+      - centeredHeroActions.1.link
+      - centeredHeroActions.1.text
+      - centeredHeroDescription
+      - centeredHeroTitle
+    section:
+      id: jg8x6gda6gmyb1d7
+      name: Centered Hero
+      component: layout-block
+      sections:
+        n86dteb4apjak8i3:
+          id: n86dteb4apjak8i3
+          name: Section Layout
+          component: layout-block
+          sections:
+            pz5mq3bpq46ewjcx:
+              id: pz5mq3bpq46ewjcx
+              name: CTA
+              component: layout-block
+              sections:
+                3u82xm3cw1attsg7:
+                  id: 3u82xm3cw1attsg7
+                  name: Description
+                  component: custom-component
+                  config:
+                    componentId: xoHu0J44322kDYc-
+                yly92dqd34uz833u:
+                  id: yly92dqd34uz833u
+                  name: Action
+                  component: custom-component
+                  config:
+                    componentId: a44r0SiGV9AFn2Fj
+              sectionIds:
+                - 3u82xm3cw1attsg7
+                - yly92dqd34uz833u
+              config:
+                paddingY: normal
+                gap: large
+                maxWidth: full
+                paddingX: normal
+                gridSettings:
+                  desktop:
+                    3u82xm3cw1attsg7:
+                      x: 2
+                      y: 0
+                      w: 8
+                      h: 1
+                    yly92dqd34uz833u:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                background: transparent
+                borderRadius: small
+          sectionIds:
+            - pz5mq3bpq46ewjcx
+          config:
+            gridSettings:
+              desktop:
+                pz5mq3bpq46ewjcx:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            paddingX: none
+            borderRadius: small
+            paddingY: none
+            background: transparent
+      sectionIds:
+        - n86dteb4apjak8i3
+      config:
+        gridSettings:
+          desktop:
+            n86dteb4apjak8i3:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        background: background.paper
+        paddingY: normal
+        borderRadius: small
+        paddingX: none
+    dataSource:
+      jg8x6gda6gmyb1d7: {}
+      n86dteb4apjak8i3: {}
+      pz5mq3bpq46ewjcx: {}
+      3u82xm3cw1attsg7:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= centeredHeroDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= centeredHeroTitle %>
+              style:
+                fontSize: '{"md":40}'
+                variant: h1
+      yly92dqd34uz833u:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= centeredHeroActions.0.text %>
+                url: <%= centeredHeroActions.0.link %>
+                variant: contained
+                size: large
+                target: _self
+                needLogin: false
+              - id: btn-1759121436561-6r9xmg35x
+                text: <%= centeredHeroActions.1.text %>
+                variant: outlined
+                borderColor: primary.main
+                size: large
+                url: <%= centeredHeroActions.1.link %>
+          r8t5y6u7i1o2p3a4:
+            value: 16
+  - id: hfscbebzg8y40ek9
+    name: Split Hero With Big Title
+    summary: >-
+      **Structure (L ↔ R)**
+
+      - Left column (content):
+        - Big Title (`{{splitHeroBigTitle}}`, 1–2 lines, highest visual weight)
+        - Sub Title (`{{splitHeroSubTitle}}`, 1 line, secondary emphasis)
+        - Description (`{{splitHeroDescription}}`, 1–2 short paragraphs, adds context/value)
+        - Actions (`{{splitHeroActions.N.text}}` + `{{splitHeroActions.N.link}}`; one primary required, one secondary optional; arranged horizontally)
+      - Right column (media):
+        - Hero Image (`{{splitHeroImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
+
+      **Use when**
+
+      - You need to convey **clear copy** alongside a **direct visual** (e.g.,
+      product UI or flow overview).
+
+      - The first screen benefits from a “**narrative on the left, proof on the
+      right**” relationship; compared with a Centered Hero, this suits slightly
+      higher information density.
+
+      - The page targets desktop widths and wants to showcase product capability
+      and polish.
+
+
+      **Constraints**
+
+      - Visual hierarchy: `splitHeroBigTitle` > `splitHeroSubTitle` >
+      `splitHeroDescription` > `splitHeroActions`.
+
+      - Buttons: at least one primary (`splitHeroActions.0.*` recommended),
+      total ≤ 2; verb-first, 2–4 words.
+
+      - Copy length:
+        - `splitHeroBigTitle` ≤ 60 characters
+        - `splitHeroSubTitle` ≤ 80 characters
+        - `splitHeroDescription` ≤ 140 characters per paragraph, max 2 paragraphs
+    fieldCombinations:
+      - splitHeroActions.0.link
+      - splitHeroActions.0.text
+      - splitHeroActions.1.link
+      - splitHeroActions.1.text
+      - splitHeroBigTitle
+      - splitHeroDescription
+      - splitHeroImage
+      - splitHeroSubTitle
+    section:
+      id: nwt3wbgudy9pvaze
+      name: Split Hero
+      component: layout-block
+      sections:
+        bwjpae48rsf3z3ao:
+          id: bwjpae48rsf3z3ao
+          name: Text
+          component: layout-block
+          sections:
+            nroki8gl4k88k82x:
+              id: nroki8gl4k88k82x
+              name: Title
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            tmj2qb7md6p88lxp:
+              id: tmj2qb7md6p88lxp
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            p4vt77h6icap7von:
+              id: p4vt77h6icap7von
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - nroki8gl4k88k82x
+            - tmj2qb7md6p88lxp
+            - p4vt77h6icap7von
+          config:
+            gap: large
+            gridSettings:
+              desktop:
+                nroki8gl4k88k82x:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                tmj2qb7md6p88lxp:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                p4vt77h6icap7von:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+        whids9c4yl47179j:
+          id: whids9c4yl47179j
+          name: Image
+          component: layout-block
+          sections:
+            zwpm4cxkpa21bj5f:
+              id: zwpm4cxkpa21bj5f
+              name: Media
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - zwpm4cxkpa21bj5f
+          config:
+            borderRadius: small
+            gridSettings:
+              desktop:
+                zwpm4cxkpa21bj5f:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+      sectionIds:
+        - bwjpae48rsf3z3ao
+        - whids9c4yl47179j
+      config:
+        background: transparent
+        paddingX: normal
+        paddingY: large
+        gap: normal
+        gridSettings:
+          desktop:
+            bwjpae48rsf3z3ao:
+              x: 0
+              y: 0
+              w: 5
+              h: 1
+            whids9c4yl47179j:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+    dataSource:
+      nwt3wbgudy9pvaze: {}
+      bwjpae48rsf3z3ao: {}
+      nroki8gl4k88k82x:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= splitHeroBigTitle %>
+              style:
+                fontSize: '{"md":56}'
+                variant: h1
+      tmj2qb7md6p88lxp:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759472738716-8jpjkgjdk
+                  type: text
+                  text: <%= splitHeroDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= splitHeroSubTitle %>
+              style:
+                variant: h3
+      p4vt77h6icap7von:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= splitHeroActions.0.text %>
+                url: <%= splitHeroActions.0.link %>
+                variant: contained
+                size: large
+                target: _self
+                needLogin: false
+              - type: link
+                text: <%= splitHeroActions.1.text %>
+                url: <%= splitHeroActions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _self
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1759473759606-h7czb7h4e
+      whids9c4yl47179j: {}
+      zwpm4cxkpa21bj5f:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= splitHeroImage %>
+              mediaKitUrl: <%= splitHeroImage %>
+              width: 2048
+              height: 1536
+  - id: w5jmjjj1ls086i3e
+    name: Layout Bento Grid 2+2
+    summary: >-
+      Structure
+
+      - Two-row bento grid: **top row 2 cells**, **bottom row 2 cells** (total
+      **2 items**).
+
+      - Each cell hosts a child section/card/media block; consistent radius and
+      gaps; visuals use object-fit: cover.
+
+
+      Use when
+
+      - You want a quick-scanning overview of five peer items (features,
+      templates, resources, case cards).
+
+      - Items are short and comparable; emphasis is rhythm and parity, not long
+      narrative.
+
+
+      Constraints
+
+      - Must have **exactly 4 items** (2+2). If count differs, pick another
+      layout.
+    fieldCombinations:
+      - list.0
+      - list.1
+      - list.2
+      - list.3
+    section:
+      id: 9ur9vrlln7senjzz
+      name: Bento Grids_2
+      component: layout-block
+      sections:
+        xebzelstnp0vag5c:
+          id: xebzelstnp0vag5c
+          name: <%= list.0 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: center
+        yvbfss906axhksok:
+          id: yvbfss906axhksok
+          name: <%= list.1 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: start
+        lvpdr5oxpf1hajuo:
+          id: lvpdr5oxpf1hajuo
+          name: <%= list.2 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: start
+        cl1xkuw6ubiofcel:
+          id: cl1xkuw6ubiofcel
+          name: <%= list.3 %>
+          component: layout-block
+          sections: {}
+          sectionIds: []
+          config:
+            gridSettings:
+              desktop: {}
+            paddingX: custom:32px
+            gap: normal
+            paddingY: custom:32px
+            background: background.paper
+            border: solid
+            borderRadius: small
+            alignContent: center
+      sectionIds:
+        - xebzelstnp0vag5c
+        - yvbfss906axhksok
+        - lvpdr5oxpf1hajuo
+        - cl1xkuw6ubiofcel
+      config:
+        gridSettings:
+          desktop:
+            xebzelstnp0vag5c:
+              x: 0
+              y: 0
+              w: 7
+              h: 1
+            yvbfss906axhksok:
+              x: 7
+              y: 0
+              w: 5
+              h: 1
+            lvpdr5oxpf1hajuo:
+              x: 0
+              y: 1
+              w: 5
+              h: 1
+            cl1xkuw6ubiofcel:
+              x: 5
+              y: 1
+              w: 7
+              h: 1
+        paddingX: none
+        gap: small
+        paddingY: none
+    dataSource:
+      9ur9vrlln7senjzz: {}
+      xebzelstnp0vag5c: {}
+      yvbfss906axhksok: {}
+      lvpdr5oxpf1hajuo: {}
+      cl1xkuw6ubiofcel: {}
+  - id: ysxgzgqxy4x11tla
+    name: CTA With Image
+    summary: >-
+      **Structure**
+
+      - Split layout inside a contained panel: **left** = centered vertical
+      stack (title 1–2 lines → short description 1–3 lines → CTAs primary +
+      optional secondary); **right** = image (`{{ctaImage}}`) with rounded
+      corners.  
+
+      - Panel uses a subtle background, rounded corners, and generous vertical
+      padding.
+
+
+      **Use when**
+
+      - You want a focused call-to-action at the end of a page, **reinforced by
+      a visual** (e.g., product UI/illustration).
+
+      - Ideal for signup/try/demo prompts where a quick preview increases
+      confidence.
+
+
+      **Constraints**
+
+      - **Actions:** min 1, max 2 buttons; each requires `text` and `link`.
+      Primary first; secondary optional.  
+
+      - **Copy:** title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
+      extra elements.  
+    fieldCombinations:
+      - cta.0.link
+      - cta.0.text
+      - cta.1.link
+      - cta.1.text
+      - ctaDescription
+      - ctaImage
+      - ctaTitle
+    section:
+      id: u47z61ctg4afvhv9
+      name: CTA_2
+      component: layout-block
+      sections:
+        kdhcqrornxe9byzz:
+          id: kdhcqrornxe9byzz
+          name: Content
+          component: layout-block
+          sections:
+            htopl3pjyf0q8zwd:
+              id: htopl3pjyf0q8zwd
+              name: CTA
+              component: layout-block
+              sections:
+                jbwag605thfr48r5:
+                  id: jbwag605thfr48r5
+                  name: Description
+                  component: custom-component
+                  config:
+                    componentId: xoHu0J44322kDYc-
+                gfwgfnnk8xvcc4ep:
+                  id: gfwgfnnk8xvcc4ep
+                  name: Action
+                  component: custom-component
+                  config:
+                    componentId: a44r0SiGV9AFn2Fj
+              sectionIds:
+                - jbwag605thfr48r5
+                - gfwgfnnk8xvcc4ep
+              config:
+                gridSettings:
+                  desktop:
+                    jbwag605thfr48r5:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                      id: jbwag605thfr48r5
+                    gfwgfnnk8xvcc4ep:
+                      x: 0
+                      y: 1
+                      w: 12
+                      h: 1
+                      id: gfwgfnnk8xvcc4ep
+                paddingY: normal
+                gap: normal
+                maxWidth: full
+                paddingX: none
+            cmn6ks6n975ltkry:
+              id: cmn6ks6n975ltkry
+              name: Image
+              component: layout-block
+              sections:
+                olbcrzc2vfacgzee:
+                  id: olbcrzc2vfacgzee
+                  name: Media
+                  component: custom-component
+                  config:
+                    componentId: xoHu0JPjPs122kaaa-
+              sectionIds:
+                - olbcrzc2vfacgzee
+              config:
+                borderRadius: small
+                gridSettings:
+                  desktop:
+                    olbcrzc2vfacgzee:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                background: transparent
+                paddingX: small
+                paddingY: small
+          sectionIds:
+            - htopl3pjyf0q8zwd
+            - cmn6ks6n975ltkry
+          config:
+            borderRadius: small
+            paddingX: normal
+            paddingY: normal
+            maxWidth: full
+            gridSettings:
+              desktop:
+                htopl3pjyf0q8zwd:
+                  x: 0
+                  y: 0
+                  w: 6
+                  h: 1
+                cmn6ks6n975ltkry:
+                  x: 6
+                  y: 0
+                  w: 6
+                  h: 1
+            gap: large
+      sectionIds:
+        - kdhcqrornxe9byzz
+      config:
+        gridSettings:
+          desktop:
+            kdhcqrornxe9byzz:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: normal
+        background: background.paper
+        border: solid
+        borderRadius: small
+    dataSource:
+      u47z61ctg4afvhv9: {}
+      kdhcqrornxe9byzz: {}
+      htopl3pjyf0q8zwd: {}
+      jbwag605thfr48r5:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= ctaDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= ctaTitle %>
+              style:
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      gfwgfnnk8xvcc4ep:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= cta.0.text %>
+                url: <%= cta.0.link %>
+                variant: contained
+                size: large
+                target: _self
+                needLogin: false
+              - type: link
+                text: <%= cta.1.text %>
+                url: <%= cta.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: _self
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1759914246614-j6hez4b0u
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+      cmn6ks6n975ltkry: {}
+      olbcrzc2vfacgzee:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= ctaImage %>
+              mediaKitUrl: <%= ctaImage %>
+              width: 2190
+              height: 1488
+          x8beiec3fxx5des1:
+            value: 100%
+          5fjm8opvqth7wk71:
+            value: 100%
+          jjv0hvr8wrixt1f3:
+            value: 1
+  - id: arpghy2x1gujtdu7
+    name: Comparison Table
+    summary: >-
+      urpose: fill placeholders only for a side-by-side table. **Do NOT** change
+      structure, keys, or IDs.
+
+
+      SCOPE
+
+      - Entities ≤4: e0–e3; Features ≤10: f0–f9.
+
+      - Full matrix: every fM has values for every eN.
+
+      - Required: {{comparisonTableTitle}}, {{featureTitle}}.
+
+
+      IDs & ORDER (immutable)
+
+      - Do not edit IDs; do not add/remove/reorder/rename.
+
+      - Matrix keys use exact IDs: `"matrix": { "f0": { "e0": {...} } }`.
+
+
+      PLACEHOLDERS
+
+      - Entities: {{e.N.l}} label; {{e.N.s}} subTitle; {{e.N.d}} description?;
+      {{e.N.i}} icon?; {{e.N.h}} highlight?; {{e.N.al}} action.label?;
+      {{e.N.au}} action.url?; {{e.N.at}} action.tooltip?.
+
+      - Features: {{f.M.l}} label; {{f.M.t}} tooltip?; {{f.M.i}} icon?.
+
+      - Cells: {{m.fM.eN.v}} value; {{m.fM.eN.t}} tooltip?; {{m.fM.eN.h}}
+      highlight?.
+
+      - Index ranges: M=0..9, N=0..3.
+
+
+      REQUIRED FILLS
+
+      - Titles above; each entity: {{e.N.l}}; each feature: {{f.M.l}}; each
+      cell: {{m.fM.eN.v}}.
+
+      - Optionals may be empty but **must exist** (see Empty & Structure).
+
+
+      CONTENT RULES
+
+      - Cell text ≤20 chars; tooltips ≤120 (plain text).
+
+      - Consistent units/terms (GB, %, users).
+
+      - Booleans render ✓/✕; use highlight sparingly (ideally one column).
+
+
+      EMPTY & STRUCTURE (strict key preservation)
+
+      - For any optional or currently unset field: **keep the key**, set value
+      to empty string `""`.
+
+      - Applies to: `e.*` (l/s/d/i/h/al/au/at), `f.*` (l/t/i), `m.fM.eN.*`
+      (v/t/h), and `action.{label,url,tooltip}`.
+
+      - Numeric/boolean fields that are “unset” also use `""` as placeholder.
+
+      - **Never** output `null`/`undefined`/`false`/`0` or delete keys.
+
+      - Every matrix cell must contain `v`, `t`, `h` (values may be `""`).
+
+
+      LENGTH LIMITS
+
+      - Any string ≤ **2048** chars (global cap).
+
+      - Field caps still apply: `v` ≤20; `t` ≤120.
+
+      - When limits overlap, enforce the **strictest**.
+    fieldCombinations:
+      - comparisonTableTitle
+      - e.0.al
+      - e.0.at
+      - e.0.au
+      - e.0.d
+      - e.0.h
+      - e.0.i
+      - e.0.l
+      - e.0.s
+      - e.1.al
+      - e.1.at
+      - e.1.au
+      - e.1.d
+      - e.1.h
+      - e.1.i
+      - e.1.l
+      - e.1.s
+      - e.2.al
+      - e.2.at
+      - e.2.au
+      - e.2.d
+      - e.2.h
+      - e.2.i
+      - e.2.l
+      - e.2.s
+      - e.3.al
+      - e.3.at
+      - e.3.au
+      - e.3.d
+      - e.3.h
+      - e.3.i
+      - e.3.l
+      - e.3.s
+      - f.0.i
+      - f.0.l
+      - f.0.t
+      - f.1.i
+      - f.1.l
+      - f.1.t
+      - f.2.i
+      - f.2.l
+      - f.2.t
+      - f.3.i
+      - f.3.l
+      - f.3.t
+      - f.4.i
+      - f.4.l
+      - f.4.t
+      - f.5.i
+      - f.5.l
+      - f.5.t
+      - f.6.i
+      - f.6.l
+      - f.6.t
+      - f.7.i
+      - f.7.l
+      - f.7.t
+      - f.8.i
+      - f.8.l
+      - f.8.t
+      - f.9.i
+      - f.9.l
+      - f.9.t
+      - featureTitle
+      - m.f0.e0.h
+      - m.f0.e0.t
+      - m.f0.e0.v
+      - m.f0.e1.h
+      - m.f0.e1.t
+      - m.f0.e1.v
+      - m.f0.e2.h
+      - m.f0.e2.t
+      - m.f0.e2.v
+      - m.f0.e3.h
+      - m.f0.e3.t
+      - m.f0.e3.v
+      - m.f1.e0.h
+      - m.f1.e0.t
+      - m.f1.e0.v
+      - m.f1.e1.h
+      - m.f1.e1.t
+      - m.f1.e1.v
+      - m.f1.e2.h
+      - m.f1.e2.t
+      - m.f1.e2.v
+      - m.f1.e3.h
+      - m.f1.e3.t
+      - m.f1.e3.v
+      - m.f2.e0.h
+      - m.f2.e0.t
+      - m.f2.e0.v
+      - m.f2.e1.h
+      - m.f2.e1.t
+      - m.f2.e1.v
+      - m.f2.e2.h
+      - m.f2.e2.t
+      - m.f2.e2.v
+      - m.f2.e3.h
+      - m.f2.e3.t
+      - m.f2.e3.v
+      - m.f3.e0.h
+      - m.f3.e0.t
+      - m.f3.e0.v
+      - m.f3.e1.h
+      - m.f3.e1.t
+      - m.f3.e1.v
+      - m.f3.e2.h
+      - m.f3.e2.t
+      - m.f3.e2.v
+      - m.f3.e3.h
+      - m.f3.e3.t
+      - m.f3.e3.v
+      - m.f4.e0.h
+      - m.f4.e0.t
+      - m.f4.e0.v
+      - m.f4.e1.h
+      - m.f4.e1.t
+      - m.f4.e1.v
+      - m.f4.e2.h
+      - m.f4.e2.t
+      - m.f4.e2.v
+      - m.f4.e3.h
+      - m.f4.e3.t
+      - m.f4.e3.v
+      - m.f5.e0.h
+      - m.f5.e0.t
+      - m.f5.e0.v
+      - m.f5.e1.h
+      - m.f5.e1.t
+      - m.f5.e1.v
+      - m.f5.e2.h
+      - m.f5.e2.t
+      - m.f5.e2.v
+      - m.f5.e3.h
+      - m.f5.e3.t
+      - m.f5.e3.v
+      - m.f6.e0.h
+      - m.f6.e0.t
+      - m.f6.e0.v
+      - m.f6.e1.h
+      - m.f6.e1.t
+      - m.f6.e1.v
+      - m.f6.e2.h
+      - m.f6.e2.t
+      - m.f6.e2.v
+      - m.f6.e3.h
+      - m.f6.e3.t
+      - m.f6.e3.v
+      - m.f7.e0.h
+      - m.f7.e0.t
+      - m.f7.e0.v
+      - m.f7.e1.h
+      - m.f7.e1.t
+      - m.f7.e1.v
+      - m.f7.e2.h
+      - m.f7.e2.t
+      - m.f7.e2.v
+      - m.f7.e3.h
+      - m.f7.e3.t
+      - m.f7.e3.v
+      - m.f8.e0.h
+      - m.f8.e0.t
+      - m.f8.e0.v
+      - m.f8.e1.h
+      - m.f8.e1.t
+      - m.f8.e1.v
+      - m.f8.e2.h
+      - m.f8.e2.t
+      - m.f8.e2.v
+      - m.f8.e3.h
+      - m.f8.e3.t
+      - m.f8.e3.v
+      - m.f9.e0.h
+      - m.f9.e0.t
+      - m.f9.e0.v
+      - m.f9.e1.h
+      - m.f9.e1.t
+      - m.f9.e1.v
+      - m.f9.e2.h
+      - m.f9.e2.t
+      - m.f9.e2.v
+      - m.f9.e3.h
+      - m.f9.e3.t
+      - m.f9.e3.v
+    section:
+      id: 6w0i4jvkvm55pbim
+      name: Section Layout
+      component: layout-block
+      sections:
+        67lux8ugz3y24yz8:
+          id: 67lux8ugz3y24yz8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        ywslygs2dnkxq2o5:
+          id: ywslygs2dnkxq2o5
+          name: Section Layout
+          component: layout-block
+          sections:
+            8tit1juipc7g1xs2:
+              id: 8tit1juipc7g1xs2
+              name: ComparisonTable
+              component: custom-component
+              config:
+                componentId: -b71JoAi_lXSY8MP
+          sectionIds:
+            - 8tit1juipc7g1xs2
+          config:
+            gridSettings:
+              desktop:
+                8tit1juipc7g1xs2:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+      sectionIds:
+        - 67lux8ugz3y24yz8
+        - ywslygs2dnkxq2o5
+      config:
+        gridSettings:
+          desktop:
+            67lux8ugz3y24yz8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            ywslygs2dnkxq2o5:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: none
+        textAlign: left
+    dataSource:
+      6w0i4jvkvm55pbim: {}
+      67lux8ugz3y24yz8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= comparisonTableTitle %>
+              style:
+                variant: h1
+      ywslygs2dnkxq2o5: {}
+      8tit1juipc7g1xs2:
+        properties:
+          bm5nin5dwota4vwj:
+            value:
+              entities:
+                - id: e0
+                  label: <%= e.0.l %>
+                  subTitle: <%= e.0.s %>
+                  description: <%= e.0.d %>
+                  icon: <%= e.0.i %>
+                  highlight: <%= e.0.h %>
+                  action:
+                    label: <%= e.0.al %>
+                    url: <%= e.0.au %>
+                    tooltip: <%= e.0.at %>
+                - id: e1
+                  label: <%= e.1.l %>
+                  subTitle: <%= e.1.s %>
+                  description: <%= e.1.d %>
+                  icon: <%= e.1.i %>
+                  highlight: <%= e.1.h %>
+                  action:
+                    label: <%= e.1.al %>
+                    url: <%= e.1.au %>
+                    tooltip: <%= e.1.at %>
+                - id: e2
+                  label: <%= e.2.l %>
+                  subTitle: <%= e.2.s %>
+                  description: <%= e.2.d %>
+                  icon: <%= e.2.i %>
+                  highlight: <%= e.2.h %>
+                  action:
+                    label: <%= e.2.al %>
+                    url: <%= e.2.au %>
+                    tooltip: <%= e.2.at %>
+                - id: e3
+                  label: <%= e.3.l %>
+                  subTitle: <%= e.3.s %>
+                  description: <%= e.3.d %>
+                  icon: <%= e.3.i %>
+                  highlight: <%= e.3.h %>
+                  action:
+                    label: <%= e.3.al %>
+                    url: <%= e.3.au %>
+                    tooltip: <%= e.3.at %>
+              features:
+                - id: f0
+                  label: <%= f.0.l %>
+                  tooltip: <%= f.0.t %>
+                  icon: <%= f.0.i %>
+                - id: f1
+                  label: <%= f.1.l %>
+                  tooltip: <%= f.1.t %>
+                  icon: <%= f.1.i %>
+                - id: f2
+                  label: <%= f.2.l %>
+                  tooltip: <%= f.2.t %>
+                  icon: <%= f.2.i %>
+                - id: f3
+                  label: <%= f.3.l %>
+                  tooltip: <%= f.3.t %>
+                  icon: <%= f.3.i %>
+                - id: f4
+                  label: <%= f.4.l %>
+                  tooltip: <%= f.4.t %>
+                  icon: <%= f.4.i %>
+                - id: f5
+                  label: <%= f.5.l %>
+                  tooltip: <%= f.5.t %>
+                  icon: <%= f.5.i %>
+                - id: f6
+                  label: <%= f.6.l %>
+                  tooltip: <%= f.6.t %>
+                  icon: <%= f.6.i %>
+                - id: f7
+                  label: <%= f.7.l %>
+                  tooltip: <%= f.7.t %>
+                  icon: <%= f.7.i %>
+                - id: f8
+                  label: <%= f.8.l %>
+                  tooltip: <%= f.8.t %>
+                  icon: <%= f.8.i %>
+                - id: f9
+                  label: <%= f.9.l %>
+                  tooltip: <%= f.9.t %>
+                  icon: <%= f.9.i %>
+              matrix: |-
+                {
+                  "f0": {
+                    "e0": {
+                      "value": "<%= m.f0.e0.v %>",
+                      "tooltip": "<%= m.f0.e0.t %>",
+                      "highlight": "<%= m.f0.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f0.e1.v %>",
+                      "tooltip": "<%= m.f0.e1.t %>",
+                      "highlight": "<%= m.f0.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f0.e2.v %>",
+                      "tooltip": "<%= m.f0.e2.t %>",
+                      "highlight": "<%= m.f0.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f0.e3.v %>",
+                      "tooltip": "<%= m.f0.e3.t %>",
+                      "highlight": "<%= m.f0.e3.h %>"
+                    }
+                  },
+                  "f1": {
+                    "e0": {
+                      "value": "<%= m.f1.e0.v %>",
+                      "tooltip": "<%= m.f1.e0.t %>",
+                      "highlight": "<%= m.f1.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f1.e1.v %>",
+                      "tooltip": "<%= m.f1.e1.t %>",
+                      "highlight": "<%= m.f1.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f1.e2.v %>",
+                      "tooltip": "<%= m.f1.e2.t %>",
+                      "highlight": "<%= m.f1.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f1.e3.v %>",
+                      "tooltip": "<%= m.f1.e3.t %>",
+                      "highlight": "<%= m.f1.e3.h %>"
+                    }
+                  },
+                  "f2": {
+                    "e0": {
+                      "value": "<%= m.f2.e0.v %>",
+                      "tooltip": "<%= m.f2.e0.t %>",
+                      "highlight": "<%= m.f2.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f2.e1.v %>",
+                      "tooltip": "<%= m.f2.e1.t %>",
+                      "highlight": "<%= m.f2.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f2.e2.v %>",
+                      "tooltip": "<%= m.f2.e2.t %>",
+                      "highlight": "<%= m.f2.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f2.e3.v %>",
+                      "tooltip": "<%= m.f2.e3.t %>",
+                      "highlight": "<%= m.f2.e3.h %>"
+                    }
+                  },
+                  "f3": {
+                    "e0": {
+                      "value": "<%= m.f3.e0.v %>",
+                      "tooltip": "<%= m.f3.e0.t %>",
+                      "highlight": "<%= m.f3.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f3.e1.v %>",
+                      "tooltip": "<%= m.f3.e1.t %>",
+                      "highlight": "<%= m.f3.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f3.e2.v %>",
+                      "tooltip": "<%= m.f3.e2.t %>",
+                      "highlight": "<%= m.f3.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f3.e3.v %>",
+                      "tooltip": "<%= m.f3.e3.t %>",
+                      "highlight": "<%= m.f3.e3.h %>"
+                    }
+                  },
+                  "f4": {
+                    "e0": {
+                      "value": "<%= m.f4.e0.v %>",
+                      "tooltip": "<%= m.f4.e0.t %>",
+                      "highlight": "<%= m.f4.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f4.e1.v %>",
+                      "tooltip": "<%= m.f4.e1.t %>",
+                      "highlight": "<%= m.f4.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f4.e2.v %>",
+                      "tooltip": "<%= m.f4.e2.t %>",
+                      "highlight": "<%= m.f4.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f4.e3.v %>",
+                      "tooltip": "<%= m.f4.e3.t %>",
+                      "highlight": "<%= m.f4.e3.h %>"
+                    }
+                  },
+                  "f5": {
+                    "e0": {
+                      "value": "<%= m.f5.e0.v %>",
+                      "tooltip": "<%= m.f5.e0.t %>",
+                      "highlight": "<%= m.f5.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f5.e1.v %>",
+                      "tooltip": "<%= m.f5.e1.t %>",
+                      "highlight": "<%= m.f5.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f5.e2.v %>",
+                      "tooltip": "<%= m.f5.e2.t %>",
+                      "highlight": "<%= m.f5.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f5.e3.v %>",
+                      "tooltip": "<%= m.f5.e3.t %>",
+                      "highlight": "<%= m.f5.e3.h %>"
+                    }
+                  },
+                  "f6": {
+                    "e0": {
+                      "value": "<%= m.f6.e0.v %>",
+                      "tooltip": "<%= m.f6.e0.t %>",
+                      "highlight": "<%= m.f6.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f6.e1.v %>",
+                      "tooltip": "<%= m.f6.e1.t %>",
+                      "highlight": "<%= m.f6.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f6.e2.v %>",
+                      "tooltip": "<%= m.f6.e2.t %>",
+                      "highlight": "<%= m.f6.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f6.e3.v %>",
+                      "tooltip": "<%= m.f6.e3.t %>",
+                      "highlight": "<%= m.f6.e3.h %>"
+                    }
+                  },
+                  "f7": {
+                    "e0": {
+                      "value": "<%= m.f7.e0.v %>",
+                      "tooltip": "<%= m.f7.e0.t %>",
+                      "highlight": "<%= m.f7.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f7.e1.v %>",
+                      "tooltip": "<%= m.f7.e1.t %>",
+                      "highlight": "<%= m.f7.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f7.e2.v %>",
+                      "tooltip": "<%= m.f7.e2.t %>",
+                      "highlight": "<%= m.f7.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f7.e3.v %>",
+                      "tooltip": "<%= m.f7.e3.t %>",
+                      "highlight": "<%= m.f7.e3.h %>"
+                    }
+                  },
+                  "f8": {
+                    "e0": {
+                      "value": "<%= m.f8.e0.v %>",
+                      "tooltip": "<%= m.f8.e0.t %>",
+                      "highlight": "<%= m.f8.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f8.e1.v %>",
+                      "tooltip": "<%= m.f8.e1.t %>",
+                      "highlight": "<%= m.f8.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f8.e2.v %>",
+                      "tooltip": "<%= m.f8.e2.t %>",
+                      "highlight": "<%= m.f8.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f8.e3.v %>",
+                      "tooltip": "<%= m.f8.e3.t %>",
+                      "highlight": "<%= m.f8.e3.h %>"
+                    }
+                  },
+                  "f9": {
+                    "e0": {
+                      "value": "<%= m.f9.e0.v %>",
+                      "tooltip": "<%= m.f9.e0.t %>",
+                      "highlight": "<%= m.f9.e0.h %>"
+                    },
+                    "e1": {
+                      "value": "<%= m.f9.e1.v %>",
+                      "tooltip": "<%= m.f9.e1.t %>",
+                      "highlight": "<%= m.f9.e1.h %>"
+                    },
+                    "e2": {
+                      "value": "<%= m.f9.e2.v %>",
+                      "tooltip": "<%= m.f9.e2.t %>",
+                      "highlight": "<%= m.f9.e2.h %>"
+                    },
+                    "e3": {
+                      "value": "<%= m.f9.e3.v %>",
+                      "tooltip": "<%= m.f9.e3.t %>",
+                      "highlight": "<%= m.f9.e3.h %>"
+                    }
+                  }
+                }
+          x9k2m5p8q1w3r7t6:
+            value: <%= featureTitle %>

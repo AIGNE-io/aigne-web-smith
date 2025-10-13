@@ -1,5 +1,94 @@
 # Changelog
 
+## [1.5.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.3...v1.5.0-beta.4) (2025-10-11)
+
+
+### Bug Fixes
+
+* **core:** update built-in component library for better matching ([#116](https://github.com/AIGNE-io/aigne-web-smith/issues/116)) ([25ad435](https://github.com/AIGNE-io/aigne-web-smith/commit/25ad435bb73e76fc64978e6b7534c14d9c52d549))
+
+## [1.5.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.2...v1.5.0-beta.3) (2025-10-11)
+
+
+### Features
+
+* support clear media file descriptions ([#113](https://github.com/AIGNE-io/aigne-web-smith/issues/113)) ([8b34b83](https://github.com/AIGNE-io/aigne-web-smith/commit/8b34b83e4ea9936fbc5de9c1e8b971135c6b116c))
+
+
+### Bug Fixes
+
+* **publish:** enhance access token retrieval and session check logic ([#114](https://github.com/AIGNE-io/aigne-web-smith/issues/114)) ([a401380](https://github.com/AIGNE-io/aigne-web-smith/commit/a4013804e0c559685e4dcdfac19965d1f5a71022))
+
+## [1.5.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2025-10-11)
+
+
+### Bug Fixes
+
+* more reliable session check in website publishing ([#111](https://github.com/AIGNE-io/aigne-web-smith/issues/111)) ([4eb3525](https://github.com/AIGNE-io/aigne-web-smith/commit/4eb35253d977820a8934080d3519b6c1cf030e63))
+* persist project ID and slug after self-hosted publish ([#110](https://github.com/AIGNE-io/aigne-web-smith/issues/110)) ([e3de418](https://github.com/AIGNE-io/aigne-web-smith/commit/e3de418603fb9b0318747915dc365a23888dc8e4))
+
+## [1.5.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta.1...v1.5.0-beta.1) (2025-10-11)
+
+
+### Features
+
+* **publish:** add navigation and locale support for website publishing ([#107](https://github.com/AIGNE-io/aigne-web-smith/issues/107)) ([157718c](https://github.com/AIGNE-io/aigne-web-smith/commit/157718c32ef7610eb527a352c1744e853cc8a896))
+* support filter and describe and use media files with AI ([#106](https://github.com/AIGNE-io/aigne-web-smith/issues/106)) ([154c8b3](https://github.com/AIGNE-io/aigne-web-smith/commit/154c8b3426cd2a82e50110e7e36ffb489c40f328))
+
+
+### Bug Fixes
+
+* tune update tips and support clearing authorizations ([#109](https://github.com/AIGNE-io/aigne-web-smith/issues/109)) ([b1ee259](https://github.com/AIGNE-io/aigne-web-smith/commit/b1ee2590b896eece1df398309dab53a2d098b97f))
+
+## [1.4.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta...v1.4.1-beta.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* tune prompt and update component library ([#104](https://github.com/AIGNE-io/aigne-web-smith/issues/104)) ([3046098](https://github.com/AIGNE-io/aigne-web-smith/commit/304609865e03fd0fbc677d68964c799b31b51652))
+
+## [1.4.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0...v1.4.1-beta) (2025-10-08)
+
+
+### Bug Fixes
+
+* polish compose page data match fieldCombitions logic ([#102](https://github.com/AIGNE-io/aigne-web-smith/issues/102)) ([dec8f6f](https://github.com/AIGNE-io/aigne-web-smith/commit/dec8f6f432bf11ed10dfc7d45d407b6857578e71))
+
+## [1.4.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.8...v1.4.0) (2025-10-05)
+
+
+### Miscellaneous Chores
+
+* release 1.4.0 ([75a374f](https://github.com/AIGNE-io/aigne-web-smith/commit/75a374f956b17aa9e6424ef3f78c881e3c377251))
+
+## [1.4.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.7...v1.4.0-beta.8) (2025-10-04)
+
+
+### Features
+
+* support both simple and git-based update history ([#98](https://github.com/AIGNE-io/aigne-web-smith/issues/98)) ([e2c0597](https://github.com/AIGNE-io/aigne-web-smith/commit/e2c0597cb866a3ed974f30c06d54bde8288f76a8))
+
+## [1.4.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2025-10-03)
+
+
+### Bug Fixes
+
+* auto include media files in page datasources ([#92](https://github.com/AIGNE-io/aigne-web-smith/issues/92)) ([5b68310](https://github.com/AIGNE-io/aigne-web-smith/commit/5b68310348c97fa578084bdf876ed6dc2a5fe421))
+
+## [1.4.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2025-10-03)
+
+
+### Bug Fixes
+
+* adjust the prompt for the update agent ([#95](https://github.com/AIGNE-io/aigne-web-smith/issues/95)) ([b5c7376](https://github.com/AIGNE-io/aigne-web-smith/commit/b5c737653124b809e0bfe631eb99f71f28df787e))
+
+## [1.4.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2025-10-03)
+
+
+### Bug Fixes
+
+* **core:** more stable generate workflow ([#89](https://github.com/AIGNE-io/aigne-web-smith/issues/89)) ([2c5340b](https://github.com/AIGNE-io/aigne-web-smith/commit/2c5340b1ca4ede8d563f490540d2df063fec6e5a))
+
 ## [1.4.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.3.1-beta.4...v1.4.0-beta.4) (2025-10-03)
 
 

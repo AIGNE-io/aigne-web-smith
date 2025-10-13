@@ -67,7 +67,7 @@ sourcesPath:  # Source code paths to analyze
   - ./CHANGELOG.md
   - ./agents
 lastGitHead: 154c8b3426cd2a82e50110e7e36ffb489c40f328
-appUrl: https://bbqaxk7hdl4m3ns4fra7i7wp4orvcpyep5tn6fzi7l4-192-168-1-38.ip.abtnet.io/
+appUrl: https://docsmith.aigne.io
 boardId: aigne-web-smith
 # Checkout ID for document deployment service
 checkoutId: ""

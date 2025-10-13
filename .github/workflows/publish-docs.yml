@@ -12,16 +12,6 @@ on:
       - main
     paths:
       - ".aigne/**"
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - edited
-      - synchronize
-    branches:
-      - master
-      - main
-      - dev
       
 jobs:
   publish-docs:

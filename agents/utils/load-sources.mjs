@@ -1,4 +1,4 @@
-import { access, readFile, stat } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import imageSize from "image-size";
 import { parse } from "yaml";
@@ -9,35 +9,15 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
-import { getFilesWithGlob, getMimeType, loadGitignore } from "../../utils/file-utils.mjs";
-import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
 import {
-  getCurrentGitHead,
-  getModifiedFilesBetweenCommits,
-  isGlobPattern,
-} from "../../utils/utils.mjs";
-
-const getFileType = (filePath) => {
-  const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
-  const videoExts = [
-    ".mp4",
-    ".mpeg",
-    ".mpg",
-    ".mov",
-    ".avi",
-    ".flv",
-    ".mkv",
-    ".webm",
-    ".wmv",
-    ".m4v",
-    ".3gpp",
-  ];
-
-  if (imageExts.includes(ext)) return "image";
-  if (videoExts.includes(ext)) return "video";
-  return "media";
-};
+  getFileType,
+  getMimeType,
+  isMediaFile,
+  loadFilesFromSourcePaths,
+  loadMediaFilesFromAssets,
+} from "../../utils/file-utils.mjs";
+import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
+import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../../utils/utils.mjs";
 
 const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);
@@ -113,125 +93,18 @@ export default async function loadSources({
     // @FIXME: 强制添加 components，后续需要修改为通过远程加载
     paths.push(path.join(import.meta.dirname, "../../", COMPONENTS_DIR));
 
-    let allFiles = [];
-
-    for (const dir of paths) {
-      try {
-        if (typeof dir !== "string") {
-          console.warn(`Invalid source path: ${dir}`);
-          continue;
-        }
-
-        // First try to access as a file or directory
-        const stats = await stat(dir);
-
-        if (stats.isFile()) {
-          // If it's a file, add it directly without filtering
-          allFiles.push(dir);
-        } else if (stats.isDirectory()) {
-          // If it's a directory, use the existing glob logic
-          // Load .gitignore for this directory
-          const gitignorePatterns = await loadGitignore(dir);
-
-          // Prepare patterns
-          let finalIncludePatterns = null;
-          let finalExcludePatterns = null;
-
-          if (useDefaultPatterns) {
-            // Merge with default patterns
-            const userInclude = includePatterns
-              ? Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns]
-              : [];
-            const userExclude = excludePatterns
-              ? Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns]
-              : [];
-
-            finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
-            finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
-          } else {
-            // Use only user patterns
-            if (includePatterns) {
-              finalIncludePatterns = Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns];
-            }
-            if (excludePatterns) {
-              finalExcludePatterns = Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns];
-            }
-          }
-
-          // Get files using glob
-          const filesInDir = await getFilesWithGlob(
-            dir,
-            finalIncludePatterns,
-            finalExcludePatterns,
-            gitignorePatterns,
-          );
-          allFiles = allFiles.concat(filesInDir);
-        }
-      } catch (err) {
-        if (err.code === "ENOENT") {
-          // Path doesn't exist as file or directory, try as glob pattern
-          try {
-            // Check if it looks like a glob pattern
-            const isGlobPatternResult = isGlobPattern(dir);
-
-            if (isGlobPatternResult) {
-              // Use glob to find matching files from current working directory
-              const { glob } = await import("glob");
-              const matchedFiles = await glob(dir, {
-                absolute: true,
-                nodir: true, // Only files, not directories
-                dot: false, // Don't include hidden files
-              });
-
-              if (matchedFiles.length > 0) {
-                allFiles = allFiles.concat(matchedFiles);
-              }
-            }
-          } catch (globErr) {
-            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
-          }
-        } else {
-          throw err;
-        }
-      }
-    }
+    const allFiles = await loadFilesFromSourcePaths(paths, {
+      includePatterns,
+      excludePatterns,
+      useDefaultPatterns,
+      defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
+      defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
+    });
 
     files = files.concat(allFiles);
   }
 
   files = [...new Set(files)];
-
-  // Define media file extensions
-  const mediaExtensions = [
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".gif",
-    ".bmp",
-    ".webp",
-    ".svg",
-    ".heic",
-    ".heif",
-    ".mp4",
-    ".mpeg",
-    ".mpg",
-    ".mov",
-    ".avi",
-    ".flv",
-    ".mkv",
-    ".webm",
-    ".wmv",
-    ".m4v",
-    ".3gpp",
-  ];
 
   // Separate source files from media files
   const sourceFiles = [];
@@ -241,48 +114,19 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
-  // Load generated images from .aigne/web-smith/assets if exists
+  // Load generated media files from .aigne/web-smith/assets if exists
   const assetsDir = path.join(process.cwd(), ".aigne", "web-smith", "assets");
-  try {
-    await access(assetsDir);
-    const { glob } = await import("glob");
-    const assetImageFiles = await glob("*.{jpg,jpeg,png,gif,bmp,webp,svg}", {
-      cwd: assetsDir,
-      absolute: true,
-      nodir: true,
-    });
-
-    for (const imageFile of assetImageFiles) {
-      files.push(imageFile);
-    }
-  } catch {
-    // Assets directory doesn't exist, skip
-  }
+  const assetMediaFiles = await loadMediaFilesFromAssets(assetsDir);
+  files.push(...assetMediaFiles);
 
   let filteredImageCount = 0;
 
   await Promise.all(
     files.map(async (file) => {
-      const ext = path.extname(file).toLowerCase();
-
-      if (mediaExtensions.includes(ext)) {
+      if (isMediaFile(file)) {
         // This is a media file
         const relativePath = path.relative(pagesDir, file);
         const fileName = path.basename(file);
-        const baseName = path.parse(fileName).name;
-        let context = "";
-
-        // Check if this is from assets directory and has metadata
-        if (file.includes(".aigne/web-smith/assets")) {
-          const mdFile = path.join(path.dirname(file), `${baseName}.md`);
-          try {
-            await access(mdFile);
-            const mdContent = await readFile(mdFile, "utf8");
-            context = mdContent;
-          } catch {
-            // No metadata file
-          }
-        }
 
         const mediaItem = {
           name: fileName,
@@ -291,11 +135,6 @@ export default async function loadSources({
           mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
           mimeType: getMimeType(file),
         };
-
-        // Add context if available
-        if (context) {
-          mediaItem.context = context;
-        }
 
         // For image files, get dimensions and filter by width
         if (mediaItem.type === "image") {
@@ -455,33 +294,6 @@ export default async function loadSources({
     }
   }
 
-  // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Website\n\n";
-
-  if (mediaFiles.length > 0) {
-    // Helper function to determine file type from extension
-
-    const mediaYaml = mediaFiles;
-
-    assetsContent += "```yaml\n";
-    assetsContent += "assets:\n";
-    mediaYaml.forEach((asset) => {
-      assetsContent += `  - name: "${asset.name}"\n`;
-      assetsContent += `    path: "${asset.path}"\n`;
-      assetsContent += `    type: "${asset.type}"\n`;
-      assetsContent += `    mediaKitPath: "${asset.mediaKitPath}"\n`;
-      if (asset.context) {
-        // Include context as a multiline string
-        const contextLines = asset.context
-          .split("\n")
-          .map((line) => `      ${line}`)
-          .join("\n");
-        assetsContent += `    context: |\n${contextLines}\n`;
-      }
-    });
-    assetsContent += "```\n";
-  }
-
   // Count words and lines in allSources
   let totalWords = 0;
   let totalLines = 0;
@@ -522,7 +334,6 @@ export default async function loadSources({
     totalWords,
     totalLines,
     mediaFiles,
-    assetsContent,
   };
 }
 

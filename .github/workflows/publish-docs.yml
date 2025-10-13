@@ -72,6 +72,7 @@ jobs:
             git add -A
             git commit -m "chore(docs): push doc publish cache [skip ci]"
             BRANCH="${{ github.head_ref || github.ref_name }}"
+            git pull origin "${BRANCH}"
             git push origin HEAD:refs/heads/"${BRANCH}"
           else
             echo "No changes to commit."

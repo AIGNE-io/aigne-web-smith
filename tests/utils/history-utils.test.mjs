@@ -180,7 +180,7 @@ describe("History Utils", () => {
     // Test corrupted YAML file
     const historyPath = join(process.cwd(), WEB_SMITH_DIR, "history.yaml");
     mkdirSync(join(process.cwd(), WEB_SMITH_DIR), { recursive: true });
-    writeFileSync(historyPath, "invalid: yaml: content: 「「「", "utf8");
+    writeFileSync(historyPath, "invalid: yaml: content: [[[", "utf8");
 
     history = getHistory();
     expect(history.entries).toBeDefined();

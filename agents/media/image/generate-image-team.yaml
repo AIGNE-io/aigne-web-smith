@@ -8,7 +8,7 @@ skills:
       - ./generate-image.yaml
     iterate_on: imageRequirements
     concurrency: 3
-  # - ./save-images.mjs
+  - ./save-images.mjs
 input_schema:
   type: object
   properties:

@@ -1,8 +1,8 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
-import { MEDIA_KIT_PROTOCOL } from "../../utils/constants.mjs";
-import { copyGeneratedImages, getFileType } from "../../utils/file-utils.mjs";
+import { MEDIA_KIT_PROTOCOL } from "../../../utils/constants.mjs";
+import { copyGeneratedImages, getFileType } from "../../../utils/file-utils.mjs";
 
 export default async function saveImages({ imageRequirements = [] }) {
   // If no images to save, exit early
@@ -37,10 +37,10 @@ export default async function saveImages({ imageRequirements = [] }) {
         const relativePath = path.relative(process.cwd(), image.path);
 
         // Read context from metadata file
-        let context = "";
+        let description = "";
         try {
           const mdContent = await readFile(image.metadataPath, "utf8");
-          context = mdContent;
+          description = mdContent;
         } catch {
           // No metadata file
         }
@@ -50,12 +50,12 @@ export default async function saveImages({ imageRequirements = [] }) {
         message += `    type: "${getFileType(image.path)}"\n`;
         message += `    mediaKitPath: "${MEDIA_KIT_PROTOCOL}${fileName}"\n`;
 
-        if (context) {
-          const contextLines = context
+        if (description) {
+          const descriptionLines = description
             .split("\n")
             .map((line) => `      ${line}`)
             .join("\n");
-          message += `    context: |\n${contextLines}\n`;
+          message += `    description: |\n${descriptionLines}\n`;
         }
       }
     }

@@ -47,25 +47,29 @@ You have access to an **image generation tool** that can create high-quality, AI
 **When to Use:**
 
 **IMPORTANT: Prioritize using existing images from datasources first.** Only invoke the image generation tool when:
-- Existing images from <datasources> are insufficient or unavailable for the required sections
+- Configure hero section images, **ensuring every page has a hero section image configured**
+- Existing images from <datasources> are insufficient or unavailable for the hero sections
 - The visual presentation requires custom imagery that better aligns with specific content themes
-- Sections like hero, features, or showcases need tailored illustrations that existing resources cannot provide
-- Ensure every hero section has an image display
 - You need to create consistent visual identity across related sections that existing assets don't support
 
 **Field Guidelines:**
 
 When invoking the tool, provide clear and specific information:
 
-- imageName: Use camelCase naming that reflects the section and purpose (e.g., `hero-main-visual`, `feature-dashboard-preview`, `testimonial-avatar`)
+- imageName: Use kebab case naming that reflects the section and purpose (e.g., `hero-main-visual`, `feature-dashboard-preview`, `testimonial-avatar`)
 - aiPrompt: Provide detailed, context-rich descriptions for generating web-optimized images. Include:
-  - Webpage context: Specify where the image will be used (e.g., "hero section," "feature showcase," "testimonial background")
+  - Webpage context: Specify where the image will be used (e.g., "hero section," "hero background")
   - Visual style: Define design approach (e.g., "modern minimalist," "vibrant gradient," "professional corporate")
   - Subject matter: Describe the main content with specificity
   - Composition: Indicate layout and perspective (e.g., "centered layout," "diagonal composition," "top-down view")
   - Mood and tone: Convey the emotional impact (e.g., "trustworthy and professional," "energetic and innovative")
   - Example: Instead of "a dashboard interface," use "a modern SaaS analytics dashboard with dark mode UI, featuring gradient data visualization cards, clean typography, and a professional blue-purple color scheme for a hero section visual"
-- imageDescription: Explain the image's role in the page structure and what message it should convey to users
+- imageDescription: 
+  - Explain the image's role in the page structure
+  - Keep it between (3-4 sentences)
+  - Be specific and descriptive about visual content
+  - Main subject or focus of the media
+  - Key visual elements and composition
 
 **Best Practices:**
 

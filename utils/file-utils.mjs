@@ -468,15 +468,10 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
           const mdFilename = `${imageReq.imageName}.md`;
           const mdPath = path.join(assetsDir, mdFilename);
 
-          // Build markdown content with image description and page context
-          let mdContent = `# ${imageReq.imageName}\n\n`;
-
+          // Write image file description
           if (imageReq.imageDescription) {
-            mdContent += `## Description\n\n${imageReq.imageDescription}\n\n`;
+            await writeFile(mdPath, imageReq.imageDescription, "utf8");
           }
-
-          // Write markdown file
-          await writeFile(mdPath, mdContent, "utf8");
 
           processedImagePaths.push({
             imageName: imageReq.imageName,

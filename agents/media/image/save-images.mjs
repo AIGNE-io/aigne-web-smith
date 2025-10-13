@@ -2,17 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
 import { MEDIA_KIT_PROTOCOL } from "../../utils/constants.mjs";
-import { copyGeneratedImages } from "../../utils/file-utils.mjs";
-
-const getFileType = (filePath) => {
-  const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
-
-  if (imageExts.includes(ext)) return "image";
-  if (videoExts.includes(ext)) return "video";
-  return "media";
-};
+import { copyGeneratedImages, getFileType } from "../../utils/file-utils.mjs";
 
 export default async function saveImages({ imageRequirements = [] }) {
   // If no images to save, exit early

@@ -2,17 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
 import { MEDIA_KIT_PROTOCOL } from "../../utils/constants.mjs";
-import { copyGeneratedImages } from "../../utils/file-utils.mjs";
-
-const getFileType = (filePath) => {
-  const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-  const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
-
-  if (imageExts.includes(ext)) return "image";
-  if (videoExts.includes(ext)) return "video";
-  return "media";
-};
+import { copyGeneratedImages, getFileType } from "../../utils/file-utils.mjs";
 
 export default async function checkNeedGenerateImages(
   { needsAdditionalImages, imageRequirements = [], assetsContent = "", mediaFiles = [] },
@@ -95,10 +85,9 @@ export default async function checkNeedGenerateImages(
           const relativePath = path.relative(process.cwd(), image.path);
 
           // Read metadata from .md file
-          let context = "";
+          let description = "";
           try {
-            const mdContent = await readFile(image.metadataPath, "utf8");
-            context = mdContent;
+            description = await readFile(image.metadataPath, "utf8");
           } catch {
             // No metadata file
           }
@@ -110,8 +99,8 @@ export default async function checkNeedGenerateImages(
             mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
           };
 
-          if (context) {
-            mediaItem.context = context;
+          if (description) {
+            mediaItem.description = description;
           }
 
           updatedMediaFiles.push(mediaItem);

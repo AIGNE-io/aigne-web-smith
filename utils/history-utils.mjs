@@ -3,8 +3,8 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, stringify } from "yaml";
 import { WEB_SMITH_DIR } from "./constants.mjs";
-import { ensureDir } from "./utils.mjs";
 import { isInGitRepository } from "./file-utils.mjs";
+import { ensureDir } from "./utils.mjs";
 
 const HISTORY_FILE = "history.yaml";
 

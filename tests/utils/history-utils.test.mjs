@@ -1,4 +1,4 @@
-import { mock, spyOn, afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { WEB_SMITH_DIR } from "../../utils/constants.mjs";
@@ -66,7 +66,7 @@ describe("History Utils", () => {
 
     // Verify YAML record was created
     const history = getHistory();
-    console.log('history123123123', history);
+    console.log("history123123123", history);
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Test feedback");
     expect(history.entries[0].operation).toBe("page_update");

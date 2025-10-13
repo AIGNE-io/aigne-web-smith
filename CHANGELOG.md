@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.5...v1.5.0-beta.6) (2025-10-13)
+
+
+### Bug Fixes
+
+* disable git based update history within git repo and update docs ([#121](https://github.com/AIGNE-io/aigne-web-smith/issues/121)) ([e2fdbd2](https://github.com/AIGNE-io/aigne-web-smith/commit/e2fdbd24dae1792eb23313b17dfeb8fbfaf31c92))
+
 ## [1.5.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.4...v1.5.0-beta.5) (2025-10-13)
 
 

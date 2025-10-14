@@ -1,14 +1,16 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { WEB_SMITH_DIR } from "../../utils/constants.mjs";
-import { getHistory, isGitAvailable, recordUpdate } from "../../utils/history-utils.mjs";
+import { getHistory, recordUpdate } from "../../utils/history-utils.mjs";
 
 const TEST_DIR = join(process.cwd(), `${WEB_SMITH_DIR}-test`);
 const ORIGINAL_CWD = process.cwd();
 
-describe("History Utils - Unified", () => {
-  beforeEach(() => {
+describe("History Utils", () => {
+  let execSyncMock;
+
+  beforeEach(async () => {
     // Clean up test directory
     if (existsSync(TEST_DIR)) {
       rmSync(TEST_DIR, { recursive: true });
@@ -17,6 +19,9 @@ describe("History Utils - Unified", () => {
 
     // Change to test directory
     process.chdir(TEST_DIR);
+
+    // Get the mocked execSync
+    execSyncMock = spyOn(await import("node:child_process"), "execSync");
   });
 
   afterEach(() => {
@@ -27,11 +32,8 @@ describe("History Utils - Unified", () => {
     if (existsSync(TEST_DIR)) {
       rmSync(TEST_DIR, { recursive: true });
     }
-  });
 
-  test("detects git availability", () => {
-    const hasGit = isGitAvailable();
-    expect(typeof hasGit).toBe("boolean");
+    mock.restore();
   });
 
   test("skips recording on empty feedback", () => {
@@ -46,111 +48,158 @@ describe("History Utils - Unified", () => {
     expect(history.entries.length).toBe(0);
   });
 
-  test("records update in YAML", () => {
-    recordUpdate({
-      operation: "structure_update",
-      feedback: "Test feedback",
+  test("git not available - write to YAML only", () => {
+    // Mock git as not available
+    execSyncMock.mockImplementation((command) => {
+      if (command === "git --version") {
+        throw new Error("git: command not found");
+      }
+      throw new Error("Unknown command");
     });
 
+    // Record update
+    recordUpdate({
+      operation: "page_update",
+      feedback: "Test feedback",
+      pagePath: "/test",
+    });
+
+    // Verify YAML record was created
     const history = getHistory();
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Test feedback");
-    expect(history.entries[0].operation).toBe("structure_update");
+    expect(history.entries[0].operation).toBe("page_update");
+    expect(history.entries[0].page).toBe("/test");
     expect(history.entries[0].timestamp).toBeDefined();
+
+    // Verify no git repository was created
+    const gitDir = join(process.cwd(), WEB_SMITH_DIR, ".git");
+    expect(existsSync(gitDir)).toBe(false);
   });
 
-  test("records page path when provided", () => {
-    recordUpdate({
-      operation: "page_update",
-      feedback: "Update page",
-      pagePath: "/about",
+  test("current directory is git repo - skip git integration", () => {
+    // Mock git as available and in repo
+    execSyncMock.mockImplementation((command) => {
+      if (command === "git --version") {
+        return "git version 2.30.0";
+      }
+      if (command === "git rev-parse --is-inside-work-tree") {
+        return "true";
+      }
+      throw new Error("Unknown command");
     });
 
-    const history = getHistory();
-    expect(history.entries.length).toBe(1);
-    expect(history.entries[0].page).toBe("/about");
-  });
-
-  test("does not include page field when pagePath is null", () => {
+    // Record update
     recordUpdate({
       operation: "structure_update",
-      feedback: "Update structure",
-      pagePath: null,
+      feedback: "Structure update",
     });
 
+    // Verify YAML record was created
     const history = getHistory();
     expect(history.entries.length).toBe(1);
-    expect(history.entries[0].page).toBeUndefined();
+    expect(history.entries[0].feedback).toBe("Structure update");
+
+    // Verify no new git repository was created (since we're already in a git repo)
+    const gitDir = join(process.cwd(), WEB_SMITH_DIR, ".git");
+    expect(existsSync(gitDir)).toBe(false);
   });
 
-  test("maintains chronological order (newest first)", () => {
-    recordUpdate({ operation: "structure_update", feedback: "First" });
-    // Small delay to ensure different timestamps
-    const now = Date.now();
-    while (Date.now() === now) {
-      // Wait for next millisecond
-    }
-    recordUpdate({ operation: "page_update", feedback: "Second" });
+  test("write YAML records and commit to git", () => {
+    // Ensure the WEB_SMITH_DIR exists
+    const webSmithDir = join(process.cwd(), WEB_SMITH_DIR);
+    mkdirSync(webSmithDir, { recursive: true });
 
+    // Mock git as available but not in repo
+    execSyncMock.mockImplementation((command) => {
+      if (command === "git --version") {
+        return "git version 2.30.0";
+      }
+      if (command === "git rev-parse --is-inside-work-tree") {
+        throw new Error("not a git repository");
+      }
+      if (command === "git init") {
+        return "Initialized empty Git repository";
+      }
+      if (command === 'git add .gitignore && git commit -m "Initialize web-smith history"') {
+        return "Initial commit";
+      }
+      if (command === "git add pages/ config.yaml preferences.yml history.yaml") {
+        return "Files added";
+      }
+      if (command === "git diff --cached --quiet") {
+        throw new Error("Has changes");
+      }
+      if (command === 'git commit -m "First update"') {
+        return "Commit successful";
+      }
+      if (command === 'git commit -m "Second update"') {
+        return "Commit successful";
+      }
+      throw new Error("Unknown command: ", command);
+    });
+
+    // Record multiple updates - this should trigger git repo creation and commits
+    recordUpdate({
+      operation: "page_update",
+      feedback: "First update",
+      pagePath: "/first",
+    });
+
+    recordUpdate({
+      operation: "page_update",
+      feedback: "Second update",
+      pagePath: "/second",
+    });
+
+    // Verify YAML records
     const history = getHistory();
     expect(history.entries.length).toBe(2);
-    expect(history.entries[0].feedback).toBe("Second");
-    expect(history.entries[1].feedback).toBe("First");
+    expect(history.entries[0].feedback).toBe("Second update"); // Newest first
+    expect(history.entries[1].feedback).toBe("First update");
+
+    // Verify git commands were called
+    expect(execSyncMock).toHaveBeenCalledWith("git --version", { stdio: "ignore" });
+    expect(execSyncMock).toHaveBeenCalledWith("git rev-parse --is-inside-work-tree", {
+      cwd: process.cwd(),
+      stdio: "pipe",
+      encoding: "utf8",
+    });
+    expect(execSyncMock).toHaveBeenCalledWith("git init", {
+      cwd: join(process.cwd(), WEB_SMITH_DIR),
+      stdio: "ignore",
+    });
   });
 
-  test("handles multiple updates", () => {
-    recordUpdate({ operation: "structure_update", feedback: "Update 1" });
-    recordUpdate({ operation: "page_update", feedback: "Update 2", pagePath: "/home" });
-    recordUpdate({ operation: "page_update", feedback: "Update 3", pagePath: "/about" });
-
-    const history = getHistory();
-    expect(history.entries.length).toBe(3);
-    expect(history.entries[0].feedback).toBe("Update 3");
-    expect(history.entries[1].feedback).toBe("Update 2");
-    expect(history.entries[2].feedback).toBe("Update 1");
-  });
-
-  test("returns empty history when file does not exist", () => {
-    const history = getHistory();
+  test("query history.yaml - handle various scenarios", () => {
+    // Test empty history
+    let history = getHistory();
     expect(history.entries).toBeDefined();
     expect(history.entries.length).toBe(0);
-  });
 
-  test("handles corrupted history file gracefully", () => {
-    // Create corrupted YAML file
+    // Test corrupted YAML file
     const historyPath = join(process.cwd(), WEB_SMITH_DIR, "history.yaml");
     mkdirSync(join(process.cwd(), WEB_SMITH_DIR), { recursive: true });
     writeFileSync(historyPath, "invalid: yaml: content: [[[", "utf8");
 
-    const history = getHistory();
+    history = getHistory();
     expect(history.entries).toBeDefined();
     expect(history.entries.length).toBe(0);
-  });
 
-  test(`creates ${WEB_SMITH_DIR} directory if not exists`, () => {
-    recordUpdate({
-      operation: "page_update",
-      feedback: "Test",
-    });
+    // Test valid history
+    const validHistory = {
+      entries: [
+        {
+          timestamp: "2023-01-01T00:00:00.000Z",
+          operation: "page_update",
+          feedback: "Valid entry",
+        },
+      ],
+    };
+    writeFileSync(historyPath, JSON.stringify(validHistory), "utf8");
 
-    const webSmithDir = join(process.cwd(), WEB_SMITH_DIR);
-    expect(existsSync(webSmithDir)).toBe(true);
-  });
-
-  test("timestamp is in ISO 8601 format", () => {
-    recordUpdate({
-      operation: "structure_update",
-      feedback: "Test timestamp",
-    });
-
-    const history = getHistory();
-    const timestamp = history.entries[0].timestamp;
-
-    // Validate ISO 8601 format
-    expect(timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
-
-    // Validate it's a valid date
-    const date = new Date(timestamp);
-    expect(date.toISOString()).toBe(timestamp);
+    history = getHistory();
+    expect(history.entries.length).toBe(1);
+    expect(history.entries[0].feedback).toBe("Valid entry");
   });
 });

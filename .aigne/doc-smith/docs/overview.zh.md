@@ -1,0 +1,86 @@
+# 概述
+
+AIGNE WebSmith 是一款由 AI 驱动的工具，旨在自动化创建内容丰富、专业的网站。它能处理从规划网站结构、撰写内容到生成最终页面并在线发布的全过程。这使你能够以最少的精力，在无需任何技术专长的情况下，将一个简单的想法变成一个已上线、经过 SEO 优化的网站。
+
+WebSmith 构建于强大的 [AIGNE Framework](https://www.aigne.io/framework) 之上，如同你的自动化 Web 开发团队。你只需提供网站的构想，AI Agent 就会完成繁重的工作，确保交付高质量的成果，随时可以面向你的受众。
+
+## 主要特性
+
+WebSmith 通过一套智能特性简化了整个网站创建过程。
+
+<x-cards data-columns="3">
+  <x-card data-title="AI 驱动生成" data-icon="lucide:brain-circuit">
+    WebSmith 使用 AI 智能规划网站结构，为每个页面生成引人入胜的相关内容，并确保其从一开始就为搜索引擎进行了优化。
+  </x-card>
+  <x-card data-title="专业模板" data-icon="lucide:layout-template">
+    你的网站将使用一个包含现代化、专业设计的组件库来构建。最终的模板是完全响应式的，确保你的网站在桌面、平板和移动设备上都有出色的显示效果。
+  </x-card>
+  <x-card data-title="一键发布" data-icon="lucide:rocket">
+    网站生成后，只需一个命令即可发布。WebSmith 会处理整个过程，并为你提供一个可立即与世界分享的实时 URL。
+  </x-card>
+</x-cards>
+
+## 工作原理
+
+整个流程设计得简单高效。你无需执行一系列复杂的技术步骤，而是通过简单的命令和描述与系统交互。
+
+```d2
+direction: down
+
+User: {
+  shape: c4-person
+  label: "你"
+}
+
+Define-Requirements: {
+  label: "1. 定义你的网站"
+  style.fill: "#f0f9ff"
+}
+
+AI-Generation: {
+  label: "2. AI 生成网站"
+  style.fill: "#f0f9ff"
+
+  sub-process: {
+    direction: right
+    Plan-Structure: "规划结构"
+    Write-Content: "撰写内容"
+    Build-Pages: "构建页面"
+  }
+}
+
+Publish: {
+  label: "3. 在线发布"
+  style.fill: "#f0f9ff"
+}
+
+Live-Website: {
+  label: "线上网站"
+  shape: cylinder
+  style.fill: "#ecfdf5"
+}
+
+User -> Define-Requirements: "提供一个关于\n你需求的简单描述"
+Define-Requirements -> AI-Generation: "'aigne web generate'"
+AI-Generation -> Publish: "生成的文件"
+Publish -> Live-Website: "'aigne web publish'"
+```
+
+1.  **描述你的网站**：首先，你需要创建一个简单的文件，概述你的网站主题、目标受众以及需要的页面。这可以是一个新的 SaaS 产品网站、个人作品集或技术文档中心。
+2.  **通过命令生成**：运行 `aigne web generate` 命令。AI 会分析你的需求，规划出最佳的网站结构，撰写所有内容，并使用专业的设计组件组装页面。
+3.  **即时发布**：准备就绪后，运行 `aigne web publish` 命令。WebSmith 会上传所有必要的文件，并为你的新网站提供一个实时 URL。
+
+## WebSmith 适用于哪些用户？
+
+AIGNE WebSmith 非常适合任何需要快速创建高质量网站的人，包括：
+
+*   **中小型企业主**：建立专业的线上形象以吸引客户。
+*   **开发者与初创公司**：为你的产品快速创建营销网站、博客或文档。
+*   **市场营销人员**：无需依赖开发团队即可部署登陆页面和内容中心。
+*   **创作者**：轻松建立个人品牌或作品集网站。
+
+## 后续步骤
+
+现在你已经对 AIGNE WebSmith 的功能有了宏观的了解，可以准备创建你的第一个网站了。
+
+*   **[快速入门](./getting-started.md)**：遵循我们的指南安装必要的工具，并在 30 分钟内生成你的第一个网站。

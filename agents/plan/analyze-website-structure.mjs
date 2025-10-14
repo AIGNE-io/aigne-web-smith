@@ -179,9 +179,8 @@ export default async function analyzeWebsiteStructure(
     ...result,
     feedback: "", // clear feedback
     projectInfoMessage: message,
-    originalWebsiteStructure: originalWebsiteStructure
-      ? originalWebsiteStructure
-      : JSON.parse(JSON.stringify(result.websiteStructure || [])),
+    // update originalWebsiteStructure
+    originalWebsiteStructure: JSON.parse(JSON.stringify(result.websiteStructure || [])),
   };
 }
 analyzeWebsiteStructure.taskTitle = "Analyze website structure need generate or update";

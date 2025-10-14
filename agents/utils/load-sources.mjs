@@ -14,7 +14,6 @@ import {
 } from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
 import { buildMediaItem } from "../../utils/media-utils.mjs";
-import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../../utils/utils.mjs";
 
 const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);
@@ -78,7 +77,6 @@ export default async function loadSources({
   pagePath,
   projectId,
   useDefaultPatterns = true,
-  lastGitHead,
   media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
@@ -252,20 +250,7 @@ export default async function loadSources({
   }
 
   // Get git change detection data
-  let modifiedFiles = [];
-  let currentGitHead = null;
-
-  if (lastGitHead) {
-    try {
-      currentGitHead = getCurrentGitHead();
-      if (currentGitHead && currentGitHead !== lastGitHead) {
-        modifiedFiles = getModifiedFilesBetweenCommits(lastGitHead, currentGitHead);
-        console.log(`Detected ${modifiedFiles.length} modified files since last generation`);
-      }
-    } catch (error) {
-      console.warn("Failed to detect git changes:", error.message);
-    }
-  }
+  const modifiedFiles = [];
 
   // Count words and lines in allSources
   let totalWords = 0;

@@ -58,6 +58,7 @@ export default async function savePages({
       navigationLocalesMap,
     );
     const sitemapPath = join(outputDir, "_sitemap.yaml");
+
     await writeFile(sitemapPath, sitemap, "utf8");
   } catch (err) {
     console.error("Failed to save _sitemap.yaml:", err.message);

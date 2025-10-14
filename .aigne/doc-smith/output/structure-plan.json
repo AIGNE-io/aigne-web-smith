@@ -50,7 +50,7 @@
     "title": "Generating a Website",
     "description": "Details the 'generate' command and explains how to define your website requirements in the configuration file for the AI to build.",
     "path": "/core-tasks/generating-a-website",
-    "sourceIds": ["README.md", "aigne.yaml", "agents/generate/index.yaml"],
+    "sourceIds": ["README.md", "aigne.yaml", "agents/generate/index.yaml", "agents/init/index.mjs"],
     "parentId": "/core-tasks"
   },
   {
@@ -111,8 +111,9 @@
     "sourceIds": [
       "README.md",
       "aigne.yaml",
-      "agents/update/index.yaml",
+      "agents/generate/index.yaml",
       "agents/plan/update-website-structure.yaml",
+      "agents/update/index.yaml",
       "agents/update/update-page-detail.yaml"
     ],
     "parentId": "/core-tasks"
@@ -124,11 +125,8 @@
     "sourceIds": [
       "aigne.yaml",
       "agents/plan/index.yaml",
+      "agents/generate/index.yaml",
       "agents/plan/update-website-structure.yaml",
-      "agents/plan/website-structure-tools/add-page.mjs",
-      "agents/plan/website-structure-tools/delete-page.mjs",
-      "agents/plan/website-structure-tools/update-page.mjs",
-      "agents/plan/website-structure-tools/move-page.mjs",
       "types/website-structure-schema.mjs"
     ],
     "parentId": "/core-tasks/updating-website-content"
@@ -141,10 +139,6 @@
       "aigne.yaml",
       "agents/update/index.yaml",
       "agents/update/update-page-detail.yaml",
-      "agents/update/page-detail-tools/add-section.mjs",
-      "agents/update/page-detail-tools/delete-section.mjs",
-      "agents/update/page-detail-tools/update-section.mjs",
-      "agents/update/page-detail-tools/move-section.mjs",
       "types/page-detail-schema.mjs"
     ],
     "parentId": "/core-tasks/updating-website-content"

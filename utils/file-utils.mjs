@@ -10,7 +10,7 @@ import { isGlobPattern } from "./utils.mjs";
  * @param {string} dir - Directory path to check
  * @returns {boolean} True if inside a git repository
  */
-function isInGitRepository(dir) {
+export function isInGitRepository(dir) {
   try {
     execSync("git rev-parse --is-inside-work-tree", {
       cwd: dir,

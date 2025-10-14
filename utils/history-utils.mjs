@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse, stringify } from "yaml";
 import { WEB_SMITH_DIR } from "./constants.mjs";
+import { isInGitRepository } from "./file-utils.mjs";
 import { ensureDir } from "./utils.mjs";
 
 const HISTORY_FILE = "history.yaml";
@@ -156,8 +157,8 @@ export function recordUpdate({ operation, feedback, pagePath = null }) {
   // Always record in YAML
   recordUpdateYaml({ operation, feedback, pagePath });
 
-  // Also record in git if available
-  if (isGitAvailable()) {
+  // Also record in git if git is available and not in a git repository
+  if (isGitAvailable() && !isInGitRepository(process.cwd())) {
     // Initialize git repo on first update if not exists
     ensureGitRepo();
     recordUpdateGit({ operation, feedback, pagePath });

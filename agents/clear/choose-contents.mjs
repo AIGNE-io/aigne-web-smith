@@ -1,52 +1,9 @@
 import { rm } from "node:fs/promises";
-import { resolve as resolvePath } from "node:path";
+import { join, resolve as resolvePath } from "node:path";
+import fastGlob from "fast-glob";
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
 import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
-
-const TARGET_METADATA = {
-  workspace: {
-    label: "workspace",
-    description: ({ tmpDir }) =>
-      `Delete website structure in './${toDisplayPath(tmpDir)}' (pages stays)`,
-  },
-  generatedPages: {
-    label: "generated pages",
-    description: ({ outputDir }) =>
-      `Delete all generated pages in './${toDisplayPath(outputDir)}' (website structure stays)`,
-  },
-  websiteConfig: {
-    label: "website configuration",
-    description: ({ finalConfigPath }) =>
-      `Delete the config.yaml file './${toDisplayPath(finalConfigPath)}'(requires 'aigne web init' to regenerate)`,
-  },
-  authTokens: {
-    label: "authorizations",
-    description: () =>
-      `Delete authorization information in '${WEB_SMITH_ENV_FILE}' (requires re-authorization after clearing).`,
-  },
-  deploymentConfig: {
-    label: "deployment config",
-    description: ({ finalConfigPath }) =>
-      `Delete appUrl from './${toDisplayPath(finalConfigPath)}'.`,
-  },
-  mediaDescription: {
-    label: "media file descriptions",
-    description: ({ mediaDescriptionPath }) =>
-      `Delete AI-generated descriptions in './${toDisplayPath(mediaDescriptionPath)}' (will regenerate on next generation).`,
-  },
-};
-
-const TARGET_KEYS = Object.keys(TARGET_METADATA);
-
-function normalizeTarget(value) {
-  if (!value) return null;
-  const trimmed = value.trim();
-  if (TARGET_METADATA[trimmed]) return trimmed;
-
-  const lowerMatched = TARGET_KEYS.find((key) => key.toLowerCase() === trimmed.toLowerCase());
-  return lowerMatched || null;
-}
 
 export default async function chooseContents(input = {}, options = {}) {
   const { targets: rawTargets, tmpDir, outputDir, pagesDir, configPath } = input;
@@ -54,41 +11,139 @@ export default async function chooseContents(input = {}, options = {}) {
   const derivedConfigPath = pagesDir ? resolvePath(pagesDir, "..", "config.yaml") : undefined;
   const finalConfigPath = configPath || derivedConfigPath;
 
-  const workspaceCandidate = resolveToAbsolute(tmpDir);
-  const generatedPagesCandidate = resolveToAbsolute(outputDir);
+  const websiteStructureCandidate = resolveToAbsolute(join(tmpDir, "website-structure.yaml"));
+  const generatedPagesCandidate = resolveToAbsolute(tmpDir);
   const configCandidate = resolveToAbsolute(finalConfigPath);
   const mediaDescriptionPath = getMediaDescriptionCachePath();
 
+  const results = [];
+  let configCleared = false;
+
   const targetsDefinition = {
-    workspace: {
-      path: workspaceCandidate,
-      label: TARGET_METADATA.workspace.label,
-      description: TARGET_METADATA.workspace.description,
+    websiteStructure: {
+      path: websiteStructureCandidate,
+      label: "website structure",
+      description: ({ tmpDir }) =>
+        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stays)`,
+      onClear: async ({ displayPath, results, targetPath }) => {
+        await rm(targetPath, { recursive: true, force: true });
+        results.push({
+          status: "removed",
+          message: `🧹 Cleared ${displayPath}`,
+          path: displayPath,
+        });
+      },
     },
     generatedPages: {
       path: generatedPagesCandidate,
-      label: TARGET_METADATA.generatedPages.label,
-      description: TARGET_METADATA.generatedPages.description,
+      label: "generated pages",
+      description: ({ tmpDir }) =>
+        `Delete all generated pages in './${toDisplayPath(tmpDir)}' (website structure stays)`,
+      onClear: async ({ results, targetPath, displayPath, definition }) => {
+        // find targetPath without website-structure.yaml
+        const targetDirs = fastGlob.sync(join(targetPath, "**"), {
+          ignore: ["website-structure.yaml"],
+          deep: 1,
+          onlyDirectories: true,
+        });
+
+        if (!targetDirs?.length) {
+          results.push({
+            status: "noop",
+            message: `📦 The ${definition.label} is already empty (${displayPath})`,
+            path: displayPath,
+          });
+          return;
+        }
+
+        await Promise.all(
+          targetDirs.map(async (dir) => {
+            await rm(dir, { recursive: true, force: true });
+            results.push({
+              status: "removed",
+              message: `🧹 Cleared ${toDisplayPath(dir)}`,
+              path: toDisplayPath(dir),
+            });
+          }),
+        );
+      },
     },
     websiteConfig: {
       path: configCandidate,
-      label: TARGET_METADATA.websiteConfig.label,
-      description: TARGET_METADATA.websiteConfig.description,
+      label: "website configuration",
+      description: ({ finalConfigPath }) =>
+        `Delete the config.yaml file './${toDisplayPath(finalConfigPath)}'(requires 'aigne web init' to regenerate)`,
+      onClear: async ({ displayPath, results, targetPath }) => {
+        configCleared = true;
+        await rm(targetPath, { recursive: true, force: true });
+        results.push({
+          status: "removed",
+          message: `🧹 Cleared ${displayPath}`,
+          path: displayPath,
+        });
+      },
     },
     deploymentConfig: {
       path: configCandidate,
-      label: TARGET_METADATA.deploymentConfig.label,
-      description: TARGET_METADATA.deploymentConfig.description,
+      label: "deployment config",
+      description: ({ finalConfigPath }) =>
+        `Delete appUrl from './${toDisplayPath(finalConfigPath)}'.`,
+      onClear: async ({ displayPath, results }) => {
+        const clearAgent = options.context?.agents?.["clearDeploymentConfig"];
+        if (!clearAgent) {
+          throw new Error("Clear agent clearDeploymentConfig not found in context");
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      },
     },
     authTokens: {
       path: WEB_SMITH_ENV_FILE,
-      label: TARGET_METADATA.authTokens.label,
-      description: TARGET_METADATA.authTokens.description,
+      label: "authorizations",
+      description: () =>
+        `Delete authorization information in '${WEB_SMITH_ENV_FILE}' (requires re-authorization after clearing).`,
+      onClear: async ({ displayPath, results }) => {
+        const clearAgent = options.context?.agents?.["clearAuthTokens"];
+        if (!clearAgent) {
+          throw new Error("Clear agent clearAuthTokens not found in context");
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      },
     },
     mediaDescription: {
       path: mediaDescriptionPath,
-      label: TARGET_METADATA.mediaDescription.label,
-      description: TARGET_METADATA.mediaDescription.description,
+      label: "media file descriptions",
+      description: ({ mediaDescriptionPath }) =>
+        `Delete AI-generated descriptions in './${toDisplayPath(mediaDescriptionPath)}' (will regenerate on next generation).`,
+      onClear: async ({ displayPath, results }) => {
+        const clearAgent = options.context?.agents?.["clearMediaDescription"];
+        if (!clearAgent) {
+          throw new Error(
+            "Required agent 'clearMediaDescription' not found in context. Please ensure the agent is properly registered.",
+          );
+        }
+
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
+      },
     },
   };
 
@@ -102,7 +157,7 @@ export default async function chooseContents(input = {}, options = {}) {
   const availableTargets = Object.fromEntries(availabilityEntries);
 
   const normalizedTargets = Array.isArray(rawTargets)
-    ? rawTargets.map(normalizeTarget).filter(Boolean)
+    ? rawTargets.map((target) => targetsDefinition[target]).filter(Boolean)
     : [];
 
   let selectedTargets = [...new Set(normalizedTargets)];
@@ -157,9 +212,6 @@ export default async function chooseContents(input = {}, options = {}) {
     };
   }
 
-  const results = [];
-  let configCleared = false;
-
   for (const target of selectedTargets) {
     const definition = targetsDefinition[target];
     const targetPath = definition.path;
@@ -176,62 +228,10 @@ export default async function chooseContents(input = {}, options = {}) {
 
     try {
       const existed = await pathExists(targetPath);
+      const onClear = definition.onClear;
 
-      if (target === "authTokens") {
-        const clearAgent = options.context?.agents?.["clearAuthTokens"];
-        if (!clearAgent) {
-          throw new Error("Clear agent clearAuthTokens not found in context");
-        }
-
-        const result = await options.context.invoke(clearAgent, input);
-
-        results.push({
-          status: result.error ? "error" : "removed",
-          message: result.message,
-          path: displayPath,
-        });
-      } else if (target === "deploymentConfig") {
-        const clearAgent = options.context?.agents?.["clearDeploymentConfig"];
-        if (!clearAgent) {
-          throw new Error("Clear agent clearDeploymentConfig not found in context");
-        }
-
-        const result = await options.context.invoke(clearAgent, input);
-
-        results.push({
-          status: result.error ? "error" : "removed",
-          message: result.message,
-          path: displayPath,
-        });
-      } else if (target === "mediaDescription") {
-        const clearAgent = options.context?.agents?.["clearMediaDescription"];
-        if (!clearAgent) {
-          throw new Error(
-            "Required agent 'clearMediaDescription' not found in context. Please ensure the agent is properly registered.",
-          );
-        }
-
-        const result = await options.context.invoke(clearAgent, input);
-
-        results.push({
-          status: result.error ? "error" : "removed",
-          message: result.message,
-          path: displayPath,
-        });
-      } else {
-        await rm(targetPath, { recursive: true, force: true });
-
-        if (target === "websiteConfig" && existed) {
-          configCleared = true;
-        }
-
-        results.push({
-          status: existed ? "removed" : "noop",
-          message: existed
-            ? `🧹 Cleared ${definition.label} (${displayPath})`
-            : `📦 ${definition.label} already empty (${displayPath})`,
-          path: displayPath,
-        });
+      if (onClear) {
+        await onClear({ displayPath, results, targetPath, existed, definition });
       }
     } catch (error) {
       results.push({
@@ -245,14 +245,20 @@ export default async function chooseContents(input = {}, options = {}) {
   const hasError = results.some((item) => item.status === "error");
   const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successfully!";
 
-  const detailLines = results.map((item) => `- ${item.message}`).join("\n");
+  const detailLines = results.map((item) => `   ${item.message}`).join("\n");
 
   const suggestions = [];
   if (configCleared) {
     suggestions.push("👉 Run `aigne web init` to generate a fresh configuration file.");
   }
 
-  const message = [header, "", detailLines, suggestions.length ? "" : null, suggestions.join("\n")]
+  const message = [
+    header,
+    "\n",
+    detailLines,
+    suggestions.length ? "" : null,
+    suggestions.join("\n"),
+  ]
     .filter(Boolean)
     .join("\n");
 

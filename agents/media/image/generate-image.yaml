@@ -3,7 +3,7 @@ name: generateImage
 image_model: 
   model: google/gemini-2.5-flash-image-preview
   # imageConfig:
-  #   aspectRatio: "16:9"
+  #   aspectRatio: "5:4"
 instructions: |
   Image Description:
   {{aiPrompt}}
@@ -24,14 +24,13 @@ instructions: |
   - Soft, natural lighting with subtle shadows for depth
   - Harmonious color scheme that complements typical web UI elements
   - Smooth gradients and polished surfaces where applicable
-  - Site primary color: #7C3AED, the image color scheme needs to match.
+  - Site primary color: {{media.sitePrimaryColor}}, the image color scheme needs to match.
 
   **Web-Specific Optimizations:**
   - Simple, non-distracting backgrounds that allow UI elements to overlay
   - Clear foreground-background separation for better readability
   - Versatile composition suitable for various viewport sizes
   - Professional polish appropriate for product landing pages and marketing materials
-  - Use transparent background for empty areas
 input_schema:
   type: object
   properties:

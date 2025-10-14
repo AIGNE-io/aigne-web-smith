@@ -63,6 +63,7 @@ When invoking the tool, provide clear and specific information:
   - Subject matter: Describe the main content with specificity
   - Composition: Indicate layout and perspective (e.g., "centered layout," "diagonal composition," "top-down view")
   - Mood and tone: Convey the emotional impact (e.g., "trustworthy and professional," "energetic and innovative")
+  - Generated images should match the site's main color scheme, Site primary colors:{{media.sitePrimaryColor}} 
   - Example: Instead of "a dashboard interface," use "a modern SaaS analytics dashboard with dark mode UI, featuring gradient data visualization cards, clean typography, and a professional blue-purple color scheme for a hero section visual"
 - imageDescription: 
   - Explain the image's role in the page structure

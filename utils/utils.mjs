@@ -1756,3 +1756,5 @@ export const logError = (...args) => ENABLE_LOGS && console.error(...args);
 
 // 小工具：path 数组可视化
 export const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));
+
+export const isHttp = (url) => url.startsWith("http://") || url.startsWith("https://");

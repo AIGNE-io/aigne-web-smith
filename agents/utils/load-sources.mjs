@@ -7,6 +7,7 @@ import {
   COMPONENTS_DIR,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
+  MEDIA_EXTENSIONS,
   MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
 import { getFilesWithGlob, getMimeType, loadGitignore } from "../../utils/file-utils.mjs";
@@ -204,30 +205,6 @@ export default async function loadSources({
 
   files = [...new Set(files)];
 
-  // Define media file extensions
-  const mediaExtensions = [
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".gif",
-    ".bmp",
-    ".webp",
-    ".svg",
-    ".heic",
-    ".heif",
-    ".mp4",
-    ".mpeg",
-    ".mpg",
-    ".mov",
-    ".avi",
-    ".flv",
-    ".mkv",
-    ".webm",
-    ".wmv",
-    ".m4v",
-    ".3gpp",
-  ];
-
   // Separate source files from media files
   const sourceFiles = [];
   const mediaFiles = [];
@@ -242,7 +219,7 @@ export default async function loadSources({
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
 
-      if (mediaExtensions.includes(ext)) {
+      if (MEDIA_EXTENSIONS.includes(ext)) {
         // This is a media file
         const relativePath = path.relative(pagesDir, file);
         const fileName = path.basename(file);

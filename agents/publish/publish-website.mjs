@@ -1,13 +1,13 @@
 import crypto from "node:crypto";
 import { stat } from "node:fs/promises";
-import { basename, join, resolve } from "node:path";
+import { basename, extname, join, relative, resolve } from "node:path";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
+import slugify from "slugify";
 import { joinURL, withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
-
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 
 import { getBlockletMetaDid, getComponentMountPoint } from "../../utils/blocklet.mjs";
@@ -27,8 +27,8 @@ import {
 } from "../../utils/constants.mjs";
 
 import { deploy } from "../../utils/deploy.mjs";
+import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { batchUploadMediaFiles, uploadFiles } from "../../utils/upload-files.mjs";
-
 import {
   formatRoutePath,
   getGithubRepoUrl,
@@ -536,11 +536,41 @@ export default async function publishWebsite(
     if (manifestPages.length > 0) {
       if (shouldWithBranding) {
         // check projectLogo is file
-        if (projectLogo && !isHttp(projectLogo)) {
+        if (projectLogo) {
+          if (isHttp(projectLogo)) {
+            // download to temp dir and upload
+
+            let tempFilePath = join(pagesDir, slugify(basename(projectLogo)));
+
+            let ext = extname(projectLogo);
+
+            await fetch(projectLogo).then(async (response) => {
+              const blob = await response.blob();
+
+              const arrayBuffer = await blob.arrayBuffer();
+              const buffer = Buffer.from(arrayBuffer);
+
+              if (!ext) {
+                const contentType = response.headers.get("content-type");
+                ext = getExtnameFromContentType(contentType);
+                tempFilePath = `${tempFilePath}.${ext}`;
+              }
+
+              fs.writeFileSync(tempFilePath, buffer);
+
+              return blob;
+            });
+
+            // to relative path
+            projectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+          }
+
           // check projectLogo is exist
           try {
             const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);
+
             const projectLogoStat = await stat(projectLogoPath);
+
             const blockletDID = await getBlockletMetaDid(appUrl);
 
             // projectLogo is file
@@ -569,7 +599,7 @@ export default async function publishWebsite(
         meta.branding = {
           appName: projectName,
           appDescription: projectDesc,
-          // @Notice: appLogo will be set by blocklet server, do not set it here
+          // @Notice: appLogo will be auto-set by blocklet server, do not set it here
           // appLogo: projectLogo,
         };
       }

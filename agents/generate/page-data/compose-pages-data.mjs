@@ -149,17 +149,15 @@ function tryReadFileContent(filePath, workingDir) {
     });
 
     if (matches.length === 0) {
-      log("⚠️  [tryReadFileContent] file not found:", { filePath, workingDir });
       return null;
     }
 
     const foundPath = matches[0];
     const content = readFileSync(foundPath, "utf8");
-    log("📄 [tryReadFileContent] file loaded:", { filePath, foundPath, bytes: content.length });
 
     return content;
   } catch (err) {
-    logError("❌ [tryReadFileContent] failed:", { filePath, error: err.message });
+    logError("❌ [tryReadFileContent] Failed to read file:", { filePath, error: err.message });
     return null;
   }
 }
@@ -169,7 +167,7 @@ function resolveValue(value, workingDir) {
     return value;
   }
 
-  // 处理文件引用: @file.json
+  // Handle file references: @file.json
   if (value.startsWith("@")) {
     const filePath = value.slice(1);
     const content = tryReadFileContent(filePath, workingDir);

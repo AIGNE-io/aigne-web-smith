@@ -615,9 +615,7 @@ export default async function publishWebsite(
           concurrency: 1,
         });
 
-        projectLogo = basename(uploadResults?.[0]?.url || projectLogo);
-
-        console.warn(2222, projectLogo);
+        projectLogo = uploadResults?.[0]?.url || projectLogo;
       }
 
       const projectData = {

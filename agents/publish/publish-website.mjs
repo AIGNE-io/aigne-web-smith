@@ -537,6 +537,10 @@ export default async function publishWebsite(
           const arrayBuffer = await blob.arrayBuffer();
           const buffer = Buffer.from(arrayBuffer);
 
+          if (!response.ok) {
+            return;
+          }
+
           if (!ext) {
             const contentType = response.headers.get("content-type");
             ext = getExtnameFromContentType(contentType);

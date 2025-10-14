@@ -1,106 +1,61 @@
 # 更新网站结构
 
-网站的结构，通常被称为其信息架构，是指网站页面的排列和组织方式。一个逻辑清晰的结构对于用户导航和理解至关重要。AIGNE WebSmith 提供了一个简单的流程，通过添加、删除、更新或重组页面来修改您的网站结构。
+修改您的网站结构——例如添加新页面、删除过时页面或重组导航——是保持内容相关性和用户友好性的关键任务。AIGNE WebSmith 通过一个由 AI 驱动的工作流来简化此过程，该工作流会解释自然语言反馈以执行精确的结构更改。
 
-这些结构性修改不是通过单个命令执行的。相反，您需要向 `update` 命令提供清晰、自然的语言反馈。AI 会解释您的指令并对网站计划应用必要的更改。本文档概述了可用于构建网站的具体操作。
+本文档介绍如何使用 `aigne web generate` 命令修改您的网站结构。在此过程中，一个 AI agent 会解释您的自然语言反馈，以添加、删除、更新或移动页面。了解可用的操作有助于您提供清晰的指令，以实现您期望的网站布局。
 
-有关修改页面内容的详细信息，请参阅[更新页面内容](./core-tasks-updating-website-content-updating-page-content.md)指南。
+应用结构更改的主要命令是 `aigne web generate`。有关生成过程本身的更多详细信息，请参阅[生成网站](./core-tasks-generating-a-website.md)。
+## 结构更新过程
 
-## 更新流程
+当您运行 `aigne web generate` 命令时，系统会首先分析您的内容源并提出一个网站结构。然后，您将有机会以交互方式审查和修改此结构。
 
-修改您的网站结构涉及一个交互式会话，您需要在其中描述期望的更改。系统会使用一套专门的工具，根据您的输入来执行这些更改。
+## 交互式更新工作流
 
-一般工作流程如下：
-1.  在您的终端中运行 `aigne update` 命令。
-2.  系统将提示您提供反馈。
-3.  清晰地描述您希望进行的结构性更改（例如，“添加一个名为‘博客’的新页面”，“将‘招贤纳士’页面移动到‘关于我们’下”）。
-4.  AI 将分析您的请求，执行必要的操作，并呈现更新后的结构供您审查和确认。
+更新网站结构的过程是交互式的。以下是工作流的摘要：
+
+1.  **启动生成**：在您的终端中运行生成命令。
+    ```bash
+    aigne web generate
+    ```
+
+2.  **审查建议的结构**：在分析您的源之后，CLI 将显示建议的结构并请求您的输入。
+
+3.  **提供自然语言反馈**：在提示符下，用简单的英语输入您想要的更改。例如：
+    > “在顶层添加一个‘联系我们’页面，路径为 `/contact`。同时，删除路径为 `/about/old-team` 的页面。”
+
+4.  **审查并批准**：AI 会处理您的反馈，应用必要的更改，并显示修改后的结构。然后，您可以批准更改以完成该过程，或提供更多反馈以进一步完善它。
 
 ## 核心结构操作
 
-AI 可以执行四种基本操作来改变您的网站结构。了解这些操作将帮助您提供更有效的反馈。
+AI agent 理解四种用于修改网站结构的基本操作。提供与这些操作一致的清晰反馈将产生最准确的结果。
 
-### 添加页面
+| 操作 | 描述 | 关键参数 |
+| :--- | :--- | :--- |
+| **添加** | 在网站结构中创建一个新页面。 | `title`、`description`、`path`、`parentId`、`sourceIds` |
+| **删除** | 从结构中删除一个现有页面。 | `path` |
+| **更新** | 修改现有页面的元数据。 | `path`、`title`（可选）、`description`（可选）、`sourceIds`（可选） |
+| **移动** | 将页面重新定位到不同的父级下，从而更改其路径。 | `path`、`newParentId`、`newPath` |
 
-此操作会在您的网站结构中创建一个新页面。要添加页面，您需要提供其基本属性。
+### 反馈示例
 
-**反馈示例：** `"添加一个标题为“我们的服务”、路径为“/services”的新页面。它应该是一个顶级页面。"`
+以下是一些如何措辞反馈以执行特定结构更改的示例：
 
-创建新页面时使用以下参数：
+- **添加页面：**
+ > “在 ‘/about’ 部分下添加一个标题为‘我们的团队’的新页面。路径应为 `/about/team`。”
 
-<x-field-group>
-  <x-field data-name="title" data-type="string" data-required="true">
-    <x-field-desc markdown>新页面的标题，将显示在导航和标题中。</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="true">
-    <x-field-desc markdown>对页面用途和内容的简要描述。</x-field-desc>
-  </x-field>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>页面的唯一 URL 路径。必须以 `/` 开头（例如，`/about-us`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="parentId" data-type="string" data-required="false">
-    <x-field-desc markdown>父页面的路径。如果新页面是子页面，请在此处提供父页面的路径。对于顶级页面，此项应为 `null`。</x-field-desc>
-  </x-field>
-</x-field-group>
+- **删除页面：**
+ > “请删除位于 `/products/legacy` 的‘旧版产品’页面。”
 
-### 更新页面
+- **更新页面：**
+ > “将路径为 `/services` 的页面标题更新为‘我们的专业服务’。”
 
-此操作可修改现有页面的元数据，例如其标题或描述。您必须指定要更改的页面的路径。
-
-**反馈示例：** `"将路径为“/about”的页面标题更新为“关于我们公司”。"`
-
-更新现有页面时使用以下参数：
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>要更新的页面的 URL 路径。这用于识别正确的页面。</x-field-desc>
-  </x-field>
-  <x-field data-name="title" data-type="string" data-required="false">
-    <x-field-desc markdown>页面的新标题。</x-field-desc>
-  </x-field>
-  <x-field data-name="description" data-type="string" data-required="false">
-    <x-field-desc markdown>页面的新描述。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### 移动页面
-
-此操作可更改页面在网站层级结构中的位置。您可以将页面移动到不同的父页面下，或更改其 URL 路径。这对于重组内容非常有用。
-
-**反馈示例：** `"将页面“/team”移动到“/about”下，使其成为其子页面。其新路径应为“/about/team”。"`
-
-移动页面时使用以下参数：
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>您要移动的页面的当前 URL 路径。</x-field-desc>
-  </x-field>
-  <x-field data-name="newParentId" data-type="string" data-required="false">
-    <x-field-desc markdown>新父页面的路径。要使其成为顶级页面，请省略此项或将其设置为 `null`。</x-field-desc>
-  </x-field>
-  <x-field data-name="newPath" data-type="string" data-required="true">
-    <x-field-desc markdown>页面的新 URL 路径。通常做法是更新路径以反映新的层级结构（例如，将页面移动到 `/about` 下应产生类似 `/about/newpage` 的路径）。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### 删除页面
-
-此操作会从网站结构中永久删除一个页面。
-
-**重要提示：** 拥有子页面（sub-pages）的页面不能被直接删除。您必须先移动或删除其子页面。
-
-**反馈示例：** `"请移除路径为“/archive/old-news”的页面。"`
-
-删除页面时使用以下参数：
-
-<x-field-group>
-  <x-field data-name="path" data-type="string" data-required="true">
-    <x-field-desc markdown>您希望删除的页面的 URL 路径。</x-field-desc>
-  </x-field>
-</x-field-group>
+- **移动页面：**
+ > “将当前位于 `/careers` 的‘招聘’页面移动到‘/about’页面下，使其成为其子页面。其新路径应为 `/about/careers`。”
 
 ## 总结
 
-通过向 `update` 命令提供清晰具体的指令，您可以高效地管理您的网站结构。AI 会处理技术执行，让您能够专注于内容的逻辑组织。
+这个交互式过程确保您的网站结构始终井然有序、保持最新，并与您的目标保持一致。系统会处理技术细节，让您可以专注于内容的逻辑布局。
 
-在构建好页面结构之后，下一步是完善其中的信息。更多信息，请继续阅读[更新页面内容](./core-tasks-updating-website-content-updating-page-content.md)指南。
+如需更多实践指导，请参阅以下部分：
+- [生成网站](./core-tasks-generating-a-website.md)
+- [使用交互式聊天](./core-tasks-using-the-interactive-chat.md)

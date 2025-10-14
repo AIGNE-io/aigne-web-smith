@@ -1,82 +1,77 @@
 # Updating Page Content
 
-This document provides instructions for modifying the content of an individual webpage. The primary method for this task is the `aigne update` command, which allows you to refine page details by providing simple, text-based feedback.
+This guide provides a systematic process for refining the content and details of an individual webpage. This task focuses on modifying the content *within* a specific, existing page, such as altering text, adding or removing content blocks, and changing the order of sections.
 
-This process is distinct from modifying the overall website map. For instructions on adding, removing, or reorganizing pages, please refer to the [Updating Website Structure](./core-tasks-updating-website-content-updating-website-structure.md) guide.
+This process is distinct from modifying the overall site map. For instructions on adding, removing, or reorganizing pages, refer to the [Updating Website Structure](./core-tasks-updating-website-content-updating-website-structure.md) guide.
 
 ## The Update Process
 
-The `update` command initiates an interactive process where the AI applies changes to a page based on your specific instructions. The system is designed to interpret natural language feedback to perform targeted modifications.
+Content updates are initiated using the `update` command. The process is interactive, allowing you to provide feedback in natural language to an AI agent, which then intelligently modifies the page structure.
 
-The operational flow is as follows:
-
-1.  **Initiate Command**: Run `aigne update` in your terminal.
-2.  **Select Page**: The system will display a list of all existing pages. Select the single page you wish to modify.
-3.  **Provide Feedback**: You will be prompted to enter your feedback. This is a plain-text description of the changes you want to make.
-4.  **AI Modification**: The AI analyzes your feedback and uses a set of content modification tools to update the page's content structure.
-5.  **Review and Save**: The updated page content is saved, and the process is complete.
-
-### Example Command
-
-To begin the update process, execute the following command in your project's root directory:
-
-```bash Aigne CLI icon=lucide:terminal
+```bash Command icon=lucide:terminal
 aigne update
 ```
 
-You will then be prompted to provide feedback for your selected page. For example:
+The command can also be invoked with its alias, `up`.
 
-```text Feedback Prompt
-? Please provide your feedback for improving the page content: (Press Enter to skip) › Change the title of the hero section to "Welcome to AIGNE WebSmith".
-```
+The standard workflow is as follows:
 
-## Supported Content Modifications
+1.  **Execute the Command**: Run `aigne update` in your terminal.
+2.  **Select Page**: The system will present a list of existing pages. Select the single page you wish to modify.
+3.  **Provide Feedback**: You will be prompted to enter your feedback. This is a natural language instruction describing the changes you want to make. For example, "Change the title of the hero section" or "Add a new section with a list of our services."
+4.  **AI Processing**: An AI agent analyzes your request and uses a set of predefined tools to apply the changes to the page's content structure.
+5.  **Review and Save**: The updated page content is saved, and the process is complete. You can run the `generate` command again to see your changes reflected in the live website preview.
 
-The AI can perform several types of content modifications on a page's sections. A "section" refers to a distinct block of content on the page, such as a hero banner, a feature list, or a contact form.
+## Command Parameters
 
-The following table outlines the supported actions and the kind of feedback that triggers them.
+For non-interactive or scripted use, you can provide feedback and other parameters directly as command-line arguments.
+
+<x-field-group>
+  <x-field data-name="--pages" data-type="array">
+    <x-field-desc markdown>Specify one or more page paths to update. If not provided, you will be prompted to select a page interactively.</x-field-desc>
+  </x-field>
+  <x-field data-name="--feedback" data-type="string">
+    <x-field-desc markdown>Provide the feedback for content improvement directly. This is useful for scripting updates.</x-field-desc>
+  </x-field>
+  <x-field data-name="--glossary" data-type="string">
+    <x-field-desc markdown>A glossary of terms to ensure consistent terminology during content generation. You can provide a path to a file using the `@<file>` syntax.</x-field-desc>
+  </x-field>
+</x-field-group>
+
+## Content Modification Capabilities
+
+The AI agent modifies page content by using a specific set of tools. To achieve predictable and accurate results, your feedback should align with these capabilities. The agent can perform the following actions based on your instructions:
 
 | Action | Description | Example Feedback |
 | :--- | :--- | :--- |
-| **Update Section** | Modifies the properties of an existing section, such as its title, text, or other attributes. | "In the 'About Us' section, change the heading to 'Our Mission'." |
-| **Add Section** | Adds a new section to the page at a specified position. | "Add a new section with a three-column feature list after the introduction." |
-| **Delete Section** | Removes an entire section from the page by its name. | "Remove the 'Testimonials' section." |
-| **Move Section** | Changes the order of sections on the page. | "Move the 'Contact Us' section to be the last section on the page." |
+| **Add Section** | Adds a new content section to the page. You can specify the content and its desired position. | "Add a new section named 'Our Partners' after the 'About Us' section, and include their logos." |
+| **Delete Section** | Removes an existing section by its name. | "Please remove the 'Upcoming Events' section." |
+| **Update Section** | Modifies the content or properties of an existing section. | "In the 'Hero' section, update the main heading to 'Innovate and Inspire'." |
+| **Move Section** | Changes the order of sections on the page. | "Move the 'FAQ' section so it appears just before the final 'Contact Us' section." |
+| **Update Metadata** | Updates the page's primary metadata: its `title` and `description`. | "Change the page title to 'Our Comprehensive Services' and update the description." |
 
-## Practical Examples
+## Example Feedback Prompts
 
-### Example 1: Updating a Section's Title
+The effectiveness of the update process depends on the clarity of your feedback. Below are examples of well-formed requests for different modification tasks.
 
--   **Goal**: Change the main heading on the "Home" page.
--   **Page to Select**: `/home`
--   **Feedback**: `Change the hero section's title to "Creative Solutions for Modern Business".`
+```text Example Prompts icon=lucide:clipboard-list
+# Example for adding a new section
+"Add a new section after the introduction. It should be a three-column feature list. The features are 'Fast Performance', 'Secure by Design', and '24/7 Support'."
 
-The AI will identify the hero section and update its title property, leaving all other content on the page unchanged.
+# Example for deleting a section
+"The section named 'Testimonials' is outdated. Please remove it."
 
-### Example 2: Adding a New Section
+# Example for updating a section's content
+"In the 'Contact' section, change the email address from 'contact@example.com' to 'support@example.com'."
 
--   **Goal**: Add a frequently asked questions (FAQ) section to the "Services" page.
--   **Page to Select**: `/services`
--   **Feedback**: `Add a new FAQ section after the 'Our Process' section. Include questions about pricing, timelines, and support.`
+# Example for moving a section
+"I want the 'Our Team' section to be displayed immediately after the 'About Us' section."
+```
 
-The AI will generate a new section containing the requested content and insert it into the specified position on the page.
+## Summary
 
-### Example 3: Deleting a Section
+Updating page content is an iterative process driven by clear, actionable feedback. By understanding the available modification tools—adding, deleting, updating, and moving sections—you can efficiently guide the AI to refine your website's content with precision.
 
--   **Goal**: Remove an outdated "Promotions" section from the "Pricing" page.
--   **Page to Select**: `/pricing`
--   **Feedback**: `Delete the 'Current Promotions' section.`
-
-The AI will locate the section named "Current Promotions" and remove it completely from the page layout.
-
-### Example 4: Reordering Sections
-
--   **Goal**: Move the "Team" section to appear before the "Careers" section on the "About" page.
--   **Page to Select**: `/about`
--   **Feedback**: `Move the 'Our Team' section to be right before the 'Careers' section.`
-
-The AI will adjust the order of the sections on the page to match your request.
-
----
-
-This feedback-driven approach allows for precise and intuitive content updates without needing to directly edit configuration files. For more complex structural changes involving multiple pages, see the [Updating Website Structure](./core-tasks-updating-website-content-updating-website-structure.md) guide.
+For related tasks, see the following guides:
+- [Updating Website Structure](./core-tasks-updating-website-content-updating-website-structure.md)
+- [Generating a Website](./core-tasks-generating-a-website.md)

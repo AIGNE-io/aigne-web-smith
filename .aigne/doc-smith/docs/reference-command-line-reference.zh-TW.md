@@ -1,285 +1,216 @@
 # 命令列參考
 
-本文件為 AIGNE WebSmith 命令列介面 (CLI) 中所有可用指令提供了全面的參考資料。每個指令都詳細說明其用途、可用參數和實際使用範例。
+本文件為 AIGNE WebSmith 命令列介面 (CLI) 中所有可用指令提供了全面的參考。每個條目都包含指令功能的說明、其可用的別名，以及其參數和選項的詳細清單。
 
-本指南適用於需要詳細資訊以進行進階操作或自動化腳本的使用者。
-
-## 指令摘要
-
-下表快速總覽了所有可用的 `aigne web` 子指令。
-
-| 指令 | 別名 | 說明 |
-| :--- | :--- | :--- |
-| `generate` | `gen`, `g` | 從一組需求中產生一個完整的網站。 |
-| `publish` | - | 將產生的網站內容發布到 Pages Kit。 |
-| `update` | - | 根據新的回饋或需求更新現有的網站內容。 |
-| `translate` | - | 將現有的網站頁面翻譯成不同的語言。 |
-| `chat` | - | 啟動一個互動式聊天會話來建立和修改您的網站。 |
-| `theme` | - | 管理網站視覺主題，包括產生和應用。 |
-| `component` | `comp` | 管理用於建立網站的元件庫。 |
-| `prefs` | - | 管理從更新過程中的回饋中學習到的使用者偏好設定。 |
-| `history` | - | 顯示對網站進行的所有先前更新的日誌。 |
-| `clear` | - | 移除產生的檔案、工作區資料或設定。 |
-
----
+所有指令的一般語法是：
+```bash
+aigne web <command> [subcommand] [options]
+```
 
 ## 主要指令
 
-這些指令構成了使用 WebSmith 建立和管理網站的核心工作流程。
+下表總結了 AIGNE WebSmith CLI 中可用的主要指令。
+
+| 指令 | 說明 |
+| :--- | :--- |
+| [generate](#generate) | 根據設定檔產生一個完整的網站。 |
+| [publish](#publish) | 將產生的網站內容發佈到 Pages Kit 平台。 |
+| [update](#update) | 根據新的回饋或需求修改現有網站的內容。 |
+| [translate](#translate) | 將現有網站頁面翻譯成不同語言。 |
+| [theme](#theme) | 管理網站的視覺主題，包括產生和應用。 |
+| [component](#component) | 管理用於建構網站的元件庫。 |
+| [chat](#chat) | 啟動一個互動式聊天會話，以對話方式建立和修改您的網站。 |
+| [prefs](#prefs) | 管理已儲存的使用者偏好設定，以自訂 WebSmith 的行為。 |
+| [history](#history) | 顯示對網站所做的所有先前更新的日誌。 |
+| [clear](#clear) | 移除產生的檔案、工作區資料或設定。 |
+
+---
 
 ### generate
+從使用者提供的設定檔中產生一個完整的網站。此指令會協調整個過程，從規劃網站結構到產生頁面內容和範本。
 
-`generate` 指令是建立新網站的主要工具。它會調度一系列 AI Agent 來規劃網站結構、為每個頁面撰寫內容，並組合最終的資料檔案。
+**別名：** `gen`, `g`
 
-**用法**
-
+**用法：**
 ```bash
-aigne web generate [options]
+aigne web generate --input @path/to/your/config.yaml
 ```
 
-**參數**
+**參數：**
 
 <x-field-group>
-  <x-field data-name="rules" data-type="string" data-required="true">
-    <x-field-desc markdown>關於網站需求、結構和內容的詳細描述。可以作為字串提供，或透過輸入檔案提供（例如：`--input @my-website.yaml`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="targetAudience" data-type="string" data-required="false">
-    <x-field-desc markdown>網站目標受眾的描述。這有助於 AI 調整內容的語氣和重點。</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-default="zh" data-required="false">
-    <x-field-desc markdown>網站內容的目標語言（例如：`en` 代表英語，`zh` 代表中文）。</x-field-desc>
-  </x-field>
-  <x-field data-name="websiteStyle" data-type="string" data-default="business" data-required="false">
-    <x-field-desc markdown>網站期望的視覺和文字風格（例如：`business`、`creative`、`minimalist`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="projectId" data-type="string" data-required="false">
-    <x-field-desc markdown>Pages Kit 專案 ID。提供此 ID 有助於客製化產生的元件並為發布做準備。</x-field-desc>
-  </x-field>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="網站設定檔的路徑。這通常是透過 --input 旗標提供的。"></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="一個包含術語詞彙表的檔案，以確保在產生的內容中術語的一致性。使用 @<file> 格式。"></x-field>
+  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="如果設定為 true，即使頁面已存在，也會強制重新產生所有頁面。"></x-field>
 </x-field-group>
-
-**範例**
-
-此範例使用一個外部 YAML 檔案來提供產生規則。
-
-```bash title="使用輸入檔案產生網站"
-aigne web generate --input @my-website.yaml
-```
-
-```yaml title="my-website.yaml"
-rules: |
-  建立一個現代化的 SaaS 產品網站，其中包含：
-  1. 一個具有明確價值主張的首頁。
-  2. 一個詳細介紹產品功能的特色頁面。
-  3. 一個具有多種訂閱等級的定價頁面。
-  4. 一個帶有表單的聯絡頁面。
-targetAudience: "中小型企業主"
-locale: en
-websiteStyle: business
-```
 
 ### publish
+將產生的網站檔案發佈到 Pages Kit 執行個體。此指令處理批次上傳並提供狀態監控。
 
-`publish` 指令會將產生的網站頁面上傳到您的 Pages Kit 專案，使其上線。
+**別名：** `pub`, `p`
 
-**用法**
-
+**用法：**
 ```bash
-aigne web publish [options]
+aigne web publish --appUrl "https://your-pages-kit-url.com"
 ```
 
-**參數**
+**參數：**
 
 <x-field-group>
-  <x-field data-name="projectId" data-type="string" data-required="true">
-    <x-field-desc markdown>您的 Pages Kit 專案的唯一識別碼，網站將發布到此專案。</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-required="false">
-    <x-field-desc markdown>指定要發布的網站語言版本。若未提供，將使用預設的地區設定。</x-field-desc>
-  </x-field>
-  <x-field data-name="dryRun" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>若設定為 `true`，指令將模擬發布過程而不進行任何實際變更，僅顯示將會上傳的內容。</x-field-desc>
-  </x-field>
-  <x-field data-name="overwrite" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>若設定為 `true`，Pages Kit 上任何具有相同路徑的現有頁面將被覆寫。請謹慎使用。</x-field-desc>
-  </x-field>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="目標 Pages Kit 網站的基礎 URL，頁面將發佈到此處。"></x-field>
+  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="如果設定為 true，則在發佈頁面的同時發佈網站導覽資料。"></x-field>
+  <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="如果設定為 true，則發佈網站的地區設定和語言設定。"></x-field>
 </x-field-group>
-
-**範例**
-
-```bash title="發布網站的英文版本"
-aigne web publish --projectId "your-project-id" --locale en --overwrite
-```
 
 ### update
+根據使用者回饋更新現有網站的內容。此指令可用於修飾文字、新增區塊或修改頁面結構。
 
-`update` 指令讓您能夠完善現有的網站內容。您可以提供回饋或新指令來修改特定頁面的結構或詳細資訊。
+**別名：** `up`
 
-**用法**
-
+**用法：**
 ```bash
-aigne web update
+aigne web update --pages "/about-us" --feedback "Add a new section for team members."
 ```
 
-此指令以互動模式執行，引導您完成選擇頁面和提供更新回饋的過程。
-
-### translate
-
-`translate` 指令會為您現有的網站頁面產生新的語言版本。它會讀取來源地區設定的內容，並在目標語言中建立對應的頁面。
-
-**用法**
-
-```bash
-aigne web translate
-```
-
-此指令以互動模式執行，提示您選擇來源頁面和翻譯的目標語言。
-
-### chat
-
-`chat` 指令會啟動一個互動式、對話式的會話來建立或修改您的網站。此模式允許您以自然語言下達指令，AI 將執行相應的操作，例如建立新頁面、修改內容或規劃網站結構。
-
-**用法**
-
-```bash
-aigne web chat
-```
-
-## 管理指令
-
-這些指令用於管理與您網站專案相關的資產、設定和歷史記錄。
-
-### theme
-
-`theme` 指令群組用於管理您網站的視覺風格。
-
-#### theme generate
-
-根據您的設計需求建立一個新的主題設定。
-
-**用法**
-
-```bash
-aigne web theme generate --name "My Custom Theme"
-```
-
-**參數**
+**參數：**
 
 <x-field-group>
-  <x-field data-name="name" data-type="string" data-required="true">
-    <x-field-desc markdown>您正在建立的新主題的唯一名稱。</x-field-desc>
-  </x-field>
-  <x-field data-name="config" data-type="string" data-required="false">
-    <x-field-desc markdown>如果您需要覆寫預設設定，則為設定檔案的路徑。</x-field-desc>
-  </x-field>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="一個要更新的頁面路徑陣列（例如 /about-us, /contact）。"></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="對內容所需的變更或改進的詳細描述。"></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="一個包含術語詞彙表的檔案，以確保一致性。使用 @<file> 格式。"></x-field>
 </x-field-group>
 
-#### theme apply
+### translate
+將現有網站頁面的內容翻譯成一種或多種指定語言。
 
-將先前產生的主題應用到您的網站。
+**用法：**
+```bash
+aigne web translate --pages "/home" --langs "fr,de,es"
+```
 
-**用法**
+**參數：**
 
+<x-field-group>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="一個要翻譯的頁面路徑陣列。"></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="一個語言代碼陣列，用於將內容翻譯成目標語言。可用代碼包括：en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar。"></x-field>
+  <x-field data-name="feedback" data-type="String" data-required="false" data-desc="為提高翻譯品質而提供的具體說明或回饋。"></x-field>
+  <x-field data-name="glossary" data-type="String" data-required="false" data-desc="一個包含術語詞彙表的檔案，以確保翻譯的一致性。使用 @<file> 格式。"></x-field>
+</x-field-group>
+
+### theme
+管理您網站的視覺主題。您可以根據您的設計偏好產生新主題並將其應用於您的網站。
+
+#### 子命令
+
+**`generate`** (別名: `gen`)
+根據您網站的設計產生一個新的主題設定。
+
+**用法：**
+```bash
+aigne web theme generate --name "MyCustomTheme" --config @path/to/config.yaml
+```
+
+**參數：**
+
+<x-field-group>
+  <x-field data-name="name" data-type="String" data-required="false" data-desc="新主題的唯一名稱。"></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="作為主題基礎的網站設定檔路徑。"></x-field>
+</x-field-group>
+
+**`apply`**
+將先前產生的主題應用於網站。
+
+**用法：**
 ```bash
 aigne web theme apply
 ```
 
-此指令以互動方式執行，讓您選擇要應用的主題。
-
 ### component
+管理您網站的元件庫。
 
-`component` 指令群組管理用於建構您網站頁面的視覺元件庫（例如：Hero、FAQ、CTA）。
+**別名：** `comp`
 
-#### component pull
+#### 子命令
 
-從指定的 Pages Kit 專案 URL 中提取元件庫。這可以確保您的本地專案擁有用於頁面產生的最新可用元件。
+**`pull`**
+從指定的 URL 拉取更新的元件庫。這確保您的網站是使用最新的視覺元件建構的。
 
-**用法**
-
+**用法：**
 ```bash
-aigne web component pull --url "your-pages-kit-url"
+aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 
-**參數**
+**參數：**
 
 <x-field-group>
-  <x-field data-name="url" data-type="string" data-required="true">
-    <x-field-desc markdown>您的 Pages Kit 專案的元件提取端點的完整 URL。此 URL 包含必要的專案 ID 和驗證密鑰。</x-field-desc>
-  </x-field>
+  <x-field data-name="url" data-type="String" data-required="true" data-desc="由您的 Pages Kit 執行個體提供的完整 URL，用於拉取元件庫。"></x-field>
 </x-field-group>
+
+### chat
+啟動一個互動式聊天會話，讓您能以對話方式產生、更新和管理您的網站。聊天 Agent 可以存取所有其他指令。
+
+**用法：**
+```bash
+aigne web chat
+```
+
+此指令不帶任何參數。它會在您的終端機中開啟一個互動式提示。
 
 ### prefs
+管理 WebSmith 隨時間從您的回饋中學習到的使用者偏好設定。這些偏好設定有助於使 AI 的輸出更符合您的特定需求。
 
-`prefs` 指令允許您檢視和管理 WebSmith 在內容更新過程中從您的回饋中學習到的使用者偏好設定。這些偏好設定有助於 AI 在未來的操作中更好地符合您的風格。
-
-**用法**
-
+**用法：**
 ```bash
-aigne web prefs [action] [options]
-```
-
-**操作與參數**
-
-<x-field-group>
-  <x-field data-name="--list" data-type="boolean" data-required="false">
-    <x-field-desc markdown>顯示所有已儲存的偏好設定，並標示其狀態（啟用/停用）、範圍和內容。</x-field-desc>
-  </x-field>
-  <x-field data-name="--remove" data-type="boolean" data-required="false">
-    <x-field-desc markdown>移除一個或多個偏好設定。可與 `--id` 一起使用，若未提供 ID，則以互動方式執行。</x-field-desc>
-  </x-field>
-  <x-field data-name="--toggle" data-type="boolean" data-required="false">
-    <x-field-desc markdown>切換一個或多個偏好設定的啟用狀態。可與 `--id` 一起使用，或以互動方式執行。</x-field-desc>
-  </x-field>
-  <x-field data-name="--id" data-type="array" data-required="false">
-    <x-field-desc markdown>指定要對其執行 `--remove` 或 `--toggle` 操作的偏好設定的唯一 ID。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-**範例**
-
-```bash title="列出所有已儲存的偏好設定"
+# 列出所有已儲存的偏好設定
 aigne web prefs --list
-```
 
-```bash title="根據 ID 移除特定的偏好設定"
+# 透過其 ID 移除特定的偏好設定
 aigne web prefs --remove --id "pref_abc123"
 ```
 
+**參數：**
+
+<x-field-group>
+  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="顯示所有已儲存使用者偏好設定的格式化清單。"></x-field>
+  <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="移除一個或多個偏好設定。需要 --id 參數，否則將提示進行選擇。"></x-field>
+  <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="切換一個或多個偏好設定的啟用狀態。需要 --id，否則將提示進行選擇。"></x-field>
+  <x-field data-name="--id" data-type="Array" data-required="false" data-desc="一個要管理的偏好設定 ID 陣列（移除或切換）。僅在非互動式地使用 --remove 或 --toggle 時需要。"></x-field>
+</x-field-group>
+
 ### history
+提供您網站內容和結構的更新歷史記錄檢視。
 
-`history` 指令群組提供存取您網站變更日誌的功能。
+#### 子命令
 
-#### history view
+**`view`** (別名: `log`, `list`)
+以緊湊的日誌風格格式顯示更新歷史記錄，類似於 `git log`。每個條目都包含一個唯一的雜湊值、更新日期、執行的操作以及提供的回饋。
 
-以精簡的 git-log 風格格式顯示更新歷史記錄。每個條目都包含一個唯一的雜湊值、變更日期、執行的操作以及觸發更新的回饋。
-
-**用法**
-
+**用法：**
 ```bash
 aigne web history view
 ```
 
+此指令不帶任何參數。
+
 ### clear
+安全地移除產生的檔案、工作區資料或設定。這對於重新開始或清理您的專案目錄很有用。
 
-`clear` 指令用於移除產生的內容並重設部分工作區。這在需要重新開始或清理磁碟空間時很有用。
-
-**用法**
-
+**用法：**
 ```bash
-aigne web clear
-```
-
-此指令預設以互動模式執行，讓您選擇要清除的項目。您也可以直接指定目標。
-
-**參數**
-
-<x-field-group>
-  <x-field data-name="targets" data-type="array" data-required="false">
-    <x-field-desc markdown>一組無需提示即可清除的項目陣列。有效值為 `workspace`、`generatedPages` 和 `websiteConfig`。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-**範例**
-
-```bash title="以非互動方式清除工作區和產生的頁面"
+# 無需提示即可清除暫存工作區和產生的頁面
 aigne web clear --targets workspace generatedPages
 ```
+
+**參數：**
+
+<x-field-group>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="一個無需提示即可清除的項目陣列。可能的值包括：workspace, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription。"></x-field>
+  <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="覆寫您的來源頁面的預設目錄路徑。"></x-field>
+  <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="覆寫暫存工作區的預設目錄路徑。"></x-field>
+  <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="覆寫產生頁面的預設目錄路徑。"></x-field>
+  <x-field data-name="configPath" data-type="String" data-required="false" data-desc="覆寫設定檔的預設路徑。"></x-field>
+</x-field-group>
+
+## 總結
+
+本參考指南涵蓋了 AIGNE WebSmith CLI 的主要指令及其參數。如需更詳細、以任務為導向的說明，請參閱 [核心任務](./core-tasks.md) 章節中的指南。

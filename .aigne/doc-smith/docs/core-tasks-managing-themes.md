@@ -14,10 +14,9 @@ The `theme generate` command initiates an AI-driven process to create a complete
 
 ### Process
 
-1.  **Run the Command**: Execute `aigne theme generate` in your terminal.
-2.  **Name Your Theme**: You will first be prompted to provide a unique name for your theme. This name will be used to identify it later.
-3.  **AI-Powered Design**: The AI will then ask questions to understand your design preferences for colors, typography, and mood.
-4.  **Save Locally**: Once the design process is complete, the theme is automatically saved to a file within your project's `themes` folder (e.g., `my-new-theme.yaml`).
+1.  **Initiate Generation**: Run `aigne theme generate` in your terminal.
+2.  **AI-Powered Design**: Engage in a conversation with the AI to define your theme. You will be asked for a theme name and your preferences for colors, typography, and overall mood.
+3.  **Local Save**: After the design is finalized, the theme configuration is saved as a `.yaml` file in your project's local `themes` directory.
 
 ### Usage
 
@@ -38,9 +37,8 @@ After generating one or more themes, the `theme apply` command allows you to sel
 
 1.  **Run the Command**: Execute `aigne theme apply` in your terminal.
 2.  **Select a Theme**: The tool scans the `themes` directory and displays a list of all available themes you have generated. The list includes details like the theme name, primary color, and fonts to help you choose.
-3.  **Confirm the Target**: The system will display the target website URL, the currently active theme (if any), and the new theme you have selected.
-4.  **Final Confirmation**: You will be asked for a final confirmation before any changes are made. This is a safety measure to prevent accidental overwrites.
-5.  **Apply to Website**: Once confirmed, the theme is uploaded and applied to your website. A success message will indicate that the process is complete.
+3.  **Review and Confirm**: The system will display the target website URL, the currently active theme, and the new theme you have selected. You will be asked for a final confirmation before any changes are made.
+4.  **Apply to Website**: Once confirmed, the theme is uploaded and applied to your website. A success message will indicate that the process is complete.
 
 ### Usage
 

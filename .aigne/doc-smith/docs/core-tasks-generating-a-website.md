@@ -1,110 +1,175 @@
 # Generating a Website
 
-The `aigne web generate` command is the core function for creating a new website. It uses an AI-powered process to interpret your requirements, plan the website structure, and generate all the necessary content and template files. The entire process is guided by a configuration file where you define the goals and specifications for your site.
+The core function of AIGNE WebSmith is to generate a complete, professional website from your source content and a set of defined requirements. This process is handled by the `generate` command, which orchestrates a series of AI agents to plan, write, and structure your site.
 
-This guide will provide a systematic overview of the `generate` command and a detailed breakdown of the configuration file parameters. For a hands-on tutorial, please refer to [Your First Website](./getting-started-your-first-website.md).
+This guide details the `generate` command and explains how to define your website's requirements in the `config.yaml` file, which acts as the primary blueprint for the AI.
 
 ## The `generate` Command
 
-The generation process is initiated using the `generate` command. Its primary purpose is to read your configuration, interact with the AI agents, and build the website files in your local workspace.
+The `aigne web generate` command initiates the entire website creation process. It reads your configuration, analyzes your source materials, plans the website's structure, generates content for each page, and assembles the final files.
 
-**Usage**
+### Usage
 
-```bash Command Line icon=lucide:terminal
+To run the generation process, execute the following command in your terminal:
+
+```bash
 aigne web generate
 ```
 
-**Aliases**
+You can also use the aliases `gen` or `g`:
 
-For convenience, you can also use the shorter aliases `gen` or `g`.
-
-```bash Command Line icon=lucide:terminal
-# These commands are equivalent to 'aigne web generate'
+```bash
 aigne web gen
-aigne web g
 ```
 
-Typically, you will pass your requirements to the command using an input file. This is done with the `--input` flag, followed by an `@` symbol and the path to your configuration file.
+### The Generation Process
 
-```bash Command Line icon=lucide:terminal
-aigne web generate --input @my-website.yaml
-```
+When you run the `generate` command, WebSmith performs the following sequence of operations:
 
-## Website Configuration File
+1.  **Load Configuration**: It first looks for and loads the `config.yaml` file to understand your high-level requirements. If this file doesn't exist, it will automatically initiate a guided setup to create one.
+2.  **Analyze Sources**: The AI scans the documents, markdown files, and other materials specified in the `sourcesPath` of your configuration to understand the subject matter.
+3.  **Plan Website Structure**: Based on the purpose, audience, and source content, the AI proposes a logical sitemap for your website, outlining all the pages and their hierarchy. You will be prompted to review and approve this structure before content generation begins.
+4.  **Generate Page Content**: For each page in the approved structure, the AI generates detailed content, including titles, descriptions, and sections composed of professional components like hero banners, feature lists, and FAQs.
+5.  **Save Website Files**: The final, structured content for each page is saved as YAML files in the directory specified by `pagesDir` in your configuration. These files are now ready for publishing.
 
-To generate a website, you must provide a configuration file in YAML format. This file serves as the blueprint, defining the website's purpose, target audience, style, and content requirements. The AI uses this information to make informed decisions about the site's structure, tone, and features.
+### Parameters
 
-The following parameters are available for your configuration file:
+The `generate` command accepts several optional parameters to customize its behavior.
 
 <x-field-group>
-  <x-field data-name="rules" data-type="string" data-required="true">
-    <x-field-desc markdown>A detailed description of the website you want to create. This is the most critical parameter. You should provide a clear, structured set of instructions, including the types of pages needed (e.g., homepage, pricing, about us), key features to highlight, and any specific requirements for style or content. The more precise the rules, the better the AI can tailor the website to your needs.</x-field-desc>
-  </x-field>
-  <x-field data-name="targetAudience" data-type="string" data-required="false">
-    <x-field-desc markdown>A description of the intended audience for the website. For example, `small business owners`, `software developers`, or `potential investors`. This helps the AI adjust the language, tone, and complexity of the content appropriately.</x-field-desc>
-  </x-field>
-  <x-field data-name="locale" data-type="string" data-default="zh" data-required="false">
-    <x-field-desc markdown>The primary language for the website content. Currently, supported values are `en` for English and `zh` for Chinese. The default is `zh`.</x-field-desc>
-  </x-field>
-  <x-field data-name="websiteStyle" data-type="string" data-default="business" data-required="false">
-    <x-field-desc markdown>Defines the overall aesthetic and tone of the website. For example, `business`, `creative`, `minimalist`, or `tech-focused`. This influences the AI's choice of layout, imagery, and writing style.</x-field-desc>
-  </x-field>
   <x-field data-name="glossary" data-type="string" data-required="false">
-    <x-field-desc markdown>A list of specific terms, product names, or jargon that should be used consistently throughout the website. This ensures terminological accuracy. You can provide this as a string or load it from a file using the `@<file-path>` syntax.</x-field-desc>
+    <x-field-desc markdown>Specifies the path to a glossary file (e.g., `@glossary.md`). This ensures that project-specific terms are used consistently throughout the generated content.</x-field-desc>
   </x-field>
-  <x-field data-name="forceRegenerate" data-type="boolean" data-default="false" data-required="false">
-    <x-field-desc markdown>If set to `true`, the command will regenerate all pages from scratch, ignoring any existing files from a previous generation. This is useful when you want a completely fresh start.</x-field-desc>
-  </x-field>
-  <x-field data-name="projectId" data-type="string" data-required="false">
-    <x-field-desc markdown>The Project ID from your Pages Kit instance. While not required for generation, providing it here can streamline the subsequent publishing process. See [Publishing Your Website](./core-tasks-publishing-your-website.md) for more details.</x-field-desc>
+  <x-field data-name="forceRegenerate" data-type="boolean" data-required="false">
+    <x-field-desc markdown>If set to `true`, the command will regenerate all pages from scratch, overwriting any previously generated files. This is useful after making significant changes to the `config.yaml` file or your source documents.</x-field-desc>
   </x-field>
 </x-field-group>
 
-## Step-by-Step Example
+**Example with parameters:**
 
-Here is a practical, step-by-step process for generating a website.
+```bash
+# Regenerate the entire website using a glossary file
+aigne web generate --forceRegenerate --glossary "@glossary.md"
+```
 
-### Step 1: Create the Configuration File
+## The Configuration File (`config.yaml`)
 
-First, create a new YAML file to define your website. For this example, we will name it `my-saas-website.yaml`.
+The `config.yaml` file is the blueprint for your website. It provides the AI with the necessary context and constraints to build a site that meets your specific needs. This file defines the project, the site's purpose and audience, language settings, and file locations.
 
-```yaml my-saas-website.yaml icon=lucide:file-text
-rules: |
-  Create a modern SaaS product website that includes:
-  1. A homepage with product introduction and core features.
-  2. A pricing page with a comparison table for different plans.
-  3. A page for customer success stories and testimonials.
-  4. A dedicated portal for technical documentation.
-  5. A contact page with a support form and contact details.
+Below is a detailed breakdown of the key properties within the `config.yaml` file.
 
-  Requirements:
-  - The style should be professional and business-oriented.
-  - The content must highlight the product's advantages and unique selling points.
-  - Include clear Call-to-Action (CTA) buttons to guide users toward a free trial.
+### Configuration Options
 
-targetAudience: Small to medium-sized business (SMB) owners and technical decision-makers.
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>The name of your project or website. This is used for metadata and publishing.</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="false">
+    <x-field-desc markdown>A brief description of your project.</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>A URL or local path to your project's logo.</x-field-desc>
+  </x-field>
+  <x-field data-name="pagePurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>An array of strings defining the website's primary goals. Examples: `productDocumentation`, `marketingLandingPage`, `blog`, `apiReference`.</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>An array of strings identifying the primary audience. Examples: `developers`, `businessUsers`, `endUsers`, `dataScientists`.</x-field-desc>
+  </x-field>
+  <x-field data-name="websiteScale" data-type="string" data-required="true">
+    <x-field-desc markdown>Defines the desired size and complexity of the website. Options include `small` (a few key pages), `standard` (a comprehensive site), and `large` (an extensive site with deep content).</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>A field for any custom rules or specific instructions for the AI to follow during generation, such as tone of voice, content to exclude, or specific points to emphasize.</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-default="en" data-required="true">
+    <x-field-desc markdown>The primary language for the website content, specified by a language code (e.g., `en`, `zh`, `es`).</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>A list of language codes to translate the website into. For example, `['zh', 'fr']`.</x-field-desc>
+  </x-field>
+  <x-field data-name="pagesDir" data-type="string" data-required="true">
+    <x-field-desc markdown>The local directory path where the generated website page files will be saved.</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>An array of file paths or glob patterns that point to your source content. The AI will analyze these files to generate the website.</x-field-desc>
+  </x-field>
+</x-field-group>
+
+### Example `config.yaml`
+
+Here is an example of a complete `config.yaml` file with comments explaining each section.
+
+```yaml config.yaml
+# Project information for page publishing
+projectName: AIGNE WebSmith
+projectDesc: AI-driven website generation tool
+projectLogo: https://www.aigne.io/image-bin/uploads/bc5afab4e6d282cc7f4aa444e9b9f7f4.svg
+projectId: aigne-websmith-docs
+projectSlug: aigne-websmith
+
+# =============================================================================
+# Website Configuration
+# =============================================================================
+
+# Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   productDocumentation - Product Documentation: In-depth guides, tutorials, and API references.
+#   marketingLandingPage - Marketing Landing Page: Showcase products and convert visitors.
+#   companyIntroduction - Company Introduction: Present your company's vision and team.
+#   blog              - Blog: Articles, updates, and industry insights.
+#   caseStudies       - Case Studies: Customer success stories and use cases.
+#   knowledgeBase     - Knowledge Base: FAQs and troubleshooting articles.
+#   apiReference      - API Reference: Detailed documentation for your API.
+#   mixedPurpose      - Mixed Purpose: A combination of multiple goals.
+pagePurpose:
+  - productDocumentation
+
+# Target Audience: Who will be reading this most often?
+# Available options (uncomment and modify as needed):
+#   developers        - Developers: Technical users who build with your product.
+#   businessUsers     - Business Users: Non-technical users focused on business value.
+#   endUsers          - End Users: General audience using the final product.
+#   dataScientists    - Data Scientists: Users focused on data and analytics.
+#   investors         - Investors: Stakeholders interested in company potential.
+#   jobSeekers        - Job Seekers: Potential employees exploring your company.
+targetAudienceTypes:
+  - developers
+
+# Website Scale: How many pages should your website have?
+# Available options (uncomment and modify as needed):
+#   small                - Small: A concise website with 3-5 key pages.
+#   standard             - Standard: A comprehensive site with 5-10 pages.
+#   large                - Large: An extensive site with over 10 pages.
+websiteScale: standard
+
+# Custom Rules: Define specific page generation rules and requirements
+rules: 'Maintain a formal and technical tone. Avoid marketing jargon. Focus on practical, step-by-step instructions.'
+
+# Glossary: Define project-specific terms and definitions
+# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
+
 locale: en
-websiteStyle: business
+# translateLanguages:  # List of languages to translate the pages to
+#   - zh  # Example: Chinese translation
+#   - en  # Example: English translation
+
+pagesDir: ./aigne-web-smith/pages  # Directory to save generated pages
+sourcesPath:  # Source code paths to analyze
+  - ./docs/**/*.md
+  - ./README.md
+defaultDatasources:  # Default datasources included in every page
+  - ./media.md
+# minImageWidth: Only images wider than this value (in pixels) will be used in page generation
+media:
+  minImageWidth: 800
 ```
-
-### Step 2: Run the `generate` Command
-
-With the configuration file saved, open your terminal and run the `generate` command, pointing to your file using the `--input` flag.
-
-```bash Command Line icon=lucide:terminal
-aigne web generate --input @my-saas-website.yaml
-```
-
-The AI will now begin the generation process. It will analyze your rules, plan the site structure, and then create the content for each page. You will see progress updates in your terminal. This process may take several minutes, depending on the number of pages and the complexity of the requirements.
-
-### Step 3: Review the Generated Files
-
-Once the command completes, the generated website files will be saved in your project's workspace. You can now inspect the files to see the structure and content created by the AI.
 
 ## Summary
 
-The `generate` command is a powerful tool that transforms a simple set of text-based requirements into a fully-formed website. The key to a successful outcome is a clear and detailed `rules` definition in your YAML configuration file.
+By combining the `generate` command with a well-defined `config.yaml` file, you can efficiently produce a complete website tailored to your exact specifications. This process automates the heavy lifting of site structure and content creation, allowing you to focus on providing high-quality source material.
 
-After generating your website, the next logical step is to publish it. To learn how, proceed to the next section.
+After generating your website, the next step is to make it available online.
 
-- **Next**: [Publishing Your Website](./core-tasks-publishing-your-website.md)
+Further reading:
+*   [Publishing Your Website](./core-tasks-publishing-your-website.md)

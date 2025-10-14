@@ -1,99 +1,117 @@
 # 您的第一個網站
 
-本教學將提供一個手把手的指南，教您如何使用 AIGNE WebSmith 產生一個完整的網站。此過程包含兩個主要步驟：建立一個設定檔來定義您的網站需求，然後執行一個指令來產生網站頁面。
+本教學提供一份直接、實作的指南，教您如何生成一個完整的多頁面網站。整個過程包括透過回答幾個問題來建立一個簡單的設定檔，然後執行一個單一指令。您無需具備任何先前的技術經驗。
 
-在繼續之前，請確保您已成功安裝 AIGNE CLI。若尚未安裝，請遵循 [安裝](./getting-started-installation.md) 指南中的說明。
+讀完本指南後，您將擁有一組儲存在本地的網頁，這些網頁由 AI 根據您的具體需求生成，可供您審閱和發布。
 
-## 步驟 1：建立您的設定檔
+## 先決條件
 
-設定檔是一個 YAML 格式的純文字檔案，用來告訴 AI 您想建立何種類型的網站。它包含了網站目的、目標受眾以及任何特定規則或內容需求等細節。
+在繼續之前，請確保您已成功安裝 AIGNE CLI。如果您尚未安裝 CLI，請遵循 [安裝](./getting-started-installation.md) 指南中的說明。
 
-您可以透過兩種方式建立此檔案：透過互動式設定流程，或手動建立。
+## 步驟 1：建立一個專案目錄
 
-### 方法 A：互動式設定（建議）
+首先，在您的電腦上建立一個新資料夾，用來存放您網站的設定檔和生成檔案。開啟您的終端機或命令提示字元，並執行以下指令：
 
-若想獲得引導式體驗，請使用 `init` 指令。它會詢問您一系列關於網站的問題，並自動為您產生 `config.yaml` 檔案。
+```bash
+# 為您的專案建立一個新目錄
+mkdir my-first-website
 
-1.  開啟您的終端機或命令提示字元。
-2.  執行以下指令：
+# 進入新目錄
+cd my-first-website
+```
 
-    ```bash
-    aigne web init
-    ```
+所有後續指令都應在此 `my-first-website` 目錄中執行。
 
-3.  回答所提出的問題。設定過程將引導您定義：
-    *   **網站目的**：您網站的主要目標（例如：產品展示、部落格、文件）。
-    *   **目標受眾**：網站的目標對象（例如：開發者、企業主）。
-    *   **網站規模**：大約的頁面數量。
-    *   **語言**：內容的主要語言。
-    *   **資料來源**：用作內容產生來源的本機檔案或資料夾。
-    *   **自訂規則**：給 AI 的任何特定指示。
+## 步驟 2：執行生成指令
 
-完成後，一個名為 `config.yaml` 的檔案將會建立在 `aigne-web-smith` 目錄中，為下一步做好準備。
+整個網站生成過程由一個單一指令啟動。在您的終端機中，執行以下指令：
 
-### 方法 B：手動建立
+```bash aigne web generate icon=material-symbols:rocket-launch-outline
+aigne web generate
+```
 
-如果您偏好手動建立設定檔，可以建立一個文字檔案，並以 `.yaml` 為副檔名儲存（例如 `my-website.yaml`）。
+由於這是一個新專案，WebSmith 會偵測到沒有設定檔存在，並會自動啟動一個互動式設定精靈來協助您建立一個。
 
-此方法提供直接的控制權，但需要對 YAML 語法有基本的了解。
+## 步驟 3：完成設定精靈
 
-1.  建立一個名為 `my-website.yaml` 的新檔案。
-2.  複製並貼上以下範本到您的檔案中，並修改其值以符合您的需求。
+設定精靈將引導您回答一系列問題，以了解您想要建立何種類型的網站。以下是您將被要求提供的資訊細目。
 
-    ```yaml title="my-website.yaml"
-    # 1. 定義您網站的規則和結構。
-    # 這可以是一個簡單的頁面列表，或是一個更詳細的大綱。
-    rules: |
-      Create a modern website for a SaaS product that includes:
-      1. A homepage introducing the product and its core features.
-      2. A detailed pricing page with a comparison of different plans.
-      3. A page showcasing customer success stories or testimonials.
-      4. A simple contact page with a form and support information.
+1.  **網站目的**：選擇您網站的主要目標（例如，產品展示、文件中心、行銷網站）。這有助於 AI 適當地調整結構和內容。
+2.  **目標受眾**：指定誰將會造訪您的網站（例如，開發者、一般消費者、商業客戶）。這會影響生成文字的語氣和複雜度。
+3.  **網站規模**：選擇您需要的大約頁面數量（例如，小型、標準、大型）。這決定了 AI 將建立的網站結構深度。
+4.  **主要語言**：選擇您網站內容的主要語言。
+5.  **翻譯語言**：可選擇性地選擇您希望網站翻譯成的其他語言。
+6.  **頁面目錄**：指定最終網站檔案將儲存的資料夾。預設的 `aigne/web-smith/pages` 適用於大多數專案。
+7.  **資料來源路徑**：提供 AI 應用作原始材料的本地檔案或目錄路徑（例如，`./docs`、`../project-brief.md`）。如果您未提供任何路徑，WebSmith 將分析您目前的目錄並建議相關檔案。
+8.  **自訂規則**：新增您對網站的任何特定指示或要求，例如品牌指南或內容限制。
 
-    # 2. 描述您網站的主要受眾。
-    targetAudience: Small to medium-sized business owners and marketing managers.
+回答完所有問題後，WebSmith 會將您的選擇儲存到專案目錄中一個名為 `config.yaml` 的檔案裡。
 
-    # 3. 指定網站內容的主要語言。
-    locale: en
+### 設定檔範例
 
-    # 4. 為網站選擇一個通用風格。
-    # 常見選項包含「business」（商業）、「creative」（創意）、「minimalist」（極簡）等。
-    websiteStyle: business
-    ```
+您生成的 `config.yaml` 檔案將與此類似。您可以隨時直接編輯此檔案以調整您網站的設定。
 
-此範例設定指示 AI 為一個 SaaS 產品產生一個四頁的網站，目標對象為企業主，語言為英文，並採用專業的商業風格。
+```yaml config.yaml icon=mdi:file-document-outline
+# 用於發布頁面的專案資訊
+projectName: My Awesome Project
+projectDesc: This is a project that does amazing things.
+projectLogo: ""
+projectId: d2a8b9e7-f6c5-4d32-9a1b-0e8c7d6f5a4b
+projectSlug: my-awesome-project
 
-## 步驟 2：產生網站
+# =============================================================================
+# 網站設定
+# =============================================================================
 
-一旦您的設定檔準備就緒，您就可以使用 `generate` 指令來開始網站的建立過程。AI 將會讀取您的設定、規劃網站結構，並為每個頁面產生內容和範本。
+# 目的：您希望讀者達成的最主要成果是什麼？
+pagePurpose:
+  - productShowcase
 
-1.  確保您位於與設定檔相同的目錄中。
-2.  在您的終端機中執行 `generate` 指令。
+# 目標受眾：誰會最常閱讀此內容？
+targetAudienceTypes:
+  - developers
 
-    *   如果您使用互動式設定（`aigne web init`），檔案名稱為 `config.yaml`，將會被自動使用：
+# 網站規模：您的網站應該有多少頁面？
+websiteScale: standard
 
-      ```bash
-      aigne web generate
-      ```
+# 自訂規則：定義特定的頁面生成規則與需求
+rules: ""
 
-    *   如果您是手動建立檔案（例如 `my-website.yaml`），則需要使用 `--input` 旗標來指定它：
+# 語言設定
+locale: en
+# translateLanguages:
+#   - zh
 
-      ```bash
-      aigne web generate --input @my-website.yaml
-      ```
+# 目錄與來源路徑設定
+pagesDir: aigne/web-smith/pages  # 用於儲存生成頁面的目錄
+sourcesPath:  # 要分析的原始碼路徑
+  - README.md
+defaultDatasources:  # 每個頁面都包含的預設資料來源
+  - ./media.md
+# minImageWidth：只有寬度大於此值（以像素為單位）的圖片才會用於頁面生成
+media:
+  minImageWidth: 800
+```
 
-產生過程可能需要幾分鐘，具體時間取決於頁面數量和您的需求複雜度。您會在終端機中看到進度更新。
+## 步驟 4：審閱並核准網站計畫
 
-## 步驟 3：檢視產生的檔案
+設定儲存後，AI 將分析您的需求和資料來源，為您的網站建立一個建議的結構。此計畫將顯示在您的終端機中供您審閱。
 
-在 `generate` 指令成功完成後，您的網站頁面將會儲存到您在設定中指定的本機目錄（預設為 `aigne-web-smith/pages`）。
+系統會提示您核准該計畫或要求更改。對於您的第一個網站，您可以直接核准建議的結構以繼續。
 
-您現在可以開啟此資料夾來檢視結果。您會找到一組檔案，通常是 YAML 格式，分別對應到您網站的每個頁面。這些檔案包含了可以發布的結構化內容和版面配置資訊。
+## 步驟 5：檢視您生成的網站
 
-## 總結與後續步驟
+一旦您核准計畫，AI 將會繼續為每個頁面撰寫內容並生成範本。此過程可能需要幾分鐘，具體取決於頁面數量。
 
-您已成功建立一個設定檔，並用它透過一個指令產生了一個多頁網站。產生的檔案現在已在您的本機電腦上準備就緒。
+生成完成後，最終檔案將儲存在您在設定過程中指定的目錄中（例如，`aigne/web-smith/pages`）。
 
-下一個合理的步驟是發布您的網站，讓它可以在線上存取。若要了解如何操作，請繼續閱讀下一份指南。
+若要檢視您的網站，請在您的電腦上導覽至此目錄，並在您的網頁瀏覽器中開啟 `.html` 或 `.md` 檔案。
 
-- **[發布您的網站](./core-tasks-publishing-your-website.md)**：了解如何將您產生的網站部署到網路上。
+## 總結
+
+恭喜，您已成功使用 AIGNE WebSmith 生成了您的第一個網站。核心流程包括執行一個單一指令，回答一系列問題以建立設定檔，然後讓 AI 根據您的輸入來建置網站。
+
+### 後續步驟
+
+-   **發布您的網站**：了解如何將您的網站上線。更多詳細資訊，請參閱 [發布您的網站](./core-tasks-publishing-your-website.md) 指南。
+-   **更新內容**：如果您需要進行更改，請參閱 [更新網站內容](./core-tasks-updating-website-content.md) 指南。

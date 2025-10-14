@@ -521,30 +521,22 @@ export default async function publishWebsite(
       });
     }
 
-    const projectData = {
-      id: projectId,
-      name: projectName,
-      description: projectDesc,
-      icon: projectLogo,
-      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
-    };
-
     let remoteResults = [];
     let newProjectId = projectId;
     let newProjectSlug = projectSlug;
 
     if (manifestPages.length > 0) {
       if (shouldWithBranding) {
+        let brandingProjectLogo = projectLogo;
         // check projectLogo is file
-        if (projectLogo) {
-          if (isHttp(projectLogo)) {
-            // download to temp dir and upload
+        if (brandingProjectLogo) {
+          // download to temp dir and upload
+          if (isHttp(brandingProjectLogo)) {
+            let tempFilePath = join(pagesDir, slugify(basename(brandingProjectLogo)));
 
-            let tempFilePath = join(pagesDir, slugify(basename(projectLogo)));
+            let ext = extname(brandingProjectLogo);
 
-            let ext = extname(projectLogo);
-
-            await fetch(projectLogo).then(async (response) => {
+            await fetch(brandingProjectLogo).then(async (response) => {
               const blob = await response.blob();
 
               const arrayBuffer = await blob.arrayBuffer();
@@ -562,25 +554,29 @@ export default async function publishWebsite(
             });
 
             // to relative path
-            projectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+            brandingProjectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
           }
 
           // check projectLogo is exist
           try {
-            const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);
+            const brandingProjectLogoPath = resolve(
+              process.cwd(),
+              WEB_SMITH_DIR,
+              brandingProjectLogo,
+            );
 
-            const projectLogoStat = await stat(projectLogoPath);
+            const brandingProjectLogoStat = await stat(brandingProjectLogoPath);
 
             const blockletDID = await getBlockletMetaDid(appUrl);
 
             // projectLogo is file
-            if (projectLogoStat.isFile()) {
+            if (brandingProjectLogoStat.isFile()) {
               const url = new URL(appUrl);
 
               // upload projectLogo to blocklet server
               await uploadFiles({
                 appUrl,
-                filePaths: [projectLogoPath],
+                filePaths: [brandingProjectLogoPath],
                 accessToken,
                 concurrency: 1,
                 endpoint: joinURL(
@@ -600,7 +596,7 @@ export default async function publishWebsite(
           appName: projectName,
           appDescription: projectDesc,
           // @Notice: appLogo will be auto-set by blocklet server, do not set it here
-          // appLogo: projectLogo,
+          // appLogo: brandingProjectLogo,
         };
       }
 
@@ -613,6 +609,14 @@ export default async function publishWebsite(
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
       }
+
+      const projectData = {
+        id: projectId,
+        name: projectName,
+        description: projectDesc,
+        icon: projectLogo,
+        slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
+      };
 
       const manifest = {
         version: 1,

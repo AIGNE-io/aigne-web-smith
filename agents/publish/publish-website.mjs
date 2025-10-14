@@ -495,7 +495,6 @@ export default async function publishWebsite(
         ...processedPageContent,
         slug: path,
         templateConfig: {
-          ...meta,
           isTemplate: true,
           sourceFile: file,
         },
@@ -507,7 +506,6 @@ export default async function publishWebsite(
         path: routePath,
         displayName: routePath,
         meta: {
-          ...meta,
           sourceFile: file,
           sitemapTitle: matchingSitemapItem?.title,
           sitemapPath: matchingSitemapItem?.path,
@@ -525,58 +523,56 @@ export default async function publishWebsite(
     let newProjectId = projectId;
     let newProjectSlug = projectSlug;
 
-    if (manifestPages.length > 0) {
-      if (shouldWithBranding) {
-        let brandingProjectLogo = projectLogo;
-        // check projectLogo is file
-        if (brandingProjectLogo) {
-          // download to temp dir and upload
-          if (isHttp(brandingProjectLogo)) {
-            let tempFilePath = join(pagesDir, slugify(basename(brandingProjectLogo)));
+    // handle project logo
+    if (projectLogo) {
+      // download project logo to temp dir
+      if (isHttp(projectLogo)) {
+        let tempFilePath = join(pagesDir, slugify(basename(projectLogo)));
 
-            let ext = extname(brandingProjectLogo);
+        let ext = extname(projectLogo);
 
-            await fetch(brandingProjectLogo).then(async (response) => {
-              const blob = await response.blob();
+        await fetch(projectLogo).then(async (response) => {
+          const blob = await response.blob();
 
-              const arrayBuffer = await blob.arrayBuffer();
-              const buffer = Buffer.from(arrayBuffer);
+          const arrayBuffer = await blob.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
 
-              if (!ext) {
-                const contentType = response.headers.get("content-type");
-                ext = getExtnameFromContentType(contentType);
-                tempFilePath = `${tempFilePath}.${ext}`;
-              }
-
-              fs.writeFileSync(tempFilePath, buffer);
-
-              return blob;
-            });
-
-            // to relative path
-            brandingProjectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+          if (!ext) {
+            const contentType = response.headers.get("content-type");
+            ext = getExtnameFromContentType(contentType);
+            tempFilePath = `${tempFilePath}.${ext}`;
           }
 
+          fs.writeFileSync(tempFilePath, buffer);
+
+          return blob;
+        });
+
+        // to relative path
+        projectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+      }
+    }
+
+    if (manifestPages.length > 0) {
+      if (shouldWithBranding) {
+        // check projectLogo is file
+        if (projectLogo) {
           // check projectLogo is exist
           try {
-            const brandingProjectLogoPath = resolve(
-              process.cwd(),
-              WEB_SMITH_DIR,
-              brandingProjectLogo,
-            );
+            const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);
 
-            const brandingProjectLogoStat = await stat(brandingProjectLogoPath);
+            const projectLogoStat = await stat(projectLogoPath);
 
             const blockletDID = await getBlockletMetaDid(appUrl);
 
             // projectLogo is file
-            if (brandingProjectLogoStat.isFile()) {
+            if (projectLogoStat.isFile()) {
               const url = new URL(appUrl);
 
               // upload projectLogo to blocklet server
               await uploadFiles({
                 appUrl,
-                filePaths: [brandingProjectLogoPath],
+                filePaths: [projectLogoPath],
                 accessToken,
                 concurrency: 1,
                 endpoint: joinURL(
@@ -608,6 +604,20 @@ export default async function publishWebsite(
       if (shouldWithNavigations && navigationEntries.length > 0) {
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
+      }
+
+      // upload project logo to media kit
+      if (projectLogo) {
+        const { results: uploadResults } = await uploadFiles({
+          appUrl,
+          filePaths: [resolve(process.cwd(), WEB_SMITH_DIR, projectLogo)],
+          accessToken,
+          concurrency: 1,
+        });
+
+        projectLogo = basename(uploadResults?.[0]?.url || projectLogo);
+
+        console.warn(2222, projectLogo);
       }
 
       const projectData = {

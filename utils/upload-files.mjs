@@ -54,7 +54,7 @@ async function performSingleUpload(
   fileHash,
   uploadEndpoint,
   accessToken,
-  mountPoint,
+  _mountPoint,
   url,
 ) {
   const baseFilename = path.basename(filePath, path.extname(filePath));
@@ -83,6 +83,9 @@ async function performSingleUpload(
     .map(([key, value]) => `${key} ${Buffer.from(value).toString("base64")}`)
     .join(",");
 
+  const uploadEndpointUrl = new URL(uploadEndpoint);
+  const endpointPath = uploadEndpointUrl.pathname;
+
   const createResponse = await fetch(uploadEndpoint, {
     method: "POST",
     headers: {
@@ -93,7 +96,7 @@ async function performSingleUpload(
       "x-uploader-file-name": hashBasedFilename,
       "x-uploader-file-id": fileId,
       "x-uploader-file-ext": fileExt,
-      "x-uploader-base-url": `${mountPoint}/api/uploads`,
+      "x-uploader-base-url": endpointPath,
       "x-uploader-endpoint-url": uploadEndpoint,
       "x-uploader-metadata": JSON.stringify({
         uploaderId,
@@ -126,7 +129,7 @@ async function performSingleUpload(
       "x-uploader-file-name": hashBasedFilename,
       "x-uploader-file-id": fileId,
       "x-uploader-file-ext": fileExt,
-      "x-uploader-base-url": `${mountPoint}/api/uploads`,
+      "x-uploader-base-url": endpointPath,
       "x-uploader-endpoint-url": uploadEndpoint,
       "x-uploader-metadata": JSON.stringify({
         uploaderId,
@@ -139,6 +142,7 @@ async function performSingleUpload(
     },
     body: fileBuffer,
   });
+
   if (!uploadResponse.ok) {
     const errorText = await uploadResponse.text();
     throw new Error(
@@ -147,7 +151,12 @@ async function performSingleUpload(
   }
 
   const uploadResult = await uploadResponse.json();
-  const uploadedFileUrl = uploadResult.url;
+
+  let uploadedFileUrl = uploadResult.url;
+  if (!uploadedFileUrl && uploadResult?.size) {
+    uploadedFileUrl = uploadResponse.url;
+  }
+
   if (!uploadedFileUrl) {
     throw new Error("No URL found in the upload response");
   }
@@ -227,7 +236,7 @@ function getMimeType(filename) {
 }
 
 export async function uploadFiles(options) {
-  const { appUrl, filePaths, concurrency = 5, accessToken, cacheFilePath } = options;
+  const { appUrl, filePaths, endpoint, concurrency = 5, accessToken, cacheFilePath } = options;
 
   if (filePaths.length === 0) {
     return { results: [] };
@@ -241,7 +250,9 @@ export async function uploadFiles(options) {
 
   const url = new URL(appUrl);
   const mountPoint = await getComponentMountPoint(appUrl, MEDIA_KIT_DID);
-  const uploadEndpoint = `${url.origin}${mountPoint}/api/uploads`;
+
+  // default upload to media kit endpoint
+  const uploadEndpoint = endpoint || `${url.origin}${mountPoint}/api/uploads`;
 
   const limit = pLimit(concurrency);
 

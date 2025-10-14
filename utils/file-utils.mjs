@@ -151,36 +151,57 @@ export async function loadGitignore(dir) {
   return allPatterns.length > 0 ? [...new Set(allPatterns)] : null;
 }
 
+// Shared extension → MIME type table
+const EXT_TO_MIME = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".gif": "image/gif",
+  ".bmp": "image/bmp",
+  ".webp": "image/webp",
+  ".svg": "image/svg+xml",
+  ".heic": "image/heic",
+  ".heif": "image/heif",
+  ".mp4": "video/mp4",
+  ".mpeg": "video/mpeg",
+  ".mpg": "video/mpg",
+  ".mov": "video/mov",
+  ".avi": "video/avi",
+  ".flv": "video/x-flv",
+  ".mkv": "video/x-matroska",
+  ".webm": "video/webm",
+  ".wmv": "video/wmv",
+  ".m4v": "video/x-m4v",
+  ".3gpp": "video/3gpp",
+};
+
+// Build reverse mapping: MIME → extensions
+const MIME_TO_EXTS = Object.entries(EXT_TO_MIME).reduce((acc, [ext, mime]) => {
+  const key = mime.toLowerCase();
+  (acc[key] ||= []).push(ext);
+  return acc;
+}, {});
+
 /**
- * Get MIME type from file path based on extension
- * @param {string} filePath - File path
- * @returns {string} MIME type
+ * Get MIME type from file path.
+ * Returns "application/octet-stream" if unknown.
  */
 export function getMimeType(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-  const mimeTypes = {
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".png": "image/png",
-    ".gif": "image/gif",
-    ".bmp": "image/bmp",
-    ".webp": "image/webp",
-    ".svg": "image/svg+xml",
-    ".heic": "image/heic",
-    ".heif": "image/heif",
-    ".mp4": "video/mp4",
-    ".mpeg": "video/mpeg",
-    ".mpg": "video/mpg",
-    ".mov": "video/mov",
-    ".avi": "video/avi",
-    ".flv": "video/x-flv",
-    ".mkv": "video/x-matroska",
-    ".webm": "video/webm",
-    ".wmv": "video/wmv",
-    ".m4v": "video/x-m4v",
-    ".3gpp": "video/3gpp",
-  };
-  return mimeTypes[ext] || "application/octet-stream";
+  const ext = path.extname(filePath || "").toLowerCase();
+  return EXT_TO_MIME[ext] || "application/octet-stream";
+}
+
+/**
+ * Get file extension (without dot) from content type.
+ * Handles content types with parameters (e.g., "image/jpeg; charset=utf-8").
+ */
+export function getExtnameFromContentType(contentType) {
+  if (!contentType) return "";
+  const base = String(contentType).split(";")[0].trim().toLowerCase();
+  const exts = MIME_TO_EXTS[base];
+  if (exts && exts.length) return exts[0].slice(1);
+  const parts = base.split("/");
+  return parts[1] || "";
 }
 
 /**

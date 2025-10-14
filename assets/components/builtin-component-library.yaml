@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-11T09:32:16.682Z
+  updateAt: 2025-10-14T01:41:30.979Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -51,6 +51,11 @@ atomic:
   - name: ComparisonTable
     componentId: -b71JoAi_lXSY8MP
     summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
+  - name: Terminal
+    componentId: AwkO9eKiUWeU7Z8u
+    summary: Simple terminal player component using @arcblock/terminal
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
@@ -7131,3 +7136,157 @@ composite:
                 }
           x9k2m5p8q1w3r7t6:
             value: <%= featureTitle %>
+  - id: 97jrhwm2hu1kqr42
+    name: TerminalPlayer
+    summary: >-
+      Structure (left → right, then top → bottom within each column)
+
+
+      - Left Column: Feature Label/Metadata Block
+          - Icon/Type Indicator
+          - Feature Title
+          - Feature Command/Description (Underneath, a brief command or description, e.g., "aigne doc translate").
+      - Right Column: Product Visual (Terminal Execution Playback)
+          - Terminal Content/Log Playback (The core visual demonstration of the feature, showing a console/code execution log being replayed).
+          - Playback Controls (Timeline, play button).
+
+      ---
+
+
+      Use when
+
+
+      - You need to visually demonstrate a technical feature or complex workflow
+      (e.g., API calls, code execution, console logs) by showing a perfect,
+      recording of a terminal session.
+
+      - The feature's value is best communicated through showing the process
+      exactly as it appears in a terminal
+
+      - The component serves as a highly engaging section on a feature landing
+      page or documentation site to convince technical users.
+
+      - The `terminalPlaybackData` field of this component requires JSON data in
+      a specific format. Only use this component when terminal playback data is
+      explicitly provided by the user.
+
+      - The `terminalPlaybackData` field value must specify the JSON data file
+      name, such as: `@run.json`.
+
+
+      ---
+
+
+      Constraint
+
+
+      - The visual should clearly correlate with the text in the left column
+      (e.g., the playback must show the execution of the "aigne doc translate"
+      command).
+
+      - When displaying multiple execution steps, you can display multiple
+      `TerminalPlayer` components in the `Layout 1 Column Grid (Center)`
+      component.
+
+      - You must pair the functional metadata (command, title) with the live
+      execution replay for a complete context.
+    fieldCombinations:
+      - command
+      - commandTitle
+      - terminalPlaybackData
+    section:
+      id: 8oxmm9uhgxqc6eet
+      name: TerminalPlayer
+      component: layout-block
+      sections:
+        izu6it0z97ejzuq8:
+          id: izu6it0z97ejzuq8
+          name: Step
+          component: layout-block
+          sections:
+            8kf9o1xam8ylqw29:
+              id: 8kf9o1xam8ylqw29
+              name: Code
+              component: custom-component
+              config:
+                componentId: 2EHGy3vwxlS9JGr2
+          sectionIds:
+            - 8kf9o1xam8ylqw29
+          config:
+            gridSettings:
+              desktop:
+                8kf9o1xam8ylqw29:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            gap: none
+            alignContent: start
+            borderRadius: small
+            height: fit-content
+            background: transparent
+            border: solid
+        7du77n8266xifuar:
+          id: 7du77n8266xifuar
+          name: Step
+          component: layout-block
+          sections:
+            6l7az1t9jd5qbb9y:
+              id: 6l7az1t9jd5qbb9y
+              name: Terminal
+              component: custom-component
+              config:
+                componentId: AwkO9eKiUWeU7Z8u
+          sectionIds:
+            - 6l7az1t9jd5qbb9y
+          config:
+            gridSettings:
+              desktop:
+                6l7az1t9jd5qbb9y:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            border: terminal
+            borderRadius: small
+            alignContent: start
+            height: 100%
+            gap: normal
+      sectionIds:
+        - izu6it0z97ejzuq8
+        - 7du77n8266xifuar
+      config:
+        gridSettings:
+          desktop:
+            izu6it0z97ejzuq8:
+              x: 0
+              y: 0
+              w: 4
+              h: 1
+            7du77n8266xifuar:
+              x: 4
+              y: 0
+              w: 8
+              h: 1
+        paddingX: none
+        paddingY: none
+        gap: normal
+        alignContent: center
+    dataSource:
+      8oxmm9uhgxqc6eet: {}
+      izu6it0z97ejzuq8: {}
+      8kf9o1xam8ylqw29:
+        properties:
+          a7frn5jmx5vpxpt3:
+            value: <%= command %>
+          b2jrz12ik7esf93z:
+            value: <%= commandTitle %>
+          c4kvf6b7zyskk8m:
+            value: false
+          e9kvx5d7y82lm3n:
+            value: default
+      7du77n8266xifuar: {}
+      6l7az1t9jd5qbb9y:
+        properties:
+          n802svpu2aj3ecnm:
+            value: <%= terminalPlaybackData %>

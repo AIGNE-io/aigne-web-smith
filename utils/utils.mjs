@@ -1754,7 +1754,12 @@ export const formatRoutePath = (path) => {
 export const log = (...args) => ENABLE_LOGS && console.log(...args);
 export const logError = (...args) => ENABLE_LOGS && console.error(...args);
 
-// 小工具：path 数组可视化
+// Utility: Path array visualization
 export const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? ""));
 
+/**
++  * Checks if a URL starts with http:// or https://
++  * @param {string} url - The URL to check
++  * @returns {boolean} True if the URL starts with http:// or https://
++  */
 export const isHttp = (url) => url.startsWith("http://") || url.startsWith("https://");

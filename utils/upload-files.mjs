@@ -151,7 +151,11 @@ async function performSingleUpload(
   }
 
   const uploadResult = await uploadResponse.json();
-  const uploadedFileUrl = uploadResult.url || (uploadResult?.size ? uploadResponse.url : null);
+
+  let uploadedFileUrl = uploadResult.url;
+  if (!uploadedFileUrl && uploadResult?.size) {
+    uploadedFileUrl = uploadResponse.url;
+  }
 
   if (!uploadedFileUrl) {
     throw new Error("No URL found in the upload response");

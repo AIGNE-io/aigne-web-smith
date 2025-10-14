@@ -1,12 +1,14 @@
 type: image
 name: generateImage
-image_model: google/gemini-2.5-flash-image-preview
+image_model: 
+  model: google/gemini-2.5-flash-image-preview
+  # imageConfig:
+  #   aspectRatio: "16:9"
 instructions: |
+  Image Description:
   {{aiPrompt}}
 
   **Technical Requirements:**
-  - High resolution (minimum 1920px width) for retina displays
-  - Aspect ratio: 16:9 (landscape orientation)
   - Web-optimized color palette with balanced saturation
   - Sharp focus on primary subject with appropriate depth of field
 
@@ -15,6 +17,7 @@ instructions: |
   - Balanced negative space for text overlay compatibility
   - Professional framing that emphasizes the main subject
   - Centered or rule-of-thirds composition as appropriate for web context
+  - Only include content from `Image Description`
 
   **Visual Style:**
   - Modern, contemporary aesthetic aligned with current web design trends
@@ -28,7 +31,7 @@ instructions: |
   - Clear foreground-background separation for better readability
   - Versatile composition suitable for various viewport sizes
   - Professional polish appropriate for product landing pages and marketing materials
-  - Sufficient vertical padding/whitespace at top and bottom to ensure main subject remains visible when cropped
+  - Use transparent background for empty areas
 input_schema:
   type: object
   properties:

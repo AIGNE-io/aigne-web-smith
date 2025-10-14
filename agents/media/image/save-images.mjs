@@ -28,6 +28,7 @@ export default async function saveImages({ imageRequirements = [] }) {
 
     // Build assets content in YAML format (similar to load-sources.mjs)
     let message = `# Newly Available Media Assets for Website\n\n`;
+    message += `These images are newly available for the website. You must use them in the page.\n\n`;
     message += "```yaml\n";
     message += "savedImages:\n";
 

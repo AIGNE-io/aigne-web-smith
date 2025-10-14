@@ -1,15 +1,16 @@
 import crypto from "node:crypto";
-import { basename, join } from "node:path";
+import { stat } from "node:fs/promises";
+import { basename, extname, join, relative, resolve } from "node:path";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import AdmZip from "adm-zip";
 import chalk from "chalk";
 import fs from "fs-extra";
-import { withoutTrailingSlash } from "ufo";
+import slugify from "slugify";
+import { joinURL, withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
-
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 
-import { getComponentMountPoint } from "../../utils/blocklet.mjs";
+import { getBlockletMetaDid, getComponentMountPoint } from "../../utils/blocklet.mjs";
 
 import {
   BUNDLE_FILENAME,
@@ -22,14 +23,16 @@ import {
   PAGES_KIT_STORE_URL,
   TMP_DIR,
   TMP_PAGES_DIR,
+  WEB_SMITH_DIR,
 } from "../../utils/constants.mjs";
 
 import { deploy } from "../../utils/deploy.mjs";
-import { batchUploadMediaFiles } from "../../utils/upload-files.mjs";
-
+import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
+import { batchUploadMediaFiles, uploadFiles } from "../../utils/upload-files.mjs";
 import {
   formatRoutePath,
   getGithubRepoUrl,
+  isHttp,
   loadConfigFromFile,
   saveValueToConfig,
 } from "../../utils/utils.mjs";
@@ -166,6 +169,7 @@ export default async function publishWebsite(
     websiteStructure,
     pagesDir: rootDir,
     locales,
+    "with-branding": withBrandingOption,
     "with-navigations": withNavigationsOption,
     "with-locales": withLocalesOption,
   },
@@ -206,6 +210,7 @@ export default async function publishWebsite(
 
   let shouldWithLocales = withLocalesOption || false;
   let shouldWithNavigations = withNavigationsOption || false;
+  let shouldWithBranding = withBrandingOption || false;
   let publishToSelfHostedBlocklet = false;
 
   let token = "";
@@ -283,11 +288,13 @@ export default async function publishWebsite(
 
       if (options?.prompts?.confirm) {
         const shouldSyncAll = await options.prompts.confirm({
-          message: "Publish pages to the new dedicated website with locales and navigations?",
+          message:
+            "Publish pages to the new dedicated website with locales, navigations and branding?",
           default: true,
         });
         shouldWithLocales = shouldSyncAll;
         shouldWithNavigations = shouldSyncAll;
+        shouldWithBranding = shouldSyncAll;
       }
 
       try {
@@ -489,7 +496,6 @@ export default async function publishWebsite(
         slug: path,
         templateConfig: {
           isTemplate: true,
-          ...meta,
           sourceFile: file,
         },
       };
@@ -500,7 +506,6 @@ export default async function publishWebsite(
         path: routePath,
         displayName: routePath,
         meta: {
-          ...meta,
           sourceFile: file,
           sitemapTitle: matchingSitemapItem?.title,
           sitemapPath: matchingSitemapItem?.path,
@@ -514,26 +519,116 @@ export default async function publishWebsite(
       });
     }
 
-    const projectData = {
-      id: projectId,
-      name: projectName,
-      description: projectDesc,
-      icon: projectLogo,
-      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
-    };
-
     let remoteResults = [];
     let newProjectId = projectId;
     let newProjectSlug = projectSlug;
 
+    // handle project logo
+    if (projectLogo) {
+      // download project logo to temp dir
+      if (isHttp(projectLogo)) {
+        let tempFilePath = join(pagesDir, slugify(basename(projectLogo)));
+
+        let ext = extname(projectLogo);
+
+        await fetch(projectLogo).then(async (response) => {
+          const blob = await response.blob();
+
+          const arrayBuffer = await blob.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
+
+          if (!response.ok) {
+            return;
+          }
+
+          if (!ext) {
+            const contentType = response.headers.get("content-type");
+            ext = getExtnameFromContentType(contentType);
+            tempFilePath = `${tempFilePath}.${ext}`;
+          }
+
+          fs.writeFileSync(tempFilePath, buffer);
+
+          return blob;
+        });
+
+        // to relative path
+        projectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+      }
+    }
+
     if (manifestPages.length > 0) {
+      if (shouldWithBranding) {
+        // check projectLogo is file
+        if (projectLogo) {
+          // check projectLogo is exist
+          try {
+            const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);
+
+            const projectLogoStat = await stat(projectLogoPath);
+
+            const blockletDID = await getBlockletMetaDid(appUrl);
+
+            // projectLogo is file
+            if (projectLogoStat.isFile()) {
+              const url = new URL(appUrl);
+
+              // upload projectLogo to blocklet server
+              await uploadFiles({
+                appUrl,
+                filePaths: [projectLogoPath],
+                accessToken,
+                concurrency: 1,
+                endpoint: joinURL(
+                  url.origin,
+                  "/.well-known/service/blocklet/logo/upload/square",
+                  blockletDID,
+                ),
+              });
+            }
+          } catch (_error) {
+            // skip error
+          }
+        }
+
+        // append branding to meta, will be used to polish blocklet settings
+        meta.branding = {
+          appName: projectName,
+          appDescription: projectDesc,
+          // @Notice: appLogo will be auto-set by blocklet server, do not set it here
+          // appLogo: brandingProjectLogo,
+        };
+      }
+
       if (shouldWithLocales && locales.length > 0) {
+        // append locales to meta, will be used to polish blocklet settings
         meta.locales = locales;
       }
 
       if (shouldWithNavigations && navigationEntries.length > 0) {
+        // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
       }
+
+      // upload project logo to media kit
+      if (projectLogo) {
+        const { results: uploadResults } = await uploadFiles({
+          appUrl,
+          filePaths: [resolve(process.cwd(), WEB_SMITH_DIR, projectLogo)],
+          accessToken,
+          concurrency: 1,
+        });
+
+        projectLogo = uploadResults?.[0]?.url || projectLogo;
+      }
+
+      const projectData = {
+        id: projectId,
+        name: projectName,
+        description: projectDesc,
+        icon: projectLogo,
+        slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
+      };
 
       const manifest = {
         version: 1,
@@ -711,6 +806,10 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 publishWebsite.input_schema = {
   type: "object",
   properties: {
+    "with-branding": {
+      type: "boolean",
+      description: "Publish to website with branding",
+    },
     "with-navigations": {
       type: "boolean",
       description: "Publish to website with navigation",

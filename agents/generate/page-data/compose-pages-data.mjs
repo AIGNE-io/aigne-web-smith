@@ -71,6 +71,7 @@
 
 import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
+import { glob } from "glob";
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import {
@@ -131,13 +132,58 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
 }
 
 // ============= Simple Template ============
-function getNestedValue(obj, path) {
+function tryReadFileContent(filePath, workingDir) {
+  const supportedExts = [".json", ".yaml", ".yml", ".txt", ".md"];
+  const ext = filePath.slice(filePath.lastIndexOf(".")).toLowerCase();
+
+  if (!supportedExts.includes(ext)) {
+    return null;
+  }
+
+  try {
+    const pattern = `**/${filePath}`;
+    const matches = glob.sync(pattern, {
+      cwd: workingDir,
+      absolute: true,
+      nodir: true,
+    });
+
+    if (matches.length === 0) {
+      return null;
+    }
+
+    const foundPath = matches[0];
+    const content = readFileSync(foundPath, "utf8");
+
+    return content;
+  } catch (err) {
+    logError("❌ [tryReadFileContent] Failed to read file:", { filePath, error: err.message });
+    return null;
+  }
+}
+
+function resolveValue(value, workingDir) {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  // Handle file references: @file.json
+  if (value.startsWith("@")) {
+    const filePath = value.slice(1);
+    const content = tryReadFileContent(filePath, workingDir);
+    return content !== null ? content : value;
+  }
+
+  return value;
+}
+
+function getNestedValue(obj, path, workingDir = process.cwd()) {
   if (!obj || typeof obj !== "object" || typeof path !== "string" || path.length === 0) {
     return undefined;
   }
 
   if (Object.hasOwn(obj, path)) {
-    return obj[path];
+    return resolveValue(obj[path], workingDir);
   }
 
   const segments = [];
@@ -155,10 +201,10 @@ function getNestedValue(obj, path) {
   }
 
   if (current === undefined && Object.hasOwn(obj, path)) {
-    return obj[path];
+    return resolveValue(obj[path], workingDir);
   }
 
-  return current;
+  return resolveValue(current, workingDir);
 }
 function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {

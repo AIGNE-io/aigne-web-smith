@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.7...v1.5.0-beta.8) (2025-10-14)
+
+
+### Features
+
+* add terminal player components with left/right layouts ([#125](https://github.com/AIGNE-io/aigne-web-smith/issues/125)) ([07ce110](https://github.com/AIGNE-io/aigne-web-smith/commit/07ce110cbec0a9f47326dbf811e1a787da27d5fe))
+
+## [1.5.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.6...v1.5.0-beta.7) (2025-10-14)
+
+
+### Features
+
+* add branding support for website publishing ([#123](https://github.com/AIGNE-io/aigne-web-smith/issues/123)) ([d41edd5](https://github.com/AIGNE-io/aigne-web-smith/commit/d41edd50660156679051069f1a5b359ed19b9293))
+
 ## [1.5.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.5...v1.5.0-beta.6) (2025-10-13)
 
 

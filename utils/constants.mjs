@@ -3,6 +3,30 @@ import { join } from "node:path";
 
 export const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
 
+// Define media file extensions
+export const MEDIA_EXTENSIONS = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".bmp",
+  ".webp",
+  ".svg",
+  ".heic",
+  ".heif",
+  ".mp4",
+  ".mpeg",
+  ".mpg",
+  ".mov",
+  ".avi",
+  ".flv",
+  ".mkv",
+  ".webm",
+  ".wmv",
+  ".m4v",
+  ".3gpp",
+];
+
 // Default file patterns for inclusion and exclusion
 export const DEFAULT_INCLUDE_PATTERNS = [
   // Python

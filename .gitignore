@@ -13,3 +13,5 @@ AGENTS.md
 ignore
 !pnpm-lock.yaml
 .cursor
+
+coverage

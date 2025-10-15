@@ -65,6 +65,7 @@ describe("saveSinglePage", () => {
       description: "Array Desc",
       sourceIds: [],
       parentId: null,
+      throwErrorIfInvalid: true,
     });
 
     expect(savePageWithTranslationsSpy).toHaveBeenCalledWith(
@@ -86,6 +87,7 @@ describe("saveSinglePage", () => {
         description: "Invalid",
         sourceIds: [],
         parentId: null,
+        throwErrorIfInvalid: true,
       }),
     ).rejects.toThrow("Found");
 

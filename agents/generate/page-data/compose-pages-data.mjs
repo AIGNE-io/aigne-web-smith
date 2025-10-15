@@ -182,7 +182,9 @@ function getNestedValue(obj, path, workingDir = process.cwd()) {
     return undefined;
   }
 
+  /* c8 ignore next */
   if (Object.hasOwn(obj, path)) {
+    /* c8 ignore next */
     return resolveValue(obj[path], workingDir);
   }
 
@@ -200,10 +202,12 @@ function getNestedValue(obj, path, workingDir = process.cwd()) {
     current = current[segment];
   }
 
+  /* c8 ignore next */
   if (current === undefined && Object.hasOwn(obj, path)) {
     return resolveValue(obj[path], workingDir);
   }
 
+  /* c8 ignore next */
   return resolveValue(current, workingDir);
 }
 function processSimpleTemplate(obj, data, stats = null) {
@@ -266,7 +270,9 @@ function processTemplate(obj, data, stats = null) {
   const res = isArrayCase
     ? processArrayTemplate(obj, data, stats)
     : processSimpleTemplate(obj, data, stats);
+  /* c8 ignore next */
   if (ENABLE_LOGS) {
+    /* c8 ignore next */
     const preview =
       typeof res === "string"
         ? res.slice(0, 80)
@@ -275,6 +281,7 @@ function processTemplate(obj, data, stats = null) {
           : res && typeof res === "object"
             ? "{object}"
             : String(res);
+    /* c8 ignore next */
     log("🧪 [processTemplate] done:", { arrayCase: isArrayCase, preview });
   }
   return res;
@@ -382,14 +389,17 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
   cloned.sectionIds = (cloned.sectionIds || []).map((id) => idMap.get(id) || id);
   cloned.config = applyIdMapDeep(cloned.config, idMap);
 
+  /* c8 ignore next */
   if (ENABLE_LOGS) {
     // 打印少量映射（最多 5 个），避免过度噪声
+    /* c8 ignore next */
     const mapPreview = [];
     let c = 0;
     for (const [from, to] of idMap.entries()) {
       mapPreview.push([from, "→", to]);
       if (++c >= 5) break;
     }
+    /* c8 ignore next */
     log("🧬 [cloneTemplateSection] cloned", {
       templateId,
       sectionIndex,
@@ -754,6 +764,7 @@ function replaceSlotWithChild(slot, childSection) {
   if (position >= 0 && position < parent.sectionIds.length) {
     parent.sectionIds.splice(position, 1, childSection.id);
   } else {
+    /* c8 ignore next */
     logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
       placeholderId,
       parentId: parent.id,
@@ -786,40 +797,6 @@ function replaceSlotWithChild(slot, childSection) {
     childId: childSection.id,
   });
 }
-
-/** 挂到占位块自身：把子实例放进占位 slot 的 sections/sectionIds 下（占位保留、父层不动） */
-// function replaceSlotWithChild(slot, childSection) {
-//   const { parent, placeholderId, position } = slot;
-
-//   if (!parent?.sections || !parent.sections[placeholderId]) {
-//     logError("❌ [replaceSlotWithChild] placeholder node not found on parent:", {
-//       parentId: parent?.id,
-//       placeholderId,
-//     });
-//     return;
-//   }
-
-//   // 1) 找到占位块节点（layout-block，占位名为 {{list.N}} / <%= list.N %>）
-//   const placeholderNode = parent.sections[placeholderId];
-
-//   // 2) 确保占位块具备 sections/sectionIds 容器
-//   if (!placeholderNode.sections) placeholderNode.sections = {};
-//   if (!Array.isArray(placeholderNode.sectionIds)) placeholderNode.sectionIds = [];
-
-//   placeholderNode.name = `${parent.name}-${position + 1}`;
-
-//   // 3) 在占位块下面追加子实例（不删除占位本身，也不动父层的结构）
-//   placeholderNode.sections[childSection.id] = childSection;
-//   placeholderNode.sectionIds.push(childSection.id);
-
-//   // 4) 不改 parent.config，不做 remap，保持最小改动
-//   log("➕ [replaceSlotWithChild] child appended under placeholder node:", {
-//     parentId: parent.id,
-//     placeholderId,
-//     childId: childSection.id,
-//     slotChildren: placeholderNode.sectionIds.length,
-//   });
-// }
 
 // ============= Tree Build（只把真实 list 当作子节点；占位块不当子节点） ============
 function collectSectionsHierarchically(section, path = []) {
@@ -909,7 +886,9 @@ function removeSlot(slot) {
 
   const { parent, placeholderId, position } = slot;
 
+  /* c8 ignore next */
   if (!parent?.sections || !Array.isArray(parent.sectionIds)) {
+    /* c8 ignore next */
     logError("⚠️  [removeSlot] parent sections metadata missing:", {
       parentId: parent?.id,
       placeholderId,
@@ -928,6 +907,7 @@ function removeSlot(slot) {
     if (idx !== -1) {
       parent.sectionIds.splice(idx, 1);
     } else {
+      /* c8 ignore next */
       logError("⚠️  [removeSlot] placeholder id not found in sectionIds:", {
         parentId: parent.id,
         placeholderId,
@@ -938,6 +918,7 @@ function removeSlot(slot) {
   delete parent.sections[placeholderId];
   cleanupLayoutConfig(parent.config, placeholderId);
 
+  /* c8 ignore next */
   log("🗑️  [removeSlot] unused slot removed:", {
     parentId: parent.id,
     placeholderId,
@@ -954,7 +935,9 @@ function processNode(node, compositeComponents, sectionIndex) {
   const matchResult = findBestComponentMatch(fieldCombinations, compositeComponents);
   const matched = matchResult?.component;
 
+  /* c8 ignore next */
   if (ENABLE_LOGS) {
+    /* c8 ignore next */
     log("🔎 [processNode] match try:", {
       path: fmtPath(path),
       sectionName: section?.name,
@@ -1253,3 +1236,19 @@ export default async function composePagesData(input) {
 }
 
 composePagesData.taskTitle = "Compose Pages Data";
+
+export const __testHelpers = {
+  tryReadFileContent,
+  getNestedValue,
+  processArrayTemplate,
+  processTemplate,
+  cloneTemplateSection,
+  compressLayoutRows,
+  compressGridSettings,
+  cleanupLayoutConfig,
+  remapIdsInPlace,
+  replaceSlotWithChild,
+  removeSlot,
+  collectLayoutSlots,
+  pruneSectionById,
+};

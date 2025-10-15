@@ -16,7 +16,7 @@ Your goal is to generate comprehensive MUI theme configurations based on website
 </role_and_goal>
 
 <theme_design_knowledge>
-{% include "theme-design-knowledge.md" %}
+{% include "../theme-design-knowledge.md" %}
 </theme_design_knowledge>
 
 <theme_design_rules>

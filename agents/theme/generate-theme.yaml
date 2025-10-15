@@ -4,19 +4,18 @@ description: Create comprehensive MUI theme configuration based on your website 
 task_render_mode: collapse
 instructions:
   - role: system
-    url: ../../prompts/theme/system-prompt.md
+    url: ../../prompts/theme/generate/system-prompt.md
   - role: user
-    url: ../../prompts/theme/user-prompt.md
-task_title: '{{ feedback }}'
+    url: ../../prompts/theme/generate/user-prompt.md
 input_schema:
   type: object
   properties:
     name:
       type: string
       description: Name for your new theme
-    feedback:
+    suggestion:
       type: string
-      description: User feedback for theme generation
+      description: User suggestions for theme generation
 output_schema:
   type: object
   properties:

@@ -137,9 +137,10 @@ cli:
       agents:
         - url: ./agents/theme/generate-theme-team.yaml
           name: generate
-          alias: ["gen"]
+          alias: ["g", "gen"]
         - url: ./agents/theme/apply-theme.mjs
           name: apply
+          alias: ["a"]
     - ./agents/prefs/index.mjs
     - name: component
       description: Manage and pull components

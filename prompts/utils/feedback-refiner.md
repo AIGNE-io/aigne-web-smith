@@ -24,7 +24,7 @@ Processing workflow:
 Current context:
 
 - feedback: {{feedback}}
-- stage: {{stage}} # Possible values: structure_planning | page_refine | translation_refine
+- stage: {{stage}} # Possible values: structure_planning | page_refine | translation_refine | theme_refine
 - paths: {{paths}} # Array of paths input in current command (can be empty)
 - existingPreferences: {{existingPreferences}} # Currently saved user preference rules
 
@@ -39,6 +39,7 @@ Classification by stage:
 - If stage=structure_planning: Default scope="structure", unless feedback is clearly global writing/tone/exclusion policy (then use global)
 - If stage=page_refine: Default scope="page"; if feedback is general writing policy or exclusion strategy that doesn't depend on specific pages, can be elevated to global
 - If stage=translation_refine: Default scope="translation"; if feedback is general translation policy, maintain this scope
+- If stage=theme_refine: Default scope="theme"; if feedback is general design/color/typography policy, maintain this scope
 
 Path Limitation (limitToInputPaths) Determination:
 
@@ -88,7 +89,7 @@ Return a complete JSON object with:
 ```json
 {
   "rule": "string", // Single sentence executable instruction
-  "scope": "string", // One of: global, structure, page, translation
+  "scope": "string", // One of: global, structure, page, translation, theme
   "save": "boolean", // Whether to persist this rule
   "limitToInputPaths": "boolean", // Whether to limit rule to specific paths
   "reason": "string" // Explanation of why save is true/false and how rule/scope was derived
@@ -146,5 +147,11 @@ Example 8 (Path-limited Deletion Rule):
 - Input: stage=page_refine, paths=["overview.md"], feedback="Remove contribution-related content from overview"
 - Output:
   {"rule":"Do not include contribution-related content in 'overview' page.","scope":"page","save":true,"limitToInputPaths":true,"reason":"This feedback specifies content that should not appear in a specific page type ('overview'). While it's about removing content, we convert it to a preventative rule. It's worth saving as it defines a clear content boundary for overview pages, but should be limited to overview files only. Therefore `save` is `true` with `limitToInputPaths` also `true`."}
+
+Example 9 (Theme Refine):
+
+- Input: stage=theme_refine, paths=[], feedback="Use warmer color tones for healthcare websites, avoid cold blues"
+- Output:
+  {"rule":"Healthcare and medical websites must use warm color tones, avoid cold blue color schemes.","scope":"theme","save":true,"limitToInputPaths":false,"reason":"This feedback establishes a specific color preference for healthcare websites. It's a reusable design policy that should be applied to future healthcare website theme generations. This is a domain-specific design rule, so `save` is `true` and the scope is `theme`."}
 
 </output_examples>

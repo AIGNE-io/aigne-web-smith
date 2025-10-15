@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.9...v1.5.0-beta.10) (2025-10-15)
+
+
+### Features
+
+* add image-generation tool and generate project cover ([#130](https://github.com/AIGNE-io/aigne-web-smith/issues/130)) ([13e5281](https://github.com/AIGNE-io/aigne-web-smith/commit/13e5281c61b028b4555eb9a7bc82da6e03773d1a))
+* support for uploading terminal recording to Media Kit ([#132](https://github.com/AIGNE-io/aigne-web-smith/issues/132)) ([a5107d8](https://github.com/AIGNE-io/aigne-web-smith/commit/a5107d8ec80b756c760307b3b124dba595b07b09))
+
+
+### Bug Fixes
+
+* support user feedback in theme generation ([#129](https://github.com/AIGNE-io/aigne-web-smith/issues/129)) ([231bc05](https://github.com/AIGNE-io/aigne-web-smith/commit/231bc0531d060694261914d7d3fc16ce5d4e20d4))
+
 ## [1.5.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.8...v1.5.0-beta.9) (2025-10-15)
 
 

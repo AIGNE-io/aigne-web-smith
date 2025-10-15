@@ -47,6 +47,15 @@ agents:
   - ./agents/media/batch-generate-media-description.yaml
   - ./agents/media/generate-media-description.yaml
 
+  # image
+  - ./agents/media/image/generate-image.yaml
+  - ./agents/media/image/generate-image-team.yaml
+  - ./agents/media/image/save-images.mjs
+
+  # cover
+  - ./agents/media/cover/generate-cover-team.yaml
+  - ./agents/media/cover/save-cover.mjs
+
   # init
   - ./agents/init/index.mjs
   - ./agents/init/suggest-source-path.yaml
@@ -137,9 +146,10 @@ cli:
       agents:
         - url: ./agents/theme/generate-theme-team.yaml
           name: generate
-          alias: ["gen"]
+          alias: ["g", "gen"]
         - url: ./agents/theme/apply-theme.mjs
           name: apply
+          alias: ["a"]
     - ./agents/prefs/index.mjs
     - name: component
       description: Manage and pull components

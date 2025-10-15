@@ -2,11 +2,13 @@ import { access } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
 import { PAGE_FILE_EXTENSION, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
+import { getCoverImagePath } from "../../utils/file-utils.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getProjectInfo,
   loadConfigFromFile,
   saveValueToConfig,
+  toRelativePath,
   validateWebsiteStructure,
 } from "../../utils/utils.mjs";
 
@@ -172,6 +174,32 @@ export default async function analyzeWebsiteStructure(
       }
     } catch (error) {
       console.warn("Failed to check/save project information:", error.message);
+    }
+  }
+
+  // Check and generate cover image if needed
+  if (result.projectCoverPrompt) {
+    // Check if cover image already exists
+    const coverPath = getCoverImagePath();
+    let coverExists = false;
+    try {
+      await access(coverPath);
+      coverExists = true;
+    } catch {
+      // Cover doesn't exist
+    }
+
+    // Generate cover if it doesn't exist
+    if (!coverExists) {
+      try {
+        await options.context.invoke(options.context.agents["generateCoverTeam"], {
+          aiPrompt: result.projectCoverPrompt,
+        });
+
+        await saveValueToConfig("projectCover", toRelativePath(coverPath));
+      } catch (error) {
+        console.warn("Failed to generate cover image:", error.message);
+      }
     }
   }
 

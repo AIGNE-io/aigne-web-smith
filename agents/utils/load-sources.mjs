@@ -1,41 +1,19 @@
-import { access, readFile, stat } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
-import imageSize from "image-size";
 import { parse } from "yaml";
 import {
   BUILTIN_COMPONENT_LIBRARY_NAME,
   COMPONENTS_DIR,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
-  MEDIA_EXTENSIONS,
-  MEDIA_KIT_PROTOCOL,
 } from "../../utils/constants.mjs";
-import { getFilesWithGlob, getMimeType, loadGitignore } from "../../utils/file-utils.mjs";
+import {
+  isMediaFile,
+  loadFilesFromSourcePaths,
+  loadMediaFilesFromAssets,
+} from "../../utils/file-utils.mjs";
 import { propertiesToZodSchema, zodSchemaToJsonSchema } from "../../utils/generate-helper.mjs";
-import { isGlobPattern } from "../../utils/utils.mjs";
-
-const getFileType = (filePath) => {
-  const ext = path.extname(filePath).toLowerCase();
-  const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
-  const videoExts = [
-    ".mp4",
-    ".mpeg",
-    ".mpg",
-    ".mov",
-    ".avi",
-    ".flv",
-    ".mkv",
-    ".webm",
-    ".wmv",
-    ".m4v",
-    ".3gpp",
-  ];
-
-  if (imageExts.includes(ext)) return "image";
-  if (videoExts.includes(ext)) return "video";
-  if (ext === ".json") return "json";
-  return "media";
-};
+import { buildMediaItem } from "../../utils/media-utils.mjs";
 
 const formatComponentContent = ({ content, moreContents = false }) => {
   const component = parse(content);
@@ -110,96 +88,13 @@ export default async function loadSources({
     // @FIXME: 强制添加 components，后续需要修改为通过远程加载
     paths.push(path.join(import.meta.dirname, "../../", COMPONENTS_DIR));
 
-    let allFiles = [];
-
-    for (const dir of paths) {
-      try {
-        if (typeof dir !== "string") {
-          console.warn(`Invalid source path: ${dir}`);
-          continue;
-        }
-
-        // First try to access as a file or directory
-        const stats = await stat(dir);
-
-        if (stats.isFile()) {
-          // If it's a file, add it directly without filtering
-          allFiles.push(dir);
-        } else if (stats.isDirectory()) {
-          // If it's a directory, use the existing glob logic
-          // Load .gitignore for this directory
-          const gitignorePatterns = await loadGitignore(dir);
-
-          // Prepare patterns
-          let finalIncludePatterns = null;
-          let finalExcludePatterns = null;
-
-          if (useDefaultPatterns) {
-            // Merge with default patterns
-            const userInclude = includePatterns
-              ? Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns]
-              : [];
-            const userExclude = excludePatterns
-              ? Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns]
-              : [];
-
-            finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
-            finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
-          } else {
-            // Use only user patterns
-            if (includePatterns) {
-              finalIncludePatterns = Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns];
-            }
-            if (excludePatterns) {
-              finalExcludePatterns = Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns];
-            }
-          }
-
-          // Get files using glob
-          const filesInDir = await getFilesWithGlob(
-            dir,
-            finalIncludePatterns,
-            finalExcludePatterns,
-            gitignorePatterns,
-          );
-          allFiles = allFiles.concat(filesInDir);
-        }
-      } catch (err) {
-        if (err.code === "ENOENT") {
-          // Path doesn't exist as file or directory, try as glob pattern
-          try {
-            // Check if it looks like a glob pattern
-            const isGlobPatternResult = isGlobPattern(dir);
-
-            if (isGlobPatternResult) {
-              // Use glob to find matching files from current working directory
-              const { glob } = await import("glob");
-              const matchedFiles = await glob(dir, {
-                absolute: true,
-                nodir: true, // Only files, not directories
-                dot: false, // Don't include hidden files
-              });
-
-              if (matchedFiles.length > 0) {
-                allFiles = allFiles.concat(matchedFiles);
-              }
-            }
-          } catch (globErr) {
-            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
-          }
-        } else {
-          throw err;
-        }
-      }
-    }
+    const allFiles = await loadFilesFromSourcePaths(paths, {
+      includePatterns,
+      excludePatterns,
+      useDefaultPatterns,
+      defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
+      defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
+    });
 
     files = files.concat(allFiles);
   }
@@ -214,46 +109,23 @@ export default async function loadSources({
   const builtinComponentLibrary = [];
   let allSources = "";
 
+  // Load generated media files from .aigne/web-smith/assets if exists
+  const assetsDir = path.join(process.cwd(), ".aigne", "web-smith", "assets");
+  const assetMediaFiles = await loadMediaFilesFromAssets(assetsDir);
+  files.push(...assetMediaFiles);
+
   let filteredImageCount = 0;
 
   await Promise.all(
     files.map(async (file) => {
-      const ext = path.extname(file).toLowerCase();
-
-      if (MEDIA_EXTENSIONS.includes(ext)) {
+      if (isMediaFile(file)) {
         // This is a media file
-        const relativePath = path.relative(pagesDir, file);
-        const fileName = path.basename(file);
-        const description = path.parse(fileName).name;
+        const mediaItem = await buildMediaItem(file, pagesDir, { minImageWidth });
 
-        const mediaItem = {
-          name: fileName,
-          path: relativePath,
-          type: getFileType(relativePath),
-          mediaKitPath: `${MEDIA_KIT_PROTOCOL}${fileName}`,
-          description,
-          mimeType: getMimeType(file),
-        };
-
-        // For image files, get dimensions and filter by width
-        if (mediaItem.type === "image") {
-          try {
-            const buffer = await readFile(file);
-            const dimensions = imageSize(buffer);
-            mediaItem.width = dimensions.width;
-            mediaItem.height = dimensions.height;
-
-            // Filter out images with width less than minImageWidth
-            if (dimensions.width < minImageWidth) {
-              filteredImageCount++;
-              console.log(
-                `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
-              );
-              return;
-            }
-          } catch (err) {
-            console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
-          }
+        // If filtered out (null), skip
+        if (!mediaItem) {
+          filteredImageCount++;
+          return;
         }
 
         mediaFiles.push(mediaItem);

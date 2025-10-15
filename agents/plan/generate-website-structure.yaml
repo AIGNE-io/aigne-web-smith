@@ -35,6 +35,9 @@ skills:
         - datasources
     output_schema:
       type: object
+      required:
+        - projectCoverPrompt
+        - websiteStructure
       properties:
         projectName:
           type: string
@@ -42,6 +45,13 @@ skills:
         projectDesc:
           type: string
           description: Project description generated from datasources analysis, concise description under 50 words
+        projectCoverPrompt:
+          type: string
+          description: |
+            Project cover prompt generated from datasources analysis:
+              - Describe the core content of the project through abstract concepts
+              - Only describe in detail the main subjects planned to be shown in the image and their positional relationships
+
         websiteStructure: ../schema/website-structure.yaml
         websiteStructureTree:
           type: string

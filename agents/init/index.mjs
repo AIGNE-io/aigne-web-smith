@@ -401,6 +401,8 @@ export function generateYAML(input) {
     media: {
       // Image filtering settings
       minImageWidth: input.minImageWidth || 800,
+      // Site primary color, used to maintain consistency when generating images
+      sitePrimaryColor: input.sitePrimaryColor || "#7C3AED",
     },
   };
 
@@ -512,7 +514,9 @@ export function generateYAML(input) {
   const mediaInfoSection = yamlStringify({
     media: config.media,
   }).trim();
-  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\n${mediaInfoSection}\n`;
+  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation
+# sitePrimaryColor: The primary color of the website, used to generate images that match the website's color scheme
+${mediaInfoSection}\n`;
 
   return yaml;
 }

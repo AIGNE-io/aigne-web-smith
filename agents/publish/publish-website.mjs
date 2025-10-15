@@ -162,6 +162,7 @@ export default async function publishWebsite(
     appUrl,
     projectId,
     projectName,
+    projectCover,
     projectDesc,
     projectLogo,
     projectSlug,
@@ -612,6 +613,16 @@ export default async function publishWebsite(
       if (shouldWithNavigations && navigationEntries.length > 0) {
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
+      }
+
+      if (projectCover) {
+        const { results: uploadResults } = await uploadFiles({
+          appUrl,
+          filePaths: [resolve(process.cwd(), projectCover)],
+          accessToken,
+          concurrency: 1,
+        });
+        meta.appCover = uploadResults?.[0]?.url || projectCover;
       }
 
       // upload project logo to media kit

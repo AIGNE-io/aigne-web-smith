@@ -588,12 +588,12 @@ export default async function publishWebsite(
     }
 
     if (manifestPages.length > 0) {
-      if (shouldWithBranding) {
+      if (
+        shouldWithBranding &&
+        ![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(new URL(appUrl).origin)
+      ) {
         // update project logo to blocklet server
-        if (
-          projectLogo &&
-          ![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(new URL(appUrl).origin)
-        ) {
+        if (projectLogo) {
           // check projectLogo is exist
           try {
             const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);

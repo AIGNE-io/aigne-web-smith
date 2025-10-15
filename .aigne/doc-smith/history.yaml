@@ -1,4 +1,30 @@
 entries:
+  - timestamp: 2025-10-15T07:14:15.420Z
+    operation: document_update
+    feedback: |-
+      Publish to a dedicated website. Currently, two important details are missing:
+      1. It will default to publishing to the Default Project.
+      2. Supports selecting whether to push locales, navigations, and branding together.
+    documentPath: /core-tasks/publishing-your-website/new-dedicated-website
+  - timestamp: 2025-10-15T07:02:53.692Z
+    operation: document_update
+    feedback: "**An ArcBlock-Powered Website:** change `ArcBlock` -> `Blocklet Server`"
+    documentPath: /core-tasks/publishing-your-website/custom
+  - timestamp: 2025-10-15T06:59:18.107Z
+    operation: document_update
+    feedback: "For alternative deployment targets, refer to the following guides: This should be
+      mentioned in the final section of the documentation."
+    documentPath: /core-tasks/publishing-your-website/cloud
+  - timestamp: 2025-10-15T06:56:44.481Z
+    operation: document_update
+    feedback: In the `general workflow is as follows` section, the interactive prompt should not include
+      flags like No or Yes; it should only contain different branch selections.
+    documentPath: /core-tasks/publishing-your-website
+  - timestamp: 2025-10-15T06:40:30.469Z
+    operation: document_update
+    feedback: The final follow-up step should be preparing your content, not jumping straight into
+      creating your website.
+    documentPath: /getting-started/installation
   - timestamp: 2025-10-13T10:08:35.415Z
     operation: document_update
     feedback: All parameters should be described using the x-field component.

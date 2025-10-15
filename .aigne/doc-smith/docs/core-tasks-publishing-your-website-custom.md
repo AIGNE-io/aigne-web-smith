@@ -9,11 +9,12 @@ Publishing to a custom website offers complete control over hosting and integrat
 To successfully publish to your own website, the following conditions must be met:
 
 1.  **A Generated Website:** You must have already generated your website pages using the `aigne web generate` command. The generated content should be present in your project's output directory.
-2.  **An ArcBlock-Powered Website:** Your target website must be a running Blocklet application. AIGNE WebSmith integrates directly with the Blocklet Server environment.
+2.  **A Blocklet Server-Powered Website:** Your target website must be a running Blocklet application. AIGNE WebSmith integrates directly with the Blocklet Server environment.
 3.  **Required Component:** The **Pages Kit** component must be installed and running on your target website. This component provides the necessary APIs for AIGNE WebSmith to upload and manage your content.
 
 If your website is not yet set up, you can acquire the necessary components from the Blocklet Store:
-*   [Install Pages Kit on your website](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
+
+- [Install Pages Kit on your website](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
 
 ## Publishing Process
 
@@ -33,7 +34,7 @@ You will be presented with several publishing options. Use the arrow keys to hig
 
 ```text Publishing Options
 ? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.ai) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
+  WebSmith Cloud (https://websmith.aigne.io) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
 ❯ Your existing website - Integrate and publish directly on your current site (setup required)
   New dedicated website - Paid service. Create a new website with custom domain and hosting for professional use.
 ```
@@ -62,6 +63,7 @@ Once approved, a secure access token is generated and stored locally in your hom
 ### Step 5: Await Confirmation
 
 After authorization, the CLI will proceed to:
+
 1.  Bundle your generated page files and assets.
 2.  Upload all referenced media files.
 3.  Publish the page content to your website.
@@ -85,17 +87,17 @@ Upon successful completion, a confirmation message will be displayed in the term
 
 If you encounter an error during the publishing process, refer to the common issues below.
 
-*   **Error: "The provided URL is not a valid website on ArcBlock platform"**
-    *   **Cause:** The URL you entered does not point to a valid Blocklet application.
-    *   **Solution:** Verify that the URL is correct and that the website is running. Ensure you have included the correct protocol (e.g., `https://`).
+- **Error: "The provided URL is not a valid website on ArcBlock platform"**
+  - **Cause:** The URL you entered does not point to a valid Blocklet application.
+  - **Solution:** Verify that the URL is correct and that the website is running. Ensure you have included the correct protocol (e.g., `https://`).
 
-*   **Error: "This website does not have required components for publishing"**
-    *   **Cause:** The target website is a valid Blocklet but is missing the required "Pages Kit" component.
-    *   **Solution:** Install the Pages Kit component on your website. You can find instructions [here](https://www.arcblock.io/docs/blocklet-development/en/add-components).
+- **Error: "This website does not have required components for publishing"**
+  - **Cause:** The target website is a valid Blocklet but is missing the required "Pages Kit" component.
+  - **Solution:** Install the Pages Kit component on your website. You can find instructions [here](https://www.arcblock.io/docs/blocklet-development/en/add-components).
 
-*   **Error: "Unable to connect" or "Failed to obtain access token"**
-    *   **Cause:** This typically indicates a network issue, or the target server is unavailable. It can also occur if you reject the authorization request in your browser.
-    *   **Solution:** Check your internet connection, ensure the website URL is correct and accessible, and re-run the `aigne web publish` command, making sure to approve the authorization request.
+- **Error: "Unable to connect" or "Failed to obtain access token"**
+  - **Cause:** This typically indicates a network issue, or the target server is unavailable. It can also occur if you reject the authorization request in your browser.
+  - **Solution:** Check your internet connection, ensure the website URL is correct and accessible, and re-run the `aigne web publish` command, making sure to approve the authorization request.
 
 ---
 

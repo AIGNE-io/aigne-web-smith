@@ -2,10 +2,6 @@
 
 This guide provides a systematic procedure for publishing your website to WebSmith Cloud. This service offers free hosting, making your website publicly accessible without requiring you to manage your own server infrastructure. It is the recommended starting point for new users and is well-suited for open-source projects, portfolios, or community-focused sites.
 
-For alternative deployment targets, refer to the following guides:
-- [Publish to your own website](./core-tasks-publishing-your-website-custom.md)
-- [Publish to a new dedicated website](./core-tasks-publishing-your-website-new-dedicated-website.md)
-
 ## Prerequisites
 
 Before proceeding with the publication process, ensure that you have already generated your website's pages. If you have not completed this step, please do so by running the following command:
@@ -36,7 +32,7 @@ Use the arrow keys to highlight the following choice and press Enter:
 
 ```text
 ? Select platform to publish your pages:
-❯ WebSmith Cloud (https://websmith.ai) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
+❯ WebSmith Cloud (https://websmith.aigne.io) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
   Your existing website - Integrate and publish directly on your current site (setup required)
   New dedicated website - Paid service. Create a new website with custom domain and hosting for professional use.
 ```
@@ -54,6 +50,7 @@ The tool will securely store your authorization credentials, so you will not nee
 ### Step 4: Await Publication
 
 The CLI will now handle the entire publication process automatically. This includes:
+
 - Bundling your page and content files.
 - Uploading all associated media assets.
 - Deploying the files to the WebSmith Cloud servers.
@@ -68,9 +65,9 @@ Upon successful completion, the CLI will display a confirmation message. This me
 ✅ Pages published successfully! (`10/10` pages, `25` media assets)
 
 🔗 Live URLs:
-   https://websmith.ai/your-project-slug/
-   https://websmith.ai/your-project-slug/about
-   https://websmith.ai/your-project-slug/services
+   https://websmith.aigne.io/your-project-slug/
+   https://websmith.aigne.io/your-project-slug/about
+   https://websmith.aigne.io/your-project-slug/services
 
 💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
 ```
@@ -80,3 +77,8 @@ You can now visit these URLs in your web browser to view your published website.
 ---
 
 You have successfully published your website to WebSmith Cloud. If you need to make changes, you can modify your content and run the `publish` command again, or use the `update` command for more specific modifications. For more details, see [Updating Website Content](./core-tasks-updating-website-content.md).
+
+For alternative deployment targets, refer to the following guides:
+
+- [Publish to your own website](./core-tasks-publishing-your-website-custom.md)
+- [Publish to a new dedicated website](./core-tasks-publishing-your-website-new-dedicated-website.md)

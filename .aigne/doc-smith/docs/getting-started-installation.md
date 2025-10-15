@@ -34,4 +34,4 @@ When installed locally, you will need to use `npx aigne ...` or configure an npm
 
 Once the installation is complete, you are ready to create your first website. Proceed to the next section to get started.
 
-*   **[Your First Website](./getting-started-your-first-website.md)**: A hands-on tutorial to generate a complete website using a simple configuration file.
+*   **[Preparing Your Content](./getting-started-preparing-your-content.md)**: Explains what kind of content and information you should have ready to help the AI generate the best possible website for your needs.

@@ -9,11 +9,13 @@ The process is automated. After you initiate the command, AIGNE WebSmith will gu
 Publishing to a new dedicated website involves a sequence of automated steps handled by the `publish` command. The command interfaces with a deployment service to provision and configure all necessary resources.
 
 The workflow is as follows:
+
 1.  **Initiation**: The user runs the `aigne web publish` command.
 2.  **Option Selection**: The user chooses the "New dedicated website" option from the interactive prompt.
-3.  **Payment & Provisioning**: The user is directed to a secure web page to complete payment. The system then automatically sets up the website hosting and environment.
-4.  **Content Deployment**: AIGNE WebSmith uploads and publishes the generated pages to the newly created website.
-5.  **Confirmation**: The user receives the live URL for the new website.
+3.  **Confirm Assets**: The user is prompted to confirm whether to include branding, navigations, and locale settings in the deployment.
+4.  **Payment & Provisioning**: The user is directed to a secure web page to complete payment. The system then automatically sets up the website hosting and environment.
+5.  **Content Deployment**: AIGNE WebSmith uploads and publishes the generated pages to a default project on the newly created website.
+6.  **Confirmation**: The user receives the live URL for the new website.
 
 ## Step-by-Step Instructions
 
@@ -33,14 +35,24 @@ You will be presented with several publishing options. Use the arrow keys to hig
 
 ```text
 ? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.ai) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
+  WebSmith Cloud (https://websmith.aigne.io) – Free hosting. Your pages will be public accessible. Best for open-source projects or community sharing.
   Your existing website - Integrate and publish directly on your current site (setup required)
 ❯ New dedicated website - Paid service. Create a new website with custom domain and hosting for professional use.
 ```
 
 Press Enter to confirm your selection.
 
-### 3. Complete the Setup and Payment
+### 3. Confirm Additional Assets
+
+After selecting to create a new website, you will be asked to confirm whether to publish additional website assets. This includes branding details (name, description), navigation structures, and locale configurations that are defined in your project.
+
+```text
+? Publish pages to the new dedicated website with locales, navigations and branding? › (Y/n)
+```
+
+It is recommended to select "Yes" (the default) to ensure your new website is fully configured. Publishing these assets ensures that your site's branding, menu structure, and language options are applied correctly.
+
+### 4. Complete the Setup and Payment
 
 After selecting the option, the automated setup process will begin:
 
@@ -67,7 +79,7 @@ After selecting the option, the automated setup process will begin:
     🔗 Manage your subscription at: https://billing.example.com/manage/sub_12345
     ```
 
-### 4. Automatic Content Publishing
+### 5. Automatic Content Publishing
 
 Once the dedicated website is successfully provisioned, AIGNE WebSmith will immediately begin uploading your generated pages and media assets. The process is fully automatic.
 
@@ -91,7 +103,7 @@ If a previous attempt to create a dedicated website was initiated but not comple
 
 ```text
 ? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.ai) – Free hosting...
+  WebSmith Cloud (https://websmith.aigne.io) – Free hosting...
   Your existing website - ...
 ❯ Resume previous website setup - Already paid. Continue where you left off. Your payment has already been processed.
   New dedicated website - Paid service...

@@ -39,7 +39,7 @@ cli: {
 }
 
 interactive-prompt: {
-  label: "Interactive Prompt"
+  label: "Choose Publishing Destination"
   shape: diamond
 }
 
@@ -59,12 +59,10 @@ new-website: {
 }
 
 user -> cli: "Runs `aigne web publish`"
-cli -> interactive-prompt: "Is publishing destination configured?"
-
-interactive-prompt -> websmith-cloud: "No -> Select 'WebSmith Cloud'"
-interactive-prompt -> existing-website: "No -> Select 'Existing Website'"
-interactive-prompt -> new-website: "No -> Select 'New Website'"
-interactive-prompt -> existing-website: "Yes"
+cli -> interactive-prompt: "Launches interactive prompt"
+interactive-prompt -> websmith-cloud: "Select 'WebSmith Cloud'"
+interactive-prompt -> existing-website: "Select 'Existing Website'"
+interactive-prompt -> new-website: "Select 'New Website'"
 ```
 
 ### Getting Started

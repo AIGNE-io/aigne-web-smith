@@ -370,6 +370,8 @@ export const SCALE_RECOMMENDATION_LOGIC = {
 
 export const LINK_PROTOCOL = "link://";
 
+export const RESOLVE_FILE_PROTOCOL = "@";
+
 export const MEDIA_KIT_PROTOCOL = "mediakit://";
 
 export const DEFAULT_APP_LOGO =

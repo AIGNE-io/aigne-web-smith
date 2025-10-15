@@ -71,7 +71,7 @@
 
 import { readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
-import { glob } from "glob";
+
 import _ from "lodash";
 import { parse, stringify } from "yaml";
 import {
@@ -86,7 +86,7 @@ import {
   findBestComponentMatch,
   generateDeterministicId,
 } from "../../../utils/generate-helper.mjs";
-import { fmtPath, log, logError } from "../../../utils/utils.mjs";
+import { fmtPath, log, logError, resolveValue, tryReadFileContent } from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 const getEmptyValue = (_key) => {
@@ -134,51 +134,6 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
 }
 
 // ============= Simple Template ============
-function tryReadFileContent(filePath, workingDir) {
-  const supportedExts = [".json", ".yaml", ".yml", ".txt", ".md"];
-  const ext = filePath.slice(filePath.lastIndexOf(".")).toLowerCase();
-
-  if (!supportedExts.includes(ext)) {
-    return null;
-  }
-
-  try {
-    const pattern = `**/${filePath}`;
-    const matches = glob.sync(pattern, {
-      cwd: workingDir,
-      absolute: true,
-      nodir: true,
-    });
-
-    if (matches.length === 0) {
-      return null;
-    }
-
-    const foundPath = matches[0];
-    const content = readFileSync(foundPath, "utf8");
-
-    return content;
-  } catch (err) {
-    /* c8 ignore next */
-    logError("❌ [tryReadFileContent] Failed to read file:", { filePath, error: err.message });
-    return null;
-  }
-}
-
-function resolveValue(value, workingDir) {
-  if (typeof value !== "string") {
-    return value;
-  }
-
-  // Handle file references: @file.json
-  if (value.startsWith("@")) {
-    const filePath = value.slice(1);
-    const content = tryReadFileContent(filePath, workingDir);
-    return content !== null ? content : value;
-  }
-
-  return value;
-}
 
 function getNestedValue(obj, path, workingDir = process.cwd()) {
   if (!obj || typeof obj !== "object" || typeof path !== "string" || path.length === 0) {

@@ -108,7 +108,7 @@ defaultDatasources:  # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 600
-lastGitHead: 8e00ad8344ec6a94ee45cadd393f08a190c30b66
+lastGitHead: 8f91860b5dfd4de42f52631a913aa922945d80d7
 appUrl: https://staging.websmith.aigne.io
 # Checkout ID for website deployment service
 checkoutId: ""

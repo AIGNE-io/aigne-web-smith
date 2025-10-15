@@ -15,6 +15,7 @@ import { getBlockletMetaDid, getComponentMountPoint } from "../../utils/blocklet
 import {
   BUNDLE_FILENAME,
   CLOUD_SERVICE_URL_PROD,
+  CLOUD_SERVICE_URL_STAGING,
   DEFAULT_PROJECT_ID,
   DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
@@ -559,8 +560,11 @@ export default async function publishWebsite(
 
     if (manifestPages.length > 0) {
       if (shouldWithBranding) {
-        // check projectLogo is file
-        if (projectLogo) {
+        // update project logo to blocklet server
+        if (
+          projectLogo &&
+          ![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(new URL(appUrl).origin)
+        ) {
           // check projectLogo is exist
           try {
             const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);

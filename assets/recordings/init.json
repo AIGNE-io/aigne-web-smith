@@ -1,0 +1,616 @@
+{
+  "config": {
+    "command": "zsh",
+    "cwd": "/tmp",
+    "env": {
+      "recording": true,
+      "SHELL": "/bin/zsh",
+      "TERM": "xterm-256color"
+    },
+    "cols": 80,
+    "rows": 24,
+    "repeat": false,
+    "autoplay": true,
+    "speedFactor": 1,
+    "convertEol": true,
+    "cursorStyle": "block",
+    "cursorBlink": true,
+    "quality": 100,
+    "frameDelay": "auto",
+    "controls": true,
+    "maxIdleTime": 2000,
+    "frameBox": {
+      "type": "floating",
+      "title": "Terminal Recording - 10/15/2025, 11:30:55 AM",
+      "style": {
+        "border": "0px black solid"
+      }
+    },
+    "watermark": {
+      "imagePath": null,
+      "style": {
+        "position": "absolute",
+        "right": "15px",
+        "bottom": "15px",
+        "width": "100px",
+        "opacity": 0.9
+      }
+    },
+    "fontFamily": "source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace",
+    "fontSize": 16,
+    "lineHeight": 1.2,
+    "letterSpacing": 0,
+    "enableTheme": true,
+    "theme": {
+      "background": "transparent",
+      "foreground": "#afafaf",
+      "cursor": "#c7c7c7",
+      "black": "#232628",
+      "red": "#fc4384",
+      "green": "#b3e33b",
+      "yellow": "#ffa727",
+      "blue": "#75dff2",
+      "magenta": "#ae89fe",
+      "cyan": "#708387",
+      "white": "#d5d5d0",
+      "brightBlack": "#626566",
+      "brightRed": "#ff7fac",
+      "brightGreen": "#c8ed71",
+      "brightYellow": "#ebdf86",
+      "brightBlue": "#75dff2",
+      "brightMagenta": "#ae89fe",
+      "brightCyan": "#b1c6ca",
+      "brightWhite": "#f9f9f4"
+    }
+  },
+  "records": [
+    {
+      "delay": 8,
+      "content": "\u001b]2;wangshijun@wangshijuns-Mac-Studio: ~/web-smith-demo\u0007\u001b]1;..eb-smith-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]0;~/web-smith-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[34m~/web-smith-demo\u001b[39m\r\n\r\u001b[35m❯\u001b[39m \u001b[K"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?1h\u001b=\u001b[?2004h"
+    },
+    {
+      "delay": 1406,
+      "content": "\u001b[H\u001b[2J\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[34m~/web-smith-demo\u001b[39m\r\n\r\u001b[35m❯\u001b[39m \u001b[K"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[1m\u001b[31ma\u001b[0m\u001b[39m\u001b[90msciinema record init.cast\u001b[39m\u001b[25D"
+    },
+    {
+      "delay": 8,
+      "content": "\b\u001b[1m\u001b[31ma\u001b[1m\u001b[31mi\u001b[0m\u001b[39m\u001b[90mg\u001b[90mn\u001b[90me\u001b[90m \u001b[90mw\u001b[90me\u001b[90mb\u001b[90m \u001b[90mu\u001b[90mp\u001b[90mg\u001b[90mr\u001b[90ma\u001b[90md\u001b[90me\u001b[39m\u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[39m \u001b[24D"
+    },
+    {
+      "delay": 8,
+      "content": "\b\b\u001b[1m\u001b[31ma\u001b[1m\u001b[31mi\u001b[1m\u001b[31mg\u001b[0m\u001b[39m"
+    },
+    {
+      "delay": 15,
+      "content": "\b\u001b[1m\u001b[31mg\u001b[1m\u001b[31mn\u001b[0m\u001b[39m"
+    },
+    {
+      "delay": 8,
+      "content": "\b\b\b\b\u001b[0m\u001b[32ma\u001b[0m\u001b[32mi\u001b[0m\u001b[32mg\u001b[0m\u001b[32mn\u001b[32me\u001b[39m"
+    },
+    {
+      "delay": 316,
+      "content": "\u001b[39m "
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[39mw"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[39me"
+    },
+    {
+      "delay": 23,
+      "content": "\u001b[39mb"
+    },
+    {
+      "delay": 24,
+      "content": "\u001b[39m "
+    },
+    {
+      "delay": 42,
+      "content": "\u001b[39m\u001b[4mi\u001b[24m\u001b[90mn\u001b[90mi\u001b[90mt\u001b[39m\u001b[39m \u001b[39m \u001b[39m \b\b\b\b\b\b"
+    },
+    {
+      "delay": 23,
+      "content": "\b\u001b[4mi\u001b[39m\u001b[4mn\u001b[24m"
+    },
+    {
+      "delay": 8,
+      "content": "\b\u001b[4mn\u001b[39m\u001b[4mi\u001b[24m"
+    },
+    {
+      "delay": 150,
+      "content": "\b\u001b[4mi\u001b[39m\u001b[4mt\u001b[24m"
+    },
+    {
+      "delay": 101,
+      "content": "\b\b\b\b\u001b[24mi\u001b[24mn\u001b[24mi\u001b[24mt"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?1l\u001b>"
+    },
+    {
+      "delay": 11,
+      "content": "\u001b[?2004l\r\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;aigne web init\u0007\u001b]1;aigne\u0007\u001b]0;web-smith-demo: aigne web init\u0007"
+    },
+    {
+      "delay": 4517,
+      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m+--------------------------------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                                        \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mGemini\u001b[39m                                     \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgemini-2.5-pro\u001b[39m                                \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://generativelanguage.googleapis.com\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mAIza********vqkM\u001b[39m                            \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                                        \u001b[36m|\u001b[39m\r\n\u001b[36m+--------------------------------------------------------+\u001b[39m\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "🚀 Welcome to AIGNE WebSmith!\r\nLet's create your website configuration.\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 99,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m📝 [1/8]: What type of website are you building? (Select all that\r\n\u001b[22mapply)\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert\r\n\u001b[23mselection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ Landing page / Homepage\u001b[39m\r\n ◯ E-commerce / Online store\r\n ◯ Portfolio / Showcase\r\n ◯ Corporate / Business\r\n ◯ Blog / Content site\r\n ◯ SaaS / Software product\r\n ◯ Non-profit / Community\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\r\n\u001b[36mConvert visitors into users or customers\u001b[39m\u001b[?25l\u001b[41G"
+    },
+    {
+      "delay": 1475,
+      "content": "\u001b[42G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m📝 [1/8]: What type of website are you building? (Select all that\r\n\u001b[22mapply)\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Landing page / Homepage\u001b[39m\r\n ◯ E-commerce / Online store\r\n ◯ Portfolio / Showcase\r\n ◯ Corporate / Business\r\n ◯ Blog / Content site\r\n ◯ SaaS / Software product\r\n ◯ Non-profit / Community\r\n\u001b[36mConvert visitors into users or customers\u001b[39m\u001b[?25l\u001b[41G"
+    },
+    {
+      "delay": 633,
+      "content": "\u001b[40G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📝 [1/8]: What type of website are you building? (Select all that\r\n\u001b[22mapply)\u001b[22m \u001b[36mLanding page / Homepage\u001b[39m\u001b[30G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m👥 [2/8]: Who is the primary audience for your website?\u001b[22m (Press\r\n\u001b[22m\u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and\r\n\u001b[23m\u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ Customers / End users\u001b[39m\r\n ◯ Business owners / Entrepreneurs\r\n ◯ Marketing teams\r\n ◯ Designers / Creative professionals\r\n ◯ Developers / Technical users\r\n ◯ Investors / Stakeholders\r\n ◯ Job seekers / Potential employees\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\r\n\u001b[36mPeople who buy or use your products/services\u001b[39m\u001b[?25l\u001b[45G"
+    },
+    {
+      "delay": 1303,
+      "content": "\u001b[46G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m👥 [2/8]: Who is the primary audience for your website?\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Customers / End users\u001b[39m\r\n ◯ Business owners / Entrepreneurs\r\n ◯ Marketing teams\r\n ◯ Designers / Creative professionals\r\n ◯ Developers / Technical users\r\n ◯ Investors / Stakeholders\r\n ◯ Job seekers / Potential employees\r\n\u001b[36mPeople who buy or use your products/services\u001b[39m\u001b[?25l\u001b[45G"
+    },
+    {
+      "delay": 492,
+      "content": "\u001b[44G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m👥 [2/8]: Who is the primary audience for your website?\u001b[22m \u001b[36mCustomers /\r\n\u001b[23m End users\u001b[39m\u001b[11G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m📊 [3/8]: How many pages should your website have?\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Single Page (only 1 page)\u001b[39m\r\n  Minimal (2-6 pages)\r\n  Standard (7-12 pages)\r\n  Comprehensive (12+ pages)\r\n  Let AI decide\r\n\u001b[36mAll content consolidated into 1 page\u001b[39m\u001b[?25l\u001b[37G"
+    },
+    {
+      "delay": 1686,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📊 [3/8]: How many pages should your website have?\u001b[22m \u001b[36mSingle Page\r\n\u001b[23m(only 1 page)\u001b[39m\u001b[10G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m🌐 [4/8]: Choose primary website language:\u001b[22m\r\n  English (en) - Hello\r\n\u001b[36m❯ 简体中文 (zh) - 你好\u001b[39m\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\r\n  Français (fr) - Bonjour\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 1059,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🌐 [4/8]: Choose primary website language:\u001b[22m\r\n  العربية (ar) - مرحبا\r\n\u001b[36m❯ English (en) - Hello\u001b[39m\r\n  简体中文 (zh) - 你好\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\u001b[?25l\u001b[22G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🌐 [4/8]: Choose primary website language:\u001b[22m \u001b[36mEnglish (en) - Hello\u001b[39m\u001b[66G\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m🔄 [5/8]: Select translation languages:\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select,\r\n\u001b[23m\u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ 简体中文 (zh) - 你好\u001b[39m\r\n ◯ 繁體中文 (zh-TW) - 你好\r\n ◯ 日本語 (ja) - こんにちは\r\n ◯ 한국어 (ko) - 안녕하세요\r\n ◯ Español (es) - Hola\r\n ◯ Français (fr) - Bonjour\r\n ◯ Deutsch (de) - Hallo\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 1280,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🔄 [5/8]: Select translation languages:\u001b[22m \u001b[36m\u001b[39m\u001b[43G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1m📁 [6/8]: Where to save generated website pages:\u001b[22m\r\n  .aigne/web-smith/pages\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 1363,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📁 [6/8]: Where to save generated website pages:\u001b[22m\r\n   .aigne/web-smith/pages\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n📁 [7/8]: DataSource Paths\r\nEnter paths to include as dataSource for website generation (e.g., ./docs, ./content)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "💡 You can use glob patterns like docs/**/*.md\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "💡 If no paths provided, we will suggest source paths based on the working directory\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 2451,
+      "content": "\u001b[26G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m.\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[26G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m.\u001b[39m\r\n\u001b[36m❯ .\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[26G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m.\u001b[39m\r\n\u001b[36m❯ .\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[26G"
+    },
+    {
+      "delay": 50,
+      "content": "\u001b[27G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./\u001b[39m\r\n\u001b[36m❯ .\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[27G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./\u001b[39m\r\n\u001b[36m❯ ./\u001b[39m\r\n  ./src\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[5A\u001b[27G\u001b[5B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./\u001b[39m\r\n\u001b[36m❯ ./\u001b[39m\r\n  ./src\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[5A\u001b[27G"
+    },
+    {
+      "delay": 561,
+      "content": "\u001b[28G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[5B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./s\u001b[39m\r\n\u001b[36m❯ ./\u001b[39m\r\n  ./src\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[5A\u001b[28G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[5B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./s\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[28G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./s\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[28G"
+    },
+    {
+      "delay": 127,
+      "content": "\u001b[29G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./sr\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n  ./init.cast\r\n\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[4A\u001b[29G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./sr\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[29G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./sr\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[29G"
+    },
+    {
+      "delay": 245,
+      "content": "\u001b[30G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[30G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[30G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[30G"
+    },
+    {
+      "delay": 1638,
+      "content": "\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[30G\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\r\n\u001b[36m❯ ./src\u001b[39m\r\n\u001b[36m📁 Directory\u001b[39m\u001b[2A\u001b[30G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m./src\u001b[39m\u001b[30G\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 98,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 719,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\u001b[36mPress Enter to finish\u001b[39m\u001b[2A\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mPath or glob pattern:\u001b[22m \u001b[36m\u001b[39m\u001b[25G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1m📋 [8/8]: Any custom rules or requirements for your website? \u001b[22m\r\n  \u001b[1m(Optional, press Enter to skip)\u001b[22m \u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 1917,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📋 [8/8]: Any custom rules or requirements for your website? \u001b[22m\r\n   \u001b[1m(Optional, press Enter to skip)\u001b[22m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 23,
+      "content": "No git repository found, using current directory name\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m----\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m# Project information for page publishing\u001b[39m\r\n\u001b[36mprojectName: web-smith-demo\u001b[39m\r\n\u001b[36mprojectDesc: \"\"\u001b[39m\r\n\u001b[36mprojectLogo: \"\"\u001b[39m\r\n\u001b[36mprojectId: 3c7be939-0133-4d52-8bad-021ee546eaae\u001b[39m\r\n\u001b[36mprojectSlug: web-smith-demo\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m# Website Configuration\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Purpose: What's the main outcome you want readers to achieve?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   landingPage      - Landing page / Homepage: Convert visitors into users or customers\u001b[39m\r\n\u001b[36m#   ecommerce        - E-commerce / Online store: Sell products or services online\u001b[39m\r\n\u001b[36m#   portfolio        - Portfolio / Showcase: Display creative work, projects, or achievements\u001b[39m\r\n\u001b[36m#   corporate        - Corporate / Business: Professional business website with company informa"
+    },
+    {
+      "delay": 8,
+      "content": "tion\u001b[39m\r\n\u001b[36m#   blog             - Blog / Content site: Share articles, news, and regular content updates\u001b[39m\r\n\u001b[36m#   saas             - SaaS / Software product: Promote and onboard users to software services\u001b[39m\r\n\u001b[36m#   nonprofit        - Non-profit / Community: Promote causes, accept donations, engage volunteers\u001b[39m\r\n\u001b[36m#   education        - Educational / Learning: Provide courses, tutorials, or educational content\u001b[39m\r\n\u001b[36m#   mixedPurpose     - Multi-purpose website: Comprehensive website covering multiple needs\u001b[39m\r\n\u001b[36mpagePurpose:\u001b[39m\r\n\u001b[36m  - landingPage\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Target Audience: Who will be reading this most often?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   customers        - Customers / End users: People who buy or use your products/services\u001b[39m\r\n\u001b[36m#   businessOwners   - Business owners / Entrepreneurs: People running businesses looking for solutions\u001b[39m\r\n\u001b[36m#   marketers        - Marketing teams: People promoting produc"
+    },
+    {
+      "delay": 8,
+      "content": "ts or managing campaigns\u001b[39m\r\n\u001b[36m#   designers        - Designers / Creative professionals: People focused on visual design and user experience\u001b[39m\r\n\u001b[36m#   developers       - Developers / Technical users: People building or integrating technical solutions\u001b[39m\r\n\u001b[36m#   investors        - Investors / Stakeholders: People evaluating business potential and growth\u001b[39m\r\n\u001b[36m#   jobSeekers       - Job seekers / Potential employees: People looking for career opportunities\u001b[39m\r\n\u001b[36m#   students         - Students / Learners: People seeking educational content or resources\u001b[39m\r\n\u001b[36m#   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds\u001b[39m\r\n\u001b[36mtargetAudienceTypes:\u001b[39m\r\n\u001b[36m  - customers\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Website Scale: How many pages should your website have?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   singlePage         - Single Page (only 1 page): All content consolidated into 1 page\u001b[39m\r\n\u001b[36m#   mini"
+    },
+    {
+      "delay": 8,
+      "content": "mal            - Minimal (2-6 pages): Core pages only - quick to launch\u001b[39m\r\n\u001b[36m#   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]\u001b[39m\r\n\u001b[36m#   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections\u001b[39m\r\n\u001b[36m#   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale\u001b[39m\r\n\u001b[36mwebsiteScale: singlePage\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Custom Rules: Define specific page generation rules and requirements\u001b[39m\r\n\u001b[36mrules: \"\"\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Glossary: Define project-specific terms and definitions\u001b[39m\r\n\u001b[36m# glossary: \"@glossary.md\"  # Path to markdown file containing glossary definitions\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36mlocale: en\u001b[39m\r\n\u001b[36m# translateLanguages:  # List of languages to translate the pages to\u001b[39m\r\n\u001b[36m#   - zh  # Example: Chinese translation\u001b[39m\r\n\u001b[36m#   - en  # Example: English translation\u001b[39m\r\n\u001b[36mpagesDir: .aigne/web-smith/pages  # Directory to save generated pages\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "39m\r\n\u001b[36msourcesPath:  # Source code paths to analyze\u001b[39m\r\n\u001b[36m  - ./src\u001b[39m\r\n\u001b[36mdefaultDatasources:  # Default datasources included in every page\u001b[39m\r\n\u001b[36m  - ./media.md\u001b[39m\r\n\u001b[36m# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\u001b[39m\r\n\u001b[36mmedia:\u001b[39m\r\n\u001b[36m  minImageWidth: 800\u001b[39m\r\n\u001b[36m\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m----\u001b[39m\r\n🎉 Configuration saved to: \u001b[36m.aigne/web-smith/config.yaml\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "💡 You can edit the configuration file anytime to modify settings.\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "🚀 Run \u001b[36m'aigne web generate'\u001b[39m to start website generation!\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠴\u001b[39m init \u001b[36mGenerate website configuration\u001b[39m \u001b[90m[18.8s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m1\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 583,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m init \u001b[36mGenerate website configuration\u001b[39m \u001b[90m[18.8s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m1\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[32m✔\u001b[39m init \u001b[36mGenerate website configuration\u001b[39m \u001b[90m[18.8s]\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m1\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;wangshijun@wangshijuns-Mac-Studio: ~/web-smith-demo\u0007\u001b]1;..eb-smith-demo\u0007"
+    },
+    {
+      "delay": 17,
+      "content": "\u001b]0;~/web-smith-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[34m~/web-smith-demo\u001b[39m \u001b[33m26s\u001b[39m\r\n\r\u001b[35m❯\u001b[39m \u001b[K"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?1h\u001b="
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?2004h"
+    },
+    {
+      "delay": 5251,
+      "content": "\u001b[?2004l\r\r\n"
+    }
+  ]
+}

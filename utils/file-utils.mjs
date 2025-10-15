@@ -1,8 +1,9 @@
 import { execSync } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 import { WEB_SMITH_DIR } from "./constants.mjs";
+import { isGlobPattern } from "./utils.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -214,6 +215,14 @@ export function getMediaDescriptionCachePath() {
 }
 
 /**
+ * Get cover image file path
+ * @returns {string} Absolute path to cover.png
+ */
+export function getCoverImagePath() {
+  return path.join(process.cwd(), WEB_SMITH_DIR, "cover.png");
+}
+
+/**
  * Get files using glob patterns
  * @param {string} dir - Directory to search
  * @param {string[]} includePatterns - Include patterns
@@ -265,4 +274,256 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
     console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
     return [];
   }
+}
+
+/**
+ * Load files from source paths (files, directories, or glob patterns)
+ * @param {string|string[]} sourcesPath - File path, directory path, or glob pattern(s)
+ * @param {Object} options - Configuration options
+ * @param {string|string[]} options.includePatterns - Glob patterns to include
+ * @param {string|string[]} options.excludePatterns - Glob patterns to exclude
+ * @param {boolean} options.useDefaultPatterns - Whether to merge with default patterns
+ * @param {string[]} options.defaultIncludePatterns - Default include patterns
+ * @param {string[]} options.defaultExcludePatterns - Default exclude patterns
+ * @returns {Promise<string[]>} Array of file paths
+ */
+export async function loadFilesFromSourcePaths(
+  sourcesPath,
+  {
+    includePatterns,
+    excludePatterns,
+    useDefaultPatterns = true,
+    defaultIncludePatterns = [],
+    defaultExcludePatterns = [],
+  } = {},
+) {
+  const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
+  let allFiles = [];
+
+  for (const dir of paths) {
+    try {
+      if (typeof dir !== "string") {
+        console.warn(`Invalid source path: ${dir}`);
+        continue;
+      }
+
+      // First try to access as a file or directory
+      const stats = await stat(dir);
+
+      if (stats.isFile()) {
+        // If it's a file, add it directly without filtering
+        allFiles.push(dir);
+      } else if (stats.isDirectory()) {
+        // If it's a directory, use the existing glob logic
+        // Load .gitignore for this directory
+        const gitignorePatterns = await loadGitignore(dir);
+
+        // Prepare patterns
+        let finalIncludePatterns = null;
+        let finalExcludePatterns = null;
+
+        if (useDefaultPatterns) {
+          // Merge with default patterns
+          const userInclude = includePatterns
+            ? Array.isArray(includePatterns)
+              ? includePatterns
+              : [includePatterns]
+            : [];
+          const userExclude = excludePatterns
+            ? Array.isArray(excludePatterns)
+              ? excludePatterns
+              : [excludePatterns]
+            : [];
+
+          finalIncludePatterns = [...defaultIncludePatterns, ...userInclude];
+          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude];
+        } else {
+          // Use only user patterns
+          if (includePatterns) {
+            finalIncludePatterns = Array.isArray(includePatterns)
+              ? includePatterns
+              : [includePatterns];
+          }
+          if (excludePatterns) {
+            finalExcludePatterns = Array.isArray(excludePatterns)
+              ? excludePatterns
+              : [excludePatterns];
+          }
+        }
+
+        // Get files using glob
+        const filesInDir = await getFilesWithGlob(
+          dir,
+          finalIncludePatterns,
+          finalExcludePatterns,
+          gitignorePatterns,
+        );
+        allFiles = allFiles.concat(filesInDir);
+      }
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        // Path doesn't exist as file or directory, try as glob pattern
+        try {
+          // Check if it looks like a glob pattern
+          const isGlobPatternResult = isGlobPattern(dir);
+
+          if (isGlobPatternResult) {
+            // Use glob to find matching files from current working directory
+            const matchedFiles = await glob(dir, {
+              absolute: true,
+              nodir: true, // Only files, not directories
+              dot: false, // Don't include hidden files
+            });
+
+            if (matchedFiles.length > 0) {
+              allFiles = allFiles.concat(matchedFiles);
+            }
+          }
+        } catch (globErr) {
+          console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
+        }
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  return allFiles;
+}
+
+// Media file extensions constants
+const IMAGE_EXTENSIONS = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".bmp",
+  ".webp",
+  ".svg",
+  ".heic",
+  ".heif",
+];
+const VIDEO_EXTENSIONS = [
+  ".mp4",
+  ".mpeg",
+  ".mpg",
+  ".mov",
+  ".avi",
+  ".flv",
+  ".mkv",
+  ".webm",
+  ".wmv",
+  ".m4v",
+  ".3gpp",
+];
+const MEDIA_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS];
+
+/**
+ * Check if a file is a media file (image or video)
+ * @param {string} filePath - File path
+ * @returns {boolean} True if the file is a media file
+ */
+export function isMediaFile(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  return MEDIA_EXTENSIONS.includes(ext);
+}
+
+/**
+ * Get file type from file path based on extension
+ * @param {string} filePath - File path
+ * @returns {string} File type: 'image', 'video', or 'media'
+ */
+export function getFileType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+
+  if (IMAGE_EXTENSIONS.includes(ext)) return "image";
+  if (VIDEO_EXTENSIONS.includes(ext)) return "video";
+  return "media";
+}
+
+/**
+ * Load media files from assets directory
+ * @param {string} assetsDir - Assets directory path
+ * @returns {Promise<string[]>} Array of media file paths
+ */
+export async function loadMediaFilesFromAssets(assetsDir) {
+  try {
+    await access(assetsDir);
+    const files = await readdir(assetsDir, { withFileTypes: true });
+
+    // Filter only files (not directories) and only media files
+    const mediaFiles = files
+      .filter((dirent) => dirent.isFile() && isMediaFile(dirent.name))
+      .map((dirent) => path.join(assetsDir, dirent.name));
+
+    return mediaFiles;
+  } catch {
+    // Assets directory doesn't exist or lacks read permissions
+    return [];
+  }
+}
+
+/**
+ * Copy generated images from temp directory to assets directory
+ * @param {Array} imageRequirements - Array of image generation results
+ * @param {string} assetsDir - Target assets directory path
+ * @returns {Promise<Array>} Array of processed image information
+ */
+export async function copyGeneratedImages(imageRequirements, assetsDir) {
+  // Ensure assets directory exists
+  await mkdir(assetsDir, { recursive: true });
+
+  const processedImages = [];
+
+  for (const imageReq of imageRequirements) {
+    if (!imageReq.images || imageReq.images.length === 0) {
+      continue;
+    }
+
+    const processedImagePaths = [];
+
+    for (const image of imageReq.images) {
+      if (image.type === "local" && image.path) {
+        try {
+          // Get file extension from source path
+          const ext = path.extname(image.path);
+          // Create new filename using imageName
+          const newFilename = `${imageReq.imageName}${ext}`;
+          const destPath = path.join(assetsDir, newFilename);
+
+          // Copy file from temp to assets directory
+          await copyFile(image.path, destPath);
+
+          // Create metadata markdown file
+          const mdFilename = `${imageReq.imageName}.md`;
+          const mdPath = path.join(assetsDir, mdFilename);
+
+          // Write image file description
+          if (imageReq.imageDescription) {
+            await writeFile(mdPath, imageReq.imageDescription, "utf8");
+          }
+
+          processedImagePaths.push({
+            imageName: imageReq.imageName,
+            path: destPath,
+            mimeType: image.mimeType,
+            metadataPath: mdPath,
+          });
+        } catch (copyError) {
+          console.error(
+            `Failed to copy image from ${image.path} to assets directory: ${copyError.message}`,
+          );
+        }
+      }
+    }
+
+    if (processedImagePaths.length > 0) {
+      processedImages.push({
+        imageName: imageReq.imageName,
+        images: processedImagePaths,
+      });
+    }
+  }
+
+  return processedImages;
 }

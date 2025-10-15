@@ -47,6 +47,15 @@ agents:
   - ./agents/media/batch-generate-media-description.yaml
   - ./agents/media/generate-media-description.yaml
 
+  # image
+  - ./agents/media/image/generate-image.yaml
+  - ./agents/media/image/generate-image-team.yaml
+  - ./agents/media/image/save-images.mjs
+
+  # cover
+  - ./agents/media/cover/generate-cover-team.yaml
+  - ./agents/media/cover/save-cover.mjs
+
   # init
   - ./agents/init/index.mjs
   - ./agents/init/suggest-source-path.yaml

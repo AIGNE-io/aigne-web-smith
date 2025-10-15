@@ -50,6 +50,24 @@ async function calculateMediaHash(absolutePath) {
 }
 
 /**
+ * Load description from same-named .md file
+ * @param {string} mediaFilePath - Absolute path to media file
+ * @returns {Promise<string|null>} - Description from .md file or null
+ */
+async function loadDescriptionFromMarkdown(mediaFilePath) {
+  const baseName = path.parse(mediaFilePath).name;
+  const mdFile = path.join(path.dirname(mediaFilePath), `${baseName}.md`);
+
+  try {
+    const mdContent = await readFile(mdFile, "utf8");
+    return mdContent.trim();
+  } catch {
+    // No metadata file
+    return null;
+  }
+}
+
+/**
  * Load media descriptions from cache and generate new ones if needed
  * @param {Object} input - Input parameters
  * @param {Array} input.mediaFiles - Array of media file objects from load-sources
@@ -89,6 +107,7 @@ export default async function loadMediaDescription(input, options) {
   // Find media files without descriptions
   const mediaToDescribe = [];
   const mediaHashMap = new Map();
+  const manualDescriptions = new Map();
 
   const absolutePagesDir = path.resolve(process.cwd(), pagesDir);
 
@@ -100,6 +119,14 @@ export default async function loadMediaDescription(input, options) {
     const absolutePath = path.join(absolutePagesDir, mediaFile.path);
     const mediaHash = await calculateMediaHash(absolutePath);
     mediaHashMap.set(mediaFile.path, mediaHash);
+
+    // Check for manual description from .md file
+    const manualDesc = await loadDescriptionFromMarkdown(absolutePath);
+    if (manualDesc) {
+      manualDescriptions.set(mediaFile.path, manualDesc);
+      // Skip AI description if manual description exists
+      continue;
+    }
 
     if (!cache[mediaHash]) {
       mediaToDescribe.push({
@@ -175,10 +202,17 @@ export default async function loadMediaDescription(input, options) {
 
       // Add description for images and videos
       if (asset.type === "image" || asset.type === "video") {
-        const mediaHash = mediaHashMap.get(asset.path);
-        const cachedDesc = cache[mediaHash];
-        if (cachedDesc?.description) {
-          enhancedAssetsContent += `    description: "${cachedDesc.description}"\n`;
+        // Priority: manual description from .md file > AI generated description
+        const manualDesc = manualDescriptions.get(asset.path);
+        if (manualDesc) {
+          const escapedDesc = manualDesc.replace(/"/g, '\\"').replace(/\n/g, "\\n");
+          enhancedAssetsContent += `    description: "${escapedDesc}"\n`;
+        } else {
+          const mediaHash = mediaHashMap.get(asset.path);
+          const cachedDesc = cache[mediaHash];
+          if (cachedDesc?.description) {
+            enhancedAssetsContent += `    description: "${cachedDesc.description}"\n`;
+          }
         }
       }
 

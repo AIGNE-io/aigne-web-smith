@@ -35,6 +35,9 @@ skills:
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine
+  - ../generate/page-detail/load-page-detail.mjs
+  - ../generate/page-data/compose-pages-data.mjs
+  - ../utils/save-pages.mjs
 input_schema:
   type: object
   properties:

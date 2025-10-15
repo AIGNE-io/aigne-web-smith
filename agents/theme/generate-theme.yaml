@@ -3,7 +3,10 @@ name: generateThemeAI
 description: Create comprehensive MUI theme configuration based on your website style
 taskRenderMode: hide
 instructions:
-  url: ../../prompts/theme/generate-theme-config.md
+  - role: system
+    url: ../../prompts/theme/system-prompt.md
+  - role: user
+    url: ../../prompts/theme/user-prompt.md
 input_schema:
   type: object
   properties:

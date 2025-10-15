@@ -143,7 +143,11 @@ function getNestedValue(obj, path, workingDir = process.cwd()) {
   /* c8 ignore next */
   if (Object.hasOwn(obj, path)) {
     /* c8 ignore next */
-    return resolveValue(obj[path], workingDir);
+    return resolveValue({
+      key: path,
+      value: obj[path],
+      workingDir,
+    });
   }
 
   const segments = [];
@@ -162,11 +166,19 @@ function getNestedValue(obj, path, workingDir = process.cwd()) {
 
   /* c8 ignore next */
   if (current === undefined && Object.hasOwn(obj, path)) {
-    return resolveValue(obj[path], workingDir);
+    return resolveValue({
+      key: path,
+      value: obj[path],
+      workingDir,
+    });
   }
 
   /* c8 ignore next */
-  return resolveValue(current, workingDir);
+  return resolveValue({
+    key: path,
+    value: current,
+    workingDir,
+  });
 }
 function processSimpleTemplate(obj, data, stats = null) {
   if (typeof obj === "string") {

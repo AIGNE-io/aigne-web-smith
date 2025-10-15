@@ -1798,7 +1798,12 @@ export function tryReadFileContent(filePath, workingDir) {
   }
 }
 
-export function resolveValue(value, workingDir) {
+export function resolveValue({ key, value, workingDir }) {
+  // skip handle terminalPlaybackData, terminal data will be handled by publish-website agent
+  if (value && key === "terminalPlaybackData") {
+    return value;
+  }
+
   if (typeof value !== "string") {
     return value;
   }

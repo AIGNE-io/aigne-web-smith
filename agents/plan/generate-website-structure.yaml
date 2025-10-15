@@ -35,6 +35,9 @@ skills:
         - datasources
     output_schema:
       type: object
+      required:
+        - projectCoverPrompt
+        - websiteStructure
       properties:
         projectName:
           type: string
@@ -45,11 +48,9 @@ skills:
         projectCoverPrompt:
           type: string
           description: |
-            Project cover prompt generated from datasources analysis, Include:
-              - Visual style: Define design approach (e.g., "modern minimalist," "vibrant gradient," "professional corporate")
-              - Subject matter: Describe the main content with specificity
-              - Composition: Indicate layout and perspective (e.g., "centered layout," "diagonal composition," "top-down view")
-              - Mood and tone: Convey the emotional impact (e.g., "trustworthy and professional," "energetic and innovative")
+            Project cover prompt generated from datasources analysis:
+              - Describe the core content of the project through abstract concepts
+              - Only describe in detail the main subjects planned to be shown in the image and their positional relationships
 
         websiteStructure: ../schema/website-structure.yaml
         websiteStructureTree:

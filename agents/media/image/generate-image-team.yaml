@@ -2,6 +2,7 @@ type: team
 name: generateImageTeam
 description: Generate images for the website
 task_title: Generate images for the website
+task_render_mode: collapse
 skills:
   - type: team
     skills:

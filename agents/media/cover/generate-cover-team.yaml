@@ -2,8 +2,9 @@ type: team
 name: generateCoverTeam
 description: Generate cover image for the website
 task_title: Generate cover image for the website
+task_render_mode: collapse
 skills:
-  - ./generate-cover.yaml
+  - ../image/generate-image.yaml
   - ./save-cover.mjs
 input_schema:
   type: object

@@ -54,7 +54,6 @@ agents:
 
   # cover
   - ./agents/media/cover/generate-cover-team.yaml
-  - ./agents/media/cover/generate-cover.yaml
   - ./agents/media/cover/save-cover.mjs
 
   # init

@@ -58,13 +58,9 @@ When invoking the tool, provide clear and specific information:
 
 - imageName: Use kebab case naming that reflects the section and purpose (e.g., `hero-main-visual`, `feature-dashboard-preview`, `testimonial-avatar`)
 - aiPrompt: Provide detailed, context-rich descriptions for generating web-optimized images. Include:
-  - Webpage context: Specify where the image will be used (e.g., "hero section," "hero background")
-  - Visual style: Define design approach (e.g., "modern minimalist," "vibrant gradient," "professional corporate")
-  - Subject matter: Describe the main content with specificity
-  - Composition: Indicate layout and perspective (e.g., "centered layout," "diagonal composition," "top-down view")
-  - Mood and tone: Convey the emotional impact (e.g., "trustworthy and professional," "energetic and innovative")
-  - Generated images should match the site's main color scheme, Site primary colors:{{media.sitePrimaryColor}} 
-  - Example: Instead of "a dashboard interface," use "a modern SaaS analytics dashboard with dark mode UI, featuring gradient data visualization cards, clean typography, and a professional blue-purple color scheme for a hero section visual"
+  - Describe the core content of the project through abstract concepts
+  - Only describe in detail the main subjects planned to be shown in the image and their positional relationships
+
 - imageDescription: 
   - Explain the image's role in the page structure
   - Keep it between (3-4 sentences)

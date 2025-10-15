@@ -17,8 +17,7 @@
       websites. Go from idea to a live site with just a few commands!"
     "fullBackgroundHeroActions":
       - "text": "Get Started Now"
-        "link": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c473\
-          53"
+        "link": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353"
       - "text": "View Examples"
         "link": "/showcase"
   - "sectionName": "howItWorksCore"
@@ -60,13 +59,12 @@
         "cardDescription": "Ready, set, live! The Publishing Agent handles the final
           step. With one command, it uploads everything directly to Pages Kit,
           so you can launch instantly and share your new site with the world."
-    "threeColumnGridTitle": ""
   - "sectionName": "targetAudience"
     "sectionSummary": "A clear, focused section that identifies who AIGNE WebSmith
-      is for. It uses a single-column layout to present different user personas,
+      is for. It uses a four-column grid to present different user personas,
       making the tool feel relatable and immediately valuable to a wide range of
       professionals."
-    "oneColumnGridTitle": "Built for the Bold, the Bright, and the Busy"
+    "fourColumnGridTitle": "Built for the Bold, the Bright, and the Busy"
     "list":
       - "sectionName": "smallBusinesses"
         "sectionSummary": "Card highlighting the benefits for small businesses and
@@ -152,8 +150,7 @@
             asking you fun questions about your goals so WebSmith knows exactly
             what amazing site you want to build."
           "actionTitle": "Learn More"
-          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-starte
-            d-preparing-your-content-c47353"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353"
       - "sectionName": "generateDemo"
         "sectionSummary": "Demonstrates the 'generate' command, showing the user how the
           AI initiates the entire website creation process from a single
@@ -166,8 +163,7 @@
             planning the site structure, and generating rich content for every
             single page. Sit back and watch your site come to life!"
           "actionTitle": "Learn More"
-          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-gen
-            erating-a-website-c47353"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353"
       - "sectionName": "updateDemo"
         "sectionSummary": "Showcases the 'update' command, allowing for easy,
           AI-assisted content revisions."
@@ -179,8 +175,7 @@
             and our AI will intelligently revise the pages, keeping everything
             fresh and fabulous."
           "actionTitle": "Learn More"
-          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-upd
-            ating-website-content-c47353"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353"
       - "sectionName": "translateDemo"
         "sectionSummary": "Highlights the 'translate' command, demonstrating the power
           of instant, multi-language website localization."
@@ -192,8 +187,7 @@
             opening up your amazing content to a brand new audience. ¡Hola!
             Bonjour!"
           "actionTitle": "Learn More"
-          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-tra
-            nslating-your-content-c47353"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353"
       - "sectionName": "publishDemo"
         "sectionSummary": "Showcases the 'publish' command, providing the satisfying
           payoff of seeing the generated site go live instantly."
@@ -205,8 +199,7 @@
             hands you the live URLs in seconds. It's that easy to share your
             creation with the world!"
           "actionTitle": "Learn More"
-          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-pub\
-            lishing-your-website-c47353"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353"
   - "sectionName": "changelog"
     "sectionSummary": "A dynamic changelog section to showcase the latest exciting
       updates and improvements. This keeps the audience engaged and informed

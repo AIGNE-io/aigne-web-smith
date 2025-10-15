@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-15T03:06:13.752Z
+  updateAt: 2025-10-15T09:06:19.155Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -7191,6 +7191,7 @@ composite:
       - `title` should only contain the executed command
     fieldCombinations:
       - terminalPlaybackData
+      - terminalPlaybackDataUrl
       - terminalRight.actionLink
       - terminalRight.actionTitle
       - terminalRight.description
@@ -7366,6 +7367,8 @@ composite:
         properties:
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+          6b0jh5aw4ptbo2t3:
+            value: <%= terminalPlaybackDataUrl %>
   - id: 25m86rw7ywdu0xhu
     name: Terminal Player (Left)
     summary: >-
@@ -7427,6 +7430,7 @@ composite:
       - terminalLeft.description
       - terminalLeft.title
       - terminalPlaybackData
+      - terminalPlaybackDataUrl
     section:
       id: v7dopgdcsnrwy85t
       name: TerminalPlayer
@@ -7598,6 +7602,8 @@ composite:
         properties:
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+          6b0jh5aw4ptbo2t3:
+            value: <%= terminalPlaybackDataUrl %>
   - id: wqsxrwmyx057cofg
     name: Full Background Hero (Center)
     summary: >

@@ -163,7 +163,6 @@
           "Demonstrates the 'init' command, which interactively sets up
           the project configuration based on user goals."
         "terminalPlaybackData": "@init.json"
-        "terminalPlaybackDataUrl": ""
         "terminalLeft":
           "title": "aigne web init"
           "description":
@@ -179,7 +178,6 @@
           AI initiates the entire website creation process from a single
           instruction."
         "terminalPlaybackData": "@generate.json"
-        "terminalPlaybackDataUrl": ""
         "terminalRight":
           "title": "aigne web generate"
           "description":
@@ -193,7 +191,6 @@
         "sectionSummary": "Showcases the 'update' command, allowing for easy,
           AI-assisted content revisions."
         "terminalPlaybackData": "@update.json"
-        "terminalPlaybackDataUrl": ""
         "terminalLeft":
           "title": "aigne web update"
           "description":
@@ -208,7 +205,6 @@
           "Highlights the 'translate' command, demonstrating the power
           of instant, multi-language website localization."
         "terminalPlaybackData": "@translate.json"
-        "terminalPlaybackDataUrl": ""
         "terminalRight":
           "title": "aigne web translate"
           "description":
@@ -223,7 +219,6 @@
           "Showcases the 'publish' command, providing the satisfying
           payoff of seeing the generated site go live instantly."
         "terminalPlaybackData": "@publish.json"
-        "terminalPlaybackDataUrl": ""
         "terminalLeft":
           "title": "aigne web publish"
           "description":

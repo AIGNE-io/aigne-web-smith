@@ -3,7 +3,7 @@ projectName: AIGNE WebSmith
 projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
 projectLogo: https://websmith.aigne.io/.well-known/service/blocklet/logo
 projectId: cf2ae190-d34f-402f-b6bf-ab7489f670d4
-projectSlug: web-smith
+projectSlug: "/"
 
 # =============================================================================
 # Website Configuration
@@ -94,8 +94,8 @@ translateLanguages:
   # - zh
   # - zh-TW
   # - ja
-pagesDir: .aigne/web-smith/pages  # Directory to save generated pages
-sourcesPath:  # Source code paths to analyze
+pagesDir: .aigne/web-smith/pages # Directory to save generated pages
+sourcesPath: # Source code paths to analyze
   - ./assets/documents
   - ./README.md
   - ./aigne.yaml
@@ -103,12 +103,12 @@ sourcesPath:  # Source code paths to analyze
   - ./assets/recordings/README.md
   - ./CHANGELOG.md
   - ./agents
-defaultDatasources:  # Default datasources included in every page
+defaultDatasources: # Default datasources included in every page
   - ./media.md
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 600
-lastGitHead: 9a5a78977b844101c029792e517cabc196256759
+lastGitHead: 4823ec5b2b4dd87fa0aeee0bf11b088de069a7e3
 appUrl: https://staging.websmith.aigne.io
 # Checkout ID for website deployment service
 checkoutId: ""

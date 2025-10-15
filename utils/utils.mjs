@@ -1767,6 +1767,22 @@ export const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? 
 +  */
 export const isHttp = (url) => url.startsWith("http://") || url.startsWith("https://");
 
+export function findFilePath(filePath, workingDir) {
+  const pattern = `**/${filePath}`;
+  const matches = glob.sync(pattern, {
+    cwd: workingDir,
+    absolute: true,
+    nodir: true,
+  });
+
+  if (matches.length === 0) {
+    return null;
+  }
+
+  const foundPath = matches[0];
+  return foundPath;
+}
+
 export function tryReadFileContent(filePath, workingDir) {
   const supportedExts = [".json", ".yaml", ".yml", ".txt", ".md"];
   const ext = filePath.slice(filePath.lastIndexOf(".")).toLowerCase();
@@ -1776,18 +1792,7 @@ export function tryReadFileContent(filePath, workingDir) {
   }
 
   try {
-    const pattern = `**/${filePath}`;
-    const matches = glob.sync(pattern, {
-      cwd: workingDir,
-      absolute: true,
-      nodir: true,
-    });
-
-    if (matches.length === 0) {
-      return null;
-    }
-
-    const foundPath = matches[0];
+    const foundPath = findFilePath(filePath, workingDir);
     const content = readFileSync(foundPath, "utf8");
 
     return content;

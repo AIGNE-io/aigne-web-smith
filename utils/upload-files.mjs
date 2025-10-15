@@ -404,7 +404,7 @@ export async function batchUploadMediaFiles({
 
   try {
     // 批量上传文件
-    const uploadFilePaths = filesToUpload.map((file) => path.join(rootDir, file.path));
+    const uploadFilePaths = filesToUpload.map((file) => path.resolve(rootDir, file.path));
 
     const uploadResults = await uploadFiles({
       appUrl,

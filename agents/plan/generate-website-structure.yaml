@@ -42,6 +42,15 @@ skills:
         projectDesc:
           type: string
           description: Project description generated from datasources analysis, concise description under 50 words
+        projectCoverPrompt:
+          type: string
+          description: |
+            Project cover prompt generated from datasources analysis, Include:
+              - Visual style: Define design approach (e.g., "modern minimalist," "vibrant gradient," "professional corporate")
+              - Subject matter: Describe the main content with specificity
+              - Composition: Indicate layout and perspective (e.g., "centered layout," "diagonal composition," "top-down view")
+              - Mood and tone: Convey the emotional impact (e.g., "trustworthy and professional," "energetic and innovative")
+
         websiteStructure: ../schema/website-structure.yaml
         websiteStructureTree:
           type: string

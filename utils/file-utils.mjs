@@ -214,6 +214,14 @@ export function getMediaDescriptionCachePath() {
 }
 
 /**
+ * Get cover image file path
+ * @returns {string} Absolute path to cover.png
+ */
+export function getCoverImagePath() {
+  return path.join(process.cwd(), WEB_SMITH_DIR, "cover.png");
+}
+
+/**
  * Get files using glob patterns
  * @param {string} dir - Directory to search
  * @param {string[]} includePatterns - Include patterns

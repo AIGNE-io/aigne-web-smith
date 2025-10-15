@@ -1,12 +1,13 @@
 type: ai
-name: generateThemeAI
+name: generateThemeCore
 description: Create comprehensive MUI theme configuration based on your website style
-taskRenderMode: hide
+task_render_mode: collapse
 instructions:
   - role: system
     url: ../../prompts/theme/system-prompt.md
   - role: user
     url: ../../prompts/theme/user-prompt.md
+task_title: '{{ feedback }}'
 input_schema:
   type: object
   properties:

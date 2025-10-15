@@ -6,6 +6,19 @@
     "access": "public"
   },
   "main": "index.js",
+  "files": [
+    "agents",
+    "assets",
+    "pages-mcp",
+    "prompts",
+    "types",
+    "utils",
+    "aigne.yaml",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "logo.svg"
+  ],
   "scripts": {
     "test": "bun test",
     "test:coverage": "bun test --coverage --coverage-reporter=lcov --coverage-reporter=text",

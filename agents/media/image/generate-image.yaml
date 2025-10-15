@@ -1,9 +1,9 @@
 type: image
 name: generateImage
 image_model: 
-  model: google/gemini-2.5-flash-image-preview
-  # imageConfig:
-  #   aspectRatio: "5:4"
+  model: google/gemini-2.5-flash-image
+  imageConfig:
+    aspectRatio: "4:3"
 instructions: |
   Image Description:
   {{aiPrompt}}
@@ -31,6 +31,8 @@ instructions: |
   - Clear foreground-background separation for better readability
   - Versatile composition suitable for various viewport sizes
   - Professional polish appropriate for product landing pages and marketing materials
+
+  --no text, words, letters, signatures, watermark
 input_schema:
   type: object
   properties:

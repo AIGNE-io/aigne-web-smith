@@ -178,7 +178,8 @@ const EXT_TO_MIME = {
 // Build reverse mapping: MIME → extensions
 const MIME_TO_EXTS = Object.entries(EXT_TO_MIME).reduce((acc, [ext, mime]) => {
   const key = mime.toLowerCase();
-  (acc[key] ||= []).push(ext);
+  acc[key] = acc[key] || [];
+  acc[key].push(ext);
   return acc;
 }, {});
 
@@ -199,7 +200,7 @@ export function getExtnameFromContentType(contentType) {
   if (!contentType) return "";
   const base = String(contentType).split(";")[0].trim().toLowerCase();
   const exts = MIME_TO_EXTS[base];
-  if (exts && exts.length) return exts[0].slice(1);
+  if (exts?.length) return exts[0].slice(1);
   const parts = base.split("/");
   return parts[1] || "";
 }

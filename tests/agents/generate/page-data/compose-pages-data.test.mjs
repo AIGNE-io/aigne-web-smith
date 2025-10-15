@@ -1412,12 +1412,12 @@ describe("composePagesData helpers", () => {
   });
 
   test("resolveValue returns original when not a string and reads files", () => {
-    expect(__testHelpers.resolveValue(123)).toBe(123);
-    expect(__testHelpers.resolveValue({ key: "value" })).toEqual({ key: "value" });
-    expect(__testHelpers.resolveValue("@tests/mock-data/snippets/sample-copy.txt")).toContain(
-      "This copy is loaded",
-    );
-    expect(__testHelpers.resolveValue("@tests/mock-data/snippets/sample-copy.bin")).toBe(
+    expect(__testHelpers.resolveValue({ value: 123 })).toBe(123);
+    expect(__testHelpers.resolveValue({ value: { key: "value" } })).toEqual({ key: "value" });
+    expect(
+      __testHelpers.resolveValue({ value: "@tests/mock-data/snippets/sample-copy.txt" }),
+    ).toContain("This copy is loaded");
+    expect(__testHelpers.resolveValue({ value: "@tests/mock-data/snippets/sample-copy.bin" })).toBe(
       "@tests/mock-data/snippets/sample-copy.bin",
     );
   });

@@ -1,20 +1,31 @@
 - title: "AIGNE WebSmith: AI-Powered Website Generation"
-  description: A comprehensive landing page for AIGNE WebSmith, an AI-driven tool
-    for creating professional websites. This single-page experience introduces
-    the product's value, key features, and simple quick-start process. It
-    includes sections for a compelling hero introduction, a breakdown of
-    AI-powered features like intelligent structure planning and one-click
-    publishing, a simple 'How It Works' guide, and clear calls-to-action to
-    guide visitors toward becoming users.
+  description: A comprehensive single-page overview of AIGNE WebSmith. The page
+    guides visitors through the tool's value proposition, starting with a hero
+    section that defines the product and its audience. It then builds trust with
+    feature-benefit sections (AI Generation, Professional Templates, Quality
+    Assurance, One-Click Publishing) and a visual 'How It Works' guide. A 'Quick
+    Start' section provides actionable steps for users, followed by an essential
+    FAQ to address common questions. The page is anchored by clear
+    calls-to-action to encourage user engagement.
   path: /home
   navigation:
-    title: Home
-    description: Discover AI-powered website creation.
+    title: AIGNE WebSmith
+    description: Generate professional websites with AI.
   sourceIds:
     - README.md
-    - package.json
+    - assets/documents/research.md
+    - assets/recordings/README.md
     - aigne.yaml
-    - utils/constants.mjs
-    - utils/upload-files.mjs
-    - utils/generate-helper.mjs
-  parentId: ""
+    - CHANGELOG.md
+    - agents/generate/index.yaml
+    - agents/plan/index.yaml
+    - agents/publish/index.yaml
+    - agents/update/index.yaml
+    - agents/translate/index.yaml
+    - agents/init/index.mjs
+    - agents/plan/generate-website-structure.yaml
+    - agents/generate/page-detail/generate-page-detail.yaml
+    - agents/publish/publish-website.mjs
+    - agents/utils/save-pages.mjs
+    - agents/media/load-media-description.mjs
+  parentId: string

@@ -1,66 +1,309 @@
-meta:
-  title: "WebSmith: AI-Powered Website Generation"
-  description: "Generate professional, SEO-optimized websites instantly with AIGNE WebSmith. Just describe your vision and let our AI handle the design, content, and publishing."
-sections:
-  - sectionName: "hero"
-    sectionSummary: "A compelling hero section to grab the user's attention with the core value proposition of AI-powered website creation and a clear call to action, showcasing the product in action."
-    splitHeroTitle: "Create Your Stunning Website in Minutes with AI"
-    splitHeroDescription: "Stop wrestling with code and complex builders. Just describe your vision, and WebSmith intelligently handles the rest—from structure and content to professional, ready-to-publish templates."
-    splitHeroActions:
-      - text: "Get Started Now"
-        link: "https://github.com/AIGNE-io/aigne-web-smith"
-      - text: "See it in Action"
-        link: "#"
-    splitHeroRightImage: "mediakit://Jietu20251008-180033-HD.mp4"
-  - sectionName: "features"
-    sectionSummary: "Highlights the four core features of WebSmith in a scannable grid, focusing on the tangible benefits for the user: AI generation, professional templates, quality assurance, and one-click publishing."
-    fourColumnGridTitle: "Everything You Need to Go from Idea to Live Site, Instantly"
-    list:
-      - sectionName: "aiPoweredGeneration"
-        sectionSummary: "Feature card explaining the core AI generation capability, emphasizing automation and intelligence."
-        iconName: "lucide:wand-2"
-        cardTitle: "AI-Powered Generation"
-        cardDescription: "Our AI intelligently plans, writes, and optimizes your entire website. You bring the idea, we'll handle the execution."
-      - sectionName: "professionalTemplates"
-        sectionSummary: "Feature card showcasing the high-quality, professional templates that are generated, highlighting responsiveness and ease of use."
-        iconName: "lucide:layout-template"
-        cardTitle: "Professional Templates"
-        cardDescription: "Get beautiful, responsive designs out-of-the-box, fully compatible with Pages Kit for easy visual editing."
-      - sectionName: "qualityAssurance"
-        sectionSummary: "Feature card focused on the built-in quality checks, giving users confidence in the final product."
-        iconName: "lucide:shield-check"
-        cardTitle: "Built-in Quality Assurance"
-        cardDescription: "Launch with total confidence. Our AI automatically evaluates your site's structure, content, and code for quality."
-      - sectionName: "oneClickPublishing"
-        sectionSummary: "Feature card emphasizing the speed and simplicity of publishing the generated website."
-        iconName: "lucide:rocket"
-        cardTitle: "One-Click Publishing"
-        cardDescription: "Go live in seconds! Publish your stunning new site directly to Pages Kit with a single, simple command."
-  - sectionName: "howItWorks"
-    sectionSummary: "A simple, three-step guide that demystifies the process of using WebSmith, showing users how easy it is to get started and see results quickly."
-    threeColumnGridTitle: "So Simple, It Feels Like Magic"
-    list:
-      - sectionName: "stepOneDescribe"
-        sectionSummary: "The first step in the 'How It Works' process, encouraging users to define their website vision."
-        iconName: "lucide:file-text"
-        cardTitle: "1. Describe Your Vision"
-        cardDescription: "Start with a simple file outlining your website's purpose, audience, and style. Let your creativity flow!"
-      - sectionName: "stepTwoGenerate"
-        sectionSummary: "The second step, highlighting the single command needed to generate the website and the power of the AI."
-        iconName: "lucide:sparkles"
-        cardTitle: "2. Run One Command"
-        cardDescription: "Execute 'aigne web generate' and watch as WebSmith builds your complete, content-rich website in minutes."
-      - sectionName: "stepThreePublish"
-        sectionSummary: "The final step, showcasing how easy it is to publish the website and share it with the world."
-        iconName: "lucide:send"
-        cardTitle: "3. Publish to the World"
-        cardDescription: "Ready to share your creation? Use 'aigne web publish' to instantly deploy your site and go live."
-  - sectionName: "finalCta"
-    sectionSummary: "A final, high-energy call to action at the bottom of the page designed to convert visitors by encouraging them to get started with WebSmith immediately."
-    ctaTitle: "Ready to Launch Your Next Big Idea?"
-    ctaDescription: "Your amazing new website is just a few clicks away. Dive in and experience the future of web creation with AIGNE WebSmith today!"
-    cta:
-      - text: "Start Building Now"
-        link: "https://github.com/AIGNE-io/aigne-web-smith"
-      - text: "Explore the Docs"
-        link: "https://www.aigne.io/web-smith"
+"meta":
+  "title": "AIGNE WebSmith: AI-Powered Website Generation in Minutes"
+  "description": "Generate and publish professional, SEO-optimized websites with
+    AIGNE WebSmith. Our AI agents automate everything from planning and content
+    creation to one-click publishing. Get started now!"
+  "image": "mediakit://hero-background.webp"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary":
+      "A vibrant, full-screen hero section designed to immediately
+      capture attention. It clearly states the core value proposition—speed and
+      automation—and provides primary and secondary calls-to-action to get users
+      engaged right away."
+    "fullBackgroundHeroImage": "mediakit://hero-background.webp"
+    "fullBackgroundHeroLeftTitle": "Build and Launch Your Website in Minutes, Not Weeks"
+    "fullBackgroundHeroLeftDescription": "AIGNE WebSmith uses powerful AI agents
+      to automatically plan, write, and publish professional, SEO-optimized
+      websites. Go from idea to a live site with just a few commands!"
+    "fullBackgroundHeroActions":
+      - "text": "Get Started Now"
+        "link": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353"
+      - "text": "View Examples"
+        "link": "/showcase"
+  - "sectionName": "howItWorksCore"
+    "sectionSummary":
+      "A clear, four-step overview of the core process, explaining
+      how AIGNE WebSmith uses your content and specialized AI agents to build
+      and launch a website. This section visually breaks down the
+      source-plan-generate-publish workflow, making the tool's powerful
+      automation easy to understand at a glance."
+    "fourColumnGridTitle": "Your End-to-End Website Automation Toolkit"
+    "list":
+      - "sectionName": "flexibleDataSources"
+        "sectionSummary":
+          "Highlights the ability to use various existing content
+          formats as input."
+        "iconName": "lucide:file-stack"
+        "cardTitle": "1. Use Any Content"
+        "cardDescription":
+          "Bring your content, we'll do the rest! WebSmith connects to
+          your existing markdown, images, videos, and even terminal recordings
+          to understand your project and generate a site that's uniquely yours."
+      - "sectionName": "intelligentPlanning"
+        "sectionSummary":
+          "Explains the initial planning phase where the AI designs the
+          website architecture."
+        "iconName": "lucide:brain-circuit"
+        "cardTitle": "2. Intelligent Planning"
+        "cardDescription": "It all starts with a smart plan! Our Structure Agent
+          analyzes your goals to design the perfect website architecture,
+          ensuring a logical flow and a fantastic user experience from the
+          ground up."
+      - "sectionName": "automatedGeneration"
+        "sectionSummary": "Describes the content and template generation phase."
+        "iconName": "lucide:wand-sparkles"
+        "cardTitle": "3. Automated Content & Templates"
+        "cardDescription":
+          "Next, our Content and Template Agents team up to write
+          compelling, SEO-optimized copy and generate the Pages Kit-compatible
+          templates to match. Your entire site, built in one go!"
+      - "sectionName": "oneClickPublishing"
+        "sectionSummary": "Details the final, seamless publishing step."
+        "iconName": "lucide:send"
+        "cardTitle": "4. One-Click Publishing"
+        "cardDescription":
+          "Ready, set, live! The Publishing Agent handles the final
+          step. With one command, it uploads everything directly to Pages Kit,
+          so you can launch instantly and share your new site with the world."
+  - "sectionName": "targetAudience"
+    "sectionSummary":
+      "A clear, focused section that identifies who AIGNE WebSmith
+      is for. It uses a four-column grid to present different user personas,
+      making the tool feel relatable and immediately valuable to a wide range of
+      professionals."
+    "fourColumnGridTitle": "Built for the Bold, the Bright, and the Busy"
+    "list":
+      - "sectionName": "smallBusinesses"
+        "sectionSummary":
+          "Card highlighting the benefits for small businesses and
+          entrepreneurs."
+        "iconName": "lucide:rocket"
+        "cardTitle": "For Small Businesses & Entrepreneurs"
+        "cardDescription":
+          "Get your professional website online in minutes, not months.
+          No tech skills needed—just your brilliant idea!"
+      - "sectionName": "marketingTeams"
+        "sectionSummary": "Card highlighting the benefits for marketing teams."
+        "iconName": "lucide:megaphone"
+        "cardTitle": "For Marketing Teams"
+        "cardDescription":
+          "Launch campaign sites and landing pages at lightning speed.
+          Go from concept to live URL and crush your goals faster than ever."
+      - "sectionName": "agencies"
+        "sectionSummary": "Card highlighting the benefits for agencies."
+        "iconName": "lucide:briefcase"
+        "cardTitle": "For Agencies"
+        "cardDescription":
+          "Scale your client services by automating website builds.
+          Deliver high-quality, consistent sites efficiently and impress every
+          client."
+      - "sectionName": "contentCreators"
+        "sectionSummary": "Card highlighting the benefits for content creators."
+        "iconName": "lucide:pen-square"
+        "cardTitle": "For Content Creators"
+        "cardDescription": "You bring the story, we'll handle the rest. Focus on
+          creating amazing content while our AI builds the perfect home for it."
+  - "sectionName": "whyWeAreDifferent"
+    "sectionSummary":
+      "A powerful section that clearly articulates AIGNE WebSmith's
+      unique value proposition. It uses a two-column grid with icon-driven cards
+      to highlight key differentiators like agent-based intelligence and
+      end-to-end automation, making it easy for users to see why this tool is a
+      game-changer."
+    "twoColumnGridTitle": "So, What Makes WebSmith a Total Game-Changer?"
+    "list":
+      - "sectionName": "agentIntelligence"
+        "sectionSummary":
+          "Highlights the unique agent-based architecture that provides
+          intelligent, autonomous website generation."
+        "iconName": "lucide:bot-message-square"
+        "cardTitle": "True Agent-Powered Intelligence"
+        "cardDescription":
+          "This isn't just a template filler. WebSmith uses a team of
+          specialized AI agents that intelligently plan, write, and structure
+          your site for a truly autonomous creation experience."
+      - "sectionName": "endToEndAutomation"
+        "sectionSummary":
+          "Emphasizes the complete, automated workflow from initial
+          planning to final publishing."
+        "iconName": "lucide:play-circle"
+        "cardTitle": "Complete End-to-End Automation"
+        "cardDescription":
+          "Go from a simple idea to a fully published, multi-page
+          website without manual intervention. It’s the entire creation and
+          deployment workflow, completely automated."
+      - "sectionName": "builtInQuality"
+        "sectionSummary": "Showcases the integrated quality assurance, ensuring
+          professional and reliable results."
+        "iconName": "lucide:gem"
+        "cardTitle": "Professional Quality is Built-In"
+        "cardDescription": "Launch with total confidence. With built-in SEO
+          optimization, content quality checks, and 32+ tests, every site is
+          professional, reliable, and ready to impress."
+      - "sectionName": "rapidDeployment"
+        "sectionSummary":
+          "Focuses on the incredible speed of generation and deployment,
+          a key differentiator."
+        "iconName": "lucide:zap"
+        "cardTitle": "Deploy at Lightning Speed"
+        "cardDescription":
+          "Generate a 5-page website in about 2-3 minutes, not weeks.
+          Your site goes from concept to live in moments, letting you move
+          faster than ever before."
+  - "sectionName": "howItWorks"
+    "sectionSummary": "A dynamic 'show, don't tell' section using alternating
+      terminal players to visually demonstrate the core user workflow. It
+      provides exciting proof of the product's simplicity and power, guiding
+      users from generation to publishing."
+    "oneColumnGridTitle": "See It in Action: From Idea to Live Site"
+    "list":
+      - "sectionName": "initDemo"
+        "sectionSummary":
+          "Demonstrates the 'init' command, which interactively sets up
+          the project configuration based on user goals."
+        "terminalPlaybackData": "mediakit://init.json"
+        "terminalLeft":
+          "title": "aigne web init"
+          "description":
+            "Let's get this party started! The `init` command is your first
+            step. It interactively sets up your entire project configuration,
+            asking you fun questions about your goals so WebSmith knows exactly
+            what amazing site you want to build."
+          "actionTitle": "Learn More"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353"
+      - "sectionName": "generateDemo"
+        "sectionSummary":
+          "Demonstrates the 'generate' command, showing the user how the
+          AI initiates the entire website creation process from a single
+          instruction."
+        "terminalPlaybackData": "mediakit://generate.json"
+        "terminalRight":
+          "title": "aigne web generate"
+          "description":
+            "This is where the magic happens! Kick things off with one
+            command. Our AI agents jump into action, analyzing your needs,
+            planning the site structure, and generating rich content for every
+            single page. Sit back and watch your site come to life!"
+          "actionTitle": "Learn More"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353"
+      - "sectionName": "updateDemo"
+        "sectionSummary": "Showcases the 'update' command, allowing for easy,
+          AI-assisted content revisions."
+        "terminalPlaybackData": "@update.json"
+        "terminalLeft":
+          "title": "aigne web update"
+          "description":
+            "Changed your mind? No problem! The `update` command lets you
+            easily tweak and refine your content. Just provide your feedback,
+            and our AI will intelligently revise the pages, keeping everything
+            fresh and fabulous."
+          "actionTitle": "Learn More"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353"
+      - "sectionName": "translateDemo"
+        "sectionSummary":
+          "Highlights the 'translate' command, demonstrating the power
+          of instant, multi-language website localization."
+        "terminalPlaybackData": "mediakit://translate.json"
+        "terminalRight":
+          "title": "aigne web translate"
+          "description":
+            "Ready to go global? The `translate` command is your passport to
+            the world! Instantly translate your website into multiple languages,
+            opening up your amazing content to a brand new audience. ¡Hola!
+            Bonjour!"
+          "actionTitle": "Learn More"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353"
+      - "sectionName": "publishDemo"
+        "sectionSummary":
+          "Showcases the 'publish' command, providing the satisfying
+          payoff of seeing the generated site go live instantly."
+        "terminalPlaybackData": "mediakit://publish.json"
+        "terminalLeft":
+          "title": "aigne web publish"
+          "description":
+            "The grand finale! When you're ready to launch, this is all it
+            takes. WebSmith handles the entire upload process to Pages Kit and
+            hands you the live URLs in seconds. It's that easy to share your
+            creation with the world!"
+          "actionTitle": "Learn More"
+          "actionLink": "https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353"
+  - "sectionName": "changelog"
+    "sectionSummary":
+      "A dynamic changelog section to showcase the latest exciting
+      updates and improvements. This keeps the audience engaged and informed
+      about the product's evolution, building trust and highlighting momentum."
+    "changelogTitle": "Check Out Our Latest Updates!"
+    "changelogList":
+      - "date": "2025-10-15"
+        "description":
+          "We've supercharged our translation agent to make your global
+          content even better."
+      - "date": "2025-10-14"
+        "description":
+          "Say hello to the awesome new terminal player! Now you can show
+          off your commands in style."
+      - "date": "2025-10-14"
+        "description":
+          "Your brand, your way! We've added new branding support when you
+          publish your site."
+      - "date": "2025-10-13"
+        "description": "We've polished the update history and docs to make your
+          development experience smoother than ever."
+    "changelogAction":
+      "link": "https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md"
+      "text": "See the Full Changelog"
+  - "sectionName": "faq"
+    "sectionSummary":
+      "Anticipates and proactively answers common user questions.
+      This section addresses potential concerns about technical requirements,
+      SEO, hosting, and speed, building confidence and removing barriers to
+      adoption."
+    "faqTitle": "Frequently Asked Questions"
+    "faqList":
+      - "question": "What kind of websites can I build?"
+        "answer":
+          "AIGNE WebSmith is fantastic for creating landing pages, product
+          sites, marketing campaigns, and documentation. It generates complete,
+          multi-page websites using modern, responsive components that look
+          great everywhere."
+      - "question": "Do I need to know how to code?"
+        "answer":
+          "You'll need to be comfortable with the command line, but no coding is
+          required! The tool generates human-readable YAML for Pages Kit, which
+          is super easy to understand and edit if you want to."
+      - "question": "Is the generated content really SEO-optimized?"
+        "answer":
+          "Absolutely! Our AI agents are trained on SEO best practices. They
+          automatically generate optimized titles, meta descriptions, and
+          well-structured content designed to help you rank higher."
+      - "question": "Can I export the code?"
+        "answer":
+          "The output is clean, component-based YAML designed for Pages Kit.
+          This approach separates your content from the design, making it
+          incredibly easy to manage, version, and integrate with other systems."
+      - "question": "Where is my website hosted?"
+        "answer":
+          "WebSmith publishes your site directly to the Pages Kit platform,
+          giving you a seamless, integrated hosting solution and instant access
+          links the moment you're done."
+      - "question": "Just how fast is it?"
+        "answer":
+          "It's blazing fast! You can generate a complete 5-page website in
+          about 2-3 minutes, and even a larger 15-page site typically takes only
+          5-8 minutes. It's a total game-changer!"
+  - "sectionName": "finalCta"
+    "sectionSummary":
+      "A final, energetic call-to-action that encourages immediate
+      engagement. It summarizes the core benefit—eliminating tedious work—and
+      directs users to the GitHub repository and the broader AIGNE ecosystem to
+      get started."
+    "ctaTitle": "Ready to Build Your Next Website?"
+    "ctaDescription": "Stop wrestling with tedious setups and manual content
+      creation. Let AIGNE WebSmith build it for you so you can launch faster.
+      Get started today!"
+    "cta":
+      - "text": "Explore the Code on GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+      - "text": "Explore AIGNE Ecosystem"
+        "link": "https://www.aigne.io"

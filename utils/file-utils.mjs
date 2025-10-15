@@ -174,6 +174,7 @@ const EXT_TO_MIME = {
   ".wmv": "video/wmv",
   ".m4v": "video/x-m4v",
   ".3gpp": "video/3gpp",
+  ".json": "application/json",
 };
 
 // Build reverse mapping: MIME → extensions
@@ -416,7 +417,8 @@ const VIDEO_EXTENSIONS = [
   ".m4v",
   ".3gpp",
 ];
-const MEDIA_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS];
+const JSON_EXTENSIONS = [".json"];
+const MEDIA_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS, ...JSON_EXTENSIONS];
 
 /**
  * Check if a file is a media file (image or video)
@@ -438,6 +440,7 @@ export function getFileType(filePath) {
 
   if (IMAGE_EXTENSIONS.includes(ext)) return "image";
   if (VIDEO_EXTENSIONS.includes(ext)) return "video";
+  if (ext === ".json") return "json";
   return "media";
 }
 

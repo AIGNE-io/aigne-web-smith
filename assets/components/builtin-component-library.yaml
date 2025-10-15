@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-15T03:06:13.752Z
+  updateAt: 2025-10-15T12:28:57.182Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -7169,7 +7169,7 @@ composite:
       explicitly provided by the user.
 
       - The `terminalPlaybackData` field value must specify the JSON data file
-      name, such as: `@run.json`.
+      name, such as: `mediakit://run.json`.
 
 
       ---
@@ -7364,6 +7364,8 @@ composite:
       xj6uek70c0viryd5: {}
       e9tbv0nsvntzfs7w:
         properties:
+          6b0jh5aw4ptbo2t3:
+            value: ""
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
   - id: 25m86rw7ywdu0xhu
@@ -7401,7 +7403,7 @@ composite:
       explicitly provided by the user.
 
       - The `terminalPlaybackData` field value must specify the JSON data file
-      name, such as: `@run.json`.
+      name, such as: `mediakit://run.json`.
 
 
       ---
@@ -7596,6 +7598,8 @@ composite:
       jpr6lmfkjjbrnjyh: {}
       ih86tt27jt9h692l:
         properties:
+          6b0jh5aw4ptbo2t3:
+            value: ""
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
   - id: wqsxrwmyx057cofg

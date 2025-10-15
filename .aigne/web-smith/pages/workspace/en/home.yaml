@@ -20,44 +20,117 @@
         "link": "https://github.com/AIGNE-io/aigne-web-smith"
       - "text": "View on GitHub"
         "link": "https://github.com/AIGNE-io/aigne-web-smith"
-  - "sectionName": "featureHighlights"
-    "sectionSummary": "A clean, four-column grid that showcases the main feature
-      pillars of AIGNE WebSmith. Each card uses an icon and benefit-oriented
-      copy to quickly communicate the tool's power and comprehensiveness, making
-      the value tangible and easy to scan."
+  - "sectionName": "howItWorksCore"
+    "sectionSummary": "A clear, three-step overview of the core process, explaining
+      how AIGNE WebSmith's specialized AI agents work together to build a
+      website. This section visually breaks down the plan-generate-publish
+      workflow, making the tool's powerful automation easy to understand at a
+      glance."
     "fourColumnGridTitle": "Your End-to-End Website Automation Toolkit"
     "list":
-      - "sectionName": "aiPoweredGeneration"
-        "sectionSummary": "Highlights the core AI generation capabilities, emphasizing
-          the intelligent automation that handles complex tasks like planning
-          and content creation."
-        "iconName": "lucide:bot"
-        "cardTitle": "AI-Powered Generation"
-        "cardDescription": "Let AI agents plan your site structure, generate all your
-          content, and handle SEO, so you can focus on your vision."
-      - "sectionName": "professionalTemplates"
-        "sectionSummary": "Focuses on the high-quality, ready-to-use templates,
-          underscoring the professional and modern output that integrates
-          seamlessly with Pages Kit."
-        "iconName": "lucide:layout-template"
-        "cardTitle": "Professional Templates"
-        "cardDescription": "Get Pages Kit-compatible YAML templates with responsive,
-          modern components built right in. No design experience needed!"
-      - "sectionName": "qualityAssurance"
-        "sectionSummary": "Builds trust by showcasing the built-in quality checks,
-          assuring users that the automated output is reliable and polished."
-        "iconName": "lucide:shield-check"
-        "cardTitle": "Built-in Quality Assurance"
-        "cardDescription": "Rely on automatic checks for site structure, content
-          quality, and code to ensure a polished, professional final product."
+      - "sectionName": "intelligentPlanning"
+        "sectionSummary": "Explains the initial planning phase where the AI designs the
+          website architecture."
+        "iconName": "lucide:brain-circuit"
+        "cardTitle": "1. Intelligent Planning"
+        "cardDescription": "It all starts with a smart plan! Our Structure Agent
+          analyzes your goals to design the perfect website architecture,
+          ensuring a logical flow and a fantastic user experience from the
+          ground up."
+      - "sectionName": "automatedGeneration"
+        "sectionSummary": "Describes the content and template generation phase."
+        "iconName": "lucide:wand-sparkles"
+        "cardTitle": "2. Automated Content & Templates"
+        "cardDescription": "Next, our Content and Template Agents team up to write
+          compelling, SEO-optimized copy and generate the Pages Kit-compatible
+          templates to match. Your entire site, built in one go!"
       - "sectionName": "oneClickPublishing"
-        "sectionSummary": "Emphasizes the speed and simplicity of deployment,
-          highlighting the seamless integration with Pages Kit for instant
-          results."
+        "sectionSummary": "Details the final, seamless publishing step."
+        "iconName": "lucide:send"
+        "cardTitle": "3. One-Click Publishing"
+        "cardDescription": "Ready, set, live! The Publishing Agent handles the final
+          step. With one command, it uploads everything directly to Pages Kit,
+          so you can launch instantly and share your new site with the world."
+    "threeColumnGridTitle": "How Our AI Agents Craft Your Perfect Website"
+  - "sectionName": "targetAudience"
+    "sectionSummary": "A clear, focused section that identifies who AIGNE WebSmith
+      is for. It uses a single-column layout to present different user personas,
+      making the tool feel relatable and immediately valuable to a wide range of
+      professionals."
+    "oneColumnGridTitle": "Built for the Bold, the Bright, and the Busy"
+    "list":
+      - "sectionName": "smallBusinesses"
+        "sectionSummary": "Card highlighting the benefits for small businesses and
+          entrepreneurs."
         "iconName": "lucide:rocket"
-        "cardTitle": "One-Click Publishing"
-        "cardDescription": "Ready to go live? Publish your entire site directly to Pages
-          Kit with a single command and get shareable links instantly."
+        "cardTitle": "For Small Businesses & Entrepreneurs"
+        "cardDescription": "Get your professional website online in minutes, not months.
+          No tech skills needed—just your brilliant idea!"
+      - "sectionName": "marketingTeams"
+        "sectionSummary": "Card highlighting the benefits for marketing teams."
+        "iconName": "lucide:megaphone"
+        "cardTitle": "For Marketing Teams"
+        "cardDescription": "Launch campaign sites and landing pages at lightning speed.
+          Go from concept to live URL and crush your goals faster than ever."
+      - "sectionName": "agencies"
+        "sectionSummary": "Card highlighting the benefits for agencies."
+        "iconName": "lucide:briefcase"
+        "cardTitle": "For Agencies"
+        "cardDescription": "Scale your client services by automating website builds.
+          Deliver high-quality, consistent sites efficiently and impress every
+          client."
+      - "sectionName": "saasProductTeams"
+        "sectionSummary": "Card highlighting the benefits for SaaS product teams."
+        "iconName": "lucide:cubes"
+        "cardTitle": "For SaaS Product Teams"
+        "cardDescription": "Create and maintain stunning product websites with built-in
+          localization. Keep your global user base in sync effortlessly."
+      - "sectionName": "contentCreators"
+        "sectionSummary": "Card highlighting the benefits for content creators."
+        "iconName": "lucide:pen-square"
+        "cardTitle": "For Content Creators"
+        "cardDescription": "You bring the story, we'll handle the rest. Focus on
+          creating amazing content while our AI builds the perfect home for it."
+  - "sectionName": "whyWeAreDifferent"
+    "sectionSummary": "A powerful section that clearly articulates AIGNE WebSmith's
+      unique value proposition. It uses a two-column grid with icon-driven cards
+      to highlight key differentiators like agent-based intelligence and
+      end-to-end automation, making it easy for users to see why this tool is a
+      game-changer."
+    "twoColumnGridTitle": "So, What Makes WebSmith a Total Game-Changer?"
+    "list":
+      - "sectionName": "agentIntelligence"
+        "sectionSummary": "Highlights the unique agent-based architecture that provides
+          intelligent, autonomous website generation."
+        "iconName": "lucide:bot-message-square"
+        "cardTitle": "True Agent-Powered Intelligence"
+        "cardDescription": "This isn't just a template filler. WebSmith uses a team of
+          specialized AI agents that intelligently plan, write, and structure
+          your site for a truly autonomous creation experience."
+      - "sectionName": "endToEndAutomation"
+        "sectionSummary": "Emphasizes the complete, automated workflow from initial
+          planning to final publishing."
+        "iconName": "lucide:play-circle"
+        "cardTitle": "Complete End-to-End Automation"
+        "cardDescription": "Go from a simple idea to a fully published, multi-page
+          website without manual intervention. It’s the entire creation and
+          deployment workflow, completely automated."
+      - "sectionName": "builtInQuality"
+        "sectionSummary": "Showcases the integrated quality assurance, ensuring
+          professional and reliable results."
+        "iconName": "lucide:gem"
+        "cardTitle": "Professional Quality is Built-In"
+        "cardDescription": "Launch with total confidence. With built-in SEO
+          optimization, content quality checks, and 32+ tests, every site is
+          professional, reliable, and ready to impress."
+      - "sectionName": "rapidDeployment"
+        "sectionSummary": "Focuses on the incredible speed of generation and deployment,
+          a key differentiator."
+        "iconName": "lucide:zap"
+        "cardTitle": "Deploy at Lightning Speed"
+        "cardDescription": "Generate a 5-page website in about 2-3 minutes, not weeks.
+          Your site goes from concept to live in moments, letting you move
+          faster than ever before."
   - "sectionName": "howItWorks"
     "sectionSummary": "A dynamic 'show, don't tell' section using alternating
       terminal players to visually demonstrate the core user workflow. It

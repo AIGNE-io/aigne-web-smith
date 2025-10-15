@@ -1,0 +1,43 @@
+sitemap:
+  - title: "AIGNE WebSmith: AI-Powered Website Generation"
+    path: /home
+    locales:
+      en:
+        title: "AIGNE WebSmith: AI-Powered Website Generation in Minutes"
+        description: Generate and publish professional, SEO-optimized websites with
+          AIGNE WebSmith. Our AI agents automate everything from planning and
+          content creation to one-click publishing. Get started now!
+        image: mediakit://hero-background.webp
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: home.yaml
+      id: 616571b7c79a8472
+      createdAt: 2025-10-15T06:44:24.271Z
+      updatedAt: 2025-10-15T06:44:24.271Z
+      publishedAt: 2025-10-15T06:44:24.271Z
+      isPublic: true
+navigations:
+  - id: 106a6c241b8797f5
+    section: header
+    visible: true
+    title:
+      en: AIGNE WebSmith
+    link:
+      en: /
+    description:
+      en: Generate professional websites with AI.
+  - id: f5c5d15c42b3cf01
+    section: footer
+    visible: true
+    title:
+      en: AIGNE WebSmith
+    link:
+      en: /
+    description:
+      en: Generate professional websites with AI.

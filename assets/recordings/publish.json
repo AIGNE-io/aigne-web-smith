@@ -178,14 +178,6 @@
     },
     {
       "delay": 8,
-      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[36m+--------------------------------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                                        \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mGemini\u001b[39m                                     \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgemini-2.5-pro\u001b[39m                                \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://generativelanguage.googleapis.com\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mAIza********vqkM\u001b[39m                            \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                                        \u001b[36m|\u001b[39m\r\n\u001b[36m+--------------------------------------------------------+\u001b[39m\r\n\r\n"
-    },
-    {
-      "delay": 8,
       "content": "\u001b[?25l"
     },
     {

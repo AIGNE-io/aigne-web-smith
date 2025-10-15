@@ -30,7 +30,7 @@ findUserPreferencesByPath.input_schema = {
       type: "string",
       description:
         "Preference scope: 'page' for update operations, 'translation' for translate operations",
-      enum: ["page", "translation"],
+      enum: ["page", "translation", "theme"],
     },
   },
   required: ["scope"],

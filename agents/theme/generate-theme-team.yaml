@@ -3,7 +3,14 @@ name: generateTheme
 description: Create and save a comprehensive theme configuration
 skills:
   - ../utils/load-config.mjs
+  - url: ../utils/find-user-preferences-by-path.mjs
+    default_input:
+      scope: theme
+  - ./collect-theme-feedback.mjs
   - ./generate-theme.yaml
+  - url: ../utils/check-feedback-refiner.mjs
+    default_input:
+      stage: theme_refine
   - ./save-theme.mjs
 input_schema:
   type: object
@@ -14,5 +21,8 @@ input_schema:
     config:
       type: string
       description: Configuration file location
+    feedback:
+      type: string
+      description: User feedback for theme generation
 mode: sequential
 taskTitle: Generate theme based on your website design

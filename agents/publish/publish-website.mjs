@@ -22,7 +22,6 @@ import {
   MEDIA_KIT_PROTOCOL,
   PAGES_KIT_DID,
   PAGES_KIT_STORE_URL,
-  RESOLVE_FILE_PROTOCOL,
   TMP_DIR,
   TMP_PAGES_DIR,
   WEB_SMITH_DIR,
@@ -32,7 +31,6 @@ import { deploy } from "../../utils/deploy.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { batchUploadMediaFiles, uploadFiles } from "../../utils/upload-files.mjs";
 import {
-  findFilePath,
   formatRoutePath,
   getGithubRepoUrl,
   isHttp,
@@ -429,31 +427,15 @@ export default async function publishWebsite(
 
         // 扫描这个页面中的 mediakit:// URL
         scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, MEDIA_KIT_PROTOCOL);
-
-        // 扫描这个页面中的 @ URL
-        scanForProtocolUrls(parsedPageContent, allUsedMediaKitUrls, RESOLVE_FILE_PROTOCOL);
       } catch (error) {
         console.warn(`Failed to read file ${file}: ${error.message}`);
       }
     }
 
-    const mediaFilesWithResolvedFiles = mediaFiles;
-
-    allUsedMediaKitUrls.forEach((path) => {
-      if (path.startsWith(RESOLVE_FILE_PROTOCOL)) {
-        mediaFilesWithResolvedFiles.push({
-          name: path,
-          path: findFilePath(path.replace(RESOLVE_FILE_PROTOCOL, ""), process.cwd()),
-          type: "file",
-          mediaKitPath: path,
-        });
-      }
-    });
-
     // Step 2: 批量上传所有需要的媒体文件
     const mediaKitToUrlMap = await batchUploadMediaFiles({
       allUsedMediaKitUrls,
-      mediaFiles: mediaFilesWithResolvedFiles,
+      mediaFiles,
       appUrl,
       accessToken,
       rootDir,
@@ -497,17 +479,6 @@ export default async function publishWebsite(
         parsedPageContent,
         mediaKitToUrlMap,
         MEDIA_KIT_PROTOCOL,
-        (value) => {
-          // get hashName and compact with /uploads/, remove mediaKit prefix
-          const hashName = value.split("/").pop();
-          return join("/uploads", hashName);
-        },
-      );
-
-      processedPageContent = replacePageProtocolUrls(
-        processedPageContent,
-        mediaKitToUrlMap,
-        RESOLVE_FILE_PROTOCOL,
         (value) => {
           // get hashName and compact with /uploads/, remove mediaKit prefix
           const hashName = value.split("/").pop();

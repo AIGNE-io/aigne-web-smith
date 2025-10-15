@@ -25,6 +25,7 @@ export const MEDIA_EXTENSIONS = [
   ".wmv",
   ".m4v",
   ".3gpp",
+  ".json",
 ];
 
 // Default file patterns for inclusion and exclusion

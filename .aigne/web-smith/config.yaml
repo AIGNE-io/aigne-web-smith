@@ -101,6 +101,7 @@ sourcesPath: # Source code paths to analyze
   - ./aigne.yaml
   - ./assets/images
   - ./assets/recordings/README.md
+  - ./assets/recordings
   - ./CHANGELOG.md
   - ./agents
 defaultDatasources: # Default datasources included in every page
@@ -108,7 +109,7 @@ defaultDatasources: # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 600
-lastGitHead: 4823ec5b2b4dd87fa0aeee0bf11b088de069a7e3
+lastGitHead: 43d7b41d61a87f81895ba32d3da14e5ab0337f4b
 appUrl: https://staging.websmith.aigne.io
 # Checkout ID for website deployment service
 checkoutId: ""

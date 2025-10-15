@@ -162,7 +162,7 @@
         "sectionSummary":
           "Demonstrates the 'init' command, which interactively sets up
           the project configuration based on user goals."
-        "terminalPlaybackData": "@init.json"
+        "terminalPlaybackData": "mediakit://init.json"
         "terminalLeft":
           "title": "aigne web init"
           "description":
@@ -177,7 +177,7 @@
           "Demonstrates the 'generate' command, showing the user how the
           AI initiates the entire website creation process from a single
           instruction."
-        "terminalPlaybackData": "@generate.json"
+        "terminalPlaybackData": "mediakit://generate.json"
         "terminalRight":
           "title": "aigne web generate"
           "description":
@@ -204,7 +204,7 @@
         "sectionSummary":
           "Highlights the 'translate' command, demonstrating the power
           of instant, multi-language website localization."
-        "terminalPlaybackData": "@translate.json"
+        "terminalPlaybackData": "mediakit://translate.json"
         "terminalRight":
           "title": "aigne web translate"
           "description":
@@ -218,7 +218,7 @@
         "sectionSummary":
           "Showcases the 'publish' command, providing the satisfying
           payoff of seeing the generated site go live instantly."
-        "terminalPlaybackData": "@publish.json"
+        "terminalPlaybackData": "mediakit://publish.json"
         "terminalLeft":
           "title": "aigne web publish"
           "description":

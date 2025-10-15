@@ -173,6 +173,7 @@ const EXT_TO_MIME = {
   ".wmv": "video/wmv",
   ".m4v": "video/x-m4v",
   ".3gpp": "video/3gpp",
+  ".json": "application/json",
 };
 
 // Build reverse mapping: MIME → extensions

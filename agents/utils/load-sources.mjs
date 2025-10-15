@@ -33,6 +33,7 @@ const getFileType = (filePath) => {
 
   if (imageExts.includes(ext)) return "image";
   if (videoExts.includes(ext)) return "video";
+  if (ext === ".json") return "json";
   return "media";
 };
 

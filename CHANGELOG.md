@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.8...v1.5.0-beta.9) (2025-10-15)
+
+
+### Bug Fixes
+
+* add composing page data workflow to translate agent ([#127](https://github.com/AIGNE-io/aigne-web-smith/issues/127)) ([9fbbca8](https://github.com/AIGNE-io/aigne-web-smith/commit/9fbbca82e0fa74800c232ba5ea3eb99ccf84a247))
+
 ## [1.5.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.7...v1.5.0-beta.8) (2025-10-14)
 
 

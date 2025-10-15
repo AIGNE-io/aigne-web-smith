@@ -67,8 +67,6 @@ agents:
   - ./agents/plan/validate-website-structure.yaml
   - ./agents/plan/update-website-structure.yaml
   - ./agents/plan/user-review-website-structure.mjs
-  - ./agents/plan/analyze-image-requirements.yaml
-  - ./agents/plan/check-need-generate-images.mjs
 
   # update website structure tools
   - ./agents/plan/website-structure-tools/add-page.mjs

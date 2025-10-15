@@ -1309,6 +1309,7 @@ describe("composePagesData helpers", () => {
     tryReadFileContent,
     getNestedValue,
     processArrayTemplate,
+    __resolver,
     processTemplate,
     cloneTemplateSection,
     compressLayoutRows,
@@ -1345,6 +1346,8 @@ describe("composePagesData helpers", () => {
     expect(getNestedValue(data, "list[0].name")).toBe("A");
     expect(getNestedValue(data, "fileRef")).toContain("This copy is loaded");
     expect(getNestedValue(null, "anything")).toBeUndefined();
+    expect(getNestedValue({ "deep.key": "direct" }, "deep.key")).toBe("direct");
+    expect(getNestedValue({ deep: { key: "via path" } }, "deep.key")).toBe("via path");
   });
 
   test("processArrayTemplate handles multiple templates and empty arrays", () => {
@@ -1405,6 +1408,18 @@ describe("composePagesData helpers", () => {
     );
     expect(cloned.sectionIds).toEqual([]);
     expect(cloned.sections).toEqual({});
+    expect(cloned.config).toEqual({});
+  });
+
+  test("resolveValue returns original when not a string and reads files", () => {
+    expect(__testHelpers.resolveValue(123)).toBe(123);
+    expect(__testHelpers.resolveValue({ key: "value" })).toEqual({ key: "value" });
+    expect(__testHelpers.resolveValue("@tests/mock-data/snippets/sample-copy.txt")).toContain(
+      "This copy is loaded",
+    );
+    expect(__testHelpers.resolveValue("@tests/mock-data/snippets/sample-copy.bin")).toBe(
+      "@tests/mock-data/snippets/sample-copy.bin",
+    );
   });
 
   test("compressLayoutRows normalises y positions", () => {
@@ -1456,6 +1471,18 @@ describe("composePagesData helpers", () => {
     expect(config.gridSettings.mobile).toBeUndefined();
   });
 
+  test("compressGridSettings drops entire gridSettings when devices emptied", () => {
+    const config = {
+      gridSettings: {
+        tablet: null,
+        mobile: undefined,
+      },
+    };
+
+    compressGridSettings(config);
+    expect(config.gridSettings).toBeUndefined();
+  });
+
   test("cleanupLayoutConfig removes placeholder references from mixed layouts", () => {
     const config = {
       sectionIds: ["placeholder", "keep"],
@@ -1467,6 +1494,9 @@ describe("composePagesData helpers", () => {
           sectionIds: ["placeholder"],
         },
         mobile: "placeholder",
+        kiosk: {
+          placeholder: { ref: true },
+        },
       },
     };
 
@@ -1475,6 +1505,7 @@ describe("composePagesData helpers", () => {
     expect(config.gridSettings.desktop.length).toBeGreaterThan(0);
     expect(config.gridSettings.monitor).toBeUndefined();
     expect(config.gridSettings.mobile).toBeUndefined();
+    expect(config.gridSettings.kiosk).toBeUndefined();
   });
 
   test("pruneSectionById traverses nested sections and removes target", () => {

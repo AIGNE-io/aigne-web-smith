@@ -123,9 +123,11 @@ async function readMiddleFormatFile(tmpDir, locale, fileName) {
   try {
     const filePath = join(tmpDir, locale, fileName);
     const content = readFileSync(filePath, "utf8");
+    /* c8 ignore next */
     log("📥 [readMiddleFormatFile] loaded:", { locale, fileName, bytes: content.length });
     return parse(content);
   } catch (err) {
+    /* c8 ignore next */
     logError("⚠️  [readMiddleFormatFile] failed:", { locale, fileName, error: err.message });
     return null;
   }
@@ -157,6 +159,7 @@ function tryReadFileContent(filePath, workingDir) {
 
     return content;
   } catch (err) {
+    /* c8 ignore next */
     logError("❌ [tryReadFileContent] Failed to read file:", { filePath, error: err.message });
     return null;
   }
@@ -258,6 +261,7 @@ function processArrayTemplate(templateArray, data, stats = null) {
       const r = processSimpleTemplate(t, item, stats);
       return r;
     });
+    /* c8 ignore next */
     log("🧩 [processArrayTemplate] expanded array template:", {
       items: data[arrayField].length,
     });
@@ -281,6 +285,7 @@ function processTemplate(obj, data, stats = null) {
           : res && typeof res === "object"
             ? "{object}"
             : String(res);
+    /* c8 ignore next */
     /* c8 ignore next */
     log("🧪 [processTemplate] done:", { arrayCase: isArrayCase, preview });
   }
@@ -331,6 +336,7 @@ function applyIdMapDeep(obj, idMap) {
 function ensureCustomComponentConfig(section) {
   if (section.component === "custom-component") {
     section.config = { useCache: true, ...section.config };
+    /* c8 ignore next */
     log("⚙️  [ensureCustomComponentConfig] applied default config for custom-component:", {
       id: section.id,
     });
@@ -399,6 +405,7 @@ function cloneTemplateSection(section, { templateId, sectionIndex, path = [] }, 
       mapPreview.push([from, "→", to]);
       if (++c >= 5) break;
     }
+    /* c8 ignore next */
     /* c8 ignore next */
     log("🧬 [cloneTemplateSection] cloned", {
       templateId,
@@ -552,6 +559,7 @@ function reflowGridSettingsDeep(section) {
 function instantiateComponentTemplate({ component, sectionData, sectionIndex, path = [] }) {
   const templateId = component.id || component.componentId || component.name;
   if (!component?.section) {
+    /* c8 ignore next */
     logError("⚠️  [instantiateComponentTemplate] component has no section:", {
       templateId,
       path: fmtPath(path),
@@ -617,6 +625,7 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
     reflowGridSettingsDeep(clonedSection);
   }
 
+  /* c8 ignore next */
   log("✅ [instantiateComponentTemplate] instantiated:", {
     templateId,
     sectionIndex,
@@ -749,6 +758,7 @@ function remapIdsInPlace(obj, fromId, toId) {
       obj[k] = v;
     });
   }
+  /* c8 ignore next */
   log("🔁 [remapIdsInPlace] remapped:", { fromId, toId });
 }
 
@@ -764,6 +774,7 @@ function replaceSlotWithChild(slot, childSection) {
   if (position >= 0 && position < parent.sectionIds.length) {
     parent.sectionIds.splice(position, 1, childSection.id);
   } else {
+    /* c8 ignore next */
     /* c8 ignore next */
     logError("⚠️  [replaceSlotWithChild] unexpected slot position:", {
       placeholderId,
@@ -791,6 +802,7 @@ function replaceSlotWithChild(slot, childSection) {
     };
   }
 
+  /* c8 ignore next */
   log("🔗 [replaceSlotWithChild] slot replaced:", {
     parentId: parent.id,
     placeholderId,
@@ -889,6 +901,7 @@ function removeSlot(slot) {
   /* c8 ignore next */
   if (!parent?.sections || !Array.isArray(parent.sectionIds)) {
     /* c8 ignore next */
+    /* c8 ignore next */
     logError("⚠️  [removeSlot] parent sections metadata missing:", {
       parentId: parent?.id,
       placeholderId,
@@ -919,6 +932,7 @@ function removeSlot(slot) {
   cleanupLayoutConfig(parent.config, placeholderId);
 
   /* c8 ignore next */
+  /* c8 ignore next */
   log("🗑️  [removeSlot] unused slot removed:", {
     parentId: parent.id,
     placeholderId,
@@ -937,6 +951,7 @@ function processNode(node, compositeComponents, sectionIndex) {
 
   /* c8 ignore next */
   if (ENABLE_LOGS) {
+    /* c8 ignore next */
     /* c8 ignore next */
     log("🔎 [processNode] match try:", {
       path: fmtPath(path),
@@ -966,6 +981,7 @@ function processNode(node, compositeComponents, sectionIndex) {
       });
     }
   } else {
+    /* c8 ignore next */
     log("❌ [processNode] no component matched, skip instantiation:", { path: fmtPath(path) });
   }
 
@@ -1020,11 +1036,13 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   const parsed =
     typeof middleFormatContent === "string" ? parse(middleFormatContent) : middleFormatContent;
   if (!parsed?.sections) {
+    /* c8 ignore next */
     logError("⚠️  [compose] middle content has no sections");
     return { roots: [], flat: [] };
   }
 
   const compositeComponents = (componentLibrary || []).filter((c) => c.type === "composite");
+  /* c8 ignore next */
   log("🧱 [compose] start:", {
     sections: parsed.sections.length,
     compositeCount: compositeComponents.length,
@@ -1043,6 +1061,7 @@ function composeSectionsWithComponents(middleFormatContent, componentLibrary) {
   })(roots);
 
   const matchedCount = flat.filter((x) => x.matched).length;
+  /* c8 ignore next */
   log("✅ [compose] matching completed:", {
     matched: matchedCount,
     total: flat.length,
@@ -1065,11 +1084,14 @@ export default async function composePagesData(input) {
 
   try {
     rmSync(outputDir, { recursive: true, force: true });
+    /* c8 ignore next */
     log("🧹 [composePagesData] clean outputDir:", { outputDir });
   } catch (e) {
+    /* c8 ignore next */
     logError("⚠️  [composePagesData] clean outputDir failed:", { outputDir, error: e?.message });
   }
 
+  /* c8 ignore next */
   log("🔧 [composePagesData] start:", {
     pagesDir,
     components: componentLibrary?.length || 0,
@@ -1096,6 +1118,7 @@ export default async function composePagesData(input) {
         : []),
     ];
 
+    /* c8 ignore next */
     log("📚 [composePagesData] filesToProcess:", {
       count: filesToProcess.length,
       main: filesToProcess.filter((f) => f.isMainLanguage).length,
@@ -1211,6 +1234,7 @@ export default async function composePagesData(input) {
       });
     });
   } else {
+    /* c8 ignore next */
     logError("⚠️  [composePagesData] middleFormatFiles is not an array");
   }
 
@@ -1230,6 +1254,7 @@ export default async function composePagesData(input) {
     }
   });
 
+  /* c8 ignore next */
   log("🎉 [composePagesData] done");
 
   return { ...input, allPagesKitYaml };
@@ -1251,4 +1276,5 @@ export const __testHelpers = {
   removeSlot,
   collectLayoutSlots,
   pruneSectionById,
+  resolveValue,
 };

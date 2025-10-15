@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-14T10:30:05.432Z
+  updateAt: 2025-10-15T03:06:13.752Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -7598,3 +7598,319 @@ composite:
         properties:
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+  - id: wqsxrwmyx057cofg
+    name: Full Background Hero (Center)
+    summary: >
+      Structure (top → bottom)  
+
+      - Full-bleed **dark** background (image/video)  
+
+      - Headline (1–2 lines, **centered**)  
+
+      - Subtitle (1–2 short lines, centered)  
+
+      - Primary CTA (optional secondary), side-by-side  
+
+
+      Use when  
+
+      - You need a **“one message + one action (optionally two)”**
+      high-conversion first screen (signup/try/download/demo).  
+
+      - Credibility comes from an **immersive dark visual** rather than long
+      text or multi-card layouts.  
+
+      - Content is light or medium weight, not requiring segmentation or
+      multi-column structures.  
+
+      - You want to convey a **tech-forward, futuristic, or professional** brand
+      tone.  
+
+
+      Constraint  
+
+      - **Only for dark backgrounds:** background brightness should be low
+      (recommended L* ≤ 35), maintaining at least WCAG AA text contrast.  
+
+      - **This component can only be used when `{{fullBackgroundHeroImage}}` is
+      provided.**  
+
+      - Title ≤ 80 characters; subtitle ≤ 140 characters; 1–2 CTAs with the
+      primary button first.  
+
+      - Must include a valid media asset: `{{fullBackgroundHeroImage}}` (image
+      or video).  
+
+      - Content must be center-aligned, without stacking extra elements (e.g.,
+      cards, features).  
+    fieldCombinations:
+      - fullBackgroundHeroActions.0.link
+      - fullBackgroundHeroActions.0.text
+      - fullBackgroundHeroActions.1.link
+      - fullBackgroundHeroActions.1.text
+      - fullBackgroundHeroCenteredDescription
+      - fullBackgroundHeroCenteredTitle
+      - fullBackgroundHeroImage
+    section:
+      id: s6cg81pdo9yhboco
+      name: Full Background Hero_center
+      component: layout-block
+      sections:
+        mot3g0o9qv1y52yd:
+          id: mot3g0o9qv1y52yd
+          name: CTA
+          component: layout-block
+          sections:
+            1fbf1wqtcp36p61j:
+              id: 1fbf1wqtcp36p61j
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            9cksh70332shaqww:
+              id: 9cksh70332shaqww
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - 1fbf1wqtcp36p61j
+            - 9cksh70332shaqww
+          config:
+            gridSettings:
+              desktop:
+                1fbf1wqtcp36p61j:
+                  x: 2
+                  y: 0
+                  w: 8
+                  h: 1
+                9cksh70332shaqww:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            paddingY: large
+            gap: large
+            maxWidth: full
+            paddingX: normal
+            alignContent: center
+      sectionIds:
+        - mot3g0o9qv1y52yd
+      config:
+        gridSettings:
+          desktop:
+            mot3g0o9qv1y52yd:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        background: <%= fullBackgroundHeroImage %>
+        paddingY: custom:80px
+        backgroundFullWidth: true
+        gap: none
+        paddingX: none
+    dataSource:
+      s6cg81pdo9yhboco: {}
+      mot3g0o9qv1y52yd: {}
+      1fbf1wqtcp36p61j:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= fullBackgroundHeroCenteredDescription %>
+                  style:
+                    color: rgba(255, 255, 255, 0.8)
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= fullBackgroundHeroCenteredTitle %>
+              style:
+                color: common.white
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+      9cksh70332shaqww:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= fullBackgroundHeroActions.0.text %>
+                url: <%= fullBackgroundHeroActions.0.link %>
+                variant: contained
+                size: large
+                target: _self
+                needLogin: false
+              - id: btn-1759121436561-6r9xmg35x
+                text: <%= fullBackgroundHeroActions.1.text %>
+                variant: outlined
+                borderColor: common.white
+                size: large
+                url: <%= fullBackgroundHeroActions.1.link %>
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: center
+  - id: x0ns5ee454kf22ez
+    name: Full Background Hero (Left)
+    summary: >
+      Structure (left → right, then top → bottom within left column)
+
+      - Full-bleed **dark** background (image/video)
+
+      - Left column content block:
+        - Headline (1–2 lines, **left-aligned**)
+        - Subtitle (1–2 short lines, left-aligned)
+        - Primary CTA (optional secondary), inline or stacked
+
+      Use when  
+
+      - You need a **“one message + one action (optionally two)”**
+      high-conversion first screen (signup/try/download/demo).  
+
+      - Credibility comes from an **immersive dark visual** rather than long
+      text or multi-card layouts.  
+
+      - Content is light or medium weight, not requiring segmentation or
+      multi-column structures.  
+
+      - You want to convey a **tech-forward, futuristic, or professional** brand
+      tone.  
+
+
+      Constraint  
+
+      - **Only for dark backgrounds:** background brightness should be low
+      (recommended L* ≤ 35), maintaining at least WCAG AA text contrast.  
+
+      - **This component can only be used when `{{fullBackgroundHeroImage}}` is
+      provided.**  
+
+      - Title ≤ 80 characters; subtitle ≤ 140 characters; 1–2 CTAs with the
+      primary button first.  
+
+      - Must include a valid media asset: `{{fullBackgroundHeroImage}}` (image
+      or video).  
+
+      - Content must be center-aligned, without stacking extra elements (e.g.,
+      cards, features).  
+    fieldCombinations:
+      - fullBackgroundHeroActions.0.link
+      - fullBackgroundHeroActions.0.text
+      - fullBackgroundHeroActions.1.link
+      - fullBackgroundHeroActions.1.text
+      - fullBackgroundHeroImage
+      - fullBackgroundHeroLeftDescription
+      - fullBackgroundHeroLeftTitle
+    section:
+      id: s6cg81pdo9yhboco
+      name: Full Background Hero_center
+      component: layout-block
+      sections:
+        mot3g0o9qv1y52yd:
+          id: mot3g0o9qv1y52yd
+          name: CTA
+          component: layout-block
+          sections:
+            1fbf1wqtcp36p61j:
+              id: 1fbf1wqtcp36p61j
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            9cksh70332shaqww:
+              id: 9cksh70332shaqww
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - 1fbf1wqtcp36p61j
+            - 9cksh70332shaqww
+          config:
+            gridSettings:
+              desktop:
+                1fbf1wqtcp36p61j:
+                  x: 0
+                  y: 0
+                  w: 8
+                  h: 1
+                9cksh70332shaqww:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            paddingY: large
+            gap: large
+            maxWidth: full
+            paddingX: normal
+            alignContent: center
+      sectionIds:
+        - mot3g0o9qv1y52yd
+      config:
+        gridSettings:
+          desktop:
+            mot3g0o9qv1y52yd:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        background: <%= fullBackgroundHeroImage %>
+        paddingY: custom:80px
+        backgroundFullWidth: true
+        gap: none
+        paddingX: none
+    dataSource:
+      s6cg81pdo9yhboco: {}
+      mot3g0o9qv1y52yd: {}
+      1fbf1wqtcp36p61j:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= fullBackgroundHeroLeftDescription %>
+                  style:
+                    color: rgba(255, 255, 255, 0.8)
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= fullBackgroundHeroLeftTitle %>
+              style:
+                color: common.white
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      9cksh70332shaqww:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= fullBackgroundHeroActions.0.text %>
+                url: <%= fullBackgroundHeroActions.0.link %>
+                variant: contained
+                size: large
+                target: _self
+                needLogin: false
+              - id: btn-1759121436561-6r9xmg35x
+                text: <%= fullBackgroundHeroActions.1.text %>
+                variant: outlined
+                borderColor: common.white
+                size: large
+                url: <%= fullBackgroundHeroActions.1.link %>
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start

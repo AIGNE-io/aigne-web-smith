@@ -17,22 +17,31 @@
       websites. Go from idea to a live site with just a few commands!"
     "fullBackgroundHeroActions":
       - "text": "Get Started Now"
-        "link": "https://github.com/AIGNE-io/aigne-web-smith"
-      - "text": "View on GitHub"
-        "link": "https://github.com/AIGNE-io/aigne-web-smith"
+        "link": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c473\
+          53"
+      - "text": "View Examples"
+        "link": "/showcase"
   - "sectionName": "howItWorksCore"
-    "sectionSummary": "A clear, three-step overview of the core process, explaining
-      how AIGNE WebSmith's specialized AI agents work together to build a
-      website. This section visually breaks down the plan-generate-publish
-      workflow, making the tool's powerful automation easy to understand at a
-      glance."
+    "sectionSummary": "A clear, four-step overview of the core process, explaining
+      how AIGNE WebSmith uses your content and specialized AI agents to build
+      and launch a website. This section visually breaks down the
+      source-plan-generate-publish workflow, making the tool's powerful
+      automation easy to understand at a glance."
     "fourColumnGridTitle": "Your End-to-End Website Automation Toolkit"
     "list":
+      - "sectionName": "flexibleDataSources"
+        "sectionSummary": "Highlights the ability to use various existing content
+          formats as input."
+        "iconName": "lucide:file-stack"
+        "cardTitle": "1. Use Any Content"
+        "cardDescription": "Bring your content, we'll do the rest! WebSmith connects to
+          your existing markdown, images, videos, and even terminal recordings
+          to understand your project and generate a site that's uniquely yours."
       - "sectionName": "intelligentPlanning"
         "sectionSummary": "Explains the initial planning phase where the AI designs the
           website architecture."
         "iconName": "lucide:brain-circuit"
-        "cardTitle": "1. Intelligent Planning"
+        "cardTitle": "2. Intelligent Planning"
         "cardDescription": "It all starts with a smart plan! Our Structure Agent
           analyzes your goals to design the perfect website architecture,
           ensuring a logical flow and a fantastic user experience from the
@@ -40,18 +49,18 @@
       - "sectionName": "automatedGeneration"
         "sectionSummary": "Describes the content and template generation phase."
         "iconName": "lucide:wand-sparkles"
-        "cardTitle": "2. Automated Content & Templates"
+        "cardTitle": "3. Automated Content & Templates"
         "cardDescription": "Next, our Content and Template Agents team up to write
           compelling, SEO-optimized copy and generate the Pages Kit-compatible
           templates to match. Your entire site, built in one go!"
       - "sectionName": "oneClickPublishing"
         "sectionSummary": "Details the final, seamless publishing step."
         "iconName": "lucide:send"
-        "cardTitle": "3. One-Click Publishing"
+        "cardTitle": "4. One-Click Publishing"
         "cardDescription": "Ready, set, live! The Publishing Agent handles the final
           step. With one command, it uploads everything directly to Pages Kit,
           so you can launch instantly and share your new site with the world."
-    "threeColumnGridTitle": "How Our AI Agents Craft Your Perfect Website"
+    "threeColumnGridTitle": ""
   - "sectionName": "targetAudience"
     "sectionSummary": "A clear, focused section that identifies who AIGNE WebSmith
       is for. It uses a single-column layout to present different user personas,
@@ -79,12 +88,6 @@
         "cardDescription": "Scale your client services by automating website builds.
           Deliver high-quality, consistent sites efficiently and impress every
           client."
-      - "sectionName": "saasProductTeams"
-        "sectionSummary": "Card highlighting the benefits for SaaS product teams."
-        "iconName": "lucide:cubes"
-        "cardTitle": "For SaaS Product Teams"
-        "cardDescription": "Create and maintain stunning product websites with built-in
-          localization. Keep your global user base in sync effortlessly."
       - "sectionName": "contentCreators"
         "sectionSummary": "Card highlighting the benefits for content creators."
         "iconName": "lucide:pen-square"
@@ -223,8 +226,8 @@
         "description": "We've polished the update history and docs to make your
           development experience smoother than ever."
     "changelogAction":
+      "link": "https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md"
       "text": "See the Full Changelog"
-      "link": "https://github.com/AIGNE-io/aigne-web-smith"
   - "sectionName": "faq"
     "sectionSummary": "Anticipates and proactively answers common user questions.
       This section addresses potential concerns about technical requirements,
@@ -260,7 +263,8 @@
   - "sectionName": "finalCta"
     "sectionSummary": "A final, energetic call-to-action that encourages immediate
       engagement. It summarizes the core benefit—eliminating tedious work—and
-      directs users to the GitHub repository to get started."
+      directs users to the GitHub repository and the broader AIGNE ecosystem to
+      get started."
     "ctaTitle": "Ready to Build Your Next Website?"
     "ctaDescription": "Stop wrestling with tedious setups and manual content
       creation. Let AIGNE WebSmith build it for you so you can launch faster.
@@ -268,5 +272,5 @@
     "cta":
       - "text": "Explore the Code on GitHub"
         "link": "https://github.com/AIGNE-io/aigne-web-smith"
-      - "text": ""
-        "link": ""
+      - "text": "Explore AIGNE Ecosystem"
+        "link": "https://www.aigne.io"

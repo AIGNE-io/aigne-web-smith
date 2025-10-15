@@ -1,4 +1,31 @@
 entries:
+  - timestamp: 2025-10-15T07:17:16.171Z
+    operation: page_update
+    feedback: Add "Explore AIGNE Ecosystem" in section 8 which links to "https://www.aigne.io"
+    page: /home
+  - timestamp: 2025-10-15T07:16:14.551Z
+    operation: page_update
+    feedback: Update "View on GitHub" action in section 1 to "View Examples" which links to "/showcase"
+    page: /home
+  - timestamp: 2025-10-15T07:13:12.925Z
+    operation: page_update
+    feedback: Use https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353 as getting
+      started link in section 1
+    page: /home
+  - timestamp: 2025-10-15T07:11:13.679Z
+    operation: page_update
+    feedback: Use https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md as full changelog
+      link in section 6
+    page: /home
+  - timestamp: 2025-10-15T07:09:18.751Z
+    operation: page_update
+    feedback: Update section 2 by adding an item that describes AIGNE WebSmith can use many formats as
+      data sources when generate website, such as markdown, images, videos, terminal recording
+    page: /home
+  - timestamp: 2025-10-15T07:06:46.466Z
+    operation: page_update
+    feedback: Please remove "For SaaS Product Teams" from section 3
+    page: /home
   - timestamp: 2025-10-15T06:59:18.882Z
     operation: page_update
     feedback: Update section 2 to answer what is AIGNE DocSmith and avoid duplication with section 4

@@ -2,11 +2,11 @@ import path from "node:path";
 import chalk from "chalk";
 import { copyGeneratedImages, getCoverImagePath } from "../../../utils/file-utils.mjs";
 
-export default async function saveCover({ aiPrompt, ...imageData }) {
+export default async function saveCover({ aiPrompt, ...coverImageData }) {
   // Check if image was generated
-  if (!imageData || !imageData.images || imageData.images.length === 0) {
+  if (!coverImageData || !coverImageData.images || coverImageData.images.length === 0) {
     return {
-      message: "No cover image generated, nothing to save",
+      message: "No cover image was generated to save",
     };
   }
 
@@ -18,7 +18,7 @@ export default async function saveCover({ aiPrompt, ...imageData }) {
     // Prepare image requirement for single cover image
     const imageRequirement = {
       imageName: "cover",
-      ...imageData,
+      ...coverImageData,
     };
 
     // Copy image from temp directory to cover directory
@@ -31,7 +31,7 @@ export default async function saveCover({ aiPrompt, ...imageData }) {
     ) {
       console.log(chalk.yellow("No cover image was successfully saved"));
       return {
-        message: "Failed to save cover image",
+        message: "Failed to save cover image: No valid images were processed",
       };
     }
 

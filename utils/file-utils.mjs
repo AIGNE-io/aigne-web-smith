@@ -457,7 +457,7 @@ export async function loadMediaFilesFromAssets(assetsDir) {
 
     return mediaFiles;
   } catch {
-    // Assets directory doesn't exist or is not accessible
+    // Assets directory doesn't exist or lacks read permissions
     return [];
   }
 }
@@ -509,7 +509,9 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
             metadataPath: mdPath,
           });
         } catch (copyError) {
-          console.error(`Failed to copy image ${image.path}: ${copyError.message}`);
+          console.error(
+            `Failed to copy image from ${image.path} to assets directory: ${copyError.message}`,
+          );
         }
       }
     }

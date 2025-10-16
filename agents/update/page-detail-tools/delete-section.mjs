@@ -76,6 +76,7 @@ export default async function deleteSection(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;

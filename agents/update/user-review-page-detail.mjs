@@ -61,6 +61,7 @@ export default async function userReviewPageDetail(
   const yamlOptions = {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   };
 
   // share current page detail with updatePageDetail agent

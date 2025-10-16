@@ -68,9 +68,9 @@ export default async function addPage(input, options) {
     title,
     description,
     path,
-    navigation: { ...navigation }, // Create a copy of the navigation object
+    navigation: { ...navigation },
     parentId: parentId || null,
-    sourceIds: [...sourceIds], // Create a copy of the array
+    sourceIds: [...sourceIds],
   };
 
   // Add the new page to the website structure

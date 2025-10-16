@@ -1,0 +1,1 @@
+A vibrant, abstract illustration for the hero section, depicting an AI core generating website structures. It visually represents the core value of AIGNE WebSmith—intelligent, automated website creation—setting a high-tech and professional tone for the page.

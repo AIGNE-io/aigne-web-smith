@@ -35,7 +35,7 @@ export default async function analyzeWebsiteStructure(
     if (choice === "later") {
       console.log(`\nConfiguration file: ${chalk.cyan(WEB_SMITH_CONFIG_PATH)}`);
       console.log(
-        "Review and edit your configuration as needed, then run 'aigne web generate' to continue.",
+        "Review and edit your configuration as needed, then run `aigne web generate` to continue.",
       );
 
       // In test environment, return a special result instead of exiting
@@ -88,9 +88,9 @@ export default async function analyzeWebsiteStructure(
       finalFeedback = `
       ${finalFeedback || ""}
       
-      Update website structure based on latest datasources:
-        1. For new content, add new nodes or supplement existing nodes as needed
-        2. Delete nodes only if all associated sourceIds are removed
+      Update website structure based on the latest data sources:
+        1. For new content, add new nodes or supplement existing nodes as needed.
+        2. Delete nodes only if all associated source IDs are removed.
       `;
     }
   }
@@ -101,27 +101,27 @@ export default async function analyzeWebsiteStructure(
     finalFeedback = `
     ${finalFeedback || ""}
 
-    Force regeneration requested: regenerate based on latest datasources and user requirements, any modifications allowed.
+    Force regeneration requested: regenerate based on the latest data sources and user requirements, allowing any modifications.
     `;
   }
 
-  // If no regeneration needed, return original structure plan
+  // If no regeneration is needed, return the original structure plan.
   if (originalWebsiteStructure && !finalFeedback && !shouldRegenerate) {
     return {
       websiteStructure: originalWebsiteStructure,
     };
   }
 
-  // Get user preferences for structure planning and global scope
+  // Get user preferences for structure planning and the global scope.
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
 
-  // Combine structure and global rules, extract only rule text
+  // Combine structure and global rules, extracting only the rule text.
   const allApplicableRules = [...structureRules, ...globalRules];
   const ruleTexts = allApplicableRules.map((rule) => rule.rule);
 
-  // Convert rule texts to string format for passing to the agent
-  const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
+  // Convert rule texts to string format for passing to the agent.
+  const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\\n\\n") : "";
 
   const result = await options.context.invoke(options.context.agents["generateWebsiteStructure"], {
     feedback: finalFeedback || "",
@@ -132,22 +132,22 @@ export default async function analyzeWebsiteStructure(
 
   let message = "";
 
-  // Check and save project information if user hasn't modified it
+  // Check and save project information if the user has not modified it.
   if (result.projectName || result.projectDesc) {
     try {
       const currentConfig = await loadConfigFromFile();
       const projectInfo = await getProjectInfo();
 
-      // Check if user has modified project information
+      // Check if the user has modified project information.
       const userModifiedProjectName =
         currentConfig?.projectName && currentConfig.projectName !== projectInfo.name;
       const userModifiedProjectDesc =
         currentConfig?.projectDesc && currentConfig.projectDesc !== projectInfo.description;
 
-      // If user hasn't modified project info and it's not from GitHub, save AI output
+      // If the user has not modified project info and it's not from GitHub, save AI output.
       if (!userModifiedProjectName && !userModifiedProjectDesc) {
         let hasUpdated = false;
-        // Don't update if the current info is from GitHub (meaningful repository info)
+        // Do not update if the current info is from GitHub (meaningful repository information).
         if (
           result.projectName &&
           result.projectName !== projectInfo.name &&
@@ -177,19 +177,19 @@ export default async function analyzeWebsiteStructure(
     }
   }
 
-  // Check and generate cover image if needed
+  // Check and generate a cover image if needed.
   if (result.projectCoverPrompt) {
-    // Check if cover image already exists
+    // Check if a cover image already exists.
     const coverPath = getCoverImagePath();
     let coverExists = false;
     try {
       await access(coverPath);
       coverExists = true;
     } catch {
-      // Cover doesn't exist
+      // Cover does not exist.
     }
 
-    // Generate cover if it doesn't exist
+    // Generate a cover if it does not exist.
     if (!coverExists) {
       try {
         await options.context.invoke(options.context.agents["generateCoverTeam"], {
@@ -205,9 +205,9 @@ export default async function analyzeWebsiteStructure(
 
   return {
     ...result,
-    feedback: "", // clear feedback
+    feedback: "", // Clear feedback.
     projectInfoMessage: message,
-    // update originalWebsiteStructure
+    // Update originalWebsiteStructure.
     originalWebsiteStructure: JSON.parse(JSON.stringify(result.websiteStructure || [])),
   };
 }

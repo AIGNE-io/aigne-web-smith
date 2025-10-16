@@ -13,7 +13,7 @@ export default function transformDetailDatasources({
     }),
   );
 
-  // Merge defaultDatasources with sourceIds and remove duplicates
+  // Merge default data sources with sourceIds and remove duplicates.
   const allSourceIds = [...new Set([...(defaultDatasources || []), ...(sourceIds || [])])];
 
   // Collect formatted contents in order, with path normalization

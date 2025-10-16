@@ -1,4 +1,29 @@
 entries:
+  - timestamp: 2025-10-16T12:40:43.844Z
+    operation: structure_update
+    feedback: update Terminal Player's sourceIds, must include
+      assets/documents/special-components/terminal-player.md
+  - timestamp: 2025-10-16T12:22:49.356Z
+    operation: structure_update
+    feedback: >-
+      Add an advanced feature section detailing how to better utilize AIGNE WebSmith, it should be
+      before Reference section.
+         It should include the following documentation:
+         1. Managing Components -> Move the “Managing Components” section from Core Tasks into the advanced features section.
+         2. Add a chapter on using special components, which should include the following documentation: Terminal Player + FullBackground
+         Hero.
+  - timestamp: 2025-10-16T12:12:07.085Z
+    operation: structure_update
+    feedback: >-
+      Add an advanced feature section detailing how to better utilize AIGNE WebSmith.
+
+      It should include the following documentation:
+
+      1. Managing Components -> Move the “Managing Components” section from Core Tasks into the
+      advanced features section.
+
+      2. Add a chapter on using special components, which should include the following
+      documentation: Terminal Player + FullBackground Hero.
   - timestamp: 2025-10-16T12:04:55.272Z
     operation: document_update
     feedback: Please remove `You can also explicitly start the chat session using the chat command:` and

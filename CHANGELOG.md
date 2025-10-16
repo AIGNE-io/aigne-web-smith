@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.13](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.12...v1.5.0-beta.13) (2025-10-16)
+
+
+### Features
+
+* support translate meta in publish ([#135](https://github.com/AIGNE-io/aigne-web-smith/issues/135)) ([26c1039](https://github.com/AIGNE-io/aigne-web-smith/commit/26c1039784e4e91660dab3004552345e0056c90d))
+
 ## [1.5.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.11...v1.5.0-beta.12) (2025-10-16)
 
 

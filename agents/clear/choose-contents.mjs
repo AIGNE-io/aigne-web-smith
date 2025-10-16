@@ -2,7 +2,7 @@ import { rm } from "node:fs/promises";
 import { join, resolve as resolvePath } from "node:path";
 import fastGlob from "fast-glob";
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
-import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
+import { getTranslationCachePath, getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
 export default async function chooseContents(input = {}, options = {}) {
@@ -15,6 +15,7 @@ export default async function chooseContents(input = {}, options = {}) {
   const generatedPagesCandidate = resolveToAbsolute(tmpDir);
   const configCandidate = resolveToAbsolute(finalConfigPath);
   const mediaDescriptionPath = getMediaDescriptionCachePath();
+  const translationCachePath = getTranslationCachePath();
 
   const results = [];
   let configCleared = false;
@@ -145,6 +146,21 @@ export default async function chooseContents(input = {}, options = {}) {
         });
       },
     },
+    translationCaches: {
+      path: translationCachePath,
+      label: "translation caches",
+      description: () =>
+        `Delete AI-generated caches in './${toDisplayPath(translationCachePath)}' (will regenerate on next publish).`,
+      onClear: async ({ displayPath, results, targetPath }) => {
+        await rm(targetPath, { recursive: true, force: true });
+
+        results.push({
+          status: "removed",
+          message: `🧹 Cleared ${displayPath}`,
+          path: displayPath,
+        });
+      },
+    },
   };
 
   const availabilityEntries = await Promise.all(
@@ -155,7 +171,6 @@ export default async function chooseContents(input = {}, options = {}) {
     }),
   );
   const availableTargets = Object.fromEntries(availabilityEntries);
-
   const normalizedTargets = Array.isArray(rawTargets)
     ? rawTargets.map((target) => targetsDefinition[target]).filter(Boolean)
     : [];
@@ -166,16 +181,21 @@ export default async function chooseContents(input = {}, options = {}) {
     if (options?.prompts?.checkbox) {
       const choices = Object.entries(targetsDefinition)
         .filter(([value, def]) => Boolean(def.path) && availableTargets[value])
-        .map(([value, def]) => ({
-          name: def.label,
-          value,
-          description: def.description({
-            outputDir,
-            tmpDir,
-            finalConfigPath,
-            mediaDescriptionPath,
-          }),
-        }));
+        .map(([value, def]) => {
+          console.log(value, def);
+          return {
+            name: def.label,
+            value,
+            description: def.description({
+              outputDir,
+              tmpDir,
+              finalConfigPath,
+              mediaDescriptionPath,
+            }),
+          };
+        });
+
+      console.log(choices, targetsDefinition);
 
       if (choices.length === 0) {
         return {

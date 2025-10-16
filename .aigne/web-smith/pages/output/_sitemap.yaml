@@ -18,7 +18,7 @@ sitemap:
       zh:
         title: AIGNE WebSmith：AI 驱动，数分钟内生成网站
         description: 使用 AIGNE WebSmith 生成并发布专业的、经过 SEO
-          优化的网站。我们的人工智能代理可以自动完成从规划、内容创建到一键发布的全部流程。立即开始！
+          优化的网站。我们的人工智能代理可以自动化从规划、内容创建到一键发布的整个过程。立即开始！
         image: mediakit://hero-background.webp
         style:
           maxWidth: custom:1440px
@@ -28,9 +28,9 @@ sitemap:
         header:
           sticky: true
       zh-TW:
-        title: AIGNE WebSmith：幾分鐘內生成 AI 驅動的網站
-        description: 使用 AIGNE WebSmith 生成並發佈專業、SEO 優化的網站。我們的 AI
-          代理程式自動化從規劃、內容創建到一鍵發佈的所有流程。立即開始！
+        title: AIGNE WebSmith：幾分鐘內完成 AI 網站生成
+        description: 使用 AIGNE WebSmith 生成並發布專業、SEO 優化的網站。我們的 AI
+          代理程式能自動完成從規劃、內容創建到一鍵發布的所有工作。立即開始！
         image: mediakit://hero-background.webp
         style:
           maxWidth: custom:1440px
@@ -42,7 +42,7 @@ sitemap:
       ja:
         title: "AIGNE WebSmith: AIでウェブサイトを数分で生成"
         description: AIGNE
-          WebSmithを使えば、プロフェッショナルでSEOに最適化されたウェブサイトを生成・公開できます。AIエージェントが企画、コンテンツ作成からワンクリックでの公開まで、すべてを自動化します。今すぐ始めましょう！
+          WebSmithで、プロフェッショナルでSEOに最適化されたウェブサイトを生成・公開。AIエージェントが企画、コンテンツ作成からワンクリック公開まで全てを自動化します。今すぐ始めましょう！
         image: mediakit://hero-background.webp
         style:
           maxWidth: custom:1440px
@@ -54,9 +54,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T12:24:29.683Z
-      updatedAt: 2025-10-16T12:24:29.683Z
-      publishedAt: 2025-10-16T12:24:29.683Z
+      createdAt: 2025-10-16T23:18:18.790Z
+      updatedAt: 2025-10-16T23:18:18.790Z
+      publishedAt: 2025-10-16T23:18:18.790Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5

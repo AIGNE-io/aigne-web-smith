@@ -1,4 +1,8 @@
 entries:
+  - timestamp: 2025-10-16T23:14:57.768Z
+    operation: page_update
+    feedback: Change button text "View Examples" to "Explore Showcase" in section 1
+    page: /home
   - timestamp: 2025-10-16T12:22:51.159Z
     operation: page_update
     feedback: Update section 6 with latest data

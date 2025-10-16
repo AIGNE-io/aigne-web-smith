@@ -11,7 +11,7 @@
     "fullBackgroundHeroActions":
       - "text": "Get Started Now"
         "link": "https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353"
-      - "text": "View Examples"
+      - "text": "Explore Showcase"
         "link": "/showcase"
   - "sectionName": "howItWorksCore"
     "sectionSummary": "A clear, four-step overview of the core process, explaining how AIGNE WebSmith uses AI agents to build and launch a website. It visually breaks down the workflow, making the automation easy to understand."

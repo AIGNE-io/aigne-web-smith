@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-16T12:24:29.683Z
-updatedAt: 2025-10-16T12:24:29.683Z
-publishedAt: 2025-10-16T12:24:29.683Z
+createdAt: 2025-10-16T23:18:18.790Z
+updatedAt: 2025-10-16T23:18:18.790Z
+publishedAt: 2025-10-16T23:18:18.790Z
 isPublic: true
 locales:
   en:
@@ -25,7 +25,7 @@ locales:
       paddingX: normal
     title: AIGNE WebSmith：AI 驱动，数分钟内生成网站
     description: 使用 AIGNE WebSmith 生成并发布专业的、经过 SEO
-      优化的网站。我们的人工智能代理可以自动完成从规划、内容创建到一键发布的全部流程。立即开始！
+      优化的网站。我们的人工智能代理可以自动化从规划、内容创建到一键发布的整个过程。立即开始！
     image: mediakit://hero-background.webp
     header:
       sticky: true
@@ -35,8 +35,9 @@ locales:
       maxWidth: custom:1440px
       paddingY: normal
       paddingX: normal
-    title: AIGNE WebSmith：幾分鐘內生成 AI 驅動的網站
-    description: 使用 AIGNE WebSmith 生成並發佈專業、SEO 優化的網站。我們的 AI 代理程式自動化從規劃、內容創建到一鍵發佈的所有流程。立即開始！
+    title: AIGNE WebSmith：幾分鐘內完成 AI 網站生成
+    description: 使用 AIGNE WebSmith 生成並發布專業、SEO 優化的網站。我們的 AI
+      代理程式能自動完成從規劃、內容創建到一鍵發布的所有工作。立即開始！
     image: mediakit://hero-background.webp
     header:
       sticky: true
@@ -48,7 +49,7 @@ locales:
       paddingX: normal
     title: "AIGNE WebSmith: AIでウェブサイトを数分で生成"
     description: AIGNE
-      WebSmithを使えば、プロフェッショナルでSEOに最適化されたウェブサイトを生成・公開できます。AIエージェントが企画、コンテンツ作成からワンクリックでの公開まで、すべてを自動化します。今すぐ始めましょう！
+      WebSmithで、プロフェッショナルでSEOに最適化されたウェブサイトを生成・公開。AIエージェントが企画、コンテンツ作成からワンクリック公開まで全てを自動化します。今すぐ始めましょう！
     image: mediakit://hero-background.webp
     header:
       sticky: true
@@ -2539,14 +2540,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: AIGNE WebSmith 使用人工智能代理自动规划、撰写和发布专业的、经过 SEO 优化的网站。从想法到网站上线，只需几分钟！
+                text: AIGNE WebSmith 使用 AI 代理自动规划、编写和发布专业的、经过 SEO 优化的网站。从想法到上线，仅需几分钟！
                 style:
                   color: rgba(255, 255, 255, 0.8)
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 建站和上线，只需数分钟，而非数周
+            text: 构建并上线您的网站，只需几分钟，而非数周
             style:
               color: common.white
               variant: h1
@@ -2561,14 +2562,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: AIGNE WebSmith 使用 AI 代理程式自動規劃、撰寫並發佈專業、SEO 優化的網站。在幾分鐘內將想法變為現實！
+                text: AIGNE WebSmith 使用 AI 代理程式自動規劃、撰寫並發布專業、SEO 優化的網站。在幾分鐘內將想法變為現實！
                 style:
                   color: rgba(255, 255, 255, 0.8)
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 建置並上線您的網站，只需幾分鐘，而非數週
+            text: 在幾分鐘內建立並上線您的網站，而非數週
             style:
               color: common.white
               variant: h1
@@ -2584,7 +2585,7 @@ dataSource:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
                 text: AIGNE
-                  WebSmithはAIエージェントを使い、プロフェッショナルでSEOに最適化されたウェブサイトを自動で企画、作成、公開します。アイデアから公開サイトまで、わずか数分で実現！
+                  WebSmithはAIエージェントを使い、プロフェッショナルでSEOに最適化されたウェブサイトを自動で企画、作成、公開します。アイデアから公開サイトまで数分で実現！
                 style:
                   color: rgba(255, 255, 255, 0.8)
                   fontSize: 16px
@@ -2613,7 +2614,7 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: View Examples
+              text: Explore Showcase
               variant: outlined
               borderColor: common.white
               size: large
@@ -2637,7 +2638,7 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 查看示例
+              text: 浏览案例
               variant: outlined
               borderColor: common.white
               size: large
@@ -2661,7 +2662,7 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 查看範例
+              text: 探索案例
               variant: outlined
               borderColor: common.white
               size: large
@@ -2679,13 +2680,13 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 今すぐ始める
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/getting-started-c47353
               variant: contained
               size: large
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 事例を見る
+              text: ショーケースを見る
               variant: outlined
               borderColor: common.white
               size: large
@@ -2712,7 +2713,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 你的端到端网站自动化工具包
+            text: 您的端到端网站自动化工具包
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2723,7 +2724,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 您的端對端網站自動化工具組
+            text: 您的端到端網站自動化工具組
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -2781,7 +2782,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 带来你已有的 markdown、图片、视频和终端录屏。WebSmith 会使用你的内容生成一个独一无二的专属网站。
+                text: 引入您现有的 Markdown、图片、视频和终端录屏。WebSmith 使用您的内容来生成一个独一无二的专属网站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2802,7 +2803,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 帶上您現有的 Markdown、圖片、影片和終端機錄製檔。WebSmith 會使用您的內容生成一個專屬於您的網站。
+                text: 帶來您現有的 Markdown、圖片、影片和終端機錄製檔。WebSmith 會使用您的內容生成一個專屬於您的網站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2823,7 +2824,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 既存のマークダウン、画像、動画、ターミナルの記録を持ち込むだけ。WebSmithがあなたのコンテンツを使い、あなただけのユニークなサイトを生成します。
+                text: 既存のマークダウン、画像、動画、ターミナル録画を持ち込むだけ。WebSmithがあなたのコンテンツを使い、あなただけのユニークなサイトを生成します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2901,7 +2902,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的结构代理会分析你的目标，设计出完美的网站架构，从一开始就确保逻辑流程清晰和卓越的用户体验。
+                text: 我们的结构代理会分析您的目标，以设计出完美的网站架构，从一开始就确保逻辑流程清晰和卓越的用户体验。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2922,7 +2923,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我們的結構代理程式會分析您的目標，設計出完美的網站架構，從一開始就確保邏輯流暢和絕佳的使用者體驗。
+                text: 我們的結構代理程式會分析您的目標，設計出完美的網站架構，從一開始就確保流暢的邏輯與卓越的使用者體驗。
                 style:
                   color: ""
                   fontSize: 16px
@@ -2943,7 +2944,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 当社の構造エージェントがあなたの目標を分析し、最適なウェブサイトアーキテクチャを設計。論理的なフローと優れたユーザー体験を最初から保証します。
+                text: ストラクチャーエージェントがあなたの目標を分析し、最適なウェブサイトアーキテクチャを設計。論理的なフローと優れたユーザー体験を最初から保証します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3012,7 +3013,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 自动化内容和模板
+            text: 自动化内容与模板
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3020,7 +3021,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的内容和模板代理会撰写引人入胜、经过 SEO 优化的文案，一次性构建你的整个网站。
+                text: 我们的内容和模板代理会撰写引人入胜且经过 SEO 优化的文案，一次性构建您的整个网站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3041,7 +3042,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我們的內容與範本代理程式會撰寫引人入勝、經 SEO 優化的文案，一次性建置您的整個網站。
+                text: 我們的內容與範本代理程式會撰寫引人入勝、SEO 優化的文案，一次性建立您的整個網站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3062,7 +3063,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 当社のコンテンツおよびテンプレートエージェントが、SEOに最適化された魅力的なコピーを作成し、サイト全体を一気に構築します。
+                text: コンテンツエージェントとテンプレートエージェントが、魅力的でSEOに最適化されたコピーを作成し、サイト全体を一度に構築します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3140,7 +3141,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 发布代理负责最后一步。只需一个命令，它就会将所有内容上传到目标网站，让你即时上线。
+                text: 发布代理负责最后一步。只需一个命令，它就会将所有内容上传到目标网站，让您即时上线。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3153,7 +3154,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 一鍵發佈
+            text: 一鍵發布
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3161,7 +3162,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 發佈代理程式負責最後一步。只需一個指令，它就會將所有內容上傳到目標網站，讓您立即上線。
+                text: 發布代理程式負責最後一步。只需一個指令，它就能將所有內容上傳到目標網站，讓您立即上線。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3182,7 +3183,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 公開エージェントが最終ステップを担当。一つのコマンドで、すべてをターゲットのウェブサイトにアップロードし、即座に公開できます。
+                text: パブリッシングエージェントが最終ステップを担当。1つのコマンドで全てをターゲットのウェブサイトにアップロードし、即座に公開できます。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3247,7 +3248,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 為創業者、創作者和企業而建
+            text: 為創業者、創作者與企業打造
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -3296,7 +3297,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 为小企业和创业者
+            text: 为小型企业和创业者
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3304,7 +3305,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 几分钟内让你的专业网站上线。无需技术技能——只需要你的想法！
+                text: 几分钟内让您的专业网站上线。无需技术技能——只需要您的想法！
                 style:
                   color: ""
                   fontSize: 16px
@@ -3317,7 +3318,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 為小型企業和創業者
+            text: 適用於小型企業與創業者
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3325,7 +3326,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 在幾分鐘內讓您的專業網站上線。無需技術技能——只需要您的想法！
+                text: 在幾分鐘內讓您的專業網站上線。無需技術背景——只需要您的想法！
                 style:
                   color: ""
                   fontSize: 16px
@@ -3338,7 +3339,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 中小企業や起業家の方へ
+            text: 中小企業・起業家向け
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3346,7 +3347,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: プロフェッショナルなウェブサイトを数分でオンラインに。技術的なスキルは不要、あなたのアイデアだけで十分です！
+                text: プロフェッショナルなウェブサイトを数分でオンラインに。技術的なスキルは不要です—必要なのはあなたのアイデアだけ！
                 style:
                   color: ""
                   fontSize: 16px
@@ -3423,7 +3424,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 以闪电般的速度推出活动网站和落地页。从概念到上线 URL，更快地实现你的目标。
+                text: 以闪电般的速度推出活动网站和落地页。从概念到上线 URL，更快实现您的目标。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3436,7 +3437,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 為行銷團隊
+            text: 適用於行銷團隊
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3444,7 +3445,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 以閃電般的速度推出活動網站和登陸頁面。從概念到上線 URL，更快實現您的目標。
+                text: 以閃電般的速度推出活動網站和登陸頁面。從概念到上線網址，更快實現您的目標。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3457,7 +3458,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: マーケティングチームの方へ
+            text: マーケティングチーム向け
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3465,7 +3466,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: キャンペーンサイトやランディングページを驚異的な速さで立ち上げましょう。コンセプトから公開URLまでを迅速に進め、目標をより早く達成します。
+                text: キャンペーンサイトやランディングページを驚異的な速さで立ち上げ。コンセプトから公開URLまで、より速く目標を達成できます。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3542,7 +3543,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 自动化网站构建，扩展你的客户服务。高效交付高质量、一致性的网站。
+                text: 自动化网站构建流程，以扩展您的客户服务。高效交付高质量、一致的网站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3555,7 +3556,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 為代理商
+            text: 適用於代理商
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3563,7 +3564,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 自動化網站建置以擴展您的客戶服務。高效交付高品質、一致的網站。
+                text: 自動化網站建置流程，擴展您的客戶服務。高效交付高品質、風格一致的網站。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3576,7 +3577,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 代理店の方へ
+            text: 代理店向け
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3661,7 +3662,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 专注于你的故事，我们将为其打造完美的家园。我们的人工智能会处理其余的一切。
+                text: 专注于您的故事，我们将为其打造完美的家园。我们的人工智能会处理其余的一切。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3674,7 +3675,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 為內容創作者
+            text: 適用於內容創作者
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3682,7 +3683,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 專注於您的故事，我們將為其打造完美的家。我們的 AI 會處理其餘的一切。
+                text: 專注於您的故事，我們將為其打造完美的家園。我們的 AI 會處理其餘一切。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3695,7 +3696,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: コンテンツクリエイターの方へ
+            text: コンテンツクリエイター向け
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3757,7 +3758,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 为什么 WebSmith 是更好的网站构建方式？
+            text: 为什么 WebSmith 是构建网站的更佳方式？
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -3768,7 +3769,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: 為什麼 WebSmith 是建置網站的更佳方式？
+            text: 為何 WebSmith 是建立網站的更佳方式？
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
@@ -3826,7 +3827,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: WebSmith 使用专门的人工智能代理来智能地规划、撰写和构建你的网站，带来真正自主的创作体验。
+                text: WebSmith 使用专门的 AI 代理来智能地规划、编写和构建您的网站，实现真正自主的创作体验。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3847,7 +3848,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: WebSmith 使用專門的 AI 代理程式智慧地規劃、撰寫和結構化您的網站，提供真正自主的創作體驗。
+                text: WebSmith 使用專門的 AI 代理程式，智慧地規劃、撰寫及架構您的網站，提供真正自主的創作體驗。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3946,7 +3947,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 从想法到发布多页面网站，无需人工干预。整个创建和部署工作流都是自动化的。
+                text: 从想法到发布一个多页面网站，无需人工干预。整个创建和部署工作流都是自动化的。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3959,7 +3960,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 完整的端對端自動化
+            text: 完整的端到端自動化
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -3967,7 +3968,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 從想法到已發佈的多頁面網站，無需手動干預。整個創作和部署流程都是自動化的。
+                text: 從想法到發布一個多頁面網站，無需手動干預。整個創作與部署流程皆為自動化。
                 style:
                   color: ""
                   fontSize: 16px
@@ -3988,7 +3989,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 手作業なしで、アイデアから公開された複数ページのウェブサイトへ。制作からデプロイまでのワークフロー全体が自動化されています。
+                text: アイデアから複数ページの公開ウェブサイトまで、手動の介入なしで実現。制作からデプロイまでのワークフロー全体が自動化されています。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4057,7 +4058,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 内置专业级品质
+            text: 内置专业品质
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -4065,7 +4066,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 放心发布。内置 SEO、内容质量检查和 32 项以上的测试，确保每个网站都专业可靠。
+                text: 满怀信心地发布。内置 SEO、内容质量检查和 32 项以上测试，确保每个网站都专业可靠。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4086,7 +4087,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 充滿信心地發佈。內建的 SEO、內容品質檢查和超過 32 項測試，確保每個網站都專業可靠。
+                text: 充滿信心地發布。內建的 SEO、內容品質檢查及超過 32 項測試，確保每個網站都專業可靠。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4107,7 +4108,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 自信を持って公開。組み込みのSEO、コンテンツ品質チェック、32以上のテストにより、すべてのサイトがプロフェッショナルで信頼性の高いものになります。
+                text: 自信を持って公開。組み込みのSEO、コンテンツ品質チェック、32以上のテストが、全てのサイトのプロフェッショナル性と信頼性を保証します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4184,7 +4185,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 在 2-3 分钟内生成一个 5 页的网站。你的网站从概念到上线只需片刻，让你行动更快。
+                text: 在 2-3 分钟内生成一个 5 页的网站。您的网站从概念到上线仅需片刻，让您行动更快。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4205,7 +4206,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 在 2-3 分鐘內生成一個 5 頁的網站。您的網站瞬間從概念變為現實，讓您行動更快速。
+                text: 在 2-3 分鐘內生成一個 5 頁的網站。您的網站在片刻之間即可從概念變為現實，讓您行動更迅速。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4218,7 +4219,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 超高速デプロイ
+            text: 驚異的な速さでデプロイ
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -4226,7 +4227,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 5ページのウェブサイトを2〜3分で生成。あなたのサイトはコンセプトからあっという間に公開され、より迅速な行動を可能にします。
+                text: 5ページのウェブサイトを2〜3分で生成。あなたのサイトはコンセプトから瞬時に公開され、より迅速な行動を可能にします。
                 style:
                   color: ""
                   fontSize: 16px
@@ -4284,7 +4285,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 实际操作演示：从想法到上线网站
+            text: 实际操作演示：从想法到上线
             style:
               variant: h2
     zh-TW:
@@ -4306,7 +4307,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 実際の動作を見る：アイデアから公開サイトへ
+            text: 実際の動作を見る：アイデアから公開サイトまで
             style:
               variant: h2
   54c0855c3375e774:
@@ -4345,7 +4346,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`init` 命令是你的第一步。它通过询问你的目标来交互式地设置项目配置，以便 WebSmith 知道要构建什么。"
+                text: "`init` 命令是您的第一步。它通过询问您的目标来交互式地设置项目配置，以便 WebSmith 知道要构建什么。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -4364,7 +4365,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`init` 指令是您的第一步。它會透過詢問您的目標，以互動方式設定您的專案配置，讓 WebSmith 知道要建置什麼。"
+                text: "`init` 指令是您的第一步。它會透過詢問您的目標，以互動方式設定您的專案配置，讓 WebSmith 知道要建立什麼。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -4383,8 +4384,8 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`init`コマンドが最初のステップです。あなたの目標について質問することで、プロジェクト設定を対話形式で行い、WebSmithが何を構築すべき\
-                  かを理解します。"
+                text: "`init`コマンドが最初のステップです。あなたの目標について対話形式で質問し、プロジェクト設定をセットアップすることで、WebSmithが何を\
+                  構築すべきかを理解します。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -4441,7 +4442,7 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 詳細はこちら
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/getting-started-preparing-your-content-c47353
               variant: text
               size: medium
               target: _blank
@@ -4507,7 +4508,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: 一个命令即可启动。我们的人工智能代理会分析你的需求，规划网站结构，并为每个页面生成丰富的内容。见证你的网站诞生！
+                text: 用一个命令启动所有工作。我们的 AI 代理会分析您的需求，规划网站结构，并为每个页面生成丰富的内容。见证您的网站变为现实！
                 style:
                   color: ""
                   fontSize: 16px
@@ -4526,7 +4527,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: 用一個指令啟動一切。我們的 AI 代理程式會分析您的需求、規劃網站結構，並為每個頁面生成豐富的內容。看著您的網站活起來！
+                text: 用一個指令啟動一切。我們的 AI 代理程式會分析您的需求、規劃網站結構，並為每個頁面生成豐富的內容。親眼見證您的網站誕生！
                 style:
                   color: ""
                   fontSize: 16px
@@ -4545,7 +4546,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: 一つのコマンドで開始。AIエージェントがあなたのニーズを分析し、サイト構造を計画し、各ページに豊かなコンテンツを生成します。サイトが形になるのをご覧ください！
+                text: 1つのコマンドで開始。AIエージェントがあなたのニーズを分析し、サイト構造を計画し、各ページにリッチなコンテンツを生成します。サイトが形になるのをご覧ください！
                 style:
                   color: ""
                   fontSize: 16px
@@ -4602,7 +4603,7 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 詳細はこちら
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-generating-a-website-c47353
               variant: text
               size: medium
               target: _blank
@@ -4668,7 +4669,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`update` 命令可以让你轻松优化内容。提供反馈，我们的人工智能将智能地修改页面，使其保持最新。"
+                text: "`update` 命令让您能轻松优化内容。提供反馈，我们的人工智能将智能地修改页面，使其保持最新。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -4687,7 +4688,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`update` 指令讓您輕鬆優化內容。提供回饋，我們的 AI 將智慧地修訂頁面以保持其新穎。"
+                text: "`update` 指令讓您能輕鬆地完善內容。提供回饋，我們的 AI 將智慧地修訂頁面，使其保持最新狀態。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -4706,7 +4707,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`update`コマンドでコンテンツを簡単に改良できます。フィードバックを提供すると、AIがページをインテリジェントに修正し、常に最新の状態に保\
+                text: "`update`コマンドでコンテンツを簡単に洗練できます。フィードバックを提供すると、AIがページをインテリジェントに修正し、常に最新の状態に保\
                   ちます。"
                 style:
                   color: ""
@@ -4764,7 +4765,7 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 詳細はこちら
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-updating-website-content-c47353
               variant: text
               size: medium
               target: _blank
@@ -17389,7 +17390,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`translate` 命令助你走向全球。立即将你的网站翻译成多种语言，触达新的受众。"
+                text: "`translate` 命令助您走向全球。即时将您的网站翻译成多种语言，以触达新的受众。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -17408,7 +17409,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`translate` 指令讓您走向全球。立即將您的網站翻譯成多種語言，以觸及新的受眾。"
+                text: "`translate` 指令助您走向全球。立即將您的網站翻譯成多種語言，觸及新的受眾。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -17427,7 +17428,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: "`translate`コマンドでグローバル展開が可能です。ウェブサイトを瞬時に多言語に翻訳し、新たなオーディエンスにリーチしましょう。"
+                text: "`translate`コマンドでグローバル展開が可能に。ウェブサイトを即座に多言語に翻訳し、新たなオーディエンスにリーチします。"
                 style:
                   color: ""
                   fontSize: 16px
@@ -17484,7 +17485,7 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 詳細はこちら
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-translating-your-content-c47353
               variant: text
               size: medium
               target: _blank
@@ -17550,7 +17551,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: 当你准备好上线时，WebSmith 会处理上传过程，并在几秒钟内提供可访问的 URL。分享你的创作就是这么简单。
+                text: 当您准备好发布时，WebSmith 会处理上传过程，并在几秒钟内提供可访问的 URL。分享您的创作就是这么简单。
                 style:
                   color: ""
                   fontSize: 16px
@@ -17569,7 +17570,7 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: 當您準備好上線時，WebSmith 會處理上傳過程，並在幾秒鐘內提供即時 URL。分享您的創作就是這麼簡單。
+                text: 當您準備好上線時，WebSmith 會處理上傳過程，並在幾秒鐘內提供即時網址。分享您的創作就是這麼簡單。
                 style:
                   color: ""
                   fontSize: 16px
@@ -17645,7 +17646,7 @@ dataSource:
             - id: btn-default-1
               type: link
               text: 詳細はこちら
-              url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353
+              url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-publishing-your-website-c47353
               variant: text
               size: medium
               target: _blank
@@ -17751,7 +17752,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 改进了更新稳定性，并增加了对新组件命令的支持，使工作流程更加顺畅。
+                text: 提高了更新稳定性，并增加了对新组件命令的支持，以实现更流畅的工作流程。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17773,7 +17774,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 提升了更新穩定性，並新增了對新元件指令的支援，使工作流程更加順暢。
+                text: 改善了更新穩定性，並新增了對新元件指令的支援，使工作流程更加順暢。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17795,7 +17796,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: アップデートの安定性が向上し、新しいコンポーネントコマンドのサポートが追加され、ワークフローがさらにスムーズになりました。
+                text: アップデートの安定性を向上させ、新しいコンポーネントコマンドのサポートを追加し、さらにスムーズなワークフローを実現しました。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17841,7 +17842,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 通过新的图片生成工具和项目封面支持，释放你的创造力。
+                text: 使用新的图片生成工具和项目封面支持，释放您的创造力。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17931,7 +17932,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 现在你可以直接将终端录屏上传到你的媒体工具包，以创建精彩的演示。
+                text: 现在您可以将终端录屏直接上传到您的媒体库，以创建令人惊叹的演示。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17953,7 +17954,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 現在您可以直接將終端機錄製檔上傳到您的 Media Kit，以創建令人驚豔的展示。
+                text: 現在您可以直接將終端機錄製檔上傳到您的媒體套件，以創建令人驚豔的展示。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -17975,7 +17976,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: ターミナルの記録をメディアキットに直接アップロードして、魅力的なデモを作成できるようになりました。
+                text: ターミナルの録画をメディアキットに直接アップロードして、魅力的なデモを作成できるようになりました。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -18021,7 +18022,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 通过交替布局中全新的终端播放器组件，展示你的命令行魔法。
+                text: 通过全新的、采用交替布局的终端播放器组件，展示您的命令行魔法。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -18043,7 +18044,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 使用全新的、交錯佈局的終端機播放器元件，展示您的命令列魔法。
+                text: 使用全新的、採用交錯佈局的終端機播放器元件，展示您的命令列操作魅力。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -18065,7 +18066,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 新しいターミナルプレイヤーコンポーネントを交互レイアウトで使い、コマンドラインの魔法を披露しましょう。
+                text: 新しいターミナルプレイヤーコンポーネントを交互レイアウトで使用し、コマンドラインの魅力を披露しましょう。
                 style:
                   color: text.primary
                   fontSize: 16px
@@ -18240,16 +18241,16 @@ dataSource:
       properties:
         4221qi1bxy322mf4:
           value:
-            - title: 我可以构建什么样的网站？
-              answer: AIGNE WebSmith 非常适合落地页、产品网站、营销活动和文档。它能生成带有现代化、响应式组件的多页面网站。
+            - title: 我能构建什么样的网站？
+              answer: AIGNE WebSmith 非常适合落地页、产品网站、营销活动和文档。它能生成包含现代化、响应式组件的多页面网站。
             - title: 我需要懂编程吗？
-              answer: 需要熟悉命令行，但不需要编程。该工具会生成人类可读的 YAML 文件，易于理解和编辑。
+              answer: 需要熟悉命令行操作，但不需要编码。该工具会生成人类可读的 YAML，易于理解和编辑。
             - title: 生成的内容真的对 SEO 友好吗？
-              answer: 是的！我们的人工智能代理接受过 SEO 最佳实践的训练，会自动生成优化的标题、元描述和结构化内容，帮助你获得更高的排名。
+              answer: 是的！我们的 AI 代理接受过 SEO 最佳实践的训练，会自动生成优化的标题、元描述和结构化内容，帮助您获得更高的排名。
             - title: 我的网站托管在哪里？
-              answer: WebSmith 将你的网站直接发布到 ArcBlock 平台，提供无缝的托管解决方案，并在完成后立即提供访问链接。
+              answer: WebSmith 将您的网站直接发布到 ArcBlock 平台，提供无缝的托管解决方案，并在完成后立即提供访问链接。
             - title: 它到底有多快？
-              answer: 速度快得惊人。生成一个 5 页的网站只需 2-3 分钟，一个 15 页的网站只需 5-8 分钟。这彻底改变了游戏规则！
+              answer: 速度快得令人难以置信。在 2-3 分钟内生成一个 5 页的网站，或在 5-8 分钟内生成一个 15 页的网站。这绝对是颠覆性的！
             - title: ""
               answer: ""
             - title: ""
@@ -18264,15 +18265,15 @@ dataSource:
       properties:
         4221qi1bxy322mf4:
           value:
-            - title: 我可以建置哪種類型的網站？
-              answer: AIGNE WebSmith 非常適合登陸頁面、產品網站、行銷活動和文件。它能生成具有現代化、響應式元件的多頁面網站。
-            - title: 我需要懂程式碼嗎？
-              answer: 需要對命令列感到自在，但不需要編寫程式碼。該工具會生成易於理解和編輯、人類可讀的 YAML。
-            - title: 生成的內容真的有針對 SEO 優化嗎？
+            - title: 我可以建立哪種類型的網站？
+              answer: AIGNE WebSmith 非常適合用於登陸頁面、產品網站、行銷活動和文件。它能生成帶有現代化、響應式元件的多頁面網站。
+            - title: 我需要懂程式設計嗎？
+              answer: 需要熟悉命令列操作，但不需要編寫程式碼。此工具會生成易於理解和編輯的人類可讀 YAML 檔案。
+            - title: 生成的內容真的對 SEO 友善嗎？
               answer: 是的！我們的 AI 代理程式接受了 SEO 最佳實踐的訓練，會自動生成優化的標題、元描述和結構化內容，幫助您獲得更高的排名。
-            - title: 我的網站在哪裡託管？
-              answer: WebSmith 將您的網站直接發佈到 ArcBlock 平台，提供無縫的託管解決方案，並在完成後立即提供存取連結。
-            - title: 它到底有多快？
+            - title: 我的網站託管在哪裡？
+              answer: WebSmith 會將您的網站直接發布到 ArcBlock 平台，提供無縫的託管解決方案，並在完成後立即提供存取連結。
+            - title: 它的速度到底有多快？
               answer: 速度快得驚人。在 2-3 分鐘內生成一個 5 頁的網站，或在 5-8 分鐘內生成一個 15 頁的網站。這將徹底改變遊戲規則！
             - title: ""
               answer: ""
@@ -18292,13 +18293,13 @@ dataSource:
               answer: AIGNE
                 WebSmithは、ランディングページ、製品サイト、マーケティングキャンペーン、ドキュメントに最適です。モダンでレスポンシブなコンポーネントを備えた複数ページのウェブサイトを生成します。
             - title: コーディングの知識は必要ですか？
-              answer: コマンドラインに慣れている必要はありますが、コーディングは不要です。ツールは人間が読みやすいYAMLを生成し、理解や編集が簡単です。
+              answer: コマンドラインの操作に慣れている必要はありますが、コーディングは不要です。このツールは人間が読みやすいYAMLを生成するため、理解や編集が簡単です。
             - title: 生成されたコンテンツは本当にSEOに最適化されていますか？
-              answer: はい！当社のAIエージェントはSEOのベストプラクティスに基づいてトレーニングされており、最適化されたタイトル、メタディスクリプション、構造化されたコンテンツを自動生成して、ランキング上位表示を支援します。
-            - title: ウェブサイトはどこでホスティングされますか？
+              answer: はい！私たちのAIエージェントはSEOのベストプラクティスに基づいてトレーニングされており、最適化されたタイトル、メタディスクリプション、構造化されたコンテンツを自動生成し、ランキング向上を支援します。
+            - title: ウェブサイトはどこでホストされますか？
               answer: WebSmithはサイトを直接ArcBlockプラットフォームに公開し、シームレスなホスティングソリューションと、完了後すぐにアクセスできるリンクを提供します。
-            - title: どのくらい速いですか？
-              answer: 驚くほど高速です。5ページのサイトなら2〜3分、15ページのサイトでも5〜8分で生成できます。まさに革新的です！
+            - title: どのくらい速いのですか？
+              answer: 驚くほど高速です。5ページのサイトを2〜3分で、15ページのサイトを5〜8分で生成します。まさにゲームチェンジャーです！
             - title: ""
               answer: ""
             - title: ""
@@ -18340,14 +18341,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 告别繁琐的设置。让 AIGNE WebSmith 为你构建网站，助你更快上线。今天就开始吧！
+                text: 告别繁琐的配置。让 AIGNE WebSmith 为您构建网站，助您更快上线。立即开始！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 准备好构建你的下一个网站了吗？
+            text: 准备好构建您的下一个网站了吗？
             style:
               color: ""
               variant: h1
@@ -18362,14 +18363,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 別再為繁瑣的設定所困。讓 AIGNE WebSmith 為您建置網站，以便您能更快上線。今天就開始吧！
+                text: 別再為繁瑣的設定而苦惱。讓 AIGNE WebSmith 為您建立網站，以便您能更快上線。今天就開始吧！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 準備好建置您的下一個網站了嗎？
+            text: 準備好建立您的下一個網站了嗎？
             style:
               color: ""
               variant: h1
@@ -18384,7 +18385,7 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 面倒なセットアップに苦労するのはもうやめましょう。AIGNE WebSmithにサイト構築を任せて、より速く公開しましょう。今日から始めましょう！
+                text: 面倒なセットアップに苦労するのはやめましょう。AIGNE WebSmithにサイトを構築させて、より速く公開しましょう。今日から始めましょう！
                 style:
                   color: ""
                   fontSize: 16px
@@ -18428,7 +18429,7 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: 在 GitHub 上探索代码
+              text: 在 GitHub 上浏览代码
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
@@ -18457,7 +18458,7 @@ dataSource:
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 探索 AIGNE 生態系
+              text: 探索 AIGNE 生態系統
               variant: outlined
               borderColor: common.white
               size: large

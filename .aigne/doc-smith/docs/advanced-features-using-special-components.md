@@ -14,13 +14,9 @@ WebSmith offers several advanced components out of the box. The primary componen
   </x-card>
 </x-cards>
 
-### FullBackground Hero
-
-The `FullBackgroundHero` component is designed to create a visually striking hero section with a background image or video that covers the entire viewport. It is an effective way to capture a visitor's attention on a landing page. This component is typically configured in your page's YAML file, where you specify the background media, title, subtitle, and call-to-action buttons.
-
 ## Summary
 
-Using special components like the Terminal Player and FullBackground Hero can dramatically improve the visual appeal and functional capabilities of your website.
+Using special components like the Terminal Player can dramatically improve the visual appeal and functional capabilities of your website.
 
 For detailed instructions on embedding and configuring the terminal player, please proceed to the next section.
 

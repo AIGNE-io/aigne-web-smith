@@ -105,48 +105,19 @@ The Terminal Player component requires the recording data to be in a specific JS
 2.  **Upload Your File:** Drag and drop your `.cast` file onto the page.
 3.  **Preview and Download:** The tool will generate a live preview of your recording. After confirming it is correct, download the converted `.json` file.
 4.  **Add to Project:** Place the downloaded JSON file into your website's media or assets directory.
-
-## Using the Terminal Player Component
-
-After creating and converting your recording, you can integrate the Terminal Player into any page by defining it in the page's configuration file. You will need to specify the path to your recording's JSON file and can optionally configure its layout.
-
-### Configuration Example
-
-The following is an example of how to configure a `TerminalPlayer` component within a page's data file.
-
-```yaml Page Configuration Example icon=lucide:file-cog
-# In your page's YAML configuration (e.g., page-name.yaml)
-
-# ... other page content ...
-
-sections:
-  - component: TerminalPlayer
-    props:
-      # The title displayed above the terminal player
-      title: "Live Demo"
-      # A brief description of what the recording shows
-      description: "This demo shows how to initialize a new AIGNE WebSmith project."
-      # The relative path to your recording file
-      recording: "/assets/data/my-demo.json"
-      # (Optional) The layout of the component. Defaults to 'right'.
-      layout: "left"
-
-# ... other page sections ...
+ 
+## Using the Recording
+ 
+Once the JSON recording file is placed in your project's media or assets directory, it becomes available to the AI. There is no need to manually configure the component in a YAML file.
+ 
+Simply describe the need for a terminal demonstration in your content source files. When you run `aigne generate` or `aigne update`, the AI will automatically find the relevant `.json` recording and use the Terminal Player component to display it on your website.
+ 
+```bash AIGNE CLI Commands icon=lucide:terminal
+# To generate the website from scratch
+aigne generate
+ 
+# To update the website with your changes
+aigne update
 ```
-
-### Component Properties
-
-The `TerminalPlayer` component accepts the following properties to customize its appearance and behavior.
-
-| Property | Type | Required | Description |
-| :--- | :--- | :--- | :--- |
-| `title` | `string` | Yes | A title for the component section. |
-| `description` | `string` | No | A short description displayed alongside the title. |
-| `recording` | `string` | Yes | The path to the JSON recording file. |
-| `layout` | `string` | No | Determines the position of the text content relative to the player. Can be `left` or `right`. Defaults to `right`. |
-
-## Summary
-
-The Terminal Player component offers a robust method for demonstrating command-line workflows. By following the procedure of recording with `asciinema`, converting the file online, and configuring the component in your page data, you can produce engaging and informative technical tutorials for your users.
-
-For further information, consult the official [asciinema website](https://asciinema.org/).
+ 
+For additional information on recording, you may consult the official [asciinema website](https://asciinema.org/).

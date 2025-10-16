@@ -1,4 +1,21 @@
 entries:
+  - timestamp: 2025-10-16T13:27:48.183Z
+    operation: document_update
+    feedback: This section `## Using the Terminal Player Component` is unnecessary and should be
+      removed. Simply explain how to include the above recoding JSON in the data source and use
+      `aigne web generate` and `aigne web update` to update it.
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T13:07:29.956Z
+    operation: document_update
+    feedback: "## Using the Terminal Player Component section This is unnecessary for users. You need to
+      guide users to add the corresponding JSON data to the data source and trigger Aigne Web
+      Generate and Aigne Web Update for the specified pages."
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T12:55:13.974Z
+    operation: document_update
+    feedback: This doc should focus on using custom component libraries in WebSmith, though the
+      command-related content can remain. You'll need to slightly modify the title and body text.
+    documentPath: /advanced-features/managing-components
   - timestamp: 2025-10-16T12:40:43.844Z
     operation: structure_update
     feedback: update Terminal Player's sourceIds, must include

@@ -235,14 +235,6 @@ export default async function publishWebsite(
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
-        {
-          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
-          value: "default",
-        },
-        {
-          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
-          value: "custom",
-        },
         ...(sessionId
           ? [
               {
@@ -251,6 +243,14 @@ export default async function publishWebsite(
               },
             ]
           : []),
+        {
+          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          value: "default",
+        },
+        {
+          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
+          value: "custom",
+        },
         {
           name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
           value: "new-pages-kit",

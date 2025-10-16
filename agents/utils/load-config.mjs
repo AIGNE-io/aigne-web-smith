@@ -70,7 +70,7 @@ loadConfig.input_schema = {
     },
     appUrl: {
       type: "string",
-      description: "Application URL to override config",
+      description: "The application URL to override the configuration.",
     },
   },
 };

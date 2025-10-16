@@ -3,4 +3,4 @@ export default async function exit() {
 }
 
 exit.description =
-  "Exit the chat session. Equivalent to saying goodbye, quit, exit, close, or see you. Must print a bye message before calling this tool, as it will exit the process immediately.";
+  "Exits the chat session. This is equivalent to saying goodbye, quit, exit, or close. A farewell message should be printed before calling this tool, as it will exit the process immediately.";

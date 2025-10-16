@@ -4,7 +4,7 @@ import { stringify } from "yaml";
 
 export default async function saveOutput({ savePath, fileName, saveKey, ...rest }) {
   if (!(saveKey in rest)) {
-    console.warn(`saveKey "${saveKey}" not found in input, skip saving.`);
+    console.warn(`saveKey "${saveKey}" not found in input; skipping save operation.`);
     return {
       saveOutputStatus: false,
       saveOutputPath: null,

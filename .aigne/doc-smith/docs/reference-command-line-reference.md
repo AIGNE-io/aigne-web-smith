@@ -7,6 +7,8 @@ The general syntax for all commands is:
 aigne web <command> [subcommand] [options]
 ```
 
+Running `aigne web` without a command starts an interactive chat session.
+
 ## Main Commands
 
 The following table provides a summary of the primary commands available in the AIGNE WebSmith CLI.
@@ -19,7 +21,7 @@ The following table provides a summary of the primary commands available in the 
 | [translate](#translate) | Translates existing website pages into different languages. |
 | [theme](#theme) | Manages the visual themes for the website, including generation and application. |
 | [component](#component) | Manages the component library used to build the website. |
-| [chat](#chat) | Starts an interactive chat session to build and modify your website conversationally. |
+| [chat](#chat) | Starts an interactive chat session (default) to build and modify your website conversationally. |
 | [prefs](#prefs) | Manages saved user preferences that customize WebSmith's behavior. |
 | [history](#history) | Displays a log of all previous updates made to the website. |
 | [clear](#clear) | Removes generated files, workspace data, or configuration settings. |
@@ -147,11 +149,11 @@ aigne web component pull --url "https://your-pages-kit/api/..."
 </x-field-group>
 
 ### chat
-Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. The chat agent can access all other commands.
+Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. This is the **default command** if no other command is specified. The chat agent can access all other commands.
 
 **Usage:**
 ```bash
-aigne web chat
+aigne web
 ```
 
 This command does not take any parameters. It opens an interactive prompt in your terminal.
@@ -197,14 +199,14 @@ Safely removes generated files, workspace data, or configuration settings. This 
 
 **Usage:**
 ```bash
-# Clear the temporary workspace and generated pages without being prompted
-aigne web clear --targets workspace generatedPages
+# Clear the website structure and generated pages without being prompted
+aigne web clear --targets websiteStructure generatedPages
 ```
 
 **Parameters:**
 
 <x-field-group>
-  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: workspace, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: websiteStructure, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
   <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for your source pages."></x-field>
   <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the temporary workspace."></x-field>
   <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the generated pages."></x-field>

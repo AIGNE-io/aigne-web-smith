@@ -1,4 +1,18 @@
 entries:
+  - timestamp: 2025-10-16T12:04:55.272Z
+    operation: document_update
+    feedback: Please remove `You can also explicitly start the chat session using the chat command:` and
+      the code below it
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T12:00:21.694Z
+    operation: document_update
+    feedback: update the latest changelog
+    documentPath: /reference/changelog
+  - timestamp: 2025-10-16T11:58:12.739Z
+    operation: document_update
+    feedback: aigne web chat -> aigne web. aigne web clear --targets is error, workspace is changed to
+      websiteStructure
+    documentPath: /reference/command-line-reference
   - timestamp: 2025-10-16T11:51:35.584Z
     operation: document_update
     feedback: please re-generate doc by latest datasource. Website Structure's Command Flag is error, is

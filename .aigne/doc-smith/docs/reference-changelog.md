@@ -2,6 +2,89 @@
 
 This document provides a comprehensive record of all updates for AIGNE WebSmith. It includes new features, bug fixes, and other changes, organized by version in reverse chronological order.
 
+## [1.5.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.10...v1.5.0-beta.11) (2025-10-16)
+
+### Bug Fixes
+
+*   Added project validation and dynamic slug handling for publishing ([#137](https://github.com/AIGNE-io/aigne-web-smith/issues/137)).
+*   Enhanced error handling and structure validation ([#133](https://github.com/AIGNE-io/aigne-web-smith/issues/133)).
+*   **ux:** Optimized visible copy for improved user interaction ([#136](https://github.com/AIGNE-io/aigne-web-smith/issues/136)).
+
+## [1.5.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.9...v1.5.0-beta.10) (2025-10-15)
+
+### Features
+
+*   Added an image-generation tool and project cover generation ([#130](https://github.com/AIGNE-io/aigne-web-smith/issues/130)).
+*   Added support for uploading terminal recordings to Media Kit ([#132](https://github.com/AIGNE-io/aigne-web-smith/issues/132)).
+
+### Bug Fixes
+
+*   Added support for user feedback in theme generation ([#129](https://github.com/AIGNE-io/aigne-web-smith/issues/129)).
+
+## [1.5.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.8...v1.5.0-beta.9) (2025-10-15)
+
+### Bug Fixes
+
+*   Added a composing page data workflow to the translate agent ([#127](https://github.com/AIGNE-io/aigne-web-smith/issues/127)).
+
+## [1.5.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.7...v1.5.0-beta.8) (2025-10-14)
+
+### Features
+
+*   Added terminal player components with left/right layouts ([#125](https://github.com/AIGNE-io/aigne-web-smith/issues/125)).
+
+## [1.5.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.6...v1.5.0-beta.7) (2025-10-14)
+
+### Features
+
+*   Added branding support for website publishing ([#123](https://github.com/AIGNE-io/aigne-web-smith/issues/123)).
+
+## [1.5.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.5...v1.5.0-beta.6) (2025-10-13)
+
+### Bug Fixes
+
+*   Disabled git-based update history within git repositories and updated documentation ([#121](https://github.com/AIGNE-io/aigne-web-smith/issues/121)).
+
+## [1.5.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.4...v1.5.0-beta.5) (2025-10-13)
+
+### Bug Fixes
+
+*   Removed git change detection and tuned the hero usage prompt ([#119](https://github.com/AIGNE-io/aigne-web-smith/issues/119)).
+
+## [1.5.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.3...v1.5.0-beta.4) (2025-10-11)
+
+### Bug Fixes
+
+*   **core:** Updated the built-in component library for better matching ([#116](https://github.com/AIGNE-io/aigne-web-smith/issues/116)).
+
+## [1.5.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.2...v1.5.0-beta.3) (2025-10-11)
+
+### Features
+
+*   Added support for clear media file descriptions ([#113](https://github.com/AIGNE-io/aigne-web-smith/issues/113)).
+
+### Bug Fixes
+
+*   **publish:** Enhanced access token retrieval and session check logic ([#114](https://github.com/AIGNE-io/aigne-web-smith/issues/114)).
+
+## [1.5.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.1...v1.5.0-beta.2) (2025-10-11)
+
+### Bug Fixes
+
+*   Implemented a more reliable session check in website publishing ([#111](https://github.com/AIGNE-io/aigne-web-smith/issues/111)).
+*   Persisted project ID and slug after self-hosted publishing ([#110](https://github.com/AIGNE-io/aigne-web-smith/issues/110)).
+
+## [1.5.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta.1...v1.5.0-beta.1) (2025-10-11)
+
+### Features
+
+*   **publish:** Added navigation and locale support for website publishing ([#107](https://github.com/AIGNE-io/aigne-web-smith/issues/107)).
+*   Added support for filtering, describing, and using media files with AI ([#106](https://github.com/AIGNE-io/aigne-web-smith/issues/106)).
+
+### Bug Fixes
+
+*   Tuned update tips and added support for clearing authorizations ([#109](https://github.com/AIGNE-io/aigne-web-smith/issues/109)).
+
 ## [1.4.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.4.1-beta...v1.4.1-beta.1) (2025-10-08)
 
 ### Bug Fixes

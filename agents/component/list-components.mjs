@@ -1,41 +1,30 @@
-import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import chalk from "chalk";
-import _ from "lodash";
-import { parse } from "yaml";
-import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
+import {
+  formatComponentSummary,
+  getComponentLibraryPath,
+  loadComponentLibrary,
+} from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default async function listComponents() {
   const rootDir = path.join(__dirname, "../../");
-  const componentDir = path.join(rootDir, COMPONENTS_DIR);
-  const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
+  const filePath = getComponentLibraryPath(rootDir);
 
   try {
-    // Check if component library file exists
-    if (!fs.existsSync(filePath)) {
+    // Load component library
+    const result = loadComponentLibrary(filePath);
+
+    if (!result) {
       return {
         message: `❌ Component library not found at: ${filePath}\n\n💡 Tip: Run ${chalk.cyan("aigne web component pull <url>")} to fetch the component library first.`,
       };
     }
 
-    // Read and parse the component library file
-    const text = fs.readFileSync(filePath, "utf8");
-    const doc = parse(text);
-
-    const atomicCount = doc.atomic?.length || 0;
-    const compositeCount = doc.composite?.length || 0;
-
-    // Helper function to format component summary
-    const formatSummary = (summary) => {
-      const base = summary ?? "no summary";
-      const normalized = base.replace(/\s+/g, " ").trim();
-      const display = normalized || "no summary";
-      return _.truncate(display, { length: 80 });
-    };
+    const { doc, atomicCount, compositeCount } = result;
 
     // Build the formatted output message
     let message = `📚 Built-in Component Library (${chalk.cyan(filePath)})\n`;
@@ -45,7 +34,7 @@ export default async function listComponents() {
     if (atomicCount > 0) {
       message += `🔹 Atomic Components (${chalk.cyan(atomicCount)}):\n`;
       doc.atomic?.forEach((component) => {
-        message += `  • ${chalk.cyan(component.name)} - ${formatSummary(component.summary)}\n`;
+        message += `  • ${chalk.cyan(component.name)} - ${formatComponentSummary(component.summary)}\n`;
       });
       message += "\n";
     } else {
@@ -56,7 +45,7 @@ export default async function listComponents() {
     if (compositeCount > 0) {
       message += `🧩 Composite Components (${chalk.cyan(compositeCount)}):\n`;
       doc.composite?.forEach((component) => {
-        message += `  • ${chalk.cyan(component.name)} - ${formatSummary(component.summary)}\n`;
+        message += `  • ${chalk.cyan(component.name)} - ${formatComponentSummary(component.summary)}\n`;
       });
       message += "\n";
     } else {

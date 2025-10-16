@@ -1,10 +1,14 @@
 import fs from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import _ from "lodash";
 import { parse } from "yaml";
-import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";
-import { clearDirExcept, resolveToAbsolute } from "../../utils/utils.mjs";
+import {
+  clearDirExcept,
+  formatComponentSummary,
+  getComponentLibraryPath,
+  loadComponentLibrary,
+  resolveToAbsolute,
+} from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,8 +21,8 @@ export default async function pullComponents(input, options = {}) {
   }
 
   const rootDir = path.join(__dirname, "../../");
-  const componentDir = path.join(rootDir, COMPONENTS_DIR);
-  const filePath = path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
+  const filePath = getComponentLibraryPath(rootDir);
+  const componentDir = path.dirname(filePath);
 
   const workspacePath = resolveToAbsolute(tmpDir);
   const websiteStructurePath = path.join(workspacePath, "website-structure.yaml");
@@ -32,15 +36,10 @@ export default async function pullComponents(input, options = {}) {
     // --- 读取旧文件 ---
     let oldAtomicCount = 0;
     let oldCompositeCount = 0;
-    if (fs.existsSync(filePath)) {
-      try {
-        const oldText = fs.readFileSync(filePath, "utf8");
-        const oldDoc = parse(oldText);
-        oldAtomicCount = oldDoc.atomic?.length || 0;
-        oldCompositeCount = oldDoc.composite?.length || 0;
-      } catch {
-        // ignore parse error
-      }
+    const oldResult = loadComponentLibrary(filePath);
+    if (oldResult) {
+      oldAtomicCount = oldResult.atomicCount;
+      oldCompositeCount = oldResult.compositeCount;
     }
 
     // --- 拉取新文件（但不立即保存）---
@@ -53,24 +52,17 @@ export default async function pullComponents(input, options = {}) {
     const atomicCount = doc.atomic?.length || 0;
     const compositeCount = doc.composite?.length || 0;
 
-    const formatSummary = (summary) => {
-      const base = summary ?? "no summary";
-      const normalized = base.replace(/\s+/g, " ").trim();
-      const display = normalized || "no summary";
-      return _.truncate(display, { length: 60 });
-    };
-
     // --- 格式化输出 ---
     let statsMessage = `✅ Pull Components successfully (not saved yet)!
 📊 New Components Statistics:
   🔹 Atomic components: ${atomicCount} (${oldAtomicCount} → ${atomicCount})`;
     doc.atomic?.forEach((a) => {
-      statsMessage += `\n    • ${a.name} - ${formatSummary(a.summary)}`;
+      statsMessage += `\n    • ${a.name} - ${formatComponentSummary(a.summary, 60)}`;
     });
 
     statsMessage += `\n  🧩 Composite components: ${compositeCount} (${oldCompositeCount} → ${compositeCount})`;
     doc.composite?.forEach((c) => {
-      statsMessage += `\n    • ${c.name} - ${formatSummary(c.summary)}`;
+      statsMessage += `\n    • ${c.name} - ${formatComponentSummary(c.summary, 60)}`;
     });
 
     console.info(statsMessage);

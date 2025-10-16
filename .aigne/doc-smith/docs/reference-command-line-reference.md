@@ -35,13 +35,13 @@ Generates a complete website from a user-provided configuration file. This comma
 
 **Usage:**
 ```bash
-aigne web generate --input @path/to/your/config.yaml
+aigne web generate
 ```
 
 **Parameters:**
 
 <x-field-group>
-  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file. This is typically provided via the --input flag."></x-field>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file."></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format @<file>."></x-field>
   <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="If set to true, this forces the regeneration of all pages, even if they already exist."></x-field>
 </x-field-group>
@@ -87,14 +87,14 @@ Translates the content of existing website pages into one or more specified lang
 
 **Usage:**
 ```bash
-aigne web translate --pages "/home" --langs "fr,de,es"
+aigne web translate --pages /home --langs fr de es
 ```
 
 **Parameters:**
 
 <x-field-group>
   <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to translate."></x-field>
-  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="An array of language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="A list of space-separated language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="Specific instructions or feedback to improve the quality of the translation."></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistent translation. Use the format @<file>."></x-field>
 </x-field-group>

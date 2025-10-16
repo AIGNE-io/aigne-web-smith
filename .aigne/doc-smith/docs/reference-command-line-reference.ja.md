@@ -1,17 +1,17 @@
 # コマンドラインリファレンス
 
-このドキュメントは、AIGNE WebSmith コマンドラインインターフェース（CLI）で利用可能なすべてのコマンドに関する包括的なリファレンスを提供します。各エントリには、コマンドの機能の説明、利用可能なエイリアス、およびそのパラメータとオプションの詳細なリストが含まれています。
+このドキュメントは、AIGNE WebSmith コマンドラインインターフェース（CLI）で利用可能なすべてのコマンドの包括的なリファレンスを提供します。各エントリには、コマンドの機能の説明、利用可能なエイリアス、およびそのパラメータとオプションの詳細なリストが含まれています。
 
 すべてのコマンドの一般的な構文は次のとおりです：
 ```bash
 aigne web <command> [subcommand] [options]
 ```
 
-コマンドなしで `aigne web` を実行すると、インタラクティブなチャットセッションが開始されます。
+コマンドなしで `aigne web` を実行すると、対話型のチャットセッションが開始されます。
 
 ## メインコマンド
 
-次の表は、AIGNE WebSmith CLIで利用可能な主要なコマンドの概要です。
+以下の表は、AIGNE WebSmith CLIで利用可能な主要なコマンドの概要です。
 
 | コマンド | 説明 |
 | :--- | :--- |
@@ -23,7 +23,7 @@ aigne web <command> [subcommand] [options]
 | [component](#component) | ウェブサイトの構築に使用されるコンポーネントライブラリを管理します。 |
 | [chat](#chat) | 対話形式でウェブサイトを構築・修正するためのインタラクティブなチャットセッションを開始します（デフォルト）。 |
 | [prefs](#prefs) | WebSmithの動作をカスタマイズするために保存されたユーザー設定を管理します。 |
-| [history](#history) | ウェブサイトに加えられたすべての過去の更新ログを表示します。 |
+| [history](#history) | ウェブサイトに加えられたすべての更新履歴のログを表示します。 |
 | [clear](#clear) | 生成されたファイル、ワークスペースデータ、または設定を削除します。 |
 
 ---
@@ -35,19 +35,19 @@ aigne web <command> [subcommand] [options]
 
 **使用法:**
 ```bash
-aigne web generate --input @path/to/your/config.yaml
+aigne web generate
 ```
 
 **パラメータ:**
 
 <x-field-group>
-  <x-field data-name="config" data-type="String" data-required="true" data-desc="ウェブサイト設定ファイルへのパス。通常、--inputフラグで指定します。"></x-field>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="ウェブサイト設定ファイルへのパス。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="生成されるコンテンツ全体で一貫した用語を保証するための用語集を含むファイル。@<file>の形式を使用します。"></x-field>
-  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="trueに設定すると、ページがすでに存在する場合でも、すべてのページの再生成を強制します。"></x-field>
+  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="trueに設定すると、すでに存在する場合でもすべてのページを強制的に再生成します。"></x-field>
 </x-field-group>
 
 ### publish
-生成されたウェブサイトファイルをPages Kitインスタンスに公開します。このコマンドはバッチアップロードを処理し、ステータス監視を提供します。
+生成されたウェブサイトファイルをPages Kitインスタンスに公開します。このコマンドはバッチアップロードを処理し、ステータスの監視を提供します。
 
 **エイリアス:** `pub`, `p`
 
@@ -59,13 +59,13 @@ aigne web publish --appUrl "https://your-pages-kit-url.com"
 **パラメータ:**
 
 <x-field-group>
-  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="ページの公開先となるターゲットのPages KitウェブサイトのベースURL。"></x-field>
-  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="trueに設定すると、ページと一緒にウェブサイトのナビゲーションデータも公開します。"></x-field>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="ページが公開されるターゲットのPages KitウェブサイトのベースURL。"></x-field>
+  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="trueに設定すると、ページと共にウェブサイトのナビゲーションデータも公開します。"></x-field>
   <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="trueに設定すると、ウェブサイトのロケールと言語設定も公開します。"></x-field>
 </x-field-group>
 
 ### update
-ユーザーのフィードバックに基づいて既存のウェブサイトのコンテンツを更新します。このコマンドは、テキストの修正、新しいセクションの追加、またはページ構造の変更に使用できます。
+ユーザーのフィードバックに基づいて既存のウェブサイトのコンテンツを更新します。このコマンドは、テキストの洗練、新しいセクションの追加、またはページ構造の修正に使用できます。
 
 **エイリアス:** `up`
 
@@ -77,7 +77,7 @@ aigne web update --pages "/about-us" --feedback "Add a new section for team memb
 **パラメータ:**
 
 <x-field-group>
-  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="更新するページパスの配列（例：/about-us, /contact）。"></x-field>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="更新するページのパスの配列（例：/about-us, /contact）。"></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="コンテンツに必要な変更や改善に関する詳細な説明。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="一貫性を保つための用語集を含むファイル。@<file>の形式を使用します。"></x-field>
 </x-field-group>
@@ -87,14 +87,14 @@ aigne web update --pages "/about-us" --feedback "Add a new section for team memb
 
 **使用法:**
 ```bash
-aigne web translate --pages "/home" --langs "fr,de,es"
+aigne web translate --pages /home --langs fr de es
 ```
 
 **パラメータ:**
 
 <x-field-group>
-  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="翻訳するページパスの配列。"></x-field>
-  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="コンテンツを翻訳する言語コードの配列。利用可能なコード：en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar。"></x-field>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="翻訳するページのパスの配列。"></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="コンテンツを翻訳する対象となる、スペースで区切られた言語コードのリスト。利用可能なコード：en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar。"></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="翻訳の品質を向上させるための具体的な指示やフィードバック。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="一貫した翻訳のための用語集を含むファイル。@<file>の形式を使用します。"></x-field>
 </x-field-group>
@@ -149,7 +149,7 @@ aigne web component pull --url "https://your-pages-kit/api/..."
 </x-field-group>
 
 ### chat
-対話形式でウェブサイトの生成、更新、管理を行えるインタラクティブなチャットセッションを開始します。これは、他のコマンドが指定されていない場合の**デフォルトコマンド**です。チャット Agent は他のすべてのコマンドにアクセスできます。
+対話形式でウェブサイトを生成、更新、管理できるインタラクティブなチャットセッションを開始します。これは、他のコマンドが指定されていない場合の**デフォルトコマンド**です。チャット Agent は他のすべてのコマンドにアクセスできます。
 
 **使用法:**
 ```bash
@@ -159,7 +159,7 @@ aigne web
 このコマンドはパラメータを取りません。ターミナルでインタラクティブなプロンプトが開きます。
 
 ### prefs
-WebSmithが時間とともにフィードバックから学習するユーザー設定を管理します。これらの設定は、AIの出力を特定のニーズに合わせて調整するのに役立ちます。
+WebSmithがあなたのフィードバックから時間をかけて学習するユーザー設定を管理します。これらの設定は、AIの出力をあなたの特定のニーズに合わせて調整するのに役立ちます。
 
 **使用法:**
 ```bash
@@ -173,10 +173,10 @@ aigne web prefs --remove --id "pref_abc123"
 **パラメータ:**
 
 <x-field-group>
-  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="保存されているすべてのユーザー設定を整形されたリストで表示します。"></x-field>
-  <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="1つ以上の設定を削除します。--idパラメータが必要、または選択を求めるプロンプトが表示されます。"></x-field>
-  <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="1つ以上の設定のアクティブ状態を切り替えます。--idが必要、またはプロンプトが表示されます。"></x-field>
-  <x-field data-name="--id" data-type="Array" data-required="false" data-desc="管理（削除または切り替え）する設定IDの配列。非インタラクティブに--removeまたは--toggleを使用する場合にのみ必要です。"></x-field>
+  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="保存されているすべてのユーザー設定をフォーマットされたリストで表示します。"></x-field>
+  <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="1つ以上の設定を削除します。--id パラメータが必要か、選択を求めるプロンプトが表示されます。"></x-field>
+  <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="1つ以上の設定のアクティブ状態を切り替えます。--id が必要か、プロンプトが表示されます。"></x-field>
+  <x-field data-name="--id" data-type="Array" data-required="false" data-desc="管理する（削除または切り替える）設定IDの配列。--remove または --toggle を非対話的に使用する場合にのみ必要です。"></x-field>
 </x-field-group>
 
 ### history
@@ -195,7 +195,7 @@ aigne web history view
 このコマンドはパラメータを取りません。
 
 ### clear
-生成されたファイル、ワークスペースデータ、または設定を安全に削除します。これは、新規に開始したり、プロジェクトディレクトリをクリーンアップしたりするのに便利です。
+生成されたファイル、ワークスペースデータ、または設定を安全に削除します。これは、最初からやり直したり、プロジェクトディレクトリをクリーンアップしたりするのに便利です。
 
 **使用法:**
 ```bash
@@ -207,12 +207,12 @@ aigne web clear --targets websiteStructure generatedPages
 
 <x-field-group>
   <x-field data-name="targets" data-type="Array" data-required="false" data-desc="プロンプトなしでクリアする項目の配列。指定可能な値：websiteStructure, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription。"></x-field>
-  <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="ソースページのデフォルトディレクトリパスを上書きします。"></x-field>
-  <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="一時ワークスペースのデフォルトディレクトリパスを上書きします。"></x-field>
-  <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="生成されたページのデフォルトディレクトリパスを上書きします。"></x-field>
-  <x-field data-name="configPath" data-type="String" data-required="false" data-desc="設定ファイルのデフォルトパスを上書きします。"></x-field>
+  <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="ソースページのデフォルトのディレクトリパスを上書きします。"></x-field>
+  <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="一時的なワークスペースのデフォルトのディレクトリパスを上書きします。"></x-field>
+  <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="生成されたページのデフォルトのディレクトリパスを上書きします。"></x-field>
+  <x-field data-name="configPath" data-type="String" data-required="false" data-desc="設定ファイルのデフォルトのパスを上書きします。"></x-field>
 </x-field-group>
 
 ## まとめ
 
-このリファレンスガイドでは、AIGNE WebSmith CLIの主要なコマンドとそのパラメータについて説明しました。より詳細なタスク指向の手順については、[コアタスク](./core-tasks.md)セクションのガイドを参照してください。
+このリファレンスガイドでは、AIGNE WebSmith CLIの主要なコマンドとそのパラメータについて説明します。より詳細なタスク指向の説明については、[コアタスク](./core-tasks.md)セクションのガイドを参照してください。

@@ -7,22 +7,22 @@
 aigne web <command> [subcommand] [options]
 ```
 
-不带任何命令运行 `aigne web` 会启动一个交互式聊天会话。
+运行不带命令的 `aigne web` 会启动一个交互式聊天会话。
 
 ## 主要命令
 
 下表概述了 AIGNE WebSmith CLI 中可用的主要命令。
 
-| 命令 | 描述 |
+| Command | Description |
 | :--- | :--- |
-| [generate](#generate) | 根据配置文件生成一个完整的网站。 |
+| [generate](#generate) | 根据配置文件生成完整的网站。 |
 | [publish](#publish) | 将生成的网站内容发布到 Pages Kit 平台。 |
 | [update](#update) | 根据新的反馈或要求修改现有网站的内容。 |
-| [translate](#translate) | 将现有网站页面翻译成不同的语言。 |
+| [translate](#translate) | 将现有网站页面翻译成不同语言。 |
 | [theme](#theme) | 管理网站的视觉主题，包括生成和应用。 |
 | [component](#component) | 管理用于构建网站的组件库。 |
-| [chat](#chat) | 启动一个交互式聊天会话（默认），以对话方式构建和修改您的网站。 |
-| [prefs](#prefs) | 管理已保存的用户偏好设置，以自定义 WebSmith 的行为。 |
+| [chat](#chat) | 启动交互式聊天会话（默认），以对话方式构建和修改您的网站。 |
+| [prefs](#prefs) | 管理已保存的用户偏好设置，用于自定义 WebSmith 的行为。 |
 | [history](#history) | 显示对网站所做的所有先前更新的日志。 |
 | [clear](#clear) | 移除生成的文件、工作区数据或配置设置。 |
 
@@ -35,15 +35,15 @@ aigne web <command> [subcommand] [options]
 
 **用法：**
 ```bash
-aigne web generate --input @path/to/your/config.yaml
+aigne web generate
 ```
 
 **参数：**
 
 <x-field-group>
-  <x-field data-name="config" data-type="String" data-required="true" data-desc="网站配置文件的路径。通常通过 --input 标志提供。"></x-field>
+  <x-field data-name="config" data-type="String" data-required="true" data-desc="网站配置文件的路径。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="包含术语表的文件，以确保在生成的内容中术语的一致性。使用 @<file> 格式。"></x-field>
-  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="如果设置为 true，则强制重新生成所有页面，即使它们已经存在。"></x-field>
+  <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="如果设置为 true，则强制重新生成所有页面，即使它们已存在。"></x-field>
 </x-field-group>
 
 ### publish
@@ -59,7 +59,7 @@ aigne web publish --appUrl "https://your-pages-kit-url.com"
 **参数：**
 
 <x-field-group>
-  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="目标 Pages Kit 网站的基本 URL，页面将发布到此网站。"></x-field>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="目标 Pages Kit 网站的基本 URL，页面将发布到该网站。"></x-field>
   <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="如果设置为 true，则在发布页面的同时发布网站导航数据。"></x-field>
   <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="如果设置为 true，则发布网站的区域设置和语言设置。"></x-field>
 </x-field-group>
@@ -77,7 +77,7 @@ aigne web update --pages "/about-us" --feedback "Add a new section for team memb
 **参数：**
 
 <x-field-group>
-  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="要更新的页面路径数组（例如，/about-us, /contact）。"></x-field>
+  <x-field data-name="pages" data-type="Array" data-required="false" data-desc="要更新的页面路径数组（例如 /about-us、/contact）。"></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="对内容所需的更改或改进的详细描述。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="包含术语表的文件，以确保一致性。使用 @<file> 格式。"></x-field>
 </x-field-group>
@@ -87,14 +87,14 @@ aigne web update --pages "/about-us" --feedback "Add a new section for team memb
 
 **用法：**
 ```bash
-aigne web translate --pages "/home" --langs "fr,de,es"
+aigne web translate --pages /home --langs fr de es
 ```
 
 **参数：**
 
 <x-field-group>
   <x-field data-name="pages" data-type="Array" data-required="false" data-desc="要翻译的页面路径数组。"></x-field>
-  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="要将内容翻译成的语言代码数组。可用代码包括：en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar。"></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="以空格分隔的语言代码列表，用于将内容翻译成相应语言。可用代码包括：en、zh、zh-TW、ja、fr、de、es、it、ru、ko、pt、ar。"></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="为提高翻译质量提供的具体说明或反馈。"></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="包含术语表的文件，以确保翻译的一致性。使用 @<file> 格式。"></x-field>
 </x-field-group>
@@ -116,7 +116,7 @@ aigne web theme generate --name "MyCustomTheme" --config @path/to/config.yaml
 
 <x-field-group>
   <x-field data-name="name" data-type="String" data-required="false" data-desc="新主题的唯一名称。"></x-field>
-  <x-field data-name="config" data-type="String" data-required="false" data-desc="用于生成主题的网站配置文件的路径。"></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="网站配置文件的路径，主题将基于此文件生成。"></x-field>
 </x-field-group>
 
 **`apply`**
@@ -135,7 +135,7 @@ aigne web theme apply
 #### 子命令
 
 **`pull`**
-从指定 URL 拉取更新的组件库。这确保您的网站使用最新的视觉组件构建。
+从指定 URL 拉取更新的组件库。这能确保您的网站使用最新的视觉组件构建。
 
 **用法：**
 ```bash
@@ -145,7 +145,7 @@ aigne web component pull --url "https://your-pages-kit/api/..."
 **参数：**
 
 <x-field-group>
-  <x-field data-name="url" data-type="String" data-required="true" data-desc="由您的 Pages Kit 实例提供的用于拉取组件库的完整 URL。"></x-field>
+  <x-field data-name="url" data-type="String" data-required="true" data-desc="您的 Pages Kit 实例提供的用于拉取组件库的完整 URL。"></x-field>
 </x-field-group>
 
 ### chat
@@ -166,26 +166,26 @@ aigne web
 # 列出所有已保存的偏好设置
 aigne web prefs --list
 
-# 根据 ID 删除特定的偏好设置
+# 按 ID 移除特定的偏好设置
 aigne web prefs --remove --id "pref_abc123"
 ```
 
 **参数：**
 
 <x-field-group>
-  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="以格式化列表形式显示所有已保存的用户偏好设置。"></x-field>
+  <x-field data-name="--list" data-type="Flag" data-required="false" data-desc="显示所有已保存用户偏好的格式化列表。"></x-field>
   <x-field data-name="--remove" data-type="Flag" data-required="false" data-desc="移除一个或多个偏好设置。需要 --id 参数，否则将提示进行选择。"></x-field>
   <x-field data-name="--toggle" data-type="Flag" data-required="false" data-desc="切换一个或多个偏好设置的激活状态。需要 --id 参数，否则将提示进行选择。"></x-field>
   <x-field data-name="--id" data-type="Array" data-required="false" data-desc="要管理的偏好设置 ID 数组（移除或切换）。仅在非交互式使用 --remove 或 --toggle 时需要。"></x-field>
 </x-field-group>
 
 ### history
-提供您网站内容和结构更新历史的视图。
+提供网站内容和结构的更新历史视图。
 
 #### 子命令
 
 **`view`** (别名: `log`, `list`)
-以紧凑的日志样式格式显示更新历史，类似于 `git log`。每个条目包括一个唯一的哈希值、更新日期、执行的操作以及提供的反馈。
+以紧凑的日志样式格式显示更新历史，类似于 `git log`。每个条目包括唯一的哈希值、更新日期、执行的操作以及提供的反馈。
 
 **用法：**
 ```bash
@@ -195,7 +195,7 @@ aigne web history view
 此命令不接受任何参数。
 
 ### clear
-安全地移除生成的文件、工作区数据或配置设置。这对于重新开始或清理项目目录非常有用。
+安全地移除生成的文件、工作区数据或配置设置。这对于重新开始或清理项目目录很有用。
 
 **用法：**
 ```bash
@@ -206,7 +206,7 @@ aigne web clear --targets websiteStructure generatedPages
 **参数：**
 
 <x-field-group>
-  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="无需提示即可清除的项目数组。可能的值包括：websiteStructure, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription。"></x-field>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="无需提示即可清除的项目数组。可能的值包括：websiteStructure、generatedPages、websiteConfig、deploymentConfig、authTokens、mediaDescription。"></x-field>
   <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="覆盖源页面的默认目录路径。"></x-field>
   <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="覆盖临时工作区的默认目录路径。"></x-field>
   <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="覆盖生成页面的默认目录路径。"></x-field>

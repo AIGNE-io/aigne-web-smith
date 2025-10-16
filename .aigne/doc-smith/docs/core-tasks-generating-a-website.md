@@ -71,13 +71,13 @@ Below is a detailed breakdown of the key properties within the `config.yaml` fil
     <x-field-desc markdown>A URL or local path to your project's logo.</x-field-desc>
   </x-field>
   <x-field data-name="pagePurpose" data-type="array" data-required="true">
-    <x-field-desc markdown>An array of strings defining the website's primary goals. Examples: `productDocumentation`, `marketingLandingPage`, `blog`, `apiReference`.</x-field-desc>
+    <x-field-desc markdown>An array of strings defining the website's primary goals. Examples: `landingPage`, `ecommerce`, `portfolio`, `corporate`, `blog`, `saas`, `nonprofit`, `education`, `mixedPurpose`.</x-field-desc>
   </x-field>
   <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
-    <x-field-desc markdown>An array of strings identifying the primary audience. Examples: `developers`, `businessUsers`, `endUsers`, `dataScientists`.</x-field-desc>
+    <x-field-desc markdown>An array of strings identifying the primary audience. Examples: `customers`, `businessOwners`, `marketers`, `designers`, `developers`, `investors`, `jobSeekers`, `students`, `generalPublic`.</x-field-desc>
   </x-field>
   <x-field data-name="websiteScale" data-type="string" data-required="true">
-    <x-field-desc markdown>Defines the desired size and complexity of the website. Options include `small` (a few key pages), `standard` (a comprehensive site), and `large` (an extensive site with deep content).</x-field-desc>
+    <x-field-desc markdown>Defines the desired size and complexity of the website. Options include `singlePage`, `minimal`, `standard`, `comprehensive`, and `aiDecide`.</x-field-desc>
   </x-field>
   <x-field data-name="rules" data-type="string" data-required="false">
     <x-field-desc markdown>A field for any custom rules or specific instructions for the AI to follow during generation, such as tone of voice, content to exclude, or specific points to emphasize.</x-field-desc>
@@ -114,33 +114,39 @@ projectSlug: aigne-websmith
 
 # Purpose: What's the main outcome you want readers to achieve?
 # Available options (uncomment and modify as needed):
-#   productDocumentation - Product Documentation: In-depth guides, tutorials, and API references.
-#   marketingLandingPage - Marketing Landing Page: Showcase products and convert visitors.
-#   companyIntroduction - Company Introduction: Present your company's vision and team.
-#   blog              - Blog: Articles, updates, and industry insights.
-#   caseStudies       - Case Studies: Customer success stories and use cases.
-#   knowledgeBase     - Knowledge Base: FAQs and troubleshooting articles.
-#   apiReference      - API Reference: Detailed documentation for your API.
-#   mixedPurpose      - Mixed Purpose: A combination of multiple goals.
+#   landingPage     - Landing page / Homepage: Convert visitors into users or customers
+#   ecommerce       - E-commerce / Online store: Sell products or services online
+#   portfolio       - Portfolio / Showcase: Display creative work, projects, or achievements
+#   corporate       - Corporate / Business: Professional business website with company information
+#   blog            - Blog / Content site: Share articles, news, and regular content updates
+#   saas            - SaaS / Software product: Promote and onboard users to software services
+#   nonprofit       - Non-profit / Community: Promote causes, accept donations, engage volunteers
+#   education       - Educational / Learning: Provide courses, tutorials, or educational content
+#   mixedPurpose    - Multi-purpose website: Comprehensive website covering multiple needs
 pagePurpose:
-  - productDocumentation
+  - saas
 
 # Target Audience: Who will be reading this most often?
 # Available options (uncomment and modify as needed):
-#   developers        - Developers: Technical users who build with your product.
-#   businessUsers     - Business Users: Non-technical users focused on business value.
-#   endUsers          - End Users: General audience using the final product.
-#   dataScientists    - Data Scientists: Users focused on data and analytics.
-#   investors         - Investors: Stakeholders interested in company potential.
-#   jobSeekers        - Job Seekers: Potential employees exploring your company.
+#   customers        - Customers / End users: People who buy or use your products/services
+#   businessOwners   - Business owners / Entrepreneurs: People running businesses looking for solutions
+#   marketers        - Marketing teams: People promoting products or managing campaigns
+#   designers        - Designers / Creative professionals: People focused on visual design and user experience
+#   developers       - Developers / Technical users: People building or integrating technical solutions
+#   investors        - Investors / Stakeholders: People evaluating business potential and growth
+#   jobSeekers       - Job seekers / Potential employees: People looking for career opportunities
+#   students         - Students / Learners: People seeking educational content or resources
+#   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
 targetAudienceTypes:
   - developers
 
 # Website Scale: How many pages should your website have?
 # Available options (uncomment and modify as needed):
-#   small                - Small: A concise website with 3-5 key pages.
-#   standard             - Standard: A comprehensive site with 5-10 pages.
-#   large                - Large: An extensive site with over 10 pages.
+#   singlePage      - Single Page (only 1 page): All content consolidated into 1 page
+#   minimal         - Minimal (2-6 pages): Core pages only - quick to launch
+#   standard        - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
+#   comprehensive   - Comprehensive (12+ pages): Full-featured website with detailed sections
+#   aiDecide        - Let AI decide: Analyze project complexity and suggest appropriate scale
 websiteScale: standard
 
 # Custom Rules: Define specific page generation rules and requirements

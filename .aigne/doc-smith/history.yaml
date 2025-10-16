@@ -1,4 +1,29 @@
 entries:
+  - timestamp: 2025-10-16T14:53:21.615Z
+    operation: document_update
+    feedback: Do not use the --input parameter with the aigne web generate command. The parameter list
+      for the `publish` subcommand is incomplete. The `langs` parameter value for the `translate`
+      subcommand is incorrect; it should be space-separated and not enclosed in quotes. The `theme
+      apply` subcommand is missing parameters.
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T14:34:33.745Z
+    operation: document_update
+    feedback: The list of targets that can be cleared is incomplete.
+    documentPath: /core-tasks/clearing-generated-content
+  - timestamp: 2025-10-16T14:30:01.199Z
+    operation: document_update
+    feedback: In the History output, the operation type should be either page_update or structure_update.
+    documentPath: /core-tasks/viewing-update-history
+  - timestamp: 2025-10-16T14:15:32.467Z
+    operation: document_update
+    feedback: The optional values for `pagePurpose`, `targetAudienceTypes`, and `websiteScale` in the
+      configuration options and `config.yaml` example require updating.
+    documentPath: /core-tasks/generating-a-website
+  - timestamp: 2025-10-16T14:11:46.414Z
+    operation: document_update
+    feedback: "Step 5: View Your Generated Website You must publish the website before viewing it in a
+      browser."
+    documentPath: /getting-started/your-first-website
   - timestamp: 2025-10-16T13:31:43.607Z
     operation: document_update
     feedback: aigne generate -> aigne web generate, aigne update -> aigne web update (user must provider

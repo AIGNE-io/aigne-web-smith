@@ -101,11 +101,9 @@ You will be prompted to approve the plan or request changes. For this first webs
 
 ## Step 5: View Your Generated Website
 
-Once you approve the plan, the AI will proceed to write the content and generate the template for each page. The process may take a few minutes, depending on the number of pages.
+Once you approve the plan, the AI will write the content and generate the necessary template files for each page. The process may take a few minutes, depending on the number of pages.
 
-When generation is complete, the final files will be saved in the directory you specified during the setup (e.g., `aigne/web-smith/pages`).
-
-To view your website, navigate to this directory on your computer and open the `.html` or `.md` files in your web browser.
+The generated files, which are saved in the directory you specified (e.g., `aigne/web-smith/pages`), are templates used for publishing. To view the final, rendered website as it will appear online, you must first publish it. This step converts the templates into a live website.
 
 ## Summary
 

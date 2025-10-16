@@ -390,31 +390,36 @@ export default async function publishWebsite(
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
-  const preflightProjectData = {
-    id: projectId,
-    name: projectName || "Untitled Project",
-    description: projectDesc || "",
-    icon: projectLogo,
-    slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
-  };
+  // 向前兼容
+  try {
+    const preflightProjectData = {
+      id: projectId,
+      name: projectName || "Untitled Project",
+      description: projectDesc || "",
+      icon: projectLogo,
+      slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
+    };
 
-  const projectValidationResult = await validateProjectFn({
-    appUrl,
-    mountPoint,
-    accessToken,
-    projectData: preflightProjectData,
-  });
+    const projectValidationResult = await validateProjectFn({
+      appUrl,
+      mountPoint,
+      accessToken,
+      projectData: preflightProjectData,
+    });
 
-  if (projectValidationResult?.projectId) {
-    projectId = projectValidationResult.projectId;
-  }
+    if (projectValidationResult?.projectId) {
+      projectId = projectValidationResult.projectId;
+    }
 
-  if (projectValidationResult?.projectSlug && projectValidationResult.slugChanged) {
-    console.log(
-      `\n${chalk.yellow("🤖 Project slug adjusted before upload due to conflict:")} ${chalk.cyan(projectValidationResult.projectSlug)}`,
-    );
+    if (projectValidationResult?.projectSlug && projectValidationResult.slugChanged) {
+      console.log(
+        `\n${chalk.yellow("🤖 Project slug adjusted before upload due to conflict:")} ${chalk.cyan(projectValidationResult.projectSlug)}`,
+      );
 
-    projectSlug = projectValidationResult.projectSlug || projectSlug;
+      projectSlug = projectValidationResult.projectSlug || projectSlug;
+    }
+  } catch (_error) {
+    // ignore error
   }
 
   const projectSlugForLinks = projectSlug || projectId;

@@ -49,7 +49,7 @@ export default async function init(
   }
 
   console.log("🚀 Welcome to AIGNE WebSmith!");
-  console.log("Let's create your website configuration.\n");
+  console.log("We'll now guide you through creating your website configuration.\n");
 
   // Collect user information
   const input = {};
@@ -89,7 +89,7 @@ export default async function init(
           return "Please select at least one priority.";
         }
         if (input.length > 2) {
-          return "Please select maximum 2 priorities.";
+          return "Please select a maximum of 2 priorities.";
         }
         return true;
       },
@@ -196,13 +196,13 @@ export default async function init(
   input.pagesDir = pagesDirInput.trim() || `${outputPath}/pages`;
 
   // 7. Source code paths
-  console.log("\n📁 [7/8]: DataSource Paths");
+  console.log("\n📁 [7/8]: Data Source Paths");
   console.log(
-    "Enter paths to include as dataSource for website generation (e.g., ./docs, ./content)",
+    "Enter paths to include as data sources for website generation (e.g., ./docs, ./content)",
   );
-  console.log("💡 You can use glob patterns like docs/**/*.md");
+  console.log("💡 You can use glob patterns like `docs/**/*.md`.");
   console.log(
-    "💡 If no paths provided, we will suggest source paths based on the working directory",
+    "💡 If no paths are provided, source paths will be suggested based on the working directory.",
   );
 
   const sourcePaths = [];
@@ -307,7 +307,7 @@ export default async function init(
       input.sourcesPath = finalSelectedFiles;
     } else {
       console.log(
-        "⚠️ Seems we've got an empty directory, will use the entire directory as datasource.",
+        "⚠️ The directory appears to be empty. The entire directory will be used as a data source.",
       );
       input.sourcesPath = ["./"];
     }
@@ -352,7 +352,7 @@ export default async function init(
     console.log(chalk.cyan("----"));
     console.log(`🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
     console.log("💡 You can edit the configuration file anytime to modify settings.");
-    console.log(`🚀 Run ${chalk.cyan("'aigne web generate'")} to start website generation!\n`);
+    console.log(`🚀 Run ${chalk.cyan("`aigne web generate`")} to start website generation!\n`);
 
     return {};
   } catch (error) {
@@ -384,7 +384,7 @@ export function generateYAML(input) {
     targetAudienceTypes: input.targetAudienceTypes || [],
     websiteScale: input.websiteScale || "",
 
-    // Custom rules and target audience (empty for user to fill)
+    // Custom rules and target audience (initially empty, user can fill)
     rules: input.rules || "",
 
     // Language settings
@@ -395,7 +395,7 @@ export function generateYAML(input) {
     pagesDir: input.pagesDir || "./aigne/web-smith/pages",
     sourcesPath: input.sourcesPath || [],
 
-    // Default datasources to include in every page
+    // Default data sources to include in every page
     defaultDatasources: input.defaultDatasources || ["./media.md"],
 
     media: {
@@ -508,7 +508,7 @@ export function generateYAML(input) {
   const defaultDatasourcesSection = yamlStringify({
     defaultDatasources: config.defaultDatasources,
   }).trim();
-  yaml += `${defaultDatasourcesSection.replace(/^defaultDatasources:/, "defaultDatasources:  # Default datasources included in every page")}\n`;
+  yaml += `${defaultDatasourcesSection.replace(/^defaultDatasources:/, "defaultDatasources:  # Default data sources included in every page")}\n`;
 
   // Image filtering settings
   const mediaInfoSection = yamlStringify({

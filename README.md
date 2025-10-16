@@ -1,37 +1,37 @@
 # AIGNE WebSmith
 
-AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of professional, SEO-optimized websites with complete content, templates, and direct publishing to Pages Kit.
+AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of professional, SEO-optimized websites with complete content and templates, and enables direct publishing to Pages Kit.
 
 ## ✨ Features
 
 ### 🤖 AI-Powered Website Generation
 
-- **Intelligent Structure Planning**: Automatically analyze requirements and generate optimal website architecture
-- **Batch Content Generation**: Generate detailed content for all pages with one command
-- **Professional SEO Optimization**: Built-in SEO best practices and optimization recommendations
-- **Multi-language Support**: Supports Chinese and English content generation and localization
+- **Intelligent Structure Planning**: Automatically analyzes requirements to generate an optimal website architecture.
+- **Batch Content Generation**: Generates detailed content for all pages with a single command.
+- **Professional SEO Optimization**: Includes built-in SEO best practices and provides optimization recommendations.
+- **Multi-language Support**: Supports both Chinese and English content generation and localization.
 
 ### 🎨 Professional Template System
 
-- **Pages Kit Integration**: Direct generation of Pages Kit-compatible YAML templates
-- **Component-based Design**: Supports modern components like Hero, CTA, FAQ, Content Cards
-- **Built-in Component Library**: Integrated component library with validation and management
-- **Responsive Layout**: Automatic adaptation for mobile and desktop displays
-- **Visual Editing**: Generated templates support visual editing and adjustments
+- **Pages Kit Integration**: Directly generates Pages Kit-compatible YAML templates.
+- **Component-based Design**: Supports modern components like Hero, CTA, FAQ, and Content Cards.
+- **Built-in Component Library**: Includes an integrated component library with validation and management.
+- **Responsive Layout**: Automatically adapts for mobile and desktop displays.
+- **Visual Editing**: Generated templates support visual editing.
 
 ### 📊 Quality Assurance
 
-- **Structure Evaluation System**: Automatic assessment of website architecture and user experience
-- **Content Quality Checks**: Ensure accuracy and consistency of content
-- **Complete Test Coverage**: 32+ test cases covering core functionality
-- **Code Quality Assurance**: Code checking and formatting using Biome
+- **Structure Evaluation System**: Automatically assesses website architecture and user experience.
+- **Content Quality Checks**: Ensures the accuracy and consistency of content.
+- **Complete Test Coverage**: Includes over 32 test cases covering core functionality.
+- **Code Quality Assurance**: Code is checked and formatted using Biome.
 
 ### 🚀 One-Click Publishing
 
-- **Direct Publishing**: One-click publishing to Pages Kit platform
-- **Batch Upload**: Supports batch publishing of multi-page websites
-- **Status Monitoring**: Detailed publishing status and error reporting
-- **Access Links**: Get accessible website links immediately after successful publishing
+- **Direct Publishing**: Enables one-click publishing to Pages Kit.
+- **Batch Upload**: Supports batch publishing of multi-page websites.
+- **Status Monitoring**: Provides detailed publishing status and error reporting.
+- **Access Links**: Get public links to your website immediately after successful publishing.
 
 ## 🏗️ Architecture
 
@@ -54,13 +54,13 @@ WebSmith is built on the AIGNE framework using an Agent-based architecture:
 
 ### Core Components
 
-- **🧠 Structure Planning**: Intelligently analyze requirements and generate website architecture
-- **📝 Content Generation**: Batch generate high-quality page content
-- **🎨 Template Generation**: Create Pages Kit compatible templates
-- **🧩 Component Library**: Built-in component library management and validation
-- **📊 Quality Evaluation**: Evaluate website quality and user experience
-- **⚡ Batch Processing**: Efficient batch processing system
-- **🚀 Pages Kit Upload**: One-click publishing to Pages Kit
+- **🧠 Structure Planning**: Intelligently analyzes requirements to generate the website architecture.
+- **📝 Content Generation**: Generates high-quality page content in batches.
+- **🎨 Template Generation**: Creates Pages Kit-compatible templates.
+- **🧩 Component Library**: Manages and validates the built-in component library.
+- **📊 Quality Evaluation**: Evaluates website quality and user experience.
+- **⚡ Batch Processing**: Provides an efficient system for batch processing.
+- **🚀 Pages Kit Upload**: Enables one-click publishing to Pages Kit.
 
 ## 🚀 Quick Start
 
@@ -93,7 +93,7 @@ aigne web publish
 #### 3. Additional Commands
 
 ```bash
-# Translate existing pages to different language
+# Translate existing pages into different languages
 aigne web translate
 
 # Update existing website content
@@ -158,7 +158,7 @@ Test coverage includes:
 
 ## 🔧 Development
 
-### Setup Development Environment
+### Development Environment Setup
 
 ```bash
 # Install dependencies
@@ -176,18 +176,18 @@ bun test --watch
 
 ### Adding New Components
 
-1. **Create Agent**: Add new `.yaml` agent in appropriate `agents/` subdirectory
-2. **Add Prompt**: Create corresponding prompt in `prompts/`
-3. **Update Config**: Add agent to `aigne.yaml`
-4. **Write Tests**: Add tests using Bun test framework
-5. **Update Docs**: Document the new functionality
+1.  **Create Agent**: Add a new `.yaml` agent to the appropriate subdirectory within `agents/`.
+2.  **Add Prompt**: Create a corresponding prompt in the `prompts/` directory.
+3.  **Update Config**: Add the new agent to `aigne.yaml`.
+4.  **Write Tests**: Add tests using the Bun test framework.
+5.  **Update Docs**: Document the new functionality.
 
 ### Code Quality
 
-- **Linting**: Uses Biome for code quality and formatting
-- **Testing**: Bun test runner with comprehensive coverage
-- **Type Safety**: JSDoc annotations for better development experience
-- **Git Hooks**: Pre-commit hooks ensure code quality
+- **Linting**: Uses Biome for code quality and formatting.
+- **Testing**: Bun test runner with comprehensive coverage.
+- **Type Safety**: JSDoc annotations are used to improve type safety and the development experience.
+- **Git Hooks**: Pre-commit hooks ensure code quality.
 
 ## 📚 API Reference
 
@@ -204,101 +204,101 @@ Interactive chat interface for website generation and management.
 
 #### generate (aliases: gen, g)
 
-Generate a complete website from user requirements.
+Generates a complete website from user requirements.
 
 **Parameters:**
 
-- `config` (required): Configuration file path (automatically provided via `--input @file.yaml`)
-- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
-- `forceRegenerate` (optional): Force regenerate all pages (boolean)
+- `config` (required): Configuration file path (automatically provided via `--input @file.yaml`).
+- `glossary` (optional): A glossary of terms for consistent terminology. Use `@<file>` to read from a file.
+- `forceRegenerate` (optional): Force regeneration of all pages (boolean).
 
 #### publish (aliases: pub, p)
 
-Publish generated website to Pages Kit.
+Publishes the generated website to Pages Kit.
 
 **Parameters:**
 
-- `appUrl` (optional): Target website URL where pages will be published
-- `with-navigations` (optional): Publish to website with navigations (boolean)
-- `with-locales` (optional): Publish to website with locales (boolean)
+- `appUrl` (optional): The target website URL where pages will be published.
+- `with-navigations` (optional): Publish the website with navigations (boolean).
+- `with-locales` (optional): Publish the website with locales (boolean).
 
 #### translate
 
-Translate existing website content to different languages.
+Translates existing website content into different languages.
 
 **Parameters:**
 
-- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
-- `pages` (optional): Array of page paths to translate
-- `langs` (optional): Array of language codes to translate to (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)
-- `feedback` (optional): Feedback for translation improvement
+- `glossary` (optional): A glossary of terms for consistent terminology. Use `@<file>` to read from a file.
+- `pages` (optional): An array of page paths to translate.
+- `langs` (optional): An array of language codes to translate to. Available languages: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar.
+- `feedback` (optional): Feedback for improving translations.
 
 #### update (alias: up)
 
-Update existing website content with new requirements.
+Updates existing website content based on new requirements.
 
 **Parameters:**
 
-- `glossary` (optional): Glossary of terms for consistent terminology, use `@<file>` to read from a file
-- `pages` (optional): Array of page paths to update
-- `feedback` (optional): Feedback for content improvement
+- `glossary` (optional): A glossary of terms for consistent terminology. Use `@<file>` to read from a file.
+- `pages` (optional): An array of page paths to update.
+- `feedback` (optional): Feedback for content improvement.
 
 #### theme
 
-Manage website visual themes.
+Manages website visual themes.
 
 **Subcommands:**
-- `generate` (alias: gen): Generate theme based on website design
-  - `name` (optional): Name for your theme
-  - `config` (optional): Configuration file location
-- `apply`: Apply theme to website
+- `generate` (alias: gen): Generates a theme based on the website design.
+  - `name` (optional): A name for your theme.
+  - `config` (optional): The configuration file location.
+- `apply`: Applies a theme to the website.
 
 #### component (alias: comp)
 
-Manage component library.
+Manages the component library.
 
 **Subcommands:**
-- `pull`: Pull components from URL
-  - `url` (required): Target pull component URL
+- `pull`: Pulls components from a URL.
+  - `url` (required): The URL to pull components from.
 
 #### prefs
 
-Manage user preferences learned from feedback.
+Manages user preferences learned from feedback.
 
 **Parameters:**
-- `--list`: List all preferences
-- `--remove`: Remove preferences
-- `--toggle`: Toggle preferences active status
-- `--id`: Array of preference IDs to manage
+- `--list`: Lists all preferences.
+- `--remove`: Removes preferences.
+- `--toggle`: Toggles the active status of preferences.
+- `--id`: An array of preference IDs to manage.
 
 #### history
 
-View update history.
+Views the update history.
 
 **Subcommands:**
-- `view` (aliases: log, list): View update history in compact format
+- `view` (aliases: log, list): Views the update history in a compact format.
 
 #### clear
 
-Clear workspace, generated pages, or configuration.
+Clears the workspace, generated pages, or configuration.
 
 **Parameters:**
-- `targets` (optional): Array of items to clear without prompting
-- `pagesDir` (optional): Override the pages directory root
-- `tmpDir` (optional): Override the workspace directory
-- `outputDir` (optional): Override the generated pages directory
-- `configPath` (optional): Override the configuration file path
+- `targets` (optional): An array of items to clear without prompting.
+- `pagesDir` (optional): Overrides the pages directory root.
+- `tmpDir` (optional): Overrides the workspace directory.
+- `outputDir` (optional): Overrides the generated pages directory.
+- `configPath` (optional): Overrides the configuration file path.
 
 ### MCP Server
 
 WebSmith provides MCP server endpoints for integration:
 
-- `get-pages-structure`: Retrieve current website structure
-- `get-page-detail`: Get detailed content for specific page
-- `pages-search`: Search within website content
-- `analyze-content-relevance`: Analyze content relevance
-- `analyze-pages-relevance`: Analyze pages relevance
-- `read-page-content`: Read page content
+- `get-pages-structure`: Retrieves the current website structure.
+- `get-page-detail`: Gets the detailed content for a specific page.
+- `pages-search`: Searches within the website content.
+- `analyze-content-relevance`: Analyzes content relevance.
+- `analyze-pages-relevance`: Analyzes the relevance of pages.
+- `read-page-content`: Reads page content.
 
 Start MCP server:
 
@@ -310,10 +310,10 @@ aigne web serve-mcp
 
 WebSmith is optimized for production use:
 
-- **Fast Generation**: Parallel agent processing
-- **Efficient Templates**: Optimized Pages Kit integration
-- **Memory Management**: Streaming content processing
-- **Error Recovery**: Robust error handling and recovery
+- **Fast Generation**: Parallel agent processing.
+- **Efficient Templates**: Optimized Pages Kit integration.
+- **Memory Management**: Streaming content processing.
+- **Error Recovery**: Robust error handling and recovery.
 
 Typical performance metrics:
 
@@ -327,11 +327,11 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ### Development Process
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes with tests
-4. Run quality checks: `npm run lint`
-5. Submit a pull request
+1. Fork the repository.
+2. Create a feature branch.
+3. Implement your changes and include tests.
+4. Run quality checks: `npm run lint`.
+5. Submit a pull request.
 
 ## 📄 License
 

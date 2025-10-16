@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-16T09:19:17.694Z
+  updateAt: 2025-10-16T11:45:56.404Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -7494,7 +7494,7 @@ composite:
             paddingY: large
             gap: large
             maxWidth: full
-            paddingX: normal
+            paddingX: none
             alignContent: center
       sectionIds:
         - mot3g0o9qv1y52yd

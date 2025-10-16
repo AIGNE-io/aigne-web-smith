@@ -182,7 +182,6 @@ export default async function chooseContents(input = {}, options = {}) {
       const choices = Object.entries(targetsDefinition)
         .filter(([value, def]) => Boolean(def.path) && availableTargets[value])
         .map(([value, def]) => {
-          console.log(value, def);
           return {
             name: def.label,
             value,
@@ -194,8 +193,6 @@ export default async function chooseContents(input = {}, options = {}) {
             }),
           };
         });
-
-      console.log(choices, targetsDefinition);
 
       if (choices.length === 0) {
         return {

@@ -1,7 +1,4 @@
-import pkg from "lodash";
-
-const { isEqual } = pkg;
-
+import isEqual from "lodash/isEqual.js";
 import {
   getMovePageInputJsonSchema,
   getMovePageOutputJsonSchema,

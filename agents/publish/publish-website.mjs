@@ -599,14 +599,18 @@ export default async function publishWebsite(
     }
 
     let remoteResults = [];
+    let localProjectLogo = "";
 
     // handle project logo
     if (projectLogo) {
       // download project logo to temp dir
       if (isHttp(projectLogo)) {
-        let tempFilePath = join(pagesDir, slugify(basename(projectLogo)));
+        // remove query string to get file name
+        const logoName = new URL(projectLogo).pathname.split("/").pop();
 
-        let ext = extname(projectLogo);
+        let tempFilePath = join(pagesDir, logoName);
+
+        let ext = extname(logoName);
 
         await fetch(projectLogo).then(async (response) => {
           const blob = await response.blob();
@@ -630,7 +634,9 @@ export default async function publishWebsite(
         });
 
         // to relative path
-        projectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+        localProjectLogo = relative(join(process.cwd(), WEB_SMITH_DIR), tempFilePath);
+      } else {
+        localProjectLogo = projectLogo;
       }
     }
 
@@ -640,10 +646,10 @@ export default async function publishWebsite(
         ![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(new URL(appUrl).origin)
       ) {
         // update project logo to blocklet server
-        if (projectLogo) {
+        if (localProjectLogo) {
           // check projectLogo is exist
           try {
-            const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, projectLogo);
+            const projectLogoPath = resolve(process.cwd(), WEB_SMITH_DIR, localProjectLogo);
 
             const projectLogoStat = await stat(projectLogoPath);
 
@@ -701,10 +707,10 @@ export default async function publishWebsite(
       }
 
       // upload project logo to media kit
-      if (projectLogo) {
+      if (localProjectLogo) {
         const { results: uploadResults } = await uploadFiles({
           appUrl,
-          filePaths: [resolve(process.cwd(), WEB_SMITH_DIR, projectLogo)],
+          filePaths: [resolve(process.cwd(), WEB_SMITH_DIR, localProjectLogo)],
           accessToken,
           concurrency: 1,
         });

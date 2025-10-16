@@ -6,12 +6,14 @@ import {
   existsSync,
   mkdirSync,
   readdirSync,
+  readFileSync,
   rmSync,
   statSync,
 } from "node:fs";
 
 import fs from "node:fs/promises";
 import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
+import { glob } from "glob";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
@@ -29,6 +31,7 @@ import {
   PAGE_STYLES,
   PAGES_OUTPUT_DIR,
   PAGES_TMP_DIR,
+  RESOLVE_FILE_PROTOCOL,
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
@@ -1763,3 +1766,54 @@ export const fmtPath = (p) => (Array.isArray(p) ? p.join(" › ") : String(p ?? 
 +  * @returns {boolean} True if the URL starts with http:// or https://
 +  */
 export const isHttp = (url) => url.startsWith("http://") || url.startsWith("https://");
+
+export function findFilePath(filePath, workingDir) {
+  const pattern = `**/${filePath}`;
+  const matches = glob.sync(pattern, {
+    cwd: workingDir,
+    absolute: true,
+    nodir: true,
+  });
+
+  if (matches.length === 0) {
+    return null;
+  }
+
+  const foundPath = matches[0];
+  return foundPath;
+}
+
+export function tryReadFileContent(filePath, workingDir) {
+  const supportedExts = [".json", ".yaml", ".yml", ".txt", ".md"];
+  const ext = filePath.slice(filePath.lastIndexOf(".")).toLowerCase();
+
+  if (!supportedExts.includes(ext)) {
+    return null;
+  }
+
+  try {
+    const foundPath = findFilePath(filePath, workingDir);
+    const content = readFileSync(foundPath, "utf8");
+
+    return content;
+  } catch (err) {
+    /* c8 ignore next */
+    logError("❌ [tryReadFileContent] Failed to read file:", { filePath, error: err.message });
+    return null;
+  }
+}
+
+export function resolveValue({ key: _key, value, workingDir }) {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  // Handle file references: @file.json
+  if (value.startsWith(RESOLVE_FILE_PROTOCOL)) {
+    const filePath = value.slice(1);
+    const content = tryReadFileContent(filePath, workingDir);
+    return content !== null ? content : value;
+  }
+
+  return value;
+}

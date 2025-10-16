@@ -69,26 +69,6 @@
   - Triadic Split: Modified triadic with one color split into adjacent hues
   - Compound Harmony: Colors that are both analogous and complementary
 
-## Palette Structure
-
-- Primary Color: Dominant brand color (60-70% usage) for primary actions, navigation, and key brand elements
-- Secondary Color: Supporting accent color (15-25% usage) for highlights, secondary actions, and visual interest
-- Semantic Colors:
-  - Success: Green-based (#4CAF50, #2E7D32) for positive feedback
-  - Error: Red-based (#F44336, #D32F2F) for alerts and destructive actions
-  - Info: Blue-based (#2196F3, #1976D2) for neutral information
-  - Warning: Orange/yellow-based (#FF9800, #F57C00) for cautions
-- Background & Surface Colors:
-  - Background: Light mode (#FFFFFF, #FAFAFA), Dark mode (#121212, #0D1117)
-  - Surface: Light mode (#FFFFFF, #F5F5F5), Dark mode (#1E1E1E, #2A2A2A)
-
-## Primary-Secondary Relationships
-
-- Hue Difference: Secondary should be 20-30% different in hue from primary
-- Saturation Level: Maintain 60-80% saturation for optimal visual impact
-- Usage Ratio: Secondary used for 15-25% of UI elements to maintain primary dominance
-- Temperature Matching: Ensure secondary complements primary's emotional tone (warm with warm, cool with cool)
-- Context Testing: Test secondary color in buttons, links, highlights, and accent elements
 
 ## Quality Guidelines
 

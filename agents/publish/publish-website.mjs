@@ -15,6 +15,7 @@ import { getBlockletMetaDid, getComponentMountPoint } from "../../utils/blocklet
 import {
   BUNDLE_FILENAME,
   CLOUD_SERVICE_URL_PROD,
+  CLOUD_SERVICE_URL_STAGING,
   DEFAULT_PROJECT_ID,
   DEFAULT_PROJECT_SLUG,
   LINK_PROTOCOL,
@@ -161,6 +162,7 @@ export default async function publishWebsite(
     appUrl,
     projectId,
     projectName,
+    projectCover,
     projectDesc,
     projectLogo,
     projectSlug,
@@ -233,14 +235,6 @@ export default async function publishWebsite(
     const choice = await options.prompts.select({
       message: "Select platform to publish your pages:",
       choices: [
-        {
-          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
-          value: "default",
-        },
-        {
-          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
-          value: "custom",
-        },
         ...(sessionId
           ? [
               {
@@ -249,6 +243,14 @@ export default async function publishWebsite(
               },
             ]
           : []),
+        {
+          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          value: "default",
+        },
+        {
+          name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
+          value: "custom",
+        },
         {
           name: `${chalk.blue("New dedicated website")} - ${chalk.yellow("Paid service.")} Create a new website with custom domain and hosting for professional use.`,
           value: "new-pages-kit",
@@ -558,8 +560,11 @@ export default async function publishWebsite(
     }
 
     if (manifestPages.length > 0) {
-      if (shouldWithBranding) {
-        // check projectLogo is file
+      if (
+        shouldWithBranding &&
+        ![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(new URL(appUrl).origin)
+      ) {
+        // update project logo to blocklet server
         if (projectLogo) {
           // check projectLogo is exist
           try {
@@ -608,6 +613,16 @@ export default async function publishWebsite(
       if (shouldWithNavigations && navigationEntries.length > 0) {
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
+      }
+
+      if (projectCover) {
+        const { results: uploadResults } = await uploadFiles({
+          appUrl,
+          filePaths: [resolve(process.cwd(), projectCover)],
+          accessToken,
+          concurrency: 1,
+        });
+        meta.appCover = uploadResults?.[0]?.url || projectCover;
       }
 
       // upload project logo to media kit

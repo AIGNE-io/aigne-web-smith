@@ -29,8 +29,8 @@ findUserPreferencesByPath.input_schema = {
     scope: {
       type: "string",
       description:
-        "Preference scope: 'page' for update operations, 'translation' for translate operations",
-      enum: ["page", "translation"],
+        "Preference scope: 'page' for update operations, 'translation' for translate operations, 'theme' for theme customization",
+      enum: ["page", "translation", "theme"],
     },
   },
   required: ["scope"],

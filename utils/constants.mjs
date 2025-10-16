@@ -25,6 +25,7 @@ export const MEDIA_EXTENSIONS = [
   ".wmv",
   ".m4v",
   ".3gpp",
+  ".json",
 ];
 
 // Default file patterns for inclusion and exclusion
@@ -369,6 +370,8 @@ export const SCALE_RECOMMENDATION_LOGIC = {
 };
 
 export const LINK_PROTOCOL = "link://";
+
+export const RESOLVE_FILE_PROTOCOL = "@";
 
 export const MEDIA_KIT_PROTOCOL = "mediakit://";
 

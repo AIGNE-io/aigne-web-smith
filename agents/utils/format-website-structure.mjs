@@ -30,6 +30,14 @@ export default async function formatWebsiteStructure({
   websiteStructure,
   originalWebsiteStructure,
 }) {
+  if (!websiteStructure && !originalWebsiteStructure) {
+    return {
+      websiteStructureYaml: "",
+      websiteStructure: [],
+      linksContent: "",
+    };
+  }
+
   // Extract required fields from each item in websiteStructure
   const formattedData = (websiteStructure || originalWebsiteStructure).map((item) => ({
     title: item.title,

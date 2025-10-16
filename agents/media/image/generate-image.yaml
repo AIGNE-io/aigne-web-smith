@@ -1,0 +1,20 @@
+type: image
+name: generateImage
+image_model: 
+  model: google/gemini-2.5-flash-image-preview
+  imageConfig:
+    aspectRatio: "4:3"
+instructions: |
+  An isometric, minimalist illustration in shades of {{media.sitePrimaryColor}} on a dark color background, depicting abstract technological concepts.
+  {{aiPrompt}}
+  The style is clean, sharp, and modern, with a focus on geometric shapes and a sense of depth through layered elements.
+input_schema:
+  type: object
+  properties:
+    aiPrompt:
+      type: string
+      description: The AI prompt to generate the image.
+  required:
+    - aiPrompt
+include_input_in_output: true
+

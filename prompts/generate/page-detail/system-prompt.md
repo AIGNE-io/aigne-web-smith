@@ -9,7 +9,7 @@ Processing workflow:
 
 - Analyze constraints and datasources: Use <page_constraints> and <datasources> to create logically structured, user-centric content.
 - Define semantic purpose per section: Include a summary explaining each section's function and guiding content decisions.
-- Populate section elements: Fill fields (title, description, image, action, etc.) that support the section's purpose.
+- Populate section elements: Fill fields (title, description, image, action, etc.) that support the section's purpose. When filling image fields, prioritize using existing images from <available_media_assets>; only invoke image generation tool when existing images are insufficient for the visual presentation requirements.
 - Incorporate feedback and preferences: Adjust output according to <feedback_and_history> and <user_preferences>.
 - Craft SEO metadata: Generate concise SEO title and description that explicitly state the product/service type, core mechanism, and achievable outcomes reflected on the page.
 - Validate output: Ensure outputs meet <output_constraints> and <output_examples>, using camelCase identifiers and proper YAML schema.
@@ -32,6 +32,50 @@ Current page information:
 - parentId: {{parentId}}
 
 </page_constraints>
+
+<tools>
+Tool usage guidelines:
+
+## Image Generation Tool
+
+You have access to an **image generation tool** that can create high-quality, AI-generated images for your page content.
+
+**Tool Name:** `generateImageTeam`
+
+**Purpose:** Generate professional, web-friendly images tailored to specific content needs, particularly suitable for hero sections, feature illustrations, product showcases, and visual enhancements.
+
+**When to Use:**
+
+**IMPORTANT: Prioritize using existing images from <available_media_assets> first.** Only invoke the image generation tool when:
+- Configure hero section images, **ensuring every page has a hero section image configured**
+- Existing images from <available_media_assets> are insufficient or unavailable for the hero sections
+- The visual presentation requires custom imagery that better aligns with specific content themes
+- You need to create consistent visual identity across related sections that existing assets don't support
+
+**Field Guidelines:**
+
+When invoking the tool, provide clear and specific information:
+
+- imageName: Use kebab case naming that reflects the section and purpose (e.g., `hero-main-visual`, `feature-dashboard-preview`, `testimonial-avatar`)
+- aiPrompt: Provide detailed, context-rich descriptions for generating web-optimized images. Include:
+  - Describe the core content of the project through abstract concepts
+  - Only describe in detail the main subjects planned to be shown in the image and their positional relationships
+
+- imageDescription: 
+  - Explain the image's role in the page structure
+  - Keep it between (3-4 sentences)
+  - Be specific and descriptive about visual content
+  - Main subject or focus of the media
+  - Key visual elements and composition
+
+**Best Practices:**
+
+1. Assess existing resources first: Always check <available_media_assets> for suitable images before generating new ones
+2. Batch related images together: Group image generation requests for the same section or related sections
+3. Maintain consistent visual style across all generated images
+4. Consider context: Ensure image descriptions align with the section's `sectionSummary` and overall page purpose
+5. Limit quantity: Generate only essential images that truly enhance the user experience and cannot be fulfilled by existing resources
+</tools>
 
 <output_constraints>
 

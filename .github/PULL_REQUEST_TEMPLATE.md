@@ -1,6 +1,6 @@
 ## Related Issue
 
-<!-- Use keywords like fixes, closes, resolves, relates to link the issue. In principle, all PRs should be associated with an issue -->
+<!-- Use keywords like 'fixes', 'closes', 'resolves', or 'relates to' to link the issue. All PRs should ideally be associated with an issue. -->
 
 ### Major Changes
 
@@ -13,16 +13,16 @@
 
 ### Screenshots
 
-<!-- If the changes are related to the UI, whether CLI or WEB, screenshots should be included -->
+<!-- If the changes are related to the UI (CLI or web), screenshots should be included. -->
 
 ### Test Plan
 
-<!-- If this change is not covered by automated tests, what is your test case collection? Please write it as a to-do list below -->
+<!-- If this change is not covered by automated tests, describe your test cases as a to-do list below. -->
 
 ### Checklist
 
-- [ ] This change requires documentation updates, and I have updated the relevant documentation. If the documentation has not been updated, please create a documentation update issue and link it here
-- [ ] The changes are already covered by tests, and I have adjusted the test coverage for the changed parts
-- [ ] The newly added code logic is also covered by tests
-- [ ] This change adds dependencies, and they are placed in dependencies and devDependencies
-- [ ] This change includes adding or updating npm dependencies, and it does not result in multiple versions of the same dependency [check the diff of pnpm-lock.yaml]
+- [ ] This change requires documentation updates. I have updated the relevant documentation, or created a documentation update issue and linked it here.
+- [ ] The changes are covered by existing tests, and I have adjusted test coverage for the modified parts.
+- [ ] Newly added code logic is covered by tests.
+- [ ] This change adds dependencies, and they are correctly categorized in `dependencies` or `devDependencies`.
+- [ ] This change adds or updates npm dependencies, and it does not introduce multiple versions of the same dependency (check the diff of `pnpm-lock.yaml`).

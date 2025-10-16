@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import chalk from "chalk";
 import {
   addFeedbackToItems,
   fileNameToFlatPath,
@@ -80,7 +81,10 @@ export default async function choosePages(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error("No pages found in the pages directory");
+        console.log(
+          `It seems that the pages does not generated. \nPlease generate the pages as needed using ${chalk.yellow("aigne web generate")} \n`,
+        );
+        process.exit(0);
       }
 
       // Generate choices once outside the source function

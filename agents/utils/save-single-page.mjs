@@ -29,7 +29,7 @@ export default async function saveSinglePage({
       error.validationErrors = validation.errors;
       throw error;
     }
-    // only log error
+    // Only log the error.
     console.error(`⚠️ Page Detail Validation Failed: ${validation.validationFeedback}`);
   }
 

@@ -34,7 +34,7 @@ getPageDetail.input_schema = {
   properties: {
     path: {
       type: "string",
-      description: "The path of the page to get detail",
+      description: "The path of the page to retrieve details for.",
     },
   },
 };

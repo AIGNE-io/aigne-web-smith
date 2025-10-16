@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual.js";
 import {
   getAddPageInputJsonSchema,
   getAddPageOutputJsonSchema,
@@ -12,15 +13,27 @@ export default async function addPage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure: input.websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
-  const { title, description, path, parentId, sourceIds } = validation.data;
+  const { title, description, path, navigation, parentId, sourceIds } = validation.data;
   let websiteStructure = options.context?.userContext?.currentStructure;
 
   if (!websiteStructure) {
     websiteStructure = input.websiteStructure;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastAddPageInput = options.context?.userContext?.lastAddPageInput;
+  const currentInput = { title, description, path, navigation, parentId, sourceIds };
+
+  if (lastAddPageInput && isEqual(lastAddPageInput, currentInput)) {
+    const errorMessage = `Cannot add page: This operation has already been processed. Please do not call addPage again with the same parameters.`;
+    return {
+      websiteStructure,
+      error: { message: errorMessage },
+    };
   }
 
   // Validate parent exists if parentId is provided
@@ -31,7 +44,7 @@ export default async function addPage(input, options) {
       console.log(`⚠️  ${errorMessage}`);
       return {
         websiteStructure,
-        message: errorMessage,
+        error: { message: errorMessage },
       };
     }
   }
@@ -43,7 +56,7 @@ export default async function addPage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -52,8 +65,9 @@ export default async function addPage(input, options) {
     title,
     description,
     path,
+    navigation: { ...navigation },
     parentId: parentId || null,
-    sourceIds: [...sourceIds], // Create a copy of the array
+    sourceIds: [...sourceIds],
   };
 
   // Add the new page to the website structure
@@ -65,6 +79,9 @@ export default async function addPage(input, options) {
 
   // update shared website structure
   options.context.userContext.currentStructure = updatedStructure;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastAddPageInput = currentInput;
 
   return {
     websiteStructure: updatedStructure,

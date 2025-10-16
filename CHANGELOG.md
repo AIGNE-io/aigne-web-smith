@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0-beta.13](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.12...v1.5.0-beta.13) (2025-10-16)
+
+
+### Features
+
+* support translate meta in publish ([#135](https://github.com/AIGNE-io/aigne-web-smith/issues/135)) ([26c1039](https://github.com/AIGNE-io/aigne-web-smith/commit/26c1039784e4e91660dab3004552345e0056c90d))
+
+## [1.5.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.11...v1.5.0-beta.12) (2025-10-16)
+
+
+### Features
+
+* enhance exception handling for improved update stability ([#138](https://github.com/AIGNE-io/aigne-web-smith/issues/138)) ([bfaff11](https://github.com/AIGNE-io/aigne-web-smith/commit/bfaff11e7a32ad0c1d48e22c8498b6d2d172516c))
+* support list component sub command ([#139](https://github.com/AIGNE-io/aigne-web-smith/issues/139)) ([85e8975](https://github.com/AIGNE-io/aigne-web-smith/commit/85e89756f62b00e563c22d89313d7072b786acb4))
+
 ## [1.5.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.10...v1.5.0-beta.11) (2025-10-16)
 
 

@@ -9,7 +9,12 @@ export const addSectionInputSchema = z.object({
 
 export const addSectionOutputSchema = z.object({
   pageDetail: z.string(),
-  message: z.string(),
+  message: z.string().optional(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Delete section schemas
@@ -19,7 +24,12 @@ export const deleteSectionInputSchema = z.object({
 
 export const deleteSectionOutputSchema = z.object({
   pageDetail: z.string(),
-  message: z.string(),
+  message: z.string().optional(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Move section schemas
@@ -30,7 +40,12 @@ export const moveSectionInputSchema = z.object({
 
 export const moveSectionOutputSchema = z.object({
   pageDetail: z.string(),
-  message: z.string(),
+  message: z.string().optional(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Update meta schemas
@@ -45,7 +60,12 @@ export const updateMetaInputSchema = z
 
 export const updateMetaOutputSchema = z.object({
   pageDetail: z.string(),
-  message: z.string(),
+  message: z.string().optional(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Update section schemas
@@ -56,7 +76,12 @@ export const updateSectionInputSchema = z.object({
 
 export const updateSectionOutputSchema = z.object({
   pageDetail: z.string(),
-  message: z.string(),
+  message: z.string().optional(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // JSON Schema conversion functions

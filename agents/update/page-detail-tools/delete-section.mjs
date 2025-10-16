@@ -1,3 +1,5 @@
+import isEqual from "lodash/isEqual.js";
+
 import YAML from "yaml";
 import {
   getDeleteSectionInputJsonSchema,
@@ -13,7 +15,7 @@ export default async function deleteSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -22,6 +24,18 @@ export default async function deleteSection(input, options) {
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastDeleteSectionInput = options.context?.userContext?.lastDeleteSectionInput;
+  const currentInput = { name };
+
+  if (lastDeleteSectionInput && isEqual(lastDeleteSectionInput, currentInput)) {
+    const errorMessage = `Cannot delete section: This operation has already been processed. Please do not call deleteSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
   }
 
   // Parse YAML string to object
@@ -33,7 +47,7 @@ export default async function deleteSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -43,7 +57,7 @@ export default async function deleteSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -54,7 +68,7 @@ export default async function deleteSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -76,9 +90,13 @@ export default async function deleteSection(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastDeleteSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

@@ -106,3 +106,31 @@ Error handling:
 - Return brief error message if operation failed
 
 </output_constraints>
+
+<tool_arguments_constraints>
+The `section` parameter of Tool `addSection` must meet the following rules:
+   - Must contain complete section information
+   - Must use YAML format
+   - Must meet the requirements described in the example data comments
+
+The `updates` parameter of Tool `updateSection` must meet the following rules:
+   - When user requirements need to change the section data structure, ignore the existing data structure and ensure the newly planned structure complies with the requirements in `Sections Constraints`
+   - Must use YAML format
+   - Must meet the requirements described in the example data comments
+
+Below example is shown in a markdown YAML block **for human readability only**.  
+When generating actual output, **do not wrap in code fences**.
+
+```yaml
+# Property names do not need to be wrapped in quotes
+sectionName: string # Required - section functional identifier, use camelCase naming
+sectionSummary: string # Required - section purpose description, describing function and content intent
+# CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+# - Only use predefined field combinations
+# - No custom or partial fields
+# - Layout sections may include a `list` field ONLY IF the chosen combination includes `list.N`
+# - Each `list` item MUST be an object (section), not a string/number, and SHOULD include `sectionName` and `sectionSummary`
+# - Exception: layout components may include a `list` field, where each list item is section format too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+```
+
+</tool_arguments_constraints>

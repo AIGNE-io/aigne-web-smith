@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual.js";
 import YAML from "yaml";
 import {
   getMoveSectionInputJsonSchema,
@@ -13,7 +14,7 @@ export default async function moveSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -22,6 +23,18 @@ export default async function moveSection(input, options) {
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastMoveSectionInput = options.context?.userContext?.lastMoveSectionInput;
+  const currentInput = { name, position: newPosition };
+
+  if (lastMoveSectionInput && isEqual(lastMoveSectionInput, currentInput)) {
+    const errorMessage = `Cannot move section: This operation has already been processed. Please do not call moveSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
   }
 
   // Parse YAML string to object
@@ -33,7 +46,7 @@ export default async function moveSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -43,7 +56,7 @@ export default async function moveSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -54,7 +67,7 @@ export default async function moveSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -73,7 +86,7 @@ export default async function moveSection(input, options) {
       console.log(`⚠️  ${errorMessage}`);
       return {
         pageDetail,
-        message: errorMessage,
+        error: { message: errorMessage },
       };
     }
     targetIndex = refIndex;
@@ -85,7 +98,7 @@ export default async function moveSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -114,9 +127,13 @@ export default async function moveSection(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastMoveSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

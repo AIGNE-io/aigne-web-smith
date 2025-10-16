@@ -530,3 +530,12 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
 
   return processedImages;
 }
+
+/**
+ * Get caches file path
+ * @returns {Array<string>} Absolute path to translation-cache.yaml
+ */
+export function getTranslationCachePath() {
+  const translationCachePath = path.join(process.cwd(), WEB_SMITH_DIR, "translation-cache.yaml");
+  return translationCachePath;
+}

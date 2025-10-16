@@ -14,6 +14,7 @@ import {
 import fs from "node:fs/promises";
 import path, { isAbsolute, join, relative, resolve as resolvePath } from "node:path";
 import { glob } from "glob";
+import _ from "lodash";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse, stringify as yamlStringify } from "yaml";
@@ -23,6 +24,8 @@ import {
   generateConflictResolutionRules,
 } from "./conflict-detector.mjs";
 import {
+  BUILTIN_COMPONENT_LIBRARY_NAME,
+  COMPONENTS_DIR,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   ENABLE_LOGS,
@@ -1816,4 +1819,51 @@ export function resolveValue({ key: _key, value, workingDir }) {
   }
 
   return value;
+}
+
+/**
+ * Get the absolute path to the built-in component library file
+ * @param {string} rootDir - The root directory of the project
+ * @returns {string} Absolute path to the component library file
+ */
+export function getComponentLibraryPath(rootDir) {
+  const componentDir = path.join(rootDir, COMPONENTS_DIR);
+  return path.join(componentDir, BUILTIN_COMPONENT_LIBRARY_NAME);
+}
+
+/**
+ * Format component summary for display
+ * Normalizes whitespace and truncates to specified length
+ * @param {string} summary - The component summary to format
+ * @param {number} maxLength - Maximum length for truncation (default: 80)
+ * @returns {string} Formatted summary string
+ */
+export function formatComponentSummary(summary, maxLength = 80) {
+  const base = summary ?? "no summary";
+  const normalized = base.replace(/\s+/g, " ").trim();
+  const display = normalized || "no summary";
+  return _.truncate(display, { length: maxLength });
+}
+
+/**
+ * Load and parse component library from file
+ * @param {string} filePath - Path to the component library file
+ * @returns {{doc: object, atomicCount: number, compositeCount: number} | null} Parsed document with counts or null if error
+ */
+export function loadComponentLibrary(filePath) {
+  try {
+    if (!existsSync(filePath)) {
+      return null;
+    }
+
+    const text = readFileSync(filePath, "utf8");
+    const doc = parse(text);
+    const atomicCount = doc.atomic?.length || 0;
+    const compositeCount = doc.composite?.length || 0;
+
+    return { doc, atomicCount, compositeCount };
+  } catch (error) {
+    logError("Failed to load component library:", error.message);
+    return null;
+  }
 }

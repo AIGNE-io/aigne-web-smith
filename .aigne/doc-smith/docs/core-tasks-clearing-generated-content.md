@@ -26,6 +26,7 @@ The following table details the specific items that can be cleared, what they co
 | Authorizations | `authTokens` | Deletes the `.env.websmith` file, which stores authentication tokens. After clearing, you will need to re-authorize the CLI for operations like publishing. |
 | Deployment Config | `deploymentConfig` | Removes only the `appUrl` key from your `config.yaml` file. This is useful for resetting your deployment target without deleting the entire website configuration. |
 | Media File Descriptions | `mediaDescription` | Deletes the cached, AI-generated descriptions for your media assets. These will be automatically regenerated on the next run of the `generate` command. |
+| Translation Caches | `translationCaches` | Deletes the AI-generated translation caches. These will be regenerated automatically on the next publish. |
 
 ## Non-Interactive Clearing
 

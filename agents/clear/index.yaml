@@ -15,12 +15,13 @@ input_schema:
       items:
         type: string
         enum:
-          - workspace
+          - websiteStructure
           - generatedPages
           - websiteConfig
           - deploymentConfig
           - authTokens
           - mediaDescription
+          - translationCaches
     pagesDir:
       type: string
       description: Override the pages directory root

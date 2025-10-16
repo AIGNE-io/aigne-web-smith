@@ -21,10 +21,10 @@ The command will produce a list where each line represents a single update. The 
 ```bash
 📜 Update History
 
-e5c7a91 5 minutes ago   page (about-us): Refined the company mission statement
-a3b4f8e 2 hours ago     page (services): Added new section for consulting services
-1d9c0b2 1 day ago       structure: Added a new 'Careers' page to the main menu
-f4e5a67 3 days ago      page (contact): Updated the main office phone number
+e5c7a91 5 minutes ago   page_update (about-us): Refined the company mission statement
+a3b4f8e 2 hours ago     page_update (services): Added new section for consulting services
+1d9c0b2 1 day ago       structure_update: Added a new 'Careers' page to the main menu
+f4e5a67 3 days ago      page_update (contact): Updated the main office phone number
 ```
 
 Each entry in the log contains several key pieces of information. Here is a breakdown of the components:
@@ -33,8 +33,8 @@ Each entry in the log contains several key pieces of information. Here is a brea
 | :--- | :--- |
 | **Hash** | A unique 7-character code (`e5c7a91`) that identifies the specific update. |
 | **Date** | A relative timestamp indicating when the update was made (e.g., "5 minutes ago"). |
-| **Operation** | The type of change that occurred. This will be either `structure` for site-wide changes or `page` for content edits to a specific page. |
-| **Page Path** | If the operation was `page`, the path of the modified page is shown in parentheses (e.g., `(about-us)`). |
+| **Operation** | The type of change that occurred. This will be either `structure_update` for site-wide changes or `page_update` for content edits to a specific page. |
+| **Page Path** | If the operation was `page_update`, the path of the modified page is shown in parentheses (e.g., `(about-us)`). |
 | **Feedback** | The descriptive message you provided when you ran the `update` command. This text explains the purpose of the change. |
 
 ### Command Aliases

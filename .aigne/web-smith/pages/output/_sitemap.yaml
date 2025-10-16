@@ -15,12 +15,48 @@ sitemap:
         backgroundColor: ""
         header:
           sticky: true
+      zh:
+        title: AIGNE WebSmith：AI 驱动，数分钟内生成网站
+        description: 使用 AIGNE WebSmith 生成并发布专业的、经过 SEO
+          优化的网站。我们的人工智能代理可以自动完成从规划、内容创建到一键发布的全部流程。立即开始！
+        image: mediakit://hero-background.webp
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+      zh-TW:
+        title: AIGNE WebSmith：幾分鐘內生成 AI 驅動的網站
+        description: 使用 AIGNE WebSmith 生成並發佈專業、SEO 優化的網站。我們的 AI
+          代理程式自動化從規劃、內容創建到一鍵發佈的所有流程。立即開始！
+        image: mediakit://hero-background.webp
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+      ja:
+        title: "AIGNE WebSmith: AIでウェブサイトを数分で生成"
+        description: AIGNE
+          WebSmithを使えば、プロフェッショナルでSEOに最適化されたウェブサイトを生成・公開できます。AIエージェントが企画、コンテンツ作成からワンクリックでの公開まで、すべてを自動化します。今すぐ始めましょう！
+        image: mediakit://hero-background.webp
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-15T12:45:11.496Z
-      updatedAt: 2025-10-15T12:45:11.496Z
-      publishedAt: 2025-10-15T12:45:11.496Z
+      createdAt: 2025-10-16T12:24:29.683Z
+      updatedAt: 2025-10-16T12:24:29.683Z
+      publishedAt: 2025-10-16T12:24:29.683Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5
@@ -28,16 +64,34 @@ navigations:
     visible: true
     title:
       en: AIGNE WebSmith
+      zh: AIGNE 智能建站
+      zh-TW: AIGNE 智慧建站
+      ja: AIGNE AIサイト制作
     link:
       en: /
+      zh: /
+      zh-TW: /
+      ja: /
     description:
       en: Generate professional websites with AI.
+      zh: 利用 AI 生成专业网站。
+      zh-TW: 借助人工智能，輕鬆打造專業級網站。
+      ja: AIを活用し、プロ品質のウェブサイトを生成します。
   - id: f5c5d15c42b3cf01
     section: footer
     visible: true
     title:
       en: AIGNE WebSmith
+      zh: AIGNE 智能建站
+      zh-TW: AIGNE 智慧建站
+      ja: AIGNE AIサイト制作
     link:
       en: /
+      zh: /
+      zh-TW: /
+      ja: /
     description:
       en: Generate professional websites with AI.
+      zh: 利用 AI 生成专业网站。
+      zh-TW: 借助人工智能，輕鬆打造專業級網站。
+      ja: AIを活用し、プロ品質のウェブサイトを生成します。

@@ -269,6 +269,29 @@ function formatFieldValue(key, value, indent = "") {
 }
 
 const fieldMappings = [
+
+  // Media related
+  { pattern: "image", display: "🖼️ Image" },
+  { pattern: "img", display: "🖼️ Image" },
+  { pattern: "picture", display: "🖼️ Image" },
+  { pattern: "photo", display: "🖼️ Photo" },
+  { pattern: "video", display: "🎥 Video" },
+  { pattern: "audio", display: "🔊 Audio" },
+
+  // Interactive elements
+  { pattern: "actionLink", display: "🔗 Link" },
+  { pattern: "actionTitle", display: "🔘 Action" },
+  { pattern: "action", display: "🔘 Action" },
+  { pattern: "button", display: "🔘 Button" },
+  { pattern: "link", display: "🔗 Link" },
+  { pattern: "url", display: "🔗 URL" },
+  { pattern: "href", display: "🔗 Link" },
+
+  // List related
+  { pattern: "list", display: "List" },
+  { pattern: "items", display: "Items" },
+  { pattern: "options", display: "Options" },
+
   // Title related - ordered by priority
   { pattern: "title", display: "Title" },
   { pattern: "heading", display: "Title" },
@@ -281,30 +304,10 @@ const fieldMappings = [
   { pattern: "text", display: "Text" },
   { pattern: "body", display: "Content" },
 
-  // Media related
-  { pattern: "image", display: "🖼️ Image" },
-  { pattern: "img", display: "🖼️ Image" },
-  { pattern: "picture", display: "🖼️ Image" },
-  { pattern: "photo", display: "🖼️ Photo" },
-  { pattern: "video", display: "🎥 Video" },
-  { pattern: "audio", display: "🔊 Audio" },
-
-  // Interactive elements
-  { pattern: "action", display: "🔘 Action" },
-  { pattern: "button", display: "🔘 Button" },
-  { pattern: "link", display: "🔗 Link" },
-  { pattern: "url", display: "🔗 URL" },
-  { pattern: "href", display: "🔗 Link" },
-
   // Code related
   { pattern: "code", display: "💻 Code" },
   { pattern: "snippet", display: "💻 Code" },
   { pattern: "script", display: "💻 Script" },
-
-  // List related
-  { pattern: "list", display: "List" },
-  { pattern: "items", display: "Items" },
-  { pattern: "options", display: "Options" },
 
   // Common properties
   { pattern: "id", display: "ID" },
@@ -314,6 +317,7 @@ const fieldMappings = [
   { pattern: "value", display: "Value" },
   { pattern: "placeholder", display: "Placeholder" },
   { pattern: "label", display: "Label" },
+  { pattern: "data", display: "Data" },
 ];
 function getDisplayName(fieldName) {
   const lowerField = fieldName.toLowerCase();

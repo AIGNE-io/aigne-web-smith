@@ -20,7 +20,7 @@ The process for updating your website's structure is interactive. Here is a summ
 
 2.  **Review Proposed Structure**: After analyzing your sources, the CLI will display the proposed structure and ask for your input.
 
-3.  **Provide Natural Language Feedback**: At the prompt, type your desired changes in plain English. For example:
+3.  **Provide Natural Language Feedback**: At the prompt, type your desired changes in natural language. For example:
     > "Add a 'Contact Us' page at the top level with the path `/contact`. Also, remove the page at `/about/old-team`."
 
 4.  **Review and Approve**: The AI processes your feedback, applies the necessary changes, and displays the revised structure. You can then approve the changes to finalize the process or provide more feedback to refine it further.

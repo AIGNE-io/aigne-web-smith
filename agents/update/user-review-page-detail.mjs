@@ -100,6 +100,7 @@ export default async function userReviewPageDetail(
       // Call updatePageDetail agent with feedback
       await options.context.invoke(updateAgent, {
         ...rest,
+        componentLibrary,
         feedback: feedback.trim(),
         pageDetail: YAML.stringify(currentPageDetail, yamlOptions),
         fieldConstraints,

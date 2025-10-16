@@ -8,6 +8,7 @@ import {
   getUpdateSectionOutputJsonSchema,
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function updateSection(input, options) {
   // Validate input using Zod schema
@@ -22,6 +23,7 @@ export default async function updateSection(input, options) {
   }
 
   const { name, updates } = validation.data;
+  const { componentLibrary } = input;
   let pageDetail = options.context?.userContext?.currentPageDetail;
 
   if (!pageDetail) {
@@ -105,6 +107,28 @@ export default async function updateSection(input, options) {
     ...originalSection,
     ...parsedUpdates,
   };
+
+  // Validate updated section field combination against component library
+  const validationResult = validateSingleSection({
+    section: updatedSection,
+    sectionPath: `section '${name}'`,
+    componentLibrary,
+  });
+
+  if (!validationResult.isValid) {
+    const summary =
+      validationResult.errorCount === 1
+        ? "Found 1 validation error:"
+        : `Found ${validationResult.errorCount} validation errors:`;
+    const details = validationResult.errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+    const errorMessage = `Cannot update section:\n${summary}\n${details}`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
+  }
 
   // Create new sections array with the updated section
   const newSections = [...parsedPageDetail.sections];

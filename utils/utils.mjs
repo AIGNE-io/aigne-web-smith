@@ -256,6 +256,61 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
 }
 
 /**
+ * Validate a single section's field combination against component library
+ * @param {Object} params
+ * @param {Object} params.section - The section object to validate
+ * @param {string} params.sectionPath - Path/identifier for error messages
+ * @param {Array} params.componentLibrary - Component library array
+ * @returns {{isValid: boolean, errors?: Array<{path: string, message: string, code: string}>, errorCount?: number}}
+ */
+export function validateSingleSection({ section, sectionPath, componentLibrary }) {
+  if (!section || typeof section !== "object" || Array.isArray(section)) {
+    const error = {
+      path: sectionPath,
+      message: "Section must be a valid object",
+      code: "INVALID_SECTION_TYPE",
+    };
+    return {
+      isValid: false,
+      errors: [error],
+      errorCount: 1,
+    };
+  }
+
+  if (!componentLibrary || !Array.isArray(componentLibrary) || componentLibrary.length === 0) {
+    // No component library, skip validation
+    return { isValid: true };
+  }
+
+  const fieldCombinationIndex = buildFieldCombinationIndex(componentLibrary);
+  if (!fieldCombinationIndex) {
+    // No valid field combinations in component library
+    return { isValid: true };
+  }
+
+  const errors = [];
+  const existingKeys = new Set();
+
+  validateSectionFieldCombination({
+    section,
+    sectionPath,
+    index: fieldCombinationIndex,
+    errors,
+    existingKeys,
+  });
+
+  if (errors.length > 0) {
+    return {
+      isValid: false,
+      errors,
+      errorCount: errors.length,
+    };
+  }
+
+  return { isValid: true };
+}
+
+/**
  * Normalize path to absolute path for consistent comparison
  * @param {string} filePath - The path to normalize
  * @returns {string} - Absolute path

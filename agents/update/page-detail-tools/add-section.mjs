@@ -8,6 +8,7 @@ import {
   getAddSectionOutputJsonSchema,
   validateAddSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function addSection(input, options) {
   // Validate input using Zod schema
@@ -22,6 +23,7 @@ export default async function addSection(input, options) {
   }
 
   const { section, position } = validation.data;
+  const { componentLibrary } = input;
   let pageDetail = options.context?.userContext?.currentPageDetail;
 
   if (!pageDetail) {
@@ -70,6 +72,29 @@ export default async function addSection(input, options) {
   if (!parsedSection.sectionName) {
     const errorMessage = "Cannot add section: Section must have a 'sectionName' property.";
     console.log(`⚠️  ${errorMessage}`);
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
+  }
+
+  // Validate section field combination against component library
+  const validationResult = validateSingleSection({
+    section: parsedSection,
+    sectionPath: `section '${parsedSection.sectionName}'`,
+    componentLibrary,
+  });
+  console.log("validationResult", validationResult);
+
+  if (!validationResult.isValid) {
+    const summary =
+      validationResult.errorCount === 1
+        ? "Found 1 validation error:"
+        : `Found ${validationResult.errorCount} validation errors:`;
+    const details = validationResult.errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+    const errorMessage = `Cannot add section:\n${summary}\n${details}`;
     return {
       pageDetail,
       error: { message: errorMessage },

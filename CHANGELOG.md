@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0-beta.14](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.13...v1.5.0-beta.14) (2025-10-16)
+
+
+### Bug Fixes
+
+* resolve the bug of download logo error ([#143](https://github.com/AIGNE-io/aigne-web-smith/issues/143)) ([d9417dd](https://github.com/AIGNE-io/aigne-web-smith/commit/d9417ddd4e88ad5a9de229e9b481fa049f1c23ff))
+* web-smith and doc-smith project logo ([f3299b6](https://github.com/AIGNE-io/aigne-web-smith/commit/f3299b6eff5bc75d236f8673012ec1f53a7fd1ec))
+
 ## [1.5.0-beta.13](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.12...v1.5.0-beta.13) (2025-10-16)
 
 

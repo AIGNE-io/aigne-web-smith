@@ -1,4 +1,5 @@
 import YAML from "yaml";
+import chalk from "chalk";
 import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import {
   extractContentFields,
@@ -9,7 +10,7 @@ import { recordUpdate } from "../../utils/history-utils.mjs";
 import { getSectionFormatterByMatch } from "./formatters/index.mjs";
 
 export default async function userReviewPageDetail(
-  { content, componentLibrary, ...rest },
+  { content, componentLibrary, verbose, ...rest },
   options,
 ) {
   // Check if page detail content exists
@@ -32,7 +33,7 @@ export default async function userReviewPageDetail(
     : [];
 
   // Print current page detail in a user-friendly format
-  printPageDetail(parsedPageDetail, compositeComponents);
+  printPageDetail(parsedPageDetail, compositeComponents, verbose);
 
   // Ask user if they want to review the page detail
   const needReview = await options.prompts.select({
@@ -114,7 +115,7 @@ export default async function userReviewPageDetail(
       });
 
       // Print updated page detail
-      printPageDetail(currentPageDetail, compositeComponents);
+      printPageDetail(currentPageDetail, compositeComponents, verbose);
     } catch (error) {
       console.error("Error processing feedback:", {
         type: error.name,
@@ -131,25 +132,30 @@ export default async function userReviewPageDetail(
   };
 }
 
-function printPageDetail(pageDetail, compositeComponents = []) {
+function printPageDetail(pageDetail, compositeComponents = [], verbose = false) {
   console.log("\n📄 Page Detail:");
   console.log("=".repeat(60));
 
-  // Print meta information
-  console.log(`\n📌 Meta Information:`);
-  if (pageDetail.meta?.title) console.log(`   Title: ${pageDetail.meta.title}`);
-  if (pageDetail.meta?.description) console.log(`   Description: ${pageDetail.meta.description}`);
-
-  // Print sections with simplified preview
-  if (pageDetail.sections && Array.isArray(pageDetail.sections)) {
-    console.log(`\n🌐 Website Preview (${pageDetail.sections.length} sections):`);
-    console.log("-".repeat(60));
-
-    pageDetail.sections.forEach((section, index) => {
-      printSectionSimple(section, index + 1, compositeComponents);
-    });
+  if (verbose) {
+    // Verbose mode: print all fields with original field names
+    printVerbosePageDetail(pageDetail);
   } else {
-    console.log(`\n📋 Sections: None`);
+    // Print meta information
+    console.log(`\n📌 Meta Information:`);
+    if (pageDetail.meta?.title) console.log(`   Title: ${pageDetail.meta.title}`);
+    if (pageDetail.meta?.description) console.log(`   Description: ${pageDetail.meta.description}`);
+
+    // Print sections with simplified preview
+    if (pageDetail.sections && Array.isArray(pageDetail.sections)) {
+      console.log(`\n🌐 Website Preview (${pageDetail.sections.length} sections):`);
+      console.log("-".repeat(60));
+
+      pageDetail.sections.forEach((section, index) => {
+        printSectionSimple(section, index + 1, compositeComponents);
+      });
+    } else {
+      console.log(`\n📋 Sections: None`);
+    }
   }
 
   console.log(`\n${"=".repeat(60)}`);
@@ -357,6 +363,44 @@ function renderSpecialSection(section, compositeComponents = []) {
   }
 
   return null;
+}
+
+function printVerbosePageDetail(pageDetail, indent = "") {
+  if (!pageDetail || typeof pageDetail !== "object") {
+    return;
+  }
+
+  for (const [key, value] of Object.entries(pageDetail)) {
+    printVerboseField(key, value, indent);
+  }
+}
+
+function printVerboseField(key, value, indent = "") {
+  if (value === null || value === undefined) {
+    console.log(`${indent}${chalk.cyan(key)}: null`);
+    return;
+  }
+
+  if (typeof value === "string") {
+    console.log(`${indent}${chalk.cyan(key)}: ${value}`);
+  } else if (typeof value === "number" || typeof value === "boolean") {
+    console.log(`${indent}${chalk.cyan(key)}: ${value}`);
+  } else if (Array.isArray(value)) {
+    console.log(`${indent}${chalk.cyan(key)}:`);
+    value.forEach((item, index) => {
+      if (typeof item === "object" && item !== null) {
+        console.log(`${indent}  ${chalk.gray(`[${index}]`)}:`);
+        printVerbosePageDetail(item, `${indent}    `);
+      } else {
+        console.log(`${indent}  ${chalk.gray(`[${index}]`)}: ${item}`);
+      }
+    });
+  } else if (typeof value === "object") {
+    console.log(`${indent}${chalk.cyan(key)}:`);
+    printVerbosePageDetail(value, `${indent}  `);
+  } else {
+    console.log(`${indent}${chalk.cyan(key)}: ${String(value)}`);
+  }
 }
 
 userReviewPageDetail.taskTitle = "User review and modify page detail content";

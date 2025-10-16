@@ -7,7 +7,8 @@ import pRetry from "p-retry";
 import YAML from "yaml";
 
 import { getComponentMountPoint } from "./blocklet.mjs";
-import { MEDIA_KIT_DID, PAGES_KIT_DID } from "./constants.mjs";
+import { MEDIA_KIT_DID, MEDIA_KIT_PROTOCOL, PAGES_KIT_DID } from "./constants.mjs";
+import { findFilePath } from "./utils.mjs";
 
 // Type definitions removed for mjs format
 // UploadFilesOptions: { appUrl, filePaths, concurrency?, accessToken, cacheFilePath? }
@@ -389,15 +390,40 @@ export async function batchUploadMediaFiles({
   }
 
   // 根据使用的 URL 找到对应的文件路径
-  const filesToUpload = [];
-
+  const mediaByKitPath = new Map();
   mediaFiles.forEach((media) => {
-    if (media.mediaKitPath && media.path && allUsedMediaKitUrls.has(media.mediaKitPath)) {
-      filesToUpload.push(media);
+    if (media?.mediaKitPath && media?.path) {
+      mediaByKitPath.set(media.mediaKitPath, media);
     }
   });
 
-  // 如果没有需要上传的文件，返回空映射
+  const filesToUpload = [];
+  const tryReadFilesToUpload = [];
+
+  allUsedMediaKitUrls.forEach((mediaKitUrl) => {
+    const matchedMedia = mediaByKitPath.get(mediaKitUrl);
+    if (matchedMedia) {
+      filesToUpload.push(matchedMedia);
+    } else {
+      tryReadFilesToUpload.push(mediaKitUrl);
+    }
+  });
+
+  // using glob to find files
+  if (tryReadFilesToUpload.length > 0) {
+    tryReadFilesToUpload.forEach((mediaKitUrl) => {
+      const filePath = findFilePath(mediaKitUrl.replace(MEDIA_KIT_PROTOCOL, ""), process.cwd());
+
+      if (filePath) {
+        filesToUpload.push({
+          mediaKitPath: mediaKitUrl,
+          path: path.relative(rootDir, filePath),
+        });
+      }
+    });
+  }
+
+  // if no files to upload, return empty map
   if (filesToUpload.length === 0) {
     return {};
   }

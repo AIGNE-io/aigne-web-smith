@@ -41,7 +41,7 @@ aigne web generate
 **Parameters:**
 
 <x-field-group>
-  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file."></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="The path to the website configuration file. If not provided, WebSmith will look for a default configuration file in the current directory."></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format @<file>."></x-field>
   <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="If set to true, this forces the regeneration of all pages, even if they already exist."></x-field>
 </x-field-group>

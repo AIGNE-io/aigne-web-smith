@@ -1,4 +1,8 @@
 entries:
+  - timestamp: 2025-10-16T15:03:21.528Z
+    operation: document_update
+    feedback: The `aigne web generate` config parameter is not required.
+    documentPath: /reference/command-line-reference
   - timestamp: 2025-10-16T14:58:05.490Z
     operation: document_update
     feedback: The `theme apply` subcommand supports the `appUrl` parameter.

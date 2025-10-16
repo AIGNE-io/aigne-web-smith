@@ -1,8 +1,9 @@
 import { rm } from "node:fs/promises";
 import { join, resolve as resolvePath } from "node:path";
 import fastGlob from "fast-glob";
+
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
-import { getTranslationCachePath, getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
+import { getMediaDescriptionCachePath, getTranslationCachePath } from "../../utils/file-utils.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
 export default async function chooseContents(input = {}, options = {}) {

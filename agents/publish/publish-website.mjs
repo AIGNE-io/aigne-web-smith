@@ -199,6 +199,7 @@ export default async function publishWebsite(
     websiteStructure,
     pagesDir: rootDir,
     locales,
+    translatedMetadata,
     "with-branding": withBrandingOption,
     "with-navigations": withNavigationsOption,
     "with-locales": withLocalesOption,
@@ -435,6 +436,9 @@ export default async function publishWebsite(
     commitSha: config?.lastGitHead || "",
     languages: locales || [],
   };
+  if (translatedMetadata) {
+    meta.translation = translatedMetadata;
+  }
 
   let message;
 

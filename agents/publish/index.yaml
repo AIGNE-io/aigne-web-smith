@@ -11,6 +11,7 @@ skills:
   - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
   - ../utils/format-website-structure.mjs
+  - ./translate-meta.mjs
   - ./publish-website.mjs
 input_schema:
   type: object

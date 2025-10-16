@@ -622,9 +622,11 @@ export default async function publishWebsite(
             return;
           }
 
-          if (!ext) {
-            const contentType = response.headers.get("content-type");
-            ext = getExtnameFromContentType(contentType);
+          const contentType = response.headers.get("content-type");
+          const newExt = getExtnameFromContentType(contentType);
+
+          if (!ext || newExt !== ext) {
+            ext = newExt;
             tempFilePath = `${tempFilePath}.${ext}`;
           }
 

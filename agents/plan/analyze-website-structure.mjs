@@ -121,7 +121,7 @@ export default async function analyzeWebsiteStructure(
   const ruleTexts = allApplicableRules.map((rule) => rule.rule);
 
   // Convert rule texts to string format for passing to the agent.
-  const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\\n\\n") : "";
+  const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
   const result = await options.context.invoke(options.context.agents["generateWebsiteStructure"], {
     feedback: finalFeedback || "",

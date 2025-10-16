@@ -13,10 +13,11 @@ export default async function addPage(input, options) {
     return {
       websiteStructure: input.websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
-  const { title, description, path, parentId, sourceIds } = validation.data;
+  const { title, description, path, navigation, parentId, sourceIds } = validation.data;
   let websiteStructure = options.context?.userContext?.currentStructure;
 
   if (!websiteStructure) {
@@ -32,6 +33,7 @@ export default async function addPage(input, options) {
       return {
         websiteStructure,
         message: errorMessage,
+        error: { message: errorMessage },
       };
     }
   }
@@ -44,6 +46,7 @@ export default async function addPage(input, options) {
     return {
       websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -52,6 +55,7 @@ export default async function addPage(input, options) {
     title,
     description,
     path,
+    navigation: { ...navigation }, // Create a copy of the navigation object
     parentId: parentId || null,
     sourceIds: [...sourceIds], // Create a copy of the array
   };

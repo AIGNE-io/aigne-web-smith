@@ -13,6 +13,7 @@ export default async function deletePage(input, options) {
     return {
       websiteStructure: input.websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -31,6 +32,7 @@ export default async function deletePage(input, options) {
     return {
       websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -44,6 +46,7 @@ export default async function deletePage(input, options) {
     return {
       websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 

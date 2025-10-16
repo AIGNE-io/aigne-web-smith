@@ -13,10 +13,11 @@ export default async function updatePage(input, options) {
     return {
       websiteStructure: input.websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
-  const { path, title, description, sourceIds } = validation.data;
+  const { path, title, description, navigation, sourceIds } = validation.data;
   let websiteStructure = options.context?.userContext?.currentStructure;
 
   if (!websiteStructure) {
@@ -31,6 +32,7 @@ export default async function updatePage(input, options) {
     return {
       websiteStructure,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -41,6 +43,7 @@ export default async function updatePage(input, options) {
     ...originalPage,
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
+    ...(navigation !== undefined && { navigation: { ...navigation } }), // Create a copy of the navigation object
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
 
@@ -51,6 +54,8 @@ export default async function updatePage(input, options) {
   const updatedFields = [];
   if (title !== undefined) updatedFields.push(`title to '${title}'`);
   if (description !== undefined) updatedFields.push(`description`);
+  if (navigation !== undefined)
+    updatedFields.push(`navigation (title: '${navigation.title}')`);
   if (sourceIds !== undefined) updatedFields.push(`sourceIds (${sourceIds.length} sources)`);
 
   const successMessage = `updatePage executed successfully.

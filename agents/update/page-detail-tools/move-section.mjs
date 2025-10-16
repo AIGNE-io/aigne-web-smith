@@ -14,6 +14,7 @@ export default async function moveSection(input, options) {
     return {
       pageDetail: input.pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -34,6 +35,7 @@ export default async function moveSection(input, options) {
     return {
       pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -44,6 +46,7 @@ export default async function moveSection(input, options) {
     return {
       pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -55,6 +58,7 @@ export default async function moveSection(input, options) {
     return {
       pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -74,6 +78,7 @@ export default async function moveSection(input, options) {
       return {
         pageDetail,
         message: errorMessage,
+        error: { message: errorMessage },
       };
     }
     targetIndex = refIndex;
@@ -86,6 +91,7 @@ export default async function moveSection(input, options) {
     return {
       pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 

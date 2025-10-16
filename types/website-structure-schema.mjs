@@ -1,11 +1,24 @@
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
+// Navigation schema - represents navigation metadata
+export const navigationSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Navigation title is required")
+    .max(18, "Navigation title should be 10-18 characters"),
+  description: z
+    .string()
+    .min(20, "Navigation description should be at least 20 characters")
+    .max(40, "Navigation description should be at most 40 characters"),
+});
+
 // Page item schema - represents a single page in the structure
 export const pageItemSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
+  navigation: navigationSchema,
   parentId: z.string().nullable().optional(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
@@ -18,6 +31,7 @@ export const addPageInputSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
+  navigation: navigationSchema,
   parentId: z.string().nullable().optional(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
@@ -25,6 +39,11 @@ export const addPageInputSchema = z.object({
 export const addPageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
   message: z.string(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Delete page schemas
@@ -35,6 +54,11 @@ export const deletePageInputSchema = z.object({
 export const deletePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
   message: z.string(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Move page schemas
@@ -47,6 +71,11 @@ export const movePageInputSchema = z.object({
 export const movePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
   message: z.string(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // Update page schemas
@@ -55,19 +84,29 @@ export const updatePageInputSchema = z
     path: z.string().min(1, "Path is required"),
     title: z.string().min(1).optional(),
     description: z.string().min(1).optional(),
+    navigation: navigationSchema.optional(),
     sourceIds: z.array(z.string()).min(1).optional(),
   })
   .refine(
     (data) =>
-      data.title !== undefined || data.description !== undefined || data.sourceIds !== undefined,
+      data.title !== undefined ||
+      data.description !== undefined ||
+      data.navigation !== undefined ||
+      data.sourceIds !== undefined,
     {
-      message: "At least one field (title, description, or sourceIds) must be provided for update",
+      message:
+        "At least one field (title, description, navigation, or sourceIds) must be provided for update",
     },
   );
 
 export const updatePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
   message: z.string(),
+  error: z
+    .object({
+      message: z.string(),
+    })
+    .optional(),
 });
 
 // JSON Schema conversion functions using zodToJsonSchema
@@ -79,9 +118,16 @@ export const getAddPageInputJsonSchema = () => {
     schema.properties.description.description = "Description of the new page";
     schema.properties.path.description =
       "URL path for the new page. Must start with '/'. No language prefix. Homepage uses '/home'";
+    schema.properties.navigation.description = "Navigation metadata shown to users";
+    if (schema.properties.navigation.properties) {
+      schema.properties.navigation.properties.title.description =
+        "Short navigation label (10–18 characters, 2–3 words)";
+      schema.properties.navigation.properties.description.description =
+        "User-facing action summary (20–40 characters) describing what visitors can do";
+    }
     schema.properties.parentId.description = "Parent page path. Use null for top-level pages";
     schema.properties.sourceIds.description =
-      "Associated sourceIds from datasources, cannot be empty";
+      "Associated sourceIds from datasources, cannot be empty. For each page, you must include as sourceIds the files that contain media resource descriptions or screenshot information.";
   }
   return schema;
 };
@@ -142,6 +188,13 @@ export const getUpdatePageInputJsonSchema = () => {
     schema.properties.path.description = "URL path of the page to update";
     schema.properties.title.description = "New title for the page (optional)";
     schema.properties.description.description = "New description for the page (optional)";
+    schema.properties.navigation.description = "New navigation metadata for the page (optional)";
+    if (schema.properties.navigation.properties) {
+      schema.properties.navigation.properties.title.description =
+        "Short navigation label (10–18 characters, 2–3 words)";
+      schema.properties.navigation.properties.description.description =
+        "User-facing action summary (20–40 characters) describing what visitors can do";
+    }
     schema.properties.sourceIds.description =
       "New source references for the page (optional). If provided, array cannot be empty";
   }
@@ -149,6 +202,7 @@ export const getUpdatePageInputJsonSchema = () => {
   schema.anyOf = [
     { required: ["title"] },
     { required: ["description"] },
+    { required: ["navigation"] },
     { required: ["sourceIds"] },
   ];
   return schema;

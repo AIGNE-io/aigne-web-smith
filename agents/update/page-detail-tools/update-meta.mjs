@@ -14,6 +14,7 @@ export default async function updateMeta(input, options) {
     return {
       pageDetail: input.pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -34,6 +35,7 @@ export default async function updateMeta(input, options) {
     return {
       pageDetail,
       message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 

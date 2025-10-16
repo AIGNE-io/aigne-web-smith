@@ -2,11 +2,11 @@
 
 AIGNE WebSmith is an AI-driven tool designed to automate the creation of professional, content-rich websites. It handles everything from planning the website's structure and writing the content to generating the final pages and publishing them online. This allows you to go from a simple idea to a live, SEO-optimized website with minimal effort and no technical expertise required.
 
-Built on the powerful [AIGNE Framework](https://www.aigne.io/framework), WebSmith acts as your automated web development team. You provide the vision for your website, and the AI agents do the heavy lifting, ensuring a high-quality result that is ready for your audience.
+Built on the powerful [AIGNE Framework](https://www.aigne.io/framework), AIGNE WebSmith acts as your automated web development team. You provide the vision for your website, and the AI agents do the heavy lifting, ensuring a high-quality result that is ready for your audience.
 
 ## Key Features
 
-WebSmith simplifies the entire website creation process with a suite of intelligent features.
+AIGNE WebSmith simplifies the entire website creation process with a suite of intelligent features.
 
 <x-cards data-columns="3">
   <x-card data-title="AI-Powered Generation" data-icon="lucide:brain-circuit">
@@ -74,13 +74,13 @@ Publish -> Live-Website: "'aigne web publish'"
 
 AIGNE WebSmith is ideal for anyone who needs to create a high-quality website quickly, including:
 
-*   **Small and Medium Business Owners**: Launch a professional web presence to attract customers.
-*   **Developers & Startups**: Quickly create marketing sites, blogs, or documentation for your products.
-*   **Marketers**: Deploy landing pages and content hubs without relying on development teams.
-*   **Creators**: Build a personal brand or portfolio website with ease.
+- **Small and Medium Business Owners**: Launch a professional web presence to attract customers.
+- **Developers & Startups**: Quickly create marketing sites, blogs, or documentation for your products.
+- **Marketers**: Deploy landing pages and content hubs without relying on development teams.
+- **Creators**: Build a personal brand or portfolio website with ease.
 
 ## Next Steps
 
 Now that you have a high-level understanding of what AIGNE WebSmith does, you're ready to create your first website.
 
-*   **[Getting Started](./getting-started.md)**: Follow our guide to install the necessary tools and generate your first website in under 30 minutes.
+- **[Getting Started](./getting-started.md)**: Follow our guide to install the necessary tools and generate your first website in under 30 minutes.

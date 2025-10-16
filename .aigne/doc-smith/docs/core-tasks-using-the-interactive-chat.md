@@ -1,4 +1,6 @@
-# Using the Interactive Chat
+# Using the Interactive Chat (Beta)
+
+> **Note:** The interactive chat feature is currently in beta. While fully functional, you may encounter unexpected behavior. We appreciate your feedback as we continue to improve this experience.
 
 The `chat` command provides an interactive, conversational interface for building and managing your website. Instead of running individual commands like `generate` or `update`, you can describe your needs in plain language, and the AI assistant will guide you through the process. This is an ideal starting point for users who prefer a more guided experience.
 
@@ -52,7 +54,7 @@ user_input -> end: "User types 'exit'"
 To begin, run the `chat` command from your terminal:
 
 ```bash
-aigne web chat
+aigne web
 ```
 
 This will launch the assistant, which will greet you and wait for your instructions.
@@ -72,7 +74,7 @@ The chat assistant can perform most of the core tasks available in the AIGNE Web
 Here is an example of how you might use the interactive chat to create, modify, and publish a simple website.
 
 ```bash Command Line icon=lucide:terminal
-aigne web chat
+aigne web
 
 > Welcome to the AIGNE WebSmith interactive assistant!
 > How can I help you build your website today?

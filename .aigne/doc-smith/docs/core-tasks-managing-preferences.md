@@ -23,7 +23,7 @@ Here’s a breakdown of what each part means:
 To see all the preferences WebSmith has saved for you, use the `--list` flag. This command provides a complete overview of every rule, including its status, scope, ID, and the instruction itself.
 
 ```bash Command icon=lucide:terminal
-websmith prefs --list
+aigne web prefs --list
 ```
 
 **Example Output:**
@@ -51,13 +51,13 @@ If you want to temporarily disable a preference without deleting it permanently,
 You can specify which preferences to toggle by providing their IDs with the `--id` option.
 
 ```bash Command icon=lucide:terminal
-websmith prefs --toggle --id pref_1a2b3c4d
+aigne web prefs --toggle --id pref_1a2b3c4d
 ```
 
 If you run the command without any IDs, WebSmith will enter an interactive mode, allowing you to select the preferences you wish to toggle from a list.
 
 ```bash Command icon=lucide:terminal
-websmith prefs --toggle
+aigne web prefs --toggle
 ```
 
 This will display a checklist of your current preferences for you to select.
@@ -69,13 +69,13 @@ When you no longer need a preference, you can permanently delete it using the `-
 To remove one or more specific preferences, provide their IDs using the `--id` option.
 
 ```bash Command icon=lucide:terminal
-websmith prefs --remove --id pref_1a2b3c4d pref_5e6f7g8h
+aigne web prefs --remove --id pref_1a2b3c4d pref_5e6f7g8h
 ```
 
 Similar to toggling, if you run the `remove` command without specifying any IDs, WebSmith will launch an interactive checklist where you can select the preferences you want to delete.
 
 ```bash Command icon=lucide:terminal
-websmith prefs --remove
+aigne web prefs --remove
 ```
 
 ---

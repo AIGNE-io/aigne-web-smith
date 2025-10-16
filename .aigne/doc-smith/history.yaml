@@ -1,4 +1,35 @@
 entries:
+  - timestamp: 2025-10-16T11:51:35.584Z
+    operation: document_update
+    feedback: please re-generate doc by latest datasource. Website Structure's Command Flag is error, is
+      `websiteStructure`. ./.websmith/tmp -> workspace
+    documentPath: /core-tasks/clearing-generated-content
+  - timestamp: 2025-10-16T11:44:48.635Z
+    operation: document_update
+    feedback: aigne history -> aigne web history
+    documentPath: /core-tasks/viewing-update-history
+  - timestamp: 2025-10-16T11:42:13.954Z
+    operation: document_update
+    feedback: websmith prefs -> aigne web prefs
+    documentPath: /core-tasks/managing-preferences
+  - timestamp: 2025-10-16T11:31:56.960Z
+    operation: document_update
+    feedback: aigne chat -> aigne web chat. aigne web chat -> aigne web
+    documentPath: /core-tasks/using-the-interactive-chat
+  - timestamp: 2025-10-16T11:13:22.907Z
+    operation: document_update
+    feedback: aigne web chat -> aigne web. This command is currently a beta feature. You need to add a
+      beta note before the documentation and modify the title.
+    documentPath: /core-tasks/using-the-interactive-chat
+  - timestamp: 2025-10-16T10:56:23.589Z
+    operation: document_update
+    feedback: aigne.config.yaml -> config.yaml
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-16T10:50:56.440Z
+    operation: document_update
+    feedback: aigne theme generate -> must contand aigne web, should be aigne web theme generate,
+      Everything else remains the same.. aigne theme apply -> aigne web theme apply
+    documentPath: /core-tasks/managing-themes
   - timestamp: 2025-10-16T09:55:56.748Z
     operation: document_update
     feedback: aigne update -> aigne web update, please correct all errors.

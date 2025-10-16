@@ -14,7 +14,7 @@ The `theme generate` command initiates an AI-driven process to create a complete
 
 ### Process
 
-1.  **Initiate Generation**: Run `aigne theme generate` in your terminal.
+1.  **Initiate Generation**: Run `aigne web theme generate` in your terminal.
 2.  **AI-Powered Design**: Engage in a conversation with the AI to define your theme. You will be asked for a theme name and your preferences for colors, typography, and overall mood.
 3.  **Local Save**: After the design is finalized, the theme configuration is saved as a `.yaml` file in your project's local `themes` directory.
 
@@ -23,9 +23,9 @@ The `theme generate` command initiates an AI-driven process to create a complete
 To start generating a new theme, run the following command:
 
 ```sh
-aigne theme generate
+aigne web theme generate
 ```
-*Alias: `aigne theme gen`*
+*Alias: `aigne web theme gen`*
 
 Follow the on-screen prompts to complete the theme creation process.
 
@@ -35,7 +35,7 @@ After generating one or more themes, the `theme apply` command allows you to sel
 
 ### Process
 
-1.  **Run the Command**: Execute `aigne theme apply` in your terminal.
+1.  **Run the Command**: Execute `aigne web theme apply` in your terminal.
 2.  **Select a Theme**: The tool scans the `themes` directory and displays a list of all available themes you have generated. The list includes details like the theme name, primary color, and fonts to help you choose.
 3.  **Review and Confirm**: The system will display the target website URL, the currently active theme, and the new theme you have selected. You will be asked for a final confirmation before any changes are made.
 4.  **Apply to Website**: Once confirmed, the theme is uploaded and applied to your website. A success message will indicate that the process is complete.
@@ -45,13 +45,13 @@ After generating one or more themes, the `theme apply` command allows you to sel
 To apply an existing theme, use the command below.
 
 ```sh
-aigne theme apply
+aigne web theme apply
 ```
 
-You can also specify the website URL directly as a parameter. If omitted, the `appUrl` from your `aigne.config.yaml` file will be used.
+You can also specify the website URL directly as a parameter. If omitted, the `appUrl` from your `config.yaml` file will be used.
 
 ```sh
-aigne theme apply --appUrl https://your-website.com
+aigne web theme apply --appUrl https://your-website.com
 ```
 
 ### Parameters
@@ -60,10 +60,10 @@ The `apply` command accepts the following parameters:
 
 <x-field-group>
   <x-field data-name="appUrl" data-type="string" data-required="false">
-    <x-field-desc markdown>The full URL of your website. If you do not provide this, the command will use the `appUrl` defined in your `aigne.config.yaml` configuration file.</x-field-desc>
+    <x-field-desc markdown>The full URL of your website. If you do not provide this, the command will use the `appUrl` defined in your `config.yaml` configuration file.</x-field-desc>
   </x-field>
   <x-field data-name="config" data-type="string" data-required="false">
-    <x-field-desc markdown>The location of your configuration file. Defaults to the standard `aigne.config.yaml` path.</x-field-desc>
+    <x-field-desc markdown>The location of your configuration file. Defaults to the standard `config.yaml` path.</x-field-desc>
   </x-field>
 </x-field-group>
 

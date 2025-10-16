@@ -21,6 +21,7 @@ agents:
 
   # component
   - ./agents/component/pull-components-team.yaml
+  - ./agents/component/list-components.mjs
 
   # generate
   - ./agents/generate/index.yaml
@@ -157,6 +158,9 @@ cli:
       agents:
         - url: ./agents/component/pull-components-team.yaml
           name: pull
+        - url: ./agents/component/list-components.mjs
+          name: list
+          alias: ["ls", "l"]
     - name: history
       description: View update history
       agents:

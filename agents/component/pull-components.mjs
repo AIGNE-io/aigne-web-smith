@@ -73,7 +73,7 @@ export default async function pullComponents(input, options = {}) {
       statsMessage += `\n    • ${c.name} - ${formatSummary(c.summary)}`;
     });
 
-    console.log(statsMessage);
+    console.info(statsMessage);
 
     let resultMessage = "";
 

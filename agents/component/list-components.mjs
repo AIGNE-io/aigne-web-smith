@@ -1,7 +1,7 @@
 import fs from "node:fs";
-import chalk from "chalk";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import chalk from "chalk";
 import _ from "lodash";
 import { parse } from "yaml";
 import { BUILTIN_COMPONENT_LIBRARY_NAME, COMPONENTS_DIR } from "../../utils/constants.mjs";

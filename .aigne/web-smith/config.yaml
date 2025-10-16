@@ -3,7 +3,7 @@ projectName: AIGNE WebSmith
 projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
 projectLogo: https://websmith.aigne.io/.well-known/service/blocklet/logo
 projectId: cf2ae190-d34f-402f-b6bf-ab7489f670d4
-projectSlug: "/"
+projectSlug: /
 
 # =============================================================================
 # Website Configuration
@@ -101,7 +101,6 @@ sourcesPath: # Source code paths to analyze
   - ./aigne.yaml
   - ./assets/images
   - ./assets/recordings/README.md
-  - ./assets/recordings
   - ./CHANGELOG.md
   - ./agents
 defaultDatasources: # Default datasources included in every page

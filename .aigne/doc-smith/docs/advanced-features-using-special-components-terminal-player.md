@@ -110,14 +110,14 @@ The Terminal Player component requires the recording data to be in a specific JS
  
 Once the JSON recording file is placed in your project's media or assets directory, it becomes available to the AI. There is no need to manually configure the component in a YAML file.
  
-Simply describe the need for a terminal demonstration in your content source files. When you run `aigne generate` or `aigne update`, the AI will automatically find the relevant `.json` recording and use the Terminal Player component to display it on your website.
+Simply describe the need for a terminal demonstration in your content source files. When you run `aigne web generate` or `aigne web update`, the AI will automatically find the relevant `.json` recording and use the Terminal Player component to display it on your website.
  
 ```bash AIGNE CLI Commands icon=lucide:terminal
 # To generate the website from scratch
-aigne generate
+aigne web generate
  
 # To update the website with your changes
-aigne update
+aigne web update
 ```
  
 For additional information on recording, you may consult the official [asciinema website](https://asciinema.org/).

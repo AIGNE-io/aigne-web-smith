@@ -1,4 +1,9 @@
 entries:
+  - timestamp: 2025-10-16T13:31:43.607Z
+    operation: document_update
+    feedback: aigne generate -> aigne web generate, aigne update -> aigne web update (user must provider
+      feedback)
+    documentPath: /advanced-features/using-special-components/terminal-player
   - timestamp: 2025-10-16T13:27:48.183Z
     operation: document_update
     feedback: This section `## Using the Terminal Player Component` is unnecessary and should be

@@ -1,9 +1,9 @@
 # Project information for page publishing
-projectName: AIGNE WebSmith 2
+projectName: AIGNE WebSmith
 projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
 projectLogo: https://websmith.aigne.io/.well-known/service/blocklet/logo
-projectId: 2f2fe190-d34f-41af-b1bf-ab7489f670l2
-projectSlug: /ujmd2
+projectId: cf2ae190-d34f-402f-b6bf-ab7489f670d4
+projectSlug: "/"
 
 # =============================================================================
 # Website Configuration
@@ -109,6 +109,6 @@ defaultDatasources: # Default datasources included in every page
 media:
   minImageWidth: 600
 lastGitHead: 43d7b41d61a87f81895ba32d3da14e5ab0337f4b
-appUrl: https://bbqarngi5qjwqpizdiq3oxi4oemkxhsiojud4bk4pua.did.abtnet.io/
+appUrl: https://staging.websmith.aigne.io
 # Checkout ID for website deployment service
 checkoutId: ""

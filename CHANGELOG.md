@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.10...v1.5.0-beta.11) (2025-10-16)
+
+
+### Bug Fixes
+
+* add project validation and dynamic slug handling for publishing ([#137](https://github.com/AIGNE-io/aigne-web-smith/issues/137)) ([2dee2f7](https://github.com/AIGNE-io/aigne-web-smith/commit/2dee2f74a2c2abfad24f04bf3bbd20a967cb1905))
+* enhance error handling and structure validation ([#133](https://github.com/AIGNE-io/aigne-web-smith/issues/133)) ([b5f0c3d](https://github.com/AIGNE-io/aigne-web-smith/commit/b5f0c3d0161c60cdfa1cfaf0e278dacf0ad7c41f))
+* **ux:** optimize visible copy for improved user interaction ([#136](https://github.com/AIGNE-io/aigne-web-smith/issues/136)) ([64b96c9](https://github.com/AIGNE-io/aigne-web-smith/commit/64b96c9ff21d3e0219ab48dc0dcadd4128552a9d))
+
 ## [1.5.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.9...v1.5.0-beta.10) (2025-10-15)
 
 

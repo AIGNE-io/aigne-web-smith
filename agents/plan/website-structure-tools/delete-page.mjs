@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual.js";
 import {
   getDeletePageInputJsonSchema,
   getDeletePageOutputJsonSchema,
@@ -12,7 +13,7 @@ export default async function deletePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure: input.websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -23,6 +24,18 @@ export default async function deletePage(input, options) {
     websiteStructure = input.websiteStructure;
   }
 
+  // Check for duplicate calls by comparing with last input
+  const lastDeletePageInput = options.context?.userContext?.lastDeletePageInput;
+  const currentInput = { path };
+
+  if (lastDeletePageInput && isEqual(lastDeletePageInput, currentInput)) {
+    const errorMessage = `Cannot delete page: This operation has already been processed. Please do not call deletePage again with the same parameters.`;
+    return {
+      websiteStructure,
+      error: { message: errorMessage },
+    };
+  }
+
   // Find the page to delete
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
   if (pageIndex === -1) {
@@ -30,7 +43,7 @@ export default async function deletePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -43,7 +56,7 @@ export default async function deletePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -56,6 +69,9 @@ export default async function deletePage(input, options) {
 
   // update shared website structure
   options.context.userContext.currentStructure = updatedStructure;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastDeletePageInput = currentInput;
 
   return {
     websiteStructure: updatedStructure,

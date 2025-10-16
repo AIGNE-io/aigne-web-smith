@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual.js";
 import YAML from "yaml";
 import {
   getUpdateMetaInputJsonSchema,
@@ -13,7 +14,7 @@ export default async function updateMeta(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -22,6 +23,18 @@ export default async function updateMeta(input, options) {
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastUpdateMetaInput = options.context?.userContext?.lastUpdateMetaInput;
+  const currentInput = { title, description };
+
+  if (lastUpdateMetaInput && isEqual(lastUpdateMetaInput, currentInput)) {
+    const errorMessage = `Cannot update meta: This operation has already been processed. Please do not call updateMeta again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
   }
 
   // Parse YAML string to object
@@ -33,7 +46,7 @@ export default async function updateMeta(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -55,9 +68,13 @@ export default async function updateMeta(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastUpdateMetaInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

@@ -1,9 +1,12 @@
+import isEqual from "lodash/isEqual.js";
+
 import YAML from "yaml";
 import {
   getAddSectionInputJsonSchema,
   getAddSectionOutputJsonSchema,
   validateAddSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function addSection(input, options) {
   // Validate input using Zod schema
@@ -13,15 +16,28 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
   const { section, position } = validation.data;
+  const { componentLibrary } = input;
   let pageDetail = options.context?.userContext?.currentPageDetail;
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastAddSectionInput = options.context?.userContext?.lastAddSectionInput;
+  const currentInput = { section, position };
+
+  if (lastAddSectionInput && isEqual(lastAddSectionInput, currentInput)) {
+    const errorMessage = `Cannot add section: This operation has already been processed. Please do not call addSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
   }
 
   // Parse YAML string to object
@@ -33,7 +49,7 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -46,7 +62,7 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -56,7 +72,30 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
+    };
+  }
+
+  // Validate section field combination against component library
+  const validationResult = validateSingleSection({
+    section: parsedSection,
+    sectionPath: `section '${parsedSection.sectionName}'`,
+    componentLibrary,
+  });
+  console.log("validationResult", validationResult);
+
+  if (!validationResult.isValid) {
+    const summary =
+      validationResult.errorCount === 1
+        ? "Found 1 validation error:"
+        : `Found ${validationResult.errorCount} validation errors:`;
+    const details = validationResult.errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+    const errorMessage = `Cannot add section:\n${summary}\n${details}`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
     };
   }
 
@@ -74,7 +113,7 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -115,9 +154,13 @@ export default async function addSection(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastAddSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

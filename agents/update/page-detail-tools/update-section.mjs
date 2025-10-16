@@ -1,9 +1,11 @@
+import isEqual from "lodash/isEqual.js";
 import YAML from "yaml";
 import {
   getUpdateSectionInputJsonSchema,
   getUpdateSectionOutputJsonSchema,
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function updateSection(input, options) {
   // Validate input using Zod schema
@@ -13,15 +15,28 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
   const { name, updates } = validation.data;
+  const { componentLibrary } = input;
   let pageDetail = options.context?.userContext?.currentPageDetail;
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastUpdateSectionInput = options.context?.userContext?.lastUpdateSectionInput;
+  const currentInput = { name, updates };
+
+  if (lastUpdateSectionInput && isEqual(lastUpdateSectionInput, currentInput)) {
+    const errorMessage = `Cannot update section: This operation has already been processed. Please do not call updateSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
   }
 
   // Parse YAML string to object
@@ -33,7 +48,7 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -46,7 +61,7 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -57,7 +72,7 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -67,7 +82,7 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -78,7 +93,7 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -89,6 +104,28 @@ export default async function updateSection(input, options) {
     ...originalSection,
     ...parsedUpdates,
   };
+
+  // Validate updated section field combination against component library
+  const validationResult = validateSingleSection({
+    section: updatedSection,
+    sectionPath: `section '${name}'`,
+    componentLibrary,
+  });
+
+  if (!validationResult.isValid) {
+    const summary =
+      validationResult.errorCount === 1
+        ? "Found 1 validation error:"
+        : `Found ${validationResult.errorCount} validation errors:`;
+    const details = validationResult.errors
+      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
+      .join("\n");
+    const errorMessage = `Cannot update section:\n${summary}\n${details}`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
+  }
 
   // Create new sections array with the updated section
   const newSections = [...parsedPageDetail.sections];
@@ -107,9 +144,13 @@ export default async function updateSection(input, options) {
   const latestPageDetail = YAML.stringify(updatedPageDetail, {
     quotingType: '"',
     defaultStringType: "QUOTE_DOUBLE",
+    lineWidth: 0,
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastUpdateSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

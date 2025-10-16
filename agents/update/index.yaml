@@ -59,6 +59,9 @@ input_schema:
     feedback:
       type: string
       description: Feedback for content improvement
+    verbose:
+      type: boolean
+      description: Verbose mode - show detailed page information
 output_schema:
   type: object
   properties:

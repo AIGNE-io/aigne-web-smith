@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual.js";
 import {
   getUpdatePageInputJsonSchema,
   getUpdatePageOutputJsonSchema,
@@ -12,15 +13,27 @@ export default async function updatePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure: input.websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
-  const { path, title, description, sourceIds } = validation.data;
+  const { path, title, description, navigation, sourceIds } = validation.data;
   let websiteStructure = options.context?.userContext?.currentStructure;
 
   if (!websiteStructure) {
     websiteStructure = input.websiteStructure;
+  }
+
+  // Check for duplicate calls by comparing with last input
+  const lastUpdatePageInput = options.context?.userContext?.lastUpdatePageInput;
+  const currentInput = { path, title, description, navigation, sourceIds };
+
+  if (lastUpdatePageInput && isEqual(lastUpdatePageInput, currentInput)) {
+    const errorMessage = `Cannot update page: This operation has already been processed. Please do not call updatePage again with the same parameters.`;
+    return {
+      websiteStructure,
+      error: { message: errorMessage },
+    };
   }
 
   // Find the page to update
@@ -30,7 +43,7 @@ export default async function updatePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -41,6 +54,7 @@ export default async function updatePage(input, options) {
     ...originalPage,
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
+    ...(navigation !== undefined && { navigation: { ...navigation } }), // Create a copy of the navigation object
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
 
@@ -51,6 +65,7 @@ export default async function updatePage(input, options) {
   const updatedFields = [];
   if (title !== undefined) updatedFields.push(`title to '${title}'`);
   if (description !== undefined) updatedFields.push(`description`);
+  if (navigation !== undefined) updatedFields.push(`navigation (title: '${navigation.title}')`);
   if (sourceIds !== undefined) updatedFields.push(`sourceIds (${sourceIds.length} sources)`);
 
   const successMessage = `updatePage executed successfully.
@@ -59,6 +74,9 @@ export default async function updatePage(input, options) {
 
   // update shared website structure
   options.context.userContext.currentStructure = updatedStructure;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastUpdatePageInput = currentInput;
 
   return {
     websiteStructure: updatedStructure,

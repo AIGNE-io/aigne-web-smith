@@ -1,3 +1,7 @@
+import pkg from "lodash";
+
+const { isEqual } = pkg;
+
 import YAML from "yaml";
 import {
   getAddSectionInputJsonSchema,
@@ -13,7 +17,6 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -25,6 +28,18 @@ export default async function addSection(input, options) {
     pageDetail = input.pageDetail;
   }
 
+  // Check for duplicate calls by comparing with last input
+  const lastAddSectionInput = options.context?.userContext?.lastAddSectionInput;
+  const currentInput = { section, position };
+
+  if (lastAddSectionInput && isEqual(lastAddSectionInput, currentInput)) {
+    const errorMessage = `Cannot add section: This operation has already been processed. Please do not call addSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
+  }
+
   // Parse YAML string to object
   let parsedPageDetail;
   try {
@@ -34,7 +49,6 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -48,7 +62,6 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -59,7 +72,6 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -78,7 +90,6 @@ export default async function addSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -124,6 +135,9 @@ export default async function addSection(input, options) {
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastAddSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

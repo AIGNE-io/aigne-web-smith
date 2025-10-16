@@ -1,3 +1,7 @@
+import pkg from "lodash";
+
+const { isEqual } = pkg;
+
 import YAML from "yaml";
 import {
   getUpdateSectionInputJsonSchema,
@@ -13,7 +17,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail: input.pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -25,6 +28,18 @@ export default async function updateSection(input, options) {
     pageDetail = input.pageDetail;
   }
 
+  // Check for duplicate calls by comparing with last input
+  const lastUpdateSectionInput = options.context?.userContext?.lastUpdateSectionInput;
+  const currentInput = { name, updates };
+
+  if (lastUpdateSectionInput && isEqual(lastUpdateSectionInput, currentInput)) {
+    const errorMessage = `Cannot update section: This operation has already been processed. Please do not call updateSection again with the same parameters.`;
+    return {
+      pageDetail,
+      error: { message: errorMessage },
+    };
+  }
+
   // Parse YAML string to object
   let parsedPageDetail;
   try {
@@ -34,7 +49,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -48,7 +62,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -60,7 +73,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -71,7 +83,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -83,7 +94,6 @@ export default async function updateSection(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       pageDetail,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -117,6 +127,9 @@ export default async function updateSection(input, options) {
   });
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastUpdateSectionInput = currentInput;
 
   return {
     pageDetail: latestPageDetail,

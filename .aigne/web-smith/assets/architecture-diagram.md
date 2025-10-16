@@ -1,0 +1,1 @@
+A clear, professional diagram illustrating the agent-based architecture of AIGNE WebSmith. It visually explains the workflow from planning to publishing, building trust and credibility by showcasing the tool's robust underlying structure.

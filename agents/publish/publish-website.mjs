@@ -117,7 +117,7 @@ function createLinkProtocolMap({ websiteStructure, projectSlug, appUrl }) {
     websiteStructure.forEach((page) => {
       if (page.path && page.linkPath) {
         const url = new URL(appUrl);
-        url.pathname = join(projectSlug, formatRoutePath(page.path));
+        url.pathname = join(projectSlug || "", formatRoutePath(page.path));
         linkToPathMap[page.linkPath] = url.toString();
       }
     });
@@ -157,6 +157,34 @@ const publishBundleFn = async ({ bundleBuffer, appUrl, mountPoint, accessToken }
   };
 };
 
+const validateProjectFn = async ({ appUrl, mountPoint, accessToken, projectData }) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${accessToken}`);
+  headers.append("Content-Type", "application/json");
+
+  const response = await fetch(joinURL(appUrl, mountPoint || "/", "/api/sdk/project/validate"), {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ projectData }),
+    redirect: "follow",
+  });
+
+  let result;
+  const responseText = await response.text();
+
+  try {
+    result = JSON.parse(responseText);
+  } catch {
+    result = responseText;
+  }
+
+  if (!response.ok) {
+    throw new Error(result?.message || result?.error || result);
+  }
+
+  return result;
+};
+
 export default async function publishWebsite(
   {
     appUrl,
@@ -177,6 +205,9 @@ export default async function publishWebsite(
   },
   options,
 ) {
+  const originProjectId = projectId;
+  const originProjectSlug = projectSlug;
+
   const pagesDir = join(".aigne", "web-smith", TMP_DIR, TMP_PAGES_DIR);
   await fs.rm(pagesDir, { recursive: true, force: true });
   await fs.mkdir(pagesDir, {
@@ -333,6 +364,14 @@ export default async function publishWebsite(
     projectSlug = config.projectSlug;
   }
 
+  if (!projectSlug) {
+    const slugBase =
+      projectName && typeof projectName === "string"
+        ? slugify(projectName, { lower: true, strict: true })
+        : "";
+    projectSlug = slugBase || projectId;
+  }
+
   // Prompt for projectId if still not available
   if (!projectId) {
     projectId = crypto.randomUUID();
@@ -350,6 +389,35 @@ export default async function publishWebsite(
   const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
+
+  const preflightProjectData = {
+    id: projectId,
+    name: projectName || "Untitled Project",
+    description: projectDesc || "",
+    icon: projectLogo,
+    slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
+  };
+
+  const projectValidationResult = await validateProjectFn({
+    appUrl,
+    mountPoint,
+    accessToken,
+    projectData: preflightProjectData,
+  });
+
+  if (projectValidationResult?.projectId) {
+    projectId = projectValidationResult.projectId;
+  }
+
+  if (projectValidationResult?.projectSlug && projectValidationResult.slugChanged) {
+    console.log(
+      `\n${chalk.yellow("🤖 Project slug adjusted before upload due to conflict:")} ${chalk.cyan(projectValidationResult.projectSlug)}`,
+    );
+
+    projectSlug = projectValidationResult.projectSlug || projectSlug;
+  }
+
+  const projectSlugForLinks = projectSlug || projectId;
 
   process.env.PAGES_ROOT_DIR = pagesDir;
 
@@ -446,7 +514,7 @@ export default async function publishWebsite(
     // Step 2.5: 创建链接协议到实际路径的映射
     const linkToPathMap = createLinkProtocolMap({
       websiteStructure,
-      projectSlug: projectSlug || projectId,
+      projectSlug: projectSlugForLinks,
       appUrl,
     });
 
@@ -522,8 +590,6 @@ export default async function publishWebsite(
     }
 
     let remoteResults = [];
-    let newProjectId = projectId;
-    let newProjectSlug = projectSlug;
 
     // handle project logo
     if (projectLogo) {
@@ -639,8 +705,8 @@ export default async function publishWebsite(
 
       const projectData = {
         id: projectId,
-        name: projectName,
-        description: projectDesc,
+        name: projectName || "Untitled Project",
+        description: projectDesc || "",
         icon: projectLogo,
         slug: ["/", ""].includes(projectSlug) ? "/" : projectSlug,
       };
@@ -650,7 +716,6 @@ export default async function publishWebsite(
         meta,
         project: {
           projectData,
-          resetProject: true,
           force: true,
         },
         pages: manifestPages,
@@ -670,23 +735,6 @@ export default async function publishWebsite(
         });
 
         remoteResults = Array.isArray(result?.pages) ? result.pages : [];
-        newProjectId = result?.projectId || projectId;
-        newProjectSlug = result?.projectSlug ?? projectSlug;
-
-        if (!newProjectSlug) {
-          const firstRemoteSuccess = remoteResults.find(
-            (entry) => entry?.success && entry?.projectSlug,
-          );
-          if (firstRemoteSuccess?.projectSlug) {
-            newProjectSlug = firstRemoteSuccess.projectSlug;
-          }
-        }
-
-        if (projectSlug && newProjectSlug && newProjectSlug !== projectSlug) {
-          console.log(
-            `\n${chalk.yellow("ℹ️ Project slug was automatically updated due to conflict:")} ${chalk.cyan(newProjectSlug)}`,
-          );
-        }
       } catch (error) {
         localFailures.push({
           file: "bundle",
@@ -722,16 +770,15 @@ export default async function publishWebsite(
       }
 
       const shouldSaveProjectId =
-        !hasProjectIdInConfig || projectId !== newProjectId || publishToSelfHostedBlocklet;
+        !hasProjectIdInConfig || originProjectId !== projectId || publishToSelfHostedBlocklet;
       if (shouldSaveProjectId) {
-        await saveValueToConfig("projectId", newProjectId || projectId);
+        await saveValueToConfig("projectId", projectId);
       }
 
       const shouldSaveProjectSlug =
-        !!newProjectSlug &&
-        (!hasProjectSlugInConfig || projectSlug !== newProjectSlug || publishToSelfHostedBlocklet);
+        !hasProjectSlugInConfig || originProjectSlug !== projectSlug || publishToSelfHostedBlocklet;
       if (shouldSaveProjectSlug) {
-        await saveValueToConfig("projectSlug", newProjectSlug);
+        await saveValueToConfig("projectSlug", projectSlug);
       }
 
       const publishedPaths = publishResults

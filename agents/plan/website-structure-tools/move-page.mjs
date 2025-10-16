@@ -1,3 +1,7 @@
+import pkg from "lodash";
+
+const { isEqual } = pkg;
+
 import {
   getMovePageInputJsonSchema,
   getMovePageOutputJsonSchema,
@@ -12,7 +16,6 @@ export default async function movePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure: input.websiteStructure,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -24,6 +27,18 @@ export default async function movePage(input, options) {
     websiteStructure = input.websiteStructure;
   }
 
+  // Check for duplicate calls by comparing with last input
+  const lastMovePageInput = options.context?.userContext?.lastMovePageInput;
+  const currentInput = { path, newParentId, newPath };
+
+  if (lastMovePageInput && isEqual(lastMovePageInput, currentInput)) {
+    const errorMessage = `Cannot move page: This operation has already been processed. Please do not call movePage again with the same parameters.`;
+    return {
+      websiteStructure,
+      error: { message: errorMessage },
+    };
+  }
+
   // Find the page to move
   const pageIndex = websiteStructure.findIndex((item) => item.path === path);
   if (pageIndex === -1) {
@@ -31,7 +46,6 @@ export default async function movePage(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       websiteStructure,
-      message: errorMessage,
       error: { message: errorMessage },
     };
   }
@@ -46,7 +60,6 @@ export default async function movePage(input, options) {
       console.log(`⚠️  ${errorMessage}`);
       return {
         websiteStructure,
-        message: errorMessage,
         error: { message: errorMessage },
       };
     }
@@ -67,7 +80,6 @@ export default async function movePage(input, options) {
       console.log(`⚠️  ${errorMessage}`);
       return {
         websiteStructure,
-        message: errorMessage,
         error: { message: errorMessage },
       };
     }
@@ -82,7 +94,6 @@ export default async function movePage(input, options) {
       console.log(`⚠️  ${errorMessage}`);
       return {
         websiteStructure,
-        message: errorMessage,
         error: { message: errorMessage },
       };
     }
@@ -139,6 +150,9 @@ export default async function movePage(input, options) {
 
   // update shared website structure
   options.context.userContext.currentStructure = updatedStructure;
+
+  // Save current input to prevent duplicate calls
+  options.context.userContext.lastMovePageInput = currentInput;
 
   return {
     websiteStructure: updatedStructure,

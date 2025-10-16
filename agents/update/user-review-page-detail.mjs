@@ -1,5 +1,5 @@
-import YAML from "yaml";
 import chalk from "chalk";
+import YAML from "yaml";
 import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
 import {
   extractContentFields,
@@ -269,7 +269,6 @@ function formatFieldValue(key, value, indent = "") {
 }
 
 const fieldMappings = [
-
   // Media related
   { pattern: "image", display: "🖼️ Image" },
   { pattern: "img", display: "🖼️ Image" },

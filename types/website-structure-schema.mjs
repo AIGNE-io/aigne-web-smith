@@ -38,7 +38,7 @@ export const addPageInputSchema = z.object({
 
 export const addPageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   error: z
     .object({
       message: z.string(),
@@ -53,7 +53,7 @@ export const deletePageInputSchema = z.object({
 
 export const deletePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   error: z
     .object({
       message: z.string(),
@@ -70,7 +70,7 @@ export const movePageInputSchema = z.object({
 
 export const movePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   error: z
     .object({
       message: z.string(),
@@ -101,7 +101,7 @@ export const updatePageInputSchema = z
 
 export const updatePageOutputSchema = z.object({
   websiteStructure: websiteStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   error: z
     .object({
       message: z.string(),

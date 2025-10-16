@@ -9,8 +9,6 @@ export default async function translateMeta(
   { projectName, projectDesc, locale, locales = [] },
   options,
 ) {
-  const languages = [...new Set([...(locale ? [locale] : []), ...(locales || [])])];
-
   const translationCacheFilePath = join(".aigne", "web-smith", "translation-cache.yaml");
   await fs.ensureFile(translationCacheFilePath);
   const translationCache = await fs.readFile(translationCacheFilePath, "utf-8");
@@ -19,8 +17,8 @@ export default async function translateMeta(
   const titleTranslation = parsedTranslationCache[projectName] || {};
   const descTranslation = parsedTranslationCache[projectDesc] || {};
 
-  const titleLanguages = languages.filter((lang) => !titleTranslation[lang]);
-  const descLanguages = languages.filter((lang) => !descTranslation[lang]);
+  const titleLanguages = locales.filter((lang) => !titleTranslation[lang]);
+  const descLanguages = locales.filter((lang) => !descTranslation[lang]);
   const titleTranslationSchema = z.object(
     titleLanguages.reduce((shape, lang) => {
       shape[lang] = z.string();

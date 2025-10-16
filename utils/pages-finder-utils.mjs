@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import fs from "fs-extra";
 import { NAVIGATIONS_FILE_NAME, PAGE_FILE_EXTENSION } from "./constants.mjs";
 import { getFileName } from "./utils.mjs";
 
@@ -111,6 +112,10 @@ export async function readFileContent(pagesDir, fileName) {
  * @returns {Promise<string[]>} Array of main language page files ordered by websiteStructureResult
  */
 export async function getMainLanguageFiles(pagesDir, locale, websiteStructureResult = null) {
+  if (!fs.existsSync(pagesDir)) {
+    return [];
+  }
+
   const files = await readdir(pagesDir);
 
   // Filter for main language page files (exclude _sitemap file)

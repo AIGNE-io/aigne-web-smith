@@ -101,7 +101,6 @@ sourcesPath: # Source code paths to analyze
   - ./aigne.yaml
   - ./assets/images
   - ./assets/recordings/README.md
-  - ./assets/recordings
   - ./CHANGELOG.md
   - ./agents
 defaultDatasources: # Default datasources included in every page

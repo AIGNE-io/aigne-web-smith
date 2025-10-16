@@ -2,11 +2,12 @@ sitemap:
   - title: "AIGNE WebSmith: AI-Powered Website Generation"
     path: /home
     locales:
-      zh:
-        title: "AIGNE WebSmith: AI 网站生成器，用于快速、专业的网站创建"
-        description: 使用 AIGNE WebSmith，通过 AI 自动规划、生成和发布 SEO 优化的网站。从内容创建到一键部署到 Pages
-          Kit，在几分钟内完成。
-        image: .aigne/web-smith/assets/hero-main-visual.png
+      en:
+        title: "AIGNE WebSmith: AI-Powered Website Generation in Minutes"
+        description: Generate and publish professional, SEO-optimized websites with
+          AIGNE WebSmith. Our AI agents automate everything from planning and
+          content creation to one-click publishing. Get started now!
+        image: mediakit://hero-background.webp
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -17,26 +18,26 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T01:15:12.598Z
-      updatedAt: 2025-10-16T01:15:12.598Z
-      publishedAt: 2025-10-16T01:15:12.598Z
+      createdAt: 2025-10-15T12:45:11.496Z
+      updatedAt: 2025-10-15T12:45:11.496Z
+      publishedAt: 2025-10-15T12:45:11.496Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5
     section: header
     visible: true
     title:
-      zh: AIGNE WebSmith
+      en: AIGNE WebSmith
     link:
-      zh: /
+      en: /
     description:
-      zh: Generate professional websites with AI.
+      en: Generate professional websites with AI.
   - id: f5c5d15c42b3cf01
     section: footer
     visible: true
     title:
-      zh: AIGNE WebSmith
+      en: AIGNE WebSmith
     link:
-      zh: /
+      en: /
     description:
-      zh: Generate professional websites with AI.
+      en: Generate professional websites with AI.

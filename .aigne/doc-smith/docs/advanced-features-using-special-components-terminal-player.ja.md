@@ -1,8 +1,8 @@
 # ターミナルプレイヤー
 
-ターミナルプレイヤーは、ウェブサイト上でインタラクティブな、事前に録画されたターミナルセッションを表示するために使用される特別なコンポーネントです。このコンポーネントは、コマンドラインの指示をデモンストレーションしたり、ソフトウェアのインストールを実演したり、技術的なプロセスを明確で再生可能な形式でユーザーに案内したりするための効果的なツールです。
+ターミナルプレイヤーは、インタラクティブな、事前に録画されたターミナルセッションをウェブサイトに表示するために使用される特殊なコンポーネントです。このコンポーネントは、コマンドラインの指示をデモンストレーションしたり、ソフトウェアのインストールを紹介したり、技術的なプロセスを明確で再生可能な形式でユーザーに案内したりするための効果的なツールです。
 
-このコンポーネントは、`asciinema`形式で作成された録画を利用します。これにより、ターミナル出力の軽量なテキストベースのキャプチャが保証されます。
+このコンポーネントは `asciinema` 形式で作成された録画を利用しており、これによりターミナル出力の軽量なテキストベースのキャプチャが保証されます。
 
 ## プロセスの概要
 
@@ -12,8 +12,8 @@
 direction: down
 
 Developer: {
-  shape: c4-person
   label: "開発者"
+  shape: c4-person
 }
 
 Terminal: {
@@ -27,7 +27,7 @@ Cast-File: {
 }
 
 Online-Converter: {
-  label: "ArcBlockオンラインコンバーター"
+  label: "ArcBlock オンラインコンバーター"
   shape: rectangle
 }
 
@@ -45,16 +45,16 @@ Website-Project: {
   }
 
   Terminal-Player-Component: {
-    label: "TerminalPlayerコンポーネント"
+    label: "TerminalPlayer コンポーネント"
   }
 }
 
 Website-Visitor: {
-  shape: c4-person
   label: "ウェブサイト訪問者"
+  shape: c4-person
 }
 
-Developer -> Terminal: "1. セッションを記録"
+Developer -> Terminal: "1. セッションを録画"
 Terminal -> Cast-File: "2. 生成"
 Cast-File -> Online-Converter: "3. アップロード & 変換"
 Online-Converter -> JSON-File: "4. ダウンロード"
@@ -65,61 +65,66 @@ Website-Project.Terminal-Player-Component -> Website-Visitor: "6. 再生を表�
 
 ## ターミナル録画の作成
 
-ターミナルプレイヤーを使用するには、まず録画ファイルを作成する必要があります。このための推奨ツールは、ターミナルセッションを録画および共有するためのオープンソースのコマンドラインユーティリティである `asciinema` です。
+ターミナルプレイヤーを使用するには、まず録画ファイルを作成する必要があります。これには、ターミナルセッションを録画および共有するためのオープンソースのコマンドラインユーティリティである `asciinema` の使用を推奨します。
 
 ### ステップ1：`asciinema` CLIのインストール
 
 まず、ローカルマシンに `asciinema` ツールをインストールします。インストール方法はオペレーティングシステムによって異なります。
 
 ```bash インストール icon=lucide:download
-# Homebrewを使用したmacOSの場合
+# Homebrew を使用した macOS でのインストール
 brew install asciinema
 
-# APTを使用したUbuntu/Debianの場合
+# APT を使用した Ubuntu/Debian でのインストール
 sudo apt install asciinema
 
-# pipxを使用する場合（クロスプラットフォーム）
+# pipx を使用（クロスプラットフォーム）
 pipx install asciinema
 ```
 
-その他のインストールオプションについては、公式の[asciinemaドキュメント](https://docs.asciinema.org/)を参照してください。
+追加のインストールオプションについては、公式の [asciinema ドキュメント](https://docs.asciinema.org/) を参照してください。
 
 ### ステップ2：セッションの録画
 
-`asciinema`がインストールされたら、`rec`コマンドを実行してターミナルセッションの録画を開始できます。
+`asciinema` がインストールされたら、`rec` コマンドを実行してターミナルセッションの録画を開始できます。
 
 ```bash 録画コマンド icon=lucide:radio-tower
 # 新しい録画を開始し、「my-demo.cast」に保存します
 asciinema rec my-demo.cast
 ```
 
-コマンドを開始した後、ターミナル内でキャプチャしたいすべてのアクションを実行します。録画を停止するには、`Ctrl+D`を押すか、`exit`コマンドを入力します。`my-demo.cast`という名前のファイルが現在のディレクトリに保存されます。`asciinema play my-demo.cast`を実行することで、ローカルで再生を確認できます。
+コマンドを開始した後、ターミナル内でキャプチャしたいすべてのアクションを実行します。録画を停止するには、`Ctrl+D` を押すか、`exit` コマンドを入力します。`my-demo.cast` という名前のファイルが現在のディレクトリに保存されます。`asciinema play my-demo.cast` を実行することで、ローカルで再生を確認できます。
 
 **重要な考慮事項：**
 *   **手順を計画する：** 録画には、一時停止やエラーを含むすべてのアクションがキャプチャされます。事前にスクリプトを準備することをお勧めします。
-*   **ターミナルのサイズ：** プレイヤーは録画に使用されたターミナルの列と行のサイズを再現します。再生中にコンテンツの折り返しや切り捨てを防ぐために、ターミナルウィンドウのサイズが適切であることを確認してください。
+*   **ターミナルの寸法：** プレイヤーは録画に使用されたターミナルの列と行の寸法を再現します。再生中にコンテンツの折り返しや切り捨てを防ぐために、ターミナルウィンドウのサイズが適切であることを確認してください。
 
-### ステップ3：`.cast`ファイルをJSONに変換する
+### ステップ3：`.cast` ファイルを JSON に変換する
 
-ターミナルプレイヤーコンポーネントは、録画データが特定のJSON形式であることを要求します。この変換プロセスを簡素化するために、オンラインコンバーターが利用可能です。
+Terminal Player コンポーネントは、録画データが特定の JSON 形式であることを要求します。この変換プロセスを簡素化するために、オンラインコンバーターが利用可能です。
 
-1.  **コンバーターに移動：** ウェブブラウザで[ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)を開きます。
-2.  **ファイルをアップロード：** `.cast`ファイルをページにドラッグアンドドロップします。
-3.  **プレビューとダウンロード：** ツールが録画のライブプレビューを生成します。それが正しいことを確認した後、変換された`.json`ファイルをダウンロードします。
-4.  **プロジェクトに追加：** ダウンロードしたJSONファイルをウェブサイトのメディアまたはアセットディレクトリに配置します。
+1.  **コンバーターに移動：** ウェブブラウザで [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide) を開きます。
+2.  **ファイルをアップロード：** `.cast` ファイルをページにドラッグアンドドロップします。
+3.  **プレビューとダウンロード：** このツールは録画のライブプレビューを生成します。それが正しいことを確認した後、変換された `.json` ファイルをダウンロードします。
+4.  **プロジェクトに追加：** ダウンロードした JSON ファイルをウェブサイトのメディアまたはアセットディレクトリに配置します。
  
 ## 録画の使用
  
-JSON録画ファイルがプロジェクトのメディアまたはアセットディレクトリに配置されると、AIが利用できるようになります。YAMLファイルでコンポーネントを手動で設定する必要はありません。
+JSON 録画ファイルがプロジェクトのメディアまたはアセットディレクトリに配置されると、AI がそれを利用できるようになります。YAML ファイルでコンポーネントを手動で設定する必要はありません。
  
-コンテンツソースファイルでターミナルのデモンストレーションの必要性を記述するだけです。`aigne web generate`または`aigne web update`を実行すると、AIが関連する`.json`録画を自動的に見つけ、ターミナルプレイヤーコンポーネントを使用してウェブサイトに表示します。
+コンテンツソースファイルにターミナルのデモンストレーションが必要であることを記述するだけです。`aigne web generate` または `aigne web update` を実行すると、AI が関連する `.json` 録画を自動的に見つけ、Terminal Player コンポーネントを使用してウェブサイトに表示します。
  
-```bash AIGNE CLIコマンド icon=lucide:terminal
-# ウェブサイトを最初から生成する
+```bash AIGNE CLI コマンド icon=lucide:terminal
+# ウェブサイトをゼロから生成する場合
 aigne web generate
  
-# 変更内容でウェブサイトを更新する
+# 変更内容でウェブサイトを更新する場合
 aigne web update
 ```
  
-録画に関する追加情報については、公式の[asciinemaウェブサイト](https://asciinema.org/)を参照してください。
+録画に関する追加情報については、公式の [asciinema ウェブサイト](https://asciinema.org/) を参照してください。
+
+## 追加リソース
+
+- [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+- [asciinema ドキュメント](https://docs.asciinema.org/)

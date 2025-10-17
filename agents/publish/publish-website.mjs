@@ -229,12 +229,12 @@ export default async function publishWebsite(
 
   // ----------------- main publish process flow -----------------------------
   // Check if PAGES_KIT_URL is set in environment variables
-  const envAppUrl = appUrl || process.env.PAGES_KIT_URL;
-  const useEnvAppUrl = !!envAppUrl;
+  const useEnvAppUrl = !!appUrl;
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
+  appUrl = process.env.PAGES_KIT_URL || appUrl || config?.appUrl;
+  const hasInputAppUrl = !!appUrl;
 
   let shouldSyncAll = void 0;
   let shouldWithLocales = withLocalesOption || false;
@@ -380,15 +380,13 @@ export default async function publishWebsite(
       }
       try {
         let id = "";
-        let paymentUrl = "";
         if (choice === "new-pages-kit-continue") {
           id = sessionId;
-          paymentUrl = paymentLink;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
 
         appUrl = homeUrl;
         token = ltToken;

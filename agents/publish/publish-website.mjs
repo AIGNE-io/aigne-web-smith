@@ -321,57 +321,63 @@ export default async function publishWebsite(
 
       // resume previous website setup
       if (choice === "new-pages-kit-continue") {
-        shouldSyncAll = config?.shouldSyncAll ?? void 0
+        shouldSyncAll = config?.shouldSyncAll ?? void 0;
         if (shouldSyncAll !== void 0) {
-          shouldWithLocales = shouldWithLocales ?? shouldSyncAll
-          shouldWithBranding = shouldWithBranding ?? shouldSyncAll
-          navigationType = navigationType ?? config?.navigationType
+          shouldWithLocales = shouldWithLocales ?? shouldSyncAll;
+          shouldWithBranding = shouldWithBranding ?? shouldSyncAll;
+          navigationType = navigationType ?? config?.navigationType;
         }
       }
 
-      if (options?.prompts?.confirm ) {
-      if ( shouldSyncAll === void 0) {
-        shouldSyncAll = await options.prompts.confirm({
-          message:
-            "Publish pages to the new dedicated website with locales, navigations and branding?",
-          default: true,
-        });
-
-        if (shouldSyncAll) {
-          const choice = await options.prompts.select({
-            message: "Select navigation type:",
-            choices: [
-              {
-                name: "Menu - Menu navigation with parent-child relationships",
-                value: "menu",
-              },
-              {
-                name: "Flat - Flat navigation without parent-child relationships",
-                value: "flat",
-              },
-              {
-                name: "None - No navigation",
-                value: "none",
-              },
-            ],
+      if (options?.prompts?.confirm) {
+        if (shouldSyncAll === void 0) {
+          shouldSyncAll = await options.prompts.confirm({
+            message:
+              "Publish pages to the new dedicated website with locales, navigations and branding?",
+            default: true,
           });
-          navigationType = choice === "none" ? "" : choice;
-        }
-        await saveValueToConfig("shouldSyncAll", shouldSyncAll, "Should sync all for website");
-        await saveValueToConfig("navigationType", navigationType, "Navigation type for website");
-        shouldWithLocales = shouldSyncAll;
-        shouldWithBranding = shouldSyncAll;
-      } else {
-          console.log(`Publish pages to the new dedicated website with locales, navigations and branding? ${chalk.cyan(shouldSyncAll ? "Yes" : "No")}`);
-          if (navigationType === '') {
-            console.log(`Select navigation type: ${chalk.cyan("None - No navigation")}`);
-          } else if (navigationType === 'flat') {
-            console.log(`Select navigation type: ${chalk.cyan("Flat - Flat navigation without parent-child relationships")}`);
-          } else {
-            console.log(`Select navigation type: ${chalk.cyan("Menu - Menu navigation with parent-child relationships")}`);
+
+          if (shouldSyncAll) {
+            const choice = await options.prompts.select({
+              message: "Select navigation type:",
+              choices: [
+                {
+                  name: "Menu - Menu navigation with parent-child relationships",
+                  value: "menu",
+                },
+                {
+                  name: "Flat - Flat navigation without parent-child relationships",
+                  value: "flat",
+                },
+                {
+                  name: "None - No navigation",
+                  value: "none",
+                },
+              ],
+            });
+            navigationType = choice === "none" ? "" : choice;
           }
+          await saveValueToConfig("shouldSyncAll", shouldSyncAll, "Should sync all for website");
+          await saveValueToConfig("navigationType", navigationType, "Navigation type for website");
+          shouldWithLocales = shouldSyncAll;
+          shouldWithBranding = shouldSyncAll;
+        } else {
+          console.log(
+            `Publish pages to the new dedicated website with locales, navigations and branding? ${chalk.cyan(shouldSyncAll ? "Yes" : "No")}`,
+          );
+          if (navigationType === "") {
+            console.log(`Select navigation type: ${chalk.cyan("None - No navigation")}`);
+          } else if (navigationType === "flat") {
+            console.log(
+              `Select navigation type: ${chalk.cyan("Flat - Flat navigation without parent-child relationships")}`,
+            );
+          } else {
+            console.log(
+              `Select navigation type: ${chalk.cyan("Menu - Menu navigation with parent-child relationships")}`,
+            );
+          }
+        }
       }
-    }
       try {
         let id = "";
         let paymentUrl = "";

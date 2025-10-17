@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-17T03:07:55.618Z
+  updateAt: 2025-10-17T07:33:16.384Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -7484,7 +7484,7 @@ composite:
                 1fbf1wqtcp36p61j:
                   x: 0
                   y: 0
-                  w: 8
+                  w: 7
                   h: 1
                 9cksh70332shaqww:
                   x: 0

@@ -60,7 +60,7 @@ aigne web publish --appUrl "https://your-pages-kit-url.com"
 
 <x-field-group>
   <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="The base URL of the target Pages Kit website where the pages will be published."></x-field>
-  <x-field data-name="with-navigations" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website navigation data along with the pages."></x-field>
+  <x-field data-name="with-navigations" data-type="String" data-required="false" data-desc="Publishes website navigation data along with the pages. Options are 'flat' or 'menu'. Defaults to 'menu'."></x-field>
   <x-field data-name="with-locales" data-type="Boolean" data-required="false" data-desc="If set to true, publishes website locale and language settings."></x-field>
 </x-field-group>
 

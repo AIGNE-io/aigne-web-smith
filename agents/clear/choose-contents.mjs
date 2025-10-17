@@ -26,7 +26,7 @@ export default async function chooseContents(input = {}, options = {}) {
       path: websiteStructureCandidate,
       label: "website structure",
       description: ({ tmpDir }) =>
-        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stays)`,
+        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stay)`,
       onClear: async ({ displayPath, results, targetPath }) => {
         await rm(targetPath, { recursive: true, force: true });
         results.push({
@@ -129,7 +129,9 @@ export default async function chooseContents(input = {}, options = {}) {
       path: mediaDescriptionPath,
       label: "media file descriptions",
       description: ({ mediaDescriptionPath }) =>
-        `Delete AI-generated descriptions in './${toDisplayPath(mediaDescriptionPath)}' (will regenerate on next generation).`,
+        `Delete AI-generated descriptions in './${toDisplayPath(
+          mediaDescriptionPath,
+        )}' (will regenerate on next generation).`,
       onClear: async ({ displayPath, results }) => {
         const clearAgent = options.context?.agents?.["clearMediaDescription"];
         if (!clearAgent) {
@@ -173,7 +175,7 @@ export default async function chooseContents(input = {}, options = {}) {
   );
   const availableTargets = Object.fromEntries(availabilityEntries);
   const normalizedTargets = Array.isArray(rawTargets)
-    ? rawTargets.map((target) => targetsDefinition[target]).filter(Boolean)
+    ? rawTargets.filter((target) => !!targetsDefinition[target])
     : [];
 
   let selectedTargets = [...new Set(normalizedTargets)];
@@ -261,7 +263,7 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   const hasError = results.some((item) => item.status === "error");
-  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successfully!";
+  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successful!";
 
   const detailLines = results.map((item) => `   ${item.message}`).join("\n");
 

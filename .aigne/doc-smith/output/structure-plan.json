@@ -165,20 +165,8 @@
       "agents/theme/generate-theme-team.yaml",
       "agents/theme/apply-theme.mjs",
       "agents/theme/save-theme.mjs",
-      "utils/theme-utils.mjs"
-    ],
-    "parentId": "/core-tasks"
-  },
-  {
-    "title": "Managing Components",
-    "description": "Explains how to use the 'component' command to pull and update the component library used to build your website's visual elements.",
-    "path": "/core-tasks/managing-components",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "agents/component/pull-components-team.yaml",
-      "agents/component/pull-components.mjs",
-      "assets/components/builtin-component-library.yaml"
+      "utils/theme-utils.mjs",
+      "assets/documents/theme-lock.md"
     ],
     "parentId": "/core-tasks"
   },
@@ -216,6 +204,40 @@
     "parentId": "/core-tasks"
   },
   {
+    "title": "Advanced Features",
+    "description": "Explore advanced capabilities of AIGNE WebSmith to further customize and enhance your website, including component management and using specialized visual elements.",
+    "path": "/advanced-features",
+    "parentId": null,
+    "sourceIds": ["README.md", "CHANGELOG.md", "agents/component/pull-components-team.yaml"]
+  },
+  {
+    "title": "Managing Components",
+    "description": "Explains how to use the 'component' command to pull and update the component library used to build your website's visual elements.",
+    "path": "/advanced-features/managing-components",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/component/pull-components-team.yaml",
+      "agents/component/pull-components.mjs",
+      "assets/components/builtin-component-library.yaml"
+    ],
+    "parentId": "/advanced-features"
+  },
+  {
+    "title": "Using Special Components",
+    "description": "Learn how to leverage powerful, pre-built components like the Terminal Player and FullBackground Hero to create visually engaging and interactive web pages.",
+    "path": "/advanced-features/using-special-components",
+    "parentId": "/advanced-features",
+    "sourceIds": ["CHANGELOG.md", "README.md"]
+  },
+  {
+    "title": "Terminal Player",
+    "description": "Provides instructions on how to embed and use the Terminal Player component to display terminal recordings and command-line interactions on your website.",
+    "path": "/advanced-features/using-special-components/terminal-player",
+    "parentId": "/advanced-features/using-special-components",
+    "sourceIds": ["CHANGELOG.md", "assets/documents/special-components/terminal-player.md"]
+  },
+  {
     "title": "Reference",
     "description": "Provides detailed reference material, including a complete list of commands, version history, and licensing information.",
     "path": "/reference",
@@ -244,5 +266,12 @@
     "path": "/reference/changelog",
     "sourceIds": ["CHANGELOG.md", "RELEASE.md"],
     "parentId": "/reference"
+  },
+  {
+    "title": "Latest Updates",
+    "description": "Provides information on how to use the 'Latest Updates' component to showcase recent changes, news, or blog posts on your website.",
+    "path": "/advanced-features/using-special-components/latest-updates",
+    "parentId": "/advanced-features/using-special-components",
+    "sourceIds": ["CHANGELOG.md", "README.md"]
   }
 ]

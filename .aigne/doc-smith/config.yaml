@@ -60,13 +60,14 @@ locale: en
 # translateLanguages:  # List of languages to translate the documentation to
 #   - zh  # Example: Chinese translation
 #   - en  # Example: English translation
-docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
-sourcesPath:  # Source code paths to analyze
+docsDir: .aigne/doc-smith/docs # Directory to save generated documentation
+sourcesPath: # Source code paths to analyze
   - ./aigne.yaml
   - ./README.md
   - ./CHANGELOG.md
   - ./agents
-lastGitHead: 154c8b3426cd2a82e50110e7e36ffb489c40f328
+  - ./assets/documents/special-components
+lastGitHead: 17fd7c2f8f85c9fa601ac221b87778a2bf1ad140
 appUrl: https://docsmith.aigne.io
 boardId: aigne-web-smith
 # Checkout ID for document deployment service

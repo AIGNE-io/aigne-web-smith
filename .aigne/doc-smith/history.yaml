@@ -1,4 +1,246 @@
 entries:
+  - timestamp: 2025-10-17T08:27:42.264Z
+    operation: document_update
+    feedback: add Latest Updates to Available Components
+    documentPath: /advanced-features/using-special-components
+  - timestamp: 2025-10-17T07:45:45.691Z
+    operation: document_update
+    feedback: remove Advanced Features Diagram image
+    documentPath: /advanced-features
+  - timestamp: 2025-10-17T07:43:48.835Z
+    operation: document_update
+    feedback: The optional values for `pagePurpose`(Website Purpose), `targetAudienceTypes`(Target
+      Audience), and `websiteScale`(Website Scale) in the `Step 3` and `config.yaml` example require
+      updating
+    documentPath: /getting-started/your-first-website
+  - timestamp: 2025-10-17T07:28:03.252Z
+    operation: document_update
+    feedback: The example values for the three fields `Website Purpose`, `Target Audience`, and `Website
+      Scale` are incorrect.
+    documentPath: /getting-started/your-first-website
+  - timestamp: 2025-10-17T07:14:44.578Z
+    operation: document_update
+    feedback: Recalculate the relative reference path for unlock-theme.webp, which itself is located in
+      the assets directory within the working directory.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:12:33.113Z
+    operation: document_update
+    feedback: The relative path for unlock-theme.webp is incorrect. It is located in the assets/images/
+      directory under the workspace directory.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:09:31.286Z
+    operation: document_update
+    feedback: Theme lock is a feature of the Blocklet App. The reference path for unlock-theme.webp is
+      incorrect.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:02:11.879Z
+    operation: document_update
+    feedback: Adding Notes on Theme Lock Under “Applying a Theme”
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-16T15:03:21.528Z
+    operation: document_update
+    feedback: The `aigne web generate` config parameter is not required.
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T14:58:05.490Z
+    operation: document_update
+    feedback: The `theme apply` subcommand supports the `appUrl` parameter.
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-17T07:46:53.085Z
+    operation: document_update
+    feedback: >-
+      1. It integrates with Discuss Kit, ArcBlock's built-in community and blog system -> Please
+      describe only the Discuss Kit; do not describe the ArcBlock's built-in community.
+
+      2. to your main `config.yaml` file -> to your WebSmith `config.yaml` file
+
+      3.*   **Context:** Informs the AI that the section's purpose is to serve as "Proof &
+      Momentum." -> remove it
+
+      4.    **To generate a new site:**
+
+          ```bash aigne run generate icon=terminal
+          aigne run generate
+          ```
+
+      *   **To update an existing site:**
+
+          ```bash aigne run update icon=terminal
+          aigne run update
+          ```   -> If generating for the first time, use `aigne web generate`. To add a section, try `aigne web update` and select the document to add the section.
+      5. **Localization:** For multilingual sites, create different versions of the
+      `blog-list-data.yaml` file for each language (e.g., `blog-list-data.fr.yaml`). -> is error,
+      remove it
+
+      6. For more information on other special components, please refer to the documentation on the
+      [Terminal Player](./advanced-features-using-special-components-terminal-player.md). -> link to
+      ./advanced-features-using-special-components
+    documentPath: /advanced-features/using-special-components/latest-updates
+  - timestamp: 2025-10-17T07:36:05.089Z
+    operation: structure_update
+    feedback: Add a subdocument titled `Latest Updates` under `Using Special Components` to guide users
+      on how to utilize the `Latest Updates` section. The relevant data source is located at
+      assets/documents/special-components/latest-updates.md.
+  - timestamp: 2025-10-17T06:33:21.132Z
+    operation: document_update
+    feedback: |-
+      Add links to relevant resources at the end of the doc to describe its technical origins. Could you help me optimize this?
+
+      ## 🔗 Documentation Resources
+
+      - [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+      - [asciinema Documentation](https://docs.asciinema.org/)
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T14:53:21.615Z
+    operation: document_update
+    feedback: Do not use the --input parameter with the aigne web generate command. The `langs`
+      parameter value for the `translate` subcommand is incorrect; it should be space-separated and
+      not enclosed in quotes.
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T14:34:33.745Z
+    operation: document_update
+    feedback: The list of targets that can be cleared is incomplete.
+    documentPath: /core-tasks/clearing-generated-content
+  - timestamp: 2025-10-16T14:30:01.199Z
+    operation: document_update
+    feedback: In the History output, the operation type should be either page_update or structure_update.
+    documentPath: /core-tasks/viewing-update-history
+  - timestamp: 2025-10-16T14:15:32.467Z
+    operation: document_update
+    feedback: The optional values for `pagePurpose`, `targetAudienceTypes`, and `websiteScale` in the
+      configuration options and `config.yaml` example require updating.
+    documentPath: /core-tasks/generating-a-website
+  - timestamp: 2025-10-16T14:11:46.414Z
+    operation: document_update
+    feedback: "Step 5: View Your Generated Website You must publish the website before viewing it in a
+      browser."
+    documentPath: /getting-started/your-first-website
+  - timestamp: 2025-10-16T13:31:43.607Z
+    operation: document_update
+    feedback: aigne generate -> aigne web generate, aigne update -> aigne web update (user must provider
+      feedback)
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T13:27:48.183Z
+    operation: document_update
+    feedback: This section `## Using the Terminal Player Component` is unnecessary and should be
+      removed. Simply explain how to include the above recoding JSON in the data source and use
+      `aigne web generate` and `aigne web update` to update it.
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T13:07:29.956Z
+    operation: document_update
+    feedback: "## Using the Terminal Player Component section This is unnecessary for users. You need to
+      guide users to add the corresponding JSON data to the data source and trigger Aigne Web
+      Generate and Aigne Web Update for the specified pages."
+    documentPath: /advanced-features/using-special-components/terminal-player
+  - timestamp: 2025-10-16T12:55:13.974Z
+    operation: document_update
+    feedback: This doc should focus on using custom component libraries in WebSmith, though the
+      command-related content can remain. You'll need to slightly modify the title and body text.
+    documentPath: /advanced-features/managing-components
+  - timestamp: 2025-10-16T12:40:43.844Z
+    operation: structure_update
+    feedback: update Terminal Player's sourceIds, must include
+      assets/documents/special-components/terminal-player.md
+  - timestamp: 2025-10-16T12:22:49.356Z
+    operation: structure_update
+    feedback: >-
+      Add an advanced feature section detailing how to better utilize AIGNE WebSmith, it should be
+      before Reference section.
+         It should include the following documentation:
+         1. Managing Components -> Move the “Managing Components” section from Core Tasks into the advanced features section.
+         2. Add a chapter on using special components, which should include the following documentation: Terminal Player + FullBackground
+         Hero.
+  - timestamp: 2025-10-16T12:12:07.085Z
+    operation: structure_update
+    feedback: >-
+      Add an advanced feature section detailing how to better utilize AIGNE WebSmith.
+
+      It should include the following documentation:
+
+      1. Managing Components -> Move the “Managing Components” section from Core Tasks into the
+      advanced features section.
+
+      2. Add a chapter on using special components, which should include the following
+      documentation: Terminal Player + FullBackground Hero.
+  - timestamp: 2025-10-16T12:04:55.272Z
+    operation: document_update
+    feedback: Please remove `You can also explicitly start the chat session using the chat command:` and
+      the code below it
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T12:00:21.694Z
+    operation: document_update
+    feedback: update the latest changelog
+    documentPath: /reference/changelog
+  - timestamp: 2025-10-16T11:58:12.739Z
+    operation: document_update
+    feedback: aigne web chat -> aigne web. aigne web clear --targets is error, workspace is changed to
+      websiteStructure
+    documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-16T11:51:35.584Z
+    operation: document_update
+    feedback: please re-generate doc by latest datasource. Website Structure's Command Flag is error, is
+      `websiteStructure`. ./.websmith/tmp -> workspace
+    documentPath: /core-tasks/clearing-generated-content
+  - timestamp: 2025-10-16T11:44:48.635Z
+    operation: document_update
+    feedback: aigne history -> aigne web history
+    documentPath: /core-tasks/viewing-update-history
+  - timestamp: 2025-10-16T11:42:13.954Z
+    operation: document_update
+    feedback: websmith prefs -> aigne web prefs
+    documentPath: /core-tasks/managing-preferences
+  - timestamp: 2025-10-16T11:31:56.960Z
+    operation: document_update
+    feedback: aigne chat -> aigne web chat. aigne web chat -> aigne web
+    documentPath: /core-tasks/using-the-interactive-chat
+  - timestamp: 2025-10-16T11:13:22.907Z
+    operation: document_update
+    feedback: aigne web chat -> aigne web. This command is currently a beta feature. You need to add a
+      beta note before the documentation and modify the title.
+    documentPath: /core-tasks/using-the-interactive-chat
+  - timestamp: 2025-10-16T10:56:23.589Z
+    operation: document_update
+    feedback: aigne.config.yaml -> config.yaml
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-16T10:50:56.440Z
+    operation: document_update
+    feedback: aigne theme generate -> must contand aigne web, should be aigne web theme generate,
+      Everything else remains the same.. aigne theme apply -> aigne web theme apply
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-16T09:55:56.748Z
+    operation: document_update
+    feedback: aigne update -> aigne web update, please correct all errors.
+    documentPath: /core-tasks/updating-website-content/updating-page-content
+  - timestamp: 2025-10-16T09:49:58.055Z
+    operation: document_update
+    feedback: type your desired changes in plain English -> This passage should not mention English.
+      Simply provide natural language prompts.
+    documentPath: /core-tasks/updating-website-content/updating-website-structure
+  - timestamp: 2025-10-15T07:14:15.420Z
+    operation: document_update
+    feedback: |-
+      Publish to a dedicated website. Currently, two important details are missing:
+      1. It will default to publishing to the Default Project.
+      2. Supports selecting whether to push locales, navigations, and branding together.
+    documentPath: /core-tasks/publishing-your-website/new-dedicated-website
+  - timestamp: 2025-10-15T07:02:53.692Z
+    operation: document_update
+    feedback: "**An ArcBlock-Powered Website:** change `ArcBlock` -> `Blocklet Server`"
+    documentPath: /core-tasks/publishing-your-website/custom
+  - timestamp: 2025-10-15T06:59:18.107Z
+    operation: document_update
+    feedback: "For alternative deployment targets, refer to the following guides: This should be
+      mentioned in the final section of the documentation."
+    documentPath: /core-tasks/publishing-your-website/cloud
+  - timestamp: 2025-10-15T06:56:44.481Z
+    operation: document_update
+    feedback: In the `general workflow is as follows` section, the interactive prompt should not include
+      flags like No or Yes; it should only contain different branch selections.
+    documentPath: /core-tasks/publishing-your-website
+  - timestamp: 2025-10-15T06:40:30.469Z
+    operation: document_update
+    feedback: The final follow-up step should be preparing your content, not jumping straight into
+      creating your website.
+    documentPath: /getting-started/installation
   - timestamp: 2025-10-13T10:08:35.415Z
     operation: document_update
     feedback: All parameters should be described using the x-field component.

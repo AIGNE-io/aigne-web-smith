@@ -7,6 +7,8 @@ The general syntax for all commands is:
 aigne web <command> [subcommand] [options]
 ```
 
+Running `aigne web` without a command starts an interactive chat session.
+
 ## Main Commands
 
 The following table provides a summary of the primary commands available in the AIGNE WebSmith CLI.
@@ -19,7 +21,7 @@ The following table provides a summary of the primary commands available in the 
 | [translate](#translate) | Translates existing website pages into different languages. |
 | [theme](#theme) | Manages the visual themes for the website, including generation and application. |
 | [component](#component) | Manages the component library used to build the website. |
-| [chat](#chat) | Starts an interactive chat session to build and modify your website conversationally. |
+| [chat](#chat) | Starts an interactive chat session (default) to build and modify your website conversationally. |
 | [prefs](#prefs) | Manages saved user preferences that customize WebSmith's behavior. |
 | [history](#history) | Displays a log of all previous updates made to the website. |
 | [clear](#clear) | Removes generated files, workspace data, or configuration settings. |
@@ -33,13 +35,13 @@ Generates a complete website from a user-provided configuration file. This comma
 
 **Usage:**
 ```bash
-aigne web generate --input @path/to/your/config.yaml
+aigne web generate
 ```
 
 **Parameters:**
 
 <x-field-group>
-  <x-field data-name="config" data-type="String" data-required="true" data-desc="The path to the website configuration file. This is typically provided via the --input flag."></x-field>
+  <x-field data-name="config" data-type="String" data-required="false" data-desc="The path to the website configuration file. If not provided, WebSmith will look for a default configuration file in the current directory."></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms to ensure consistent terminology throughout the generated content. Use the format @<file>."></x-field>
   <x-field data-name="forceRegenerate" data-type="Boolean" data-required="false" data-desc="If set to true, this forces the regeneration of all pages, even if they already exist."></x-field>
 </x-field-group>
@@ -85,14 +87,14 @@ Translates the content of existing website pages into one or more specified lang
 
 **Usage:**
 ```bash
-aigne web translate --pages "/home" --langs "fr,de,es"
+aigne web translate --pages /home --langs fr de es
 ```
 
 **Parameters:**
 
 <x-field-group>
   <x-field data-name="pages" data-type="Array" data-required="false" data-desc="An array of page paths to translate."></x-field>
-  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="An array of language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
+  <x-field data-name="langs" data-type="Array" data-required="false" data-desc="A list of space-separated language codes to translate the content into. Available codes include: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar."></x-field>
   <x-field data-name="feedback" data-type="String" data-required="false" data-desc="Specific instructions or feedback to improve the quality of the translation."></x-field>
   <x-field data-name="glossary" data-type="String" data-required="false" data-desc="A file containing a glossary of terms for consistent translation. Use the format @<file>."></x-field>
 </x-field-group>
@@ -122,8 +124,14 @@ Applies a previously generated theme to the website.
 
 **Usage:**
 ```bash
-aigne web theme apply
+aigne web theme apply --appUrl "https://your-pages-kit-url.com"
 ```
+
+**Parameters:**
+
+<x-field-group>
+  <x-field data-name="appUrl" data-type="String" data-required="false" data-desc="The base URL of the target Pages Kit website where the theme will be applied."></x-field>
+</x-field-group>
 
 ### component
 Manages the component library for your website.
@@ -147,11 +155,11 @@ aigne web component pull --url "https://your-pages-kit/api/..."
 </x-field-group>
 
 ### chat
-Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. The chat agent can access all other commands.
+Starts an interactive chat session that allows you to generate, update, and manage your website in a conversational manner. This is the **default command** if no other command is specified. The chat agent can access all other commands.
 
 **Usage:**
 ```bash
-aigne web chat
+aigne web
 ```
 
 This command does not take any parameters. It opens an interactive prompt in your terminal.
@@ -197,14 +205,14 @@ Safely removes generated files, workspace data, or configuration settings. This 
 
 **Usage:**
 ```bash
-# Clear the temporary workspace and generated pages without being prompted
-aigne web clear --targets workspace generatedPages
+# Clear the website structure and generated pages without being prompted
+aigne web clear --targets websiteStructure generatedPages
 ```
 
 **Parameters:**
 
 <x-field-group>
-  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: workspace, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
+  <x-field data-name="targets" data-type="Array" data-required="false" data-desc="An array of items to clear without prompting. Possible values: websiteStructure, generatedPages, websiteConfig, deploymentConfig, authTokens, mediaDescription."></x-field>
   <x-field data-name="pagesDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for your source pages."></x-field>
   <x-field data-name="tmpDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the temporary workspace."></x-field>
   <x-field data-name="outputDir" data-type="String" data-required="false" data-desc="Overrides the default directory path for the generated pages."></x-field>

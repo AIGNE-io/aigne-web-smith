@@ -6,17 +6,17 @@ This process is distinct from modifying the overall site map. For instructions o
 
 ## The Update Process
 
-Content updates are initiated using the `update` command. The process is interactive, allowing you to provide feedback in natural language to an AI agent, which then intelligently modifies the page structure.
+Content updates are initiated using the `web update` command. The process is interactive, allowing you to provide feedback in natural language to an AI agent, which then intelligently modifies the page structure.
 
 ```bash Command icon=lucide:terminal
-aigne update
+aigne web update
 ```
 
 The command can also be invoked with its alias, `up`.
 
 The standard workflow is as follows:
 
-1.  **Execute the Command**: Run `aigne update` in your terminal.
+1.  **Execute the Command**: Run `aigne web update` in your terminal.
 2.  **Select Page**: The system will present a list of existing pages. Select the single page you wish to modify.
 3.  **Provide Feedback**: You will be prompted to enter your feedback. This is a natural language instruction describing the changes you want to make. For example, "Change the title of the hero section" or "Add a new section with a list of our services."
 4.  **AI Processing**: An AI agent analyzes your request and uses a set of predefined tools to apply the changes to the page's content structure.

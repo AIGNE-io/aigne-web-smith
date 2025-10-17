@@ -37,8 +37,8 @@ Because this is a new project, WebSmith will detect that no configuration file e
 The setup wizard will guide you through a series of questions to understand the kind of website you want to build. Below is a breakdown of the information you will be asked to provide.
 
 1.  **Website Purpose**: Select the primary goal of your website (e.g., Product Showcase, Documentation Hub, Marketing Site). This helps the AI tailor the structure and content appropriately.
-2.  **Target Audience**: Specify who will be visiting your site (e.g., Developers, General Consumers, Business Customers). This influences the tone and complexity of the generated text.
-3.  **Website Scale**: Choose the approximate number of pages you need (e.g., Small, Standard, Large). This determines the depth of the site structure the AI will create.
+2.  **Target Audience**: Specify who will be visiting your site (e.g., Customers, Developers, Business Owners). This influences the tone and complexity of the generated text.
+3.  **Website Scale**: Choose the approximate number of pages you need (e.g., Minimal, Standard, Comprehensive). This determines the depth of the site structure the AI will create.
 4.  **Primary Language**: Select the main language for your website's content.
 5.  **Translation Languages**: Optionally, select other languages you want your website to be translated into.
 6.  **Pages Directory**: Specify the folder where the final website files will be saved. The default `aigne/web-smith/pages` is suitable for most projects.
@@ -64,14 +64,40 @@ projectSlug: my-awesome-project
 # =============================================================================
 
 # Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   landingPage      - Landing page / Homepage: Convert visitors into users or customers
+#   ecommerce        - E-commerce / Online store: Sell products or services online
+#   portfolio        - Portfolio / Showcase: Display creative work, projects, or achievements
+#   corporate        - Corporate / Business: Professional business website with company information
+#   blog             - Blog / Content site: Share articles, news, and regular content updates
+#   saas             - SaaS / Software product: Promote and onboard users to software services
+#   nonprofit        - Non-profit / Community: Promote causes, accept donations, engage volunteers
+#   education        - Educational / Learning: Provide courses, tutorials, or educational content
+#   mixedPurpose     - Multi-purpose website: Comprehensive website covering multiple needs
 pagePurpose:
-  - productShowcase
+  - saas
 
 # Target Audience: Who will be reading this most often?
+# Available options (uncomment and modify as needed):
+#   customers        - Customers / End users: People who buy or use your products/services
+#   businessOwners   - Business owners / Entrepreneurs: People running businesses looking for solutions
+#   marketers        - Marketing teams: People promoting products or managing campaigns
+#   designers        - Designers / Creative professionals: People focused on visual design and user experience
+#   developers       - Developers / Technical users: People building or integrating technical solutions
+#   investors        - Investors / Stakeholders: People evaluating business potential and growth
+#   jobSeekers       - Job seekers / Potential employees: People looking for career opportunities
+#   students         - Students / Learners: People seeking educational content or resources
+#   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
 targetAudienceTypes:
   - developers
 
 # Website Scale: How many pages should your website have?
+# Available options (uncomment and modify as needed):
+#   singlePage         - Single Page (only 1 page): All content consolidated into 1 page
+#   minimal            - Minimal (2-6 pages): Core pages only - quick to launch
+#   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
+#   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
+#   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
 websiteScale: standard
 
 # Custom Rules: Define specific page generation rules and requirements
@@ -79,18 +105,9 @@ rules: ""
 
 # Language settings
 locale: en
-# translateLanguages:
-#   - zh
 
 # Directory and source path configurations
 pagesDir: aigne/web-smith/pages  # Directory to save generated pages
-sourcesPath:  # Source code paths to analyze
-  - README.md
-defaultDatasources:  # Default datasources included in every page
-  - ./media.md
-# minImageWidth: Only images wider than this value (in pixels) will be used in page generation
-media:
-  minImageWidth: 800
 ```
 
 ## Step 4: Review and Approve the Website Plan
@@ -101,11 +118,9 @@ You will be prompted to approve the plan or request changes. For this first webs
 
 ## Step 5: View Your Generated Website
 
-Once you approve the plan, the AI will proceed to write the content and generate the template for each page. The process may take a few minutes, depending on the number of pages.
+Once you approve the plan, the AI will write the content and generate the necessary template files for each page. The process may take a few minutes, depending on the number of pages.
 
-When generation is complete, the final files will be saved in the directory you specified during the setup (e.g., `aigne/web-smith/pages`).
-
-To view your website, navigate to this directory on your computer and open the `.html` or `.md` files in your web browser.
+The generated files, which are saved in the directory you specified (e.g., `aigne/web-smith/pages`), are templates used for publishing. To view the final, rendered website as it will appear online, you must first publish it. This step converts the templates into a live website.
 
 ## Summary
 

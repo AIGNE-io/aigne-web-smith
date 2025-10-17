@@ -266,5 +266,12 @@
     "path": "/reference/changelog",
     "sourceIds": ["CHANGELOG.md", "RELEASE.md"],
     "parentId": "/reference"
+  },
+  {
+    "title": "Latest Updates",
+    "description": "Provides information on how to use the 'Latest Updates' component to showcase recent changes, news, or blog posts on your website.",
+    "path": "/advanced-features/using-special-components/latest-updates",
+    "parentId": "/advanced-features/using-special-components",
+    "sourceIds": ["CHANGELOG.md", "README.md"]
   }
 ]

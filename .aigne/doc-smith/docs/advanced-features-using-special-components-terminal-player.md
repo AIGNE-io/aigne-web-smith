@@ -121,3 +121,8 @@ aigne web update
 ```
  
 For additional information on recording, you may consult the official [asciinema website](https://asciinema.org/).
+
+## Additional Resources
+
+- [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+- [asciinema Documentation](https://docs.asciinema.org/)

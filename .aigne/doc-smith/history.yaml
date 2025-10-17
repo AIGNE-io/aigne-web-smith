@@ -41,6 +41,51 @@ entries:
     operation: document_update
     feedback: The `theme apply` subcommand supports the `appUrl` parameter.
     documentPath: /reference/command-line-reference
+  - timestamp: 2025-10-17T07:46:53.085Z
+    operation: document_update
+    feedback: >-
+      1. It integrates with Discuss Kit, ArcBlock's built-in community and blog system -> Please
+      describe only the Discuss Kit; do not describe the ArcBlock's built-in community.
+
+      2. to your main `config.yaml` file -> to your WebSmith `config.yaml` file
+
+      3.*   **Context:** Informs the AI that the section's purpose is to serve as "Proof &
+      Momentum." -> remove it
+
+      4.    **To generate a new site:**
+
+          ```bash aigne run generate icon=terminal
+          aigne run generate
+          ```
+
+      *   **To update an existing site:**
+
+          ```bash aigne run update icon=terminal
+          aigne run update
+          ```   -> If generating for the first time, use `aigne web generate`. To add a section, try `aigne web update` and select the document to add the section.
+      5. **Localization:** For multilingual sites, create different versions of the
+      `blog-list-data.yaml` file for each language (e.g., `blog-list-data.fr.yaml`). -> is error,
+      remove it
+
+      6. For more information on other special components, please refer to the documentation on the
+      [Terminal Player](./advanced-features-using-special-components-terminal-player.md). -> link to
+      ./advanced-features-using-special-components
+    documentPath: /advanced-features/using-special-components/latest-updates
+  - timestamp: 2025-10-17T07:36:05.089Z
+    operation: structure_update
+    feedback: Add a subdocument titled `Latest Updates` under `Using Special Components` to guide users
+      on how to utilize the `Latest Updates` section. The relevant data source is located at
+      assets/documents/special-components/latest-updates.md.
+  - timestamp: 2025-10-17T06:33:21.132Z
+    operation: document_update
+    feedback: |-
+      Add links to relevant resources at the end of the doc to describe its technical origins. Could you help me optimize this?
+
+      ## 🔗 Documentation Resources
+
+      - [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+      - [asciinema Documentation](https://docs.asciinema.org/)
+    documentPath: /advanced-features/using-special-components/terminal-player
   - timestamp: 2025-10-16T14:53:21.615Z
     operation: document_update
     feedback: Do not use the --input parameter with the aigne web generate command. The `langs`

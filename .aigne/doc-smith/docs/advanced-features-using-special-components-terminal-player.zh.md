@@ -1,12 +1,12 @@
 # 终端播放器
 
-终端播放器是一个专用组件，用于在您的网站上显示可交互的、预先录制的终端会话。该组件是一个有效的工具，可以清晰且可回放地演示命令行指令、展示软件安装过程或引导用户完成技术流程。
+终端播放器是一个专用组件，用于在您的网站上显示可交互的、预先录制的终端会话。该组件是一个有效的工具，能够以清晰且可回放的格式演示命令行指令、展示软件安装过程或引导用户完成技术流程。
 
 该组件使用 `asciinema` 格式创建的录制文件，这种格式可以确保对终端输出进行轻量级的、基于文本的捕获。
 
 ## 流程概述
 
-使用终端播放器的工作流程可以分解为一系列清晰、可管理的步骤。该过程始于开发者录制终端会话，并以最终用户在网站上观看交互式回放结束。
+使用终端播放器的工作流程可以分解为一系列清晰、可管理的步骤。该过程始于开发者录制终端会话，终于最终用户在网站上查看交互式回放。
 
 ```d2
 direction: down
@@ -16,7 +16,7 @@ Developer: {
 }
 
 Terminal: {
-  label: "终端\n（使用 asciinema CLI）"
+  label: "终端\n(使用 asciinema CLI)"
   shape: rectangle
 }
 
@@ -65,9 +65,9 @@ Website-Project.Terminal-Player-Component -> Website-Visitor: "6. 显示回放"
 
 要使用终端播放器，您必须首先创建一个录制文件。推荐的工具是 `asciinema`，这是一个用于录制和分享终端会话的开源命令行实用工具。
 
-### 第 1 步：安装 asciinema CLI
+### 第 1 步：安装 `asciinema` CLI
 
-首先，在您的本地机器上安装 `asciinema` 工具。安装方法因您的操作系统而异。
+首先，在您的本地计算机上安装 `asciinema` 工具。安装方法因您的操作系统而异。
 
 ```bash 安装 icon=lucide:download
 # 在 macOS 上使用 Homebrew
@@ -76,7 +76,7 @@ brew install asciinema
 # 在 Ubuntu/Debian 上使用 APT
 sudo apt install asciinema
 
-# 使用 pipx（跨平台）
+# 使用 pipx (跨平台)
 pipx install asciinema
 ```
 
@@ -87,17 +87,17 @@ pipx install asciinema
 安装 `asciinema` 后，您可以通过执行 `rec` 命令开始录制终端会话。
 
 ```bash 录制命令 icon=lucide:radio-tower
-# 开始新的录制，将保存到 'my-demo.cast'
+# 开始新的录制，文件将保存为 'my-demo.cast'
 asciinema rec my-demo.cast
 ```
 
-启动命令后，在您的终端中执行所有您希望捕获的操作。要停止录制，请按 `Ctrl+D` 或输入 `exit` 命令。一个名为 `my-demo.cast` 的文件将保存在您当前的目录中。您可以通过运行 `asciinema play my-demo.cast` 在本地验证回放。
+启动命令后，在终端中执行您希望捕获的所有操作。要停止录制，请按 `Ctrl+D` 或输入 `exit` 命令。一个名为 `my-demo.cast` 的文件将保存在您当前的目录中。您可以通过运行 `asciinema play my-demo.cast` 在本地验证回放。
 
 **重要注意事项：**
-*   **规划您的步骤：** 录制会捕获所有操作，包括暂停和错误。建议事先准备一个脚本。
-*   **终端尺寸：** 播放器将复制用于录制的终端的列数和行数尺寸。请确保您的终端窗口大小适当，以防止在回放期间内容换行或被截断。
+*   **规划您的步骤：** 录制会捕获所有操作，包括暂停和错误。建议事先准备好脚本。
+*   **终端尺寸：** 播放器将复制用于录制的终端的列和行尺寸。请确保您的终端窗口大小适当，以防止在回放期间内容换行或被截断。
 
-### 第 3 步：将 .cast 文件转换为 JSON
+### 第 3 步：将 `.cast` 文件转换为 JSON
 
 终端播放器组件要求录制数据为特定的 JSON 格式。有一个在线转换器可以简化此转换过程。
 
@@ -108,16 +108,21 @@ asciinema rec my-demo.cast
  
 ## 使用录制文件
  
-一旦 JSON 录制文件被放置在您项目的媒体或资产目录中，它就可以被 AI 使用。无需在 YAML 文件中手动配置该组件。
+一旦 JSON 录制文件被放置在您项目的媒体或资产目录中，AI 就可以使用它了。无需在 YAML 文件中手动配置该组件。
  
-只需在您的内容源文件中描述需要一个终端演示。当您运行 `aigne web generate` 或 `aigne web update` 时，AI 将自动找到相关的 `.json` 录制文件，并使用终端播放器组件将其显示在您的网站上。
+只需在您的内容源文件中描述需要进行终端演示。当您运行 `aigne web generate` 或 `aigne web update` 时，AI 将自动找到相关的 `.json` 录制文件，并使用终端播放器组件在您的网站上显示它。
  
 ```bash AIGNE CLI 命令 icon=lucide:terminal
 # 从头开始生成网站
 aigne web generate
  
-# 使用您的更改更新网站
+# 根据您的更改更新网站
 aigne web update
 ```
  
 有关录制的更多信息，您可以查阅官方 [asciinema 网站](https://asciinema.org/)。
+
+## 其他资源
+
+- [ArcBlock 终端播放器转换器](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+- [asciinema 文档](https://docs.asciinema.org/)

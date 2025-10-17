@@ -64,11 +64,10 @@ Upload your `.cast` file to instantly generate Player-compatible data and previe
 
 ---
 
-## 🔗 Official Resources
+## 🔗 Documentation Resources
 
-- **asciinema Documentation:** [https://docs.asciinema.org/](https://docs.asciinema.org/)
-- **File Format Specification:** [https://docs.asciinema.org/manual/file-format/](https://docs.asciinema.org/manual/file-format/)
-- **Online Player:** [https://asciinema.org/](https://asciinema.org/)
+- [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+- [asciinema Documentation](https://docs.asciinema.org/)
 
 ---
 

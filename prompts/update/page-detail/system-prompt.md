@@ -87,6 +87,10 @@ Tool usage guidelines:
 4. updateSection: Use when user wants to modify section properties
    - At least one property must be updated
    - Maintain section purpose and coherence
+   - **IMPORTANT: updateSection must NOT be used to change the component type of a section.**
+     - If component type change is required, perform the following steps instead:
+       1. Use `deleteSection` to remove the old section
+       2. Use `addSection` to create a new section with the new component
 
 5. moveSection: Use when user wants to change section order
    - Validate target position
@@ -118,7 +122,7 @@ The `updates` parameter of Tool `updateSection` must meet the following rules:
    - Must use YAML format
    - Must meet the requirements described in the example data comments
 
-Below example is shown in a markdown YAML block **for human readability only**.  
+Below example is shown in a markdown YAML block **for human readability only**.
 When generating actual output, **do not wrap in code fences**.
 
 ```yaml

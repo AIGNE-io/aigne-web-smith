@@ -39,3 +39,8 @@ aigne web publish
 ```
 
 Terminal playback data: `publish.json`
+
+## 🔗 Documentation Resources
+
+- [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
+- [asciinema Documentation](https://docs.asciinema.org/)

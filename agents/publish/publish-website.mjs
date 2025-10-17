@@ -243,7 +243,7 @@ export default async function publishWebsite(
   const hasAppUrlInConfig = config?.appUrl;
 
   let shouldWithLocales = withLocalesOption || false;
-  let shouldWithNavigations = withNavigationsOption || false;
+  let navigationType = withNavigationsOption || '';
   let shouldWithBranding = withBrandingOption || false;
   let publishToSelfHostedBlocklet = false;
 
@@ -326,8 +326,28 @@ export default async function publishWebsite(
             "Publish pages to the new dedicated website with locales, navigations and branding?",
           default: true,
         });
+
+        if (shouldSyncAll) {
+          const choice = await options.prompts.select({
+            message: "Select navigation type:",
+            choices: [
+              {
+                name: "Flat - Flat navigation without parent-child relationships",
+                value: "flat",
+              },
+              {
+                name: "Menu - Menu navigation with parent-child relationships",
+                value: "menu",
+              },
+              {
+                name: "None - No navigation",
+                value: "none",
+              },
+            ],
+          });
+          navigationType = choice === "none" ? "" : choice;
+        }
         shouldWithLocales = shouldSyncAll;
-        shouldWithNavigations = shouldSyncAll;
         shouldWithBranding = shouldSyncAll;
       }
 
@@ -483,7 +503,24 @@ export default async function publishWebsite(
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
-    const navigationEntries = shouldWithNavigations ? sitemapContent?.navigations : [];
+    let navigationEntries = [];
+    if (navigationType && sitemapContent?.navigations) {
+      if (navigationType === "flat") {
+        sitemapContent.navigations.forEach((item) => {
+          if (item.parent?.endsWith("-header")) {
+            navigationEntries.push({
+              ...item,
+              parent: ''
+            });
+          } else if (!item.id?.endsWith("-header")) {
+            navigationEntries.push(item);
+          }
+        });
+      } else if (navigationType === "menu") {
+        navigationEntries = sitemapContent.navigations;
+      }
+      navigationEntries = navigationEntries.map((item) => ({...item, description: item.parent ? item.description : ''}));
+    }
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
@@ -693,7 +730,7 @@ export default async function publishWebsite(
         meta.locales = locales;
       }
 
-      if (shouldWithNavigations && navigationEntries.length > 0) {
+      if (navigationEntries.length > 0) {
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
       }
@@ -840,6 +877,7 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
+      await saveValueToConfig("checkoutId", config?.checkoutId || "", "Checkout ID for website deployment service");
     } else if (totalCount === 0) {
       message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {
@@ -875,8 +913,6 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
     message = `❌ Failed to publish pages: ${typeof error === "string" ? error : JSON.stringify(error?.message || error)}`;
   }
 
-  await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
-
   // clean up tmp work dir
   await fs.rm(pagesDir, { recursive: true, force: true });
   return message ? { message } : {};
@@ -890,8 +926,10 @@ publishWebsite.input_schema = {
       description: "Publish to website with branding",
     },
     "with-navigations": {
-      type: "boolean",
-      description: "Publish to website with navigation",
+      type: "string",
+      enum: ["flat", "menu"],
+      default: "menu",
+      description: "Publish to website with navigation (flat or menu, defaults to menu)",
     },
     "with-locales": {
       type: "boolean",

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.15](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.14...v1.5.0-beta.15) (2025-10-17)
+
+
+### Bug Fixes
+
+* add cover image existence check and regeneration logic ([#145](https://github.com/AIGNE-io/aigne-web-smith/issues/145)) ([96f4402](https://github.com/AIGNE-io/aigne-web-smith/commit/96f440232eef26d40b2b7b8249de317378fdc465))
+
 ## [1.5.0-beta.14](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.13...v1.5.0-beta.14) (2025-10-16)
 
 

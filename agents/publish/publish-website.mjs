@@ -243,19 +243,23 @@ export default async function publishWebsite(
   const hasAppUrlInConfig = config?.appUrl;
 
   let shouldWithLocales = withLocalesOption || false;
-  let navigationType = withNavigationsOption || '';
+  let navigationType = withNavigationsOption || "";
   let shouldWithBranding = withBrandingOption || false;
   let publishToSelfHostedBlocklet = false;
 
   let token = "";
+  let client = null;
+  let authToken = null;
+  let sessionId = null;
 
   if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
-    const authToken = await getOfficialAccessToken(BASE_URL, false);
+    authToken = await getOfficialAccessToken(BASE_URL, false);
 
-    let sessionId = "",
-      paymentLink = "";
+    sessionId = "";
+    let paymentLink = "";
+
     if (authToken) {
-      const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+      client = new BrokerClient({ baseUrl: BASE_URL, authToken });
 
       const info = await client.checkCacheSession({
         needShortUrl: true,
@@ -407,7 +411,17 @@ export default async function publishWebsite(
     );
   } catch (_error) {}
 
-  const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
+  if (sessionId) {
+    authToken = await getOfficialAccessToken(BASE_URL, false);
+    client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+    const { vendors } = await client.getSessionDetail(sessionId, false);
+    token =
+      vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token ||
+      vendors?.[0]?.token;
+  }
+
+  const accessToken = await getAccessToken(appUrl, token || "", requiredAdminPassport);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
@@ -510,7 +524,7 @@ export default async function publishWebsite(
           if (item.parent?.endsWith("-header")) {
             navigationEntries.push({
               ...item,
-              parent: ''
+              parent: "",
             });
           } else if (!item.id?.endsWith("-header")) {
             navigationEntries.push(item);
@@ -519,7 +533,10 @@ export default async function publishWebsite(
       } else if (navigationType === "menu") {
         navigationEntries = sitemapContent.navigations;
       }
-      navigationEntries = navigationEntries.map((item) => ({...item, description: item.parent ? item.description : ''}));
+      navigationEntries = navigationEntries.map((item) => ({
+        ...item,
+        description: item.parent ? item.description : "",
+      }));
     }
 
     // Read all .yaml files in pagesDir
@@ -877,7 +894,7 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
-      await saveValueToConfig("checkoutId", config?.checkoutId || "", "Checkout ID for website deployment service");
+      await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
     } else if (totalCount === 0) {
       message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {

@@ -342,11 +342,11 @@ export default async function publishWebsite(
               message: "Select navigation type:",
               choices: [
                 {
-                  name: "Menu - Menu navigation with parent-child relationships",
+                  name: "Menu - Navigation with parent-child relationships",
                   value: "menu",
                 },
                 {
-                  name: "Flat - Flat navigation without parent-child relationships",
+                  name: "Flat - Navigation without parent-child relationships",
                   value: "flat",
                 },
                 {
@@ -369,11 +369,11 @@ export default async function publishWebsite(
             console.log(`Select navigation type: ${chalk.cyan("None - No navigation")}`);
           } else if (navigationType === "flat") {
             console.log(
-              `Select navigation type: ${chalk.cyan("Flat - Flat navigation without parent-child relationships")}`,
+              `Select navigation type: ${chalk.cyan("Flat - Navigation with parent-child relationships")}`,
             );
           } else {
             console.log(
-              `Select navigation type: ${chalk.cyan("Menu - Menu navigation with parent-child relationships")}`,
+              `Select navigation type: ${chalk.cyan("Menu - Navigation without parent-child relationships")}`,
             );
           }
         }

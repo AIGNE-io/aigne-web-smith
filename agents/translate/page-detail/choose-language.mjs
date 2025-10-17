@@ -76,9 +76,10 @@ export default async function chooseLanguage(
     (lang) => !currentTranslateLanguages.includes(lang),
   );
 
+  // Add new languages to existing ones
+  const updatedTranslateLanguages = [...currentTranslateLanguages, ...newLanguages];
+
   if (newLanguages.length > 0) {
-    // Add new languages to existing ones
-    const updatedTranslateLanguages = [...currentTranslateLanguages, ...newLanguages];
     await saveValueToConfig("translateLanguages", updatedTranslateLanguages);
   }
 
@@ -111,9 +112,16 @@ export default async function chooseLanguage(
     }),
   );
 
+  // collect locales
+  const locales = Array.from(new Set([locale, ...(updatedTranslateLanguages || [])])).filter(
+    Boolean,
+  );
+
   return {
     selectedLanguages,
     selectedPages: newSelectedPages,
+    translateLanguages: updatedTranslateLanguages,
+    locales,
   };
 }
 

@@ -229,18 +229,12 @@ export default async function publishWebsite(
 
   // ----------------- main publish process flow -----------------------------
   // Check if PAGES_KIT_URL is set in environment variables
-  const envAppUrl = process.env.PAGES_KIT_URL;
+  const envAppUrl = appUrl || process.env.PAGES_KIT_URL;
   const useEnvAppUrl = !!envAppUrl;
-
-  // Use environment variable if available, otherwise use the provided appUrl
-  if (useEnvAppUrl) {
-    appUrl = envAppUrl;
-  }
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isCloudServiceUrl = appUrl === CLOUD_SERVICE_URL_PROD;
-  const hasAppUrlInConfig = config?.appUrl;
+  const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
 
   let shouldWithLocales = withLocalesOption || false;
   let navigationType = withNavigationsOption || "";
@@ -252,7 +246,7 @@ export default async function publishWebsite(
   let authToken = null;
   let sessionId = null;
 
-  if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
+  if (!hasInputAppUrl) {
     authToken = await getOfficialAccessToken(BASE_URL, false);
 
     sessionId = "";
@@ -416,9 +410,7 @@ export default async function publishWebsite(
     client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
 
     const { vendors } = await client.getSessionDetail(sessionId, false);
-    token =
-      vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token ||
-      vendors?.[0]?.token;
+    token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
   }
 
   const accessToken = await getAccessToken(appUrl, token || "", requiredAdminPassport);
@@ -959,7 +951,6 @@ publishWebsite.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: CLOUD_SERVICE_URL_PROD,
     },
     projectId: {
       type: "string",

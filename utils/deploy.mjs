@@ -81,7 +81,8 @@ export async function deploy(id, cachedUrl) {
   });
 
   const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors } = result;
-  const token = vendors?.[0]?.token;
+
+  const token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
 
   return {
     appUrl,

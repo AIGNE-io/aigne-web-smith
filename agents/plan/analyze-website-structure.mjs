@@ -54,6 +54,16 @@ export default async function analyzeWebsiteStructure(
   let shouldRegenerate = false;
   let finalFeedback = "";
 
+  // Check if a cover image already exists.
+  const coverPath = getCoverImagePath();
+  let coverExists = false;
+  try {
+    await access(coverPath);
+    coverExists = true;
+  } catch {
+    // Cover does not exist.
+  }
+
   // If no feedback and originalWebsiteStructure exists, check for git changes
   if (originalWebsiteStructure) {
     // If no lastGitHead, check if _sitemap file exists to determine if we should regenerate
@@ -102,6 +112,16 @@ export default async function analyzeWebsiteStructure(
     ${finalFeedback || ""}
 
     Force regeneration requested: regenerate based on the latest data sources and user requirements, allowing any modifications.
+    `;
+  }
+
+  // Check if cover image exists
+  if (!coverExists) {
+    shouldRegenerate = true;
+    finalFeedback = `
+    ${finalFeedback || ""}
+
+    Cover image does not exist. Generate a cover image prompt based on the project info.
     `;
   }
 
@@ -179,16 +199,6 @@ export default async function analyzeWebsiteStructure(
 
   // Check and generate a cover image if needed.
   if (result.projectCoverPrompt) {
-    // Check if a cover image already exists.
-    const coverPath = getCoverImagePath();
-    let coverExists = false;
-    try {
-      await access(coverPath);
-      coverExists = true;
-    } catch {
-      // Cover does not exist.
-    }
-
     // Generate a cover if it does not exist.
     if (!coverExists) {
       try {

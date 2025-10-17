@@ -68,7 +68,7 @@ sourcesPath: # Source code paths to analyze
   - ./agents
   - ./assets/documents/special-components
 lastGitHead: 17fd7c2f8f85c9fa601ac221b87778a2bf1ad140
-appUrl: https://staging.docsmith.aigne.io
+appUrl: https://docsmith.aigne.io
 boardId: aigne-web-smith
 # Checkout ID for document deployment service
 checkoutId: ""

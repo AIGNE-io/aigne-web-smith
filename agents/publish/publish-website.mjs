@@ -236,6 +236,7 @@ export default async function publishWebsite(
   const config = await loadConfigFromFile();
   const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
 
+  let shouldSyncAll = void 0;
   let shouldWithLocales = withLocalesOption || false;
   let navigationType = withNavigationsOption || "";
   let shouldWithBranding = withBrandingOption || false;
@@ -318,8 +319,19 @@ export default async function publishWebsite(
       projectId = DEFAULT_PROJECT_ID;
       projectSlug = DEFAULT_PROJECT_SLUG;
 
-      if (options?.prompts?.confirm) {
-        const shouldSyncAll = await options.prompts.confirm({
+      // resume previous website setup
+      if (choice === "new-pages-kit-continue") {
+        shouldSyncAll = config?.shouldSyncAll ?? void 0
+        if (shouldSyncAll !== void 0) {
+          shouldWithLocales = shouldWithLocales ?? shouldSyncAll
+          shouldWithBranding = shouldWithBranding ?? shouldSyncAll
+          navigationType = navigationType ?? config?.navigationType
+        }
+      }
+
+      if (options?.prompts?.confirm ) {
+      if ( shouldSyncAll === void 0) {
+        shouldSyncAll = await options.prompts.confirm({
           message:
             "Publish pages to the new dedicated website with locales, navigations and branding?",
           default: true,
@@ -330,12 +342,12 @@ export default async function publishWebsite(
             message: "Select navigation type:",
             choices: [
               {
-                name: "Flat - Flat navigation without parent-child relationships",
-                value: "flat",
-              },
-              {
                 name: "Menu - Menu navigation with parent-child relationships",
                 value: "menu",
+              },
+              {
+                name: "Flat - Flat navigation without parent-child relationships",
+                value: "flat",
               },
               {
                 name: "None - No navigation",
@@ -345,10 +357,21 @@ export default async function publishWebsite(
           });
           navigationType = choice === "none" ? "" : choice;
         }
+        await saveValueToConfig("shouldSyncAll", shouldSyncAll, "Should sync all for website");
+        await saveValueToConfig("navigationType", navigationType, "Navigation type for website");
         shouldWithLocales = shouldSyncAll;
         shouldWithBranding = shouldSyncAll;
+      } else {
+          console.log(`Publish pages to the new dedicated website with locales, navigations and branding? ${chalk.cyan(shouldSyncAll ? "Yes" : "No")}`);
+          if (navigationType === '') {
+            console.log(`Select navigation type: ${chalk.cyan("None - No navigation")}`);
+          } else if (navigationType === 'flat') {
+            console.log(`Select navigation type: ${chalk.cyan("Flat - Flat navigation without parent-child relationships")}`);
+          } else {
+            console.log(`Select navigation type: ${chalk.cyan("Menu - Menu navigation with parent-child relationships")}`);
+          }
       }
-
+    }
       try {
         let id = "";
         let paymentUrl = "";
@@ -887,6 +910,8 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
       await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
+      await saveValueToConfig("navigationType", "", "Navigation type for website");
+      await saveValueToConfig("shouldSyncAll", "", "Should sync all for website");
     } else if (totalCount === 0) {
       message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {

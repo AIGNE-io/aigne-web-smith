@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.0-beta.16](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.15...v1.5.0-beta.16) (2025-10-17)
+
+
+### Bug Fixes
+
+* doc review and update ([#147](https://github.com/AIGNE-io/aigne-web-smith/issues/147)) ([436344c](https://github.com/AIGNE-io/aigne-web-smith/commit/436344c1bd1f1ac4fa98200927e184d705061c7d))
+* prevent component type changes in updateSection tool ([#151](https://github.com/AIGNE-io/aigne-web-smith/issues/151)) ([cdbdc91](https://github.com/AIGNE-io/aigne-web-smith/commit/cdbdc9126e64071e7ef40a78bcdfc6da436b71d1))
+* tune resume capability and support navigation layout ([#150](https://github.com/AIGNE-io/aigne-web-smith/issues/150)) ([4c62fbd](https://github.com/AIGNE-io/aigne-web-smith/commit/4c62fbdbcb9bf441644d6a260a086d5481f1e46d))
+
 ## [1.5.0-beta.15](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.14...v1.5.0-beta.15) (2025-10-17)
 
 

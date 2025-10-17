@@ -165,7 +165,8 @@
       "agents/theme/generate-theme-team.yaml",
       "agents/theme/apply-theme.mjs",
       "agents/theme/save-theme.mjs",
-      "utils/theme-utils.mjs"
+      "utils/theme-utils.mjs",
+      "assets/documents/theme-lock.md"
     ],
     "parentId": "/core-tasks"
   },

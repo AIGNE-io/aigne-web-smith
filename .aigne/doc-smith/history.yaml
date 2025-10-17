@@ -1,4 +1,23 @@
 entries:
+  - timestamp: 2025-10-17T07:14:44.578Z
+    operation: document_update
+    feedback: Recalculate the relative reference path for unlock-theme.webp, which itself is located in
+      the assets directory within the working directory.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:12:33.113Z
+    operation: document_update
+    feedback: The relative path for unlock-theme.webp is incorrect. It is located in the assets/images/
+      directory under the workspace directory.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:09:31.286Z
+    operation: document_update
+    feedback: Theme lock is a feature of the Blocklet App. The reference path for unlock-theme.webp is
+      incorrect.
+    documentPath: /core-tasks/managing-themes
+  - timestamp: 2025-10-17T07:02:11.879Z
+    operation: document_update
+    feedback: Adding Notes on Theme Lock Under “Applying a Theme”
+    documentPath: /core-tasks/managing-themes
   - timestamp: 2025-10-16T15:03:21.528Z
     operation: document_update
     feedback: The `aigne web generate` config parameter is not required.

@@ -67,6 +67,26 @@ The `apply` command accepts the following parameters:
   </x-field>
 </x-field-group>
 
+### Handling a Locked Theme
+
+To protect a website's live theme from accidental changes, Blocklet applications include a "theme lock" feature. If a theme is locked, any attempt to apply a new one via the CLI will be blocked.
+
+When you try to apply a theme to a locked site, you will encounter a `403 Forbidden` error:
+
+```
+Failed to apply theme: Failed to upload theme data: 403 Forbidden
+{"code":"internal_server_error","error":"Theme is locked and cannot be modified"}
+```
+
+To resolve this, you must unlock the theme through the website's administrative interface:
+
+1.  **Log in** to your website's administrative dashboard.
+2.  Navigate to **WebSite > Theming** in the admin menu.
+3.  Click the **unlock button** to remove the theme lock.
+4.  Run `aigne web theme apply` again.
+
+![Unlock Theme Button Interface](../../../assets/images/unlock-theme.webp)
+
 ---
 
 By following these steps, you can effectively manage your website's visual identity. For the next step after updating your theme, you may want to review how to [publish your website](./core-tasks-publishing-your-website.md).

@@ -12,12 +12,16 @@ WebSmith offers several advanced components out of the box. The primary componen
   <x-card data-title="Terminal Player" data-icon="lucide:terminal" data-href="/advanced-features/using-special-components/terminal-player">
     A component for embedding animated terminal session recordings directly into your web pages. It is ideal for tutorials, command-line tool demonstrations, and technical documentation.
   </x-card>
+  <x-card data-title="Latest Updates" data-icon="lucide:newspaper" data-href="/advanced-features/using-special-components/latest-updates">
+    A component to showcase recent changes, news, or blog posts on your website.
+  </x-card>
 </x-cards>
 
 ## Summary
 
-Using special components like the Terminal Player can dramatically improve the visual appeal and functional capabilities of your website.
+Using special components can dramatically improve the visual appeal and functional capabilities of your website.
 
-For detailed instructions on embedding and configuring the terminal player, please proceed to the next section.
+For detailed instructions on how to use these components, refer to their respective documentation sections.
 
-- **Next**: [Terminal Player](./advanced-features-using-special-components-terminal-player.md)
+- [Terminal Player](./advanced-features-using-special-components-terminal-player.md)
+- [Latest Updates](./advanced-features-using-special-components-latest-updates.md)

@@ -1,4 +1,8 @@
 entries:
+  - timestamp: 2025-10-17T08:27:42.264Z
+    operation: document_update
+    feedback: add Latest Updates to Available Components
+    documentPath: /advanced-features/using-special-components
   - timestamp: 2025-10-17T07:45:45.691Z
     operation: document_update
     feedback: remove Advanced Features Diagram image

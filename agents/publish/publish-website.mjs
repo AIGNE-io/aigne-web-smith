@@ -229,33 +229,32 @@ export default async function publishWebsite(
 
   // ----------------- main publish process flow -----------------------------
   // Check if PAGES_KIT_URL is set in environment variables
-  const envAppUrl = process.env.PAGES_KIT_URL;
-  const useEnvAppUrl = !!envAppUrl;
-
-  // Use environment variable if available, otherwise use the provided appUrl
-  if (useEnvAppUrl) {
-    appUrl = envAppUrl;
-  }
+  const useEnvAppUrl = !!appUrl;
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isCloudServiceUrl = appUrl === CLOUD_SERVICE_URL_PROD;
-  const hasAppUrlInConfig = config?.appUrl;
+  appUrl = process.env.PAGES_KIT_URL || appUrl || config?.appUrl;
+  const hasInputAppUrl = !!appUrl;
 
+  let shouldSyncAll = void 0;
   let shouldWithLocales = withLocalesOption || false;
-  let shouldWithNavigations = withNavigationsOption || false;
+  let navigationType = withNavigationsOption || "";
   let shouldWithBranding = withBrandingOption || false;
   let publishToSelfHostedBlocklet = false;
 
   let token = "";
+  let client = null;
+  let authToken = null;
+  let sessionId = null;
 
-  if (!useEnvAppUrl && isCloudServiceUrl && !hasAppUrlInConfig) {
-    const authToken = await getOfficialAccessToken(BASE_URL, false);
+  if (!hasInputAppUrl) {
+    authToken = await getOfficialAccessToken(BASE_URL, false);
 
-    let sessionId = "",
-      paymentLink = "";
+    sessionId = "";
+    let paymentLink = "";
+
     if (authToken) {
-      const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+      client = new BrokerClient({ baseUrl: BASE_URL, authToken });
 
       const info = await client.checkCacheSession({
         needShortUrl: true,
@@ -320,28 +319,74 @@ export default async function publishWebsite(
       projectId = DEFAULT_PROJECT_ID;
       projectSlug = DEFAULT_PROJECT_SLUG;
 
-      if (options?.prompts?.confirm) {
-        const shouldSyncAll = await options.prompts.confirm({
-          message:
-            "Publish pages to the new dedicated website with locales, navigations and branding?",
-          default: true,
-        });
-        shouldWithLocales = shouldSyncAll;
-        shouldWithNavigations = shouldSyncAll;
-        shouldWithBranding = shouldSyncAll;
+      // resume previous website setup
+      if (choice === "new-pages-kit-continue") {
+        shouldSyncAll = config?.shouldSyncAll ?? void 0;
+        if (shouldSyncAll !== void 0) {
+          shouldWithLocales = shouldWithLocales ?? shouldSyncAll;
+          shouldWithBranding = shouldWithBranding ?? shouldSyncAll;
+          navigationType = navigationType ?? config?.navigationType;
+        }
       }
 
+      if (options?.prompts?.confirm) {
+        if (shouldSyncAll === void 0) {
+          shouldSyncAll = await options.prompts.confirm({
+            message:
+              "Publish pages to the new dedicated website with locales, navigations and branding?",
+            default: true,
+          });
+
+          if (shouldSyncAll) {
+            const choice = await options.prompts.select({
+              message: "Select navigation type:",
+              choices: [
+                {
+                  name: "Menu - Navigation with parent-child relationships",
+                  value: "menu",
+                },
+                {
+                  name: "Flat - Navigation without parent-child relationships",
+                  value: "flat",
+                },
+                {
+                  name: "None - No navigation",
+                  value: "none",
+                },
+              ],
+            });
+            navigationType = choice === "none" ? "" : choice;
+          }
+          await saveValueToConfig("shouldSyncAll", shouldSyncAll, "Should sync all for website");
+          await saveValueToConfig("navigationType", navigationType, "Navigation type for website");
+          shouldWithLocales = shouldSyncAll;
+          shouldWithBranding = shouldSyncAll;
+        } else {
+          console.log(
+            `Publish pages to the new dedicated website with locales, navigations and branding? ${chalk.cyan(shouldSyncAll ? "Yes" : "No")}`,
+          );
+          if (navigationType === "") {
+            console.log(`Select navigation type: ${chalk.cyan("None - No navigation")}`);
+          } else if (navigationType === "flat") {
+            console.log(
+              `Select navigation type: ${chalk.cyan("Flat - Navigation with parent-child relationships")}`,
+            );
+          } else {
+            console.log(
+              `Select navigation type: ${chalk.cyan("Menu - Navigation without parent-child relationships")}`,
+            );
+          }
+        }
+      }
       try {
         let id = "";
-        let paymentUrl = "";
         if (choice === "new-pages-kit-continue") {
           id = sessionId;
-          paymentUrl = paymentLink;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
 
         appUrl = homeUrl;
         token = ltToken;
@@ -387,7 +432,15 @@ export default async function publishWebsite(
     );
   } catch (_error) {}
 
-  const accessToken = await getAccessToken(appUrl, token, requiredAdminPassport);
+  if (sessionId) {
+    authToken = await getOfficialAccessToken(BASE_URL, false);
+    client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+    const { vendors } = await client.getSessionDetail(sessionId, false);
+    token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
+  }
+
+  const accessToken = await getAccessToken(appUrl, token || "", requiredAdminPassport);
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 
@@ -483,7 +536,27 @@ export default async function publishWebsite(
       ? extractAllPaths(sitemapContent.sitemap || sitemapContent)
       : [];
 
-    const navigationEntries = shouldWithNavigations ? sitemapContent?.navigations : [];
+    let navigationEntries = [];
+    if (navigationType && sitemapContent?.navigations) {
+      if (navigationType === "flat") {
+        sitemapContent.navigations.forEach((item) => {
+          if (item.parent?.endsWith("-header")) {
+            navigationEntries.push({
+              ...item,
+              parent: "",
+            });
+          } else if (!item.id?.endsWith("-header")) {
+            navigationEntries.push(item);
+          }
+        });
+      } else if (navigationType === "menu") {
+        navigationEntries = sitemapContent.navigations;
+      }
+      navigationEntries = navigationEntries.map((item) => ({
+        ...item,
+        description: item.parent ? item.description : "",
+      }));
+    }
 
     // Read all .yaml files in pagesDir
     const files = await fs.readdir(pagesDir);
@@ -693,7 +766,7 @@ export default async function publishWebsite(
         meta.locales = locales;
       }
 
-      if (shouldWithNavigations && navigationEntries.length > 0) {
+      if (navigationEntries.length > 0) {
         // append navigations to meta, will be used to polish blocklet settings
         meta.navigations = navigationEntries;
       }
@@ -840,6 +913,9 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
+      await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
+      await saveValueToConfig("navigationType", "", "Navigation type for website");
+      await saveValueToConfig("shouldSyncAll", "", "Should sync all for website");
     } else if (totalCount === 0) {
       message = "❌ Failed to publish pages: No page definitions were found to publish.";
     } else {
@@ -875,8 +951,6 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
     message = `❌ Failed to publish pages: ${typeof error === "string" ? error : JSON.stringify(error?.message || error)}`;
   }
 
-  await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
-
   // clean up tmp work dir
   await fs.rm(pagesDir, { recursive: true, force: true });
   return message ? { message } : {};
@@ -890,8 +964,10 @@ publishWebsite.input_schema = {
       description: "Publish to website with branding",
     },
     "with-navigations": {
-      type: "boolean",
-      description: "Publish to website with navigation",
+      type: "string",
+      enum: ["flat", "menu"],
+      default: "menu",
+      description: "Publish to website with navigation (flat or menu, defaults to menu)",
     },
     "with-locales": {
       type: "boolean",
@@ -904,7 +980,6 @@ publishWebsite.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: CLOUD_SERVICE_URL_PROD,
     },
     projectId: {
       type: "string",

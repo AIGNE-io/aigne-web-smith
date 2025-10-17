@@ -219,7 +219,7 @@ Publishes the generated website to Pages Kit.
 **Parameters:**
 
 - `appUrl` (optional): The target website URL where pages will be published.
-- `with-navigations` (optional): Publish the website with navigations (boolean).
+- `with-navigations` (optional): Publish the website with navigations. Options: `flat` or `menu` (defaults to `menu`).
 - `with-locales` (optional): Publish the website with locales (boolean).
 
 #### translate

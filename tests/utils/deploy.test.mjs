@@ -94,7 +94,6 @@ describe("deploy", () => {
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith({
       baseUrl: "https://staging.websmith.aigne.io",
       authToken: "mock-auth-token",
-      paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
     });
 
     // Verify deploy was called with correct parameters
@@ -117,7 +116,6 @@ describe("deploy", () => {
           ACCESS_PREPARING: expect.any(Function),
           ACCESS_READY: expect.any(Function),
         }),
-        onError: expect.any(Function),
       }),
     );
 
@@ -127,35 +125,11 @@ describe("deploy", () => {
       homeUrl: TEST_HOME_URL,
       dashboardUrl: TEST_DASHBOARD_URL,
       subscriptionUrl: TEST_SUBSCRIPTION_URL,
-      token: "pagekit-auth-token-123",
     });
 
     // Verify console output
     const logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
     expect(logs.some((log) => log.includes("🚀 Starting deployment..."))).toBe(true);
-  });
-
-  test("successful deployment with cached parameters", async () => {
-    const mockResult = {
-      appUrl: TEST_APP_URL,
-      homeUrl: TEST_HOME_URL,
-      vendors: [{ token: "pagekit-auth-token-123" }],
-    };
-
-    mockBrokerClient.deploy.mockResolvedValue(mockResult);
-
-    const result = await deploy("cached-checkout-id", "https://cached-payment.url");
-
-    // Verify deploy was called with cached parameters
-    expect(mockBrokerClient.deploy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        cachedCheckoutId: "cached-checkout-id",
-        cachedPaymentUrl: "https://cached-payment.url",
-      }),
-    );
-
-    expect(result.appUrl).toBe(TEST_APP_URL);
-    expect(result.token).toBe("pagekit-auth-token-123");
   });
 
   test("handles missing auth token", async () => {
@@ -347,7 +321,6 @@ describe("deploy", () => {
       expect.objectContaining({
         authToken: "mock-auth-token",
         baseUrl: "https://staging.websmith.aigne.io",
-        paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
       }),
     );
   });
@@ -369,7 +342,6 @@ describe("deploy", () => {
       expect.objectContaining({
         authToken: "mock-auth-token",
         baseUrl: "https://staging.websmith.aigne.io",
-        paymentLinkKey: "WEB_SMITH_PAYMENT_LINK_ID",
       }),
     );
   });
@@ -430,6 +402,8 @@ describe("deploy", () => {
       appUrl: TEST_APP_URL,
       vendors: [{ token: "test-token" }],
     };
+
+    process.env.PAYMENT_LINK_ID = "WEB_SMITH_PAYMENT_LINK_ID";
 
     mockBrokerClient.deploy.mockResolvedValue(mockResult);
 

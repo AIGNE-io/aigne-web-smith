@@ -6,8 +6,7 @@ import { CLOUD_SERVICE_URL_STAGING } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== Configuration ====================
-const BASE_URL = CLOUD_SERVICE_URL_STAGING;
-const PAYMENT_LINK_KEY = process.env.WEB_SMITH_PAYMENT_LINK_ID || "WEB_SMITH_PAYMENT_LINK_ID";
+const BASE_URL = process.env.WEB_SMITH_BASE_URL || CLOUD_SERVICE_URL_STAGING;
 const SUCCESS_MESSAGE = {
   en: "Congratulations! Your website has been successfully created. You can return to the command-line tool to continue publishing your pages.",
   zh: "恭喜您，你的网站已创建成功！可以返回命令行工具继续发布你的页面！",
@@ -28,7 +27,7 @@ export async function deploy(id, cachedUrl) {
   const client = new BrokerClient({
     baseUrl: BASE_URL,
     authToken,
-    paymentLinkKey: PAYMENT_LINK_KEY,
+    paymentLinkKey: process.env.PAYMENT_LINK_ID,
   });
 
   console.log(`🚀 Starting deployment...`);
@@ -46,11 +45,6 @@ export async function deploy(id, cachedUrl) {
           "checkoutId",
           sessionId,
           "Checkout ID for website deployment service",
-        );
-        await saveValueToConfig(
-          "paymentUrl",
-          paymentUrl,
-          "Payment URL for website deployment service",
         );
 
         if (!isResuming) {
@@ -79,14 +73,11 @@ export async function deploy(id, cachedUrl) {
         }
       },
     },
-    onError: (error) => {
-      console.error("❌ Deployment failed:", error);
-      throw error;
-    },
   });
 
   const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors } = result;
-  const token = vendors?.[0]?.token;
+
+  const token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
 
   return {
     appUrl,

@@ -23,8 +23,10 @@ input_schema:
       type: boolean
       description: publish to website with branding
     with-navigations:
-      type: boolean
-      description: publish to website with navigations
+      type: string
+      enum: [flat, menu]
+      default: menu
+      description: publish to website with navigations (flat or menu, defaults to menu)
     with-locales:
       type: boolean
       description: publish to website with locales

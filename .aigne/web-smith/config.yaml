@@ -112,3 +112,4 @@ lastGitHead: 750089ca41637f0bf7df92a8d27548948fa6b894
 appUrl: https://staging.websmith.aigne.io
 # Checkout ID for website deployment service
 checkoutId: ""
+projectCover: .aigne/web-smith/cover.png

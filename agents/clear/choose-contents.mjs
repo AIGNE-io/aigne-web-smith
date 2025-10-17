@@ -26,7 +26,7 @@ export default async function chooseContents(input = {}, options = {}) {
       path: websiteStructureCandidate,
       label: "website structure",
       description: ({ tmpDir }) =>
-        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stays)`,
+        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stay)`,
       onClear: async ({ displayPath, results, targetPath }) => {
         await rm(targetPath, { recursive: true, force: true });
         results.push({
@@ -263,7 +263,7 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   const hasError = results.some((item) => item.status === "error");
-  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successfully!";
+  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successful!";
 
   const detailLines = results.map((item) => `   ${item.message}`).join("\n");
 

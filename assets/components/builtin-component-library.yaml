@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-16T11:45:56.404Z
+  updateAt: 2025-10-17T03:07:55.618Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -529,7 +529,7 @@ composite:
                 url: <%= verticalHeroActions.0.link %>
                 variant: contained
                 size: medium
-                target: _self
+                target: auto
                 needLogin: false
               - type: link
                 text: <%= verticalHeroActions.1.text %>
@@ -538,7 +538,7 @@ composite:
                 borderColor: ""
                 variant: outlined
                 size: medium
-                target: _self
+                target: auto
                 startIcon: ""
                 endIcon: ""
                 needLogin: false
@@ -2741,7 +2741,7 @@ composite:
                 url: <%= splitHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= splitHeroActions.1.text %>
@@ -3424,7 +3424,7 @@ composite:
                 url: <%= featureSectionAction.link %>
                 variant: text
                 size: medium
-                target: _self
+                target: auto
                 needLogin: false
                 endIcon: ""
           v5utpm7bu9yvdpnq:
@@ -3703,7 +3703,7 @@ composite:
                 url: <%= cta.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= cta.1.text %>
@@ -3986,7 +3986,7 @@ composite:
                 url: <%= splitHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= splitHeroActions.1.text %>
@@ -5561,7 +5561,7 @@ composite:
                 url: <%= centeredHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= centeredHeroActions.1.text %>
@@ -5761,7 +5761,7 @@ composite:
                 url: <%= splitHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - type: link
                 text: <%= splitHeroActions.1.text %>
@@ -5770,7 +5770,7 @@ composite:
                 borderColor: ""
                 variant: outlined
                 size: large
-                target: _self
+                target: auto
                 startIcon: ""
                 endIcon: ""
                 needLogin: false
@@ -6104,7 +6104,7 @@ composite:
                 url: <%= cta.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - type: link
                 text: <%= cta.1.text %>
@@ -6113,7 +6113,7 @@ composite:
                 borderColor: ""
                 variant: outlined
                 size: large
-                target: _self
+                target: auto
                 startIcon: ""
                 endIcon: ""
                 needLogin: false
@@ -7000,7 +7000,7 @@ composite:
                 url: <%= terminalRight.actionLink %>
                 variant: text
                 size: medium
-                target: _blank
+                target: auto
                 needLogin: false
       njzgs2gftxzz8225: {}
       xj6uek70c0viryd5: {}
@@ -7234,7 +7234,7 @@ composite:
                 url: <%= terminalLeft.actionLink %>
                 variant: text
                 size: medium
-                target: _blank
+                target: auto
                 needLogin: false
       ms2xz5fy32bbzwgh: {}
       jpr6lmfkjjbrnjyh: {}
@@ -7390,7 +7390,7 @@ composite:
                 url: <%= fullBackgroundHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= fullBackgroundHeroActions.1.text %>
@@ -7546,7 +7546,7 @@ composite:
                 url: <%= fullBackgroundHeroActions.0.link %>
                 variant: contained
                 size: large
-                target: _self
+                target: auto
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= fullBackgroundHeroActions.1.text %>

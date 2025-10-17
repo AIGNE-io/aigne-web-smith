@@ -4,8 +4,6 @@ This section explores advanced capabilities of AIGNE WebSmith that allow for gre
 
 The features covered here focus on two main areas: managing the underlying component library that the AI uses to construct your pages, and leveraging powerful, pre-built special components for unique presentation needs. Understanding these concepts allows you to maintain and enhance your website with more precision and creativity.
 
-![Advanced Features Diagram](https://placehold.co/800x400.png)
-
 ## Key Topics
 
 This section is divided into the following detailed guides. For in-depth instructions, please refer to the specific sub-pages.

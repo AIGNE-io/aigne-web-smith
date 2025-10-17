@@ -1,4 +1,19 @@
 entries:
+  - timestamp: 2025-10-17T07:45:45.691Z
+    operation: document_update
+    feedback: remove Advanced Features Diagram image
+    documentPath: /advanced-features
+  - timestamp: 2025-10-17T07:43:48.835Z
+    operation: document_update
+    feedback: The optional values for `pagePurpose`(Website Purpose), `targetAudienceTypes`(Target
+      Audience), and `websiteScale`(Website Scale) in the `Step 3` and `config.yaml` example require
+      updating
+    documentPath: /getting-started/your-first-website
+  - timestamp: 2025-10-17T07:28:03.252Z
+    operation: document_update
+    feedback: The example values for the three fields `Website Purpose`, `Target Audience`, and `Website
+      Scale` are incorrect.
+    documentPath: /getting-started/your-first-website
   - timestamp: 2025-10-17T07:14:44.578Z
     operation: document_update
     feedback: Recalculate the relative reference path for unlock-theme.webp, which itself is located in

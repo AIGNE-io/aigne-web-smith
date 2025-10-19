@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-16T23:18:18.790Z
-updatedAt: 2025-10-16T23:18:18.790Z
-publishedAt: 2025-10-16T23:18:18.790Z
+createdAt: 2025-10-19T12:25:09.027Z
+updatedAt: 2025-10-19T12:25:09.027Z
+publishedAt: 2025-10-19T12:25:09.027Z
 isPublic: true
 locales:
   en:
@@ -89,7 +89,7 @@ sections:
               680339c14b4aaf87:
                 x: 0
                 y: 0
-                w: 8
+                w: 7
                 h: 1
               ad57901aa51a6fd7:
                 x: 0
@@ -2611,7 +2611,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: Explore Showcase
@@ -2635,7 +2635,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: 浏览案例
@@ -2659,7 +2659,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-c47353
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: 探索案例
@@ -2683,7 +2683,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/getting-started-c47353
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: ショーケースを見る
@@ -4403,7 +4403,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh:
       properties:
@@ -4417,7 +4417,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh-TW:
       properties:
@@ -4431,7 +4431,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/getting-started-preparing-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     ja:
       properties:
@@ -4445,7 +4445,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/getting-started-preparing-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
   7b2358b6fe84a2d1:
     en:
@@ -4564,7 +4564,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh:
       properties:
@@ -4578,7 +4578,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh-TW:
       properties:
@@ -4592,7 +4592,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-generating-a-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     ja:
       properties:
@@ -4606,7 +4606,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-generating-a-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
   0fedc6504b5b8473:
     en:
@@ -4726,7 +4726,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh:
       properties:
@@ -4740,7 +4740,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh-TW:
       properties:
@@ -4754,7 +4754,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-updating-website-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     ja:
       properties:
@@ -4768,7 +4768,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-updating-website-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
   e987e6914685bef6:
     en:
@@ -17446,7 +17446,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh:
       properties:
@@ -17460,7 +17460,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh-TW:
       properties:
@@ -17474,7 +17474,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-translating-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     ja:
       properties:
@@ -17488,7 +17488,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-translating-your-content-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
   7aa1e7915960b7ab:
     en:
@@ -17607,7 +17607,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh:
       properties:
@@ -17621,7 +17621,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     zh-TW:
       properties:
@@ -17635,7 +17635,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/en/core-tasks-publishing-your-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
     ja:
       properties:
@@ -17649,7 +17649,7 @@ dataSource:
               url: https://docsmith.aigne.io/docs/aigne-web-smith/ja/core-tasks-publishing-your-website-c47353
               variant: text
               size: medium
-              target: _blank
+              target: auto
               needLogin: false
   c05ad2b7c17d7655:
     en:
@@ -18411,7 +18411,7 @@ dataSource:
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: Explore AIGNE Ecosystem
@@ -18433,7 +18433,7 @@ dataSource:
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: 探索 AIGNE 生态系统
@@ -18455,7 +18455,7 @@ dataSource:
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: 探索 AIGNE 生態系統
@@ -18477,7 +18477,7 @@ dataSource:
               url: https://github.com/AIGNE-io/aigne-web-smith
               variant: contained
               size: large
-              target: _self
+              target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: AIGNEエコシステムを見る

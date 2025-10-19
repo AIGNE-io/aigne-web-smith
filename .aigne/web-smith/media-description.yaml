@@ -8,4 +8,14 @@ descriptions:
       artwork creates an expansive and futuristic mood, ideal for a hero section
       or banner.
     generatedAt: 2025-10-15T06:14:53.670Z
-lastUpdated: 2025-10-15T06:14:53.674Z
+  a7ca31b2bbce4b994dd8feebcfbf89ff8c2fbdf1dffffc2dff74e808be92588d:
+    path: ../../../assets/images/unlock-theme.webp
+    description: This image showcases a web application's "Theming" customization
+      interface. It displays options for adjusting neutral and accent colors
+      with corresponding hex codes and labels (e.g., primary, success, error),
+      along with typography settings like font family ("Roboto") for headings
+      and body text. A preview panel on the right illustrates how the selected
+      theme applies to a sample website, while a "locked" icon and tooltip
+      suggest an "Unlock Theme" feature to enable modifications.
+    generatedAt: 2025-10-19T12:25:07.043Z
+lastUpdated: 2025-10-19T12:25:07.056Z

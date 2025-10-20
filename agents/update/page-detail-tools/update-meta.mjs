@@ -13,7 +13,7 @@ export default async function updateMeta(input, options) {
     const errorMessage = `Cannot update meta: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail: input.pageDetail,
       error: { message: errorMessage },
     };
@@ -33,7 +33,7 @@ export default async function updateMeta(input, options) {
   if (lastUpdateMetaInput && isEqual(lastUpdateMetaInput, currentInput)) {
     const errorMessage = `Cannot update meta: This operation has already been processed. Please do not call updateMeta again with the same parameters.`;
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -47,7 +47,7 @@ export default async function updateMeta(input, options) {
     const errorMessage = `Cannot update meta: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -80,7 +80,7 @@ export default async function updateMeta(input, options) {
   options.context.userContext.lastUpdateMetaInput = currentInput;
 
   return {
-    status: 'success',
+    status: "success",
     pageDetail: latestPageDetail,
     message: successMessage,
   };

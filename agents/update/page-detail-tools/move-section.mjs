@@ -13,7 +13,7 @@ export default async function moveSection(input, options) {
     const errorMessage = `Cannot move section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail: input.pageDetail,
       error: { message: errorMessage },
     };
@@ -33,7 +33,7 @@ export default async function moveSection(input, options) {
   if (lastMoveSectionInput && isEqual(lastMoveSectionInput, currentInput)) {
     const errorMessage = `Cannot move section: This operation has already been processed. Please do not call moveSection again with the same parameters.`;
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -47,7 +47,7 @@ export default async function moveSection(input, options) {
     const errorMessage = `Cannot move section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -58,7 +58,7 @@ export default async function moveSection(input, options) {
     const errorMessage = "Cannot move section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -70,7 +70,7 @@ export default async function moveSection(input, options) {
     const errorMessage = `Cannot move section: Section '${name}' not found. Please choose an existing section to move.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -90,7 +90,7 @@ export default async function moveSection(input, options) {
       const errorMessage = `Cannot move section: Reference section '${newPosition}' not found.`;
       console.log(`⚠️  ${errorMessage}`);
       return {
-        status: 'error',
+        status: "error",
         pageDetail,
         error: { message: errorMessage },
       };
@@ -103,7 +103,7 @@ export default async function moveSection(input, options) {
     const errorMessage = `Cannot move section: Section '${name}' is already at the specified position.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -143,7 +143,7 @@ export default async function moveSection(input, options) {
   options.context.userContext.lastMoveSectionInput = currentInput;
 
   return {
-    status: 'success',
+    status: "success",
     pageDetail: latestPageDetail,
     message: successMessage,
   };

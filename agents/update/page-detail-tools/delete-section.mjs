@@ -14,7 +14,7 @@ export default async function deleteSection(input, options) {
     const errorMessage = `Cannot delete section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail: input.pageDetail,
       error: { message: errorMessage },
     };
@@ -34,7 +34,7 @@ export default async function deleteSection(input, options) {
   if (lastDeleteSectionInput && isEqual(lastDeleteSectionInput, currentInput)) {
     const errorMessage = `Cannot delete section: This operation has already been processed. Please do not call deleteSection again with the same parameters.`;
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -48,7 +48,7 @@ export default async function deleteSection(input, options) {
     const errorMessage = `Cannot delete section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -59,7 +59,7 @@ export default async function deleteSection(input, options) {
     const errorMessage = "Cannot delete section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -71,7 +71,7 @@ export default async function deleteSection(input, options) {
     const errorMessage = `Cannot delete section: Section '${name}' not found. Please choose an existing section to delete.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -104,7 +104,7 @@ export default async function deleteSection(input, options) {
   options.context.userContext.lastDeleteSectionInput = currentInput;
 
   return {
-    status: 'success',
+    status: "success",
     pageDetail: latestPageDetail,
     message: successMessage,
   };

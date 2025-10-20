@@ -14,7 +14,7 @@ export default async function updateSection(input, options) {
     const errorMessage = `Cannot update section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail: input.pageDetail,
       error: { message: errorMessage },
     };
@@ -35,7 +35,7 @@ export default async function updateSection(input, options) {
   if (lastUpdateSectionInput && isEqual(lastUpdateSectionInput, currentInput)) {
     const errorMessage = `Cannot update section: This operation has already been processed. Please do not call updateSection again with the same parameters.`;
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -49,7 +49,7 @@ export default async function updateSection(input, options) {
     const errorMessage = `Cannot update section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -63,7 +63,7 @@ export default async function updateSection(input, options) {
     const errorMessage = `Cannot update section: Unable to parse updates YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -75,7 +75,7 @@ export default async function updateSection(input, options) {
     const errorMessage = "Cannot update section: No properties specified for update.";
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -86,7 +86,7 @@ export default async function updateSection(input, options) {
     const errorMessage = "Cannot update section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -98,7 +98,7 @@ export default async function updateSection(input, options) {
     const errorMessage = `Cannot update section: Section '${name}' not found. Please choose an existing section to update.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -129,7 +129,7 @@ export default async function updateSection(input, options) {
       .join("\n");
     const errorMessage = `Cannot update section:\n${summary}\n${details}`;
     return {
-      status: 'error',
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -161,7 +161,7 @@ export default async function updateSection(input, options) {
   options.context.userContext.lastUpdateSectionInput = currentInput;
 
   return {
-    status: 'success',
+    status: "success",
     pageDetail: latestPageDetail,
     message: successMessage,
   };

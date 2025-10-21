@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-21T02:54:26.650Z
+  updateAt: 2025-10-21T03:55:38.577Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -2851,6 +2851,8 @@ composite:
     summary: >-
       Structure
 
+      - Section title (optional subtitle).
+
       - Two-row bento grid: **top row 2 cells**, **bottom row 3 cells** (total
       **5 items**).
 
@@ -2872,12 +2874,12 @@ composite:
       - Must have **exactly 5 items** (2+3). If count differs, pick another
       layout.
     fieldCombinations:
-      - Layout Bento Grid 2+3
       - list.0
       - list.1
       - list.2
       - list.3
       - list.4
+      - twoThreeBentoGridTitle
     section:
       id: 1czk48n9pj0ofst7
       name: Bento Grids_1
@@ -3066,7 +3068,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= Layout Bento Grid 2+3 %>
+              text: <%= twoThreeBentoGridTitle %>
               style:
                 variant: h1
   - id: hxjfqss28cy6pdmd
@@ -3863,7 +3865,9 @@ composite:
     summary: >-
       Structure
 
-      - Two-cell bento grid in one row
+      - Section title (optional subtitle).
+
+      - Two-cell bento grid in one row.
 
       - Each cell hosts a child section/card/media block; shared gap, padding,
       border, and radius settings.
@@ -3882,9 +3886,9 @@ composite:
       - Item count is exactly 2; if you have 1 or 3+ items, choose another
       layout.
     fieldCombinations:
-      - Layout Bento Grid 2
       - list.0
       - list.1
+      - twoBentoGridTitle
     section:
       id: 9ur9vrlln7senjzz
       name: Bento Grids_2
@@ -4000,7 +4004,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= Layout Bento Grid 2 %>
+              text: <%= twoBentoGridTitle %>
               style:
                 variant: h1
   - id: 0gxpsejj8mnduiou
@@ -5994,6 +5998,8 @@ composite:
     summary: >-
       Structure
 
+      - Section title (optional subtitle).
+
       - Two-row bento grid: **top row 2 cells**, **bottom row 2 cells** (total
       **2 items**).
 
@@ -6015,11 +6021,11 @@ composite:
       - Must have **exactly 4 items** (2+2). If count differs, pick another
       layout.
     fieldCombinations:
-      - Layout Bento Grid 2+2
       - list.0
       - list.1
       - list.2
       - list.3
+      - twoTwoBentoGridTitle
     section:
       id: 9ur9vrlln7senjzz
       name: Bento Grids_2
@@ -6180,7 +6186,7 @@ composite:
         properties:
           gs1rn5jmxfvpxptx:
             value:
-              text: <%= Layout Bento Grid 2+2 %>
+              text: <%= twoTwoBentoGridTitle %>
               style:
                 variant: h1
   - id: ysxgzgqxy4x11tla

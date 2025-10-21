@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0...v1.5.1-beta) (2025-10-21)
+
+
+### Bug Fixes
+
+* home page action link to auto ([0959250](https://github.com/AIGNE-io/aigne-web-smith/commit/0959250bd26ca368ccbedfcad98892ed6061bc4c))
+* prevent duplicate tool calls in updatePageDetail ([#154](https://github.com/AIGNE-io/aigne-web-smith/issues/154)) ([ca5eba1](https://github.com/AIGNE-io/aigne-web-smith/commit/ca5eba14e72131db29c5ab0bf9c8deb27e4bd113))
+
 ## [1.5.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.16...v1.5.0) (2025-10-19)
 
 ## [1.5.0-beta.16](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0-beta.15...v1.5.0-beta.16) (2025-10-17)

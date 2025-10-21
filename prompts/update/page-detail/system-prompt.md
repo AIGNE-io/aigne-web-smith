@@ -70,6 +70,17 @@ Operation execution rules:
 - Maintain content integrity by ensuring all constraints are met
 - **Only use provided Tools to modify pageDetail**
 
+Operation idempotency & completion rules:
+
+- All section numbering starts from **1**, not 0.
+- Once a Tool (such as `deleteSection`, `addSection`, `updateSection`, or `moveSection`) has been successfully executed (returns `"success"`),
+  the corresponding operation is considered **complete**.
+- The same Tool must **NOT** be called again for the same purpose or the same target section in this task.
+- If you have already executed a Tool successfully and the user request has been fulfilled,
+  return `"success"` directly instead of re-calling any Tool.
+- Never perform duplicate Tool calls that could lead to repeated deletions or re-executions.
+- When the Tool result indicates `"success"`, immediately stop further Tool invocations and end the operation.
+
 Tool usage guidelines:
 
 1. updateMeta: Use when user wants to modify page meta information

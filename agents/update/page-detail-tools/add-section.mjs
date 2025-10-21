@@ -15,6 +15,7 @@ export default async function addSection(input, options) {
     const errorMessage = `Cannot add section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
+      status: "error",
       pageDetail: input.pageDetail,
       error: { message: errorMessage },
     };
@@ -35,6 +36,7 @@ export default async function addSection(input, options) {
   if (lastAddSectionInput && isEqual(lastAddSectionInput, currentInput)) {
     const errorMessage = `Cannot add section: This operation has already been processed. Please do not call addSection again with the same parameters.`;
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -48,6 +50,7 @@ export default async function addSection(input, options) {
     const errorMessage = `Cannot add section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -61,6 +64,7 @@ export default async function addSection(input, options) {
     const errorMessage = `Cannot add section: Unable to parse section YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -71,6 +75,7 @@ export default async function addSection(input, options) {
     const errorMessage = "Cannot add section: Section must have a 'sectionName' property.";
     console.log(`⚠️  ${errorMessage}`);
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -94,6 +99,7 @@ export default async function addSection(input, options) {
       .join("\n");
     const errorMessage = `Cannot add section:\n${summary}\n${details}`;
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -112,6 +118,7 @@ export default async function addSection(input, options) {
     const errorMessage = `Cannot add section: A section with name '${parsedSection.sectionName}' already exists. Choose a different name.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
+      status: "error",
       pageDetail,
       error: { message: errorMessage },
     };
@@ -163,6 +170,7 @@ export default async function addSection(input, options) {
   options.context.userContext.lastAddSectionInput = currentInput;
 
   return {
+    status: "success",
     pageDetail: latestPageDetail,
     message: successMessage,
   };

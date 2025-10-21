@@ -8,15 +8,6 @@
   - Semantic fit: select media only when it clearly matches the section’s intent (topic, tone, purpose).
   - Deduplication: a real asset may appear **at most once** on the page (unless `<datasources>` explicitly requires otherwise).
   - **Fields named `xxxImage`, `xxxAsset` or `xxxMedia`** can host traditional image assets, video files (mp4, webm, etc.), or their cover frames.
-  - Prefer **non-media field combinations** if no suitable asset exists;
-  - **Placeholder (last resort):** use a placeholder **only** when an image is **required for optimal presentation** (i.e., the layout is image-led), there is **no suitable asset** in `<available_media_assets>`, **and** there is **no approved non-media alternative** for that section.
-    - Service: `https://placehold.co/{width}x{height}` (optional `?text=Preview`).
-    - Defaults (keep aspect ratio):
-      - Hero / full-bleed: **1440×520** (or **1440×700** for tall frames)
-      - Feature / proof panel: **1440×700**
-      - Card image: **800×450**
-      - Thumbnail / grid item: **600×400**
-    - Placeholders are temporary and **do not** count toward real-asset deduplication. Do not insert a placeholder if the section already works without media.
 
 - Link Resources
   - Internal navigation must use entries from `<available_internal_links>`; copy each **`linkPath`** exactly. Do **not** fabricate internal routes. Single-page experiences typically omit internal navigation.

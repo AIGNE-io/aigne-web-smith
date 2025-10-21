@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-17T07:33:16.384Z
+  updateAt: 2025-10-21T02:54:26.650Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -937,6 +937,36 @@ composite:
                   y: 2
                   w: 12
                   h: 1
+                5467p5g14tf9ulet:
+                  x: 0
+                  y: 3
+                  w: 12
+                  h: 1
+                lbdakrlx804aa294:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                fn3pjkdsg3erq5wn:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+                g77xhg8tv77g4sdf:
+                  x: 0
+                  y: 6
+                  w: 12
+                  h: 1
+                ltcbx9oihmi91or5:
+                  x: 0
+                  y: 7
+                  w: 12
+                  h: 1
+                t5wk76nxiadn5xmi:
+                  x: 0
+                  y: 8
+                  w: 12
+                  h: 1
             gap: small
             paddingX: none
         y5sicz61vfbtnhkh:
@@ -998,7 +1028,7 @@ composite:
             value:
               text: <%= threeColumnGridTitle %>
               style:
-                variant: h2
+                variant: h1
       zs5zxkki8pbiuapz: {}
       crdmoiee60y82o70: {}
       n7xlbofkiq7940sm: {}
@@ -1507,22 +1537,42 @@ composite:
                 ilbxhb437qvz4d67:
                   x: 0
                   y: 0
-                  w: 6
+                  w: 12
                   h: 1
                 ol4wieo44cw96mst:
-                  x: 6
-                  y: 0
-                  w: 6
+                  x: 0
+                  y: 1
+                  w: 12
                   h: 1
                 6b8bap6q8usvzerc:
                   x: 0
-                  y: 1
-                  w: 6
+                  y: 2
+                  w: 12
                   h: 1
                 u7ip6dvihh8yptxg:
-                  x: 6
-                  y: 1
-                  w: 6
+                  x: 0
+                  y: 3
+                  w: 12
+                  h: 1
+                6zp0bwzko9363qi7:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                3afva70pja44kpkw:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+                1jjxyo0qsj8rrif0:
+                  x: 0
+                  y: 6
+                  w: 12
+                  h: 1
+                6f7rfr9atoko3ky8:
+                  x: 0
+                  y: 7
+                  w: 12
                   h: 1
             gap: small
             paddingX: none
@@ -1554,7 +1604,7 @@ composite:
             value:
               text: <%= fourColumnGridTitle %>
               style:
-                variant: h2
+                variant: h1
           v5utpm7bu9yvdpnq:
             value: center
           kyg0hdy5uqq4gc1o:
@@ -2059,6 +2109,36 @@ composite:
                   y: 3
                   w: 12
                   h: 1
+                4rewpon7enlvhyxa:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                17uev3txd93657vy:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+                7jz5btlzv1cjwqj4:
+                  x: 0
+                  y: 6
+                  w: 12
+                  h: 1
+                gcaktc5jnlonz07z:
+                  x: 0
+                  y: 7
+                  w: 12
+                  h: 1
+                xx656uaol12aahip:
+                  x: 0
+                  y: 8
+                  w: 12
+                  h: 1
+                78rwckrcfmqcpc1s:
+                  x: 0
+                  y: 9
+                  w: 12
+                  h: 1
             gap: small
             paddingX: none
       sectionIds:
@@ -2089,7 +2169,7 @@ composite:
             value:
               text: <%= twoColumnGridTitle %>
               style:
-                variant: h2
+                variant: h1
           v5utpm7bu9yvdpnq:
             value: center
           kyg0hdy5uqq4gc1o:
@@ -2444,7 +2524,7 @@ composite:
             value:
               text: <%= changelogTitle %>
               style:
-                variant: h2
+                variant: h1
           v5utpm7bu9yvdpnq:
             value: flex-start
           kyg0hdy5uqq4gc1o:
@@ -2792,6 +2872,7 @@ composite:
       - Must have **exactly 5 items** (2+3). If count differs, pick another
       layout.
     fieldCombinations:
+      - Layout Bento Grid 2+3
       - list.0
       - list.1
       - list.2
@@ -2802,122 +2883,176 @@ composite:
       name: Bento Grids_1
       component: layout-block
       sections:
-        v0yqgx0alva8pqgk:
-          id: v0yqgx0alva8pqgk
-          name: <%= list.0 %>
+        s4308qrvuhpd9c3s:
+          id: s4308qrvuhpd9c3s
+          name: Cards
           component: layout-block
-          sections: {}
-          sectionIds: []
+          sections:
+            v0yqgx0alva8pqgk:
+              id: v0yqgx0alva8pqgk
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+            b6flsk80a31ajfhg:
+              id: b6flsk80a31ajfhg
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+            jlv1pcozi3jj2ym1:
+              id: jlv1pcozi3jj2ym1
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+            owz1ef5yvnj8u6z1:
+              id: owz1ef5yvnj8u6z1
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+            0nijh6cwuc30kiz4:
+              id: 0nijh6cwuc30kiz4
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+          sectionIds:
+            - v0yqgx0alva8pqgk
+            - b6flsk80a31ajfhg
+            - jlv1pcozi3jj2ym1
+            - owz1ef5yvnj8u6z1
+            - 0nijh6cwuc30kiz4
           config:
             gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        b6flsk80a31ajfhg:
-          id: b6flsk80a31ajfhg
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
+              desktop:
+                v0yqgx0alva8pqgk:
+                  x: 0
+                  y: 0
+                  w: 6
+                  h: 1
+                b6flsk80a31ajfhg:
+                  x: 6
+                  y: 0
+                  w: 6
+                  h: 1
+                jlv1pcozi3jj2ym1:
+                  x: 0
+                  y: 1
+                  w: 4
+                  h: 1
+                owz1ef5yvnj8u6z1:
+                  x: 4
+                  y: 1
+                  w: 4
+                  h: 1
+                0nijh6cwuc30kiz4:
+                  x: 8
+                  y: 1
+                  w: 4
+                  h: 1
+            gap: small
+        oy7em5ci5wh5vvc9:
+          id: oy7em5ci5wh5vvc9
+          name: RichText
+          component: custom-component
           config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        jlv1pcozi3jj2ym1:
-          id: jlv1pcozi3jj2ym1
-          name: <%= list.2 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        owz1ef5yvnj8u6z1:
-          id: owz1ef5yvnj8u6z1
-          name: <%= list.3 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        0nijh6cwuc30kiz4:
-          id: 0nijh6cwuc30kiz4
-          name: <%= list.4 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
+            componentId: xoHu0J44322kDYc-
       sectionIds:
-        - v0yqgx0alva8pqgk
-        - b6flsk80a31ajfhg
-        - jlv1pcozi3jj2ym1
-        - owz1ef5yvnj8u6z1
-        - 0nijh6cwuc30kiz4
+        - oy7em5ci5wh5vvc9
+        - s4308qrvuhpd9c3s
       config:
         gridSettings:
           desktop:
+            s4308qrvuhpd9c3s:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            oy7em5ci5wh5vvc9:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+          mobile:
             v0yqgx0alva8pqgk:
               x: 0
               y: 0
-              w: 6
+              w: 12
               h: 1
             b6flsk80a31ajfhg:
-              x: 6
-              y: 0
-              w: 6
+              x: 0
+              y: 1
+              w: 12
               h: 1
             jlv1pcozi3jj2ym1:
               x: 0
-              y: 1
-              w: 4
+              y: 2
+              w: 12
               h: 1
             owz1ef5yvnj8u6z1:
-              x: 4
-              y: 1
-              w: 4
+              x: 0
+              y: 3
+              w: 12
               h: 1
             0nijh6cwuc30kiz4:
-              x: 8
-              y: 1
-              w: 4
+              x: 0
+              y: 4
+              w: 12
               h: 1
         paddingX: none
-        gap: small
+        gap: normal
         paddingY: none
     dataSource:
       1czk48n9pj0ofst7: {}
@@ -2926,6 +3061,14 @@ composite:
       jlv1pcozi3jj2ym1: {}
       owz1ef5yvnj8u6z1: {}
       0nijh6cwuc30kiz4: {}
+      s4308qrvuhpd9c3s: {}
+      oy7em5ci5wh5vvc9:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= Layout Bento Grid 2+3 %>
+              style:
+                variant: h1
   - id: hxjfqss28cy6pdmd
     name: Content Card With Image (Bottom)
     summary: >-
@@ -3195,7 +3338,7 @@ composite:
             value:
               text: <%= featureSectionTitle %>
               style:
-                variant: h2
+                variant: h1
           v5utpm7bu9yvdpnq:
             value: flex-start
           kyg0hdy5uqq4gc1o:
@@ -3544,7 +3687,7 @@ composite:
             value:
               text: <%= faqTitle %>
               style:
-                variant: h2
+                variant: h1
           v5utpm7bu9yvdpnq:
             value: center
           kyg0hdy5uqq4gc1o:
@@ -3739,6 +3882,7 @@ composite:
       - Item count is exactly 2; if you have 1 or 3+ items, choose another
       layout.
     fieldCombinations:
+      - Layout Bento Grid 2
       - list.0
       - list.1
     section:
@@ -3746,61 +3890,119 @@ composite:
       name: Bento Grids_2
       component: layout-block
       sections:
-        xebzelstnp0vag5c:
-          id: xebzelstnp0vag5c
-          name: <%= list.0 %>
+        ikizpz4j2rt2ycx2:
+          id: ikizpz4j2rt2ycx2
+          name: Cards
           component: layout-block
-          sections: {}
-          sectionIds: []
+          sections:
+            xebzelstnp0vag5c:
+              id: xebzelstnp0vag5c
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: transparent
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+            yvbfss906axhksok:
+              id: yvbfss906axhksok
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: space-between
+          sectionIds:
+            - xebzelstnp0vag5c
+            - yvbfss906axhksok
           config:
             gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: transparent
-            border: solid
-            borderRadius: small
-            alignContent: space-between
-        yvbfss906axhksok:
-          id: yvbfss906axhksok
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
+              desktop:
+                xebzelstnp0vag5c:
+                  x: 0
+                  y: 0
+                  w: 5
+                  h: 1
+                yvbfss906axhksok:
+                  x: 5
+                  y: 0
+                  w: 7
+                  h: 1
+              mobile:
+                xebzelstnp0vag5c:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                yvbfss906axhksok:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: small
+        1kngft2xx4h45wvv:
+          id: 1kngft2xx4h45wvv
+          name: RichText
+          component: custom-component
           config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: space-between
+            componentId: xoHu0J44322kDYc-
       sectionIds:
-        - xebzelstnp0vag5c
-        - yvbfss906axhksok
+        - 1kngft2xx4h45wvv
+        - ikizpz4j2rt2ycx2
       config:
         gridSettings:
           desktop:
+            ikizpz4j2rt2ycx2:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            1kngft2xx4h45wvv:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+          mobile:
             xebzelstnp0vag5c:
               x: 0
               y: 0
-              w: 7
+              w: 12
               h: 1
             yvbfss906axhksok:
-              x: 7
-              y: 0
-              w: 5
+              x: 0
+              y: 1
+              w: 12
               h: 1
         paddingX: none
-        gap: small
+        gap: normal
         paddingY: none
     dataSource:
       9ur9vrlln7senjzz: {}
       xebzelstnp0vag5c: {}
       yvbfss906axhksok: {}
+      ikizpz4j2rt2ycx2: {}
+      1kngft2xx4h45wvv:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= Layout Bento Grid 2 %>
+              style:
+                variant: h1
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -5813,6 +6015,7 @@ composite:
       - Must have **exactly 4 items** (2+2). If count differs, pick another
       layout.
     fieldCombinations:
+      - Layout Bento Grid 2+2
       - list.0
       - list.1
       - list.2
@@ -5822,100 +6025,149 @@ composite:
       name: Bento Grids_2
       component: layout-block
       sections:
-        xebzelstnp0vag5c:
-          id: xebzelstnp0vag5c
-          name: <%= list.0 %>
+        fbzlzmts640xlur1:
+          id: fbzlzmts640xlur1
+          name: Cards
           component: layout-block
-          sections: {}
-          sectionIds: []
+          sections:
+            xebzelstnp0vag5c:
+              id: xebzelstnp0vag5c
+              name: <%= list.0 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: center
+            yvbfss906axhksok:
+              id: yvbfss906axhksok
+              name: <%= list.1 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: start
+            lvpdr5oxpf1hajuo:
+              id: lvpdr5oxpf1hajuo
+              name: <%= list.2 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: start
+            cl1xkuw6ubiofcel:
+              id: cl1xkuw6ubiofcel
+              name: <%= list.3 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                gridSettings:
+                  desktop: {}
+                paddingX: custom:32px
+                gap: normal
+                paddingY: custom:32px
+                background: background.paper
+                border: solid
+                borderRadius: small
+                alignContent: center
+          sectionIds:
+            - xebzelstnp0vag5c
+            - yvbfss906axhksok
+            - lvpdr5oxpf1hajuo
+            - cl1xkuw6ubiofcel
           config:
             gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: center
-        yvbfss906axhksok:
-          id: yvbfss906axhksok
-          name: <%= list.1 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
+              desktop:
+                yvbfss906axhksok:
+                  x: 0
+                  y: 0
+                  w: 7
+                  h: 1
+                xebzelstnp0vag5c:
+                  x: 7
+                  y: 0
+                  w: 5
+                  h: 1
+                lvpdr5oxpf1hajuo:
+                  x: 0
+                  y: 1
+                  w: 5
+                  h: 1
+                cl1xkuw6ubiofcel:
+                  x: 5
+                  y: 1
+                  w: 7
+                  h: 1
+            gap: small
+        8o5h2xujong8jf57:
+          id: 8o5h2xujong8jf57
+          name: RichText
+          component: custom-component
           config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: start
-        lvpdr5oxpf1hajuo:
-          id: lvpdr5oxpf1hajuo
-          name: <%= list.2 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: start
-        cl1xkuw6ubiofcel:
-          id: cl1xkuw6ubiofcel
-          name: <%= list.3 %>
-          component: layout-block
-          sections: {}
-          sectionIds: []
-          config:
-            gridSettings:
-              desktop: {}
-            paddingX: custom:32px
-            gap: normal
-            paddingY: custom:32px
-            background: background.paper
-            border: solid
-            borderRadius: small
-            alignContent: center
+            componentId: xoHu0J44322kDYc-
       sectionIds:
-        - xebzelstnp0vag5c
-        - yvbfss906axhksok
-        - lvpdr5oxpf1hajuo
-        - cl1xkuw6ubiofcel
+        - 8o5h2xujong8jf57
+        - fbzlzmts640xlur1
       config:
         gridSettings:
           desktop:
+            fbzlzmts640xlur1:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+            8o5h2xujong8jf57:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+          mobile:
             xebzelstnp0vag5c:
               x: 0
               y: 0
-              w: 7
+              w: 12
               h: 1
             yvbfss906axhksok:
-              x: 7
-              y: 0
-              w: 5
+              x: 0
+              y: 1
+              w: 12
               h: 1
             lvpdr5oxpf1hajuo:
               x: 0
-              y: 1
-              w: 5
+              y: 2
+              w: 12
               h: 1
             cl1xkuw6ubiofcel:
-              x: 5
-              y: 1
-              w: 7
+              x: 0
+              y: 3
+              w: 12
               h: 1
         paddingX: none
-        gap: small
+        gap: normal
         paddingY: none
     dataSource:
       9ur9vrlln7senjzz: {}
@@ -5923,6 +6175,14 @@ composite:
       yvbfss906axhksok: {}
       lvpdr5oxpf1hajuo: {}
       cl1xkuw6ubiofcel: {}
+      fbzlzmts640xlur1: {}
+      8o5h2xujong8jf57:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= Layout Bento Grid 2+2 %>
+              style:
+                variant: h1
   - id: ysxgzgqxy4x11tla
     name: CTA With Image
     summary: >-
@@ -7002,6 +7262,8 @@ composite:
                 size: medium
                 target: auto
                 needLogin: false
+          v9979xeclpsbvn0n:
+            value: flex-start
       njzgs2gftxzz8225: {}
       xj6uek70c0viryd5: {}
       e9tbv0nsvntzfs7w:

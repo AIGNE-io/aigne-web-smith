@@ -1,0 +1,42 @@
+type: team
+name: batchGenerateWithImage
+description: Batch process and optimize existing images
+task_title: Batch process and optimize existing images
+task_render_mode: collapse
+skills:
+  - type: image
+    image_model: 
+      model: google/gemini-2.5-flash-image-preview
+      imageConfig:
+        aspectRatio: "4:3"
+    instructions: |
+      {{imagePrompt}}
+    input_file_key: mediaFile
+    include_input_in_output: true
+iterate_on: mediaFiles
+concurrency: 5
+input_schema:
+  type: object
+  properties:
+    mediaFiles:
+      type: array
+      items:
+        type: object
+        properties:
+          imagePrompt:
+            type: string
+            description: The prompt to generate the image
+          mediaFile:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                path:
+                  type: string
+                filename:
+                  type: string
+                mimeType:
+                  type: string
+

@@ -4,7 +4,9 @@ Content and Organization:
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
 - Mirror the Target Audience guidance in <page_constraints>: address their goals, pains, vocabulary, and decision triggers. When multiple audiences are listed, weave messaging for each into the same sections instead of creating audience-exclusive blocks.
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
-- Whenever possible, vary adjacent sections instead of repeating the same section type to keep the page visually engaging and reduce monotony (list exception: all sections within the same `list` must reuse the identical component combination to maintain visual consistency).
+- Must vary adjacent sections instead of repeating the same section type to keep the page visually engaging and reduce monotony (list exception: all sections within the same `list` must reuse the identical component combination to maintain visual consistency).
+- When multiple components are suitable, randomly use one of them to ensure more diverse results when generating pages multiple times.
+- `Layout n Column Grid` components are visually similar, so alternate them with `Layout Bento Grid n+n` components to avoid visual fatigue.
 - Hero sections must lead with a benefit-driven headline, follow with a one-sentence explaining how the AI delivers that benefit, stay scannable (headline + clear CTA), speak directly to the core pain being solved, and surface available trust signals (logos, testimonials, proof points) within the immediate viewport.
 - Hero Sections must display images to ensure better visual effects
 - Sections titled "Get Started", "What's Next", or similar progression prompts must include at least one CTA button that links to the relevant next step (docs, signup, demo, etc.) so users know exactly where to go next.

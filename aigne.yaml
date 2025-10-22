@@ -52,6 +52,8 @@ agents:
   - ./agents/media/image/generate-image.yaml
   - ./agents/media/image/generate-image-team.yaml
   - ./agents/media/image/save-images.mjs
+  - ./agents/media/image/batch-generate-with-image.yaml
+  - ./agents/media/image/beautify-screenshot.mjs
 
   # cover
   - ./agents/media/cover/generate-cover-team.yaml

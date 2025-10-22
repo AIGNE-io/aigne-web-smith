@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta...v1.5.1-beta.1) (2025-10-22)
+
+
+### Bug Fixes
+
+* **layout:** adjust grid settings for mobile responsiveness  ([#156](https://github.com/AIGNE-io/aigne-web-smith/issues/156)) ([b873dbc](https://github.com/AIGNE-io/aigne-web-smith/commit/b873dbc7db7bc41a875d9b9c691fe6d9e2d2f955))
+
 ## [1.5.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.0...v1.5.1-beta) (2025-10-21)
 
 

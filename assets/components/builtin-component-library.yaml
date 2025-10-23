@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-23T03:42:26.612Z
+  updateAt: 2025-10-23T04:16:34.961Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -5919,7 +5919,7 @@ composite:
         - bwjpae48rsf3z3ao
         - whids9c4yl47179j
       config:
-        background: transparent
+        background: auto
         paddingX: normal
         paddingY: large
         gap: normal
@@ -7515,7 +7515,8 @@ composite:
             value: flex-start
           b8x4m3n9kp7qtw5r:
             value:
-              - id: btn-default-1
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
                 type: link
                 text: <%= terminalLeft.actionTitle %>
                 url: <%= terminalLeft.actionLink %>

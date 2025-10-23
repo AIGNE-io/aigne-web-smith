@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-23T08:31:21.369Z
+  updateAt: 2025-10-23T11:05:59.205Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -2661,6 +2661,12 @@ composite:
       corners and subtle shadow.
 
 
+
+      Use when:
+
+      - Use in Hero Section
+
+
       Constraints
 
       - Actions: must have ≥1 CTA; allow at most 2. Primary comes first;
@@ -2790,9 +2796,10 @@ composite:
               h: 1
         gap: normal
         paddingY: normal
-        background: transparent
+        background: auto
         border: none
         paddingX: none
+        backgroundFullWidth: true
     dataSource:
       i6sghraue7mql8po: {}
       v3rjhl1fwan00ubb: {}
@@ -2872,14 +2879,16 @@ composite:
       - You want a quick-scanning overview of five peer items (features,
       templates, resources, case cards).
 
-      - Items are short and comparable; emphasis is rhythm and parity, not long
-      narrative.
+      - Items are short and comparable; emphasis is on rhythm and parity, not
+      long narrative.
+
+      - When displaying five items of information, prioritize using the `Layout
+      Bento Grid 2+3` component
 
 
       Constraints
 
-      - Must have **exactly 5 items** (2+3). If count differs, pick another
-      layout.
+      - Must have **exactly 5 items** (2+3). 
     fieldCombinations:
       - list.0
       - list.1
@@ -4161,9 +4170,10 @@ composite:
               h: 1
         gap: normal
         paddingY: normal
-        background: transparent
+        background: auto
         border: none
         paddingX: none
+        backgroundFullWidth: true
     dataSource:
       i6sghraue7mql8po: {}
       v3rjhl1fwan00ubb: {}
@@ -5808,17 +5818,10 @@ composite:
       - Right column (media):
         - Hero Image (`{{splitHeroImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
 
+
       **Use when**
 
-      - You need to convey **clear copy** alongside a **direct visual** (e.g.,
-      product UI or flow overview).
-
-      - The first screen benefits from a “**narrative on the left, proof on the
-      right**” relationship; compared with a Centered Hero, this suits slightly
-      higher information density.
-
-      - The page targets desktop widths and wants to showcase product capability
-      and polish.
+      - Use in Hero Section
 
 
       **Constraints**
@@ -6027,17 +6030,19 @@ composite:
 
       Use when
 
-      - You want a quick-scanning overview of five peer items (features,
+      - You want a quick-scanning overview of four peer items (features,
       templates, resources, case cards).
 
-      - Items are short and comparable; emphasis is rhythm and parity, not long
-      narrative.
+      - Items are short and comparable; emphasis is on rhythm and parity, not
+      long narrative.
+
+      - When displaying four items of information, prioritize using the `Layout
+      Bento Grid 2+2` component
 
 
       Constraints
 
-      - Must have **exactly 4 items** (2+2). If count differs, pick another
-      layout.
+      - Must have **exactly 4 items** (2+2).
     fieldCombinations:
       - list.0
       - list.1
@@ -7569,6 +7574,10 @@ composite:
       - **This component can only be used when `{{fullBackgroundHeroImage}}` is
       provided.**  
 
+      - Image generation tool can be used to create suitable backgrounds,
+      requirements: dark background, main subjects on sides, with whitespace in
+      the middle
+
       - Title ≤ 80 characters; subtitle ≤ 140 characters; 1–2 CTAs with the
       primary button first.  
 
@@ -7724,6 +7733,10 @@ composite:
 
       - **This component can only be used when `{{fullBackgroundHeroImage}}` is
       provided.**  
+
+      - Image generation tool can be used to create suitable backgrounds,
+      requirements: dark background, main subjects on right side, with
+      whitespace in the left side
 
       - Title ≤ 80 characters; subtitle ≤ 140 characters; 1–2 CTAs with the
       primary button first.  

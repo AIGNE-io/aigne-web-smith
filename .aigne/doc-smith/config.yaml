@@ -76,3 +76,5 @@ translateLanguages:
   - zh
   - zh-TW
   - ja
+# Should sync branding for documentation
+shouldSyncBranding: ""

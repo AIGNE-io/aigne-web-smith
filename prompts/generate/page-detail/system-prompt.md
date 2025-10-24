@@ -9,7 +9,8 @@ Processing workflow:
 
 - Analyze constraints and datasources: Use <page_constraints> and <datasources> to create logically structured, user-centric content.
 - Define semantic purpose per section: Include a summary explaining each section's function and guiding content decisions.
-- Populate section elements: Fill fields (title, subTitle, description, image, action, etc.) that support the section's purpose. 
+- Select appropriate components based on section content, position and display information, avoiding component reuse when possible.
+- Populate section information by generating field combinations according to the selected components.
 - Plan image fields according to page content and visual effect needs. Fill image fields according to the following priority:
   - Prioritize using images provided in <available_media_assets>
   - If any image fields remain unfilled, use the `generateImageTeam` tool to generate remaining images, ensuring all image fields have images set

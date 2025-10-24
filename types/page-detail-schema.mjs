@@ -91,7 +91,7 @@ export const getAddSectionInputJsonSchema = () => {
     schema.properties.section.description =
       "YAML string containing the section content to add (must include a 'sectionName' property)";
     schema.properties.position.description =
-      "Position to insert the section (index number or section name to insert after)";
+      "Position to insert the section (index number or section name to insert after, **index number starts from 0**)";
   }
   return schema;
 };
@@ -129,7 +129,7 @@ export const getMoveSectionInputJsonSchema = () => {
   if (schema.properties) {
     schema.properties.name.description = "Name of the section to move";
     schema.properties.position.description =
-      "New position for the section (index number or section name to insert after)";
+      "New position for the section (index number or section name to insert after, **index number starts from 0**)";
   }
   return schema;
 };

@@ -293,6 +293,7 @@ const fieldMappings = [
   { pattern: "options", display: "Options" },
 
   // Title related - ordered by priority
+  { pattern: "subTitle", display: "SubTitle" },
   { pattern: "title", display: "Title" },
   { pattern: "heading", display: "Title" },
   { pattern: "header", display: "Title" },

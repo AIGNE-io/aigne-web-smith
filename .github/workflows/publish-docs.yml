@@ -12,7 +12,16 @@ on:
       - main
     paths:
       - ".aigne/**"
-      
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+    branches:
+      - master
+      - main
+      - dev
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
@@ -38,6 +47,13 @@ jobs:
       - name: Install @aigne/cli
         run: |
           bun install -g @aigne/cli@beta
+
+      - name: Publish docs to web smith official
+        env:
+          DOC_DISCUSS_KIT_ACCESS_TOKEN: ${{ secrets.DOC_PUBLISH_API_KEY_WEBSMITH }}
+        run: |
+          set -e
+          aigne doc publish --appUrl https://websmith.aigne.io
 
       - name: Publish docs to arcblock.io
         env:

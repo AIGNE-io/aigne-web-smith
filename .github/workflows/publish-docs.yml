@@ -48,7 +48,7 @@ jobs:
         run: |
           bun install -g @aigne/cli@beta
 
-      - name: Publish docs to web smith official
+      - name: Publish docs to WebSmith official
         env:
           DOC_DISCUSS_KIT_ACCESS_TOKEN: ${{ secrets.DOC_PUBLISH_API_KEY_WEBSMITH }}
         run: |

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta.1...v1.5.1-beta.2) (2025-10-24)
+
+
+### Bug Fixes
+
+* enhance content card components with screenshot display support ([#161](https://github.com/AIGNE-io/aigne-web-smith/issues/161)) ([1e4b67a](https://github.com/AIGNE-io/aigne-web-smith/commit/1e4b67a3593acda6b4682ddcaf0dfaa757348958))
+
 ## [1.5.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta...v1.5.1-beta.1) (2025-10-22)
 
 

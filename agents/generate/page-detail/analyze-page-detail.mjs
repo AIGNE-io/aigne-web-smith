@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
-import { getFileName, hasSourceFilesChanged } from "../../../utils/utils.mjs";
+import { getFileName } from "../../../utils/utils.mjs";
 import checkDetailResult from "../../utils/check-detail-result.mjs";
 
 export default async function analyzePageDetail(input, options) {
@@ -12,7 +12,6 @@ export default async function analyzePageDetail(input, options) {
     sourceIds,
     originalWebsiteStructure,
     websiteStructure,
-    modifiedFiles,
     // forceRegenerate,
     locale,
     componentLibrary,
@@ -65,16 +64,6 @@ export default async function analyzePageDetail(input, options) {
           }
         }
       }
-    }
-  }
-
-  // Check if source files have changed since last generation
-  let sourceFilesChanged = false;
-  if (sourceIds && sourceIds.length > 0 && modifiedFiles) {
-    sourceFilesChanged = hasSourceFilesChanged(sourceIds, modifiedFiles);
-
-    if (sourceFilesChanged) {
-      console.log(`Source files changed for ${path}, will regenerate`);
     }
   }
 

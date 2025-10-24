@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-23T11:05:59.205Z
+  updateAt: 2025-10-24T02:21:38.753Z
 atomic:
   - name: LogoV1
     componentId: k2m4p6r8t0v2x4z6
@@ -5808,26 +5808,22 @@ composite:
   - id: hfscbebzg8y40ek9
     name: Split Hero With Big Title
     summary: >-
-      **Structure (L ↔ R)**
+      Structure (L ↔ R)
 
       - Left column (content):
-        - Big Title (`{{splitHeroBigTitle}}`, 1–2 lines, highest visual weight)
+        - Headline (`{{splitHeroBigTitle}}`, 1–2 lines, highest visual weight)
         - Sub Title (`{{splitHeroSubTitle}}`, 1 line, secondary emphasis)
         - Description (`{{splitHeroDescription}}`, 1–2 short paragraphs, adds context/value)
         - Actions (`{{splitHeroActions.N.text}}` + `{{splitHeroActions.N.link}}`; one primary required, one secondary optional; arranged horizontally)
       - Right column (media):
         - Hero Image (`{{splitHeroImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
 
+      Use when
 
-      **Use when**
-
-      - Use in Hero Section
+      - More commonly used in Hero Sections
 
 
-      **Constraints**
-
-      - Visual hierarchy: `splitHeroBigTitle` > `splitHeroSubTitle` >
-      `splitHeroDescription` > `splitHeroActions`.
+      Constraints
 
       - Buttons: at least one primary (`splitHeroActions.0.*` recommended),
       total ≤ 2; verb-first, 2–4 words.
@@ -5938,6 +5934,7 @@ composite:
               y: 0
               w: 6
               h: 1
+        backgroundFullWidth: true
     dataSource:
       nwt3wbgudy9pvaze: {}
       bwjpae48rsf3z3ao: {}
@@ -7879,11 +7876,14 @@ composite:
       - Works well for feature highlights, updates, or compact promo cards where
       text leads and image reinforces.
 
-      - Prioritize using this component to display application screenshots, the
+      - Prioritize using this component to display application screenshots; the
       component will show a beautified background for the screenshot
 
 
       Constraints
+
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
 
       - `contentCardRightScreenShot` must be a valid image, more suitable for
       displaying application screenshots.
@@ -8046,6 +8046,9 @@ composite:
 
       Constraints
 
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
+
       - `contentCardLeftScreenShot` must be a valid image, more suitable for
       displaying application screenshots.
 
@@ -8207,6 +8210,9 @@ composite:
 
 
       Constraints
+
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
 
       - `contentCardBottomScreenShot` must be a valid image, more suitable for
       displaying application screenshots.

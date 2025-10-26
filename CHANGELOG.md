@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta.2...v1.6.0-beta.2) (2025-10-26)
+
+
+### Features
+
+* publish doc to offical site ([#162](https://github.com/AIGNE-io/aigne-web-smith/issues/162)) ([11a7641](https://github.com/AIGNE-io/aigne-web-smith/commit/11a76414cd94383d2dc4a09466a98f3bd9159c9e))
+
+
+### Bug Fixes
+
+* remove source file change detection logic ([#165](https://github.com/AIGNE-io/aigne-web-smith/issues/165)) ([0408df8](https://github.com/AIGNE-io/aigne-web-smith/commit/0408df87d57ed771d2d2b592c9c52b9414ebd410))
+
 ## [1.5.1-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta.1...v1.5.1-beta.2) (2025-10-24)
 
 

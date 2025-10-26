@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-24T04:02:54.018Z
+  updateAt: 2025-10-26T01:39:34.343Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -174,19 +174,19 @@ composite:
       config:
         background: auto
         paddingX: normal
-        paddingY: large
+        paddingY: custom:80px
         gap: normal
         gridSettings:
           desktop:
             bwjpae48rsf3z3ao:
               x: 0
               y: 0
-              w: 5
+              w: 6
               h: 1
             whids9c4yl47179j:
-              x: 6
+              x: 7
               y: 0
-              w: 6
+              w: 5
               h: 1
         backgroundFullWidth: true
     dataSource:
@@ -202,7 +202,7 @@ composite:
             value:
               text: <%= splitHeroBigTitle %>
               style:
-                fontSize: '{"md":56}'
+                fontSize: '{"md":48}'
                 variant: h1
       tmj2qb7md6p88lxp:
         properties:
@@ -402,7 +402,7 @@ composite:
                   y: 0
                   w: 6
                   h: 1
-            gap: normal
+            gap: none
       sectionIds:
         - v3rjhl1fwan00ubb
       config:
@@ -6649,7 +6649,7 @@ composite:
           config:
             borderRadius: small
             paddingX: normal
-            paddingY: normal
+            paddingY: none
             maxWidth: full
             gridSettings:
               desktop:

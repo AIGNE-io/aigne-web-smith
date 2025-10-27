@@ -96,6 +96,9 @@ export default async function userReviewPageDetail(
 
     const fieldConstraints = generateFieldConstraints(componentLibrary);
 
+    // Clear previous tool inputs before calling updatePageDetail agent
+    options.context.userContext.lastToolInputs = {};
+
     try {
       // Call updatePageDetail agent with feedback
       await options.context.invoke(updateAgent, {

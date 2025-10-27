@@ -30,10 +30,10 @@ export default async function addSection(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastAddSectionInput = options.context?.userContext?.lastAddSectionInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { section, position };
 
-  if (lastAddSectionInput && isEqual(lastAddSectionInput, currentInput)) {
+  if (lastToolInputs.addSection && isEqual(lastToolInputs.addSection, currentInput)) {
     const errorMessage = `Cannot add section: This operation has already been processed. Please do not call addSection again with the same parameters.`;
     return {
       status: "error",
@@ -167,7 +167,10 @@ export default async function addSection(input, options) {
   options.context.userContext.currentPageDetail = latestPageDetail;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastAddSectionInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.addSection = currentInput;
 
   return {
     status: "success",

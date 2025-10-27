@@ -28,10 +28,10 @@ export default async function deleteSection(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastDeleteSectionInput = options.context?.userContext?.lastDeleteSectionInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { name };
 
-  if (lastDeleteSectionInput && isEqual(lastDeleteSectionInput, currentInput)) {
+  if (lastToolInputs.deleteSection && isEqual(lastToolInputs.deleteSection, currentInput)) {
     const errorMessage = `Cannot delete section: This operation has already been processed. Please do not call deleteSection again with the same parameters.`;
     return {
       status: "error",
@@ -101,7 +101,10 @@ export default async function deleteSection(input, options) {
   options.context.userContext.currentPageDetail = latestPageDetail;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastDeleteSectionInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.deleteSection = currentInput;
 
   return {
     status: "success",

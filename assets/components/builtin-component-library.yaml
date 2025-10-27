@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-27T01:50:03.932Z
+  updateAt: 2025-10-27T02:28:38.393Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -59,6 +59,212 @@ atomic:
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
+  - id: hfscbebzg8y40ek9
+    name: Split Hero With Big Title
+    summary: >-
+      Structure (L ↔ R)
+
+      - Left column (content):
+        - Headline (`{{splitHeroBigTitle}}`, 1 lines, highest visual weight)
+        - Sub Title (`{{splitHeroSubTitle}}`, 1 line, secondary emphasis)
+        - Description (`{{splitHeroDescription}}`, 1–2 short paragraphs, adds context/value)
+        - Actions (`{{splitHeroActions.N.text}}` + `{{splitHeroActions.N.link}}`; one primary required, one secondary optional; arranged horizontally)
+      - Right column (media):
+        - Hero Image (`{{splitHeroImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
+
+      Use when
+
+      - Used in Hero Sections
+
+
+      Constraints
+
+      - Buttons: at least one primary (`splitHeroActions.0.*` recommended),
+      total ≤ 2; verb-first, 2–4 words.
+
+      - Copy length:
+        - `splitHeroBigTitle` ≤ 40 characters
+        - `splitHeroSubTitle` ≤ 60 characters
+        - `splitHeroDescription` ≤ 140 characters per paragraph, max 2 paragraphs
+    fieldCombinations:
+      - splitHeroActions.0.link
+      - splitHeroActions.0.text
+      - splitHeroActions.1.link
+      - splitHeroActions.1.text
+      - splitHeroBigTitle
+      - splitHeroDescription
+      - splitHeroImage
+      - splitHeroSubTitle
+    section:
+      id: nwt3wbgudy9pvaze
+      name: Split Hero
+      component: layout-block
+      sections:
+        bwjpae48rsf3z3ao:
+          id: bwjpae48rsf3z3ao
+          name: Text
+          component: layout-block
+          sections:
+            nroki8gl4k88k82x:
+              id: nroki8gl4k88k82x
+              name: Title
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            tmj2qb7md6p88lxp:
+              id: tmj2qb7md6p88lxp
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            p4vt77h6icap7von:
+              id: p4vt77h6icap7von
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - nroki8gl4k88k82x
+            - tmj2qb7md6p88lxp
+            - p4vt77h6icap7von
+          config:
+            gap: small
+            gridSettings:
+              desktop:
+                nroki8gl4k88k82x:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                tmj2qb7md6p88lxp:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                p4vt77h6icap7von:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+        whids9c4yl47179j:
+          id: whids9c4yl47179j
+          name: Image
+          component: layout-block
+          sections:
+            zwpm4cxkpa21bj5f:
+              id: zwpm4cxkpa21bj5f
+              name: Media
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - zwpm4cxkpa21bj5f
+          config:
+            borderRadius: small
+            gridSettings:
+              desktop:
+                zwpm4cxkpa21bj5f:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+      sectionIds:
+        - bwjpae48rsf3z3ao
+        - whids9c4yl47179j
+      config:
+        background: auto
+        paddingX: normal
+        paddingY: custom:80px
+        gap: normal
+        gridSettings:
+          desktop:
+            bwjpae48rsf3z3ao:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            whids9c4yl47179j:
+              x: 7
+              y: 0
+              w: 5
+              h: 1
+        backgroundFullWidth: true
+    dataSource:
+      nwt3wbgudy9pvaze: {}
+      bwjpae48rsf3z3ao: {}
+      nroki8gl4k88k82x:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= splitHeroBigTitle %>
+              style:
+                fontSize: '{"md":48}'
+                variant: h1
+      tmj2qb7md6p88lxp:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759472738716-8jpjkgjdk
+                  type: text
+                  text: <%= splitHeroDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= splitHeroSubTitle %>
+              style:
+                variant: h3
+      p4vt77h6icap7von:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= splitHeroActions.0.text %>
+                url: <%= splitHeroActions.0.link %>
+                variant: contained
+                size: large
+                target: auto
+                needLogin: false
+              - type: link
+                text: <%= splitHeroActions.1.text %>
+                url: <%= splitHeroActions.1.link %>
+                color: ""
+                borderColor: ""
+                variant: outlined
+                size: large
+                target: auto
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1759473759606-h7czb7h4e
+      whids9c4yl47179j: {}
+      zwpm4cxkpa21bj5f:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= splitHeroImage %>
+              mediaKitUrl: <%= splitHeroImage %>
+              width: 2048
+              height: 1536
   - id: 4rpzyx2cyf24ll1j
     name: Split Hero With Image (Right)
     summary: >-
@@ -484,212 +690,6 @@ composite:
               height: 1394
           jjv0hvr8wrixt1f3:
             value: 1
-  - id: hfscbebzg8y40ek9
-    name: Split Hero With Big Title
-    summary: >-
-      Structure (L ↔ R)
-
-      - Left column (content):
-        - Headline (`{{splitHeroBigTitle}}`, 1 lines, highest visual weight)
-        - Sub Title (`{{splitHeroSubTitle}}`, 1 line, secondary emphasis)
-        - Description (`{{splitHeroDescription}}`, 1–2 short paragraphs, adds context/value)
-        - Actions (`{{splitHeroActions.N.text}}` + `{{splitHeroActions.N.link}}`; one primary required, one secondary optional; arranged horizontally)
-      - Right column (media):
-        - Hero Image (`{{splitHeroImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
-
-      Use when
-
-      - Used in Hero Sections
-
-
-      Constraints
-
-      - Buttons: at least one primary (`splitHeroActions.0.*` recommended),
-      total ≤ 2; verb-first, 2–4 words.
-
-      - Copy length:
-        - `splitHeroBigTitle` ≤ 40 characters
-        - `splitHeroSubTitle` ≤ 60 characters
-        - `splitHeroDescription` ≤ 140 characters per paragraph, max 2 paragraphs
-    fieldCombinations:
-      - splitHeroActions.0.link
-      - splitHeroActions.0.text
-      - splitHeroActions.1.link
-      - splitHeroActions.1.text
-      - splitHeroBigTitle
-      - splitHeroDescription
-      - splitHeroImage
-      - splitHeroSubTitle
-    section:
-      id: nwt3wbgudy9pvaze
-      name: Split Hero
-      component: layout-block
-      sections:
-        bwjpae48rsf3z3ao:
-          id: bwjpae48rsf3z3ao
-          name: Text
-          component: layout-block
-          sections:
-            nroki8gl4k88k82x:
-              id: nroki8gl4k88k82x
-              name: Title
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            tmj2qb7md6p88lxp:
-              id: tmj2qb7md6p88lxp
-              name: Description
-              component: custom-component
-              config:
-                componentId: xoHu0J44322kDYc-
-            p4vt77h6icap7von:
-              id: p4vt77h6icap7von
-              name: Action
-              component: custom-component
-              config:
-                componentId: a44r0SiGV9AFn2Fj
-          sectionIds:
-            - nroki8gl4k88k82x
-            - tmj2qb7md6p88lxp
-            - p4vt77h6icap7von
-          config:
-            gap: small
-            gridSettings:
-              desktop:
-                nroki8gl4k88k82x:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-                tmj2qb7md6p88lxp:
-                  x: 0
-                  y: 1
-                  w: 12
-                  h: 1
-                p4vt77h6icap7von:
-                  x: 0
-                  y: 2
-                  w: 12
-                  h: 1
-        whids9c4yl47179j:
-          id: whids9c4yl47179j
-          name: Image
-          component: layout-block
-          sections:
-            zwpm4cxkpa21bj5f:
-              id: zwpm4cxkpa21bj5f
-              name: Media
-              component: custom-component
-              config:
-                componentId: xoHu0JPjPs122kaaa-
-          sectionIds:
-            - zwpm4cxkpa21bj5f
-          config:
-            borderRadius: small
-            gridSettings:
-              desktop:
-                zwpm4cxkpa21bj5f:
-                  x: 0
-                  y: 0
-                  w: 12
-                  h: 1
-      sectionIds:
-        - bwjpae48rsf3z3ao
-        - whids9c4yl47179j
-      config:
-        background: auto
-        paddingX: normal
-        paddingY: custom:80px
-        gap: normal
-        gridSettings:
-          desktop:
-            bwjpae48rsf3z3ao:
-              x: 0
-              y: 0
-              w: 6
-              h: 1
-            whids9c4yl47179j:
-              x: 7
-              y: 0
-              w: 5
-              h: 1
-        backgroundFullWidth: true
-    dataSource:
-      nwt3wbgudy9pvaze: {}
-      bwjpae48rsf3z3ao: {}
-      nroki8gl4k88k82x:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= splitHeroBigTitle %>
-              style:
-                fontSize: '{"md":48}'
-                variant: h1
-      tmj2qb7md6p88lxp:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          kyg0hdy5uqq4gc1o:
-            value: flex-start
-          9ajrz12ik7esfk1z:
-            value:
-              list:
-                - id: item-1759472738716-8jpjkgjdk
-                  type: text
-                  text: <%= splitHeroDescription %>
-                  style:
-                    color: ""
-                    fontSize: 16px
-                    variant: body1
-          gs1rn5jmxfvpxptx:
-            value:
-              text: <%= splitHeroSubTitle %>
-              style:
-                variant: h3
-      p4vt77h6icap7von:
-        properties:
-          v5utpm7bu9yvdpnq:
-            value: flex-start
-          v9979xeclpsbvn0n:
-            value: flex-start
-          b8x4m3n9kp7qtw5r:
-            value:
-              - id: btn-default-1
-                type: link
-                text: <%= splitHeroActions.0.text %>
-                url: <%= splitHeroActions.0.link %>
-                variant: contained
-                size: large
-                target: auto
-                needLogin: false
-              - type: link
-                text: <%= splitHeroActions.1.text %>
-                url: <%= splitHeroActions.1.link %>
-                color: ""
-                borderColor: ""
-                variant: outlined
-                size: large
-                target: auto
-                startIcon: ""
-                endIcon: ""
-                needLogin: false
-                imageUrl: ""
-                imageUrlDark: ""
-                imageHoverAnimation: true
-                id: btn-1759473759606-h7czb7h4e
-      whids9c4yl47179j: {}
-      zwpm4cxkpa21bj5f:
-        properties:
-          7m5pz8nefl5j9hqq:
-            value:
-              url: <%= splitHeroImage %>
-              mediaKitUrl: <%= splitHeroImage %>
-              width: 2048
-              height: 1536
   - id: 8a3uwlxrx6m068os
     name: Vertical Hero With Code
     summary: >
@@ -8348,3 +8348,205 @@ composite:
             value: ""
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+  - id: ckpukcqfryyuw9r7
+    name: Content Card With SrceenShot (Bottom) Copy
+    summary: >-
+      Structure
+
+      - Top: title (1 line) → short description (1–3 lines).
+
+      - Bottom: wide media area rendered from `contentCardBottomScreenShot`
+      (rounded corners; object-fit: cover).
+
+
+      Use when
+
+      - You want a simple card that prioritizes copy, with a supportive visual
+      underneath.
+
+      - Good for feature highlights, announcements, or template promos where
+      text leads and image reinforces.
+
+      - Prioritize using this component to display application screenshots, the
+      component will show a beautified background for the screenshot
+
+
+      Constraints
+
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
+
+      - `contentCardBottomScreenShot` must be a valid image, more suitable for
+      displaying application screenshots.
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      multiline lists inside the card.
+
+      - The value of `screenShotBackground` must be chosen from the list below,
+      selecting a matching background color based on the description of the
+      application screenshot
+        - linear-gradient(120deg, rgba(96,89,171,1) 0%, rgba(130,125,190,1) 100%);
+        - linear-gradient(120deg, rgba(95,116,118,1) 0%, rgba(131,158,153,1) 100%);
+        - linear-gradient(120deg, rgba(165,165,165,1) 0%, rgba(198,192,192,1) 100%);
+        - linear-gradient(120deg, rgba(168,166,194,1) 0%, rgba(203,202,219,1) 100%);
+        - linear-gradient(120deg, rgba(89,98,74,1) 0%, rgba(114,121,106,1) 100%);
+        - linear-gradient(120deg, rgba(196,102,135,1) 0%, rgba(239,134,171,1) 100%);
+        - linear-gradient(120deg, rgba(153,73,74,1) 0%, rgba(160,116,117,1) 100%);
+        - linear-gradient(120deg, rgba(209,171,174,1) 0%, rgba(235,206,207,1) 100%);
+        - linear-gradient(120deg, rgba(77,123,126,1) 0%, rgba(107,139,143,1) 100%);
+    fieldCombinations:
+      - contentCardBottomScreenShot
+      - contentCardDescription
+      - contentCardTitle
+      - screenShotBackground
+    section:
+      id: v0yqgx0alva8pqgk
+      name: Card01
+      component: layout-block
+      sections:
+        carj7s5ignmoa8r8:
+          id: carj7s5ignmoa8r8
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        7k95km76r88bzt2k:
+          id: 7k95km76r88bzt2k
+          name: Section Layout
+          component: layout-block
+          sections:
+            ndf576g85kq109wn:
+              id: ndf576g85kq109wn
+              name: Section Layout
+              component: layout-block
+              sections:
+                p4nkmtg2tfq2t659:
+                  id: p4nkmtg2tfq2t659
+                  name: Media
+                  component: custom-component
+                  config:
+                    componentId: xoHu0JPjPs122kaaa-
+              sectionIds:
+                - p4nkmtg2tfq2t659
+              config:
+                gridSettings:
+                  desktop:
+                    p4nkmtg2tfq2t659:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                borderRadius: small
+                border: shadow-lg
+          sectionIds:
+            - ndf576g85kq109wn
+          config:
+            gridSettings:
+              desktop:
+                ndf576g85kq109wn:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            paddingX: custom:64px
+            paddingY: custom:48px
+            background: <%= screenShotBackground %>
+            borderRadius: small
+      sectionIds:
+        - carj7s5ignmoa8r8
+        - 7k95km76r88bzt2k
+      config:
+        gridSettings:
+          desktop:
+            carj7s5ignmoa8r8:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            7k95km76r88bzt2k:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        paddingX: none
+        gap: normal
+        paddingY: none
+        background: transparent
+        border: none
+        borderRadius: none
+        alignContent: space-between
+    dataSource:
+      v0yqgx0alva8pqgk: {}
+      carj7s5ignmoa8r8:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      p4nkmtg2tfq2t659:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= contentCardBottomScreenShot %>
+              mediaKitUrl: <%= contentCardBottomScreenShot %>
+              width: 1270
+              height: 520
+          70d4dvbqgjal3z6j:
+            value: ""
+          jjv0hvr8wrixt1f3:
+            value: 1
+      7k95km76r88bzt2k: {}
+      ndf576g85kq109wn: {}
+      zimildieg6s9ynd9: {}
+      vmg5fj5fw281zgwb:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= contentCardTitle %>
+              style:
+                variant: h4
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759185456428-p8i1jjk33
+                  type: text
+                  text: <%= contentCardDescription %>
+                  style:
+                    color: ""
+                    fontSize: 16px
+                    variant: body1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      bq9p3lo1g85hlmmf: {}
+      typz3d3g0y85m6jt: {}
+      yoe6l4h4dy2p09rn:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= contentCardBottomScreenShot %>
+              mediaKitUrl: <%= contentCardBottomScreenShot %>
+              width: 1270
+              height: 520
+          70d4dvbqgjal3z6j:
+            value: ""
+          jjv0hvr8wrixt1f3:
+            value: 1
+      zfc9m6k3t5pt3eet: {}
+      y22tb4wng8rnane0: {}

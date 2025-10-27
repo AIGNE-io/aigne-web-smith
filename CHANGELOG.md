@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2025-10-27)
+
+
+### Bug Fixes
+
+* optimize built-in component styles ([#166](https://github.com/AIGNE-io/aigne-web-smith/issues/166)) ([e61bf64](https://github.com/AIGNE-io/aigne-web-smith/commit/e61bf643be8e0c48bc93d1520398f370fc36a825))
+
 ## [1.6.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.5.1-beta.2...v1.6.0-beta.2) (2025-10-26)
 
 

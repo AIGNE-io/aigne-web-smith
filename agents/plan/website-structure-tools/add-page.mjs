@@ -25,10 +25,10 @@ export default async function addPage(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastAddPageInput = options.context?.userContext?.lastAddPageInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { title, description, path, navigation, parentId, sourceIds };
 
-  if (lastAddPageInput && isEqual(lastAddPageInput, currentInput)) {
+  if (lastToolInputs.addPage && isEqual(lastToolInputs.addPage, currentInput)) {
     const errorMessage = `Cannot add page: This operation has already been processed. Please do not call addPage again with the same parameters.`;
     return {
       websiteStructure,
@@ -81,7 +81,10 @@ export default async function addPage(input, options) {
   options.context.userContext.currentStructure = updatedStructure;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastAddPageInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.addPage = currentInput;
 
   return {
     websiteStructure: updatedStructure,

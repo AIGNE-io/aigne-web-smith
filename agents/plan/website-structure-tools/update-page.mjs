@@ -25,10 +25,10 @@ export default async function updatePage(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastUpdatePageInput = options.context?.userContext?.lastUpdatePageInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { path, title, description, navigation, sourceIds };
 
-  if (lastUpdatePageInput && isEqual(lastUpdatePageInput, currentInput)) {
+  if (lastToolInputs.updatePage && isEqual(lastToolInputs.updatePage, currentInput)) {
     const errorMessage = `Cannot update page: This operation has already been processed. Please do not call updatePage again with the same parameters.`;
     return {
       websiteStructure,
@@ -76,7 +76,10 @@ export default async function updatePage(input, options) {
   options.context.userContext.currentStructure = updatedStructure;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastUpdatePageInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.updatePage = currentInput;
 
   return {
     websiteStructure: updatedStructure,

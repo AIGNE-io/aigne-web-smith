@@ -27,10 +27,10 @@ export default async function updateMeta(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastUpdateMetaInput = options.context?.userContext?.lastUpdateMetaInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { title, description };
 
-  if (lastUpdateMetaInput && isEqual(lastUpdateMetaInput, currentInput)) {
+  if (lastToolInputs.updateMeta && isEqual(lastToolInputs.updateMeta, currentInput)) {
     const errorMessage = `Cannot update meta: This operation has already been processed. Please do not call updateMeta again with the same parameters.`;
     return {
       status: "error",
@@ -77,7 +77,10 @@ export default async function updateMeta(input, options) {
   options.context.userContext.currentPageDetail = latestPageDetail;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastUpdateMetaInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.updateMeta = currentInput;
 
   return {
     status: "success",

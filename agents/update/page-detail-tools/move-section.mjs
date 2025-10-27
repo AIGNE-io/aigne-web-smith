@@ -27,10 +27,10 @@ export default async function moveSection(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastMoveSectionInput = options.context?.userContext?.lastMoveSectionInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { name, position: newPosition };
 
-  if (lastMoveSectionInput && isEqual(lastMoveSectionInput, currentInput)) {
+  if (lastToolInputs.moveSection && isEqual(lastToolInputs.moveSection, currentInput)) {
     const errorMessage = `Cannot move section: This operation has already been processed. Please do not call moveSection again with the same parameters.`;
     return {
       status: "error",
@@ -140,7 +140,10 @@ export default async function moveSection(input, options) {
   options.context.userContext.currentPageDetail = latestPageDetail;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastMoveSectionInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.moveSection = currentInput;
 
   return {
     status: "success",

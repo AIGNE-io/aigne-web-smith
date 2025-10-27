@@ -4,7 +4,7 @@ Content and Organization:
 - Display only content relevant to the current page, avoiding technical details (data sources, paths, implementation).
 - Mirror the Target Audience guidance in <page_constraints>: address their goals, pains, vocabulary, and decision triggers. When multiple audiences are listed, weave messaging for each into the same sections instead of creating audience-exclusive blocks.
 - Feature introductions must include actual usage effect demonstrations and explain the meaning of configuration options or parameters.
-- Must vary adjacent sections instead of repeating the same section type to keep the page visually engaging and reduce monotony (list exception: all sections within the same `list` must reuse the identical component combination to maintain visual consistency).
+- Must vary adjacent sections instead of repeating the same section type to keep the page visually engaging and reduce monotony (list exception: **all sections within the same `list` must reuse the identical component combination to maintain visual consistency**).
 - Adjacent Layout components must use different content components
 - When multiple components are suitable, compare with previously used components and select ones that haven't been used yet.
 - `Layout n Column Grid` components are visually similar, so alternate them with `Layout Bento Grid n+n` components to avoid visual fatigue.

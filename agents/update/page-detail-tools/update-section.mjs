@@ -29,10 +29,10 @@ export default async function updateSection(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastUpdateSectionInput = options.context?.userContext?.lastUpdateSectionInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { name, updates };
 
-  if (lastUpdateSectionInput && isEqual(lastUpdateSectionInput, currentInput)) {
+  if (lastToolInputs.updateSection && isEqual(lastToolInputs.updateSection, currentInput)) {
     const errorMessage = `Cannot update section: This operation has already been processed. Please do not call updateSection again with the same parameters.`;
     return {
       status: "error",
@@ -158,7 +158,10 @@ export default async function updateSection(input, options) {
   options.context.userContext.currentPageDetail = latestPageDetail;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastUpdateSectionInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.updateSection = currentInput;
 
   return {
     status: "success",

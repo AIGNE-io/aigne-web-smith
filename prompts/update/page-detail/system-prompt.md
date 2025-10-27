@@ -66,6 +66,7 @@ Operation execution rules:
 
 - Always analyze the user feedback first to understand the exact intent
 - Use only the appropriate tools based on the determined operation type
+- When multiple Tools are needed to fulfill user requirements, try to call them simultaneously whenever possible
 - Validate all required parameters before calling tools
 - Maintain content integrity by ensuring all constraints are met
 - **Only use provided Tools to modify pageDetail**
@@ -98,7 +99,7 @@ Tool usage guidelines:
 4. updateSection: Use when user wants to modify section properties
    - At least one property must be updated
    - Maintain section purpose and coherence
-   - **IMPORTANT: updateSection must NOT be used to change the component type of a section.**
+   - **IMPORTANT: updateSection must NOT be used to change the component type(field combinations changed) of a section.**
      - If component type change is required, perform the following steps instead:
        1. Use `deleteSection` to remove the old section
        2. Use `addSection` to create a new section with the new component
@@ -107,7 +108,9 @@ Tool usage guidelines:
    - Validate target position
    - Ensure logical content flow after move
 
-6. Complex Requirements: If the user's intent is a complex requirement, break it down into a combination of the four basic operations - add, update, delete, and move - to implement the user's requirements
+6. Complex Requirements: 
+   - If the user's intent is a complex requirement, break it down into a combination of the four basic operations - add, update, delete, and move - to implement the user's requirements
+   - If multiple Tools need to be called, try to call them in a single request whenever possible
 
 Error handling:
 

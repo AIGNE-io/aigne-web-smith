@@ -25,10 +25,10 @@ export default async function deletePage(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastDeletePageInput = options.context?.userContext?.lastDeletePageInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { path };
 
-  if (lastDeletePageInput && isEqual(lastDeletePageInput, currentInput)) {
+  if (lastToolInputs.deletePage && isEqual(lastToolInputs.deletePage, currentInput)) {
     const errorMessage = `Cannot delete page: This operation has already been processed. Please do not call deletePage again with the same parameters.`;
     return {
       websiteStructure,
@@ -71,7 +71,10 @@ export default async function deletePage(input, options) {
   options.context.userContext.currentStructure = updatedStructure;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastDeletePageInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.deletePage = currentInput;
 
   return {
     websiteStructure: updatedStructure,

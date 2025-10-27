@@ -25,10 +25,10 @@ export default async function movePage(input, options) {
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastMovePageInput = options.context?.userContext?.lastMovePageInput;
+  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
   const currentInput = { path, newParentId, newPath };
 
-  if (lastMovePageInput && isEqual(lastMovePageInput, currentInput)) {
+  if (lastToolInputs.movePage && isEqual(lastToolInputs.movePage, currentInput)) {
     const errorMessage = `Cannot move page: This operation has already been processed. Please do not call movePage again with the same parameters.`;
     return {
       websiteStructure,
@@ -149,7 +149,10 @@ export default async function movePage(input, options) {
   options.context.userContext.currentStructure = updatedStructure;
 
   // Save current input to prevent duplicate calls
-  options.context.userContext.lastMovePageInput = currentInput;
+  if (!options.context.userContext.lastToolInputs) {
+    options.context.userContext.lastToolInputs = {};
+  }
+  options.context.userContext.lastToolInputs.movePage = currentInput;
 
   return {
     websiteStructure: updatedStructure,

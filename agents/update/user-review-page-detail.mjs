@@ -124,7 +124,6 @@ export default async function userReviewPageDetail(
       console.error("Error processing feedback:", {
         type: error.name,
         message: error.message,
-        stack: error.stack,
       });
       console.log("\nPlease rephrase feedback or continue with current content.");
       break;

@@ -67,7 +67,7 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     }
 
     // Clear previous tool inputs before calling updateWebsiteStructure agent
-      options.context.userContext.lastToolInputs = {};
+    options.context.userContext.lastToolInputs = {};
 
     try {
       // Call updateWebsiteStructure agent with feedback

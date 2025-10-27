@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-27T02:28:38.393Z
+  updateAt: 2025-10-27T11:48:18.520Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -181,7 +181,7 @@ composite:
             bwjpae48rsf3z3ao:
               x: 0
               y: 0
-              w: 6
+              w: 7
               h: 1
             whids9c4yl47179j:
               x: 7
@@ -415,7 +415,7 @@ composite:
               h: 1
         gap: normal
         paddingY: normal
-        background: auto
+        background: transparent
         border: none
         paddingX: normal
         backgroundFullWidth: true
@@ -626,7 +626,7 @@ composite:
               h: 1
         gap: normal
         paddingY: normal
-        background: auto
+        background: transparent
         border: none
         paddingX: normal
         backgroundFullWidth: true
@@ -5411,38 +5411,67 @@ composite:
       - contentCardDescription
       - contentCardRightImage
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         p4nkmtg2tfq2t659:
           id: p4nkmtg2tfq2t659
           name: Media
           component: custom-component
           config:
             componentId: xoHu0JPjPs122kaaa-
+        1r6lz47d0cx5nfs5:
+          id: 1r6lz47d0cx5nfs5
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            k31tahp1erqucs7b:
+              id: k31tahp1erqucs7b
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - k31tahp1erqucs7b
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                k31tahp1erqucs7b:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - 1r6lz47d0cx5nfs5
         - p4nkmtg2tfq2t659
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 0
-              y: 0
-              w: 4
-              h: 1
             p4nkmtg2tfq2t659:
               x: 4
               y: 0
               w: 8
+              h: 1
+            1r6lz47d0cx5nfs5:
+              x: 0
+              y: 0
+              w: 4
               h: 1
         paddingX: none
         gap: normal
@@ -5486,6 +5515,24 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+      1r6lz47d0cx5nfs5: {}
+      k31tahp1erqucs7b:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: xco17kxsbava3uww
     name: Content Card With Image (Left)
     summary: >-
@@ -5515,38 +5562,67 @@ composite:
       - contentCardDescription
       - contentCardLeftImage
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         p4nkmtg2tfq2t659:
           id: p4nkmtg2tfq2t659
           name: Media
           component: custom-component
           config:
             componentId: xoHu0JPjPs122kaaa-
+        91t9ks58jefilz1f:
+          id: 91t9ks58jefilz1f
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            ve5ho8g86os7ods4:
+              id: ve5ho8g86os7ods4
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - ve5ho8g86os7ods4
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                ve5ho8g86os7ods4:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - 91t9ks58jefilz1f
         - p4nkmtg2tfq2t659
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 8
-              y: 0
-              w: 4
-              h: 1
             p4nkmtg2tfq2t659:
               x: 0
               y: 0
               w: 8
+              h: 1
+            91t9ks58jefilz1f:
+              x: 8
+              y: 0
+              w: 4
               h: 1
         paddingX: none
         gap: normal
@@ -5590,6 +5666,24 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+      91t9ks58jefilz1f: {}
+      ve5ho8g86os7ods4:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: hxjfqss28cy6pdmd
     name: Content Card With Image (Bottom)
     summary: >-
@@ -5620,25 +5714,49 @@ composite:
       - contentCardBottomImage
       - contentCardDescription
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         p4nkmtg2tfq2t659:
           id: p4nkmtg2tfq2t659
           name: Media
           component: custom-component
           config:
             componentId: xoHu0JPjPs122kaaa-
+        kymosznqhw9823l9:
+          id: kymosznqhw9823l9
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            x2b49nah2hsbfwa6:
+              id: x2b49nah2hsbfwa6
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - x2b49nah2hsbfwa6
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - kymosznqhw9823l9
         - p4nkmtg2tfq2t659
       config:
         gridSettings:
@@ -5695,6 +5813,24 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+      kymosznqhw9823l9: {}
+      x2b49nah2hsbfwa6:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: vbchbwqocrjf19yr
     name: Content Card With Code (Left)
     summary: >-
@@ -5728,17 +5864,13 @@ composite:
       - contentCardLeftCode.content
       - contentCardLeftCode.name
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         clt845zy8uab0yum:
           id: clt845zy8uab0yum
           name: Section Layout
@@ -5762,21 +5894,49 @@ composite:
                   h: 1
             borderRadius: small
             border: terminal
+        kd5swr56gbsjnm48:
+          id: kd5swr56gbsjnm48
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            5vf76hibz85m1i33:
+              id: 5vf76hibz85m1i33
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - 5vf76hibz85m1i33
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - kd5swr56gbsjnm48
         - clt845zy8uab0yum
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 7
-              y: 0
-              w: 5
-              h: 1
             clt845zy8uab0yum:
               x: 0
               y: 0
               w: 7
+              h: 1
+            kd5swr56gbsjnm48:
+              x: 7
+              y: 0
+              w: 5
               h: 1
         paddingX: none
         gap: normal
@@ -5821,6 +5981,24 @@ composite:
           c4kvf6b7zyskk8m:
             value: true
       clt845zy8uab0yum: {}
+      kd5swr56gbsjnm48: {}
+      5vf76hibz85m1i33:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
   - id: a74ltdll9gxt3dxd
     name: Content Card With Code (Right)
     summary: >-
@@ -5854,17 +6032,13 @@ composite:
       - contentCardRightCode.content
       - contentCardRightCode.name
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         clt845zy8uab0yum:
           id: clt845zy8uab0yum
           name: Section Layout
@@ -5888,21 +6062,54 @@ composite:
                   h: 1
             borderRadius: small
             border: terminal
+        b51s7866ipjlcc84:
+          id: b51s7866ipjlcc84
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            5c4horts6oj1nykg:
+              id: 5c4horts6oj1nykg
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - 5c4horts6oj1nykg
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                5c4horts6oj1nykg:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - b51s7866ipjlcc84
         - clt845zy8uab0yum
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 0
-              y: 0
-              w: 5
-              h: 1
             clt845zy8uab0yum:
               x: 5
               y: 0
               w: 7
+              h: 1
+            b51s7866ipjlcc84:
+              x: 0
+              y: 0
+              w: 5
               h: 1
           mobile:
             carj7s5ignmoa8r8:
@@ -5956,6 +6163,24 @@ composite:
           qvxiyadgn5bj6oq8:
             value: false
       clt845zy8uab0yum: {}
+      b51s7866ipjlcc84: {}
+      5c4horts6oj1nykg:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
   - id: 6rjjiox93r9xsqii
     name: Content Card With Code (Bottom)
     summary: >-
@@ -5990,17 +6215,13 @@ composite:
       - contentCardBottomCode.name
       - contentCardDescription
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         clt845zy8uab0yum:
           id: clt845zy8uab0yum
           name: Section Layout
@@ -6024,8 +6245,36 @@ composite:
                   h: 1
             borderRadius: small
             border: terminal
+        smhe8tfgtxc3sar0:
+          id: smhe8tfgtxc3sar0
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            tbl721jscejq6tl2:
+              id: tbl721jscejq6tl2
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - tbl721jscejq6tl2
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - smhe8tfgtxc3sar0
         - clt845zy8uab0yum
       config:
         gridSettings:
@@ -6038,6 +6287,11 @@ composite:
             clt845zy8uab0yum:
               x: 0
               y: 1
+              w: 12
+              h: 1
+            smhe8tfgtxc3sar0:
+              x: 0
+              y: 2
               w: 12
               h: 1
         paddingX: none
@@ -6081,6 +6335,24 @@ composite:
           qvxiyadgn5bj6oq8:
             value: false
       clt845zy8uab0yum: {}
+      smhe8tfgtxc3sar0: {}
+      tbl721jscejq6tl2:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: azsqqtk1bgtq12lf
     name: Content Card With ScreenShot (Right)
     summary: >-
@@ -6130,18 +6402,14 @@ composite:
       - contentCardDescription
       - contentCardRightScreenShot
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
       - screenShotBackground
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         o9i2bl0lf1afspe6:
           id: o9i2bl0lf1afspe6
           name: Section Layout
@@ -6173,8 +6441,8 @@ composite:
           sectionIds:
             - wo5giq8vgednv1ml
           config:
-            paddingX: custom:64px
-            paddingY: custom:48px
+            paddingX: 'custom:{"xs": "32px", "md": "64px"}'
+            paddingY: 'custom:{"xs": "24px", "md": "48px"}'
             background: <%= screenShotBackground %>
             gridSettings:
               desktop:
@@ -6184,21 +6452,49 @@ composite:
                   w: 12
                   h: 1
             borderRadius: small
+        gy32072gpe8eeyfs:
+          id: gy32072gpe8eeyfs
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            tj7r0uvi72sggavp:
+              id: tj7r0uvi72sggavp
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - tj7r0uvi72sggavp
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - gy32072gpe8eeyfs
         - o9i2bl0lf1afspe6
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 0
-              y: 0
-              w: 4
-              h: 1
             o9i2bl0lf1afspe6:
               x: 4
               y: 0
               w: 8
+              h: 1
+            gy32072gpe8eeyfs:
+              x: 0
+              y: 0
+              w: 4
               h: 1
         paddingX: none
         gap: normal
@@ -6244,6 +6540,24 @@ composite:
             value: 1
       o9i2bl0lf1afspe6: {}
       wo5giq8vgednv1ml: {}
+      gy32072gpe8eeyfs: {}
+      tj7r0uvi72sggavp:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: gilactbwwbsmjm6p
     name: Content Card With ScreenShot (Left)
     summary: >-
@@ -6293,18 +6607,14 @@ composite:
       - contentCardDescription
       - contentCardLeftScreenShot
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
       - screenShotBackground
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         9mue2u1cczsfpd7r:
           id: 9mue2u1cczsfpd7r
           name: Section Layout
@@ -6344,24 +6654,52 @@ composite:
                   w: 12
                   h: 1
             background: <%= screenShotBackground %>
-            paddingX: custom:64px
-            paddingY: custom:48px
+            paddingX: 'custom:{"xs": "32px", "md": "64px"}'
+            paddingY: 'custom:{"xs": "24px", "md": "48px"}'
             borderRadius: small
+        2vdejdsgptq9ij6y:
+          id: 2vdejdsgptq9ij6y
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            hvqeyg26sxsvuzbv:
+              id: hvqeyg26sxsvuzbv
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - hvqeyg26sxsvuzbv
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - 2vdejdsgptq9ij6y
         - 9mue2u1cczsfpd7r
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 8
-              y: 0
-              w: 4
-              h: 1
             9mue2u1cczsfpd7r:
               x: 0
               y: 0
               w: 8
+              h: 1
+            2vdejdsgptq9ij6y:
+              x: 8
+              y: 0
+              w: 4
               h: 1
         paddingX: none
         gap: normal
@@ -6407,6 +6745,24 @@ composite:
             value: 1
       9mue2u1cczsfpd7r: {}
       ezrulsvzl0lnz05h: {}
+      2vdejdsgptq9ij6y: {}
+      hvqeyg26sxsvuzbv:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - endIcon: lucide:arrow-right
+                id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
   - id: nrun2vvtceyu441c
     name: Content Card With SrceenShot (Bottom)
     summary: >-
@@ -6457,18 +6813,14 @@ composite:
       - contentCardBottomScreenShot
       - contentCardDescription
       - contentCardTitle
+      - contentCardTitle.actionLink
+      - contentCardTitle.actionTitle
       - screenShotBackground
     section:
       id: v0yqgx0alva8pqgk
       name: Card01
       component: layout-block
       sections:
-        carj7s5ignmoa8r8:
-          id: carj7s5ignmoa8r8
-          name: RichText
-          component: custom-component
-          config:
-            componentId: xoHu0J44322kDYc-
         7k95km76r88bzt2k:
           id: 7k95km76r88bzt2k
           name: Section Layout
@@ -6507,24 +6859,57 @@ composite:
                   y: 0
                   w: 12
                   h: 1
-            paddingX: custom:64px
-            paddingY: custom:48px
+            paddingX: 'custom:{"xs": "32px", "md": "64px"}'
+            paddingY: 'custom:{"xs": "24px", "md": "48px"}'
             background: <%= screenShotBackground %>
             borderRadius: small
+        ee475xz00tq4s60g:
+          id: ee475xz00tq4s60g
+          name: Content
+          component: layout-block
+          sections:
+            carj7s5ignmoa8r8:
+              id: carj7s5ignmoa8r8
+              name: RichText
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            1j17ufn7abpcwerw:
+              id: 1j17ufn7abpcwerw
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - carj7s5ignmoa8r8
+            - 1j17ufn7abpcwerw
+          config:
+            gridSettings:
+              desktop:
+                carj7s5ignmoa8r8:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                1j17ufn7abpcwerw:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
       sectionIds:
-        - carj7s5ignmoa8r8
+        - ee475xz00tq4s60g
         - 7k95km76r88bzt2k
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
             7k95km76r88bzt2k:
               x: 0
               y: 1
+              w: 12
+              h: 1
+            ee475xz00tq4s60g:
+              x: 0
+              y: 0
               w: 12
               h: 1
         paddingX: none
@@ -6571,6 +6956,24 @@ composite:
             value: 1
       7k95km76r88bzt2k: {}
       ndf576g85kq109wn: {}
+      ee475xz00tq4s60g: {}
+      1j17ufn7abpcwerw:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= contentCardTitle.actionTitle %>
+                url: <%= contentCardTitle.actionLink %>
+                variant: text
+                size: medium
+                target: auto
+                needLogin: false
+                endIcon: lucide:arrow-right
   - id: 70e1ovto8gm1oyew
     name: Blog List
     summary: >-
@@ -8109,10 +8512,10 @@ composite:
       xj6uek70c0viryd5: {}
       e9tbv0nsvntzfs7w:
         properties:
-          n802svpu2aj3ecnm:
-            value: <%= terminalPlaybackData %>
           6b0jh5aw4ptbo2t3:
             value: ""
+          n802svpu2aj3ecnm:
+            value: <%= terminalPlaybackData %>
   - id: 25m86rw7ywdu0xhu
     name: Terminal Player (Left)
     summary: >-
@@ -8325,6 +8728,8 @@ composite:
                     color: ""
                     fontSize: 16px
                     variant: body1
+          hcv3t3d2mscgvw3b:
+            value: ""
       nhvmouwlk64du7r6:
         properties:
           v5utpm7bu9yvdpnq:

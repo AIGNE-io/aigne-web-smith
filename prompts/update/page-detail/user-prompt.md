@@ -50,15 +50,23 @@ Analyze the user feedback to determine the intended operation:
 
 **Update Section Operations:**
 
-- Keywords: "update section", "modify section", "change section", "edit"
+- Keywords: "update section title", "modify section description", "change section action", "edit"
 - Required information: section name and properties to update
 - Example: "Update the hero section title to 'Welcome to Innovation'"
-
 **Move Section Operations:**
 
 - Keywords: "move section", "reorder", "relocate", "reorganize"
 - Required information: section name and new position
 - Example: "Move the contact section to the top of the page"
+
+**Change Section Component**
+
+- Keywords: "section use xxx components", "section need show image", "section not using list"
+- Processing: 
+  - When users request changes to section display information or style, this indicates a need to switch to using different components. 
+  - Need delete the existing section and add a new one, ensuring the new section data follows predefined field combinations
+  - Please call delete and add tools in a single request
+
 
 </feedback_analysis_guidelines>
 </user_feedback>

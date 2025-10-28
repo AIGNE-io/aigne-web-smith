@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-28T11:31:09.553Z
+  updateAt: 2025-10-28T12:49:10.621Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -3506,12 +3506,12 @@ composite:
                 xebzelstnp0vag5c:
                   x: 0
                   y: 0
-                  w: 5
+                  w: 6
                   h: 1
                 yvbfss906axhksok:
-                  x: 5
+                  x: 6
                   y: 0
-                  w: 7
+                  w: 6
                   h: 1
               mobile:
                 xebzelstnp0vag5c:

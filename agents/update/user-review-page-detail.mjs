@@ -7,8 +7,8 @@ import {
   generateFieldConstraints,
 } from "../../utils/generate-helper.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
-import { getSectionFormatterByMatch } from "./formatters/index.mjs";
 import { resetFailureCount } from "../../utils/retry-utils.mjs";
+import { getSectionFormatterByMatch } from "./formatters/index.mjs";
 
 export default async function userReviewPageDetail(
   { content, componentLibrary, verbose, ...rest },
@@ -126,7 +126,7 @@ export default async function userReviewPageDetail(
       // Check if this is a max retry error
       if (error.name === "MaxRetryError") {
         console.log(
-          "\n⚠️  Failed to process your request. Please refine your description and try again.\n"
+          "\n⚠️  Failed to process your request. Please refine your description and try again.\n",
         );
         // Continue the loop to allow user to input new feedback
       } else {

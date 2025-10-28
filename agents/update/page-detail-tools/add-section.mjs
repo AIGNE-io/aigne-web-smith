@@ -6,8 +6,8 @@ import {
   getAddSectionOutputJsonSchema,
   validateAddSectionInput,
 } from "../../../types/page-detail-schema.mjs";
-import { validateSingleSection } from "../../../utils/utils.mjs";
 import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function addSection(input, options) {
   initializeFailureCount(options);

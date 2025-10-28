@@ -5,8 +5,8 @@ import {
   getUpdateSectionOutputJsonSchema,
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
-import { validateSingleSection } from "../../../utils/utils.mjs";
 import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function updateSection(input, options) {
   initializeFailureCount(options);

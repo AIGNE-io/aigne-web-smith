@@ -502,7 +502,7 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
           // Ensure we have a file extension
           if (!ext) {
             console.warn(
-              `Unable to determine file extension for image ${imageReq.imageName}. Skipping.`
+              `Unable to determine file extension for image ${imageReq.imageName}. Skipping.`,
             );
             continue;
           }

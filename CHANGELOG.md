@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2025-10-28)
+
+
+### Bug Fixes
+
+* enhance multi-page content planning ([#168](https://github.com/AIGNE-io/aigne-web-smith/issues/168)) ([3106397](https://github.com/AIGNE-io/aigne-web-smith/commit/31063972134c1188fc17545fa7872de2ca3c1ce9))
+
 ## [1.6.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.2...v1.6.0-beta.3) (2025-10-27)
 
 

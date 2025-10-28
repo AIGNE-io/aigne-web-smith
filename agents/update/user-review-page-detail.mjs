@@ -8,6 +8,7 @@ import {
 } from "../../utils/generate-helper.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
 import { getSectionFormatterByMatch } from "./formatters/index.mjs";
+import { resetFailureCount } from "../../utils/retry-utils.mjs";
 
 export default async function userReviewPageDetail(
   { content, componentLibrary, verbose, ...rest },
@@ -96,8 +97,9 @@ export default async function userReviewPageDetail(
 
     const fieldConstraints = generateFieldConstraints(componentLibrary);
 
-    // Clear previous tool inputs before calling updatePageDetail agent
+    // Clear previous tool inputs and reset failure count before calling updatePageDetail agent
     options.context.userContext.lastToolInputs = {};
+    resetFailureCount(options);
 
     try {
       // Call updatePageDetail agent with feedback
@@ -121,12 +123,20 @@ export default async function userReviewPageDetail(
       // Print updated page detail
       printPageDetail(currentPageDetail, compositeComponents, verbose);
     } catch (error) {
-      console.error("Error processing feedback:", {
-        type: error.name,
-        message: error.message,
-      });
-      console.log("\nPlease rephrase feedback or continue with current content.");
-      break;
+      // Check if this is a max retry error
+      if (error.name === "MaxRetryError") {
+        console.log(
+          "\n⚠️  Failed to process your request. Please refine your description and try again.\n"
+        );
+        // Continue the loop to allow user to input new feedback
+      } else {
+        console.error("Error processing feedback:", {
+          type: error.name,
+          message: error.message,
+        });
+        console.log("\nPlease rephrase feedback or continue with current content.");
+        break;
+      }
     }
   }
 

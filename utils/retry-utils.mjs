@@ -1,6 +1,7 @@
 /**
- * Retry utilities for agent tools
- * Provides functions to manage retry attempts and failure handling
+ * @module retry-utils
+ * @description Utility functions for managing retry attempts and failure handling in agent tools.
+ * Provides counter management, error handling with configurable limits, and context value management.
  */
 
 /**

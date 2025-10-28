@@ -126,7 +126,7 @@ export default async function userReviewPageDetail(
       // Check if this is a max retry error
       if (error.name === "MaxRetryError") {
         console.log(
-          "\n⚠️  Failed to process your request. Please refine your description and try again.\n",
+          "\n⚠️  Maximum retry attempts reached. Please provide clearer or more specific feedback and try again.\n",
         );
         // Continue the loop to allow user to input new feedback
       } else {

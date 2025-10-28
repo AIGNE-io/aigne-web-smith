@@ -906,10 +906,11 @@ export default async function publishWebsite(
       const pageWord = successCount === 1 ? "page" : "pages";
       const assetWord = uploadedMediaCount === 1 ? "asset" : "assets";
 
+      const timestamp = Date.now();
       message = `✅ Pages published successfully! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
 
 🔗 Live URLs:
-${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}`).join("\n")}
+${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}?t=${timestamp}`).join("\n")}
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;

@@ -5,13 +5,18 @@ import {
   getMoveSectionOutputJsonSchema,
   validateMoveSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function moveSection(input, options) {
+  initializeFailureCount(options);
+
   // Validate input using Zod schema
   const validation = validateMoveSectionInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot move section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail: input.pageDetail,
@@ -46,6 +51,8 @@ export default async function moveSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot move section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -57,6 +64,8 @@ export default async function moveSection(input, options) {
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     const errorMessage = "Cannot move section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -69,6 +78,8 @@ export default async function moveSection(input, options) {
   if (sectionIndex === -1) {
     const errorMessage = `Cannot move section: Section '${name}' not found. Please choose an existing section to move.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -89,6 +100,8 @@ export default async function moveSection(input, options) {
     if (refIndex === -1) {
       const errorMessage = `Cannot move section: Reference section '${newPosition}' not found.`;
       console.log(`⚠️  ${errorMessage}`);
+      handleFailure(options);
+
       return {
         status: "error",
         pageDetail,
@@ -102,6 +115,8 @@ export default async function moveSection(input, options) {
   if (sectionIndex === targetIndex) {
     const errorMessage = `Cannot move section: Section '${name}' is already at the specified position.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,

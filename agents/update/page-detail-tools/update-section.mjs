@@ -5,14 +5,19 @@ import {
   getUpdateSectionOutputJsonSchema,
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function updateSection(input, options) {
+  initializeFailureCount(options);
+
   // Validate input using Zod schema
   const validation = validateUpdateSectionInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot update section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail: input.pageDetail,
@@ -48,6 +53,8 @@ export default async function updateSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot update section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -62,6 +69,8 @@ export default async function updateSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot update section: Unable to parse updates YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -74,6 +83,8 @@ export default async function updateSection(input, options) {
   if (updateFields.length === 0) {
     const errorMessage = "Cannot update section: No properties specified for update.";
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -85,6 +96,8 @@ export default async function updateSection(input, options) {
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     const errorMessage = "Cannot update section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -97,6 +110,8 @@ export default async function updateSection(input, options) {
   if (sectionIndex === -1) {
     const errorMessage = `Cannot update section: Section '${name}' not found. Please choose an existing section to update.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -128,6 +143,8 @@ export default async function updateSection(input, options) {
       .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
       .join("\n");
     const errorMessage = `Cannot update section:\n${summary}\n${details}`;
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,

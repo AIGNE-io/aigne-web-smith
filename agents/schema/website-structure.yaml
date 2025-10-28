@@ -6,6 +6,9 @@ items:
       type: string
     description:
       type: string
+      description: |
+        Plan what content to display on the current page. For multi-page structures, plan the content presentation holistically to ensure each page shows different content without duplication.
+        List out the planned content for the current page in detail to better understand the content planning during subsequent page generation.
     path:
       type: string
       description: URL path starting with /, no language prefix, homepage uses /home

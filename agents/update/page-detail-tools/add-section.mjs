@@ -6,14 +6,19 @@ import {
   getAddSectionOutputJsonSchema,
   validateAddSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function addSection(input, options) {
+  initializeFailureCount(options);
+
   // Validate input using Zod schema
   const validation = validateAddSectionInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot add section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail: input.pageDetail,
@@ -49,6 +54,8 @@ export default async function addSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot add section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -63,6 +70,8 @@ export default async function addSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot add section: Unable to parse section YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -74,6 +83,8 @@ export default async function addSection(input, options) {
   if (!parsedSection.sectionName) {
     const errorMessage = "Cannot add section: Section must have a 'sectionName' property.";
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -98,6 +109,8 @@ export default async function addSection(input, options) {
       .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
       .join("\n");
     const errorMessage = `Cannot add section:\n${summary}\n${details}`;
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -117,6 +130,8 @@ export default async function addSection(input, options) {
   if (existingSection) {
     const errorMessage = `Cannot add section: A section with name '${parsedSection.sectionName}' already exists. Choose a different name.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,

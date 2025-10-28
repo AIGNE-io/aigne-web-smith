@@ -1,6 +1,8 @@
 - Multi-page website scale directives:
   - Position this page within the broader site; give overviews and guide readers toward related pages when appropriate.
-  - Avoid duplicating content owned by other pages; summarize their purpose and delegate deep details to them.
+  - Check descriptions of other pages in <structure_plan> for content overlap with current page, and handle overlapping content appropriately:
+    - Present overlapping content from different angles based on page purpose
+    - Assess importance of overlapping content to the page - provide brief overview for non-critical content
   - Calibrate section breadth using the configuration's Website Scale guidance from <page_constraints>.
   - Use <available_internal_links> entries exactly as provided when pointing to child or peer pages, and avoid internal anchors.
   - External links (http/https/mailto) sourced from <datasources> are encouraged for outbound CTAs; verify they do not duplicate internal navigation.

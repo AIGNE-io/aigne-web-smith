@@ -5,13 +5,18 @@ import {
   getUpdateMetaOutputJsonSchema,
   validateUpdateMetaInput,
 } from "../../../types/page-detail-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function updateMeta(input, options) {
+  initializeFailureCount(options);
+
   // Validate input using Zod schema
   const validation = validateUpdateMetaInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot update meta: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail: input.pageDetail,
@@ -46,6 +51,8 @@ export default async function updateMeta(input, options) {
   } catch (error) {
     const errorMessage = `Cannot update meta: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,

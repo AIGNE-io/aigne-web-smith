@@ -6,13 +6,18 @@ import {
   getDeleteSectionOutputJsonSchema,
   validateDeleteSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function deleteSection(input, options) {
+  initializeFailureCount(options);
+
   // Validate input using Zod schema
   const validation = validateDeleteSectionInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot delete section: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail: input.pageDetail,
@@ -47,6 +52,8 @@ export default async function deleteSection(input, options) {
   } catch (error) {
     const errorMessage = `Cannot delete section: Unable to parse page detail YAML - ${error.message}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -58,6 +65,8 @@ export default async function deleteSection(input, options) {
   if (!parsedPageDetail.sections || !Array.isArray(parsedPageDetail.sections)) {
     const errorMessage = "Cannot delete section: No sections array found in page detail.";
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,
@@ -70,6 +79,8 @@ export default async function deleteSection(input, options) {
   if (sectionIndex === -1) {
     const errorMessage = `Cannot delete section: Section '${name}' not found. Please choose an existing section to delete.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       status: "error",
       pageDetail,

@@ -489,7 +489,24 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
       if (image.type === "local" && image.path) {
         try {
           // Get file extension from source path
-          const ext = path.extname(image.path);
+          let ext = path.extname(image.path);
+
+          // If no extension found, try to determine from mimeType
+          if (!ext && image.mimeType) {
+            const extFromMime = getExtnameFromContentType(image.mimeType);
+            if (extFromMime) {
+              ext = `.${extFromMime}`;
+            }
+          }
+
+          // Ensure we have a file extension
+          if (!ext) {
+            console.warn(
+              `Could not determine file extension for image "${imageReq.imageName}" - skipping file`,
+            );
+            continue;
+          }
+
           // Create new filename using imageName
           const newFilename = `${imageReq.imageName}${ext}`;
           const destPath = path.join(assetsDir, newFilename);

@@ -6,6 +6,7 @@ instructions:
     url: ../../prompts/update/page-detail/system-prompt.md
   - role: user
     url: ../../prompts/update/page-detail/user-prompt.md
+catch_tools_error: false
 input_schema:
   type: object
   properties:

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-28T12:49:10.621Z
+  updateAt: 2025-10-30T07:06:10.293Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -56,6 +56,11 @@ atomic:
   - name: Terminal
     componentId: AwkO9eKiUWeU7Z8u
     summary: Simple terminal player component using @arcblock/terminal
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
+  - name: Carousel
+    componentId: iMm13ixYkkUTG2o8
+    summary: "A carousel component that displays a collection of items in a horizontally scrollable area"
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
@@ -173,7 +178,7 @@ composite:
         - whids9c4yl47179j
       config:
         background: auto
-        paddingX: normal
+        paddingX: none
         paddingY: custom:80px
         gap: normal
         gridSettings:
@@ -265,6 +270,8 @@ composite:
               mediaKitUrl: <%= splitHeroImage %>
               width: 2048
               height: 1536
+          nch5frsfoap2lw33:
+            value: true
   - id: 4rpzyx2cyf24ll1j
     name: Split Hero With Image (Right)
     summary: >-
@@ -479,6 +486,8 @@ composite:
               height: 1394
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -690,6 +699,8 @@ composite:
               height: 1394
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: wqsxrwmyx057cofg
     name: Full Background Hero (Center)
     summary: >
@@ -5750,6 +5761,8 @@ composite:
             value: 100%
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: azsqqtk1bgtq12lf
     name: Content Card With ScreenShot (Right)
     summary: >-
@@ -5932,6 +5945,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       o9i2bl0lf1afspe6: {}
       wo5giq8vgednv1ml: {}
       gy32072gpe8eeyfs: {}
@@ -6134,6 +6149,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       9mue2u1cczsfpd7r: {}
       ezrulsvzl0lnz05h: {}
       2vdejdsgptq9ij6y: {}
@@ -6642,6 +6659,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       1r6lz47d0cx5nfs5: {}
       k31tahp1erqucs7b:
         properties:
@@ -6793,6 +6812,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       91t9ks58jefilz1f: {}
       ve5ho8g86os7ods4:
         properties:
@@ -8754,3 +8775,182 @@ composite:
             value: ""
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+  - id: wwgy8el0ze63fyca
+    name: Carousel Section
+    summary: >-
+      Purpose: Fill placeholders for a carousel component. **Do NOT** change
+      structure, keys, or IDs.
+
+
+      SCOPE
+
+      - Slides ≤4: slides0–slides3.
+
+      - Each slide may have: title, description, image, code (with filename and
+      content).
+
+      - Required: {{carouselTitle}}.
+
+
+      PLACEHOLDERS
+
+      - Slides: {{slides.N.title}} title; {{slides.N.description}} description?;
+      {{slides.N.image}} image?; {{slides.N.codeFilename}} code.filename?;
+      {{slides.N.codeContent}} code.content?.
+
+      - Index range: N=0..3.
+
+
+      REQUIRED FILLS
+
+      - Title above: {{carouselTitle}}; each slide: {{slides.N.title}}.
+
+      - For each slide N, at least one of the following must be non-empty:
+        - Image: {{slides.N.image}}, or
+        - Code: both {{slides.N.codeFilename}} and {{slides.N.codeContent}}.
+      - Optionals may be empty but **must exist** (see Empty & Structure).
+
+
+      CONTENT RULES
+
+      - Title ≤60 chars; slide title ≤80 chars; description ≤500 chars.
+
+      - Code content ≤4096 chars per slide.
+
+      - Image URLs must be valid.
+
+      - Consistent formatting across slides.
+
+
+      EMPTY & STRUCTURE (strict key preservation)
+
+      - For any optional or currently unset field: **keep the key**, set value
+      to empty string `""`.
+
+      - Applies to: `slides.*`
+      (title/description/image/codeFilename/codeContent).
+
+      - **Never** output `null`/`undefined`/`false`/`0` or delete keys.
+
+      - Every slide item must contain all possible keys (values may be `""`).
+
+
+      LENGTH LIMITS
+
+      - Any string ≤ **4096** chars (global cap).
+
+      - Field caps still apply: title ≤80; description ≤500; code content ≤4096.
+
+      - When limits overlap, enforce the **strictest**.
+    fieldCombinations:
+      - carouselTitle
+      - slides.0.codeContent
+      - slides.0.codeFilename
+      - slides.0.description
+      - slides.0.image
+      - slides.0.title
+      - slides.1.codeContent
+      - slides.1.codeFilename
+      - slides.1.description
+      - slides.1.image
+      - slides.1.title
+      - slides.2.codeContent
+      - slides.2.codeFilename
+      - slides.2.description
+      - slides.2.image
+      - slides.2.title
+      - slides.3.codeContent
+      - slides.3.codeFilename
+      - slides.3.description
+      - slides.3.image
+      - slides.3.title
+    section:
+      id: z0empxtrcuxis207
+      name: Section Layout
+      component: layout-block
+      sections:
+        zss9607itfdv7rgt:
+          id: zss9607itfdv7rgt
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        azco0iqlflcdqzcc:
+          id: azco0iqlflcdqzcc
+          name: Section Layout
+          component: layout-block
+          sections:
+            7yvip0bd5csgd6vj:
+              id: 7yvip0bd5csgd6vj
+              name: Carousel
+              component: custom-component
+              config:
+                componentId: iMm13ixYkkUTG2o8
+          sectionIds:
+            - 7yvip0bd5csgd6vj
+          config:
+            gridSettings:
+              desktop:
+                7yvip0bd5csgd6vj:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+      sectionIds:
+        - zss9607itfdv7rgt
+        - azco0iqlflcdqzcc
+      config:
+        gridSettings:
+          desktop:
+            zss9607itfdv7rgt:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            azco0iqlflcdqzcc:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: normal
+        textAlign: left
+    dataSource:
+      z0empxtrcuxis207: {}
+      zss9607itfdv7rgt:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= carouselTitle %>
+              style:
+                variant: h1
+      azco0iqlflcdqzcc: {}
+      7yvip0bd5csgd6vj:
+        properties:
+          zf6uekaeoez1d8g8:
+            value:
+              - title: <%= slides.0.title %>
+                description: <%= slides.0.description %>
+                image: <%= slides.0.image %>
+                code:
+                  filename: <%= slides.0.codeFilename %>
+                  content: <%= slides.0.codeContent %>
+              - title: <%= slides.1.title %>
+                description: <%= slides.1.description %>
+                code:
+                  content: <%= slides.1.codeContent %>
+                  filename: <%= slides.1.codeFilename %>
+                image: <%= slides.1.image %>
+              - title: <%= slides.2.title %>
+                description: <%= slides.2.description %>
+                code:
+                  filename: <%= slides.2.codeFilename %>
+                  content: <%= slides.2.codeContent %>
+                image: <%= slides.2.image %>
+              - title: <%= slides.3.title %>
+                description: <%= slides.3.description %>
+                code:
+                  filename: <%= slides.3.codeFilename %>
+                  content: <%= slides.3.codeContent %>
+                image: <%= slides.3.image %>

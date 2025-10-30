@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-28T12:49:10.621Z
+  updateAt: 2025-10-30T06:29:44.430Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -56,6 +56,11 @@ atomic:
   - name: Terminal
     componentId: AwkO9eKiUWeU7Z8u
     summary: Simple terminal player component using @arcblock/terminal
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
+  - name: Carousel
+    componentId: iMm13ixYkkUTG2o8
+    summary: ""
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
@@ -173,7 +178,7 @@ composite:
         - whids9c4yl47179j
       config:
         background: auto
-        paddingX: normal
+        paddingX: none
         paddingY: custom:80px
         gap: normal
         gridSettings:
@@ -8754,3 +8759,180 @@ composite:
             value: ""
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
+  - id: wwgy8el0ze63fyca
+    name: Carousel
+    summary: >-
+      Purpose: Fill placeholders for a carousel component. **Do NOT** change
+      structure, keys, or IDs.
+
+
+      SCOPE
+
+      - Slides ≤4: sl0–sl3.
+
+      - Each slide may have: title, description, image, code (with filename and
+      content).
+
+      - Required: {{carouselTitle}}.
+
+
+      PLACEHOLDERS
+
+      - Slides: {{sl.N.t}} title; {{sl.N.d}} description?; {{sl.N.i}} image?;
+      {{sl.N.cf}} code.filename?; {{sl.N.cc}} code.content?.
+
+      - Index range: N=0..3.
+
+
+      REQUIRED FILLS
+
+      - Title above: {{carouselTitle}}; each slide: {{sl.N.t}}.
+
+      - For each slide N, at least one of the following must be non-empty:
+        - Image: {{sl.N.i}}, or
+        - Code: both {{sl.N.cf}} and {{sl.N.cc}}.
+      - Optionals may be empty but **must exist** (see Empty & Structure).
+
+
+      CONTENT RULES
+
+      - Title ≤60 chars; slide title ≤80 chars; description ≤500 chars.
+
+      - Code content ≤4096 chars per slide.
+
+      - Image URLs must be valid.
+
+      - Consistent formatting across slides.
+
+
+      EMPTY & STRUCTURE (strict key preservation)
+
+      - For any optional or currently unset field: **keep the key**, set value
+      to empty string `""`.
+
+      - Applies to: `sl.*` (t/d/i/cf/cc).
+
+      - **Never** output `null`/`undefined`/`false`/`0` or delete keys.
+
+      - Every slide item must contain all possible keys (values may be `""`).
+
+
+      LENGTH LIMITS
+
+      - Any string ≤ **4096** chars (global cap).
+
+      - Field caps still apply: title ≤80; description ≤500; code content ≤4096.
+
+      - When limits overlap, enforce the **strictest**.
+    fieldCombinations:
+      - carouselTitle
+      - sl.0.cc
+      - sl.0.cf
+      - sl.0.d
+      - sl.0.i
+      - sl.0.t
+      - sl.1.cc
+      - sl.1.cf
+      - sl.1.d
+      - sl.1.i
+      - sl.1.t
+      - sl.2.cc
+      - sl.2.cf
+      - sl.2.d
+      - sl.2.i
+      - sl.2.t
+      - sl.3.cc
+      - sl.3.cf
+      - sl.3.d
+      - sl.3.i
+      - sl.3.t
+    section:
+      id: z0empxtrcuxis207
+      name: Section Layout
+      component: layout-block
+      sections:
+        zss9607itfdv7rgt:
+          id: zss9607itfdv7rgt
+          name: RichText
+          component: custom-component
+          config:
+            componentId: xoHu0J44322kDYc-
+        azco0iqlflcdqzcc:
+          id: azco0iqlflcdqzcc
+          name: Section Layout
+          component: layout-block
+          sections:
+            7yvip0bd5csgd6vj:
+              id: 7yvip0bd5csgd6vj
+              name: Carousel
+              component: custom-component
+              config:
+                componentId: iMm13ixYkkUTG2o8
+          sectionIds:
+            - 7yvip0bd5csgd6vj
+          config:
+            gridSettings:
+              desktop:
+                7yvip0bd5csgd6vj:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            borderRadius: small
+      sectionIds:
+        - zss9607itfdv7rgt
+        - azco0iqlflcdqzcc
+      config:
+        gridSettings:
+          desktop:
+            zss9607itfdv7rgt:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            azco0iqlflcdqzcc:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        gap: normal
+        paddingY: normal
+        textAlign: left
+    dataSource:
+      z0empxtrcuxis207: {}
+      zss9607itfdv7rgt:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= carouselTitle %>
+              style:
+                variant: h1
+      azco0iqlflcdqzcc: {}
+      7yvip0bd5csgd6vj:
+        properties:
+          zf6uekaeoez1d8g8:
+            value:
+              - title: <%= sl.0.t %>
+                description: <%= sl.0.d %>
+                image: <%= sl.0.i %>
+                code:
+                  filename: <%= sl.0.cf %>
+                  content: <%= sl.0.cc %>
+              - title: <%= sl.1.t %>
+                description: <%= sl.1.d %>
+                code:
+                  content: <%= sl.1.cc %>
+                  filename: <%= sl.1.cf %>
+                image: <%= sl.1.i %>
+              - title: <%= sl.2.t %>
+                description: <%= sl.2.d %>
+                code:
+                  filename: <%= sl.2.cf %>
+                  content: <%= sl.2.cc %>
+                image: <%= sl.2.i %>
+              - title: <%= sl.3.t %>
+                description: <%= sl.3.d %>
+                code:
+                  filename: <%= sl.3.cf %>
+                  content: <%= sl.3.cc %>
+                image: <%= sl.3.i %>

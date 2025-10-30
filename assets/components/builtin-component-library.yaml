@@ -60,7 +60,7 @@ atomic:
     blockletTitle: Pages Templates
   - name: Carousel
     componentId: iMm13ixYkkUTG2o8
-    summary: ""
+    summary: "A carousel component that displays a collection of items in a horizontally scrollable area"
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:

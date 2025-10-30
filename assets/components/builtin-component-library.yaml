@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-30T06:29:44.430Z
+  updateAt: 2025-10-30T06:49:00.834Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -270,6 +270,8 @@ composite:
               mediaKitUrl: <%= splitHeroImage %>
               width: 2048
               height: 1536
+          nch5frsfoap2lw33:
+            value: true
   - id: 4rpzyx2cyf24ll1j
     name: Split Hero With Image (Right)
     summary: >-
@@ -484,6 +486,8 @@ composite:
               height: 1394
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -695,6 +699,8 @@ composite:
               height: 1394
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: wqsxrwmyx057cofg
     name: Full Background Hero (Center)
     summary: >
@@ -5755,6 +5761,8 @@ composite:
             value: 100%
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
   - id: azsqqtk1bgtq12lf
     name: Content Card With ScreenShot (Right)
     summary: >-
@@ -5937,6 +5945,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       o9i2bl0lf1afspe6: {}
       wo5giq8vgednv1ml: {}
       gy32072gpe8eeyfs: {}
@@ -6139,6 +6149,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       9mue2u1cczsfpd7r: {}
       ezrulsvzl0lnz05h: {}
       2vdejdsgptq9ij6y: {}
@@ -6647,6 +6659,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       1r6lz47d0cx5nfs5: {}
       k31tahp1erqucs7b:
         properties:
@@ -6798,6 +6812,8 @@ composite:
             value: ""
           jjv0hvr8wrixt1f3:
             value: 1
+          nch5frsfoap2lw33:
+            value: true
       91t9ks58jefilz1f: {}
       ve5ho8g86os7ods4:
         properties:

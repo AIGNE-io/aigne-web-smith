@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-30T06:49:00.834Z
+  updateAt: 2025-10-30T07:06:10.293Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -8776,7 +8776,7 @@ composite:
           n802svpu2aj3ecnm:
             value: <%= terminalPlaybackData %>
   - id: wwgy8el0ze63fyca
-    name: Carousel
+    name: Carousel Section
     summary: >-
       Purpose: Fill placeholders for a carousel component. **Do NOT** change
       structure, keys, or IDs.
@@ -8784,7 +8784,7 @@ composite:
 
       SCOPE
 
-      - Slides ≤4: sl0–sl3.
+      - Slides ≤4: slides0–slides3.
 
       - Each slide may have: title, description, image, code (with filename and
       content).
@@ -8794,19 +8794,20 @@ composite:
 
       PLACEHOLDERS
 
-      - Slides: {{sl.N.t}} title; {{sl.N.d}} description?; {{sl.N.i}} image?;
-      {{sl.N.cf}} code.filename?; {{sl.N.cc}} code.content?.
+      - Slides: {{slides.N.title}} title; {{slides.N.description}} description?;
+      {{slides.N.image}} image?; {{slides.N.codeFilename}} code.filename?;
+      {{slides.N.codeContent}} code.content?.
 
       - Index range: N=0..3.
 
 
       REQUIRED FILLS
 
-      - Title above: {{carouselTitle}}; each slide: {{sl.N.t}}.
+      - Title above: {{carouselTitle}}; each slide: {{slides.N.title}}.
 
       - For each slide N, at least one of the following must be non-empty:
-        - Image: {{sl.N.i}}, or
-        - Code: both {{sl.N.cf}} and {{sl.N.cc}}.
+        - Image: {{slides.N.image}}, or
+        - Code: both {{slides.N.codeFilename}} and {{slides.N.codeContent}}.
       - Optionals may be empty but **must exist** (see Empty & Structure).
 
 
@@ -8826,7 +8827,8 @@ composite:
       - For any optional or currently unset field: **keep the key**, set value
       to empty string `""`.
 
-      - Applies to: `sl.*` (t/d/i/cf/cc).
+      - Applies to: `slides.*`
+      (title/description/image/codeFilename/codeContent).
 
       - **Never** output `null`/`undefined`/`false`/`0` or delete keys.
 
@@ -8842,26 +8844,26 @@ composite:
       - When limits overlap, enforce the **strictest**.
     fieldCombinations:
       - carouselTitle
-      - sl.0.cc
-      - sl.0.cf
-      - sl.0.d
-      - sl.0.i
-      - sl.0.t
-      - sl.1.cc
-      - sl.1.cf
-      - sl.1.d
-      - sl.1.i
-      - sl.1.t
-      - sl.2.cc
-      - sl.2.cf
-      - sl.2.d
-      - sl.2.i
-      - sl.2.t
-      - sl.3.cc
-      - sl.3.cf
-      - sl.3.d
-      - sl.3.i
-      - sl.3.t
+      - slides.0.codeContent
+      - slides.0.codeFilename
+      - slides.0.description
+      - slides.0.image
+      - slides.0.title
+      - slides.1.codeContent
+      - slides.1.codeFilename
+      - slides.1.description
+      - slides.1.image
+      - slides.1.title
+      - slides.2.codeContent
+      - slides.2.codeFilename
+      - slides.2.description
+      - slides.2.image
+      - slides.2.title
+      - slides.3.codeContent
+      - slides.3.codeFilename
+      - slides.3.description
+      - slides.3.image
+      - slides.3.title
     section:
       id: z0empxtrcuxis207
       name: Section Layout
@@ -8928,27 +8930,27 @@ composite:
         properties:
           zf6uekaeoez1d8g8:
             value:
-              - title: <%= sl.0.t %>
-                description: <%= sl.0.d %>
-                image: <%= sl.0.i %>
+              - title: <%= slides.0.title %>
+                description: <%= slides.0.description %>
+                image: <%= slides.0.image %>
                 code:
-                  filename: <%= sl.0.cf %>
-                  content: <%= sl.0.cc %>
-              - title: <%= sl.1.t %>
-                description: <%= sl.1.d %>
+                  filename: <%= slides.0.codeFilename %>
+                  content: <%= slides.0.codeContent %>
+              - title: <%= slides.1.title %>
+                description: <%= slides.1.description %>
                 code:
-                  content: <%= sl.1.cc %>
-                  filename: <%= sl.1.cf %>
-                image: <%= sl.1.i %>
-              - title: <%= sl.2.t %>
-                description: <%= sl.2.d %>
+                  content: <%= slides.1.codeContent %>
+                  filename: <%= slides.1.codeFilename %>
+                image: <%= slides.1.image %>
+              - title: <%= slides.2.title %>
+                description: <%= slides.2.description %>
                 code:
-                  filename: <%= sl.2.cf %>
-                  content: <%= sl.2.cc %>
-                image: <%= sl.2.i %>
-              - title: <%= sl.3.t %>
-                description: <%= sl.3.d %>
+                  filename: <%= slides.2.codeFilename %>
+                  content: <%= slides.2.codeContent %>
+                image: <%= slides.2.image %>
+              - title: <%= slides.3.title %>
+                description: <%= slides.3.description %>
                 code:
-                  filename: <%= sl.3.cf %>
-                  content: <%= sl.3.cc %>
-                image: <%= sl.3.i %>
+                  filename: <%= slides.3.codeFilename %>
+                  content: <%= slides.3.codeContent %>
+                image: <%= slides.3.image %>

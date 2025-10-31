@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.4...v1.6.0-beta.5) (2025-10-31)
+
+
+### Features
+
+* add carousel component ([#173](https://github.com/AIGNE-io/aigne-web-smith/issues/173)) ([d6c7a4b](https://github.com/AIGNE-io/aigne-web-smith/commit/d6c7a4b8308a406f44c0a43e05acbd458046fd31))
+
 ## [1.6.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.3...v1.6.0-beta.4) (2025-10-28)
 
 

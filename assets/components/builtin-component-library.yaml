@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-31T06:21:24.696Z
+  updateAt: 2025-10-31T07:19:46.124Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -3900,17 +3900,17 @@ composite:
                 link: <%= logoWallList.9.link %>
   - id: osyn2uylw9cdhzpc
     name: User Review
-    summary: >-
+    summary: >
       Structure (top → bottom)
 
 
-      - Review Content/Quote, Primary text, left-aligned, can span multiple
-      lines).
+      - Review Content (Primary text, left-aligned, can span multiple lines,
+      written naturally without quotation marks).
 
       - User/Source Block (A horizontal block containing user identification
       details).
-          - Avatar/Profile Picture small square/circular image, left-aligned).
-          - User Name, text, usually bold, bottom of the avatar).
+          - Avatar/Profile Picture (small square or circular image, left-aligned).
+          - User Name (text, usually bold, below the avatar).
           - User Description/Title (smaller text below the username, e.g., "Verified Buyer," "CEO of Company X").
 
       ---
@@ -3921,9 +3921,6 @@ composite:
 
       - You need to display **social proof or testimonials** to build trust and
       credibility for a product, service, or feature.
-
-      - The user feedback is provided as a **direct quote** and is the main
-      focus of the component.
 
       - The component is used in a **group (carousel or grid)** to showcase
       diverse user experiences.
@@ -3936,8 +3933,13 @@ composite:
       Constraint
 
 
-      - The content should be the **longest and most prominent text**, ideally
-      limited to 3-5 lines to avoid overwhelming the card.
+      - The review text should be the **most prominent element**, ideally 3–5
+      lines long.
+
+      - **Avoid quotation marks** around the review text.
+
+      - Write in a **natural, first-person tone** as if the user is directly
+      sharing their experience.
     fieldCombinations:
       - userReview.avatarImage
       - userReview.content

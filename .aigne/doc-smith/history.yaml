@@ -1,4 +1,9 @@
 entries:
+  - timestamp: 2025-10-31T09:54:16.925Z
+    operation: structure_update
+    feedback: Add a subdocument titled WebSmith config under Reference to guide users on how to modify
+      the websmith config. The relevant data source is located at
+      assets/documents/special-components/websmith-config.md
   - timestamp: 2025-10-17T08:27:42.264Z
     operation: document_update
     feedback: add Latest Updates to Available Components

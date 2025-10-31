@@ -30,7 +30,7 @@ src/blog-list-data.yaml
 blogTitle: "Latest Updates"
 blogDescription: "Get the latest updates right here."
 blogUrl: "https://www.arcblock.io" # or your Discuss Kit Blocklet URL
-blogLabel: "japan"
+blogLabel: "did-domain"
 blogMoreButtonText: "See More"
 ```
 
@@ -42,37 +42,80 @@ blogMoreButtonText: "See More"
 - `blogLabel`: Optional filter tag (topic, region, etc.)
 - `blogMoreButtonText`: Optional “See more” button text
 
-> **Note:** The Discuss Kit API must be accessible (public or within your Blocklet).  
-> WebSmith will automatically extract titles, summaries, cover images, and dates from the provided `blogUrl`.
+> **Note:**  
+> 1. The Discuss Kit API must be accessible (public or within your Blocklet).  
+> 2. WebSmith will automatically extract titles, summaries, cover images, and dates from the provided `blogUrl`.
+> 3. The `blogLabel` value should be obtained from your Discuss Kit site.  
+>    For example, visit:  
+>    [https://www.arcblock.io/content/blog?labels=did-domain](https://www.arcblock.io/content/blog?labels=did-domain)  
+>    to find the label ID used for filtering.
 
 ---
 
-## 3. Define the Section in Generation Rules
+## 3. Register the Data Source (Important)
 
-In your site’s custom generation rules in `config.yaml`, specify where and how this section should be rendered:
+After creating `src/blog-list-data.yaml`, you **must** register it so WebSmith can find and use it （keep list defined）.
+
+### a. Add to `config.yaml`
+
+Regardless of whether your site has already been generated, add the file to the `sourcesPath` field:
 
 ```yaml
-Section 2 must render the `Latest Updates` section using `src/blog-list-data.yaml` as immediate proof and momentum. Connect each featured post to a specific ArcBlock capability or outcome.
+sourcesPath:
+  - src/blog-list-data.yaml
 ```
 
-**Explanation:**
+### b. If Your Site Has Already Been Generated
 
-- Places this section as **Section 2** of the page
-- Uses the **Blog List** component type
-- Loads its data from `src/blog-list-data.yaml`
-- Indicates the section serves as “Proof & Momentum” by linking each post to a tangible capability or achievement
+If you have already run `aigne web generate`, before updating, add the same file to:
+
+```
+.aigne/web-smith/pages/workspace/website-structure.yaml
+```
+
+Under the `sourceIds` section, include:
+
+```yaml
+sourceIds:
+  - src/blog-list-data.yaml
+```
+
+This ensures WebSmith can locate and use your new data source during `update` operations.
 
 ---
 
-## 4. Generate or Update the Site
+## 4. Define the Section in Generation Rules
 
-Run one of the following commands after setting up your data and rules:
+Specify where and how the section should be rendered in your site’s `config.yaml` rules field:
+
+```yaml
+# config.yaml
+rules: 
+  Section 2 must render the `Latest Updates` section using `src/blog-list-data.yaml` as immediate proof and momentum. Connect each featured post to a specific ArcBlock capability or outcome.
+```
+
+### Additional Notes
+
+- You can add this rule directly under the **rules** field in `config.yaml`.  
+  It will automatically take effect during the next **generate** run.
+- Alternatively, when running the **update** command, you can directly enter a prompt such as:  
+  ```
+  Change section 2 to “Latest Updates” and generate its content using src/blog-list-data.yaml.
+  ```
+
+This approach supports dynamic updates without manually editing YAML files.
+
+---
+
+## 5. Generate or Update the Site
+
+After configuring your data and rules, run one of the following commands:
 
 ```bash
 aigne run generate
 ```
 
-Or update an existing site:
+Or, to update an existing site:
 
 ```bash
 aigne run update
@@ -80,13 +123,14 @@ aigne run update
 
 WebSmith will:
 
-1. Load your YAML data
-2. Retrieve posts from Discuss Kit
-3. Render the **Latest Updates** section automatically
+1. Load your YAML data  
+2. Retrieve posts from Discuss Kit  
+3. Render the **Latest Updates** section automatically  
 
 ---
 
-## 5. Optional Enhancements
+## 6. Optional Enhancements
 
-- Create localized versions of `blog-list-data.yaml` for multilingual sites
-- Use `blogLabel` to categorize updates (e.g., by product, feature, or region)
+- Create localized versions of `blog-list-data.yaml` for multilingual websites  
+- Use `blogLabel` to group updates by product, feature, or region  
+- Combine multiple labeled sections for a richer content experience  

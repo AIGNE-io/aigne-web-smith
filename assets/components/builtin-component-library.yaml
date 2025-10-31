@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-30T07:06:10.293Z
+  updateAt: 2025-10-31T06:21:24.696Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -60,7 +60,8 @@ atomic:
     blockletTitle: Pages Templates
   - name: Carousel
     componentId: iMm13ixYkkUTG2o8
-    summary: "A carousel component that displays a collection of items in a horizontally scrollable area"
+    summary: A carousel component that displays a collection of items in a
+      horizontally scrollable area
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
@@ -271,7 +272,7 @@ composite:
               width: 2048
               height: 1536
           nch5frsfoap2lw33:
-            value: true
+            value: false
   - id: 4rpzyx2cyf24ll1j
     name: Split Hero With Image (Right)
     summary: >-
@@ -487,7 +488,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 1
           nch5frsfoap2lw33:
-            value: true
+            value: false
   - id: 0gxpsejj8mnduiou
     name: Split Hero With Image (Left)
     summary: >-
@@ -700,7 +701,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 1
           nch5frsfoap2lw33:
-            value: true
+            value: false
   - id: wqsxrwmyx057cofg
     name: Full Background Hero (Center)
     summary: >

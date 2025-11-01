@@ -26,3 +26,4 @@
 * [Reference](/reference.md)
   * [Command Line Reference](/reference-command-line-reference.md)
   * [Changelog](/reference-changelog.md)
+  * [WebSmith Config](/reference-websmith-config.md)

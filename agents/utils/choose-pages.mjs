@@ -62,6 +62,7 @@ export default async function choosePages(
     locale,
     requiredFeedback = true,
     multipleSelection = true,
+    title,
   },
   options,
 ) {
@@ -95,7 +96,7 @@ export default async function choosePages(
       // Let user select files (single or multiple based on multipleSelection parameter)
       if (multipleSelection) {
         selectedFiles = await options.prompts.checkbox({
-          message: getActionText(isTranslate, "Select pages to {action}:"),
+          message: title || getActionText(isTranslate, "Select pages to {action}:"),
           source: (term) => {
             if (!term) return choices;
 
@@ -112,7 +113,7 @@ export default async function choosePages(
         });
       } else {
         const selectedFile = await options.prompts.search({
-          message: getActionText(isTranslate, "Select page to {action}:"),
+          message: title || getActionText(isTranslate, "Select page to {action}:"),
           source: (term) => {
             if (!term) return choices;
 

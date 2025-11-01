@@ -5,13 +5,15 @@ import chalk from "chalk";
 import { parse, stringify } from "yaml";
 import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 
+const title = "Media";
+
 export default async function clearMediaDescription(_input = {}, options = {}) {
   const cacheFilePath = getMediaDescriptionCachePath();
 
   // Check if the cache file exists
   if (!existsSync(cacheFilePath)) {
     return {
-      message: "No media descriptions found to clear",
+      message: `🖼️ ${title}\n  • No media descriptions found to clear`,
     };
   }
 
@@ -26,7 +28,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
 
     if (mediaHashes.length === 0) {
       return {
-        message: "No media descriptions found to clear",
+        message: `🖼️ ${title}\n  • No media descriptions found to clear`,
       };
     }
 
@@ -68,7 +70,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
 
     if (selectedHashes.length === 0) {
       return {
-        message: "No media files selected for clearing descriptions",
+        message: `🖼️ ${title}\n  • No media files selected for clearing descriptions`,
       };
     }
 
@@ -84,7 +86,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
           lastUpdated: new Date().toISOString(),
         }),
       );
-      results.push(`Cleared descriptions for all media files (${mediaHashes.length} files)`);
+      results.push(`✔ Cleared descriptions for all media files (${mediaHashes.length} files)`);
       clearedCount = mediaHashes.length;
     } else {
       // Clear descriptions for selected files
@@ -94,7 +96,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
         if (updatedCache[hash]) {
           const filename = path.basename(updatedCache[hash].path);
           delete updatedCache[hash];
-          results.push(`Cleared description for ${chalk.cyan(filename)}`);
+          results.push(`✔ Cleared description for ${chalk.cyan(filename)}`);
           clearedCount++;
         }
       }
@@ -108,8 +110,8 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
       );
     }
 
-    const header = `✨ Successfully cleared media descriptions`;
-    const detailLines = results.join("\n");
+    const header = `🖼️ ${title}`;
+    const detailLines = results.map((m) => `  ${m}`).join("\n");
 
     const message = [header, "", detailLines, ""].filter(Boolean).join("\n");
 
@@ -119,7 +121,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
     };
   } catch (error) {
     return {
-      message: `Error clearing media descriptions: ${error.message}`,
+      message: `⚠️ ${title}\n  ✗ Error clearing media descriptions: ${error.message})`,
       error: true,
     };
   }

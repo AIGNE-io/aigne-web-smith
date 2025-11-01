@@ -4,11 +4,13 @@ import chalk from "chalk";
 import { parse, stringify } from "yaml";
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
 
+const title = "Authorizations";
+
 export default async function clearAuthTokens(_input = {}, options = {}) {
   // Check if the file exists
   if (!existsSync(WEB_SMITH_ENV_FILE)) {
     return {
-      message: "No site authorizations found to clear",
+      message: `🔑 ${title}\n  • No site authorizations found to clear`,
     };
   }
 
@@ -22,7 +24,7 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
 
     if (siteHostnames.length === 0) {
       return {
-        message: "No site authorizations found to clear",
+        message: `🔑 ${title}\n  • No site authorizations found to clear`,
       };
     }
 
@@ -57,7 +59,7 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
 
     if (selectedSites.length === 0) {
       return {
-        message: "No sites selected for clearing authorization",
+        message: `🔑 ${title}\n  • No sites selected for clearing authorization`,
       };
     }
 
@@ -67,7 +69,7 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
     if (selectedSites.includes("__ALL__")) {
       // Clear all site authorizations
       await writeFile(WEB_SMITH_ENV_FILE, stringify({}));
-      results.push(`Cleared site authorization for all sites (${siteHostnames.length} sites)`);
+      results.push(`✔ Cleared site authorization for all sites (${siteHostnames.length} sites)`);
       clearedCount = siteHostnames.length;
     } else {
       // Clear site authorizations for selected sites
@@ -78,7 +80,7 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
           // Remove the entire site object
           delete updatedEnvs[hostname];
 
-          results.push(`Cleared site authorization for ${chalk.cyan(hostname)}`);
+          results.push(`✔ Cleared site authorization for ${chalk.cyan(hostname)}`);
           clearedCount++;
         }
       }
@@ -86,8 +88,8 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
       await writeFile(WEB_SMITH_ENV_FILE, stringify(updatedEnvs));
     }
 
-    const header = `🧹 Successfully cleared site authorizations!`;
-    const detailLines = results.join("\n");
+    const header = `🔑 ${title}`;
+    const detailLines = results.map((m) => `  ${m}`).join("\n");
 
     const message = [header, "", detailLines, ""].filter(Boolean).join("\n");
 
@@ -98,7 +100,7 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
     };
   } catch (error) {
     return {
-      message: `Failed to clear site authorizations: ${error.message}`,
+      message: `⚠️ ${title}\n  ✗ Failed to clear site authorizations: ${error.message}`,
       error: true,
     };
   }

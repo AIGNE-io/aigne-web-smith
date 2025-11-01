@@ -1,6 +1,6 @@
 {
   "name": "@aigne/web-smith",
-  "version": "1.6.0-beta.6",
+  "version": "1.6.0-beta.7",
   "description": "",
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2025-11-01)
+
+
+### Bug Fixes
+
+* double slash in website structure display ([b905586](https://github.com/AIGNE-io/aigne-web-smith/commit/b905586d8b4c0c19964556b9fcbb1ba7ad2d8990))
+
 ## [1.6.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2025-11-01)
 
 

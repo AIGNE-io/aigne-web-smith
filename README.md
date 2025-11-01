@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/aigne-io-aigne-web-smith-badge.png)](https://mseep.ai/app/aigne-io-aigne-web-smith)
+
 # AIGNE WebSmith
 
 AIGNE WebSmith is a powerful, AI-driven website generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of professional, SEO-optimized websites with complete content and templates, and enables direct publishing to Pages Kit.

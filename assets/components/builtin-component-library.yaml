@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-10-31T09:11:32.660Z
+  updateAt: 2025-11-01T02:57:25.314Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -1294,7 +1294,7 @@ composite:
               y: 0
               w: 12
               h: 1
-        background: background.paper
+        background: grey.50
         paddingY: normal
         borderRadius: small
         paddingX: none
@@ -1623,7 +1623,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1652,7 +1652,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1681,7 +1681,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1710,7 +1710,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1739,7 +1739,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1768,7 +1768,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1797,7 +1797,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -1826,7 +1826,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2036,7 +2036,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2065,7 +2065,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2094,7 +2094,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2123,7 +2123,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2152,7 +2152,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2181,7 +2181,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2210,7 +2210,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2239,7 +2239,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2268,7 +2268,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2534,7 +2534,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2551,7 +2551,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2568,7 +2568,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2585,7 +2585,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2602,7 +2602,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2619,7 +2619,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2636,7 +2636,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2653,7 +2653,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2670,7 +2670,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2687,7 +2687,7 @@ composite:
                 gridSettings:
                   desktop: {}
                   mobile: {}
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2928,7 +2928,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2957,7 +2957,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -2986,7 +2986,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -3015,7 +3015,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -3044,7 +3044,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -3073,7 +3073,7 @@ composite:
                       w: 12
                       h: 1
                       id: do35jzobe9fv1z8i
-                background: background.paper
+                background: grey.50
                 paddingX: custom:32px
                 paddingY: custom:32px
                 borderRadius: small
@@ -3266,7 +3266,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3282,7 +3282,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3298,7 +3298,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3314,7 +3314,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3330,7 +3330,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3489,7 +3489,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: transparent
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3505,7 +3505,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: space-between
@@ -3646,7 +3646,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: center
@@ -3662,7 +3662,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: start
@@ -3678,7 +3678,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: start
@@ -3694,7 +3694,7 @@ composite:
                 paddingX: custom:32px
                 gap: normal
                 paddingY: custom:32px
-                background: background.paper
+                background: grey.50
                 border: solid
                 borderRadius: small
                 alignContent: center
@@ -3928,6 +3928,8 @@ composite:
       - You want to provide **clear attribution** (name, title, and picture) to
       make the review feel authentic.
 
+
+      ---
 
 
       Constraint
@@ -5688,7 +5690,7 @@ composite:
               h: 1
         gap: normal
         paddingY: normal
-        background: background.paper
+        background: grey.50
         border: solid
         borderRadius: small
     dataSource:
@@ -6459,14 +6461,14 @@ composite:
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
-              x: 0
-              y: 0
-              w: 12
-              h: 1
             p4nkmtg2tfq2t659:
               x: 0
               y: 1
+              w: 12
+              h: 1
+            kymosznqhw9823l9:
+              x: 0
+              y: 0
               w: 12
               h: 1
         paddingX: none
@@ -7283,19 +7285,14 @@ composite:
       config:
         gridSettings:
           desktop:
-            carj7s5ignmoa8r8:
+            clt845zy8uab0yum:
               x: 0
               y: 0
               w: 12
               h: 1
-            clt845zy8uab0yum:
-              x: 0
-              y: 1
-              w: 12
-              h: 1
             smhe8tfgtxc3sar0:
               x: 0
-              y: 2
+              y: 1
               w: 12
               h: 1
         paddingX: none

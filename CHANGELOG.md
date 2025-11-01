@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.5...v1.6.0-beta.6) (2025-11-01)
+
+
+### Features
+
+* include page link when display site structure ([49569c8](https://github.com/AIGNE-io/aigne-web-smith/commit/49569c8fdd7fe0755df7ad63c20a73c4abf2f167))
+
 ## [1.6.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.4...v1.6.0-beta.5) (2025-10-31)
 
 

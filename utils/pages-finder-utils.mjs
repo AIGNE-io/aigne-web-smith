@@ -1,6 +1,7 @@
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import fs from "fs-extra";
+import { parse } from "yaml";
 import { NAVIGATIONS_FILE_NAME, PAGE_FILE_EXTENSION } from "./constants.mjs";
 import { getFileName } from "./utils.mjs";
 
@@ -190,7 +191,7 @@ export function fileNameToFlatPath(fileName) {
  * @returns {Object|null} Found item or null
  */
 export function findItemByFlatName(websiteStructureResult, flatName) {
-  return websiteStructureResult.find((item) => {
+  return websiteStructureResult?.find((item) => {
     const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
     return itemFlattenedPath === flatName;
   });
@@ -250,4 +251,29 @@ export function addFeedbackToItems(items, feedback) {
     ...item,
     feedback: feedback.trim(),
   }));
+}
+
+/**
+ * Load website structure result from tmpDir
+ * @param {string} tmpDir - Temporary directory path
+ * @returns {Promise<Array|null>} Website structure result array or null if not found
+ */
+export async function loadWebsiteStructureResult(tmpDir) {
+  const websiteStructurePath = join(tmpDir, "website-structure.yaml");
+  try {
+    await access(websiteStructurePath);
+    const websiteStructureResult = await readFile(websiteStructurePath, "utf8");
+    if (websiteStructureResult) {
+      try {
+        return parse(websiteStructureResult);
+      } catch (err) {
+        console.error(`Failed to parse website-structure.yaml: ${err.message}`);
+        return null;
+      }
+    }
+    return null;
+  } catch {
+    // The file does not exist, return null
+    return null;
+  }
 }

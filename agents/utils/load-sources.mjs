@@ -202,21 +202,8 @@ export default async function loadSources({
   }
 
   // Get the last structure plan result
-  let originalWebsiteStructure;
-  const websiteStructurePath = path.join(tmpDir, "website-structure.yaml");
-  try {
-    await access(websiteStructurePath);
-    const websiteStructureResult = await readFile(websiteStructurePath, "utf8");
-    if (websiteStructureResult) {
-      try {
-        originalWebsiteStructure = parse(websiteStructureResult);
-      } catch (err) {
-        console.error(`Failed to parse website-structure.yaml: ${err.message}`);
-      }
-    }
-  } catch {
-    // The file does not exist, originalWebsiteStructure remains undefined
-  }
+  const { loadWebsiteStructureResult } = await import("../../utils/pages-finder-utils.mjs");
+  const originalWebsiteStructure = await loadWebsiteStructureResult(tmpDir);
 
   // Get the last output result of the specified path
   let content;

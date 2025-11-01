@@ -3,6 +3,8 @@ import { resolve as resolvePath } from "node:path";
 import yaml from "yaml";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
+const title = 'Deployment Config'
+
 export default async function clearDeploymentConfig(input = {}) {
   const { pagesDir, configPath } = input;
 
@@ -12,7 +14,7 @@ export default async function clearDeploymentConfig(input = {}) {
 
   if (!finalConfigPath) {
     return {
-      message: "📦 No config file path specified. No need to clear appUrl.",
+      message: `📦 ${title}\n  • No config file path specified. No need to clear appUrl.`,
     };
   }
 
@@ -24,7 +26,7 @@ export default async function clearDeploymentConfig(input = {}) {
     const exists = await pathExists(configFilePath);
     if (!exists) {
       return {
-        message: `📦 Config file not found (${displayPath}). No need to clear appUrl.`,
+        message: `📦 ${title}\n  • Config file not found (${displayPath}). No need to clear appUrl.`,
       };
     }
 
@@ -47,12 +49,12 @@ export default async function clearDeploymentConfig(input = {}) {
     }
 
     return {
-      message: `🧹 Cleared appUrl from config file (${displayPath})`,
+      message: `📦 ${title}\n  ✔ Cleared appUrl from config file (${displayPath})`,
     };
   } catch (error) {
     return {
       error: true,
-      message: `❌ Failed to clear deployment config: ${error.message}`,
+      message: `⚠️ ${title}\n  ✗ Failed to clear deployment config: ${error.message}`,
     };
   }
 }

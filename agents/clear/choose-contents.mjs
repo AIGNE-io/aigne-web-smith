@@ -1,6 +1,5 @@
 import { rm } from "node:fs/promises";
 import { join, resolve as resolvePath } from "node:path";
-import fastGlob from "fast-glob";
 
 import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
 import { getMediaDescriptionCachePath, getTranslationCachePath } from "../../utils/file-utils.mjs";
@@ -31,7 +30,7 @@ export default async function chooseContents(input = {}, options = {}) {
         await rm(targetPath, { recursive: true, force: true });
         results.push({
           status: "removed",
-          message: `🧹 Cleared ${displayPath}`,
+          message: `📖 Website Structure \n  ✔ Cleared ${displayPath}`,
           path: displayPath,
         });
       },
@@ -40,34 +39,22 @@ export default async function chooseContents(input = {}, options = {}) {
       path: generatedPagesCandidate,
       label: "generated pages",
       description: ({ tmpDir }) =>
-        `Delete all generated pages in './${toDisplayPath(tmpDir)}' (website structure stays)`,
-      onClear: async ({ results, targetPath, displayPath, definition }) => {
-        // find targetPath without website-structure.yaml
-        const targetDirs = fastGlob.sync(join(targetPath, "**"), {
-          ignore: ["website-structure.yaml"],
-          deep: 1,
-          onlyDirectories: true,
-        });
-
-        if (!targetDirs?.length) {
-          results.push({
-            status: "noop",
-            message: `📦 The ${definition.label} is already empty (${displayPath})`,
-            path: displayPath,
-          });
-          return;
+        `Interactively select and delete specific generated pages in './${toDisplayPath(tmpDir)}' (website structure stays)`,
+      onClear: async ({ displayPath, results }) => {
+        const clearAgent = options.context?.agents?.["clearGeneratedPages"];
+        if (!clearAgent) {
+          throw new Error(
+            "Required agent 'clearGeneratedPages' not found in context. Please ensure the agent is properly registered.",
+          );
         }
 
-        await Promise.all(
-          targetDirs.map(async (dir) => {
-            await rm(dir, { recursive: true, force: true });
-            results.push({
-              status: "removed",
-              message: `🧹 Cleared ${toDisplayPath(dir)}`,
-              path: toDisplayPath(dir),
-            });
-          }),
-        );
+        const result = await options.context.invoke(clearAgent, input);
+
+        results.push({
+          status: result.error ? "error" : "removed",
+          message: result.message,
+          path: displayPath,
+        });
       },
     },
     websiteConfig: {
@@ -80,7 +67,7 @@ export default async function chooseContents(input = {}, options = {}) {
         await rm(targetPath, { recursive: true, force: true });
         results.push({
           status: "removed",
-          message: `🧹 Cleared ${displayPath}`,
+          message: `⚙️ Configuration\n  ✔ Cleared ${displayPath}`,
           path: displayPath,
         });
       },
@@ -159,7 +146,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
         results.push({
           status: "removed",
-          message: `🧹 Cleared ${displayPath}`,
+          message: `📦 Translation Cache\n  ✔ Cleared ${displayPath}`,
           path: displayPath,
         });
       },
@@ -199,7 +186,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
       if (choices.length === 0) {
         return {
-          message: "📦 No items are available to clear.",
+          message: "🧹 No items are available to clear.",
         };
       }
 
@@ -215,7 +202,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
       if (selectedTargets.length === 0) {
         return {
-          message: "📦 No items are available to clear.",
+          message: "🧹 No items are available to clear.",
         };
       }
     }
@@ -228,7 +215,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
   if (selectedTargets.length === 0) {
     return {
-      message: "📦 No items are available to clear.",
+      message: "🧹 No items are available to clear.",
     };
   }
 
@@ -256,16 +243,16 @@ export default async function chooseContents(input = {}, options = {}) {
     } catch (error) {
       results.push({
         status: "error",
-        message: `❌ Failed to clear ${definition.label}: ${error.message}`,
+        message: `✗ Failed to clear ${definition.label}: ${error.message}`,
         path: displayPath,
       });
     }
   }
 
   const hasError = results.some((item) => item.status === "error");
-  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup successful!";
+  const header = hasError ? "⚠️ Cleanup finished with some issues.\n" : "🧹 Cleanup successful!\n";
 
-  const detailLines = results.map((item) => `   ${item.message}`).join("\n");
+  const detailLines = results.map((item) => `${item.message}`).join("\n\n");
 
   const suggestions = [];
   if (configCleared) {

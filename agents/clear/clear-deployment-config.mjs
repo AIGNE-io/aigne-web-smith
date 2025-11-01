@@ -3,7 +3,7 @@ import { resolve as resolvePath } from "node:path";
 import yaml from "yaml";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
-const title = 'Deployment Config'
+const title = "Deployment Config";
 
 export default async function clearDeploymentConfig(input = {}) {
   const { pagesDir, configPath } = input;

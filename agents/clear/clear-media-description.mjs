@@ -5,7 +5,7 @@ import chalk from "chalk";
 import { parse, stringify } from "yaml";
 import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 
-const title = 'Media'
+const title = "Media";
 
 export default async function clearMediaDescription(_input = {}, options = {}) {
   const cacheFilePath = getMediaDescriptionCachePath();
@@ -111,7 +111,7 @@ export default async function clearMediaDescription(_input = {}, options = {}) {
     }
 
     const header = `🖼️ ${title}`;
-    const detailLines = results.map(m => `  ${m}`).join("\n");
+    const detailLines = results.map((m) => `  ${m}`).join("\n");
 
     const message = [header, "", detailLines, ""].filter(Boolean).join("\n");
 

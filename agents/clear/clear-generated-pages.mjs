@@ -1,11 +1,11 @@
+import { existsSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { join } from "node:path";
-import { existsSync } from "node:fs";
 import { loadWebsiteStructureResult } from "../../utils/pages-finder-utils.mjs";
 import { getFileName, toDisplayPath } from "../../utils/utils.mjs";
 import choosePages from "../utils/choose-pages.mjs";
 
-const title = 'Pages'
+const title = "Pages";
 
 /**
  * Clear generated pages - allows interactive selection of pages to delete
@@ -56,9 +56,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
   }
 
   // Get all available locales (fallback to just the main locale if none provided)
-  const allLocales = Array.isArray(locales) && locales.length > 0 
-    ? locales 
-    : [locale];
+  const allLocales = Array.isArray(locales) && locales.length > 0 ? locales : [locale];
 
   const results = [];
   let clearedCount = 0;
@@ -75,7 +73,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
     // Delete the page file from each locale directory
     for (const currentLocale of allLocales) {
       const localeDir = join(tmpDir, currentLocale);
-      
+
       // Skip if locale directory doesn't exist
       if (!existsSync(localeDir)) {
         continue;
@@ -147,4 +145,3 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
 
 clearGeneratedPages.taskTitle = "Clear generated pages";
 clearGeneratedPages.description = "Interactively select and clear specific generated pages";
-

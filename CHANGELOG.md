@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2025-11-01)
+
+
+### Features
+
+* support cleaning specific pages  ([#179](https://github.com/AIGNE-io/aigne-web-smith/issues/179)) ([ec49d3f](https://github.com/AIGNE-io/aigne-web-smith/commit/ec49d3f157bd9dfea6268dd412442e8f21544468))
+
 ## [1.6.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.6...v1.6.0-beta.7) (2025-11-01)
 
 

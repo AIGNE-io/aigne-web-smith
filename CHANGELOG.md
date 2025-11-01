@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.8...v1.6.0-beta.9) (2025-11-01)
+
+
+### Bug Fixes
+
+* adjust component background colors ([#178](https://github.com/AIGNE-io/aigne-web-smith/issues/178)) ([6ce85f6](https://github.com/AIGNE-io/aigne-web-smith/commit/6ce85f63ae5833f0e027d5586d213d51264d84a4))
+
 ## [1.6.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.7...v1.6.0-beta.8) (2025-11-01)
 
 

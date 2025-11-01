@@ -64,7 +64,9 @@ export function formatWebsiteStructure(structure) {
     const indent = INDENT_SPACES.repeat(depth);
     const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
-    console.log(`${indent}${prefix} ${node.title}`);
+    // Include URL in brackets after the title
+    const url = `/${node.path}`;
+    console.log(`${indent}${prefix} ${node.title} [${url}]`);
 
     if (node.children && node.children.length > 0) {
       node.children.forEach((child) => {

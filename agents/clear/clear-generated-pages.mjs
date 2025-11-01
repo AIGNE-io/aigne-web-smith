@@ -43,7 +43,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
       locale,
       requiredFeedback: false, // Don't require feedback for clearing
       multipleSelection: true,
-      title: 'Select pages to delete:'
+      title: "Select pages to delete:",
     },
     options,
   );

@@ -65,7 +65,7 @@ export function formatWebsiteStructure(structure) {
     const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
     // Include URL in brackets after the title
-    const url = `/${node.path}`;
+    const url = node.path.startsWith("/") ? node.path : `/${node.path}`;
     console.log(`${indent}${prefix} ${node.title} [${url}]`);
 
     if (node.children && node.children.length > 0) {

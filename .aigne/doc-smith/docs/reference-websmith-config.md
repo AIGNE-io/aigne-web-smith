@@ -1,256 +1,355 @@
-# WebSmith Configuration File
+# WebSmith Config
 
-This guide provides a detailed reference for all settings in the `.aigne/web-smith/config.yaml` file. This file is the single source of truth for how WebSmith plans, generates, and deploys your site. It defines your project's messaging, target audiences, data sources, localization, and publishing details, which the AI agents rely on for every `generate` or `update` command.
+The `config.yaml` file is the central configuration for your WebSmith project. It dictates every aspect of your website, from its core purpose and target audience to its structure, content sources, and deployment settings. This guide provides a detailed breakdown of each configuration option.
 
-**Key Principles**
+While you can edit this file manually, we strongly recommend using the WebSmith command-line interface (CLI) to initialize and modify your configuration. The CLI provides an interactive wizard that ensures all settings are valid and follow best practices.
 
-*   **Stable Metadata**: Keep required metadata such as `projectName`, `projectId`, and `projectSlug` consistent. Downstream services rely on these identifiers.
-*   **Strategy-Driven Content**: The strategy fields (`pagePurpose`, `targetAudienceTypes`, `rules`) direct the AI's narrative style. Update these first when your product or marketing strategy changes.
-*   **Explicit Data Sources**: The `sourcesPath` and `defaultDatasources` lists control what content WebSmith analyzes. New data files must be registered here before generation.
-*   **Controlled Deployment**: Deployment settings (`appUrl`, `checkoutId`) influence how the generated website is published.
+```bash
+# Generate a new configuration file using the interactive wizard
+aigne web init
+
+# View all available commands for managing your website
+aigne web --help
+```
+
+## How Configuration Translates to a Website
+
+The following diagram illustrates the process WebSmith uses to transform your `config.yaml` file into a complete set of website files.
 
 ```d2
 direction: down
 
-# Actors
-developer: {
-  label: "Developer"
-  shape: c4-person
+config-yaml: {
+  label: ".aigne/web-smith/config.yaml"
+  shape: rectangle
 }
 
-# Core Components
 websmith-engine: {
-  label: "AIGNE WebSmith Engine"
+  label: "WebSmith Engine"
   shape: rectangle
-  style: {
-    fill: "#f0f4ff"
-    stroke: "#b3c7f2"
+
+  structure-planning: {
+    label: "1. Website Structure Planning"
+  }
+
+  page-generation: {
+    label: "2. Page Content Generation"
+  }
+
+  file-output: {
+    label: "3. File Output"
+  }
+
+  structure-planning -> page-generation -> file-output: "Processes"
+}
+
+website-structure-yaml: {
+  label: "website-structure.yaml"
+  shape: rectangle
+}
+
+generated-page-files: {
+  label: "Generated Content"
+  shape: rectangle
+  style.stroke-dash: 2
+
+  page-yaml: {
+    label: "page.yaml"
+  }
+  navigations-yaml: {
+    label: "_navigations.yaml"
   }
 }
 
-# Artifacts & Data
-config-file: {
-  label: "config.yaml"
-  shape: rectangle
-  grid-columns: 2
-  grid-gap: 40
-
-  metadata: {
-    label: "1. Project Metadata"
-    shape: rectangle
-    projectName
-    projectDesc
-    projectId
-  }
-
-  strategy: {
-    label: "2. Website Strategy"
-    shape: rectangle
-    pagePurpose
-    targetAudienceTypes
-    rules
-  }
-
-  localization: {
-    label: "3. Localization"
-    shape: rectangle
-    locale
-    translateLanguages
-  }
-
-  sources: {
-    label: "4. Content Sources"
-    shape: rectangle
-    sourcesPath
-  }
-
-  media: {
-    label: "5. Media & Assets"
-    shape: rectangle
-    minImageWidth
-    projectCover
-  }
-
-  deployment: {
-    label: "6. Deployment"
-    shape: rectangle
-    appUrl
-    checkoutId
-  }
-}
-
-content-sources: {
-  label: "Content Sources\n(.md, .yaml)"
+output-directory: {
+  label: ".aigne/web-smith/pages/workspace/"
   shape: cylinder
 }
 
-repository: {
-  label: "Git Repository"
-  shape: cylinder
-  
-  generated-site: {
-    label: "Generated Website\n(Markdown/HTML)"
-    shape: cylinder
-    style.fill: "#e6ffed"
-  }
-}
+config-yaml -> websmith-engine.structure-planning: "Reads config"
+websmith-engine.structure-planning -> website-structure-yaml: "Generates"
 
-# Workflow Connections
-developer -> config-file: "1. Modify Configuration"
-developer -> content-sources: "2. Add New Sources"
-developer -> websmith-engine: "3. Run `aigne generate`"
+website-structure-yaml -> websmith-engine.page-generation: "Uses structure"
+config-yaml -> websmith-engine.page-generation: "Uses locale"
 
-config-file -> websmith-engine: "Reads"
-content-sources -> websmith-engine: "Analyzes"
+websmith-engine.page-generation -> generated-page-files: "Generates"
 
-websmith-engine -> repository.generated-site: "Generates/Updates"
+generated-page-files -> websmith-engine.file-output: "Collects"
+website-structure-yaml -> websmith-engine.file-output: "Collects"
 
-developer -> repository: "4. Review & Commit"
+websmith-engine.file-output -> output-directory: "Saves files"
+
 ```
 
-## Configuration Structure
+## Example: AIGNE WebSmith Official Website
 
-The configuration is organized into several logical sections. Below is a detailed breakdown of each parameter.
+To understand how these fields work in practice, let's analyze the actual `config.yaml` file used for the official AIGNE WebSmith project.
 
-### Project Publishing Metadata
+**File Path**: `.aigne/web-smith/config.yaml`
 
-This section defines the core identity of your project. This information is used in generated pages, reports, and SEO metadata.
+This configuration defines a single-page SaaS tool website targeted at developers and entrepreneurs.
+
+### Full Configuration File
+
+```yaml AIGNE WebSmith config.yaml
+projectName: AIGNE WebSmith
+projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
+projectLogo: https://www.arcblock.io/content/uploads/2e5edbac4a7d5310f5c117d09601811c.png
+projectId: pg4d0000-0000-4000-a000-000000000000
+projectSlug: /
+pagePurpose:
+  - landingPage
+targetAudienceTypes:
+  - customers
+websiteScale: singlePage
+rules: |
+  ### I. Core Messaging & Strategy: Foundational elements that define *what* you communicate to the user.
+  1. Answer Critical Questions "Above the Fold": The very first screen a user sees must clearly and immediately answer:
+    * What it is: A concise description of the product.
+    * Who it's for: The specific target audience (e.g., solo founders, small teams).
+    * Why it's different: Your unique value proposition (e.g., "open, composable, exportable code, agent workflow").
+    * Primary Action: A single, clear Call to Action (CTA) that aligns with the user's main goal.
+  2. Establish Credibility with Proof: Don't expect users to trust your claims. Show them proof early in the narrative.
+    * Show, Don't Just Tell: The most powerful proof is a demo. Include a short (30-45s) silent video loop or a link to a real site built with the tool.
+    * Use Social Proof: Before explaining "How it Works," insert tangible evidence like a customer logo, a compelling data point (e.g., "Used by 50+ teams"), or a strong user quote.
+  3. Define a Clear Call to Action (CTA):
+    * Align CTA with the Audience: The primary CTA should be the main action you want your target user to take (e.g., "Generate My Site").
+    * Prioritize CTAs: Relegate secondary actions (like "See it on GitHub") to less prominent positions (tertiary buttons or footer links), especially for non-developer audiences.
+    * Maintain a Persistent Mobile CTA: On mobile, a single primary CTA should always be visible.
+locale: en
+translateLanguages:
+  - zh
+  - zh-TW
+  - ja
+pagesDir: .aigne/web-smith/pages
+sourcesPath:
+  - ./assets/documents
+  - ./README.md
+  - ./aigne.yaml
+  - ./assets/images
+  - ./assets/recordings/README.md
+  - ./CHANGELOG.md
+  - ./agents
+defaultDatasources:
+  - ./media.md
+media:
+  minImageWidth: 600
+lastGitHead: c4a4d3db4bf230e2c6873419e26b6654c39613a5
+checkoutId: ""
+projectCover: .aigne/web-smith/cover.png
+shouldSyncAll: ""
+navigationType: ""
+appUrl: https://mhevtaeg.user.aigne.io
+```
+
+### Configuration Field Analysis
+
+#### Project Information
+
+These fields define the basic identity of your website.
 
 <x-field-group>
-  <x-field data-name="projectName" data-type="string" data-required="true" data-desc="The human-readable title of your project. It appears in page titles and reports."></x-field>
-  <x-field data-name="projectDesc" data-type="string" data-required="true" data-desc="A short marketing description used for SEO metadata and internal AI prompts."></x-field>
-  <x-field data-name="projectLogo" data-type="URL" data-required="false" data-desc="The absolute URL or a reachable CDN path to your project's logo, used in headers and social media cards."></x-field>
-  <x-field data-name="projectId" data-type="UUID" data-required="true" data-desc="A unique identifier for WebSmith services. This is automatically generated and should not be modified or recycled between projects."></x-field>
-  <x-field data-name="projectSlug" data-type="string" data-required="false" data-desc="The default URL segment for your project (e.g., /my-site). Keep this in sync with your deployment target."></x-field>
+  <x-field data-name="projectName" data-type="string" data-required="true" data-desc="The display name of the website, used in page titles (<title>), navigation bars, and logos."></x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true" data-desc="A brief description used for SEO meta tags and social media sharing previews."></x-field>
+  <x-field data-name="projectCover" data-type="string" data-required="false" data-desc="The path to a cover image for the website, used in previews and social shares."></x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false" data-desc="The URL or path to the website's logo, appearing in the header, browser favicon, and social media thumbnails."></x-field>
+  <x-field data-name="projectId" data-type="string" data-required="true" data-desc="A unique identifier (UUID) for the project, crucial for deployment, history tracking, and data source association."></x-field>
+  <x-field data-name="projectSlug" data-type="string" data-required="false" data-desc="A URL path prefix for the entire site, affecting deployment paths and internal links."></x-field>
 </x-field-group>
 
-### Website Strategy & Narrative
+#### Website Strategy
 
-These fields guide the AI on the narrative, tone, and structure of the website content.
+These core fields guide the AI's high-level strategy for content and structure generation.
 
 <x-field-group>
-  <x-field data-name="pagePurpose" data-type="list" data-required="true">
-    <x-field-desc markdown>Declares the primary goal of the site (e.g., `landingPage`, `portfolio`, `documentation`). You can list multiple purposes to blend storytelling approaches.</x-field-desc>
+  <x-field data-name="pagePurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>Defines the primary goal of the website. For `landingPage`, the AI focuses on conversion, generating sections like a hero, feature lists, CTAs, and FAQs.</x-field-desc>
   </x-field>
-  <x-field data-name="targetAudienceTypes" data-type="list" data-required="false">
-    <x-field-desc markdown>Guides the tone and calls-to-action (CTAs). Valid options include `customers`, `developers`, `investors`, etc. Include all relevant audiences.</x-field-desc>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>Specifies the intended audience. For `customers`, the AI adopts a clear, benefit-oriented writing style, emphasizing ease of use and results.</x-field-desc>
   </x-field>
-  <x-field data-name="websiteScale" data-type="enum" data-required="false">
-    <x-field-desc markdown>Indicates the intended size and complexity of the site (e.g., `singlePage`, `standard`, `aiDecide`).</x-field-desc>
+  <x-field data-name="websiteScale" data-type="string" data-required="true">
+    <x-field-desc markdown>Determines the size and structure. A `singlePage` site consolidates all content into one scrollable `/home` page.</x-field-desc>
   </x-field>
-  <x-field data-name="rules" data-type="string" data-required="false">
-    <x-field-desc markdown>High-priority instructions for the AI regarding structure, narrative flow, and tone. WebSmith parses Markdown formatting (headings, lists) as guidance, not literal copy.</x-field-desc>
-  </x-field>
-  <x-field data-name="pagesDir" data-type="path" data-required="false" data-desc="The output directory for generated website pages. This is where WebSmith writes the final files."></x-field>
 </x-field-group>
 
-### Localization & Languages
+#### Content Strategy (`rules`)
 
-Configure the languages for your website content.
+The `rules` field provides detailed, Markdown-formatted instructions for the AI, acting as a creative brief. It ensures the generated content aligns with brand voice, messaging priorities, and structural requirements. This is the most critical field for controlling the quality and direction of the AI-generated content.
+
+#### Internationalization
+
+These fields configure multi-language support.
 
 <x-field-group>
-  <x-field data-name="locale" data-type="string" data-required="false">
-    <x-field-desc markdown>The primary language for content generation, specified using an IETF language code (e.g., `en`, `en-US`, `zh-TW`).</x-field-desc>
-  </x-field>
-  <x-field data-name="translateLanguages" data-type="list" data-required="false">
-    <x-field-desc markdown>A list of additional IETF language codes into which WebSmith should translate the content.</x-field-desc>
-  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true" data-desc="The primary language for the website. The AI generates content in this language first."></x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false" data-desc="A list of additional languages to translate the content into. WebSmith will generate a complete version of the site for each language listed."></x-field>
 </x-field-group>
 
-### Content Sources & Datasources
+#### Content Sources
 
-Define where WebSmith should find your content.
+These paths tell the AI where to find the raw materials for website generation.
 
 <x-field-group>
-  <x-field data-name="sourcesPath" data-type="list" data-required="false">
-    <x-field-desc markdown>A list of directory or file paths that WebSmith analyzes for context. Add new data files (e.g., `.yaml`, `.md`) here before generation.</x-field-desc>
-  </x-field>
-  <x-field data-name="defaultDatasources" data-type="list" data-required="false">
-    <x-field-desc markdown>A list of datasource paths that are automatically injected into every page. Useful for globally available data like media catalogs.</x-field-desc>
-  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="false" data-desc="A list of files and directories that the AI will analyze to understand the project. This can include documents, READMEs, images, and even source code."></x-field>
+  <x-field data-name="defaultDatasources" data-type="array" data-required="false" data-desc="A list of data source files (e.g., media.md) that are automatically injected into every page, providing a shared context."></x-field>
 </x-field-group>
 
-### Media & Visual Assets
+#### Media and Deployment
 
-Control the handling of images and other visual elements.
+These fields control media handling and deployment-related settings.
+
+<x-field-group>
+  <x-field data-name="media" data-type="object" data-required="false" data-desc="Settings related to media assets.">
+    <x-field data-name="minImageWidth" data-type="integer" data-required="false" data-desc="The minimum width in pixels for images to be considered for use, ensuring visual quality."></x-field>
+  </x-field>
+  <x-field data-name="appUrl" data-type="string" data-required="false" data-desc="The final deployment URL of the website, which influences generated links and SEO settings."></x-field>
+  <x-field data-name="lastGitHead" data-type="string" data-required="false" data-desc="Internal field to track the Git commit ID of the last generation."></x-field>
+  <x-field data-name="checkoutId" data-type="string" data-required="false" data-desc="An identifier for the ArcBlock deployment service."></x-field>
+</x-field-group>
+
+## Configuration Field Reference
+
+This section provides a comprehensive reference for all available fields in the `config.yaml` file.
+
+### Project Information
+
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true" data-desc="The display name of your project."></x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true" data-desc="A short description of your project, used for SEO meta tags."></x-field>
+  <x-field data-name="projectId" data-type="string" data-required="true" data-desc="A unique UUID for your project. Do not change this after initialization."></x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false" data-desc="A URL or local path to your project's logo."></x-field>
+  <x-field data-name="projectSlug" data-type="string" data-required="false" data-desc="A URL prefix for your entire site (e.g., '/blog'). Defaults to '/'."></x-field>
+</x-field-group>
+
+### Website Strategy
+
+#### `pagePurpose`
+Defines the primary objective of your website, which heavily influences the AI's content strategy and component selection.
+
+*   **Type**: `list of enums`
+*   **Required**: Yes
+
+| Value | Description | Best For |
+| :--- | :--- | :--- |
+| `landingPage` | Focuses on conversion with a clear value proposition, CTAs, and social proof. | Product launches, marketing campaigns |
+| `ecommerce` | Optimizes for sales with product catalogs, shopping carts, and customer reviews. | Online stores |
+| `portfolio` | Emphasizes visual presentation with project galleries and case studies. | Designers, developers, artists |
+| `corporate` | Provides company information, including services, team, and contact details. | Businesses, agencies |
+| `blog` | Organizes content for readability, SEO, and social sharing. | Content creators, publications |
+| `saas` | Explains software features, pricing, and provides user onboarding guides. | Software as a Service products |
+| `nonprofit` | Communicates a mission, facilitates donations, and recruits volunteers. | Charities, foundations |
+| `education` | Lists courses, organizes learning paths, and tracks student progress. | Schools, online courses |
+| `mixedPurpose` | Balances multiple objectives for a site with diverse user journeys. | Complex projects |
+
+#### `targetAudienceTypes`
+Defines the intended audience, which shapes the AI's writing style, tone, and vocabulary.
+
+*   **Type**: `list of enums`
+*   **Required**: Yes
+
+| Value | Writing Style |
+| :--- | :--- |
+| `customers` | Clear, benefit-focused language with trust signals. |
+| `businessOwners` | Professional tone, focused on ROI and efficiency. |
+| `marketers` | Focus on marketing metrics, branding, and campaigns. |
+| `designers` | Visually-driven language, appealing to aesthetics and creativity. |
+| `developers` | Technical, precise language with code examples and API references. |
+| `investors` | Focus on growth metrics, market opportunity, and financial projections. |
+| `jobSeekers` | Emphasizes company culture, career growth, and benefits. |
+| `students` | Educational tone with step-by-step guidance and progress tracking. |
+| `generalPublic` | Simple, accessible language with broad appeal. |
+
+#### `websiteScale`
+Defines the overall size and number of pages for the website.
+
+*   **Type**: `enum`
+*   **Required**: Yes
+
+| Value | Page Count | Description |
+| :--- | :--- | :--- |
+| `singlePage` | 1 | All content is consolidated on a single, scrollable home page. |
+| `minimal` | 2-6 | A small site with essential pages like Home, About, Services, Contact. |
+| `standard` | 7-12 | A standard business site, adding pages like Portfolio, Blog, Team, FAQ. |
+| `comprehensive` | 12+ | A large, content-rich site with detailed service pages and resources. |
+| `aiDecide` | Varies | Allows the AI to determine the appropriate scale based on other settings. |
+
+### Content Strategy
+
+<x-field-group>
+  <x-field data-name="rules" data-type="multiline string" data-required="false">
+    <x-field-desc markdown>Provides detailed, Markdown-formatted instructions for the AI on page structure, content, and style. This is highly recommended for achieving high-quality, targeted results.</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true" data-desc="The primary language of the site, using IETF language codes (e.g., 'en', 'zh-CN')."></x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false" data-desc="A list of IETF language codes to create translated versions of the site."></x-field>
+</x-field-group>
+
+### Data Sources
+
+<x-field-group>
+  <x-field data-name="sourcesPath" data-type="list of paths" data-required="false" data-desc="A list of files and directories for the AI to analyze as source material."></x-field>
+  <x-field data-name="defaultDatasources" data-type="list of paths" data-required="false" data-desc="A list of data files (e.g., company info) to be made available to every page."></x-field>
+</x-field-group>
+
+### Media and Display
 
 <x-field-group>
   <x-field data-name="media" data-type="object" data-required="false">
-    <x-field data-name="minImageWidth" data-type="integer" data-required="false" data-desc="The minimum allowed width (in pixels) for images in generated layouts."></x-field>
+    <x-field data-name="minImageWidth" data-type="integer" data-required="false" data-desc="The minimum width in pixels for an image to be used, filtering out low-quality assets."></x-field>
   </x-field>
-  <x-field data-name="projectCover" data-type="path" data-required="false" data-desc="The path to a cover image used for hero sections and social media previews."></x-field>
 </x-field-group>
 
-### Deployment & Integration
-
-These fields contain settings related to publishing your website.
+### Deployment
 
 <x-field-group>
-  <x-field data-name="appUrl" data-type="URL" data-required="false" data-desc="The primary deployment URL for the website. Used for canonical links and other references."></x-field>
-  <x-field data-name="navigationType" data-type="string" data-required="false" data-desc="An optional override for the navigation style."></x-field>
-  <x-field data-name="checkoutId" data-type="string" data-required="false" data-desc="The identifier for ArcBlock’s deployment/checkout service."></x-field>
-  <x-field data-name="shouldSyncAll" data-type="string" data-required="false">
-    <x-field-desc markdown>Controls whether the publish step pushes all artifacts. Set to `"true"` for a full sync.</x-field-desc>
-  </x-field>
-  <x-field data-name="lastGitHead" data-type="string" data-required="false" data-desc="The Git commit SHA from the last generation. WebSmith updates this automatically."></x-field>
+  <x-field data-name="appUrl" data-type="URL" data-required="false" data-desc="The final deployment URL for the website."></x-field>
+  <x-field data-name="checkoutId" data-type="string" data-required="false" data-desc="The checkout identifier from the ArcBlock deployment service."></x-field>
+  <x-field data-name="shouldSyncAll" data-type="string" data-required="false" data-desc="Set to 'true' to sync all files on the initial deployment. Leave empty for subsequent updates."></x-field>
 </x-field-group>
 
-## Example Configuration
+## Best Practices
 
-Here is a sample `config.yaml` file that demonstrates a typical setup.
+### Configuration Management
+*   **Version Control**: Always commit your `config.yaml` to a Git repository to track changes.
+*   **Backups**: Before making significant changes, create a backup of your configuration file.
+*   **Collaboration**: For teams, establish a clear process for reviewing and approving configuration changes.
 
-```yaml config.yaml icon=logos:yaml
-# 1. Project Publishing Metadata
-projectName: "AIGNE WebSmith Docs"
-projectDesc: "The official documentation for AIGNE WebSmith."
-projectLogo: "https://example.com/logo.png"
-projectId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-projectSlug: "websmith-docs"
+### Performance and SEO
+*   **Image Sizing**: Set a reasonable `minImageWidth` to balance visual quality and page load speed. An `800px` width is a good starting point for most sites.
+*   **URL Structure**: Use a meaningful `projectSlug` for better SEO (e.g., `/portfolio` or `/docs`).
+*   **Descriptions**: Write a concise, keyword-rich `projectDesc` (under 150 characters) to improve search engine visibility.
 
-# 2. Website Strategy & Narrative
-pagePurpose:
-  - documentation
-  - landingPage
-targetAudienceTypes:
-  - developers
-websiteScale: "standard"
-rules: |
-  - Focus on clarity and practical examples.
-  - Maintain a professional but approachable tone.
-  - Ensure all code snippets are accurate and easy to copy.
-pagesDir: "src/pages"
+### Multi-Language Support
+*   **Language Codes**: Use standard IETF language codes (e.g., `en`, `zh-CN`, `zh-TW`, `ja`) to ensure proper identification.
+*   **Localization**: Review translated content to ensure it is culturally appropriate for the target region.
 
-# 3. Localization & Languages
-locale: "en"
-translateLanguages:
-  - "zh-TW"
+## Frequently Asked Questions
 
-# 4. Content Sources & Datasources
+### Q1: How do I handle configuration for a large, complex website?
+For sites with 20+ pages, use `websiteScale: comprehensive`. More importantly, structure your content sources logically in separate directories and reference them in `sourcesPath`.
+```yaml
+websiteScale: comprehensive
 sourcesPath:
-  - "src/content"
-  - "src/data/features.yaml"
-defaultDatasources:
-  - "src/data/site-metadata.yaml"
-
-# 5. Media & Visual Assets
-media:
-  minImageWidth: 600
-projectCover: "src/assets/cover-image.png"
-
-# 6. Deployment & Integration
-appUrl: "https://docs.aigne.com/websmith"
-checkoutId: "chk_12345"
-shouldSyncAll: "false"
-lastGitHead: ""
+  - ./content/homepage/
+  - ./content/products/
+  - ./content/about/
+  - ./content/blog/
+  - ./assets/common/
 ```
 
-## Common Update Workflow
+### Q2: The generated content doesn't match my expectations. What should I do?
+This is almost always solved by improving your `rules`. Be more specific in your instructions.
+1.  **Refine `rules`**: Provide explicit guidance on page structure, tone of voice, and key messages.
+2.  **Check `targetAudienceTypes`**: Ensure your selected audience accurately reflects who you're trying to reach.
+3.  **Add More `sourcesPath`**: Give the AI more context by providing brand stories, product feature lists, or customer case studies.
 
-To apply changes to your website using the configuration file, follow these steps:
+### Q3: Why did my multi-language build fail?
+The most common causes are incorrect language codes or source content encoding issues.
+1.  **Verify Codes**: Double-check that `locale` and `translateLanguages` use valid IETF codes.
+2.  **Check Encoding**: Ensure all your source files are saved with UTF-8 encoding.
 
-1.  **Modify Configuration**: Adjust the strategy, metadata, or other fields in `config.yaml` as needed.
-2.  **Register New Sources**: If you have new data files, register them under `sourcesPath` and, if necessary, `defaultDatasources`.
-3.  **Run WebSmith**: Use `aigne run generate` for a completely new build or `aigne run update` to refresh the content on existing pages.
-4.  **Review and Commit**: Review the generated content to ensure it reflects your changes, then commit the updated files to your repository.
-
-By keeping this configuration file aligned with your project's goals and content sources, you ensure that WebSmith consistently generates a high-quality, on-brand website.
+### Q4: Why are my images blurry or not appearing?
+This usually relates to the `minImageWidth` setting or incorrect file paths.
+1.  **Adjust `minImageWidth`**: If you have smaller but acceptable images, lower the value (e.g., from `800` to `600`).
+2.  **Verify Paths**: Check that the image paths in your `sourcesPath` are correct and that the files exist.
+3.  **Check Format**: Ensure images are in a supported format (JPG, PNG, GIF, WebP, SVG).

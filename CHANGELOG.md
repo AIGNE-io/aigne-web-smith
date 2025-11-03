@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.9...v1.6.0-beta.10) (2025-11-03)
+
+
+### Features
+
+* **doc:** add config.yml guide and update latest update doc ([#175](https://github.com/AIGNE-io/aigne-web-smith/issues/175)) ([46b1ef0](https://github.com/AIGNE-io/aigne-web-smith/commit/46b1ef05282f9d345f5cd15b008eb6f8782f206c))
+
 ## [1.6.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.8...v1.6.0-beta.9) (2025-11-01)
 
 

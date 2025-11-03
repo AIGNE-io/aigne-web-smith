@@ -1,12 +1,4 @@
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  mock,
-  spyOn,
-  test,
-} from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import publishWebsite from "../../../agents/publish/publish-website.mjs";
 
 // Import internal utils for spying
@@ -93,10 +85,19 @@ describe("publish-website", () => {
       if (urlStr.includes("/api/sdk/upload-data")) {
         return Promise.resolve({
           ok: true,
-          text: () => Promise.resolve(JSON.stringify({ 
-            success: true, 
-            pages: [{ sourceFile: "page1.yaml", success: true, data: { url: "https://example.com/page1", route: { path: "/page1" } } }] 
-          })),
+          text: () =>
+            Promise.resolve(
+              JSON.stringify({
+                success: true,
+                pages: [
+                  {
+                    sourceFile: "page1.yaml",
+                    success: true,
+                    data: { url: "https://example.com/page1", route: { path: "/page1" } },
+                  },
+                ],
+              }),
+            ),
         });
       }
       if (urlStr.includes("/api/sdk/project/validate")) {
@@ -155,7 +156,11 @@ describe("publish-website", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://pages-kit.example.com", "", expect.any(Boolean));
+    expect(getAccessTokenSpy).toHaveBeenCalledWith(
+      "https://pages-kit.example.com",
+      "",
+      expect.any(Boolean),
+    );
     expect(result.message).toBeDefined();
     expect(result.message).toContain("Pages published successfully");
   });
@@ -173,11 +178,15 @@ describe("publish-website", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env-pages.example.com", "", expect.any(Boolean));
+    expect(getAccessTokenSpy).toHaveBeenCalledWith(
+      "https://env-pages.example.com",
+      "",
+      expect.any(Boolean),
+    );
   });
 
   test("should use production URL when PAGES_KIT_URL && appUrl are not set", async () => {
-    loadConfigFromFileSpy.mockResolvedValue({ });
+    loadConfigFromFileSpy.mockResolvedValue({});
 
     await publishWebsite({}, mockOptions);
 
@@ -216,7 +225,11 @@ describe("publish-website", () => {
       message: "Please enter your website URL:",
       validate: expect.any(Function),
     });
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "", expect.any(Boolean));
+    expect(getAccessTokenSpy).toHaveBeenCalledWith(
+      "https://custom.example.com",
+      "",
+      expect.any(Boolean),
+    );
   });
 
   test("should validate URL input and accept valid URLs", async () => {
@@ -284,10 +297,12 @@ describe("publish-website", () => {
   });
 
   test("should handle publish failure", async () => {
-    fetchSpy.mockImplementation(() => Promise.resolve({
-      ok: false,
-      text: () => Promise.resolve(JSON.stringify({ error: "Publish failed" })),
-    }));
+    fetchSpy.mockImplementation(() =>
+      Promise.resolve({
+        ok: false,
+        text: () => Promise.resolve(JSON.stringify({ error: "Publish failed" })),
+      }),
+    );
 
     const result = await publishWebsite(
       {
@@ -360,7 +375,9 @@ describe("publish-website", () => {
       mockOptions,
     );
 
-    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Resuming your previous website setup"));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Resuming your previous website setup"),
+    );
     expect(deploySpy).toHaveBeenCalledWith("cached-checkout-123", "https://payment.example.com");
 
     consoleSpy.mockRestore();

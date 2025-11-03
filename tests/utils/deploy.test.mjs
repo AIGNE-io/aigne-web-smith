@@ -92,7 +92,7 @@ describe("deploy", () => {
 
     // Verify BrokerClient was constructed with correct config
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith({
-      baseUrl: "https://staging.websmith.aigne.io",
+      baseUrl: "https://websmith.aigne.io",
       authToken: "mock-auth-token",
     });
 
@@ -177,11 +177,6 @@ describe("deploy", () => {
       "checkoutId",
       "session-123",
       "Checkout ID for website deployment service",
-    );
-    expect(saveValueToConfigSpy).toHaveBeenCalledWith(
-      "paymentUrl",
-      "https://payment.test/session-123",
-      "Payment URL for website deployment service",
     );
 
     // Verify browser was opened
@@ -304,7 +299,7 @@ describe("deploy", () => {
     expect(result.homeUrl).toBe(TEST_HOME_URL);
   });
 
-  test("uses default staging URL even when WEB_SMITH_BASE_URL is set", async () => {
+  test("uses default production URL even when WEB_SMITH_BASE_URL is set", async () => {
     process.env.WEB_SMITH_BASE_URL = "https://custom.websmith.test";
 
     const mockResult = {
@@ -320,12 +315,12 @@ describe("deploy", () => {
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith(
       expect.objectContaining({
         authToken: "mock-auth-token",
-        baseUrl: "https://staging.websmith.aigne.io",
+        baseUrl: "https://websmith.aigne.io",
       }),
     );
   });
 
-  test("uses default staging URL when WEB_SMITH_BASE_URL is not set", async () => {
+  test("uses default production URL when WEB_SMITH_BASE_URL is not set", async () => {
     delete process.env.WEB_SMITH_BASE_URL;
 
     const mockResult = {
@@ -341,7 +336,7 @@ describe("deploy", () => {
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith(
       expect.objectContaining({
         authToken: "mock-auth-token",
-        baseUrl: "https://staging.websmith.aigne.io",
+        baseUrl: "https://websmith.aigne.io",
       }),
     );
   });

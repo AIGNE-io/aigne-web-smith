@@ -272,6 +272,17 @@
     "description": "Provides information on how to use the 'Latest Updates' component to showcase recent changes, news, or blog posts on your website.",
     "path": "/advanced-features/using-special-components/latest-updates",
     "parentId": "/advanced-features/using-special-components",
-    "sourceIds": ["CHANGELOG.md", "README.md"]
+    "sourceIds": [
+      "CHANGELOG.md",
+      "README.md",
+      "assets/documents/special-components/latest-updates.md"
+    ]
+  },
+  {
+    "title": "WebSmith Config",
+    "description": "A detailed guide to understanding and modifying all the settings in the `websmith-config.yaml` file to customize your website generation process.",
+    "path": "/reference/websmith-config",
+    "parentId": "/reference",
+    "sourceIds": ["assets/documents/special-components/websmith-config.md"]
   }
 ]

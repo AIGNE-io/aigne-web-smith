@@ -18,6 +18,17 @@ To perform a global installation, run the following command in your terminal:
 npm install -g @aigne/cli
 ```
 
+### Installing the Beta Version
+
+For users who wish to test the latest features, a beta version is available. To install the beta version, you must first install the beta package and then run the upgrade command.
+
+Execute the following commands in your terminal:
+
+```bash
+npm install -g @aigne/cli@beta
+aigne web upgrade --beta
+```
+
 ### Alternative: Local Installation
 
 Alternatively, you can install the AIGNE CLI as a local dependency within a specific project. This is suitable if you prefer to manage dependencies on a per-project basis.

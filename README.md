@@ -70,8 +70,13 @@ WebSmith is built on the AIGNE framework using an Agent-based architecture:
 # Install AIGNE CLI
 npm install -g @aigne/cli
 
+# Install Aigne CLI Beta
+npm install -g @aigne/cli@beta
+aligne web upgrade --beta
+
 # Or install locally
 npm install @aigne/cli
+npm install @aigne/cli@beta
 ```
 
 ### Basic Usage

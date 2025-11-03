@@ -1,256 +1,461 @@
-# WebSmith 設定ファイル
+# WebSmith 設定
 
-このガイドでは、`.aigne/web-smith/config.yaml` ファイルのすべての設定について詳しく解説します。このファイルは、WebSmith がサイトを計画、生成、デプロイする方法に関する信頼できる唯一の情報源です。プロジェクトのメッセージング、ターゲットオーディエンス、データソース、ローカライゼーション、公開の詳細を定義し、AI Agent は `generate` または `update` コマンドを実行するたびにこれらの情報に依存します。
+このガイドでは、WebSmith プロジェクトのコア設定である `config.yaml` ファイルの目的と使用方法について説明します。このファイルは、プロジェクトのルートディレクトリにある `.aigne/web-smith/config.yaml` にあります。
 
-**主要原則**
+---
 
-*   **安定したメタデータ**: `projectName`、`projectId`、`projectSlug` などの必須メタデータは一貫性を保ってください。下流のサービスはこれらの識別子に依存します。
-*   **戦略主導のコンテンツ**: 戦略に関するフィールド（`pagePurpose`、`targetAudienceTypes`、`rules`）は、AI のナラティブスタイルを指示します。製品やマーケティング戦略が変更された場合は、まずこれらを更新してください。
-*   **明示的なデータソース**: `sourcesPath` と `defaultDatasources` リストは、WebSmith が分析するコンテンツを制御します。新しいデータファイルは、生成前にここで登録する必要があります。
-*   **制御されたデプロイ**: デプロイ設定（`appUrl`、`checkoutId`）は、生成されたウェブサイトがどのように公開されるかに影響します。
+## 設定ファイルとは？
 
-```d2
-direction: down
+### 基本情報
 
-# Actors
-developer: {
-  label: "開発者"
-  shape: c4-person
-}
+`config.yaml` ファイルは、WebSmith の**コア設定ファイル**です。YAML 形式を使用して、WebSmith がウェブサイトを生成するために必要なすべてのパラメータを保存します。
 
-# Core Components
-websmith-engine: {
-  label: "AIGNE WebSmith エンジン"
-  shape: rectangle
-  style: {
-    fill: "#f0f4ff"
-    stroke: "#b3c7f2"
-  }
-}
+**ファイル詳細**:
+- **ファイル名**: `config.yaml` (固定名)
+- **場所**: `.aigne/web-smith/config.yaml` (プロジェクトルートからの相対パス)
+- **形式**: YAML (UTF-8 エンコーディング)
 
-# Artifacts & Data
-config-file: {
-  label: "config.yaml"
-  shape: rectangle
-  grid-columns: 2
-  grid-gap: 40
+### 主な目的
 
-  metadata: {
-    label: "1. プロジェクトメタデータ"
-    shape: rectangle
-    projectName
-    projectDesc
-    projectId
-  }
+設定ファイルは、WebSmith の操作における**中心的なパラメータの担い手**として機能します。`generate` コマンドが実行されるたびに、AI Agent はこのファイルを読み取り、その設定に基づいてウェブサイトの構造とコンテンツを生成します。
 
-  strategy: {
-    label: "2. ウェブサイト戦略"
-    shape: rectangle
-    pagePurpose
-    targetAudienceTypes
-    rules
-  }
+**主な機能**:
+- ウェブサイトのタイプとターゲットオーディエンスを定義する。
+- コンテンツ生成戦略とライティングスタイルを制御する。
+- ウェブサイトの規模とページ構造を決定する。
+- 多言語サポートを設定する。
+- デプロイパラメータを設定する。
 
-  localization: {
-    label: "3. ローカライゼーション"
-    shape: rectangle
-    locale
-    translateLanguages
-  }
+---
 
-  sources: {
-    label: "4. コンテンツソース"
-    shape: rectangle
-    sourcesPath
-  }
+## 設定ファイルの用途は？
 
-  media: {
-    label: "5. メディアとアセット"
-    shape: rectangle
-    minImageWidth
-    projectCover
-  }
+### 中核機能
 
-  deployment: {
-    label: "6. デプロイ"
-    shape: rectangle
-    appUrl
-    checkoutId
-  }
-}
+`config.yaml` ファイルは、`aigne web generate` コマンドを実行する際に使用される**指示書**です。これは、ウェブサイトをどのように生成するかをシステムに伝えます。このファイルを通じて、ウェブサイトのスタイルとタイプ、AI のライティングスタイル、サイトの規模（単一ページか複数ページか）、言語バージョン、その他すべての主要なパラメータを指定し、AI Agent があなたのニーズに合ったウェブサイトの構造とコンテンツを生成するのをガイドします。
 
-content-sources: {
-  label: "コンテンツソース\n(.md, .yaml)"
-  shape: cylinder
-}
+**要約すると**：設定ファイルは、WebSmith のウェブサイト生成における唯一の基準であり、パラメータの源です。プロセス全体がこのファイルの設定に基づいています。
 
-repository: {
-  label: "Git リポジトリ"
-  shape: cylinder
-  
-  generated-site: {
-    label: "生成されたウェブサイト\n(Markdown/HTML)"
-    shape: cylinder
-    style.fill: "#e6ffed"
-  }
-}
+### 機能グループ
 
-# Workflow Connections
-developer -> config-file: "1. 設定の変更"
-developer -> content-sources: "2. 新しいソースの追加"
-developer -> websmith-engine: "3. `aigne generate` の実行"
+設定ファイル内のフィールドは、以下の機能グループに分かれています。
 
-config-file -> websmith-engine: "読み込み"
-content-sources -> websmith-engine: "分析"
+#### プロジェクト基盤
 
-websmith-engine -> repository.generated-site: "生成/更新"
+このグループには、プロジェクトの基本的な識別情報と表示情報が含まれており、ウェブサイトのブランディングや SEO 最適化に使用されます。
 
-developer -> repository: "4. レビューとコミット"
+**フィールド**: `projectName`, `projectDesc`, `projectLogo`, `projectId`, `projectSlug`, `projectCover`
+
+**目的**: ウェブサイトの名前、説明、ロゴ、識別子、その他の基本情報を定義し、ページのタイトル、ナビゲーションメニュー、SEO メタタグ、ソーシャルメディアでの共有に影響を与えます。
+
+#### ウェブサイト戦略
+
+このグループは、ウェブサイトのタイプ、スタイル、規模、生成戦略を定義し、AI が生成するコンテンツを制御するためのコア設定です。
+
+**フィールド**: `pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
+
+**目的**:
+- `pagePurpose`: ウェブサイトのタイプ（例：マーケティング用ランディングページ、eコマースサイト、SaaS 製品サイト）を定義し、生成されるページコンポーネントやコンテンツ構成に影響を与えます。
+- `targetAudienceTypes`: ターゲットオーディエンス（例：エンドユーザー、開発者、ビジネスオーナー）を定義し、AI のライティングスタイル、言語の複雑さ、使用例の選択に影響を与えます。
+- `websiteScale`: ウェブサイトの規模（単一ページか複数ページか）を定義し、生成されるページ数を制御します。
+- `rules`: ページの構造、コンテンツ、スタイル要件など、ページ生成に関する詳細なガイダンスを提供します。
+
+#### 国際化
+
+このグループは、ウェブサイトの言語バージョンを設定し、多言語ウェブサイトの生成をサポートします。
+
+**フィールド**: `locale`, `translateLanguages`
+
+**目的**: ウェブサイトの主要言語と翻訳対象言語のリストを定義し、どの言語バージョンのウェブサイトを生成するかを制御します（言語ごとに完全なウェブサイト構造が生成されます）。
+
+#### コンテンツソース
+
+このグループは、AI が分析するためのコンテンツソースを指定します。これらはウェブサイトのページを生成するための素材および参照情報として使用されます。
+
+**フィールド**: `sourcesPath`, `defaultDatasources`
+
+**目的**:
+- `sourcesPath`: AI が分析するドキュメントディレクトリ、Markdown ファイル、YAML ファイル、画像リソースなどを指定します。**このフィールドは、生成されるウェブサイトコンテンツの品質と効果を決定し、AI が生成するコンテンツの正確性、関連性、専門性に直接影響を与えます。**
+- `defaultDatasources`: すべてのページに注入される共通のデータソースを指定します。これらはコマンドが実行されるたびにコンテキストに追加されます（例：プロジェクト内の画像の位置と説明を含む `media.md`）。
+
+#### 出力とデプロイ
+
+このグループは、生成されたファイルの出力場所とウェブサイトのデプロイパラメータを設定します。
+
+**フィールド**: `pagesDir`, `appUrl`, `checkoutId`, `shouldSyncAll`, `navigationType`
+
+**目的**:
+- `pagesDir`: 生成されたページファイルが保存されるディレクトリ（出力場所）を指定します。
+- `appUrl`: ウェブサイトのデプロイ URL を指定し、生成されるリンクや SEO に影響を与えます。
+- `checkoutId`, `shouldSyncAll`, `navigationType`: これらは開発中に使用される一時的な変数であり、設定ファイル内ではプレースホルダーデータとしてのみ機能します。ユーザーはこれらの値を気にする必要はありません。
+
+#### メディアと表示
+
+このグループは、画質と表示に関連するパラメータを設定します。
+
+**フィールド**: `media.minImageWidth`, `lastGitHead`
+
+**目的**:
+- `media.minImageWidth`: 低品質の画像を除外するために使用される、画像の最小幅要件を定義します。
+- `lastGitHead`: 前回の生成時の Git コミット ID を記録し、差分更新に使用されます。
+
+---
+
+## 設定ファイルはどのように生成されるか？
+
+### 生成方法
+
+設定ファイルは、以下のコマンドを実行することで生成されます。
+
+```bash
+aigne web init
 ```
 
-## 設定の構造
+このコマンドは対話型のウィザードを開始し、設定プロセスをステップバイステップで案内します。
 
-設定はいくつかの論理的なセクションに整理されています。以下に各パラメータの詳細な内訳を示します。
+1.  **ウェブサイトのタイプ** (`pagePurpose`): ウェブサイトの主な目的を選択します（複数選択可）。
+2.  **ターゲットオーディエンス** (`targetAudienceTypes`): ウェブサイトが対象とするユーザーグループを選択します（複数選択可）。
+3.  **ウェブサイトの規模** (`websiteScale`): ウェブサイトのページ数を選択します。
+4.  **主要言語** (`locale`): ウェブサイトのメイン言語を選択します。
+5.  **翻訳言語** (`translateLanguages`): 翻訳先の言語を選択します（複数選択可）。
+6.  **ページ出力ディレクトリ** (`pagesDir`): 生成されたページファイルを保存する場所を設定します。
+7.  **データソースパス** (`sourcesPath`): AI が分析するコンテンツソースを指定します（複数のパスを追加可能）。
+8.  **カスタムルール** (`rules`): オプションで、ページ生成に関する詳細な要件を提供します。
 
-### プロジェクト公開メタデータ
+ウィザードを完了すると、設定ファイルは自動的に `.aigne/web-smith/config.yaml` に保存されます。
 
-このセクションでは、プロジェクトの核となるアイデンティティを定義します。この情報は、生成されたページ、レポート、SEO メタデータで使用されます。
+### 設定例
 
-<x-field-group>
-  <x-field data-name="projectName" data-type="string" data-required="true" data-desc="人間が読みやすいプロジェクトのタイトル。ページのタイトルやレポートに表示されます。"></x-field>
-  <x-field data-name="projectDesc" data-type="string" data-required="true" data-desc="SEO メタデータや内部の AI プロンプトに使用される短いマーケティング用の説明。"></x-field>
-  <x-field data-name="projectLogo" data-type="URL" data-required="false" data-desc="プロジェクトのロゴへの絶対 URL またはアクセス可能な CDN パス。ヘッダーやソーシャルメディアカードで使用されます。"></x-field>
-  <x-field data-name="projectId" data-type="UUID" data-required="true" data-desc="WebSmith サービスの一意の識別子。これは自動的に生成されるため、プロジェクト間で変更したり再利用したりしないでください。"></x-field>
-  <x-field data-name="projectSlug" data-type="string" data-required="false" data-desc="プロジェクトのデフォルト URL セグメント（例: /my-site）。デプロイターゲットと同期させてください。"></x-field>
-</x-field-group>
+以下は、AIGNE WebSmith プロジェクト自体の実際の設定ファイルです。
 
-### ウェブサイト戦略とナラティブ
-
-これらのフィールドは、ウェブサイトコンテンツのナラティブ、トーン、構造について AI をガイドします。
-
-<x-field-group>
-  <x-field data-name="pagePurpose" data-type="list" data-required="true">
-    <x-field-desc markdown>サイトの主要な目的を宣言します（例: `landingPage`, `portfolio`, `documentation`）。複数の目的をリストアップして、ストーリーテリングのアプローチを組み合わせることができます。</x-field-desc>
-  </x-field>
-  <x-field data-name="targetAudienceTypes" data-type="list" data-required="false">
-    <x-field-desc markdown>トーンと CTA (Call-to-Action) の指針となります。有効なオプションには `customers`、`developers`、`investors` などがあります。関連するすべてのオーディエンスを含めてください。</x-field-desc>
-  </x-field>
-  <x-field data-name="websiteScale" data-type="enum" data-required="false">
-    <x-field-desc markdown>サイトの意図する規模と複雑さを示します（例: `singlePage`, `standard`, `aiDecide`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="rules" data-type="string" data-required="false">
-    <x-field-desc markdown>構造、物語の流れ、トーンに関する AI への優先度の高い指示。WebSmith は Markdown 形式（見出し、リスト）を文字通りのコピーとしてではなく、ガイダンスとして解釈します。</x-field-desc>
-  </x-field>
-  <x-field data-name="pagesDir" data-type="path" data-required="false" data-desc="生成されたウェブサイトページの出力ディレクトリ。WebSmith はここに最終的なファイルを書き込みます。"></x-field>
-</x-field-group>
-
-### ローカライゼーションと言語
-
-ウェブサイトコンテンツの言語を設定します。
-
-<x-field-group>
-  <x-field data-name="locale" data-type="string" data-required="false">
-    <x-field-desc markdown>コンテンツ生成の主要言語。IETF 言語コードを使用して指定します（例: `en`, `en-US`, `zh-TW`）。</x-field-desc>
-  </x-field>
-  <x-field data-name="translateLanguages" data-type="list" data-required="false">
-    <x-field-desc markdown>WebSmith がコンテンツを翻訳すべき追加の IETF 言語コードのリスト。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### コンテンツソースとデータソース
-
-WebSmith がコンテンツを見つける場所を定義します。
-
-<x-field-group>
-  <x-field data-name="sourcesPath" data-type="list" data-required="false">
-    <x-field-desc markdown>WebSmith がコンテキストを分析するためのディレクトリまたはファイルパスのリスト。生成前に新しいデータファイル（例: `.yaml`, `.md`）をここに追加します。</x-field-desc>
-  </x-field>
-  <x-field data-name="defaultDatasources" data-type="list" data-required="false">
-    <x-field-desc markdown>すべてのページに自動的に挿入されるデータソースパスのリスト。メディアカタログのようなグローバルに利用可能なデータに便利です。</x-field-desc>
-  </x-field>
-</x-field-group>
-
-### メディアとビジュアルアセット
-
-画像やその他の視覚要素の取り扱いを制御します。
-
-<x-field-group>
-  <x-field data-name="media" data-type="object" data-required="false">
-    <x-field data-name="minImageWidth" data-type="integer" data-required="false" data-desc="生成されるレイアウト内の画像の最小許容幅（ピクセル単位）。"></x-field>
-  </x-field>
-  <x-field data-name="projectCover" data-type="path" data-required="false" data-desc="ヒーローセクションやソーシャルメディアのプレビューに使用されるカバー画像のパス。"></x-field>
-</x-field-group>
-
-### デプロイと統合
-
-これらのフィールドには、ウェブサイトの公開に関連する設定が含まれています。
-
-<x-field-group>
-  <x-field data-name="appUrl" data-type="URL" data-required="false" data-desc="ウェブサイトの主要なデプロイ URL。カノニカルリンクやその他の参照に使用されます。"></x-field>
-  <x-field data-name="navigationType" data-type="string" data-required="false" data-desc="ナビゲーションスタイルを任意で上書きするための設定。"></x-field>
-  <x-field data-name="checkoutId" data-type="string" data-required="false" data-desc="ArcBlock のデプロイ/チェックアウトサービスの識別子。"></x-field>
-  <x-field data-name="shouldSyncAll" data-type="string" data-required="false">
-    <x-field-desc markdown>公開ステップですべてのアーティファクトをプッシュするかどうかを制御します。完全な同期を行うには `"true"` に設定します。</x-field-desc>
-  </x-field>
-  <x-field data-name="lastGitHead" data-type="string" data-required="false" data-desc="最後の生成時の Git コミット SHA。WebSmith が自動的に更新します。"></x-field>
-</x-field-group>
-
-## 設定例
-
-以下は、典型的なセットアップを示す `config.yaml` ファイルのサンプルです。
-
-```yaml config.yaml icon=logos:yaml
-# 1. プロジェクト公開メタデータ
-projectName: "AIGNE WebSmith Docs"
-projectDesc: "The official documentation for AIGNE WebSmith."
-projectLogo: "https://example.com/logo.png"
-projectId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-projectSlug: "websmith-docs"
-
-# 2. ウェブサイト戦略とナラティブ
+```yaml
+projectName: AIGNE WebSmith
+projectDesc: "AIGNE フレームワーク上に構築された AI 駆動のウェブサイト生成ツール"
+projectLogo: https://www.arcblock.io/content/uploads/2e5edbac4a7d5310c117d09601811c.png
+projectId: pg4d0000-0000-4000-a000-000000000000
+projectSlug: /
 pagePurpose:
-  - documentation
   - landingPage
 targetAudienceTypes:
-  - developers
-websiteScale: "standard"
+  - customers
+websiteScale: singlePage
 rules: |
-  - Focus on clarity and practical examples.
-  - Maintain a professional but approachable tone.
-  - Ensure all code snippets are accurate and easy to copy.
-pagesDir: "src/pages"
-
-# 3. ローカライゼーションと言語
-locale: "en"
+  ### I. コアメッセージングと戦略：ユーザーに*何を*伝えるかを定義する基本要素。
+  1. 重要な質問に「ファーストビュー」で答える：ユーザーが最初に目にする画面で、以下の点に明確かつ即座に答えなければなりません：
+    * それは何か：製品の簡潔な説明。
+    * 誰のためのものか：特定のターゲットオーディエンス（例：個人創業者、小規模チーム）。
+    * 何が違うのか：独自の価値提案（例：「オープン、コンポーザブル、エクスポート可能なコード、Agent ワークフロー」）。
+    * 主要なアクション：ユーザーの主要な目標に沿った、単一で明確なコールトゥアクション（CTA）。
+  2. 証明で信頼性を確立する：ユーザーがあなたの主張を信じることを期待してはいけません。物語の早い段階で証拠を見せてください。
+    * ただ語るのではなく、見せる：最も強力な証明はデモです。短い（30～45秒）無音のビデオ ループや、このツールで構築された実際のサイトへのリンクを含めてください。
+    * 社会的証明を利用する：「仕組み」を説明する前に、顧客のロゴ、説得力のあるデータポイント（例：「50以上のチームが使用」）、または強力なユーザーの声など、具体的な証拠を挿入してください。
+  3. 明確なコールトゥアクション（CTA）を定義する：
+    * オーディエンスに CTA を合わせる：主要な CTA は、ターゲットユーザーに取ってもらいたい主要なアクションであるべきです（例：「私のサイトを生成する」）。
+    * CTA の優先順位付け：二次的なアクション（「GitHub で見る」など）は、特に非開発者オーディエンスに対しては、目立たない位置（三次ボタンやフッターリンク）に配置してください。
+    * モバイルでの永続的な CTA を維持する：モバイルでは、単一の主要な CTA が常に表示されるべきです。
+locale: en
 translateLanguages:
-  - "zh-TW"
-
-# 4. コンテンツソースとデータソース
+  - zh
+  - zh-TW
+  - ja
+pagesDir: .aigne/web-smith/pages
 sourcesPath:
-  - "src/content"
-  - "src/data/features.yaml"
+  - ./assets/documents
+  - ./README.md
+  - ./aigne.yaml
+  - ./assets/images
+  - ./assets/recordings/README.md
+  - ./CHANGELOG.md
+  - ./agents
 defaultDatasources:
-  - "src/data/site-metadata.yaml"
-
-# 5. メディアとビジュアルアセット
+  - ./media.md
 media:
   minImageWidth: 600
-projectCover: "src/assets/cover-image.png"
-
-# 6. デプロイと統合
-appUrl: "https://docs.aigne.com/websmith"
-checkoutId: "chk_12345"
-shouldSyncAll: "false"
-lastGitHead: ""
+lastGitHead: c4a4d3db4bf230e2c6873419e26b6654c39613a5
+checkoutId: ""
+projectCover: .aigne/web-smith/cover.png
+shouldSyncAll: ""
+navigationType: ""
+appUrl: https://mhevtaeg.user.aigne.io
 ```
 
-## 一般的な更新ワークフロー
+### フィールドリファレンス
 
-設定ファイルを使用してウェブサイトに変更を適用するには、次の手順に従います。
+上記の実設定に基づき、各フィールドの詳細な説明を以下に示します。
 
-1.  **設定の変更**: 必要に応じて `config.yaml` の戦略、メタデータ、その他のフィールドを調整します。
-2.  **新しいソースの登録**: 新しいデータファイルがある場合は、`sourcesPath` に登録し、必要であれば `defaultDatasources` にも登録します。
-3.  **WebSmith の実行**: 完全に新しいビルドを行うには `aigne run generate` を、既存のページのコンテンツを更新するには `aigne run update` を使用します。
-4.  **レビューとコミット**: 生成されたコンテンツをレビューして変更が反映されていることを確認し、更新されたファイルをリポジトリにコミットします。
+#### プロジェクト基盤
 
-この設定ファイルをプロジェクトの目標やコンテンツソースと一致させておくことで、WebSmith が一貫して高品質でブランドに合ったウェブサイトを生成することを保証します。
+**`projectName`**
+- **目的**: プロジェクトの表示名。ページタイトル (`<title>`)、ナビゲーションメニュー、サイトのブランディングに表示されます。
+- **型**: 文字列
+- **変更の影響**: この値を変更すると、ウェブサイト全体で表示される名前が更新されます。表示と SEO の観点から、簡潔に（50文字未満）保つことをお勧めします。
+- **適用方法**: `aigne web update` または `aigne web generate` を実行します。
+
+**`projectDesc`**
+- **目的**: プロジェクトの説明。SEO のメタディスクリプションタグ (`<meta name="description">`) やソーシャルメディアでの共有に使用されます。
+- **型**: 文字列
+- **変更の影響**: これを変更すると、メタタグとソーシャル共有の説明が更新されます。SEO のために、150文字未満に保ち、主要なキーワードを含めることをお勧めします。
+- **適用方法**: `aigne web update` または `aigne web generate` を実行します。
+
+**`projectLogo`**
+- **目的**: プロジェクトのロゴ。ページのヘッダー、ブラウザのファビコン、ソーシャル共有のサムネイルに使用されます。
+- **型**: 文字列 (URL またはファイルパス)
+- **変更の影響**: サイト全体のロゴを更新します。HTTPS URL または相対パス（例：`./assets/images/logo.svg`）をサポートします。PNG または SVG 形式を推奨します。
+- **適用方法**: `aigne web update` または `aigne web generate` を実行します。
+
+**`projectId`**
+- **目的**: プロジェクトの一意の識別子。WebSmith サービスがデプロイ、履歴、データソースを関連付けるために使用します。
+- **型**: 文字列 (UUID 形式)
+- **変更の影響**: ⚠️ **重要**：新しいプロジェクトを作成する場合を除き、この ID を変更しないでください。変更すると、既存のデプロイ、履歴、データソースとの関連付けが壊れる可能性があります。
+- **適用方法**: 変更が必要な場合は、`aigne web generate` を実行して再生成します。
+
+**`projectSlug`**
+- **目的**: URL パスのプレフィックス。サイトのデプロイパスと内部リンクの生成に影響します。
+- **型**: 文字列 (URL パス形式)
+- **変更の影響**: 値が `/` の場合、サイトはルート（例：`https://example.com/`）にデプロイされます。`/docs` の場合は `https://example.com/docs/` にデプロイされます。
+- **適用方法**: `aigne web generate` を実行してすべてのリンクを更新します。
+
+**`projectCover`**
+- **目的**: ウェブサイトのカバー画像。ソーシャルメディアでのプレビュー（例：Open Graph, Twitter Cards）に使用されます。
+- **型**: 文字列 (ファイルパス)
+- **変更の影響**: ソーシャル共有用のプレビュー画像を更新します。高品質の画像（少なくとも 1200x630px）を推奨します。
+- **適用方法**: `aigne web update` または `aigne web generate` を実行します。
+
+#### ウェブサイト戦略
+
+**`pagePurpose`**
+- **目的**: ウェブサイトの主な目的を定義し、AI の生成戦略とページ構造に直接影響を与えます。
+- **型**: 配列 (複数選択可)
+- **利用可能な値**:
+  - `landingPage`: マーケティングとコンバージョン用。ヒーローセクション、機能、CTA などを生成します。
+  - `ecommerce`: オンライン販売用。商品カタログ、ショッピングカートなどを生成します。
+  - `saas`: SaaS 製品ウェブサイト用。機能説明、価格、デモなどを生成します。
+  - `portfolio`: 作品の展示用。視覚主導のレイアウト、ギャラリーなどを生成します。
+  - `corporate`: 企業情報用。会社概要、サービス、チーム情報などを生成します。
+  - `blog`: コンテンツ共有用。コンテンツ構成、SEO 最適化などを生成します。
+  - `nonprofit`: 非営利団体用。ミッションステートメント、寄付フローなどを生成します。
+  - `education`: 教育ウェブサイト用。コースリスト、学習パスなどを生成します。
+  - `mixedPurpose`: 多目的サイト用。コンポーネントの組み合わせを生成します。
+- **適用方法**: これを変更するとサイト全体のコンテンツ戦略が変わります。`aigne web generate` を実行して完全に再生成します。
+
+**`targetAudienceTypes`**
+- **目的**: ターゲットオーディエンスを定義し、AI のライティングスタイル、言語の複雑さ、使用例の選択に影響を与えます。
+- **型**: 配列 (複数選択可)
+- **利用可能な値**:
+  - `customers`: エンドユーザー向け。簡単な言葉を使用し、使いやすさを強調します。
+  - `businessOwners`: 起業家向け。ROI とビジネス価値に焦点を当てます。
+  - `marketers`: マーケティングチーム向け。マーケティング指標とブランド認知度に焦点を当てます。
+  - `designers`: デザイナー向け。視覚的な魅力と美学を強調します。
+  - `developers`: 技術ユーザー向け。技術詳細、コード例、API ドキュメントを提供します。
+  - `investors`: ステークホルダー向け。成長指標と市場機会に焦点を当てます。
+  - `jobSeekers`: 採用向け。企業文化とキャリア成長に焦点を当てます。
+  - `students`: 学習者向け。ステップバイステップのガイダンスを備えた教育的なトーンを使用します。
+  - `generalPublic`: 広範なオーディエンス向け。アクセスしやすい言葉と複数のエントリーポイントを使用します。
+- **適用方法**: トーンと使用例が変更されます。`aigne web generate` を実行して完全に再生成します。
+
+**`websiteScale`**
+- **目的**: ウェブサイトの規模を定義し、ページ数とナビゲーション構造の複雑さを制御します。
+- **型**: 文字列 (単一選択)
+- **利用可能な値**:
+  - `singlePage`: 複数のセクションを持つ1ページのウェブサイト。
+  - `minimal`: 2～6のコアページを持つ小規模サイト（例：ホーム、会社概要、お問い合わせ）。
+  - `standard`: 7～12ページを持つ標準的なサイト（推奨）。
+  - `comprehensive`: 12ページ以上の大規模サイト。
+  - `aiDecide`: 他のパラメータに基づいて AI が適切な規模を決定します。
+- **適用方法**: 生成されるページ数を直接決定します。`aigne web generate` を実行してすべてのページを再生成します。
+
+**`rules`**
+- **目的**: Markdown 形式でページ生成に関する詳細な指示を提供します。これは AI をガイドするための最も重要なフィールドです。
+- **型**: 複数行文字列 (Markdown をサポート)
+- **変更の影響**: ページの構造、コンテンツ構成、トーンなど、生成されるコンテンツの品質に直接影響を与えます。
+- **適用方法**: `rules` はコンテンツ生成の主要なガイドです。新しいルールに基づいて完全に再生成するには `aigne web generate` を実行します。
+
+#### 国際化
+
+**`locale`**
+- **目的**: ウェブサイトの主要言語を定義します。AI はまずこの言語ですべてのコンテンツを生成します。
+- **型**: 文字列
+- **サポートされるコード**: 標準の IETF 言語コード（例：`en`, `zh`, `ja`, `fr`, `de`）。
+- **適用方法**: すべてのページの主要言語を変更します。`aigne web generate` を実行して、新しい言語ですべてのコンテンツを再生成します。
+
+**`translateLanguages`**
+- **目的**: ウェブサイトを翻訳する追加言語のリスト。各言語に対して、完全に翻訳されたバージョンのサイトが生成されます。
+- **型**: 配列 (複数選択可)
+- **サポートされるコード**: `locale` と同じ（`locale` の値自体を含めることはできません）。
+- **適用方法**: 言語バージョンを追加または削除します。`aigne web generate` を実行してすべての言語バージョンを再生成します。
+
+#### コンテンツソース
+
+**`sourcesPath`**
+- **目的**: AI が分析するためのコンテンツソースのディレクトリ/ファイルを定義します。**このフィールドは、生成されるコンテンツの品質、正確性、関連性を決定する要因です。**
+- **型**: 配列 (パスのリスト)
+- **変更の影響**: 新しいパスを追加すると AI の知識ベースが拡大し、コンテンツの品質が向上する可能性があります。パスを削除すると、情報が欠落する可能性があります。ディレクトリとファイル（`.md`, `.yaml`, `.json`, `.txt`）をサポートします。
+- **適用方法**: 新しいデータソースが分析されます。`aigne web generate` を実行してください。
+
+**`defaultDatasources`**
+- **目的**: すべてのページ生成タスクのコンテキストに注入されるデータソース（例：画像アセットを記述する `media.md` ファイル）。
+- **型**: 配列 (ファイルパスのリスト)
+- **変更の影響**: 連絡先の詳細やブランドアセットなど、共通の再利用可能な情報を提供するのに役立ちます。
+- **適用方法**: `aigne web update` または `aigne web generate` の実行時に有効になります。
+
+#### 出力とデプロイ
+
+**`pagesDir`**
+- **目的**: WebSmith が生成されたページファイル（例：`page.yaml`, `_navigations.yaml`）を保存する出力ディレクトリ。
+- **型**: 文字列 (パス)
+- **変更の影響**: 生成されたファイルの保存場所を変更します。ディレクトリが存在しない場合は自動的に作成されます。
+- **適用方法**: 次の生成時に変更が有効になります。
+
+**`appUrl`**
+- **目的**: ウェブサイトの最終的なデプロイ URL。
+- **型**: 文字列 (URL 形式)
+- **変更の影響**: サイトが公開されるプラットフォームを決定します。プロトコル（`https://`）を含める必要があります。
+- **適用方法**: **`aigne web publish` コマンド実行時にのみ有効になります。**
+
+**`checkoutId`**, **`shouldSyncAll`**, **`navigationType`**
+- **目的**: これらは開発中に使用される一時的な変数です。システムによって自動的に管理されるため、ユーザーがこれらの値を変更するべきではありません。
+
+#### メディアと表示
+
+**`media.minImageWidth`**
+- **目的**: 画像が含まれるために必要な最小幅（ピクセル単位）。低品質の画像を除外するために使用されます。
+- **型**: 整数 (ピクセル)
+- **変更の影響**: 値を高くすると高品質の画像のみが使用されるようになりますが、利用可能な画像の数が減る可能性があります。
+- **適用方法**: `aigne web generate` を実行して、新しい画像選択を再フィルタリングし適用します。
+
+**`lastGitHead`**
+- **目的**: 前回の生成時の Git コミットハッシュを保存し、差分更新に使用されます。
+- **型**: 文字列 (Git コミットハッシュ)
+- **変更の影響**: この値はシステムによって自動的に管理されるため、手動で変更するべきではありません。
+
+---
+
+## 設定ファイルを変更するタイミング
+
+### コア機能の調整
+
+**シナリオ 1: シングルページサイトからマルチページサイトへのアップグレード**
+- **変更するフィールド**: `websiteScale` (例: `singlePage` から `standard` へ)
+- **コマンド**: すでにドキュメントが生成されている場合は、`aigne web clear` を実行してから `aigne web generate` を実行します。
+
+**シナリオ 2: ウェブサイトの目的の変更**
+- **変更するフィールド**: `pagePurpose` (例: `saas` から `ecommerce` へ)
+- **コマンド**: すでにドキュメントが生成されている場合は、`aigne web clear` を実行してから `aigne web generate` を実行します。
+
+**シナリオ 3: ターゲットオーディエンスの調整**
+- **変更するフィールド**: `targetAudienceTypes` (例: `customers` から `businessOwners` へ)
+- **コマンド**: すでにドキュメントが生成されている場合は、`aigne web clear` を実行してから `aigne web generate` を実行します。
+
+### コンテンツソースの更新
+
+**シナリオ 4: 新しいコンテンツソースの追加**
+- **変更するフィールド**: `sourcesPath` (新しいファイルまたはディレクトリのパスを追加)
+- **コマンド**: `aigne web generate` を実行します。新しいソースが AI に利用可能になります。
+
+### 改善と問題修正
+
+**シナリオ 5: 画像品質の向上**
+- **変更するフィールド**: `media.minImageWidth` (例: `600` から `1000` に増やす)
+- **コマンド**: `aigne web update` または `aigne web generate` を実行します。
+
+**シナリオ 6: AI が生成したコンテンツの改善**
+- **変更するフィールド**: `rules` (構造やトーンなど、より具体的な指示を追加)
+- **コマンド**: `aigne web update` または `aigne web generate` を実行します。
+
+### 言語の管理
+
+**シナリオ 7: 新しい言語の追加**
+- **変更するフィールド**: `translateLanguages` (新しい言語コードを追加、例: `fr`)
+- **コマンド**: `aigne web translate` または `aigne web update` を実行します。
+
+**シナリオ 8: 主要言語の変更**
+- **変更するフィールド**: `locale` (例: `zh` から `en` へ)
+- **コマンド**: `aigne web clear` を実行してから `aigne web generate` を実行します。
+
+### 基本情報の更新
+
+**シナリオ 9: プロジェクトのブランディング更新**
+- **変更するフィールド**: `projectName`, `projectDesc`, `projectLogo`, `projectCover`
+- **コマンド**: `aigne web publish` を実行します。
+
+**シナリオ 10: デプロイ URL の設定**
+- **変更するフィールド**: `appUrl`
+- **コマンド**: `aigne web publish` を実行します。
+
+---
+
+## 設定変更の適用方法
+
+### コマンドによる変更の適用
+
+フィールドごとに変更を適用するには、異なるコマンドが必要です。
+
+- **機能 (`pagePurpose`, `websiteScale`, `targetAudienceTypes`)**:
+  - コンテンツがすでに存在する場合は `aigne web clear` を実行してから `aigne web generate` を実行。
+- **コンテンツソース (`sourcesPath`, `defaultDatasources`)**:
+  - `aigne web generate` または `aigne web update`。
+- **問題修正 (`media.minImageWidth`, `rules`)**:
+  - `aigne web update` または `aigne web generate`。
+- **国際化**:
+  - `translateLanguages`: `aigne web translate` または `aigne web update`。
+  - `locale`: `aigne web clear` を実行してから `aigne web generate` を実行。
+- **基本情報 (`projectName`, `appUrl`, など)**:
+  - `aigne web publish`。
+
+### ワークフローの概要
+
+1.  `config.yaml` ファイルを変更します。
+2.  ファイルを保存します。
+3.  変更したフィールドに応じて適切なコマンドを実行します。
+4.  生成されたファイルを確認して、変更が適用されたことを検証します。
+
+---
+
+## 設定エラーの対処法
+
+### 一般的なエラー
+
+- **不適切なインデント**: YAML はインデントに敏感です。一貫してスペース（タブではない）を使用してください。
+- **特殊文字**: キーと値のペアには、標準の英語のコロン (`:`) を使用し、他の文字は使用しないでください。
+- **不適切な値の型**: 配列が期待される場所で文字列を提供する（例: `pagePurpose: [landingPage]` の代わりに `pagePurpose: landingPage`）。システムはデフォルト値にフォールバックします。
+- **必須フィールドの欠落**: 重要なフィールドが削除されると、生成は進むかもしれませんが、情報が欠落したサイト（例: タイトルなし）になる可能性があります。
+- **不明なフィールド**: スキーマに存在しないフィールドを追加しても、システムはそれを無視し、エラーは発生しません。
+
+### 検出と復旧
+
+- **自動検出**: `aigne web` コマンドを実行するとファイルが解析されます。YAML の構文エラーがある場合、コマンドは失敗し、エラーを報告します。
+- **復旧計画**:
+  1.  **バージョン管理**: `config.yaml` をバージョン管理システム（例: Git）で管理することが最善の方法です。以前の動作していたバージョンに戻すことができます。
+  2.  **検証と修正**: ファイルを注意深くレビューして構文エラーを探します。このガイドの例と比較してください。
+  3.  **再初期化**: ファイルが深刻に破損している場合は、バックアップを取り、削除してから `aigne web init` を実行して新しくクリーンな設定を生成します。その後、バックアップからカスタム設定を手動でコピーできます。
+
+### システムの堅牢性
+
+- **ファイルが見つからない**: システムは `aigne web init` を実行するように案内します。
+- **YAML の解析に失敗**: システムはユーザーフレンドリーなエラーを報告します。
+- **不明なフィールド**: 追加のフィールドは無視されます。
+- **不適切な値の形式**: システムはデフォルト値を使用します。
+- **フィールドの欠落**: 一部のフィールドにはデフォルト値があります（`locale` は "en" がデフォルト）。
+
+### 予防策
+
+1.  **バージョン管理を使用する**: `config.yaml` を Git で管理します。
+2.  **定期的にバックアップする**: 大きな変更を加える前にバックアップを作成します。
+3.  **CLI を使用する**: 手動エラーを避けるために、初期設定には `aigne web init` を使用することを推奨します。
+4.  **変更後に検証する**: 編集後すぐにコマンドを実行してエラーを確認します。
+
+---
+
+## よくある質問
+
+### Q1: config ファイルへの変更が反映されない場合はどうすればよいですか？
+**A**: まず、ファイルが保存されていることを確認してください。次に、YAML のフォーマットエラーがないか確認してください。第三に、特定の変更を適用するために正しいコマンド（例: `projectName` の場合は `aigne web publish`）を実行していることを確認してください。
+
+### Q2: 新しい言語を追加するにはどうすればよいですか？
+**A**: `config.yaml` ファイルの `translateLanguages` 配列に言語コードを追加します。その後、`aigne web translate` または `aigne web update` を実行します。
+
+### Q3: 生成されたコンテンツが期待通りでない場合はどうすればよいですか？
+**A**: これは多くの場合、ガイダンスが不十分なためです。`rules` をより詳細にしたり、`targetAudienceTypes` をより具体的に調整したり、`sourcesPath` に関連性の高いコンテンツを追加してみてください。
+
+### Q4: config ファイルのフォーマットエラーを修正するにはどうすればよいですか？
+**A**: 最も一般的なエラーは、インデントの不整合、コロンに非標準文字の使用、不適切なデータ型（例: 配列の代わりに文字列）です。詳細な復旧手順については、「設定ファイルが壊れた場合の対処法」セクションを参照してください。

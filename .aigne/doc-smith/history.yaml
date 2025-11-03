@@ -1,4 +1,15 @@
 entries:
+  - timestamp: 2025-11-03T09:53:21.126Z
+    operation: document_update
+    feedback: The title of all content does not need to display the serial number, and the writing style
+      can be slightly optimized to help make it more user-friendly
+    documentPath: /reference/websmith-config
+  - timestamp: 2025-11-03T09:07:50.838Z
+    operation: document_update
+    feedback: Generate the document strictly according to the document content, without any deletion of content, 
+      and the grouping of fields must be kept. Emphasize again, do not make any cropping or exaggeration of content. 
+      The project file is config.yaml, please remember not to express it as any other name, and do not allow `websmith-config.yaml` to appear throughout the text.
+    documentPath: /reference/websmith-config
   - timestamp: 2025-10-31T09:54:16.925Z
     operation: structure_update
     feedback: Add a subdocument titled WebSmith config under Reference to guide users on how to modify

@@ -72,7 +72,7 @@ npm install -g @aigne/cli
 
 # Install Aigne CLI Beta
 npm install -g @aigne/cli@beta
-aligne web upgrade --beta
+aigne web upgrade --beta
 
 # Or install locally
 npm install @aigne/cli

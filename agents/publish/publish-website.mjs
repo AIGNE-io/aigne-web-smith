@@ -436,6 +436,7 @@ export default async function publishWebsite(
     authToken = await getOfficialAccessToken(BASE_URL, false);
     client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
 
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const { vendors } = await client.getSessionDetail(sessionId, false);
     token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
   }

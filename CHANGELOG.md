@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.10...v1.6.0-beta.11) (2025-11-04)
+
+
+### Features
+
+* add reasoning_effort parameter to agent configurations ([#184](https://github.com/AIGNE-io/aigne-web-smith/issues/184)) ([a31899f](https://github.com/AIGNE-io/aigne-web-smith/commit/a31899f805a9bd0fd5a75f90f02199d5298fb6ab))
+* warn on invalid sources and tuning translate messages ([#183](https://github.com/AIGNE-io/aigne-web-smith/issues/183)) ([b99e0b5](https://github.com/AIGNE-io/aigne-web-smith/commit/b99e0b554a936da9466bd7eeab4e46e429cee977))
+
 ## [1.6.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.9...v1.6.0-beta.10) (2025-11-03)
 
 

@@ -92,7 +92,7 @@ export default async function choosePages(
 
       if (mainLanguageFiles.length === 0) {
         console.log(
-          `It seems that the pages does not generated. \nPlease generate the pages as needed using ${chalk.yellow(
+          `Looks like the pages haven't been generated yet. \nYou can create them anytime with ${chalk.yellow(
             "aigne web generate",
           )} \n`,
         );

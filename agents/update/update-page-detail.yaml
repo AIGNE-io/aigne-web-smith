@@ -1,6 +1,8 @@
 type: ai
 name: updatePageDetail
 description: Update page detail content based on user feedback and intentions using content modification tools
+model:
+  reasoning_effort: 500
 instructions:
   - role: system
     url: ../../prompts/update/page-detail/system-prompt.md

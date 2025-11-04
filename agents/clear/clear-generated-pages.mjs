@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { join } from "node:path";
+import { DOC_ACTION } from "../../utils/constants.mjs";
 import { loadWebsiteStructureResult } from "../../utils/pages-finder-utils.mjs";
 import { getFileName, toDisplayPath } from "../../utils/utils.mjs";
 import choosePages from "../utils/choose-pages.mjs";
@@ -43,7 +44,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
       locale,
       requiredFeedback: false, // Don't require feedback for clearing
       multipleSelection: true,
-      title: "Select pages to delete:",
+      action: DOC_ACTION.clear,
     },
     options,
   );

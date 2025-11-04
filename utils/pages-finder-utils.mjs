@@ -6,13 +6,12 @@ import { NAVIGATIONS_FILE_NAME, PAGE_FILE_EXTENSION } from "./constants.mjs";
 import { getFileName } from "./utils.mjs";
 
 /**
- * Get action-specific text based on isTranslate flag
- * @param {boolean} isTranslate - Whether this is a translation action
+ * Get action-specific text
+ * @param {string} action - doc action type
  * @param {string} baseText - Base text template with {action} placeholder
  * @returns {string} Text with action replaced
  */
-export function getActionText(isTranslate, baseText) {
-  const action = isTranslate ? "translate" : "update";
+export function getActionText(baseText, action) {
   return baseText.replace("{action}", action);
 }
 

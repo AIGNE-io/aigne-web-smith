@@ -1,5 +1,7 @@
 name: generatePageDetail
 description: Page detail generator
+model:
+  reasoning_effort: 800
 instructions:
   - role: system
     url: ../../../prompts/generate/page-detail/system-prompt.md

@@ -4,6 +4,8 @@ description: The website structure generator, using rules and datasources to gen
 task_render_mode: collapse
 skills:
   - type: ai
+    model:
+      reasoning_effort: 500
     instructions:
       - role: system
         url: ../../prompts/plan/system-prompt.md

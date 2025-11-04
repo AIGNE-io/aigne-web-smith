@@ -1,6 +1,8 @@
 type: ai
 name: updateWebsiteStructure
 description: Update website structure based on user feedback and intentions using structure modification tools
+model:
+  reasoning_effort: 500
 instructions:
   - role: system
     url: ../../prompts/plan/update-website-structure-system.md

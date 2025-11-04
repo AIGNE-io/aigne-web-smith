@@ -1,5 +1,7 @@
 name: translatePageDetail
 description: Translate the page detail to another language
+model:
+  reasoning_effort: 1000
 instructions:
   - role: system
     url: ../../../prompts/translate/page-detail/system-prompt.md

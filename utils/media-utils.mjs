@@ -37,7 +37,7 @@ export async function buildMediaItem(filePath, basePath, options = {}) {
       // Filter out images with width less than minImageWidth
       if (minImageWidth > 0 && dimensions.width < minImageWidth) {
         console.log(
-          `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
+          `Ignored image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
         );
         return null;
       }

@@ -78,7 +78,7 @@ export default async function choosePages(
   let selectedFiles = [];
 
   const mainFileTmpDir = join(tmpDir, locale);
-  const docAction = action || (isTranslate ? WEB_ACTION.translate : WEB_ACTION.update);
+  const webAction = action || (isTranslate ? WEB_ACTION.translate : WEB_ACTION.update);
 
   // If pages is empty or not provided, let user select multiple pages
   if (!pages || pages.length === 0) {
@@ -107,7 +107,7 @@ export default async function choosePages(
       // Let user select files (single or multiple based on multipleSelection parameter)
       if (multipleSelection) {
         selectedFiles = await options.prompts.checkbox({
-          message: getActionText("Select pages to {action}:", docAction),
+          message: getActionText("Select pages to {action}:", webAction),
           source: (term) => {
             if (!term) return choices;
 
@@ -124,7 +124,7 @@ export default async function choosePages(
         });
       } else {
         const selectedFile = await options.prompts.search({
-          message: getActionText("Select page to {action}:", docAction),
+          message: getActionText("Select page to {action}:", webAction),
           source: (term) => {
             if (!term) return choices;
 
@@ -151,7 +151,7 @@ export default async function choosePages(
       throw new Error(
         getActionText(
           "Please provide a pages parameter to specify which pages to {action}",
-          docAction,
+          webAction,
         ),
       );
     }
@@ -184,7 +184,7 @@ export default async function choosePages(
   // Prompt for feedback if not provided
   let userFeedback = feedback;
   if (!userFeedback && requiredFeedback) {
-    const feedbackMessage = getFeedbackMessage(docAction);
+    const feedbackMessage = getFeedbackMessage(webAction);
 
     userFeedback = await options.prompts.input({
       message: feedbackMessage,

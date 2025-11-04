@@ -15,7 +15,7 @@ export default async function findItemByPath(
   let foundItem = null;
   let selectedFileContent = null;
   let pagePath = page;
-  const docAction = isTranslate ? WEB_ACTION.translate : WEB_ACTION.update;
+  const webAction = isTranslate ? WEB_ACTION.translate : WEB_ACTION.update;
 
   // If pagePath is empty, let user select from available pages
   if (!pagePath) {
@@ -33,7 +33,7 @@ export default async function findItemByPath(
 
       // Let user select a file
       const selectedFile = await options.prompts.search({
-        message: getActionText("Select a page to {action}:", docAction),
+        message: getActionText("Select a page to {action}:", webAction),
         source: async (input) => {
           if (!input || input.trim() === "") {
             return mainLanguageFiles.map((file) => ({
@@ -77,7 +77,7 @@ export default async function findItemByPath(
       throw new Error(
         getActionText(
           "Please run 'aigne web generate' first to generate pages, then select which page to {action}",
-          docAction,
+          webAction,
         ),
       );
     }
@@ -101,7 +101,7 @@ export default async function findItemByPath(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       "Please provide feedback for the {action} (press Enter to skip):",
-      docAction,
+      webAction,
     );
 
     userFeedback = await options.prompts.input({

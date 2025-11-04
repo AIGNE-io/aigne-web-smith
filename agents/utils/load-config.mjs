@@ -1,10 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import chalk from "chalk";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse } from "yaml";
-import { WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
-import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
+import { DEFAULT_EXCLUDE_PATTERNS, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
+import { findInvalidSourcePaths } from "../../utils/file-utils.mjs";
+import { processConfigFields, resolveFileReferences, toDisplayPath } from "../../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
@@ -48,6 +50,24 @@ export default async function loadConfig({ config, appUrl }) {
 
     // Parse new configuration fields and convert keys to actual content
     const processedConfig = processConfigFields(parsedConfig);
+
+    // Validate sourcePaths against exclude patterns
+    const sourcesPath = processedConfig.sourcesPath || parsedConfig.sourcesPath;
+    if (sourcesPath) {
+      const excludePatterns = [
+        ...DEFAULT_EXCLUDE_PATTERNS,
+        ...(processedConfig.excludePatterns || parsedConfig.excludePatterns || []),
+      ];
+
+      const invalidPaths = await findInvalidSourcePaths(sourcesPath, excludePatterns);
+      if (invalidPaths.length > 0) {
+        console.warn(
+          `⚠️  Some source paths have been excluded and will not be processed:\n${invalidPaths
+            .map((p) => `  - ${chalk.yellow(p)}`)
+            .join("\n")}\n💡 Tip: You can remove these paths in ${toDisplayPath(configPath)}\n`,
+        );
+      }
+    }
 
     return {
       lastGitHead: parsedConfig.lastGitHead || "",

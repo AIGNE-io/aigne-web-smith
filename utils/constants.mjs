@@ -3,6 +3,12 @@ import { join } from "node:path";
 
 export const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
 
+export const WEB_ACTION = {
+  translate: "translate",
+  update: "update",
+  clear: "clear",
+};
+
 // Define media file extensions
 export const MEDIA_EXTENSIONS = [
   ".jpg",

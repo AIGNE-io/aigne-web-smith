@@ -1,3 +1,4 @@
+import { WEB_ACTION } from "../../utils/constants.mjs";
 import {
   fileNameToFlatPath,
   findItemByFlatName,
@@ -14,6 +15,7 @@ export default async function findItemByPath(
   let foundItem = null;
   let selectedFileContent = null;
   let pagePath = page;
+  const webAction = isTranslate ? WEB_ACTION.translate : WEB_ACTION.update;
 
   // If pagePath is empty, let user select from available pages
   if (!pagePath) {
@@ -31,7 +33,7 @@ export default async function findItemByPath(
 
       // Let user select a file
       const selectedFile = await options.prompts.search({
-        message: getActionText(isTranslate, "Select a page to {action}:"),
+        message: getActionText("Select a page to {action}:", webAction),
         source: async (input) => {
           if (!input || input.trim() === "") {
             return mainLanguageFiles.map((file) => ({
@@ -74,8 +76,8 @@ export default async function findItemByPath(
       console.debug(error?.message);
       throw new Error(
         getActionText(
-          isTranslate,
           "Please run 'aigne web generate' first to generate pages, then select which page to {action}",
+          webAction,
         ),
       );
     }
@@ -98,8 +100,8 @@ export default async function findItemByPath(
   let userFeedback = feedback;
   if (!userFeedback) {
     const feedbackMessage = getActionText(
-      isTranslate,
       "Please provide feedback for the {action} (press Enter to skip):",
+      webAction,
     );
 
     userFeedback = await options.prompts.input({

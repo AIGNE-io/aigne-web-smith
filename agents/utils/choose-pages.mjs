@@ -1,5 +1,6 @@
 import { join } from "node:path";
 import chalk from "chalk";
+import { WEB_ACTION } from "../../utils/constants.mjs";
 import {
   addFeedbackToItems,
   fileNameToFlatPath,
@@ -9,6 +10,13 @@ import {
   getMainLanguageFiles,
   processSelectedFiles,
 } from "../../utils/pages-finder-utils.mjs";
+
+function getFeedbackMessage(action) {
+  if (action === WEB_ACTION.translate) {
+    return "Any specific translation preferences or instructions? (Press Enter to skip):";
+  }
+  return "How would you like to improve this page? (Press Enter to skip):";
+}
 
 /**
  * Create file choice with title display
@@ -62,7 +70,7 @@ export default async function choosePages(
     locale,
     requiredFeedback = true,
     multipleSelection = true,
-    title,
+    action,
   },
   options,
 ) {
@@ -70,6 +78,7 @@ export default async function choosePages(
   let selectedFiles = [];
 
   const mainFileTmpDir = join(tmpDir, locale);
+  const webAction = action || (isTranslate ? WEB_ACTION.translate : WEB_ACTION.update);
 
   // If pages is empty or not provided, let user select multiple pages
   if (!pages || pages.length === 0) {
@@ -83,7 +92,9 @@ export default async function choosePages(
 
       if (mainLanguageFiles.length === 0) {
         console.log(
-          `It seems that the pages does not generated. \nPlease generate the pages as needed using ${chalk.yellow("aigne web generate")} \n`,
+          `Looks like the pages haven't been generated yet. \nYou can create them anytime with ${chalk.yellow(
+            "aigne web generate",
+          )} \n`,
         );
         process.exit(0);
       }
@@ -96,7 +107,7 @@ export default async function choosePages(
       // Let user select files (single or multiple based on multipleSelection parameter)
       if (multipleSelection) {
         selectedFiles = await options.prompts.checkbox({
-          message: title || getActionText(isTranslate, "Select pages to {action}:"),
+          message: getActionText("Select pages to {action}:", webAction),
           source: (term) => {
             if (!term) return choices;
 
@@ -113,7 +124,7 @@ export default async function choosePages(
         });
       } else {
         const selectedFile = await options.prompts.search({
-          message: title || getActionText(isTranslate, "Select page to {action}:"),
+          message: getActionText("Select page to {action}:", webAction),
           source: (term) => {
             if (!term) return choices;
 
@@ -139,8 +150,8 @@ export default async function choosePages(
       console.error(error);
       throw new Error(
         getActionText(
-          isTranslate,
           "Please provide a pages parameter to specify which pages to {action}",
+          webAction,
         ),
       );
     }
@@ -173,10 +184,7 @@ export default async function choosePages(
   // Prompt for feedback if not provided
   let userFeedback = feedback;
   if (!userFeedback && requiredFeedback) {
-    const feedbackMessage = getActionText(
-      isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):",
-    );
+    const feedbackMessage = getFeedbackMessage(webAction);
 
     userFeedback = await options.prompts.input({
       message: feedbackMessage,

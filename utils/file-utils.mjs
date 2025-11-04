@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { access, copyFile, mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
+import { minimatch } from "minimatch";
 import { WEB_SMITH_DIR } from "./constants.mjs";
 import { isGlobPattern } from "./utils.mjs";
 
@@ -392,6 +393,27 @@ export async function loadFilesFromSourcePaths(
   return allFiles;
 }
 
+/**
+ * Check if a string is an HTTP/HTTPS URL
+ * @param {string} fileUrl - The string to check
+ * @returns {boolean} - True if the string starts with http:// or https://
+ */
+export function isRemoteFile(fileUrl) {
+  if (typeof fileUrl !== "string") return false;
+
+  try {
+    const url = new URL(fileUrl);
+    // Only accept http and https url
+    if (["http:", "https:"].includes(url.protocol)) {
+      return true;
+    }
+    // other protocol will be treated as bad url
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 // Media file extensions constants
 const IMAGE_EXTENSIONS = [
   ".jpg",
@@ -555,4 +577,100 @@ export async function copyGeneratedImages(imageRequirements, assetsDir) {
 export function getTranslationCachePath() {
   const translationCachePath = path.join(process.cwd(), WEB_SMITH_DIR, "translation-cache.yaml");
   return translationCachePath;
+}
+
+/**
+ * Extract the path prefix from a glob pattern until the first glob character
+ */
+export function getPathPrefix(pattern) {
+  const segments = pattern.split("/");
+  const result = [];
+
+  for (const segment of segments) {
+    if (isGlobPattern(segment)) {
+      break;
+    }
+    result.push(segment);
+  }
+
+  return result.join("/") || ".";
+}
+
+/**
+ * Check if a dir matches any exclude pattern
+ */
+export function isDirExcluded(dir, excludePatterns) {
+  if (!dir || typeof dir !== "string") {
+    return false;
+  }
+
+  let normalizedDir = dir.replace(/\\/g, "/").replace(/^\.\/+/, "");
+  normalizedDir = normalizedDir.endsWith("/") ? normalizedDir : `${normalizedDir}/`;
+
+  for (const excludePattern of excludePatterns) {
+    if (minimatch(normalizedDir, excludePattern, { dot: true })) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Return source paths that would be excluded by exclude patterns (files are skipped, directories use minimatch, glob patterns use path prefix heuristic)
+ */
+export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
+  if (!Array.isArray(sourcePaths) || sourcePaths.length === 0) {
+    return [];
+  }
+
+  if (!Array.isArray(excludePatterns) || excludePatterns.length === 0) {
+    return [];
+  }
+
+  const invalidPaths = [];
+
+  for (const sourcePath of sourcePaths) {
+    if (typeof sourcePath !== "string" || !sourcePath) {
+      continue;
+    }
+
+    // Skip paths starting with "!" (exclusion patterns)
+    if (sourcePath.startsWith("!")) {
+      continue;
+    }
+
+    // Skip remote URLs
+    if (isRemoteFile(sourcePath)) {
+      continue;
+    }
+
+    // Check glob pattern: use heuristic algorithm
+    if (isGlobPattern(sourcePath)) {
+      const representativePath = getPathPrefix(sourcePath);
+      if (isDirExcluded(representativePath, excludePatterns)) {
+        invalidPaths.push(sourcePath);
+      }
+      continue;
+    }
+
+    try {
+      const stats = await stat(sourcePath);
+      // Skip file
+      if (stats.isFile()) {
+        continue;
+      }
+      // Check dir with minimatch
+      if (stats.isDirectory()) {
+        if (isDirExcluded(sourcePath, excludePatterns)) {
+          invalidPaths.push(sourcePath);
+        }
+      }
+    } catch {
+      // Path doesn't exist
+      invalidPaths.push(sourcePath);
+    }
+  }
+
+  return invalidPaths;
 }

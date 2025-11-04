@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import chalk from "chalk";
-import { DOC_ACTION } from "../../utils/constants.mjs";
+import { WEB_ACTION } from "../../utils/constants.mjs";
 import {
   addFeedbackToItems,
   fileNameToFlatPath,
@@ -12,7 +12,7 @@ import {
 } from "../../utils/pages-finder-utils.mjs";
 
 function getFeedbackMessage(action) {
-  if (action === DOC_ACTION.translate) {
+  if (action === WEB_ACTION.translate) {
     return "Any specific translation preferences or instructions? (Press Enter to skip):";
   }
   return "How would you like to improve this page? (Press Enter to skip):";
@@ -78,7 +78,7 @@ export default async function choosePages(
   let selectedFiles = [];
 
   const mainFileTmpDir = join(tmpDir, locale);
-  const docAction = action || (isTranslate ? DOC_ACTION.translate : DOC_ACTION.update);
+  const docAction = action || (isTranslate ? WEB_ACTION.translate : WEB_ACTION.update);
 
   // If pages is empty or not provided, let user select multiple pages
   if (!pages || pages.length === 0) {

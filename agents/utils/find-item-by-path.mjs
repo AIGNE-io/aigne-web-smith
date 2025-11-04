@@ -1,4 +1,4 @@
-import { DOC_ACTION } from "../../utils/constants.mjs";
+import { WEB_ACTION } from "../../utils/constants.mjs";
 import {
   fileNameToFlatPath,
   findItemByFlatName,
@@ -15,7 +15,7 @@ export default async function findItemByPath(
   let foundItem = null;
   let selectedFileContent = null;
   let pagePath = page;
-  const docAction = isTranslate ? DOC_ACTION.translate : DOC_ACTION.update;
+  const docAction = isTranslate ? WEB_ACTION.translate : WEB_ACTION.update;
 
   // If pagePath is empty, let user select from available pages
   if (!pagePath) {

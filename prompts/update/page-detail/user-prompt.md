@@ -1,4 +1,5 @@
 <datasources>
+{% if needDataSources %}
 {{ detailDataSources }}
 
 {{ additionalInformation }}
@@ -6,6 +7,7 @@
 <available_media_assets>
 {{ assetsContent }}
 </available_media_assets>
+{% endif %}
 
 {% ifAsync websiteScale != "singlePage" %}
 <available_internal_links>

@@ -59,7 +59,7 @@ export default async function listComponents() {
 
     console.info(message);
 
-    return { message };
+    return {};
   } catch (err) {
     return {
       message: `❌ Failed to list components: ${err.message}\n\n📍 Expected file: ${filePath}`,

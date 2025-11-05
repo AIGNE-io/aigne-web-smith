@@ -147,7 +147,10 @@ export default async function choosePages(
         mainFileTmpDir,
       );
     } catch (error) {
-      console.error(error);
+      if (error.name === "ExitPromptError") throw error;
+
+      console.error(error.message);
+
       throw new Error(
         getActionText(
           "Please provide a pages parameter to specify which pages to {action}",

@@ -77,7 +77,9 @@ agents:
   - ./agents/plan/website-structure-tools/move-page.mjs
 
   # prefs
-  - ./agents/prefs/index.mjs
+  - ./agents/prefs/list-pref.mjs
+  - ./agents/prefs/remove-pref.mjs
+  - ./agents/prefs/toggle-pref.mjs
 
   # publish
   - ./agents/publish/index.yaml
@@ -153,7 +155,18 @@ cli:
         - url: ./agents/theme/apply-theme.mjs
           name: apply
           alias: ["a"]
-    - ./agents/prefs/index.mjs
+    - name: prefs
+      description: Manage user preferences
+      agents:
+        - url: ./agents/prefs/list-pref.mjs
+          name: list
+          alias: ["ls"]
+        - url: ./agents/prefs/remove-pref.mjs
+          name: remove
+          alias: ["rm"]
+        - url: ./agents/prefs/toggle-pref.mjs
+          name: toggle
+          alias: ["t"]
     - name: component
       description: Manage and pull components
       alias: ["comp"]

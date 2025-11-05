@@ -135,14 +135,8 @@ export default async function updateSection(input, options) {
   });
 
   if (!validationResult.isValid) {
-    const summary =
-      validationResult.errorCount === 1
-        ? "Found 1 validation error:"
-        : `Found ${validationResult.errorCount} validation errors:`;
-    const details = validationResult.errors
-      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
-      .join("\n");
-    const errorMessage = `Cannot update section:\n${summary}\n${details}`;
+    const errorMessage = `Cannot update section:\n${validationResult.validationFeedback}`;
+    console.log(errorMessage);
     handleFailure(options);
 
     return {

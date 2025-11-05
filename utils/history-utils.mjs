@@ -162,8 +162,6 @@ export function recordUpdate({ operation, feedback, pagePath = null }) {
     // Initialize git repo on first update if not exists
     ensureGitRepo();
     recordUpdateGit({ operation, feedback, pagePath });
-  } else {
-    console.warn("Git is not available, skipping git based update history");
   }
 }
 

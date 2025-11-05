@@ -158,6 +158,64 @@ function findClosestFieldCombination(fields, index, { requireSuperset = false } 
   return bestMatch;
 }
 
+/**
+ * Format validation errors for better readability
+ * Groups errors by code and extracts fix suggestions
+ * @param {Array<{path: string, message: string, code: string}>} errors - Array of validation errors
+ * @returns {string} Formatted validation errors string
+ */
+export function formatValidationErrors(errors) {
+  if (!errors || errors.length === 0) {
+    return "✅ Validation passed";
+  }
+
+  const errorCount = errors.length;
+  const lines = [];
+  lines.push(`❌ Validation failed (${errorCount} ${errorCount === 1 ? "issue" : "issues"})`);
+  lines.push("");
+
+  // Group errors by code
+  const errorsByCode = new Map();
+  errors.forEach((error) => {
+    const code = error.code || "UNKNOWN_ERROR";
+    if (!errorsByCode.has(code)) {
+      errorsByCode.set(code, []);
+    }
+    errorsByCode.get(code).push(error);
+  });
+
+  // Process each error code group
+  errorsByCode.forEach((errorGroup, code) => {
+    lines.push(`Error Code: ${code}`);
+
+    errorGroup.forEach((error) => {
+      lines.push(`   • ${error.path}`);
+
+      const message = error.message || "";
+
+      // Look for "Suggested fix:" section
+      const suggestedFixMatch = message.match(/Suggested fix:\s*(.+)/i);
+      if (suggestedFixMatch) {
+        const fixText = suggestedFixMatch[1].trim();
+        // Split by semicolon to get multiple fix suggestions
+        const fixParts = fixText
+          .split(";")
+          .map((part) => part.trim())
+          .filter(Boolean);
+
+        // Filter out "match component(s)" suggestions as they're less actionable
+        const actionableFixes = fixParts.filter((part) => !part.includes("match component"));
+        lines.push(`     Fix: ${actionableFixes.join("; ")}`);
+      } else {
+        // For errors without fix suggestions, show the full error message
+        lines.push(`     ${message}`);
+      }
+    });
+  });
+
+  return lines.join("\n");
+}
+
 function validateSectionFieldCombination({ section, sectionPath, index, errors, existingKeys }) {
   if (!section || typeof section !== "object" || Array.isArray(section) || !index) {
     return;
@@ -275,6 +333,7 @@ export function validateSingleSection({ section, sectionPath, componentLibrary }
     };
     return {
       isValid: false,
+      validationFeedback: formatValidationErrors([error]),
       errors: [error],
       errorCount: 1,
     };
@@ -305,6 +364,7 @@ export function validateSingleSection({ section, sectionPath, componentLibrary }
   if (errors.length > 0) {
     return {
       isValid: false,
+      validationFeedback: formatValidationErrors(errors),
       errors,
       errorCount: errors.length,
     };
@@ -376,17 +436,9 @@ export function validatePageDetail({
   const toErrorKey = (error) => `${error.path}:${error.code}`;
 
   const buildInvalidResult = () => {
-    const summary =
-      errors.length === 1
-        ? "Found 1 validation error:"
-        : `Found ${errors.length} validation errors:`;
-    const details = errors
-      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
-      .join("\n");
-
     return {
       isValid: false,
-      validationFeedback: `${summary}\n${details}`,
+      validationFeedback: formatValidationErrors(errors),
       errors,
       errorCount: errors.length,
     };

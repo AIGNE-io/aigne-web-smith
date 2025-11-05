@@ -298,11 +298,16 @@ export default async function publishWebsite(
       const userInput = await options.prompts.input({
         message: "Please enter your website URL:",
         validate: (input) => {
+          const message = "Please enter a valid URL";
+
           try {
-            normalizeAppUrl(input);
-            return true;
+            if (input) {
+              normalizeAppUrl(input);
+              return true;
+            }
+            return message;
           } catch {
-            return "Please enter a valid URL";
+            return message;
           }
         },
       });

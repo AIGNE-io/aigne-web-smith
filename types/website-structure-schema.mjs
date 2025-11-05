@@ -4,13 +4,9 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 // Navigation schema - represents navigation metadata
 export const navigationSchema = z.object({
   title: z
-    .string()
-    .min(1, "Navigation title is required")
-    .max(18, "Navigation title should be 10-18 characters"),
+    .string(),
   description: z
     .string()
-    .min(20, "Navigation description should be at least 20 characters")
-    .max(40, "Navigation description should be at most 40 characters"),
 });
 
 // Page item schema - represents a single page in the structure
@@ -121,9 +117,9 @@ export const getAddPageInputJsonSchema = () => {
     schema.properties.navigation.description = "Navigation metadata shown to users";
     if (schema.properties.navigation.properties) {
       schema.properties.navigation.properties.title.description =
-        "Short navigation label (10–18 characters, 2–3 words)";
+        "Short navigation label (**10–18 characters, 2–3 words**)";
       schema.properties.navigation.properties.description.description =
-        "User-facing action summary (20–40 characters) describing what visitors can do";
+        "User-facing action summary (**20–40 characters**) describing what visitors can do";
     }
     schema.properties.parentId.description = "Parent page path. Use null for top-level pages";
     schema.properties.sourceIds.description =

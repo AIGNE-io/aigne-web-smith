@@ -29,6 +29,7 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   ENABLE_LOGS,
+  LINK_PROTOCOL,
   LIST_KEY,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
@@ -42,6 +43,7 @@ import {
   WEBSITE_SCALE,
 } from "./constants.mjs";
 import { extractContentFields } from "./generate-helper.mjs";
+import { validateInternalLinks } from "./protocol-utils.mjs";
 
 const pageDetailMetaSchema = z
   .object({
@@ -369,6 +371,7 @@ export function validatePageDetail({
   pageDetailYaml,
   allowArrayFallback = false,
   componentLibrary,
+  allowedLinks,
 }) {
   const errors = [];
   const fieldCombinationIndex = buildFieldCombinationIndex(componentLibrary);
@@ -517,6 +520,18 @@ export function validatePageDetail({
         errors,
         existingKeys: existingErrorKeys,
       });
+    });
+  }
+
+  // Validate internal links if allowedLinks is provided
+  if (allowedLinks && allowedLinks.size !== 0) {
+    const linkErrors = validateInternalLinks(parsedDataForValidation, allowedLinks, LINK_PROTOCOL);
+    linkErrors.forEach((error) => {
+      const key = toErrorKey(error);
+      if (!existingErrorKeys.has(key)) {
+        existingErrorKeys.add(key);
+        errors.push(error);
+      }
     });
   }
 

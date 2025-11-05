@@ -33,6 +33,7 @@ export default async function checkDetailResult({
       pageDetailYaml: reviewContent,
       componentLibrary,
       allowArrayFallback,
+      allowedLinks,
     });
 
     if (!validation.isValid) {

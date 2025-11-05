@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { validatePageDetail } from "../../utils/utils.mjs";
+import { LINK_PROTOCOL } from "../../utils/constants.mjs";
 
 const sampleComponentLibrary = [
   {
@@ -291,6 +292,82 @@ sections:
       componentLibrary: sampleComponentLibrary,
     });
 
+    expect(result.isValid).toBe(true);
+  });
+
+  test("validates internal links when allowedLinks is provided", () => {
+    const yamlContent = `
+meta:
+  title: "Test Page"
+  description: "Test page with internal links"
+sections:
+  - sectionName: "Hero Section"
+    sectionSummary: "Hero with CTA"
+    heroTitle: "Welcome"
+    heroDescription: "Test description"
+    heroCta:
+      text: "Learn More"
+      url: "${LINK_PROTOCOL}about"
+`;
+
+    const allowedLinks = new Set([`${LINK_PROTOCOL}about`, `${LINK_PROTOCOL}contact`]);
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+      allowedLinks,
+    });
+
+    expect(result.isValid).toBe(true);
+  });
+
+  test("reports error for invalid internal links", () => {
+    const yamlContent = `
+meta:
+  title: "Test Page"
+  description: "Test page with invalid internal links"
+sections:
+  - sectionName: "Hero Section"
+    sectionSummary: "Hero with CTA"
+    heroTitle: "Welcome"
+    heroDescription: "Test description"
+    heroCta:
+      text: "Learn More"
+      url: "${LINK_PROTOCOL}invalid-page"
+`;
+
+    const allowedLinks = new Set([`${LINK_PROTOCOL}about`, `${LINK_PROTOCOL}contact`]);
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+      allowedLinks,
+    });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors.some((error) => error.code === "INVALID_INTERNAL_LINK")).toBe(true);
+    expect(result.validationFeedback).toContain("invalid-page");
+  });
+
+  test("skips internal link validation when allowedLinks is not provided", () => {
+    const yamlContent = `
+meta:
+  title: "Test Page"
+  description: "Test page with internal links"
+sections:
+  - sectionName: "Hero Section"
+    sectionSummary: "Hero with CTA"
+    heroTitle: "Welcome"
+    heroDescription: "Test description"
+    heroCta:
+      text: "Learn More"
+      url: "${LINK_PROTOCOL}any-link"
+`;
+
+    const result = validatePageDetail({
+      pageDetailYaml: yamlContent,
+      componentLibrary: sampleComponentLibrary,
+    });
+
+    // Should pass because allowedLinks is not provided
     expect(result.isValid).toBe(true);
   });
 });

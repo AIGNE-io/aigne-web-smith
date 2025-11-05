@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
 import {
@@ -85,9 +85,6 @@ export default async function loadSources({
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
 
-    // @FIXME: 强制添加 components，后续需要修改为通过远程加载
-    paths.push(path.join(import.meta.dirname, "../../", COMPONENTS_DIR));
-
     const allFiles = await loadFilesFromSourcePaths(paths, {
       includePatterns,
       excludePatterns,
@@ -97,6 +94,20 @@ export default async function loadSources({
     });
 
     files = files.concat(allFiles);
+  }
+
+  // @FIXME: Components are added forcibly here; should be loaded remotely in the future
+  // Load component files directly without filtering
+  const componentsDir = path.join(import.meta.dirname, "../../", COMPONENTS_DIR);
+  try {
+    const componentDirents = await readdir(componentsDir, { withFileTypes: true });
+    const componentFiles = componentDirents
+      .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".yaml"))
+      .map((dirent) => path.join(componentsDir, dirent.name));
+    files = files.concat(componentFiles);
+  } catch (error) {
+    // If components directory doesn't exist, continue without component files
+    console.warn(`Warning: Could not read components directory: ${error.message}`);
   }
 
   files = [...new Set(files)];

@@ -207,7 +207,7 @@
     "title": "Advanced Features",
     "description": "Explore advanced capabilities of AIGNE WebSmith to further customize and enhance your website, including component management and using specialized visual elements.",
     "path": "/advanced-features",
-    "parentId": null,
+    "parentId": "null",
     "sourceIds": ["README.md", "CHANGELOG.md", "agents/component/pull-components-team.yaml"]
   },
   {

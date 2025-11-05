@@ -1,83 +1,93 @@
 # Managing Preferences
 
-When you provide feedback to WebSmith, for example, during the `update` process, it learns from your instructions. To make future generations smarter and more aligned with your style, WebSmith can save this feedback as a "preference." These preferences are reusable rules that are automatically applied in the future.
+AIGNE WebSmith learns from your feedback to refine how it generates and updates your website. These learned instructions are stored as user preferences. The `prefs` command provides a way to view, manage, and clear these saved preferences, giving you full control over the AI's behavior.
 
-The `prefs` command is your tool for managing these saved instructions. You can view all your saved preferences, temporarily disable them, or permanently remove them. This ensures you have full control over how WebSmith customizes its behavior for you.
+Managing your preferences ensures that the AI consistently adheres to your specific style guides, content requirements, and structural conventions over time.
 
-## Understanding a Preference
+## Listing Preferences
 
-Each preference rule has several parts that define what it does and when it applies. When you list your preferences, you'll see them displayed in a structured format.
+To view all your currently saved preferences, use the `list` command. This command displays a table of all preference rules, including their ID, active status, scope, and the rule itself.
 
-Here’s a breakdown of what each part means:
-
-| Component | Description |
-| :--- | :--- |
-| **Status** | Indicates if the rule is active. 🟢 means it's active and will be used. ⚪ means it's inactive and will be ignored. |
-| **Scope** | Determines when the rule should be applied. There are four scopes: `global`, `structure`, `page`, and `translation`. For example, a `page` scope rule is only used when refining page content. |
-| **ID** | A unique identifier for the preference (e.g., `pref_a1b2c3d4`). You use this ID to toggle or remove a specific rule. |
-| **Paths** | If a rule is limited to specific files, the relevant paths will be listed here. If it's a general rule, this will be blank. |
-| **Rule** | The actual instruction that WebSmith will follow. This is a concise summary of the feedback you provided. |
-
-## Listing All Preferences
-
-To see all the preferences WebSmith has saved for you, use the `--list` flag. This command provides a complete overview of every rule, including its status, scope, ID, and the instruction itself.
-
-```bash Command icon=lucide:terminal
-aigne web prefs --list
+```bash terminal icon=lucide:terminal
+aigne web prefs list
 ```
 
-**Example Output:**
+You can also use the alias `ls`:
 
-```text Example Output
-# User Preferences
-
-**Format explanation:**
-- 🟢 = Active preference, ⚪ = Inactive preference
-- [scope] = Preference scope (global, structure, page, translation)
-- ID = Unique preference identifier
-- Paths = Specific file paths (if applicable)
-
-🟢 [page] pref_1a2b3c4d
-   Code comments must be written in English.
-
-⚪ [structure] pref_5e6f7g8h | Paths: /overview, /tutorials
-   Add a 'Next Steps' section at the end of overview and tutorial pages.
+```bash terminal icon=lucide:terminal
+aigne web prefs ls
 ```
 
-## Toggling a Preference's Status
+### Example Output
 
-If you want to temporarily disable a preference without deleting it permanently, you can use the `--toggle` flag. Toggling a preference switches its status between active (🟢) and inactive (⚪).
+The output will be a formatted table, making it easy to review your saved rules.
 
-You can specify which preferences to toggle by providing their IDs with the `--id` option.
+| ID         | Active | Scope     | Rule                                                               |
+| :--------- | :----- | :-------- | :----------------------------------------------------------------- |
+| pref_a1b2c3d4 | true   | page      | Write in a formal, professional tone.                              |
+| pref_e5f6g7h8 | true   | structure | Do not generate pages or sections for outdated 'Legacy API Reference'. |
+| pref_i9j0k1l2 | false  | theme     | Healthcare websites must use warm color tones.                     |
 
-```bash Command icon=lucide:terminal
-aigne web prefs --toggle --id pref_1a2b3c4d
+## Toggling a Preference
+
+If you want to temporarily disable a preference without permanently deleting it, you can use the `toggle` command. This command switches the `active` status of a rule. To toggle a specific rule, you must provide its unique ID using the `--id` parameter.
+
+```bash terminal icon=lucide:terminal
+aigne web prefs toggle --id <PREFERENCE_ID>
 ```
 
-If you run the command without any IDs, WebSmith will enter an interactive mode, allowing you to select the preferences you wish to toggle from a list.
+You can also use the alias `t`:
 
-```bash Command icon=lucide:terminal
-aigne web prefs --toggle
+```bash terminal icon=lucide:terminal
+aigne web prefs t --id <PREFERENCE_ID>
 ```
 
-This will display a checklist of your current preferences for you to select.
+### Example
 
-## Removing Preferences
+To deactivate the theme preference from the example above:
 
-When you no longer need a preference, you can permanently delete it using the `--remove` flag.
-
-To remove one or more specific preferences, provide their IDs using the `--id` option.
-
-```bash Command icon=lucide:terminal
-aigne web prefs --remove --id pref_1a2b3c4d pref_5e6f7g8h
+```bash terminal icon=lucide:terminal
+aigne web prefs toggle --id pref_i9j0k1l2
 ```
 
-Similar to toggling, if you run the `remove` command without specifying any IDs, WebSmith will launch an interactive checklist where you can select the preferences you want to delete.
+Running `aigne web prefs list` again would show `pref_i9j0k1l2` as `false`. Running the toggle command on the same ID again would reactivate it.
 
-```bash Command icon=lucide:terminal
-aigne web prefs --remove
+## Removing a Preference
+
+To permanently delete a preference that is no longer needed, use the `remove` command. This action is irreversible. You must specify the rule to delete by providing its ID via the `--id` parameter.
+
+```bash terminal icon=lucide:terminal
+aigne web prefs remove --id <PREFERENCE_ID>
 ```
 
----
+You can also use the alias `rm`:
 
-By managing your preferences, you can refine and guide the AI's behavior over time, ensuring the generated content consistently meets your standards. For more information on how preferences are created, see the [Updating Website Content](./core-tasks-updating-website-content.md) section.
+```bash terminal icon=lucide:terminal
+aigne web prefs rm --id <PREFERENCE_ID>
+```
+
+### Example
+
+To permanently remove the page preference from the example above:
+
+```bash terminal icon=lucide:terminal
+aigne web prefs remove --id pref_a1b2c3d4
+```
+
+The specified preference will be removed from your `preferences.yml` file.
+
+## Understanding Preference Scopes
+
+Preferences are applied based on their assigned `scope`, which determines the context in which a rule is triggered.
+
+| Scope         | Description                                                                                             |
+| :------------ | :------------------------------------------------------------------------------------------------------ |
+| **global**    | Applies to all stages of generation and content refinement. Use for universal style or content rules.   |
+| **structure** | Applies only when planning or updating the website's structure (e.g., adding, removing pages).          |
+| **page**      | Applies when generating or refining the content of individual pages.                                    |
+| **translation** | Applies only during the content translation process.                                                    |
+| **theme**     | Applies when generating or modifying the website's visual theme, such as colors and fonts.              |
+
+## Summary
+
+The `prefs` command is an essential tool for customizing and controlling the long-term behavior of AIGNE WebSmith. By listing, toggling, and removing preferences, you can maintain a clean and effective set of rules that ensures the AI consistently produces results aligned with your project's specific needs.

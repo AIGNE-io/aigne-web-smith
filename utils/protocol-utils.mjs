@@ -1,8 +1,8 @@
 /**
- * 递归扫描对象中的指定协议值
- * @param {any} obj - 要扫描的对象
- * @param {Set} foundUrls - 找到的协议 URL 集合
- * @param {string} protocol - 要扫描的协议 (如 MEDIA_KIT_PROTOCOL 或 LINK_PROTOCOL)
+ * Recursively scan for protocol values in an object
+ * @param {any} obj - The object to scan
+ * @param {Set} foundUrls - Set of found protocol URLs
+ * @param {string} protocol - The protocol to scan for (e.g., MEDIA_KIT_PROTOCOL or LINK_PROTOCOL)
  */
 export function scanForProtocolUrls(obj, foundUrls, protocol) {
   if (typeof obj === "string") {
@@ -17,20 +17,20 @@ export function scanForProtocolUrls(obj, foundUrls, protocol) {
 }
 
 /**
- * 验证页面数据中的内部跳转链接是否在允许列表中
- * @param {any} pageData - 页面数据对象
- * @param {Set<string>} allowedLinks - 允许的链接集合
- * @param {string} protocol - 要扫描的协议 (如 LINK_PROTOCOL)
- * @returns {Array<{path: string, message: string, code: string}>} 验证错误列表
+ * Validate internal links in page data against an allowed list
+ * @param {any} pageData - Page data object
+ * @param {Set<string>} allowedLinks - Set of allowed links
+ * @param {string} protocol - The protocol to scan for (e.g., LINK_PROTOCOL)
+ * @returns {Array<{path: string, message: string, code: string}>} List of validation errors
  */
 export function validateInternalLinks(pageData, allowedLinks, protocol) {
   const errors = [];
   const foundLinks = new Set();
 
-  // 扫描页面数据中的所有内部链接
+  // Scan all internal links in page data
   scanForProtocolUrls(pageData, foundLinks, protocol);
 
-  // 验证每个链接是否在允许列表中
+  // Validate each link against the allowed list
   for (const link of foundLinks) {
     if (!allowedLinks.has(link)) {
       errors.push({
@@ -45,20 +45,20 @@ export function validateInternalLinks(pageData, allowedLinks, protocol) {
 }
 
 /**
- * 验证页面数据中的媒体资源是否在允许列表中
- * @param {any} pageData - 页面数据对象
- * @param {Set<string>} allowedMediaFiles - 允许的媒体文件集合
- * @param {string} protocol - 要扫描的协议 (如 MEDIA_KIT_PROTOCOL)
- * @returns {Array<{path: string, message: string, code: string}>} 验证错误列表
+ * Validate media resources in page data against an allowed list
+ * @param {any} pageData - Page data object
+ * @param {Set<string>} allowedMediaFiles - Set of allowed media files
+ * @param {string} protocol - The protocol to scan for (e.g., MEDIA_KIT_PROTOCOL)
+ * @returns {Array<{path: string, message: string, code: string}>} List of validation errors
  */
 export function validateMediaResources(pageData, allowedMediaFiles, protocol) {
   const errors = [];
   const foundMediaUrls = new Set();
 
-  // 扫描页面数据中的所有媒体资源
+  // Scan all media resources in page data
   scanForProtocolUrls(pageData, foundMediaUrls, protocol);
 
-  // 验证每个媒体资源是否在允许列表中
+  // Validate each media resource against the allowed list
   for (const mediaUrl of foundMediaUrls) {
     if (!allowedMediaFiles.has(mediaUrl)) {
       errors.push({
@@ -73,11 +73,11 @@ export function validateMediaResources(pageData, allowedMediaFiles, protocol) {
 }
 
 /**
- * 从网站结构构建允许的链接集合
- * @param {Array} websiteStructure - 网站结构数组
- * @param {string} locale - 语言代码
- * @param {Function} getFileName - 获取文件名的函数
- * @returns {Set<string>} 允许的链接集合
+ * Build allowed links set from website structure
+ * @param {Array} websiteStructure - Website structure array
+ * @param {string} locale - Language code
+ * @param {Function} getFileName - Function to get file name
+ * @returns {Set<string>} Set of allowed links
  */
 export function buildAllowedLinksFromStructure(websiteStructure, locale, getFileName) {
   const allowedLinks = new Set();
@@ -113,9 +113,9 @@ export function buildAllowedLinksFromStructure(websiteStructure, locale, getFile
 }
 
 /**
- * 从媒体文件数组构建允许的媒体资源集合
- * @param {Array} mediaFiles - 媒体文件数组
- * @returns {Set<string>} 允许的媒体资源集合
+ * Build allowed media files set from media files list
+ * @param {Array} mediaFiles - Media files array
+ * @returns {Set<string>} Set of allowed media files
  */
 export function buildAllowedMediaFilesFromList(mediaFiles) {
   const allowedMediaFiles = new Set();

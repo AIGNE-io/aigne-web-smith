@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { validatePageDetail } from "../../utils/utils.mjs";
-import { LINK_PROTOCOL } from "../../utils/constants.mjs";
 
 const sampleComponentLibrary = [
   {

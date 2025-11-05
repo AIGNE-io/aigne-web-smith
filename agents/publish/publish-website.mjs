@@ -369,7 +369,11 @@ export default async function publishWebsite(
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);
         }
-        const { appUrl: homeUrl, token: ltToken, sessionId: newSessionId } = (await deploy(id, paymentLink)) || {};
+        const {
+          appUrl: homeUrl,
+          token: ltToken,
+          sessionId: newSessionId,
+        } = (await deploy(id, paymentLink)) || {};
 
         appUrl = homeUrl;
         token = ltToken;

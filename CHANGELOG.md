@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.0-beta.13](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.12...v1.6.0-beta.13) (2025-11-05)
+
+
+### Features
+
+* enhance page validation with media files and streamlined navigation ([#217](https://github.com/AIGNE-io/aigne-web-smith/issues/217)) ([7777805](https://github.com/AIGNE-io/aigne-web-smith/commit/77778050e4473222a859001c306265d22bc531ba))
+* improve component loading with better error handling and filtering ([a375567](https://github.com/AIGNE-io/aigne-web-smith/commit/a375567cedf031f834712e133b66742c3d04df77))
+
+
+### Bug Fixes
+
+* improve error logging in choosePages ([#215](https://github.com/AIGNE-io/aigne-web-smith/issues/215)) ([645a591](https://github.com/AIGNE-io/aigne-web-smith/commit/645a591bea6434f0e1ad172c40e2aee82a07b503))
+* make paid deployment more smooth stable ([#214](https://github.com/AIGNE-io/aigne-web-smith/issues/214)) ([d6bccfb](https://github.com/AIGNE-io/aigne-web-smith/commit/d6bccfb7a6a3d45c3498b4b84128a5ee62ac610e))
+* tune theme/prefs/component/publish commands and validation ([#219](https://github.com/AIGNE-io/aigne-web-smith/issues/219)) ([d2e8465](https://github.com/AIGNE-io/aigne-web-smith/commit/d2e8465471cb2ff2bad4fc3deb8ad7e5245616d3))
+
 ## [1.6.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.11...v1.6.0-beta.12) (2025-11-05)
 
 

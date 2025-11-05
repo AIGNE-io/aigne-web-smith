@@ -1,4 +1,8 @@
-import { savePageWithTranslations, validatePageDetail } from "../../utils/utils.mjs";
+import {
+  buildAllowedLinksFromStructure,
+  buildAllowedMediaFilesFromList,
+} from "../../utils/protocol-utils.mjs";
+import { getFileName, savePageWithTranslations, validatePageDetail } from "../../utils/utils.mjs";
 
 export default async function saveSinglePage({
   path,
@@ -15,12 +19,23 @@ export default async function saveSinglePage({
   isShowMessage = false,
   throwErrorIfInvalid = false,
   componentLibrary,
+  websiteStructure,
+  mediaFiles,
 }) {
   let effectiveContent = content;
+
+  // Build allowed links from website structure
+  const allowedLinks = buildAllowedLinksFromStructure(websiteStructure, locale, getFileName);
+
+  // Build allowed media files from media files list
+  const allowedMediaFiles = buildAllowedMediaFilesFromList(mediaFiles);
+
   const validation = validatePageDetail({
     pageDetailYaml: effectiveContent,
     allowArrayFallback: true,
     componentLibrary,
+    allowedLinks,
+    allowedMediaFiles,
   });
 
   if (!validation.isValid) {

@@ -15,6 +15,7 @@ export default async function analyzePageDetail(input, options) {
     // forceRegenerate,
     locale,
     componentLibrary,
+    mediaFiles,
     ...rest
   } = input;
 
@@ -78,6 +79,7 @@ export default async function analyzePageDetail(input, options) {
       tmpDir,
       locale,
       componentLibrary,
+      mediaFiles,
     });
 
     if (!validationResult.isApproved) {

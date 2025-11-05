@@ -29,12 +29,14 @@ Rules:
 {% include "../common/rules/website-structure/conflict-resolution-rule.md" %}
 </website_constraints>
 
+{% if needDataSources %}
 <datasources>
 {{ datasources }}
 
 {% include "../common/rules/website-structure/datasources-handling-rule.md" %}
 
 </datasources>
+{% endif %}
 
 <feedback_analysis_guidelines>
 

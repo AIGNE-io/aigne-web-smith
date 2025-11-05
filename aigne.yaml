@@ -134,6 +134,7 @@ agents:
   - ./agents/utils/save-pages.mjs
   - ./agents/utils/save-single-page.mjs
   - ./agents/utils/transform-detail-datasources.mjs
+  - ./agents/utils/analyze-feedback-intent.yaml
 
 cli:
   chat: ./agents/chat/index.yaml

@@ -58,9 +58,11 @@ Current page information:
 
 {% include "../../common/rules/page-detail/resources-references-rules.md" %}
 
+{% if needDataSources %}
 ** Sections Constraints（VERY IMPORTANT）:**
 
 {{ fieldConstraints }}
+{% endif %}
 
 Operation execution rules:
 

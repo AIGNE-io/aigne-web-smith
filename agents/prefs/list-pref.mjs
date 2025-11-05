@@ -41,4 +41,3 @@ export default function listPreferences() {
 }
 
 listPreferences.description = "List all user preferences";
-

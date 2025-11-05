@@ -9,26 +9,26 @@ importers:
   .:
     dependencies:
       '@aigne/aigne-hub':
-        specifier: ^0.10.4
-        version: 0.10.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.10.5-beta.3
+        version: 0.10.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/anthropic':
-        specifier: ^0.14.4
-        version: 0.14.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^0.14.5-beta.3
+        version: 0.14.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
-        specifier: ^1.53.0
-        version: 1.53.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)
+        specifier: ^1.53.1-beta.4
+        version: 1.53.1-beta.4(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
-        specifier: ^1.65.0
-        version: 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^1.65.1-beta.3
+        version: 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/gemini':
-        specifier: ^0.14.4
-        version: 0.14.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^0.14.5-beta.3
+        version: 0.14.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/openai':
-        specifier: ^0.16.4
-        version: 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.16.5-beta.3
+        version: 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@blocklet/payment-broker-client':
-        specifier: ^1.22.3
-        version: 1.22.3
+        specifier: ^1.22.7
+        version: 1.22.7
       adm-zip:
         specifier: ^0.5.16
         version: 0.5.16
@@ -126,48 +126,48 @@ importers:
 
 packages:
 
-  '@aigne/afs-system-fs@1.0.3':
-    resolution: {integrity: sha512-JR1XoedrUoGP4RvFRbsVUPVsfiyL6YaTATjvA2JicvwGeaf/x3V8Uddpi+3VewVD7bdENbxdLuZrAgFYlAL18Q==}
+  '@aigne/afs-system-fs@1.0.4-beta.4':
+    resolution: {integrity: sha512-HOTfqNxvS7t5jp4pJANc5A84W3BzqPB6ej0q9ZH9KWH/bi8xHmAaynlYWlgdefDurxBa4bgsl2jWsfNBfZFAyA==}
 
   '@aigne/afs@1.1.1':
     resolution: {integrity: sha512-ARynhL54cgiznWmGszCf1WfEuq/fj9HcnXvNKUmxNeqE9PWjAKk9xz8KVVXPCeUqnqWI/lJZR8VS/4AqdBB0yQ==}
 
-  '@aigne/agent-library@1.21.50':
-    resolution: {integrity: sha512-ThDZeosb7tfvIjAktX8gO2YtiUNhnGNBltBvc98gkdS6ULJuNVXohPBtPqn1mpxlarFePEBbnKzjdlXMSxStjQ==}
+  '@aigne/agent-library@1.21.51-beta.3':
+    resolution: {integrity: sha512-ioPk7mM6CeBnyxVZVJHd5/l47LDd/qw5s5en/R7k1ujhOEOwtUE/3qbJx9FLTm+ZgzlvgsfITEjGc+4BFOIpaA==}
 
-  '@aigne/agentic-memory@1.0.50':
-    resolution: {integrity: sha512-WNbbMX2uAZrD2v8eorbfdktBTZB86t1fybUk3ZV9shPHbaEhpDTUFel2NxLiGgyn/mdr0th8XEjr+HhdwBaqig==}
+  '@aigne/agentic-memory@1.0.51-beta.3':
+    resolution: {integrity: sha512-QLWD8a5PJpqcyL6UdeBfkEYlQg70NN11zi0/LvxKjzcfqoS9BNtOUjFo3etThDm+uHpBiZ9efYeuzWl+Nf5hjw==}
 
-  '@aigne/aigne-hub@0.10.4':
-    resolution: {integrity: sha512-Y+E1JbVIkKb93gjt99MA69jvvJXugc/HNOnfjO8FGkxg42/+EoDfikCTCKvd3m1Cga9MeTy9ngqzVe/tSGQVOw==}
+  '@aigne/aigne-hub@0.10.5-beta.3':
+    resolution: {integrity: sha512-+7vZo7rF05J+sz4qFOhhf64GcA82Z81Njq+apMLOrV1iUmEvo8e86Bs7jTU9owV9kZ+EsU6zjg//28Rvqym7Jw==}
 
-  '@aigne/anthropic@0.14.4':
-    resolution: {integrity: sha512-W9VzOGiuHwJ47AsWq96kaDRdQVbu6UBTdLX02C7PPqZEZRBWFvzk9d1AEFARxKSnTYJDrqHbXTy9G0bJNtVpQQ==}
+  '@aigne/anthropic@0.14.5-beta.3':
+    resolution: {integrity: sha512-1H06bDRoongMJTll1WQe6DAoUYhbvcehbJ2vvAkQRllvqppZc/cFIukGNhY1n1RQ+B3e9D6SxLRopY6TPJA81g==}
 
-  '@aigne/bedrock@0.10.9':
-    resolution: {integrity: sha512-/FkWHhEqWuTqhHH2tx3IsZkXN6sz/0vGAIIAtp326UQayS+jml4iEerlhYscRV4LWJri/skJvaI6D/iqrBADOw==}
+  '@aigne/bedrock@0.10.10-beta.3':
+    resolution: {integrity: sha512-M/gIO1t5Y/1bNzWS5iyPDLGDnJugYjFTNG4G/J0GbXtKFoW9lRqbmi2Grh7kO/F1lfTfdL7tCjVnVe69/zB1Nw==}
 
-  '@aigne/cli@1.53.0':
-    resolution: {integrity: sha512-UFDY+AXkgb+UKqy8Rq71jlRcUsTsNTRkgBUUgL8CTkSHZwW2/x8LGHfbXbzupQCkMXZ+Aner0vjhuFK7u0f+Bg==}
+  '@aigne/cli@1.53.1-beta.4':
+    resolution: {integrity: sha512-kDqCYaYbUYrk+wLV7Da/lsK9UfpP88CinWf9xkbFOoUx+ovMkeyp+MrFPFPZ/z/qr0ZdjQ+VzT8MoodfkiG5ow==}
     hasBin: true
 
-  '@aigne/core@1.65.0':
-    resolution: {integrity: sha512-kBUOVugofOzjWwXgVuUpUOojiiQQIGfqGagLzeg+a62pKrpptMqYZfwsooPJQbJlykJhY1Jo2PdQmv4k/lZkhQ==}
+  '@aigne/core@1.65.1-beta.3':
+    resolution: {integrity: sha512-ApQ+uUtGF9JkHvTUXL093B5bLXNu8iIihv6g+obzMxaGIR9z1YmqkUjqpfb7TZiNGO7D12lCL47yA7jlZlN3CQ==}
 
-  '@aigne/deepseek@0.7.50':
-    resolution: {integrity: sha512-D2TGJHQLW3hMnAX3r4Kbc4J4qTxNQJlLEsFKZbKxY7d3LpaMEEPpwVeimdr0WB2lXPT/bbps9KsKvj6oZD7XEQ==}
+  '@aigne/deepseek@0.7.51-beta.3':
+    resolution: {integrity: sha512-6uALN1/XXv8WLoEWODNbDdXlSTPAAFZrprkw1esUVz5Wm0SFDVbrr1h/hTYYVEQW4odX0kWuFHDixhU7U3PfCw==}
 
-  '@aigne/default-memory@1.2.13':
-    resolution: {integrity: sha512-Gdwf85aiQzd7SXtPC948XzjABXVsLEeTAbO9uCRP7ixv43kC7qHA7wuNFvfuaHh02M/jiGHrmWu24ttmebycCg==}
+  '@aigne/default-memory@1.2.14-beta.3':
+    resolution: {integrity: sha512-9/Mxizb6fPvYL2kTvUa2sXgoUolMEbwNDWcu0kBPOUwtjUNX2bf9WZoLuo8UiPmrnOlV6IpqyCpd5lOeKiHpKg==}
 
-  '@aigne/doubao@1.1.4':
-    resolution: {integrity: sha512-BG3Wp9kMQDR5T+mrf0yN/RbIe4+OGaAdryRZEmPTOJh2/nfJlsBZukO5AvRgasZSfCCUzQXF5FjXXSJZU0nYdQ==}
+  '@aigne/doubao@1.1.5-beta.3':
+    resolution: {integrity: sha512-rNIWqLSqVfArDxjxZrBQ7tHGpVJRjhf/tmdno+MT+p/q6U5mVuxlY+4NKPA/MAXMGzI6ZVGrFhmlSVFdDMTDUQ==}
 
-  '@aigne/gemini@0.14.4':
-    resolution: {integrity: sha512-5BU3LMSMF+nrKsVrHmceeddUF1Ri067dKtwz5joHS6oQbbW2KPkgwlwfZZz/6iglSgvkq4WN/jJLnMaCK3XKfA==}
+  '@aigne/gemini@0.14.5-beta.3':
+    resolution: {integrity: sha512-7DDzuvGi8114Of/8MCouGufUfibT5Nx5RH4Zaa6LumTYl0coMuVXNdnEfaclrMPYvhY9QYKaQ6xraY5AHkNL5Q==}
 
-  '@aigne/ideogram@0.4.4':
-    resolution: {integrity: sha512-hYcbyY8xTS/b4bdHHs1WlmgozljaKDxLKSzAkNwp9z0UtrbVjsDUroe3rxvVMKWVk5tqay38Tywyx78Ez3pEIA==}
+  '@aigne/ideogram@0.4.5-beta.3':
+    resolution: {integrity: sha512-tHUTEan+PXw9ejvxc5fXBpqLBuAOKQCgYo/zyy4dhRY9DVyox5OVP4bGoK4TGGAjnl8KQnvtgdQB7N/Btaz17w==}
 
   '@aigne/json-schema-to-zod@1.3.3':
     resolution: {integrity: sha512-8QsF5Vm/Znj16KAvfNIoXghSB7XzGGp+HHoI3CWyuFLX6DbI0YrzRm3EpKo87OhbpdtiWQurC0bidkH2cbsYNQ==}
@@ -184,36 +184,36 @@ packages:
     peerDependencies:
       marked: '>=1 <17'
 
-  '@aigne/observability-api@0.11.4':
-    resolution: {integrity: sha512-YwvBjCXbv20dIzZwOam9DVBfypxysR0N8pf7lwh+qb7MzWOn8DVPxVFHMwTDKfsl3rxRQzEcIoQGPXm49WxqQA==}
+  '@aigne/observability-api@0.11.5-beta.2':
+    resolution: {integrity: sha512-1UMvpuLbtsV/8h5PJPtAFx57j2Fz8J84x1zXlFlDgAY27EOh2ypbnIdChOrHPpp2CPUBWI5dmdNcmL/mpQ/Rrg==}
 
-  '@aigne/ollama@0.7.50':
-    resolution: {integrity: sha512-bHFziT1wcwP1NrB27cZVwSds5updS337KLzISE3vDrlemfxmTMS8+n+VTnKu86t0ByIV/JSds8/KIPvQNGBuZg==}
+  '@aigne/ollama@0.7.51-beta.3':
+    resolution: {integrity: sha512-/MHo647ESJxrfWfZtlgXOrLUqSQFiZbiOeK1UqxYVrpMIzZjQU5gyN3nqhZPvw1PjpgiX9ZEvXuZsIr986U8hA==}
 
-  '@aigne/open-router@0.7.50':
-    resolution: {integrity: sha512-poyNhfHCgQFKfLKKLDVtD6d9N8kY0jRZr3NUTb6OwPmo6z6UOgnzADziPJ4a/RrTaC80OQD8acxPiralUXPmHg==}
+  '@aigne/open-router@0.7.51-beta.3':
+    resolution: {integrity: sha512-7Q3b/hftz5HMlCzpS7ZlRvJH8zgHTCoKKN/IkCzdycimyHr2Qdn5YJIPvdsMqDX/zshwX3AGRzttPHqhtRjdaA==}
 
-  '@aigne/openai@0.16.4':
-    resolution: {integrity: sha512-uyUvug8wO125+2M9kKKgSMIYSUBh/4lrbxQDamMDR3U8rZqpnPJhQNSv5BREkr/oLPeN4lY/xXcYbrQJpqhJUg==}
+  '@aigne/openai@0.16.5-beta.3':
+    resolution: {integrity: sha512-AIIZaaBuut3ZIt0AwZLNelb5IB5HKD8Q0U8bw4bj2/ZZsHec53u7kZEj42HQzBOqraETgYHngtB7tjmlhHRZZw==}
 
   '@aigne/platform-helpers@0.6.3':
     resolution: {integrity: sha512-DwbN6FjEOK/ssTae4cfRL2ANXFijoVs3gw6KYTv0LPSdqpecco7nkK5ZFqQ62Yn34/flNYHN/eLYPMvia6SOjQ==}
 
-  '@aigne/poe@1.0.30':
-    resolution: {integrity: sha512-dYSrlae9INSZQr7W+ex2nh1sffDB+/X1E1Zbm0MuSsj1jFms4UdSZX71JjWhTvsUCrVjaICEkiq2/dO+KszHcg==}
+  '@aigne/poe@1.0.31-beta.3':
+    resolution: {integrity: sha512-SM9q889FYqoHxefzqHFsau9vQl+g+HBBg0POGH+x78HZnk20jcb+TqKb98xweSunqD8qhTREWZgm5Pt3fuTChg==}
 
   '@aigne/sqlite@0.4.3':
     resolution: {integrity: sha512-Ch5ysxwxr6c6vWPaPUn5rtJWwjnJs9lmlcSmT0qsrlZWI4lNCMcFEI8YhoT8tKAjoPS1EdoXi9EF06XWQ3iyNg==}
 
-  '@aigne/transport@0.15.13':
-    resolution: {integrity: sha512-t0Iru1D0tzXLlLuLP6dGSsRDqZvWDs96JFwDHVbn85hzwrqLOYyxbq8mxtnIGPLiTIGgXWBdZd2kndyd9wnPLw==}
+  '@aigne/transport@0.15.14-beta.3':
+    resolution: {integrity: sha512-TMfOS0RONK5vdc0vpjliTISMCpeVJG7U31IEKSR/EMIXxTyjT7jkbKzoGj+NxpIX3rfWnq4i9iyEozR5M+f6aw==}
 
   '@aigne/uuid@13.0.1':
     resolution: {integrity: sha512-28GrlAzaE1RkCQhkBn953gOd0hvCOAlZzjs4R5xPRphyNgZtDf058i2VfGDTyGvcVVkLhhoTy7s85srOM52krQ==}
     hasBin: true
 
-  '@aigne/xai@0.7.50':
-    resolution: {integrity: sha512-T5IR6xZ1meT3sTMPpRkKAaj9zoFIK97IG38zn6GR4M/2GLa/sXxttDl+3iaBfONLuM+usAoKsG2hde85Vvyptg==}
+  '@aigne/xai@0.7.51-beta.3':
+    resolution: {integrity: sha512-NPFXDsYC2jVoZC//sMf9J3snzJPyXPtbNdjB0H7b3FK0pmj/t0uNnxoPtM9Klxn9yYRqYbFBxnmu+2eMggL2WA==}
 
   '@alcalzone/ansi-tokenize@0.2.0':
     resolution: {integrity: sha512-qI/5TaaaCZE4yeSZ83lu0+xi1r88JSxUjnH4OP/iZF7+KKZ75u3ee5isd0LxX+6N8U0npL61YrpbthILHB6BnA==}
@@ -427,8 +427,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.22.3':
-    resolution: {integrity: sha512-KOhEscQnEfY/WtoGQCOVxu/y4NrvmYsjXEtwBmtEaaYfXQ381nNw5sqIFuRwZ2897mjIZ0y9nCX+wM8dvI5sUA==}
+  '@blocklet/payment-broker-client@1.22.7':
+    resolution: {integrity: sha512-qtrKfng6/m/QqimcjkrEFSlamv+G/WhrPylLWR4nzzqfuBgXz1hgqV+t5vRPenVKUWwWpd/5+mgOON4IEvyLMA==}
     engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
@@ -1220,6 +1220,10 @@ packages:
   '@peculiar/asn1-x509@2.4.0':
     resolution: {integrity: sha512-F7mIZY2Eao2TaoVqigGMLv+NDdpwuBKU1fucHPONfzaBS4JXXCNCmfO0Z3dsy7JzKGqtDcYC1mr9JjaZQZNiuw==}
 
+  '@pkgjs/parseargs@0.11.0':
+    resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
+    engines: {node: '>=14'}
+
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
 
@@ -1678,6 +1682,14 @@ packages:
     resolution: {integrity: sha512-mgBO9PZJ3MpbKbwFTljTi36ZKBvG5X/fkVR1F85ANsVcVllEb+C0LGNdJfGUm84GpC4xxgN6HFkmkMU8VEO4mA==}
     engines: {node: '>=12'}
 
+  archiver-utils@5.0.2:
+    resolution: {integrity: sha512-wuLJMmIBQYCsGZgYLTy5FIB2pF6Lfb6cXMSF8Qywwk3t20zWnAi7zLcQFdKQmIB8wyZpY5ER38x08GbwtR2cLA==}
+    engines: {node: '>= 14'}
+
+  archiver@7.0.1:
+    resolution: {integrity: sha512-ZcbTaIqJOfCc03QwD468Unz/5Ir8ATtvAHsK+FdXbDIbGfihqh9mrvdcYunQzqn4HrvWWaFyaxJhGZagaJJpPQ==}
+    engines: {node: '>= 14'}
+
   array-range@1.0.1:
     resolution: {integrity: sha512-shdaI1zT3CVNL2hnx9c0JMc0ZogGaxDs5e85akgHWKYa0yVbIyp06Ind3dVkTj/uuFrzaHBOyqFzo+VV6aXgtA==}
 
@@ -1688,6 +1700,9 @@ packages:
     resolution: {integrity: sha512-UOCGPYbl0tv8+006qks/dTgV9ajs97X2p0FAbyS2iyCRrmLSRolDaHdp+v/CLgnzHc3fVB+CwYiUmei7ndFcgA==}
     engines: {node: '>=12.0.0'}
 
+  async@3.2.6:
+    resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
+
   auto-bind@5.0.1:
     resolution: {integrity: sha512-ooviqdwwgfIfNmDwo94wlshcdzfO64XV0Cg6oDsDYBJfITDz1EngD2z7DkbvCWn+XIMsIqW27sEVF6qcpJrRcg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -1696,8 +1711,27 @@ packages:
     resolution: {integrity: sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==}
     engines: {node: '>=6.0.0'}
 
+  b4a@1.7.3:
+    resolution: {integrity: sha512-5Q2mfq2WfGuFp3uS//0s6baOJLMoVduPYVeNmDYxu5OUA1/cBfvr2RIS7vi62LdNj/urk1hfmj867I3qt6uZ7Q==}
+    peerDependencies:
+      react-native-b4a: '*'
+    peerDependenciesMeta:
+      react-native-b4a:
+        optional: true
+
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
+
+  balanced-match@1.0.2:
+    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  bare-events@2.8.1:
+    resolution: {integrity: sha512-oxSAxTS1hRfnyit2CL5QpAOS5ixfBjj6ex3yTNvXyY/kE719jQ/IjuESJBK2w5v4wwQRAHGseVJXx9QBYOtFGQ==}
+    peerDependencies:
+      bare-abort-controller: '*'
+    peerDependenciesMeta:
+      bare-abort-controller:
+        optional: true
 
   base-x@4.0.1:
     resolution: {integrity: sha512-uAZ8x6r6S3aUM9rbHGVOIsR15U/ZSc82b3ymnCPsT45Gk1DDvhDPdIgB5MrhirZWt+5K0EEPQH985kNqZgNPFw==}
@@ -1715,6 +1749,9 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  bluebird@3.7.2:
+    resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
 
   bmp-js@0.1.0:
     resolution: {integrity: sha512-vHdS19CnY3hwiNdkaqk93DvjVLfbEcI8mys4UjuWrlX1haDmroo8o4xCzh4wD6DGV6HxRCyauwhHRqMTfERtjw==}
@@ -1739,6 +1776,9 @@ packages:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
 
+  brace-expansion@2.0.2:
+    resolution: {integrity: sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==}
+
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
@@ -1751,6 +1791,10 @@ packages:
 
   buffer-crc32@0.2.13:
     resolution: {integrity: sha512-VO9Ht/+p3SN7SKWqcrgEzjGbRSJYTx+Q1pTQC0wrWqHx0vpJraQ6GtHx8tvcg1rlK1byhU5gccxgOgj7B0TDkQ==}
+
+  buffer-crc32@1.0.0:
+    resolution: {integrity: sha512-Db1SbgBS/fg/392AblrMJk97KggmvYhr4pB5ZIMTWtaivCPMWLkmb7m21cJvpvgK+J3nsU2CmmixNBZx4vFj/w==}
+    engines: {node: '>=8.0.0'}
 
   buffer-equal-constant-time@1.0.1:
     resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
@@ -1904,6 +1948,10 @@ packages:
     resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
     engines: {node: '>= 12'}
 
+  compress-commons@6.0.2:
+    resolution: {integrity: sha512-6FqVXeETqWPoGcfzrXb37E50NP0LXT8kAMu5ooZayhWWdgEY4lBEEcbQNXtkuKQsGduxiIcI4gOTsxTmuq/bSg==}
+    engines: {node: '>= 14'}
+
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
@@ -1937,6 +1985,9 @@ packages:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
 
+  core-util-is@1.0.3:
+    resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
+
   cors@2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
     engines: {node: '>= 0.10'}
@@ -1946,6 +1997,15 @@ packages:
 
   cose-base@2.2.0:
     resolution: {integrity: sha512-AzlgcsCbUMymkADOJtQm3wO9S3ltPfYOFD5033keQn9NJzIbtnZj+UdBJe7DYml/8TdbtHJW3j58SOnKhWY/5g==}
+
+  crc-32@1.2.2:
+    resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
+    engines: {node: '>=0.8'}
+    hasBin: true
+
+  crc32-stream@6.0.0:
+    resolution: {integrity: sha512-piICUB6ei4IlTv1+653yq5+KoqfBYmj9bw6LqXoOneTMDXk5nM1qt12mFW1caG3LlJXEKW1Bp0WggEmIfQB34g==}
+    engines: {node: '>= 14'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2305,6 +2365,9 @@ packages:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
 
+  duplexer2@0.1.4:
+    resolution: {integrity: sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==}
+
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
@@ -2385,6 +2448,9 @@ packages:
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
+  events-universal@1.0.1:
+    resolution: {integrity: sha512-LUd5euvbMLpwOF8m6ivPCbhQeSiYVNb8Vs0fQ8QjXo0JTkEHpz8pxdQf0gStltaPpw0Cca8b39KxvK9cfKRiAw==}
+
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -2426,6 +2492,9 @@ packages:
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+
+  fast-fifo@1.3.2:
+    resolution: {integrity: sha512-/d9sfos4yxzpwkDkuN7k2SqFKtYNmCTzgfEpz82x34IM9/zc8KGxQoXg1liNC/izpRM/MBdt44Nmx41ZWqk+FQ==}
 
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
@@ -2541,6 +2610,10 @@ packages:
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
+
+  glob@10.4.5:
+    resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    hasBin: true
 
   glob@11.0.3:
     resolution: {integrity: sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA==}
@@ -2777,12 +2850,18 @@ packages:
     resolution: {integrity: sha512-UcVfVfaK4Sc4m7X3dUSoHoozQGBEFeDC+zVo06t98xe8CzHSZZBekNXH+tu0NalHolcJ/QAGqS46Hef7QXBIMw==}
     engines: {node: '>=16'}
 
+  isarray@1.0.0:
+    resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
+
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
   iterm2-version@5.0.0:
     resolution: {integrity: sha512-WdLXcMYvN3SXT6vEtuW78vnZs4pVWm2nBnb4VKjOPPXmdlR1xTHmBgqKacOzAe4RXOiY/V+0u/0zsU3LoGQoBg==}
     engines: {node: '>=12'}
+
+  jackspeak@3.4.3:
+    resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
   jackspeak@4.1.1:
     resolution: {integrity: sha512-zptv57P3GpL+O0I7VdMJNBZCu+BPHVQUk55Ft8/QCJjTVxrnJHuVuX/0Bl2A6/+2oyR/ZMEuFKwmzqqZ/U5nPQ==}
@@ -2861,6 +2940,10 @@ packages:
 
   layout-base@2.0.1:
     resolution: {integrity: sha512-dp3s92+uNI1hWIpPGH3jK2kxE2lMjdXdr+DH8ynZHpd6PUlH6x6cbuXnoMmiNumznqaNO31xu9e79F0uuZ0JFg==}
+
+  lazystream@1.0.1:
+    resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
+    engines: {node: '>= 0.6.3'}
 
   libsql@0.5.22:
     resolution: {integrity: sha512-NscWthMQt7fpU8lqd7LXMvT9pi+KhhmTHAJWUB/Lj6MWa0MKFv0F2V4C6WKKpjCVZl0VwcDz4nOI3CyaT1DDiA==}
@@ -3125,6 +3208,14 @@ packages:
     resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
 
+  minimatch@5.1.6:
+    resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
+    engines: {node: '>=10'}
+
+  minimatch@9.0.5:
+    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
+    engines: {node: '>=16 || 14 >=14.17'}
+
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
@@ -3182,6 +3273,9 @@ packages:
   node-fetch@3.3.2:
     resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  node-int64@0.4.0:
+    resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -3317,6 +3411,10 @@ packages:
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
+  path-scurry@1.11.1:
+    resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
+    engines: {node: '>=16 || 14 >=14.18'}
+
   path-scurry@2.0.0:
     resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
     engines: {node: 20 || >=22}
@@ -3393,6 +3491,9 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  process-nextick-args@2.0.1:
+    resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
+
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
@@ -3460,6 +3561,9 @@ packages:
     resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
+  readable-stream@2.3.8:
+    resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
+
   readable-stream@4.7.0:
     resolution: {integrity: sha512-oIGGmcpTLwPga8Bn6/Z75SVaH1z5dUut2ibSyAMVhmUggWpmDn2dapB0n7f8nwaSiRtepAsfJyfXIO5DCVAODg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -3467,6 +3571,9 @@ packages:
   readable-web-to-node-stream@3.0.4:
     resolution: {integrity: sha512-9nX56alTf5bwXQ3ZDipHJhusu9NTQJ/CVPtb/XHAJCXihZeitfJvIRS4GqQ/mfIoOE3IelHMrpayVrosdHBuLw==}
     engines: {node: '>=8'}
+
+  readdir-glob@1.1.3:
+    resolution: {integrity: sha512-v05I2k7xN8zXvPD9N+z/uhXPaj0sUFCe2rcWZIpBsqxfP7xXFQ0tipAd/wjj1YxWyWtUS5IDJpOG82JKt2EAVA==}
 
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -3551,6 +3658,9 @@ packages:
 
   rxjs@7.8.2:
     resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
+
+  safe-buffer@5.1.2:
+    resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -3662,6 +3772,9 @@ packages:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
     engines: {node: '>= 0.8'}
 
+  streamx@2.23.0:
+    resolution: {integrity: sha512-kn+e44esVfn2Fa/O0CPFcex27fjIL6MkVae0Mm6q+E6f0hWv578YCERbv+4m02cjxvDsPKLnmxral/rR6lBMAg==}
+
   strict-event-emitter@0.5.1:
     resolution: {integrity: sha512-vMgjE/GGEPEFnhFub6pa4FmJBRBVOLpIII2hvCZ8Kzb7K0hlHo7mQv6xYrBvCL2LtAIBwFUK8wvuJgTVSQ5MFQ==}
 
@@ -3684,6 +3797,9 @@ packages:
   string-width@8.1.0:
     resolution: {integrity: sha512-Kxl3KJGb/gxkaUMOjRsQ8IrXiGW75O4E3RPjFIINOVH8AMl2SQ/yWdTzWwF3FevIX9LcMAjJW+GRwAlAbTSXdg==}
     engines: {node: '>=20'}
+
+  string_decoder@1.1.1:
+    resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
@@ -3733,6 +3849,9 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
+  tar-stream@3.1.7:
+    resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
+
   tar@7.4.3:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
@@ -3752,6 +3871,9 @@ packages:
   terminal-link@5.0.0:
     resolution: {integrity: sha512-qFAy10MTMwjzjU8U16YS4YoZD+NQLHzLssFMNqgravjbvIPNiqkGFR4yjhJfmY9R5OFU7+yHxc6y+uGHkKwLRA==}
     engines: {node: '>=20'}
+
+  text-decoder@1.2.3:
+    resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -3868,6 +3990,9 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
+  unzipper@0.12.3:
+    resolution: {integrity: sha512-PZ8hTS+AqcGxsaQntl3IRBw65QrBI6lxzqDEL7IAo/XCEqRTKGfOX56Vea5TH9SZczRVxuzk1re04z/YjuYCJA==}
+
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
@@ -3882,6 +4007,9 @@ packages:
 
   utif@2.0.1:
     resolution: {integrity: sha512-Z/S1fNKCicQTf375lIP9G8Sa1H/phcysstNrrSdZKj1f9g58J4NMgb5IgiEZN9/nLMPDwF0W7hdOe9Qq2IYoLg==}
+
+  util-deprecate@1.0.2:
+    resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
   uuid@11.1.0:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
@@ -4074,6 +4202,10 @@ packages:
   yoga-layout@3.2.1:
     resolution: {integrity: sha512-0LPOt3AxKqMdFBZA3HBAt/t/8vIKq7VaQYbuA8WxCgung+p9TVyKRYdpvCb80HcdTN2NkbIKbhNwKUfm3tQywQ==}
 
+  zip-stream@6.0.1:
+    resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
+    engines: {node: '>= 14'}
+
   zod-from-json-schema@0.0.5:
     resolution: {integrity: sha512-zYEoo86M1qpA1Pq6329oSyHLS785z/mTwfr9V1Xf/ZLhuuBGaMlDGu/pDVGVUe4H4oa1EFgWZT53DP0U3oT9CQ==}
 
@@ -4093,10 +4225,10 @@ packages:
 
 snapshots:
 
-  '@aigne/afs-system-fs@1.0.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/afs-system-fs@1.0.4-beta.4(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/afs': 1.1.1(@opentelemetry/api@1.9.0)
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@vscode/ripgrep': 1.17.0
       glob: 11.0.3
       zod: 3.25.76
@@ -4119,6 +4251,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4131,6 +4264,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -4174,10 +4308,10 @@ snapshots:
       - sqlite3
       - utf-8-validate
 
-  '@aigne/agent-library@1.21.50(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agent-library@1.21.51-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/sqlite': 0.4.3(@opentelemetry/api@1.9.0)
       '@aigne/uuid': 13.0.1
       drizzle-orm: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
@@ -4205,6 +4339,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4217,17 +4352,18 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/agentic-memory@1.0.50(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agentic-memory@1.0.51-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.13(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.14-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4248,6 +4384,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4260,28 +4397,29 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/aigne-hub@0.10.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/aigne-hub@0.10.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/anthropic': 0.14.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/bedrock': 0.10.9(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/deepseek': 0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/doubao': 1.1.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/gemini': 0.14.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/ideogram': 0.4.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/ollama': 0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/open-router': 0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/anthropic': 0.14.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/bedrock': 0.10.10-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/deepseek': 0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/doubao': 1.1.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/gemini': 0.14.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/ideogram': 0.4.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/ollama': 0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/open-router': 0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/platform-helpers': 0.6.3
-      '@aigne/poe': 1.0.30(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/transport': 0.15.13(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/xai': 0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/poe': 1.0.31-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/transport': 0.15.14-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/xai': 0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@smithy/node-http-handler': 4.2.1
       https-proxy-agent: 7.0.6
       ufo: 1.6.1
@@ -4306,6 +4444,7 @@ snapshots:
       - '@vercel/postgres'
       - '@xata.io/client'
       - aws-crt
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4318,15 +4457,16 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/anthropic@0.14.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/anthropic@0.14.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/platform-helpers': 0.6.3
       '@anthropic-ai/sdk': 0.63.1(zod@3.25.76)
       zod: 3.25.76
@@ -4348,6 +4488,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4360,14 +4501,15 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/bedrock@0.10.9(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/bedrock@0.10.10-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/uuid': 13.0.1
       '@aws-sdk/client-bedrock-runtime': 3.896.0
       zod: 3.25.76
@@ -4390,6 +4532,7 @@ snapshots:
       - '@vercel/postgres'
       - '@xata.io/client'
       - aws-crt
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4402,24 +4545,25 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/cli@1.53.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)':
+  '@aigne/cli@1.53.1-beta.4(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)':
     dependencies:
-      '@aigne/afs-system-fs': 1.0.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/agent-library': 1.21.50(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/agentic-memory': 1.0.50(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/aigne-hub': 0.10.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.13(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/afs-system-fs': 1.0.4-beta.4(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/agent-library': 1.21.51-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/agentic-memory': 1.0.51-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/aigne-hub': 0.10.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.14-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
       '@aigne/listr2': 1.0.10
       '@aigne/marked-terminal': 7.3.2(marked@16.3.0)
-      '@aigne/observability-api': 0.11.4(@libsql/client@0.15.15)
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/observability-api': 0.11.5-beta.2(@libsql/client@0.15.15)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@fast-csv/format': 5.0.5
       '@inquirer/core': 10.2.2(@types/node@24.0.15)
       '@inquirer/figures': 1.0.13
@@ -4482,6 +4626,7 @@ snapshots:
       - '@vercel/postgres'
       - '@xata.io/client'
       - aws-crt
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4497,17 +4642,18 @@ snapshots:
       - postgres
       - prisma
       - react-devtools-core
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/core@1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/core@1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/afs': 1.1.1(@opentelemetry/api@1.9.0)
       '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
-      '@aigne/observability-api': 0.11.4(@libsql/client@0.15.15)
+      '@aigne/observability-api': 0.11.5-beta.2(@libsql/client@0.15.15)
       '@aigne/platform-helpers': 0.6.3
       '@aigne/uuid': 13.0.1
       '@inquirer/prompts': 7.8.6(@types/node@24.0.15)
@@ -4552,6 +4698,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4564,14 +4711,15 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/deepseek@0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/deepseek@0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4590,6 +4738,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4602,15 +4751,16 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/default-memory@1.2.13(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/default-memory@1.2.14-beta.3(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/sqlite': 0.4.3(@opentelemetry/api@1.9.0)
       '@aigne/uuid': 13.0.1
       drizzle-orm: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
@@ -4635,6 +4785,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4647,14 +4798,15 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/doubao@1.1.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/doubao@1.1.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       ufo: 1.6.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4675,6 +4827,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4687,15 +4840,16 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/gemini@0.14.4(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/gemini@0.14.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.1)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/platform-helpers': 0.6.3
       '@aigne/uuid': 13.0.1
       '@google/genai': 1.27.0(@modelcontextprotocol/sdk@1.18.1)
@@ -4720,6 +4874,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4732,14 +4887,15 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/ideogram@0.4.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/ideogram@0.4.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       ufo: 1.6.1
       zod: 3.25.67
     transitivePeerDependencies:
@@ -4760,6 +4916,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4772,6 +4929,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -4801,7 +4959,7 @@ snapshots:
       node-emoji: 2.2.0
       supports-hyperlinks: 3.2.0
 
-  '@aigne/observability-api@0.11.4(@libsql/client@0.15.15)':
+  '@aigne/observability-api@0.11.5-beta.2(@libsql/client@0.15.15)':
     dependencies:
       '@aigne/sqlite': 0.4.3(@opentelemetry/api@1.9.0)
       '@aigne/uuid': 13.0.1
@@ -4809,6 +4967,7 @@ snapshots:
       '@opentelemetry/core': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-node': 0.205.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.9.0)
+      archiver: 7.0.1
       chalk: 5.6.2
       cookie-parser: 1.4.7
       cors: 2.8.5
@@ -4819,6 +4978,7 @@ snapshots:
       mime: 4.1.0
       terminal-link: 5.0.0
       ufo: 1.6.1
+      unzipper: 0.12.3
       yaml: 2.8.1
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4838,6 +4998,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4849,14 +5010,15 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
 
-  '@aigne/ollama@0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/ollama@0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4875,6 +5037,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4887,15 +5050,16 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/open-router@0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/open-router@0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4914,6 +5078,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4926,15 +5091,16 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
       - utf-8-validate
       - ws
 
-  '@aigne/openai@0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/openai@0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.65.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/platform-helpers': 0.6.3
       '@aigne/uuid': 13.0.1
       openai: 6.8.0(ws@8.18.3)(zod@3.25.76)
@@ -4957,6 +5123,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4969,6 +5136,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -4981,9 +5149,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aigne/poe@1.0.30(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/poe@1.0.31-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -5002,6 +5170,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -5014,6 +5183,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -5057,9 +5227,9 @@ snapshots:
       - sqlite3
       - utf-8-validate
 
-  '@aigne/transport@0.15.13(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/transport@0.15.14-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       content-type: 1.0.5
       p-retry: 7.0.0
       raw-body: 3.0.1
@@ -5082,6 +5252,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -5094,6 +5265,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -5102,9 +5274,9 @@ snapshots:
 
   '@aigne/uuid@13.0.1': {}
 
-  '@aigne/xai@0.7.50(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/xai@0.7.51-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/openai': 0.16.4(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -5123,6 +5295,7 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
+      - bare-abort-controller
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -5135,6 +5308,7 @@ snapshots:
       - pg
       - postgres
       - prisma
+      - react-native-b4a
       - sql.js
       - sqlite3
       - supports-color
@@ -5607,7 +5781,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.1.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.22.3': {}
+  '@blocklet/payment-broker-client@1.22.7': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 
@@ -6678,6 +6852,9 @@ snapshots:
       pvtsutils: 1.3.6
       tslib: 2.8.1
 
+  '@pkgjs/parseargs@0.11.0':
+    optional: true
+
   '@protobufjs/aspromise@1.1.2': {}
 
   '@protobufjs/base64@1.1.2': {}
@@ -7257,6 +7434,29 @@ snapshots:
     dependencies:
       execa: 5.1.1
 
+  archiver-utils@5.0.2:
+    dependencies:
+      glob: 10.4.5
+      graceful-fs: 4.2.11
+      is-stream: 2.0.1
+      lazystream: 1.0.1
+      lodash: 4.17.21
+      normalize-path: 3.0.0
+      readable-stream: 4.7.0
+
+  archiver@7.0.1:
+    dependencies:
+      archiver-utils: 5.0.2
+      async: 3.2.6
+      buffer-crc32: 1.0.0
+      readable-stream: 4.7.0
+      readdir-glob: 1.1.3
+      tar-stream: 3.1.7
+      zip-stream: 6.0.1
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - react-native-b4a
+
   array-range@1.0.1: {}
 
   asap@2.0.6: {}
@@ -7267,11 +7467,19 @@ snapshots:
       pvutils: 1.1.3
       tslib: 2.8.1
 
+  async@3.2.6: {}
+
   auto-bind@5.0.1: {}
 
   await-to-js@3.0.0: {}
 
+  b4a@1.7.3: {}
+
   bail@2.0.2: {}
+
+  balanced-match@1.0.2: {}
+
+  bare-events@2.8.1: {}
 
   base-x@4.0.1: {}
 
@@ -7283,6 +7491,8 @@ snapshots:
 
   binary-extensions@2.3.0:
     optional: true
+
+  bluebird@3.7.2: {}
 
   bmp-js@0.1.0: {}
 
@@ -7319,6 +7529,10 @@ snapshots:
       widest-line: 5.0.0
       wrap-ansi: 9.0.2
 
+  brace-expansion@2.0.2:
+    dependencies:
+      balanced-match: 1.0.2
+
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
@@ -7330,6 +7544,8 @@ snapshots:
       base-x: 4.0.1
 
   buffer-crc32@0.2.13: {}
+
+  buffer-crc32@1.0.0: {}
 
   buffer-equal-constant-time@1.0.1: {}
 
@@ -7499,6 +7715,14 @@ snapshots:
 
   commander@8.3.0: {}
 
+  compress-commons@6.0.2:
+    dependencies:
+      crc-32: 1.2.2
+      crc32-stream: 6.0.0
+      is-stream: 2.0.1
+      normalize-path: 3.0.0
+      readable-stream: 4.7.0
+
   confbox@0.1.8: {}
 
   confbox@0.2.2: {}
@@ -7522,6 +7746,8 @@ snapshots:
 
   cookie@0.7.2: {}
 
+  core-util-is@1.0.3: {}
+
   cors@2.8.5:
     dependencies:
       object-assign: 4.1.1
@@ -7534,6 +7760,13 @@ snapshots:
   cose-base@2.2.0:
     dependencies:
       layout-base: 2.0.1
+
+  crc-32@1.2.2: {}
+
+  crc32-stream@6.0.0:
+    dependencies:
+      crc-32: 1.2.2
+      readable-stream: 4.7.0
 
   cross-spawn@7.0.6:
     dependencies:
@@ -7816,6 +8049,10 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
+  duplexer2@0.1.4:
+    dependencies:
+      readable-stream: 2.3.8
+
   eastasianwidth@0.2.0: {}
 
   ecdsa-sig-formatter@1.0.11:
@@ -7877,6 +8114,12 @@ snapshots:
   event-target-shim@5.0.1: {}
 
   eventemitter3@5.0.1: {}
+
+  events-universal@1.0.1:
+    dependencies:
+      bare-events: 2.8.1
+    transitivePeerDependencies:
+      - bare-abort-controller
 
   events@3.3.0: {}
 
@@ -7943,6 +8186,8 @@ snapshots:
   extend@3.0.2: {}
 
   fast-deep-equal@3.1.3: {}
+
+  fast-fifo@1.3.2: {}
 
   fast-glob@3.3.3:
     dependencies:
@@ -8075,6 +8320,15 @@ snapshots:
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
+
+  glob@10.4.5:
+    dependencies:
+      foreground-child: 3.3.1
+      jackspeak: 3.4.3
+      minimatch: 9.0.5
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.1
+      path-scurry: 1.11.1
 
   glob@11.0.3:
     dependencies:
@@ -8309,12 +8563,20 @@ snapshots:
     dependencies:
       is-inside-container: 1.0.0
 
+  isarray@1.0.0: {}
+
   isexe@2.0.0: {}
 
   iterm2-version@5.0.0:
     dependencies:
       app-path: 4.0.0
       plist: 3.1.0
+
+  jackspeak@3.4.3:
+    dependencies:
+      '@isaacs/cliui': 8.0.2
+    optionalDependencies:
+      '@pkgjs/parseargs': 0.11.0
 
   jackspeak@4.1.1:
     dependencies:
@@ -8446,6 +8708,10 @@ snapshots:
   layout-base@1.0.2: {}
 
   layout-base@2.0.1: {}
+
+  lazystream@1.0.1:
+    dependencies:
+      readable-stream: 2.3.8
 
   libsql@0.5.22:
     dependencies:
@@ -8913,6 +9179,14 @@ snapshots:
     dependencies:
       '@isaacs/brace-expansion': 5.0.0
 
+  minimatch@5.1.6:
+    dependencies:
+      brace-expansion: 2.0.2
+
+  minimatch@9.0.5:
+    dependencies:
+      brace-expansion: 2.0.2
+
   minimist@1.2.8: {}
 
   minipass@7.1.2: {}
@@ -8965,8 +9239,9 @@ snapshots:
       fetch-blob: 3.2.0
       formdata-polyfill: 4.0.10
 
-  normalize-path@3.0.0:
-    optional: true
+  node-int64@0.4.0: {}
+
+  normalize-path@3.0.0: {}
 
   npm-run-path@4.0.1:
     dependencies:
@@ -9071,6 +9346,11 @@ snapshots:
 
   path-parse@1.0.7: {}
 
+  path-scurry@1.11.1:
+    dependencies:
+      lru-cache: 10.4.3
+      minipass: 7.1.2
+
   path-scurry@2.0.0:
     dependencies:
       lru-cache: 11.1.0
@@ -9136,6 +9416,8 @@ snapshots:
       points-on-curve: 0.2.0
 
   prettier@3.6.2: {}
+
+  process-nextick-args@2.0.1: {}
 
   process@0.11.10: {}
 
@@ -9207,6 +9489,16 @@ snapshots:
 
   react@19.2.0: {}
 
+  readable-stream@2.3.8:
+    dependencies:
+      core-util-is: 1.0.3
+      inherits: 2.0.4
+      isarray: 1.0.0
+      process-nextick-args: 2.0.1
+      safe-buffer: 5.1.2
+      string_decoder: 1.1.1
+      util-deprecate: 1.0.2
+
   readable-stream@4.7.0:
     dependencies:
       abort-controller: 3.0.0
@@ -9218,6 +9510,10 @@ snapshots:
   readable-web-to-node-stream@3.0.4:
     dependencies:
       readable-stream: 4.7.0
+
+  readdir-glob@1.1.3:
+    dependencies:
+      minimatch: 5.1.6
 
   readdirp@3.6.0:
     dependencies:
@@ -9343,6 +9639,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  safe-buffer@5.1.2: {}
+
   safe-buffer@5.2.1: {}
 
   safer-buffer@2.1.2: {}
@@ -9466,6 +9764,15 @@ snapshots:
 
   statuses@2.0.2: {}
 
+  streamx@2.23.0:
+    dependencies:
+      events-universal: 1.0.1
+      fast-fifo: 1.3.2
+      text-decoder: 1.2.3
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - react-native-b4a
+
   strict-event-emitter@0.5.1: {}
 
   strict-uri-encode@1.1.0: {}
@@ -9492,6 +9799,10 @@ snapshots:
     dependencies:
       get-east-asian-width: 1.3.0
       strip-ansi: 7.1.2
+
+  string_decoder@1.1.1:
+    dependencies:
+      safe-buffer: 5.1.2
 
   string_decoder@1.3.0:
     dependencies:
@@ -9536,6 +9847,15 @@ snapshots:
 
   symbol-tree@3.2.4: {}
 
+  tar-stream@3.1.7:
+    dependencies:
+      b4a: 1.7.3
+      fast-fifo: 1.3.2
+      streamx: 2.23.0
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - react-native-b4a
+
   tar@7.4.3:
     dependencies:
       '@isaacs/fs-minipass': 4.0.1
@@ -9570,6 +9890,12 @@ snapshots:
     dependencies:
       ansi-escapes: 7.1.1
       supports-hyperlinks: 4.3.0
+
+  text-decoder@1.2.3:
+    dependencies:
+      b4a: 1.7.3
+    transitivePeerDependencies:
+      - react-native-b4a
 
   thenify-all@1.6.0:
     dependencies:
@@ -9689,6 +10015,14 @@ snapshots:
 
   unpipe@1.0.0: {}
 
+  unzipper@0.12.3:
+    dependencies:
+      bluebird: 3.7.2
+      duplexer2: 0.1.4
+      fs-extra: 11.3.1
+      graceful-fs: 4.2.11
+      node-int64: 0.4.0
+
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
@@ -9704,6 +10038,8 @@ snapshots:
   utif@2.0.1:
     dependencies:
       pako: 1.0.11
+
+  util-deprecate@1.0.2: {}
 
   uuid@11.1.0: {}
 
@@ -9889,6 +10225,12 @@ snapshots:
   yoctocolors-cjs@2.1.3: {}
 
   yoga-layout@3.2.1: {}
+
+  zip-stream@6.0.1:
+    dependencies:
+      archiver-utils: 5.0.2
+      compress-commons: 6.0.2
+      readable-stream: 4.7.0
 
   zod-from-json-schema@0.0.5:
     dependencies:

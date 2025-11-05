@@ -162,7 +162,7 @@ describe("publish-website", () => {
       expect.any(Boolean),
     );
     expect(result.message).toBeDefined();
-    expect(result.message).toContain("Pages published successfully");
+    expect(result.message).toContain("Successfully published to");
   });
 
   // ENVIRONMENT VARIABLE TESTS

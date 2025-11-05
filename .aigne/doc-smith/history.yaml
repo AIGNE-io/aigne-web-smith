@@ -1,4 +1,16 @@
 entries:
+  - timestamp: 2025-11-05T13:42:08.198Z
+    operation: document_update
+    feedback: "`aigne web prefs remove` and `aigne web prefs toggle` support the --id parameter instead
+      of directly specifying the ID."
+    docPaths:
+      - /core-tasks/managing-preferences
+  - timestamp: 2025-11-05T13:34:26.188Z
+    operation: document_update
+    feedback: The prefs command has changed. Please update content related to prefs.
+    docPaths:
+      - /reference/command-line-reference
+      - /core-tasks/managing-preferences
   - timestamp: 2025-11-03T11:05:50.356Z
     operation: document_update
     feedback: >-

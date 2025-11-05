@@ -6,7 +6,12 @@ import { transliterate } from "transliteration";
 import { parse } from "yaml";
 import { DEFAULT_EXCLUDE_PATTERNS, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { findInvalidSourcePaths } from "../../utils/file-utils.mjs";
-import { processConfigFields, resolveFileReferences, toDisplayPath } from "../../utils/utils.mjs";
+import {
+  normalizeAppUrl,
+  processConfigFields,
+  resolveFileReferences,
+  toDisplayPath,
+} from "../../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
@@ -31,7 +36,7 @@ export default async function loadConfig({ config, appUrl }) {
     parsedConfig = await resolveFileReferences(parsedConfig);
 
     if (appUrl) {
-      parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;
+      parsedConfig.appUrl = normalizeAppUrl(appUrl);
     }
 
     // ensure projectSlug is generated

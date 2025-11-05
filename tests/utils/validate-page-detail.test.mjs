@@ -101,7 +101,9 @@ sections: invalid
     const errorCodes = result.errors.map((error) => error.code);
     expect(errorCodes).toContain("MISSING_META");
     expect(errorCodes).toContain("INVALID_SECTIONS_TYPE");
-    expect(result.validationFeedback).toContain("Found 2 validation errors");
+    expect(result.validationFeedback).toContain("Validation failed");
+    expect(result.validationFeedback).toContain("2");
+    expect(result.validationFeedback).toContain("issues");
   });
 
   test("reports field-level issues from schema validation", () => {
@@ -256,7 +258,9 @@ sections:
 
     expect(result.isValid).toBe(false);
     expect(result.errors.some((error) => error.code === "UNKNOWN_FIELD_COMBINATION")).toBe(true);
-    expect(result.validationFeedback).toContain("unsupported field combination");
+    expect(result.validationFeedback).toContain("Error Code: UNKNOWN_FIELD_COMBINATION");
+    expect(result.validationFeedback).toContain("sections.0");
+    expect(result.validationFeedback).toContain("Fix:");
   });
 
   test("accepts sections when list items expand beyond component base field", () => {

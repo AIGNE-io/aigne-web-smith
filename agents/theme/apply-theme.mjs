@@ -9,7 +9,7 @@ import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getBlockletConfig } from "../../utils/blocklet.mjs";
 import { CLOUD_SERVICE_URL_PROD, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
-import { loadConfigFromFile } from "../../utils/utils.mjs";
+import { loadConfigFromFile, normalizeAppUrl } from "../../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -161,21 +161,11 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     let finalAppUrl;
 
     if (appUrl) {
-      finalAppUrl = appUrl.trim();
-
-      // Ensure appUrl has protocol
-      finalAppUrl = finalAppUrl.includes("://") ? finalAppUrl : `https://${finalAppUrl}`;
-
-      // Basic format validation
-      try {
-        new URL(finalAppUrl);
-      } catch {
-        throw new Error(`Invalid URL format: ${finalAppUrl}. Please enter a valid website URL.`);
-      }
+      finalAppUrl = normalizeAppUrl(appUrl);
     } else {
       // If no appUrl parameter, use config file or default value
       const configData = await loadConfigFromFile();
-      finalAppUrl = configData?.appUrl || CLOUD_SERVICE_URL_PROD;
+      finalAppUrl = normalizeAppUrl(configData?.appUrl) || CLOUD_SERVICE_URL_PROD;
     }
 
     // Step 2: Get access token
@@ -213,7 +203,8 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
             name: theme.name,
             file: file,
             theme: theme,
-            generatedAt: theme.generatedAt || new Date(0).toISOString(),
+            // theme.generatedAt for backward compatibility
+            createdAt: theme.createdAt || theme.generatedAt || new Date(0).toISOString(),
             primaryColor: theme.light?.primary || "N/A",
             headingFont: theme.fonts?.heading?.fontFamily || "N/A",
             bodyFont: theme.fonts?.body?.fontFamily || "N/A",
@@ -225,7 +216,7 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     }
 
     // Sort by generation time (newest first)
-    themes.sort((a, b) => new Date(b.generatedAt) - new Date(a.generatedAt));
+    themes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     if (themes.length === 0) {
       throw new Error(`No themes found. Please create a theme first.`);
@@ -233,9 +224,11 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
 
     // Create interactive selection options
     const choices = themes.map((theme, index) => ({
-      name: `${index + 1}. ${theme.name} (${chalk.hex(theme.primaryColor)(theme.primaryColor)}) - ${theme.headingFont}/${theme.bodyFont}`,
+      name: `${index + 1}. ${theme.name} (${chalk.hex(theme.primaryColor)(theme.primaryColor)}) - ${
+        theme.headingFont
+      }/${theme.bodyFont}`,
       value: theme.name,
-      description: `Generated: ${theme.generatedAt}`,
+      description: `Generated: ${new Date(theme.createdAt).toLocaleString()}`,
     }));
 
     // Let user select theme
@@ -283,10 +276,7 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     }
 
     // Step 6: User confirmation before applying theme
-    console.log(chalk.yellow("\n⚠️  Warning: This will replace your current website theme."));
-    console.log(
-      chalk.blue(`\nTarget Website: ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`),
-    );
+    console.log(`\n🔗 Target Website: ${appName ? `${appName} - ` : ""}${chalk.cyan(finalAppUrl)}`);
     // Display current theme information if available
     let currentTheme = null;
     if (remoteThemeData.concepts && remoteThemeData.concepts.length > 0) {
@@ -295,11 +285,18 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
       );
     }
     if (currentTheme) {
-      console.log(chalk.blue(`Current Theme: "${currentTheme.name}"`));
+      const curColor = currentTheme.themeConfig?.light?.palette?.primary?.main;
+      console.log(
+        `🎨 Current Theme: ${currentTheme.name}${curColor && ` (${chalk.hex(curColor)(curColor)})`}`,
+      );
     } else {
-      console.log(chalk.blue(`Current Theme: Default`));
+      console.log(`🎨 Current Theme: Default`);
     }
-    console.log(chalk.blue(`New Theme: "${selectedTheme.name}"`));
+    const newColor = selectedTheme.light?.primary;
+    console.log(
+      `✨ New Theme: ${selectedTheme.name}${newColor && ` (${chalk.hex(newColor)(newColor)})`}`,
+    );
+    console.log(chalk.yellow("\n⚠️  Warning: This will replace your current website theme."));
 
     const confirmed = await options.prompts.confirm({
       message: "Apply this theme to your website?",
@@ -349,13 +346,10 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     }
 
     // Step 8: Upload updated theme data
-    console.log(chalk.blue("🚀 Applying theme to your website..."));
     await uploadThemeData(finalAppUrl, accessToken, blockletDid, remoteThemeData);
 
     return {
-      message: chalk.green(
-        `Theme "${selectedTheme.name}" applied successfully to ${appName ? `${appName} (${finalAppUrl})` : finalAppUrl}`,
-      ),
+      message: `✅ Theme "${selectedTheme.name}" applied successfully! Preview the new theme at:\n🔗 ${chalk.cyan(joinURL(finalAppUrl, WELLKNOWN_SERVICE_PATH_PREFIX, "admin/website/theming"))}`,
     };
   } catch (error) {
     return {

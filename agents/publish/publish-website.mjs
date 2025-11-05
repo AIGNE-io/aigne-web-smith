@@ -36,6 +36,7 @@ import {
   getGithubRepoUrl,
   isHttp,
   loadConfigFromFile,
+  normalizeAppUrl,
   saveValueToConfig,
 } from "../../utils/utils.mjs";
 
@@ -216,7 +217,7 @@ export default async function publishWebsite(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  appUrl = process.env.PAGES_KIT_URL || appUrl || config?.appUrl;
+  appUrl = normalizeAppUrl(process.env.PAGES_KIT_URL || appUrl || config?.appUrl);
   const hasInputAppUrl = !!appUrl;
 
   let shouldSyncAll = void 0;
@@ -280,18 +281,20 @@ export default async function publishWebsite(
       const userInput = await options.prompts.input({
         message: "Please enter your website URL:",
         validate: (input) => {
+          const message = "Please enter a valid URL";
+
           try {
-            // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
-            new URL(urlWithProtocol);
-            return true;
+            if (input) {
+              normalizeAppUrl(input);
+              return true;
+            }
+            return message;
           } catch {
-            return "Please enter a valid URL";
+            return message;
           }
         },
       });
-      // Ensure appUrl has protocol
-      appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
+      appUrl = normalizeAppUrl(userInput);
     } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
       publishToSelfHostedBlocklet = true;
 
@@ -891,7 +894,7 @@ export default async function publishWebsite(
       const assetWord = uploadedMediaCount === 1 ? "asset" : "assets";
 
       const timestamp = Date.now();
-      message = `✅ Pages published successfully! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
+      message = `✅ Successfully published to ${appUrl}! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
 
 🔗 Live URLs:
 ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}?t=${timestamp}`).join("\n")}

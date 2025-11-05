@@ -16,8 +16,8 @@ export default async function userReviewPageDetail(
 ) {
   // Check if page detail content exists
   if (!content) {
-    console.log("No page detail content was provided to review.");
-    return { content };
+    console.log("⚠️ No page detail content was provided to review.");
+    process.exit(0);
   }
 
   // Parse the YAML content
@@ -25,8 +25,8 @@ export default async function userReviewPageDetail(
   try {
     parsedPageDetail = YAML.parse(content);
   } catch {
-    console.log("Invalid YAML format in page detail content.");
-    return { content };
+    console.log("❌ Invalid YAML format in page detail content.");
+    process.exit(0);
   }
 
   const compositeComponents = Array.isArray(componentLibrary)

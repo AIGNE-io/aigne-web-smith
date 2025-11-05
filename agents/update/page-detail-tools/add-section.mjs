@@ -98,17 +98,10 @@ export default async function addSection(input, options) {
     sectionPath: `section '${parsedSection.sectionName}'`,
     componentLibrary,
   });
-  console.log("validationResult", validationResult);
 
   if (!validationResult.isValid) {
-    const summary =
-      validationResult.errorCount === 1
-        ? "Found 1 validation error:"
-        : `Found ${validationResult.errorCount} validation errors:`;
-    const details = validationResult.errors
-      .map((error, index) => `${index + 1}. ${error.path}: ${error.message}`)
-      .join("\n");
-    const errorMessage = `Cannot add section:\n${summary}\n${details}`;
+    const errorMessage = `Cannot add section:\n${validationResult.validationFeedback}`;
+    console.log(errorMessage);
     handleFailure(options);
 
     return {

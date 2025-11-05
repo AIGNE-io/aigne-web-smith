@@ -89,7 +89,7 @@ describe("saveSinglePage", () => {
         parentId: null,
         throwErrorIfInvalid: true,
       }),
-    ).rejects.toThrow("Found");
+    ).rejects.toThrow("Validation failed");
 
     expect(savePageWithTranslationsSpy).not.toHaveBeenCalled();
   });
@@ -118,7 +118,10 @@ describe("saveSinglePage", () => {
         throwErrorIfInvalid: false,
       });
 
-      expect(errorSpy).toHaveBeenCalledWith("⚠️ Page Detail Validation Failed: Missing meta");
+      expect(errorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("⚠️ Page Detail Validation Failed:"),
+      );
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("Missing meta"));
       expect(savePageWithTranslationsSpy).toHaveBeenCalledWith(
         expect.objectContaining({ content }),
       );

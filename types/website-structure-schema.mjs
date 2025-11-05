@@ -3,10 +3,8 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 
 // Navigation schema - represents navigation metadata
 export const navigationSchema = z.object({
-  title: z
-    .string(),
-  description: z
-    .string()
+  title: z.string(),
+  description: z.string(),
 });
 
 // Page item schema - represents a single page in the structure

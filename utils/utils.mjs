@@ -29,7 +29,9 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   ENABLE_LOGS,
+  LINK_PROTOCOL,
   LIST_KEY,
+  MEDIA_KIT_PROTOCOL,
   PAGE_FILE_EXTENSION,
   PAGE_STYLES,
   PAGES_OUTPUT_DIR,
@@ -42,6 +44,7 @@ import {
   WEBSITE_SCALE,
 } from "./constants.mjs";
 import { extractContentFields } from "./generate-helper.mjs";
+import { validateInternalLinks, validateMediaResources } from "./protocol-utils.mjs";
 
 const pageDetailMetaSchema = z
   .object({
@@ -369,6 +372,8 @@ export function validatePageDetail({
   pageDetailYaml,
   allowArrayFallback = false,
   componentLibrary,
+  allowedLinks = new Set(),
+  allowedMediaFiles = new Set(),
 }) {
   const errors = [];
   const fieldCombinationIndex = buildFieldCombinationIndex(componentLibrary);
@@ -519,6 +524,30 @@ export function validatePageDetail({
       });
     });
   }
+
+  // Validate internal links if allowedLinks is provided
+  const linkErrors = validateInternalLinks(parsedDataForValidation, allowedLinks, LINK_PROTOCOL);
+  linkErrors.forEach((error) => {
+    const key = toErrorKey(error);
+    if (!existingErrorKeys.has(key)) {
+      existingErrorKeys.add(key);
+      errors.push(error);
+    }
+  });
+
+  // Validate media resources if allowedMediaFiles is provided
+  const mediaErrors = validateMediaResources(
+    parsedDataForValidation,
+    allowedMediaFiles,
+    MEDIA_KIT_PROTOCOL,
+  );
+  mediaErrors.forEach((error) => {
+    const key = toErrorKey(error);
+    if (!existingErrorKeys.has(key)) {
+      existingErrorKeys.add(key);
+      errors.push(error);
+    }
+  });
 
   if (errors.length === 0) {
     const result = {

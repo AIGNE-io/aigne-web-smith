@@ -29,6 +29,7 @@ import {
 
 import { deploy } from "../../utils/deploy.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
+import { scanForProtocolUrls } from "../../utils/protocol-utils.mjs";
 import { batchUploadMediaFiles, uploadFiles } from "../../utils/upload-files.mjs";
 import {
   formatRoutePath,
@@ -39,24 +40,6 @@ import {
 } from "../../utils/utils.mjs";
 
 const BASE_URL = process.env.WEB_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
-
-/**
- * 递归扫描对象中的指定协议值
- * @param {any} obj - 要扫描的对象
- * @param {Set} foundUrls - 找到的协议 URL 集合
- * @param {string} protocol - 要扫描的协议 (如 MEDIA_KIT_PROTOCOL 或 LINK_PROTOCOL)
- */
-function scanForProtocolUrls(obj, foundUrls, protocol) {
-  if (typeof obj === "string") {
-    if (obj.startsWith(protocol)) {
-      foundUrls.add(obj);
-    }
-  } else if (Array.isArray(obj)) {
-    obj.forEach((item) => scanForProtocolUrls(item, foundUrls, protocol));
-  } else if (obj && typeof obj === "object") {
-    Object.values(obj).forEach((value) => scanForProtocolUrls(value, foundUrls, protocol));
-  }
-}
 
 /**
  * 使用全局URL映射替换页面数据中的指定协议

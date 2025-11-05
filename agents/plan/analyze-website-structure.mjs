@@ -16,6 +16,49 @@ export default async function analyzeWebsiteStructure(
   { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, locale, ...rest },
   options,
 ) {
+  // Helper function to check and streamline navigation items
+  async function streamlineNavigationIfNeeded(websiteStructure) {
+    if (!websiteStructure || !Array.isArray(websiteStructure)) {
+      return;
+    }
+
+    const itemsNeedingStreamline = websiteStructure.filter(
+      (item) =>
+        item.navigation &&
+        (item.navigation.title?.length > 18 || item.navigation.description?.length > 40),
+    );
+
+    if (itemsNeedingStreamline.length > 0) {
+      const navigationList = itemsNeedingStreamline.map((item) => ({
+        path: item.path,
+        title: item.navigation.title,
+        description: item.navigation.description,
+      }));
+
+      const streamlineResult = await options.context.invoke(
+        options.context.agents["navigationStreamline"],
+        {
+          navigationList,
+        },
+      );
+
+      // Update the navigation items with streamlined versions using path as the key
+      if (streamlineResult.navigationList && Array.isArray(streamlineResult.navigationList)) {
+        const streamlineMap = new Map(
+          streamlineResult.navigationList.map((item) => [item.path, item]),
+        );
+
+        for (const item of websiteStructure) {
+          const streamlined = streamlineMap.get(item.path);
+          if (streamlined && item.navigation) {
+            item.navigation.title = streamlined.title;
+            item.navigation.description = streamlined.description;
+          }
+        }
+      }
+    }
+  }
+
   // Check if originalWebsiteStructure is empty and prompt user
   if (!originalWebsiteStructure) {
     const choice = await options.prompts.select({
@@ -127,6 +170,9 @@ export default async function analyzeWebsiteStructure(
 
   // If no regeneration is needed, return the original structure plan.
   if (originalWebsiteStructure && !finalFeedback && !shouldRegenerate) {
+    // Check and streamline navigation items for existing structure to handle legacy data
+    await streamlineNavigationIfNeeded(originalWebsiteStructure);
+
     return {
       websiteStructure: originalWebsiteStructure,
     };
@@ -149,6 +195,9 @@ export default async function analyzeWebsiteStructure(
     userPreferences,
     ...rest,
   });
+
+  // Check and streamline navigation items for both new and existing results
+  await streamlineNavigationIfNeeded(result.websiteStructure);
 
   let message = "";
 

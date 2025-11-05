@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.11...v1.6.0-beta.12) (2025-11-05)
+
+
+### Features
+
+* tune token consumption for update ops with intent analysis ([#212](https://github.com/AIGNE-io/aigne-web-smith/issues/212)) ([534aa3e](https://github.com/AIGNE-io/aigne-web-smith/commit/534aa3e3bce96feb7334e8d3701c7c29909a2059))
+
 ## [1.6.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.10...v1.6.0-beta.11) (2025-11-04)
 
 

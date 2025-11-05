@@ -381,6 +381,8 @@ export default async function publishWebsite(
     }
   }
 
+  appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
+
   // Now handle projectId after appUrl is finalized
   const hasProjectIdInConfig = config?.projectId;
   const hasProjectSlugInConfig = config?.projectSlug;

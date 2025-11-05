@@ -906,7 +906,7 @@ export default async function publishWebsite(
       const assetWord = uploadedMediaCount === 1 ? "asset" : "assets";
 
       const timestamp = Date.now();
-      message = `✅ Pages published successfully! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
+      message = `✅ Successfully published to ${appUrl}! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
 
 🔗 Live URLs:
 ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}?t=${timestamp}`).join("\n")}

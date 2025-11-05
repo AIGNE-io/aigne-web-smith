@@ -75,7 +75,7 @@ export async function deploy(id, cachedUrl) {
     },
   });
 
-  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors } = result;
+  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors, sessionId } = result;
 
   const token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
 
@@ -85,5 +85,6 @@ export async function deploy(id, cachedUrl) {
     dashboardUrl,
     subscriptionUrl,
     token,
+    sessionId,
   };
 }

@@ -372,16 +372,23 @@ export default async function publishWebsite(
         } else {
           console.log(`\nCreating new dedicated website for your pages...`);
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
+        const {
+          appUrl: homeUrl,
+          token: ltToken,
+          sessionId: newSessionId,
+        } = (await deploy(id, paymentLink)) || {};
 
         appUrl = homeUrl;
         token = ltToken;
+        sessionId = newSessionId;
       } catch (error) {
         const errorMsg = error?.message || "Unknown error occurred";
         return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
       }
     }
   }
+
+  appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
 
   // Now handle projectId after appUrl is finalized
   const hasProjectIdInConfig = config?.projectId;
@@ -417,15 +424,6 @@ export default async function publishWebsite(
       new URL(appUrl).hostname === new URL(CLOUD_SERVICE_URL_PROD).hostname
     );
   } catch (_error) {}
-
-  if (sessionId) {
-    authToken = await getOfficialAccessToken(BASE_URL, false);
-    client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    const { vendors } = await client.getSessionDetail(sessionId, false);
-    token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
-  }
 
   const accessToken = await getAccessToken(appUrl, token || "", requiredAdminPassport);
 

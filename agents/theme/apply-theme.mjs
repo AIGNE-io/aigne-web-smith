@@ -9,7 +9,7 @@ import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { getBlockletConfig } from "../../utils/blocklet.mjs";
 import { CLOUD_SERVICE_URL_PROD, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
 import { augmentColor } from "../../utils/theme-utils.mjs";
-import { loadConfigFromFile } from "../../utils/utils.mjs";
+import { loadConfigFromFile, normalizeAppUrl } from "../../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -161,21 +161,11 @@ export default async function applyTheme({ appUrl, config = WEB_SMITH_CONFIG_PAT
     let finalAppUrl;
 
     if (appUrl) {
-      finalAppUrl = appUrl.trim();
-
-      // Ensure appUrl has protocol
-      finalAppUrl = finalAppUrl.includes("://") ? finalAppUrl : `https://${finalAppUrl}`;
-
-      // Basic format validation
-      try {
-        new URL(finalAppUrl);
-      } catch {
-        throw new Error(`Invalid URL format: ${finalAppUrl}. Please enter a valid website URL.`);
-      }
+      finalAppUrl = normalizeAppUrl(appUrl);
     } else {
       // If no appUrl parameter, use config file or default value
       const configData = await loadConfigFromFile();
-      finalAppUrl = configData?.appUrl || CLOUD_SERVICE_URL_PROD;
+      finalAppUrl = normalizeAppUrl(configData?.appUrl) || CLOUD_SERVICE_URL_PROD;
     }
 
     // Step 2: Get access token

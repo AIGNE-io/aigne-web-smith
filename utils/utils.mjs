@@ -1922,3 +1922,18 @@ export function loadComponentLibrary(filePath) {
     return null;
   }
 }
+
+/**
+ * Clean and normalize appUrl: ensure https protocol and return only the origin (protocol + domain).
+ * @param {string} appUrl - The app URL to process
+ * @returns {string} Normalized URL with https and no path/query/hash
+ */
+export function normalizeAppUrl(appUrl) {
+  if (!appUrl) return "";
+  try {
+    const url = appUrl.trim();
+    return new URL(url.includes("://") ? url : `https://${url}`).origin;
+  } catch {
+    throw new Error(`Invalid appUrl: ${appUrl}. Please enter a valid website URL.`);
+  }
+}

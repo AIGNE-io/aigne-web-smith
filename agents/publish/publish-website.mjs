@@ -35,6 +35,7 @@ import {
   getGithubRepoUrl,
   isHttp,
   loadConfigFromFile,
+  normalizeAppUrl,
   saveValueToConfig,
 } from "../../utils/utils.mjs";
 
@@ -233,7 +234,7 @@ export default async function publishWebsite(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  appUrl = process.env.PAGES_KIT_URL || appUrl || config?.appUrl;
+  appUrl = normalizeAppUrl(process.env.PAGES_KIT_URL || appUrl || config?.appUrl);
   const hasInputAppUrl = !!appUrl;
 
   let shouldSyncAll = void 0;
@@ -298,17 +299,14 @@ export default async function publishWebsite(
         message: "Please enter your website URL:",
         validate: (input) => {
           try {
-            // Check if input contains protocol, if not, prepend https://
-            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
-            new URL(urlWithProtocol);
+            normalizeAppUrl(input);
             return true;
           } catch {
             return "Please enter a valid URL";
           }
         },
       });
-      // Ensure appUrl has protocol
-      appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
+      appUrl = normalizeAppUrl(userInput);
     } else if (["new-pages-kit", "new-pages-kit-continue"].includes(choice)) {
       publishToSelfHostedBlocklet = true;
 

@@ -10,6 +10,7 @@ import {
   generateNavigationId,
   getContentHash,
   isGlobPattern,
+  normalizeAppUrl,
   normalizePath,
   processContent,
   resolveToAbsolute,
@@ -129,5 +130,37 @@ describe("core utils coverage", () => {
     expect(getContentHash("hash-me")).toHaveLength(64);
     expect(getContentHash("hash-me")).toBe(getContentHash("hash-me"));
     expect(getContentHash("hash-me")).not.toBe(getContentHash("different"));
+  });
+
+  test("normalizeAppUrl normalizes URLs correctly", () => {
+    // Empty or falsy values return empty string
+    expect(normalizeAppUrl("")).toBe("");
+    expect(normalizeAppUrl(null)).toBe("");
+    expect(normalizeAppUrl(undefined)).toBe("");
+
+    // URLs with https:// protocol
+    expect(normalizeAppUrl("https://example.com")).toBe("https://example.com");
+    expect(normalizeAppUrl("https://example.com/path/to/page")).toBe("https://example.com");
+    expect(normalizeAppUrl("https://example.com/path?query=value#hash")).toBe(
+      "https://example.com",
+    );
+
+    // URLs with http:// protocol (preserved)
+    expect(normalizeAppUrl("http://example.com")).toBe("http://example.com");
+    expect(normalizeAppUrl("http://example.com/path")).toBe("http://example.com");
+
+    // URLs without protocol (auto-add https://)
+    expect(normalizeAppUrl("example.com")).toBe("https://example.com");
+    expect(normalizeAppUrl("example.com/path/to/page")).toBe("https://example.com");
+    expect(normalizeAppUrl("subdomain.example.com")).toBe("https://subdomain.example.com");
+
+    // URLs with whitespace (trimmed)
+    expect(normalizeAppUrl("  https://example.com  ")).toBe("https://example.com");
+    expect(normalizeAppUrl("  example.com  ")).toBe("https://example.com");
+
+    // Invalid URLs throw error
+    expect(() => normalizeAppUrl("not a valid url")).toThrow("Invalid appUrl");
+    expect(() => normalizeAppUrl("://invalid")).toThrow("Invalid appUrl");
+    expect(() => normalizeAppUrl("http://")).toThrow("Invalid appUrl");
   });
 });

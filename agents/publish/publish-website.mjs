@@ -416,16 +416,7 @@ export default async function publishWebsite(
     projectId = crypto.randomUUID();
   }
 
-  let requiredAdminPassport = true;
-
-  try {
-    // publish to websmith website ignore admin passport
-    requiredAdminPassport = !(
-      new URL(appUrl).hostname === new URL(CLOUD_SERVICE_URL_PROD).hostname
-    );
-  } catch (_error) {}
-
-  const accessToken = await getAccessToken(appUrl, token || "", requiredAdminPassport);
+  const accessToken = await getAccessToken(appUrl, token || "");
 
   const mountPoint = await getComponentMountPoint(appUrl, PAGES_KIT_DID);
 

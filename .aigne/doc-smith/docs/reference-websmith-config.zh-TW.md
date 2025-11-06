@@ -1,136 +1,126 @@
-# WebSmith 設定檔
+# WebSmith 設定
 
-本指南說明 `config.yaml` 檔案的用途與用法，這是任何 WebSmith 專案的核心設定檔。您可以在專案的根目錄 `.aigne/web-smith/config.yaml` 中找到此檔案。
+## 設定檔是什麼？
 
----
+### 基本概念
 
-## 什麼是設定檔？
-
-### 基本資訊
-
-`config.yaml` 檔案是 WebSmith 的**核心設定檔**。它使用 YAML 格式來儲存 WebSmith 產生您的網站所需的所有參數。
+`config.yaml` 是 WebSmith 的核心設定檔。它使用 YAML 格式，儲存 WebSmith 生成網站所需的所有參數。
 
 **檔案詳細資訊**：
 - **檔案名稱**：`config.yaml` (固定名稱)
 - **位置**：`.aigne/web-smith/config.yaml` (相對於專案根目錄)
 - **格式**：YAML (UTF-8 編碼)
 
-### 核心目的
-
-設定檔是 WebSmith 運作的**核心參數載體**。每次執行 `generate` 命令時，AI agent 都會讀取此檔案，並根據其設定產生網站的結構與內容。
-
-**主要功能**：
-- 定義網站類型與目標受眾。
-- 控制內容生成策略與寫作風格。
-- 決定網站規模與頁面結構。
-- 設定多語言支援。
-- 設定部署參數。
-
 ---
 
-## 設定檔的用途是什麼？
+## 設定檔的作用是什麼？
 
 ### 核心功能
 
-`config.yaml` 檔案是在執行 `aigne web generate` 命令時使用的**說明手冊**。它告訴系統如何產生網站。透過此檔案，您可以指定網站的風格與類型、AI 的寫作風格、網站的規模（單頁或多頁）、語言版本，以及所有其他指導 AI agent 產生符合您需求的網站結構與內容的關鍵參數。
+設定檔是 WebSmith 的中央參數載體。每當 AI Agent 執行 `generate` 命令時，它會讀取此檔案，並根據其設定生成網站結構和內容。
 
-**總結**：設定檔是 WebSmith 網站生成的唯一依據與參數來源。整個流程都基於此檔案中的設定。
+主要用途：
+- 定義網站類型和目標受眾
+- 控制內容生成策略和寫作風格
+- 決定網站規模和頁面結構
+- 設定多語言支援
+- 設定部署參數
 
-### 功能群組
+### 功能分組
 
-設定檔中的欄位分為以下功能群組：
+欄位按功能分組如下：
 
-#### 專案基礎
+#### 第 1 組：專案基礎資訊
 
-此群組包含專案的基本識別與顯示資訊，用於網站品牌推廣與 SEO 優化。
+用於品牌和 SEO 的基本識別碼和展示資訊。
 
-**欄位**：`projectName`, `projectDesc`, `projectLogo`, `projectId`, `projectSlug`, `projectCover`
+欄位：`projectName`, `projectDesc`, `projectLogo`, `projectId`, `projectSlug`, `projectCover`
 
-**目的**：定義網站的名稱、描述、標誌、識別碼與其他基本資訊，影響頁面標題、導覽選單、SEO meta 標籤與社群媒體分享。
+用途：定義名稱、描述、標誌、識別碼等。影響頁面標題、導覽選單、SEO meta 標籤和社群分享。
 
-#### 網站策略
+#### 第 2 組：網站策略
 
-此群組定義網站的類型、風格、規模與生成策略，是控制 AI 生成內容的核心設定。
+定義網站類型、語氣、規模和生成策略。這控制了 AI 如何產出內容。
 
-**欄位**：`pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
+欄位：`pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
 
-**目的**：
-- `pagePurpose`：定義網站類型（例如，行銷登陸頁面、電子商務網站、SaaS 產品網站），這會影響生成的頁面元件與內容組織。
-- `targetAudienceTypes`：定義目標受眾（例如，終端使用者、開發者、企業主），這會影響 AI 的寫作風格、語言複雜度與範例選擇。
-- `websiteScale`：定義網站規模（單頁或多頁），控制要生成的頁面數量。
-- `rules`：為頁面生成提供詳細的指導，包括結構、內容與風格要求。
+用途：
+- `pagePurpose`：定義網站類型（例如，登陸頁面、電子商務、SaaS），影響元件和內容組織
+- `targetAudienceTypes`：定義受眾（例如，終端使用者、開發者、企業主），影響 AI 的語氣、複雜度和範例
+- `websiteScale`：定義網站規模（單頁式 vs 多頁式），控制頁面數量
+- `rules`：針對結構、內容和風格的詳細指導
 
-#### 國際化
+#### 第 3 組：語言
 
-此群組設定網站的語言版本，支援多語言網站生成。
+設定語言版本以支援多語言網站。
 
-**欄位**：`locale`, `translateLanguages`
+欄位：`locale`, `translateLanguages`
 
-**目的**：定義網站的主要語言與翻譯語言列表，控制生成哪些語言版本的網站（每種語言都會生成一個完整的網站結構）。
+用途：定義主要語言和翻譯目標。每種語言都會產出完整的網站結構。
 
-#### 內容來源
+#### 第 4 組：內容來源
 
-此群組指定 AI 分析的內容來源，這些來源被用作生成網站頁面的素材與參考資訊。
+指定 AI 分析作為頁面生成材料和參考的內容來源。
 
-**欄位**：`sourcesPath`, `defaultDatasources`
+欄位：`sourcesPath`, `defaultDatasources`
 
-**目的**：
-- `sourcesPath`：指定供 AI 分析的文件目錄、Markdown 檔案、YAML 檔案、圖片資源等。**此欄位決定了生成網站內容的品質與效果，直接影響 AI 生成內容的準確性、相關性與專業性。**
-- `defaultDatasources`：指定要注入到每個頁面的通用資料來源，每次執行命令時都會將其加入到上下文中（例如，`media.md`，其中包含專案中圖片的位置與描述）。
+用途：
+- `sourcesPath`：供 AI 分析的目錄或檔案（Markdown、YAML、圖片等）。這直接決定了內容的品質、準確性和相關性。
+- `defaultDatasources`：執行命令時注入到每個頁面的通用資料來源（例如，包含圖片位置和描述的 `media.md`）
 
-#### 輸出與部署
+#### 第 5 組：輸出與部署
 
-此群組設定生成檔案的輸出位置與網站部署參數。
+設定輸出路徑和部署參數。
 
-**欄位**：`pagesDir`, `appUrl`, `checkoutId`, `shouldSyncAll`, `navigationType`
+欄位：`pagesDir`, `appUrl`, `checkoutId`, `shouldSyncAll`, `navigationType`
 
-**目的**：
-- `pagesDir`：指定儲存生成頁面檔案的目錄（輸出位置）。
-- `appUrl`：指定網站的部署 URL，影響生成的連結與 SEO。
-- `checkoutId`, `shouldSyncAll`, `navigationType`：這些是開發期間使用的暫時變數，僅作為設定檔中的佔位符資料。使用者無需關心這些值。
+用途：
+- `pagesDir`：生成的頁面檔案寫入的位置
+- `appUrl`：已部署的網站 URL，影響連結和 SEO
+- `checkoutId`, `shouldSyncAll`, `navigationType`：開發期間使用的暫存變數；您通常不需要管理它們
 
-#### 媒體與顯示
+#### 第 6 組：媒體與顯示
 
-此群組設定與圖片品質與顯示相關的參數。
+設定圖片品質和相關的展示參數。
 
-**欄位**：`media.minImageWidth`, `lastGitHead`
+欄位：`media.minImageWidth`, `lastGitHead`
 
-**目的**：
-- `media.minImageWidth`：定義最小圖片寬度要求，用於過濾掉低品質的圖片。
-- `lastGitHead`：記錄上次生成時的 Git commit ID，用於增量更新。
+用途：
+- `media.minImageWidth`：最小圖片寬度，用於過濾低品質素材
+- `lastGitHead`：用於增量更新的最後一次 Git commit ID
 
 ---
 
-## 如何產生設定檔？
+## 如何建立設定檔？
 
 ### 生成方式
 
-設定檔是透過執行以下命令產生的：
+使用以下命令：
 
 ```bash
 aigne web init
 ```
 
-此命令會啟動一個互動式精靈，引導您逐步完成設定過程：
+此命令會啟動一個互動式精靈來填寫：
 
-1.  **網站類型** (`pagePurpose`)：選擇網站的主要目的（可複選）。
-2.  **目標受眾** (`targetAudienceTypes`)：選擇網站的目標使用者群體（可複選）。
-3.  **網站規模** (`websiteScale`)：選擇網站的頁面數量。
-4.  **主要語言** (`locale`)：選擇網站的主要語言。
-5.  **翻譯語言** (`translateLanguages`)：選擇要翻譯成的語言（可複選）。
-6.  **頁面輸出目錄** (`pagesDir`)：設定儲存生成頁面檔案的位置。
-7.  **資料來源路徑** (`sourcesPath`)：指定供 AI 分析的內容來源（可新增多個路徑）。
-8.  **自訂規則** (`rules`)：可選，為頁面生成提供詳細要求。
+- 網站類型 (`pagePurpose`)：主要用途（可複選）
+- 目標受眾 (`targetAudienceTypes`)：網站為誰而設（可複選）
+- 網站規模 (`websiteScale`)：頁面數量
+- 主要語言 (`locale`)
+- 翻譯語言 (`translateLanguages`)（可複選）
+- 輸出目錄 (`pagesDir`)
+- 來源路徑 (`sourcesPath`)（可多項輸入）
+- 自訂規則 (`rules`)（選填）
 
-完成精靈後，設定檔會自動儲存到 `.aigne/web-smith/config.yaml`。
+完成後，檔案會儲存到 `.aigne/web-smith/config.yaml`。
 
-### 設定範例
+### 實際設定範例
 
-以下是 AIGNE WebSmith 專案本身的實際設定檔：
+以下是 AIGNE WebSmith 專案的實際設定：
 
-```yaml
+```yaml config.yaml icon=logos:yaml
 projectName: AIGNE WebSmith
-projectDesc: "基於 AIGNE 框架的 AI 網站生成工具"
+projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
 projectLogo: https://www.arcblock.io/content/uploads/2e5edbac4a7d5310c117d09601811c.png
 projectId: pg4d0000-0000-4000-a000-000000000000
 projectSlug: /
@@ -140,19 +130,19 @@ targetAudienceTypes:
   - customers
 websiteScale: singlePage
 rules: |
-  ### I. 核心訊息與策略：定義您向使用者傳達*什麼*的基礎元素。
-  1. 在首屏回答關鍵問題：使用者看到的第一個畫面必須清晰且立即回答：
-    * 它是什麼：對產品的簡潔描述。
-    * 為誰而設：特定的目標受眾（例如，個人創業者、小型團隊）。
-    * 為何與眾不同：您獨特的價值主張（例如，「開放、可組合、可匯出的程式碼、agent 工作流程」）。
-    * 主要行動：一個單一、明確的行動呼籲 (CTA)，與使用者的主要目標一致。
-  2. 用證明建立信譽：不要期望使用者相信您的說法。在敘述的早期向他們展示證明。
-    * 展示，而不僅僅是告知：最有力的證明是示範。包含一個簡短的（30-45秒）無聲影片循環，或一個連結到用該工具建立的真實網站。
-    * 使用社會證明：在解釋「如何運作」之前，插入具體的證據，如客戶標誌、一個引人注目的數據點（例如，「超過 50 個團隊使用」），或一句強而有力的使用者引言。
-  3. 定義一個明確的行動呼籲 (CTA)：
-    * 使 CTA 與受眾對齊：主要的 CTA 應該是您希望目標使用者採取的主要行動（例如，「產生我的網站」）。
-    * 區分 CTA 的優先級：將次要的行動（如「在 GitHub 上查看」）放在較不顯眼的位置（次要按鈕或頁腳連結），特別是對於非開發者受眾。
-    * 在行動裝置上維持一個固定的 CTA：在行動裝置上，一個主要的 CTA 應該始終可見。
+  ### I. Core Messaging & Strategy: Foundational elements that define *what* you communicate to the user.
+  1. Answer Critical Questions "Above the Fold": The very first screen a user sees must clearly and immediately answer:
+    * What it is: A concise description of the product.
+    * Who it's for: The specific target audience (e.g., solo founders, small teams).
+    * Why it's different: Your unique value proposition (e.g., "open, composable, exportable code, agent workflow").
+    * Primary Action: A single, clear Call to Action (CTA) that aligns with the user's main goal.
+  2. Establish Credibility with Proof: Don't expect users to trust your claims. Show them proof early in the narrative.
+    * Show, Don't Just Tell: The most powerful proof is a demo. Include a short (30-45s) silent video loop or a link to a real site built with the tool.
+    * Use Social Proof: Before explaining "How it Works," insert tangible evidence like a customer logo, a compelling data point (e.g., "Used by 50+ teams"), or a strong user quote.
+  3. Define a Clear Call to Action (CTA):
+    * Align CTA with the Audience: The primary CTA should be the main action you want your target user to take (e.g., "Generate My Site").
+    * Prioritize CTAs: Relegate secondary actions (like "See it on GitHub") to less prominent positions (tertiary buttons or footer links), especially for non-developer audiences.
+    * Maintain a Persistent Mobile CTA: On mobile, a single primary CTA should always be visible.
 locale: en
 translateLanguages:
   - zh
@@ -179,283 +169,953 @@ navigationType: ""
 appUrl: https://mhevtaeg.user.aigne.io
 ```
 
-### 欄位參考
+### 欄位逐一說明
 
-根據上述的實際設定，以下是每個欄位的詳細說明：
+根據上述實際設定，以下是每個欄位的用途：
 
-#### 專案基礎
+#### 專案基礎資訊
 
-**`projectName`**
-- **目的**：專案的顯示名稱，顯示在頁面標題 (`<title>`)、導覽選單與網站品牌中。
-- **類型**：字串
-- **變更影響**：更改此值將更新整個網站上顯示的名稱。建議保持簡潔（50 個字元以內）以獲得更好的顯示效果與 SEO。
-- **如何套用**：執行 `aigne web update` 或 `aigne web generate`。
+`projectName`
+- 用途：顯示在頁面 `<title>`、導覽列和網站品牌中的名稱
+- 目前值：`AIGNE WebSmith`
+- 類型：string
+- 影響：
+  - 更改名稱會更新所有頁面的標題和導覽標籤
+  - 保持簡潔；為求可讀性和 SEO，建議在 50 個字元以內
+- 如何套用：更改後執行 `aigne web publish`
 
-**`projectDesc`**
-- **目的**：專案描述，用於 SEO meta 描述標籤 (`<meta name="description">`) 與社群媒體分享。
-- **類型**：字串
-- **變更影響**：修改此項會更新 meta 標籤與社群分享的描述。建議長度在 150 個字元以內，並包含核心關鍵字以利 SEO。
-- **如何套用**：執行 `aigne web update` 或 `aigne web generate`。
+`projectDesc`
+- 用途：用於 SEO meta (`<meta name="description">`) 和社群分享的專案描述
+- 目前值：`"AI-powered website generation tool built on the AIGNE Framework"`
+- 類型：string
+- 影響：
+  - 更新頁面和社群分享上的 meta 描述
+  - 為搜尋結果摘要，長度保持在約 150 個字元以內
+  - 包含關鍵字以利 SEO
+- 如何套用：更改後執行 `aigne web publish`
 
-**`projectLogo`**
-- **目的**：專案標誌，用於頁面頁首、瀏覽器 favicon 與社群分享縮圖。
-- **類型**：字串 (URL 或檔案路徑)
-- **變更影響**：更新整個網站的標誌。支援 HTTPS URL 或相對路徑（例如，`./assets/images/logo.svg`）。建議使用 PNG 或 SVG 格式。
-- **如何套用**：執行 `aigne web update` 或 `aigne web generate`。
+`projectLogo`
+- 用途：用於頁首導覽、favicon 和社群縮圖的標誌
+- 目前值：`https://www.arcblock.io/content/uploads/2e5edbac4a7d5310c117d09601811c.png`
+- 類型：string (URL 或路徑)
+- 影響：
+  - 切換 URL/路徑會更新整個網站的標誌
+  - 支援：HTTP/HTTPS URL 或相對路徑 (例如 `./assets/images/logo.svg`)
+  - 偏好使用 PNG 或 SVG 以獲得清晰的顯示效果
+- 如何套用：更改後執行 `aigne web publish`
 
-**`projectId`**
-- **目的**：專案的唯一識別碼，供 WebSmith 服務用來關聯部署、歷史記錄與資料來源。
-- **類型**：字串 (UUID 格式)
-- **變更影響**：⚠️ **重要**：除非您打算建立一個新專案，否則請勿修改此 ID。更改它可能會破壞與現有部署、歷史記錄與資料來源的關聯。
-- **如何套用**：如有必要修改，請執行 `aigne web generate` 重新生成。
+`projectId`
+- 用途：WebSmith 服務使用的唯一專案識別碼，用於關聯部署、歷史記錄和資料來源
+- 目前值：`pg4d0000-0000-4000-a000-000000000000` (UUID)
+- 類型：string (UUID: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
+- 影響：
+  - 更改為新的 UUID 會讓系統將其視為一個新專案，這可能會：
+    - 中斷與先前部署連結的關聯
+    - 失去與專案歷史記錄的連結
+    - 失去資料來源的關聯
+- 如何套用：更改後執行 `aigne web publish`
 
-**`projectSlug`**
-- **目的**：URL 路徑前綴，影響網站的部署路徑與內部連結生成。
-- **類型**：字串 (URL 路徑格式)
-- **變更影響**：值為 `/` 會將網站部署到根目錄（例如，`https://example.com/`），而 `/docs` 會將其部署到 `https://example.com/docs/`。
-- **如何套用**：執行 `aigne web generate` 以更新所有連結。
+`projectSlug`
+- 用途：URL 路徑前綴，影響部署路徑和內部連結
+- 目前值：`/` (根目錄)
+- 類型：string (URL path)
+- 影響範例：
+  - `/`：網站位於根目錄，例如 `https://example.com/`
+  - `/portfolio`：網站位於 `https://example.com/portfolio/`
+  - `/docs`：網站位於 `https://example.com/docs/`
+  - 更改會更新所有內部連結和部署路徑
+- 如何套用：更改後執行 `aigne web publish`
 
-**`projectCover`**
-- **目的**：網站的封面圖片，用於社群媒體上的預覽（例如，Open Graph、Twitter Cards）。
-- **類型**：字串 (檔案路徑)
-- **變更影響**：更新社群分享的預覽圖片。建議使用高品質圖片（至少 1200x630px）。
-- **如何套用**：執行 `aigne web update` 或 `aigne web generate`。
+`projectCover`
+- 用途：用於預覽和社群分享（Open Graph、Twitter Card 等）的網站封面圖片
+- 目前值：`.aigne/web-smith/cover.png`
+- 類型：string (檔案路徑)
+- 影響：
+  - 更改路徑會更新社群分享上的預覽圖片
+  - 使用高品質圖片（至少 1200×630）
+  - 格式：PNG、JPG/JPEG、WebP 等
+- 如何套用：更改後執行 `aigne web publish`
 
 #### 網站策略
 
-**`pagePurpose`**
-- **目的**：定義網站的主要目標，直接影響 AI 的生成策略與頁面結構。
-- **類型**：陣列 (可複選)
-- **可用值**：
-  - `landingPage`：用於行銷與轉換。生成英雄區塊、功能、CTA 等。
-  - `ecommerce`：用於線上銷售。生成產品目錄、購物車等。
-  - `saas`：用於 SaaS 產品網站。生成功能描述、定價、示範等。
-  - `portfolio`：用於展示作品。生成視覺驅動的版面、畫廊等。
-  - `corporate`：用於公司資訊。生成公司概覽、服務、團隊資訊等。
-  - `blog`：用於內容分享。生成內容組織、SEO 優化等。
-  - `nonprofit`：用於非營利組織。生成使命宣言、捐款流程等。
-  - `education`：用於教育網站。生成課程列表、學習路徑等。
-  - `mixedPurpose`：用於多功能網站。生成元件的組合。
-- **如何套用**：更改此項會改變整個網站的內容策略。執行 `aigne web generate` 以完全重新生成。
+`pagePurpose`
+- 用途：定義主要目的；直接影響 AI 策略和頁面結構
+- 目前值：`[landingPage]` (array)
+- 類型：array (可複選)
+- 選項與效果：
+  - `landingPage` (目前)：以轉換為重點的登陸頁面；生成主視覺、功能、行動呼籲、常見問題等
+  - `ecommerce`：線上商店；生成商品目錄、購物車、結帳、評論等
+  - `saas`：SaaS 產品網站；生成功能、定價、示範、使用者引導等
+  - `portfolio`：作品集網站；生成視覺佈局、畫廊、案例研究等
+  - `corporate`：公司網站；生成公司概覽、服務、團隊、聯絡方式等
+  - `blog`：部落格；生成內容結構、SEO、分享、存檔等
+  - `nonprofit`：非營利組織；生成使命、捐款流程、志工註冊等
+  - `education`：教育；生成課程列表、學習路徑、進度追蹤等
 
-**`targetAudienceTypes`**
-- **目的**：定義目標受眾，影響 AI 的寫作風格、語言複雜度與範例選擇。
-- **類型**：陣列 (可複選)
-- **可用值**：
-  - `customers`：針對終端使用者。使用簡單的語言，強調可用性。
-  - `businessOwners`：針對企業家。專注於投資回報率與商業價值。
-  - `marketers`：針對行銷團隊。專注於行銷指標與品牌知名度。
-  - `designers`：針對設計師。強調視覺吸引力與美學。
-  - `developers`：針對技術使用者。提供技術細節、程式碼範例、API 文件。
-  - `investors`：針對利害關係人。專注於成長指標與市場機會。
-  - `jobSeekers`：針對招聘。專注於公司文化與職涯發展。
-  - `students`：針對學習者。使用教育性語氣與逐步指導。
-  - `generalPublic`：針對廣泛受眾。使用易於理解的語言與多個切入點。
-- **如何套用**：改變語氣與範例。執行 `aigne web generate` 以完全重新生成。
+`targetAudienceTypes`
+- 用途：定義目標受眾；直接影響語氣、複雜度和範例選擇
+- 目前值：`[customers]` (array)
+- 類型：array (可複選)
+- 選項與效果：
+  - `customers` (目前)：終端使用者/客戶；語言簡單，強調易用性和成果；增加信任信號和使用者故事
+  - `businessOwners`：企業主/創辦人；關注投資報酬率和商業價值；專業語氣；包含商業案例和回報分析
+  - `marketers`：行銷團隊；以 KPI 和品牌為導向；包含行銷工具和分析
+  - `designers`：設計師；強調視覺和設計展示；美學和靈感；包含設計案例和視覺工具
+  - `developers`：開發者/技術使用者；技術細節、程式碼範例、API 文件；注重準確性和實作
+  - `investors`：投資者/利害關係人；成長指標、市場機會、財務前景；商業計畫和市場數據
+  - `jobSeekers`：求職者；關注文化、成長、福利；職位列表和公司文化
+  - `students`：學生/學習者；教學語氣、逐步指導、進度追蹤；教學和課程材料
+  - `generalPublic`：一般/混合受眾；語言易懂，多個切入點，廣泛吸引力
+- 如何套用：更改後執行 `aigne web clear && aigne web generate`
 
-**`websiteScale`**
-- **目的**：定義網站的規模，控制頁面數量與導覽結構的複雜性。
-- **類型**：字串 (單選)
-- **可用值**：
-  - `singlePage`：一個包含多個區塊的單頁網站。
-  - `minimal`：一個包含 2-6 個核心頁面的小型網站（例如，首頁、關於我們、聯絡我們）。
-  - `standard`：一個包含 7-12 個頁面的標準網站（推薦）。
-  - `comprehensive`：一個包含 12 個以上頁面的大型網站。
-  - `aiDecide`：讓 AI 根據其他參數決定適當的規模。
-- **如何套用**：直接決定生成的頁面數量。執行 `aigne web generate` 以重新生成所有頁面。
+`websiteScale`
+- 用途：定義網站規模，控制頁面數量和導覽複雜度
+- 目前值：`singlePage`
+- 類型：string (單選)
+- 選項與效果：
+  - `singlePage` (目前)：單頁式網站；所有區塊都在一個可滾動的頁面上（主視覺、功能、常見問題、行動呼籲等）；適合快速啟動/MVP
+  - `minimal`：2–6 頁；首頁、關於我們、服務/產品、聯絡方式等；小型企業/簡單網站
+  - `standard`：7–12 頁；minimal + 作品集/部落格、團隊、常見問題、定價等；專業網站、作品集、小型電子商務（建議）
+  - `comprehensive`：12+ 頁；standard + 詳細服務頁面、案例研究、資源中心等；大型/複雜/內容豐富的網站
+  - `aiDecide`：讓 AI 根據類型、受眾和程式碼庫分析決定規模；考量業務需求、內容量和維護能力
+- 如何套用：更改後執行 `aigne web clear && aigne web generate`
 
-**`rules`**
-- **目的**：以 Markdown 格式為頁面生成提供詳細指示。這是指導 AI 最關鍵的欄位。
-- **類型**：多行字串 (支援 Markdown)
-- **變更影響**：直接影響生成內容的品質，包括頁面結構、內容組織與語氣。
-- **如何套用**：`rules` 是內容生成的主要指南。執行 `aigne web generate` 以根據新規則完全重新生成。
+`rules`
+- 用途：針對結構、內容和風格的詳細生成指導（Markdown）。這是給 AI 最重要的指導，直接影響品質和使用者體驗。
+- 目前值：一個包含詳細指導的多行區塊（見上方範例），包括：
+  - 核心訊息與策略
+  - 在首屏回答關鍵問題
+  - 透過證明建立信譽
+  - 定義清晰的行動呼籲
+- 類型：多行字串 (支援 Markdown)
+- 影響：
+  - 空白或稀疏的規則：AI 會退回預設值，可能無法很好地滿足您的需求
+  - 詳細的規則：AI 會遵循您對結構、組織和語氣的指導
+  - 變更：AI 會根據新規則重新生成，影響區塊和表達方式
+- 如何套用：更改後執行 `aigne web clear && aigne web generate` 或 `aigne web update`
 
-#### 國際化
+#### 語言
 
-**`locale`**
-- **目的**：定義網站的主要語言。AI 會先用此語言生成所有內容。
-- **類型**：字串
-- **支援代碼**：標準 IETF 語言代碼（例如，`en`, `zh`, `ja`, `fr`, `de`）。
-- **如何套用**：更改所有頁面的主要語言。執行 `aigne web generate` 以新語言重新生成所有內容。
+`locale`
+- 用途：用於基礎內容生成的主要網站語言
+- 目前值：`en`
+- 類型：string
+- 支援的語言代碼：標準 IETF 代碼，如 `en`, `zh`, `zh-TW`, `ja`, `ko`, `fr`, `de`, `es`, `pt`, `ru`, `it`, `ar` 等
+- 如何套用：更改後執行 `aigne web clear && aigne web generate`
 
-**`translateLanguages`**
-- **目的**：要將網站翻譯成的其他語言列表。將為每種語言生成一個完整的、已翻譯的網站版本。
-- **類型**：陣列 (可複選)
-- **支援代碼**：與 `locale` 相同（不能包含 `locale` 本身的值）。
-- **如何套用**：新增或移除語言版本。執行 `aigne web generate` 以重新生成所有語言版本。
+`translateLanguages`
+- 用途：要翻譯成的語言列表；每種語言都會成為一個完整的網站結構
+- 目前值：`[zh, zh-TW, ja]`
+- 類型：array (可複選)
+- 支援的代碼：與 `locale` 相同（但不能包含 `locale` 本身）
+- 每種語言的效果：
+  - `zh`：生成一個完整的簡體中文網站
+  - `zh-TW`：生成一個完整的繁體中文網站
+  - `ja`：生成一個完整的日文網站
+  - 其他語言行為類似；每種語言都會生成一個獨立的網站結構
+- 如何套用：更改後執行 `aigne web translate`
 
 #### 內容來源
 
-**`sourcesPath`**
-- **目的**：定義供 AI 分析的內容來源目錄/檔案。**此欄位是生成內容品質、準確性與相關性的決定性因素。**
-- **類型**：陣列 (路徑列表)
-- **變更影響**：新增新路徑會擴展 AI 的知識庫，可能提升內容品質。移除路徑可能導致資訊缺失。支援目錄與檔案 (`.md`, `.yaml`, `.json`, `.txt`)。
-- **如何套用**：新的資料來源將被分析。執行 `aigne web generate`。
+`sourcesPath`
+- 用途：由 WebSmith AI Agent 分析的目錄/檔案（陣列）。AI 僅使用這些來源作為生成網站內容的參考。這直接決定了品質、準確性和相關性。
+- 目前值：
+  ```yaml
+  - ./assets/documents
+  - ./README.md
+  - ./aigne.yaml
+  - ./assets/images
+  - ./assets/recordings/README.md
+  - ./CHANGELOG.md
+  - ./agents
+  ```
+- 類型：array (路徑)
+- 重要性：
+  - 內容品質的主要決定因素：僅使用這些來源作為參考
+  - 建議：
+    - 包含主要文件和 readme
+    - 包含重要的專案資訊來源
+    - 保持來源準確和最新
+    - 定期更新以符合專案狀態
+- 影響：
+  - 新增路徑：AI 分析更多材料，通常能提高品質
+  - 移除路徑：AI 停止分析它們，可能會遺漏資訊
+  - 路徑類型：
+    - 目錄 (例如 `./assets/documents`)：遞迴分析
+    - 檔案 (例如 `./README.md`)：直接分析
+    - 支援類型：`.md`, `.yaml`/`.yml`, `.json`, `.txt` 等
+    - 圖片目錄：圖片不會被分析，但可以被引用
+- 如何套用：更改後執行 `aigne web clear && aigne web generate` 或 `aigne web update`
 
-**`defaultDatasources`**
-- **目的**：在每個頁面生成任務中都會注入到上下文中的資料來源（例如，描述圖片資產的 `media.md` 檔案）。
-- **類型**：陣列 (檔案路徑列表)
-- **變更影響**：適用於提供通用的、可重複使用的資訊，如聯絡方式或品牌資產。
-- **如何套用**：在執行 `aigne web update` 或 `aigne web generate` 時生效。
+`defaultDatasources`
+- 用途：自動注入到每個頁面上下文的資料來源（例如，媒體、聯絡資訊）。這些在每次執行命令時都會被加入，但並非每個資源都會完全內聯；適合像 `media.md` 這樣的資源描述。
+- 目前值：`[./media.md]`
+- 類型：array (檔案路徑)
+- 影響：
+  - 新增：新包含的通用內容（品牌資訊、共享片段等）
+  - 移除：不再注入
+  - 適用於：`media.md`（圖片位置和描述）、共享的聯絡/品牌資訊
+  - 支援格式：`.md`, `.yaml`/`.yml`, `.json`
+- 如何套用：更改後執行 `aigne web clear && aigne web generate` 或 `aigne web update`
 
 #### 輸出與部署
 
-**`pagesDir`**
-- **目的**：WebSmith 儲存生成頁面檔案的輸出目錄（例如，`page.yaml`, `_navigations.yaml`）。
-- **類型**：字串 (路徑)
-- **變更影響**：更改生成檔案的儲存位置。如果目錄不存在，將會自動建立。
-- **如何套用**：變更將在下次生成時生效。
+`pagesDir`
+- 用途：生成的網站檔案（例如 `page.yaml`, `_navigations.yaml`）的輸出目錄
+- 目前值：`.aigne/web-smith/pages`
+- 類型：string (路徑)
+- 影響：
+  - 更改（例如，改為 `./output/pages`）會將未來的輸出移至該處
+  - 為求可攜性，偏好使用相對路徑
+  - 如果目錄不存在，會自動建立
+- 如何套用：未來的生成會寫入新目錄
 
-**`appUrl`**
-- **目的**：網站的最終部署 URL。
-- **類型**：字串 (URL 格式)
-- **變更影響**：決定網站發布的平台。必須包含協議 (`https://`)。
-- **如何套用**：**僅在 `aigne web publish` 命令期間生效。**
+`appUrl`
+- 用途：網站部署 URL；決定網站發布到何處
+- 目前值：`https://mhevtaeg.user.aigne.io`
+- 類型：string (URL)
+- 影響：
+  - 更改為另一個 URL 會發布到新的目標
+  - 必須包含協定；如果缺少，會自動加上 `https://`
+  - 在最終網域確定後設定，以避免變動
+- 如何套用：僅由 `aigne web publish` 使用；其他命令會忽略它
 
-**`checkoutId`**, **`shouldSyncAll`**, **`navigationType`**
-- **目的**：這些是開發期間使用的暫時變數。使用者不應修改這些值，因為它們由系統自動管理。
+`checkoutId`
+- 用途：暫時的開發變數；僅為方便而儲存
+- 目前值：`""`
+- 類型：string
+- 注意：由系統管理；您通常不需要設定它
+
+`shouldSyncAll`
+- 用途：暫時的開發變數；僅為方便而儲存
+- 目前值：`""`
+- 類型：string (`"true"` 或 `""`)
+- 注意：由系統管理；您通常不需要設定它
+
+`navigationType`
+- 用途：暫時的開發變數；僅為方便而儲存
+- 目前值：`""`
+- 類型：string
+- 注意：由系統管理；您通常不需要設定它
 
 #### 媒體與顯示
 
-**`media.minImageWidth`**
-- **目的**：要包含的圖片所需的最小寬度（以像素為單位）。用於過濾掉低品質的圖片。
-- **類型**：整數 (像素)
-- **變更影響**：較高的值可確保只使用高品質圖片，但可能會減少可用圖片的數量。
-- **如何套用**：執行 `aigne web generate` 以重新過濾並套用新的圖片選擇。
+`media.minImageWidth`
+- 用途：過濾低品質圖片的最小圖片寬度（像素）；只有寬度大於此值的圖片會被使用
+- 目前值：`600`
+- 類型：integer (pixels)
+- 效果：
+  - 較低 (400–600)：允許更多圖片，品質風險較高；適合快速啟動
+  - 中等 (600–800)：品質/數量平衡；預設建議
+  - 較高 (800–1000)：品質較高，圖片較少；適合作品集/高階品牌
+  - 非常高 (1000+)：頂級視覺品質，可用的圖片少很多
+- 如何套用：更改後執行 `aigne web clear && aigne web generate` 或 `aigne web update`
 
-**`lastGitHead`**
-- **目的**：儲存上次生成時的 Git commit hash，用於增量更新。
-- **類型**：字串 (Git commit hash)
-- **變更影響**：此值由系統自動管理，不應手動修改。
+#### 其他設定
 
----
+(目前沒有其他欄位)
 
-## 何時修改設定檔
-
-### 調整核心功能
-
-**情境 1：從單頁網站升級為多頁網站**
-- **要修改的欄位**：`websiteScale` (例如，從 `singlePage` 改為 `standard`)
-- **命令**：如果已經生成了文件，請執行 `aigne web clear` 然後 `aigne web generate`。
-
-**情境 2：更改網站的目的**
-- **要修改的欄位**：`pagePurpose` (例如，從 `saas` 改為 `ecommerce`)
-- **命令**：如果已經生成了文件，請執行 `aigne web clear` 然後 `aigne web generate`。
-
-**情境 3：調整目標受眾**
-- **要修改的欄位**：`targetAudienceTypes` (例如，從 `customers` 改為 `businessOwners`)
-- **命令**：如果已經生成了文件，請執行 `aigne web clear` 然後 `aigne web generate`。
-
-### 更新內容來源
-
-**情境 4：新增內容來源**
-- **要修改的欄位**：`sourcesPath` (新增檔案或目錄路徑)
-- **命令**：執行 `aigne web generate`。新的來源將可供 AI 使用。
-
-### 優化與修正問題
-
-**情境 5：提升圖片品質**
-- **要修改的欄位**：`media.minImageWidth` (例如，從 `600` 增加到 `1000`)
-- **命令**：執行 `aigne web update` 或 `aigne web generate`。
-
-**情境 6：優化 AI 生成的內容**
-- **要修改的欄位**：`rules` (為結構、語氣等新增更具體的指示)
-- **命令**：執行 `aigne web update` 或 `aigne web generate`。
-
-### 管理語言
-
-**情境 7：新增語言**
-- **要修改的欄位**：`translateLanguages` (新增語言代碼，例如 `fr`)
-- **命令**：執行 `aigne web translate` 或 `aigne web update`。
-
-**情境 8：更改主要語言**
-- **要修改的欄位**：`locale` (例如，從 `zh` 改為 `en`)
-- **命令**：執行 `aigne web clear` 然後 `aigne web generate`。
-
-### 更新基本資訊
-
-**情境 9：更新專案品牌**
-- **要修改的欄位**：`projectName`, `projectDesc`, `projectLogo`, `projectCover`
-- **命令**：執行 `aigne web publish`。
-
-**情境 10：設定部署 URL**
-- **要修改的欄位**：`appUrl`
-- **命令**：執行 `aigne web publish`。
+`lastGitHead`
+- 用途：生成時的最後一個 Git commit ID（用於增量更新）
+- 目前值：`c4a4d3db4bf230e2c6873419e26b6654c39613a5`
+- 類型：string (Git commit hash)
+- 效果：
+  - 每次生成後自動維護
+  - 用於偵測已變更的檔案；手動編輯可能會影響增量行為
+- 注意：通常由系統管理；如有必要，僅在有有效 hash 時才編輯
 
 ---
 
-## 如何套用設定變更
+## 欄位總覽
 
-### 使用命令套用變更
+| 欄位 | 類型 | 預設值 | 範例 | 套用指令 |
+|---|---|---|---|---|
+| `projectName` | string | `""` | `"My Project"` | `publish` |
+| `projectDesc` | string | `""` | `"AI-powered website tool"` | `publish` |
+| `projectLogo` | string | `""` | `"https://example.com/logo.png"` | `publish` |
+| `projectId` | string | UUID | `"pg4d0000-0000-4000-a000-000000000000"` | `publish` |
+| `projectSlug` | string | `"/"` | `"/"` | `publish` |
+| `projectCover` | string | `""` | `"./assets/cover.png"` | `publish` |
+| `pagePurpose` | array | `[]` | `["landingPage"]` | `clear && generate` |
+| `targetAudienceTypes` | array | `[]` | `["customers"]` | `clear && generate` |
+| `websiteScale` | string | `"standard"` | `"standard"` | `clear && generate` |
+| `rules` | string | `""` | `"### Page Structure\n1. Hero section"` | `update` |
+| `locale` | string | `"en"` | `"en"` | `clear && generate` |
+| `translateLanguages` | array | `[]` | `["zh", "ja"]` | `translate` |
+| `pagesDir` | string | `"./aigne/web-smith/pages"` | `"./aigne/web-smith/pages"` | `generate` |
+| `sourcesPath` | array | `[]` | `["./README.md", "./docs"]` | `generate` |
+| `defaultDatasources` | array | `["./media.md"]` | `["./media.md"]` | `update` |
+| `media.minImageWidth` | integer | `800` | `800` | `update` |
+| `appUrl` | string | `""` | `"https://example.com"` | `publish` |
+| `lastGitHead` | string | `""` | `"c4a4d3db..."` | Auto |
+| `checkoutId` | string | `""` | `""` | Internal |
+| `shouldSyncAll` | string | `""` | `""` | Internal |
+| `navigationType` | string | `""` | `""` | Internal |
 
-套用不同欄位的變更需要不同的命令：
-
-- **功能性 (`pagePurpose`, `websiteScale`, `targetAudienceTypes`)**：
-  - 如果內容已存在，則執行 `aigne web clear` 然後 `aigne web generate`。
-- **內容來源 (`sourcesPath`, `defaultDatasources`)**：
-  - `aigne web generate` 或 `aigne web update`。
-- **問題修正 (`media.minImageWidth`, `rules`)**：
-  - `aigne web update` 或 `aigne web generate`。
-- **國際化**：
-  - `translateLanguages`：`aigne web translate` 或 `aigne web update`。
-  - `locale`：`aigne web clear` 然後 `aigne web generate`。
-- **基本資訊 (`projectName`, `appUrl`, 等)**：
-  - `aigne web publish`。
-
-### 工作流程摘要
-
-1.  修改 `config.yaml` 檔案。
-2.  儲存檔案。
-3.  根據您變更的欄位執行適當的命令。
-4.  檢查生成的檔案以驗證變更是否已生效。
+**注意：** 關於詳細的允許值和描述，請參閱下方的 [欄位逐一說明](#field-by-field-explanation) 部分。
 
 ---
 
-## 處理設定錯誤
+## 複製貼上範例
 
-### 常見錯誤
+### 最小範例：單頁式、僅英文
 
-- **縮排不正確**：YAML 對縮排很敏感。請一致地使用空格（而非 Tab）。
-- **特殊字元**：鍵值對請使用標準的英文冒號 (`:`)，而非其他字元。
-- **值類型不正確**：在需要陣列的地方提供了字串（例如，`pagePurpose: landingPage` 而非 `pagePurpose: [landingPage]`）。系統將退回使用預設值。
-- **缺少必要欄位**：如果刪除了一個關鍵欄位，生成過程可能仍會繼續，但會導致網站資訊缺失（例如，沒有標題）。
-- **未知欄位**：新增一個不存在於結構定義中的欄位將被系統忽略，且不會引起錯誤。
+一個單頁式英文網站的最小設定：
+
+```yaml
+configVersion: 1
+projectName: My Project
+projectDesc: "A simple landing page"
+projectLogo: ""
+projectId: pg4d1000-0000-4000-a000-000000000000
+projectSlug: /
+pagePurpose:
+  - landingPage
+targetAudienceTypes:
+  - customers
+websiteScale: singlePage
+rules: ""
+locale: en
+translateLanguages: []
+pagesDir: ./aigne/web-smith/pages
+sourcesPath:
+  - ./README.md
+defaultDatasources:
+  - ./media.md
+media:
+  minImageWidth: 800
+appUrl: ""
+```
+
+**命令順序：**
+```bash
+aigne web generate
+```
+
+---
+
+### 標準範例：多頁式、英文 + 日文
+
+一個具有英文和日文的多頁式網站的標準設定：
+
+```yaml
+configVersion: 1
+projectName: My Project
+projectDesc: "AI-powered website generation tool"
+projectLogo: https://example.com/logo.png
+projectId: pg4d2000-0000-4000-a000-000000000000
+projectSlug: /
+pagePurpose:
+  - landingPage
+  - saas
+targetAudienceTypes:
+  - customers
+  - developers
+websiteScale: standard
+rules: |
+  ### Page Structure Requirements
+  1. Hero section must include clear value proposition
+  2. Use positive, confident tone
+  3. Include concrete case data
+locale: en
+translateLanguages:
+  - ja
+pagesDir: ./aigne/web-smith/pages
+sourcesPath:
+  - ./README.md
+  - ./docs
+  - ./CHANGELOG.md
+defaultDatasources:
+  - ./media.md
+media:
+  minImageWidth: 800
+appUrl: https://example.com
+```
+
+**命令順序：**
+```bash
+aigne web generate
+aigne web translate
+aigne web publish
+```
+
+**注意：** 版本將隨著重大變更而提升；屆時將提供遷移說明。
+
+---
+
+## 如果出現問題
+
+如果您的網站生成失敗或產生非預期的結果，請使用以下復原方法：
+
+- **Git 還原：** 如果您正在使用版本控制，請還原到上一個可運作的設定：
+  ```bash
+  git revert HEAD
+  ```
+
+- **清理後重新生成：** 清除所有生成的檔案並從頭開始重新生成：
+  ```bash
+  aigne web clear && aigne web generate
+  ```
+
+這會還原到一個乾淨的狀態，並根據目前的設定重新生成您的網站。
+
+---
+
+## 何時應該修改？
+
+### 功能調整
+
+情境：從單頁式升級為多頁式
+- 觸發時機：需要從單一頁面擴展為一個完整的網站
+- 欄位：`websiteScale`
+- 範例：
+```yaml
+# 之前
+websiteScale: singlePage
+
+# 之後
+websiteScale: standard
+```
+- 套用方式：
+  - 如果尚未生成任何內容：執行 `aigne web generate`
+  - 如果已經生成：執行 `aigne web clear` 然後 `aigne web generate`
+
+情境：更改網站類型
+- 觸發時機：產品定位變更（例如，SaaS → 電子商務）
+- 欄位：`pagePurpose`
+- 範例：
+```yaml
+# 之前
+pagePurpose:
+  - saas
+
+# 之後
+pagePurpose:
+  - ecommerce
+```
+- 套用方式：與情境 1 相同
+
+情境：調整目標受眾
+- 觸發時機：受眾轉變（例如，消費者 → 企業）
+- 欄位：`targetAudienceTypes`
+- 範例：
+```yaml
+# 之前
+targetAudienceTypes:
+  - customers
+
+# 之後
+targetAudienceTypes:
+  - businessOwners
+  - developers
+```
+- 套用方式：與情境 1 相同
+
+### 適應調整
+
+情境：新增內容來源
+- 觸發時機：新增了 AI 必須分析的新文件或內容。如果未新增路徑，之後的 `aigne web generate` 執行將無法讀取它。
+- 欄位：`sourcesPath`
+- 範例：
+```yaml
+# 之前
+sourcesPath:
+  - ./assets/documents
+
+# 之後：新增來源
+sourcesPath:
+  - ./assets/documents
+  - ./docs/api
+  - ./content/blog
+```
+- 套用方式：在填寫提示時，`aigne web generate` 會讀取此欄位
+
+### 修正
+
+情境：圖片品質不足
+- 觸發時機：輸出中出現低品質圖片
+- 欄位：`media.minImageWidth`
+- 範例：
+```yaml
+# 之前：最小 600px
+media:
+  minImageWidth: 600
+
+# 之後：最小 1000px
+media:
+  minImageWidth: 1000
+```
+- 套用方式：`aigne web update` 或 `aigne web generate`
+
+情境：生成的內容不符預期
+- 觸發時機：語氣/結構不如預期
+- 欄位：`rules`
+- 範例：
+```yaml
+# 之前：空白或太稀疏
+rules: ""
+
+# 之後：詳細指導
+rules: |
+  ### Page Structure Requirements
+  1. Above the fold must include:
+     * Clear product headline
+     * Concise description (≤ 2 sentences)
+     * Primary call‑to‑action
+
+  2. Content organization:
+     * Positive, confident tone
+     * Include concrete case data
+     * Avoid excessive marketing jargon
+```
+- 套用方式：
+  - `aigne web update` 會讀取此欄位
+  - 在填寫提示時，`aigne web generate` 會讀取此欄位
+  - 注意：每次提示都會傳送規則
+
+### 多語言
+
+情境：新增一種語言
+- 欄位：`translateLanguages`
+- 範例：
+```yaml
+# 之前：只有中文 + 英文
+locale: zh
+translateLanguages:
+  - en
+
+# 之後：新增法文和德文
+locale: zh
+translateLanguages:
+  - en
+  - fr
+  - de
+```
+- 套用方式：`aigne web translate` 或 `aigne web update`
+
+情境：更改主要語言
+- 欄位：`locale`
+- 範例：
+```yaml
+# 之前：中文為主要語言
+locale: zh
+translateLanguages:
+  - en
+
+# 之後：英文為主要語言
+locale: en
+translateLanguages:
+  - zh
+```
+- 套用方式：執行 `aigne web clear` 然後 `aigne web generate`
+
+### 基本資訊變更
+
+情境：更新專案基本資訊
+- 欄位：`projectName`, `projectDesc`, `projectLogo`, `projectCover`
+- 範例：
+```yaml
+# 之前
+projectName: "Old Project Name"
+projectDesc: "Old description"
+projectLogo: "Old Logo URL"
+
+# 之後
+projectName: "New Project Name"
+projectDesc: "New description"
+projectLogo: "New Logo URL"
+projectCover: "./assets/images/new-cover.png"
+```
+- 套用方式：`aigne web publish` (其他命令會忽略這些)
+
+情境：整合外部部署
+- 欄位：`appUrl`
+- 範例：
+```yaml
+# 之前
+appUrl: ""
+
+# 之後
+appUrl: https://your-app.user.aigne.io
+```
+- 套用方式：僅 `aigne web publish`；`appUrl` 決定目標平台
+
+### 驗證變更
+
+- 檢查生成的頁面檔案，確認更新後的值已存在。例如，更改 `projectName` 後，確保新名稱出現在預期的位置。
+
+---
+
+## 如果檔案損毀了怎麼辦？
+
+### YAML 格式錯誤
+
+情境：使用全形（中文）冒號
+```yaml
+projectName： "My Project"  # 錯誤：全形冒號
+```
+正確：
+```yaml
+projectName: "My Project"  # 正確：ASCII 冒號
+```
+影響：
+- YAML 解析失敗；`aigne web generate` 會顯示錯誤
+- 命令中止；網站將不會被生成
+復原：
+1. 將所有全形冒號替換為 ASCII `:`
+2. 重新執行 `aigne web generate`
+
+情境：不存在的欄位
+```yaml
+projectName: "My Project"
+unknownField: "some value"
+```
+影響：
+- CLI 會忽略無法識別的欄位，不會報錯
+- 檔案可解析；欄位被忽略；生成不受影響
+- 您必須驗證輸出是否符合預期
+復原：
+1. 檢查生成的輸出
+2. 查閱本指南以了解有效的欄位名稱
+3. 移除未知欄位
+
+情境：縮排錯誤
+```yaml
+pagePurpose:
+- landingPage  # 錯誤：缺少縮排
+targetAudienceTypes:
+  - customers  # 正確：兩格縮排
+```
+正確：
+```yaml
+pagePurpose:
+  - landingPage
+targetAudienceTypes:
+  - customers
+```
+影響：
+- YAML 解析失敗；結構被誤讀
+- 值可能會遺失或被錯誤解讀
+復原：
+1. 僅使用空格（不用 Tab），並保持一致的縮排（通常是兩格）
+2. 確保陣列使用正確的 `-` 並有正確的縮排
+
+情境：刪除關鍵欄位
+```yaml
+# 意外移除了 projectName
+projectDesc: "Description"
+projectId: "pg4d0000-0000-4000-a000-000000000000"
+```
+影響：
+- 標題可能為空或使用預設值
+- 某些功能可能無法如預期運作
+- 解析成功但輸出品質下降
+復原：
+1. 如果可用，從 Git 歷史記錄中還原
+2. 執行 `aigne web init` 重新生成，然後合併自訂內容
+3. 根據本指南填寫缺失的必填欄位
+
+情境：錯誤的值類型
+`pagePurpose` 必須是陣列，而不是字串：
+```yaml
+# 錯誤
+pagePurpose: landingPage
+
+# 正確
+pagePurpose:
+  - landingPage
+```
+`translateLanguages` 必須是陣列，而不是字串：
+```yaml
+# 錯誤
+translateLanguages: en
+
+# 正確
+translateLanguages:
+  - en
+```
+影響：
+- 當類型錯誤時，可能會使用預設值
+- AI 可能無法正確讀取值
+- 輸出可能不符預期
+復原：
+1. 在本指南中確認正確的格式
+2. 使用帶有 `-` 的正確 YAML 陣列語法
+3. 重新生成以驗證
 
 ### 偵測與復原
 
-- **自動偵測**：執行任何 `aigne web` 命令都會解析該檔案。如果存在 YAML 語法錯誤，命令將會失敗並報告錯誤。
-- **復原計畫**：
-  1.  **版本控制**：最佳實踐是將您的 `config.yaml` 納入版本控制（例如，Git）。您可以還原到先前可用的版本。
-  2.  **驗證與修正**：仔細檢查您的檔案是否有語法錯誤。將其與本指南中的範例進行比較。
-  3.  **重新初始化**：如果檔案嚴重損壞，您可以備份它、刪除它，然後執行 `aigne web init` 來產生一個新的、乾淨的設定檔。然後您可以從備份中手動複製您的自訂設定。
+方法 1：在生成期間偵測
+- 編輯後，執行 `aigne web generate`
+- 系統會報告 YAML/格式錯誤並提供有用的訊息
 
-### 系統穩健性
+方法 2：從備份還原
+- 如果使用 Git，從歷史記錄中還原
+- 如果使用手動備份：
+```bash
+cp config-backup-20240101.yaml .aigne/web-smith/config.yaml
+```
 
-- **找不到檔案**：系統會引導您執行 `aigne web init`。
-- **YAML 解析失敗**：系統將報告一個使用者友善的錯誤。
-- **未知欄位**：多餘的欄位會被忽略。
-- **值格式不正確**：系統將使用預設值。
-- **缺少欄位**：某些欄位有預設值（`locale` 預設為 "en"）。
+方法 3：重新生成檔案
+- 如果無法修復，執行 `aigne web init` 來重新建立它。先備份舊的 `config.yaml`，以便您可以合併自訂的值。
 
-### 預防措施
+### 產品穩健性
 
-1.  **使用版本控制**：將 `config.yaml` 放在 Git 中。
-2.  **定期備份**：在進行重大變更之前建立備份。
-3.  **使用 CLI**：偏好使用 `aigne web init` 進行初始設定以避免手動錯誤。
-4.  **變更後驗證**：編輯後立即執行命令以檢查錯誤。
+根據 WebSmith 的行為：
+1. 缺少檔案：明確的錯誤和執行 `aigne web init` 的指導
+2. YAML 解析失敗：友善的錯誤訊息，不會崩潰
+3. 未知欄位：靜默忽略；生成繼續；手動驗證結果
+4. 錯誤的值類型：可能會使用預設值；解析繼續
+5. 缺少選填欄位：套用預設值（例如 `locale` 預設為 "en"）
+
+### 預防技巧
+
+1. 對設定檔使用版本控制
+2. 在重大編輯前進行備份
+3. 偏好透過 CLI (`aigne web init`) 編輯，減少手動格式錯誤
+4. 編輯後執行 `aigne web generate` 來驗證變更
+
+---
+
+## 預設值與優先順序
+
+### 明確預設值
+
+以下欄位有明確的預設值：
+
+- `locale`：預設為 `"en"` (英文)
+- `websiteScale`：預設為 `"standard"` (7-12 頁)
+- `pagesDir`：預設為 `"./aigne/web-smith/pages"`
+- `translateLanguages`：預設為 `[]` (空陣列，無翻譯)
+- `media.minImageWidth`：預設為 `800` (像素)
+
+### 優先順序規則
+
+設定的優先順序遵循此順序：
+
+1. **明確的設定值** 具有最高優先級
+2. **`rules` 會覆蓋預設值**；如果 `rules` 為空，AI 會退回預設值
+3. **缺少的值會退回預設值**；如果未指定或欄位為空，系統會使用其預設值
+
+### i18n 回退行為
+
+生成多語言網站時：
+
+- **主要語言 (`locale`)**：始終用作內容生成的基礎語言
+- **翻譯語言 (`translateLanguages`)**：內容會從主要語言翻譯成每個目標語言
+- **缺少翻譯時的回退**：如果翻譯失敗，系統會退回到主要語言的內容
+- **停用 i18n**：要停用國際化，請將 `translateLanguages` 設定為空陣列 `[]`
+
+---
+
+## 疑難排解
+
+### 錯誤 1：「Config file not found」
+
+**錯誤訊息：**
+```
+Config file not found: .aigne/web-smith/config.yaml
+Please run 'aigne web init' to create the config file.
+```
+
+**原因：** 設定檔在預期位置不存在。
+
+**修正：** 執行 `aigne web init` 以互動方式建立設定檔。
+
+---
+
+### 錯誤 2：「Error parsing config file」
+
+**錯誤訊息：**
+```
+Error parsing config file: YAML syntax error at line 5, column 3: unexpected character
+```
+
+**原因：** 設定檔中有 YAML 語法錯誤（例如，不正確的縮排、錯誤的冒號、缺少引號）。
+
+**修正：**
+1. 檢查錯誤訊息中提到的行號
+2. 驗證 YAML 語法（使用空格，不用 tab；使用正確的冒號格式）
+3. 使用 YAML 驗證器來驗證檔案
+4. 重新執行 `aigne web generate`
+
+---
+
+### 錯誤 3：從 `standard` 切換到 `singlePage` 而沒有 `clear`
+
+**錯誤訊息：**
+```
+Warning: Website structure mismatch detected. Generated pages may not match the new scale.
+```
+
+**原因：** 將 `websiteScale` 從 `standard` 更改為 `singlePage`，但沒有先執行 `clear`，導致結構衝突。
+
+**修正：**
+1. 執行 `aigne web clear` 以移除舊的生成檔案
+2. 執行 `aigne web generate` 以新規模重新生成
+3. **更改 `websiteScale` 時，總是在 `generate` 之前執行 `clear`**
+
+---
+
+### 錯誤 4：「Invalid locale code」
+
+**錯誤訊息：**
+```
+Error: Invalid locale code 'invalid'. Supported codes: en, zh, zh-TW, ja, ko, fr, de, es, pt, ru, it, ar
+```
+
+**原因：** 在 `locale` 或 `translateLanguages` 中使用了不支援的語言代碼。
+
+**修正：**
+1. 檢查支援的語言代碼列表
+2. 使用有效的 IETF 語言代碼（例如 `en`、`zh`、`ja`）
+3. 更新設定並重新執行命令
+
+---
+
+### 錯誤 5：「No content sources found」
+
+**錯誤訊息：**
+```
+Warning: No content sources found in sourcesPath. Generated content may be generic.
+```
+
+**原因：** `sourcesPath` 為空，或所有指定路徑不存在或無法存取。
+
+**修正：**
+1. 驗證 `sourcesPath` 中的檔案/目錄是否存在
+2. 檢查檔案權限（確保檔案可讀）
+3. 將有效的路徑加入 `sourcesPath`（例如 `["./README.md", "./docs"]`）
+4. 重新執行 `aigne web generate`
+
+---
+
+## 最佳實踐
+
+### `sourcesPath` 最佳實踐
+
+**好的資料夾佈局：**
+
+```
+project/
+├── README.md           # ✅ 包含
+├── docs/               # ✅ 包含
+│   ├── getting-started.md
+│   └── api-reference.md
+├── CHANGELOG.md        # ✅ 包含
+└── assets/
+    ├── images/         # ✅ 包含 (用於圖片參考)
+    └── recordings/     # ❌ 略過 (除非需要)
+```
+
+**不好的資料夾佈局：**
+
+```
+project/
+├── node_modules/       # ❌ 不要包含 (太大)
+├── dist/               # ❌ 不要包含 (生成檔案)
+├── .git/               # ❌ 不要包含 (版本控制)
+└── test/               # ❌ 不要包含 (測試檔案)
+```
+
+**最佳實踐：**
+
+1. **包含必要的文件：**
+   - `README.md` (專案概覽)
+   - `docs/` 目錄 (文件)
+   - `CHANGELOG.md` (版本歷史)
+
+2. **包含專案設定：**
+   - `aigne.yaml` (專案設定)
+   - 與您專案相關的設定檔
+
+3. **包含圖片目錄：**
+   - `assets/images/` (用於圖片參考)
+   - 注意：圖片不會被分析，但可以被引用
+
+4. **避免大型目錄：**
+   - `node_modules/` (太大，不必要)
+   - `dist/` 或 `build/` (生成檔案)
+   - `.git/` (版本控制)
+
+5. **Glob 模式支援：**
+   - **`sourcesPath` 目前不支援 Glob 模式**
+   - 使用明確的檔案路徑或目錄路徑
+   - 範例：`["./README.md", "./docs"]` ✅
+   - 範例：`["./docs/**/*.md"]` ❌ (不支援)
+
+6. **忽略檔案：**
+   - **目前不支援 `.aigneignore`**
+   - 手動從 `sourcesPath` 中排除不必要的檔案/目錄
+
+---
+
+### `rules` 最佳實踐
+
+**6 點登陸頁面骨架：**
+
+將此骨架複製到您的 `rules` 欄位並進行自訂：
+
+```yaml
+rules: |
+  ### I. Core Messaging & Strategy
+  1. Above the fold must answer: What it is, Who it's for, Why it's different, Primary action
+  2. Establish credibility with proof: Show demo, social proof, customer logos
+  3. Define clear CTA: Primary action aligned with audience, persistent mobile CTA
+  
+  ### II. Content Organization
+  4. Use positive, confident tone: Avoid marketing jargon, focus on benefits
+  5. Include concrete data: Case studies, metrics, real examples
+  6. Maintain consistency: Product naming, terminology, structure
+```
+
+**語氣指導：**
+
+- **對客戶：** 明確的益處、簡單的語言、信任信號
+- **對開發者：** 技術準確性、程式碼範例、API 參考
+- **對企業主：** 關注投資報酬率、節省時間的益處、專業語氣
+
+**CTA 指導：**
+
+- **主要 CTA：** 您希望使用者採取的主要行動（例如，「生成我的網站」）
+- **次要 CTA：** 放在較不顯眼的位置（例如，「在 GitHub 上查看」）
+- **行動裝置：** 保持一個持續可見的主要 CTA
+
+**最佳實踐：**
+
+1. **具體明確：** 包含具體要求，而非模糊建議
+2. **使用結構：** 使用標題和項目符號組織規則
+3. **與受眾對齊：** 將語氣與 `targetAudienceTypes` 匹配
+4. **專注於成果：** 描述您想要的結果，而不是如何實現它
+5. **保持專注：** 避免過長的規則（為求效能，目標 < 2KB）
+6. **測試與迭代：** 根據生成的內容品質來完善規則
 
 ---
 
 ## 常見問題
 
-### Q1：如果我對設定檔的變更沒有生效，該怎麼辦？
-**A**：首先，確保檔案已儲存。其次，檢查是否有 YAML 格式錯誤。第三，確保您執行了正確的命令來套用特定的變更（例如，`projectName` 需要 `aigne web publish`）。
+Q1：變更沒有生效
+- 可能原因：檔案未儲存、YAML 錯誤，或您需要重新生成
+- 修正：儲存、修正 YAML、執行 `aigne web generate`，並驗證輸出包含更新後的值
 
-### Q2：如何新增一種新語言？
-**A**：在您的 `config.yaml` 檔案中，將該語言的代碼新增到 `translateLanguages` 陣列中。然後，執行 `aigne web translate` 或 `aigne web update`。
+Q2：如何新增語言？
+- 步驟：
+  1. 在 `translateLanguages` 下新增代碼
+  2. 執行 `aigne web generate`
+  3. 檢查 `.aigne/web-smith/pages/workspace/{lang}/`
+- 範例：
+```yaml
+locale: zh
+translateLanguages:
+  - en
+  - ja
+  - fr  # 新增的法文
+```
 
-### Q3：如果生成的內容不符合我的期望怎麼辦？
-**A**：這通常是因為指導不足。試著讓您的 `rules` 更詳細，調整 `targetAudienceTypes` 使其更具體，或在您的 `sourcesPath` 中新增更多相關內容。
+Q3：生成的內容不符預期
+- 原因：`rules` 不足、`targetAudienceTypes` 不符，或 `sourcesPath` 太稀疏
+- 修正：豐富 `rules`、調整受眾、新增更多來源
 
-### Q4：如何修正設定檔中的格式錯誤？
-**A**：最常見的錯誤是縮排不一致、使用非標準字元作為冒號，以及不正確的資料類型（例如，字串而非陣列）。請參閱「如果設定檔損壞會發生什麼？」部分以獲得詳細的復原步驟。
+Q4：如何修正格式錯誤？
+- 常見錯誤：全形冒號、不一致的縮排、錯誤的陣列
+- 修正：遵循第 6 節的指導，如有需要從備份還原，並重新生成以驗證

@@ -1,4 +1,14 @@
 entries:
+  - timestamp: 2025-11-06T13:39:08.976Z
+    operation: document_update
+    feedback: I have updated assets/documents/special-components/websmith-config.md
+      strictly      followingthe document content, and do not remove any content, the grouping of
+      fields must also      bemaintained. I would like to reiterate, do not make any cuts or
+      exaggerations to the      content.The project file is config.yaml, please note that it should
+      not be expressed as any      othername, and throughout the text config.yaml should not appear
+      as `websmith-config.yaml`.      Thecontent within the brackets should not appear in the final
+      document. The writing style can      beslightly optimized to make it more user-friendly.
+    documentPath: /reference/websmith-config
   - timestamp: 2025-11-05T13:42:08.198Z
     operation: document_update
     feedback: "`aigne web prefs remove` and `aigne web prefs toggle` support the --id parameter instead
@@ -11,6 +21,37 @@ entries:
     docPaths:
       - /reference/command-line-reference
       - /core-tasks/managing-preferences
+  - timestamp: 2025-11-04T15:45:40.865Z
+    operation: document_update
+    feedback: I have updated assets/documents/special-components/websmith-config.md strictly
+      followingthe document content, and do not remove any content, the grouping of fields must also
+      bemaintained. I would like to reiterate, do not make any cuts or exaggerations to the
+      content.The project file is config.yaml, please note that it should not be expressed as any
+      othername, and throughout the text config.yaml should not appear as `websmith-config.yaml`.
+      Thecontent within the brackets should not appear in the final document. The writing style can
+      beslightly optimized to make it more user-friendly.
+    documentPath: /reference/websmith-config
+  - timestamp: 2025-11-04T11:35:59.919Z
+    operation: document_update
+    feedback: I have updated assets/documents/special-components/websmith-config.md strictly
+      followingthe document content, and do not remove any content, the grouping of fields must also
+      bemaintained. I would like to reiterate, do not make any cuts or exaggerations to the
+      content.The project file is config.yaml, please note that it should not be expressed as any
+      othername, and throughout the text config.yaml should not appear as `websmith-config.yaml`.
+      Thecontent within the brackets should not appear in the final document. The writing style can
+      beslightly optimized to make it more user-friendly.
+    documentPath: /reference/websmith-config
+  - timestamp: 2025-11-04T11:08:43.881Z
+    operation: document_update
+    feedback: >-
+      I have updated assets/documents/special-components/websmith-config.md strictly following
+            the document content, and do not remove any content, the grouping of fields must also be
+            maintained. I would like to reiterate, do not make any cuts or exaggerations to the content.
+            The project file is config.yaml, please note that it should not be expressed as any other
+            name, and throughout the text config.yaml should not appear as `websmith-config.yaml`. The
+            content within the brackets should not appear in the final document. The writing style can be
+            slightly optimized to make it more user-friendly.
+    documentPath: /reference/websmith-config
   - timestamp: 2025-11-03T11:05:50.356Z
     operation: document_update
     feedback: >-

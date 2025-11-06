@@ -1,8 +1,9 @@
-import { readdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { joinURL, withLeadingSlash } from "ufo";
 import { parse as yamlParse, stringify as yamlStringify } from "yaml";
 import { NAVIGATIONS_FILE_NAME } from "../../utils/constants.mjs";
+import { cleanupDirectoryFiles } from "../../utils/file-utils.mjs";
 import {
   formatRoutePath,
   generateNavigationId,
@@ -108,12 +109,22 @@ async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguage
   try {
     // Clean main locale directory
     const mainLocaleDir = join(workspaceDir, locale);
-    await cleanupDirectoryFiles(mainLocaleDir, expectedFiles, results, "workspace");
+    await cleanupDirectoryFiles({
+      dirPath: mainLocaleDir,
+      expectedFiles,
+      results,
+      dirType: "workspace",
+    });
 
     // Clean translation locale directories
     for (const lang of translateLanguages) {
       const langDir = join(workspaceDir, lang);
-      await cleanupDirectoryFiles(langDir, expectedFiles, results, "workspace");
+      await cleanupDirectoryFiles({
+        dirPath: langDir,
+        expectedFiles,
+        results,
+        dirType: "workspace",
+      });
     }
   } catch (err) {
     if (err.code !== "ENOENT") {
@@ -124,7 +135,12 @@ async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguage
   // Clean up output files (outputDir directly) - same expected files, preserve _sitemap.yaml
   const outputDir = join(pagesDir, "output");
   try {
-    await cleanupDirectoryFiles(outputDir, expectedFiles, results, "output");
+    await cleanupDirectoryFiles({
+      dirPath: outputDir,
+      expectedFiles,
+      results,
+      dirType: "output",
+    });
   } catch (err) {
     if (err.code !== "ENOENT") {
       console.warn(`Failed to cleanup output files: ${err.message}`);
@@ -134,54 +150,6 @@ async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguage
   return results;
 }
 
-/**
- * Clean up files in a specific directory
- * @param {string} dirPath - Directory path to clean
- * @param {Set<string>} expectedFiles - Set of expected file names
- * @param {Array} results - Results array to append to
- * @param {string} dirType - Directory type for logging ("workspace" or "output")
- */
-async function cleanupDirectoryFiles(dirPath, expectedFiles, results, dirType) {
-  try {
-    const files = await readdir(dirPath);
-    const yamlFiles = files.filter((file) => file.endsWith(".yaml"));
-
-    // Find files to delete (files that are not in expectedFiles and not _sitemap.yaml)
-    const filesToDelete = yamlFiles.filter(
-      (file) => !expectedFiles.has(file) && !file.startsWith("_"),
-    );
-
-    // Delete invalid files
-    for (const file of filesToDelete) {
-      try {
-        const filePath = join(dirPath, file);
-        await unlink(filePath);
-        results.push({
-          path: filePath,
-          success: true,
-          message: `Successfully deleted invalid file from ${dirType} directory: ${file}`,
-        });
-      } catch (err) {
-        results.push({
-          path: file,
-          success: false,
-          error: `Failed to delete file from ${dirType} directory: ${file}: ${err.message}`,
-        });
-      }
-    }
-
-    if (filesToDelete.length > 0) {
-      console.log(
-        `Cleaned up ${filesToDelete.length} invalid .yaml files from ${dirType} directory: ${dirPath}`,
-      );
-    }
-  } catch (err) {
-    // If directory doesn't exist, that's okay
-    if (err.code !== "ENOENT") {
-      throw err;
-    }
-  }
-}
 
 async function loadNavigationLocalesMap(pagesDir, locales = []) {
   const map = new Map();

@@ -69,7 +69,7 @@
  * - **无空组件**：任何数据源中残留 `EMPTY_VALUE` 的实例都会被移除，网格行位跟随压缩，避免界面出现空洞。
  */
 
-import { readFileSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
 import _ from "lodash";
@@ -81,6 +81,7 @@ import {
   KEEP_CONFIG_KEYS,
   LIST_KEY,
 } from "../../../utils/constants.mjs";
+import { cleanupDirectoryFiles } from "../../../utils/file-utils.mjs";
 import {
   extractContentFields,
   findBestComponentMatch,
@@ -1050,9 +1051,9 @@ export default async function composePagesData(input) {
   } = input;
 
   try {
-    rmSync(outputDir, { recursive: true, force: true });
+    await cleanupDirectoryFiles({ dirPath: outputDir });
     /* c8 ignore next */
-    log("🧹 [composePagesData] clean outputDir:", { outputDir });
+    log("🧹 [composePagesData] cleaned outputDir:", { outputDir });
   } catch (e) {
     /* c8 ignore next */
     logError("⚠️  [composePagesData] clean outputDir failed:", { outputDir, error: e?.message });

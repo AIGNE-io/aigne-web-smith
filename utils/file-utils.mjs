@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, copyFile, mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readdir, readFile, stat, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 import { minimatch } from "minimatch";
@@ -673,4 +673,69 @@ export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
   }
 
   return invalidPaths;
+}
+
+/**
+ * Clean up files in a specific directory
+ * @param {Object} options - Cleanup options
+ * @param {string} options.dirPath - Directory path to clean
+ * @param {Set<string>} [options.expectedFiles] - Set of expected file names (if not provided, deletes all .yaml files except those starting with _)
+ * @param {Array} [options.results] - Results array to append to
+ * @param {string} [options.dirType] - Directory type for logging (e.g., "workspace" or "output")
+ * @returns {Promise<void>}
+ */
+export async function cleanupDirectoryFiles({ dirPath, expectedFiles, results, dirType }) {
+  try {
+    const files = await readdir(dirPath);
+    const yamlFiles = files.filter((file) => file.endsWith(".yaml"));
+
+    let filesToDelete;
+    if (expectedFiles) {
+      // Find files to delete (files that are not in expectedFiles and not starting with _)
+      filesToDelete = yamlFiles.filter(
+        (file) => !expectedFiles.has(file) && !file.startsWith("_"),
+      );
+    } else {
+      // Delete all .yaml files except those starting with _
+      filesToDelete = yamlFiles.filter((file) => !file.startsWith("_"));
+    }
+
+    // Delete files
+    for (const file of filesToDelete) {
+      try {
+        const filePath = path.join(dirPath, file);
+        await unlink(filePath);
+        if (results) {
+          results.push({
+            path: filePath,
+            success: true,
+            message: dirType
+              ? `Successfully deleted invalid file from ${dirType} directory: ${file}`
+              : `Successfully deleted file: ${file}`,
+          });
+        }
+      } catch (err) {
+        if (results) {
+          results.push({
+            path: file,
+            success: false,
+            error: dirType
+              ? `Failed to delete file from ${dirType} directory: ${file}: ${err.message}`
+              : `Failed to delete file: ${file}: ${err.message}`,
+          });
+        }
+      }
+    }
+
+    if (filesToDelete.length > 0 && dirType) {
+      console.log(
+        `Cleaned up ${filesToDelete.length} invalid .yaml files from ${dirType} directory: ${dirPath}`,
+      );
+    }
+  } catch (err) {
+    // If directory doesn't exist, that's okay
+    if (err.code !== "ENOENT") {
+      throw err;
+    }
+  }
 }

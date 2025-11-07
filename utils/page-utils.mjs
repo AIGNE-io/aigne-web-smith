@@ -7,7 +7,7 @@ import { generateSitemapYaml, loadNavigationLocalesMap } from "../agents/utils/s
  * Update publishedAt timestamp for successfully published pages
  * @param {Object} params - Parameters object
  * @param {Array} params.publishResults - Array of publish results
- * @param {string} params.pagesDir - Temporary pages directory
+ * @param {string} params.pagesDir - Pages directory
  * @param {string} params.tmpPagesDir - Temporary pages directory
  * @param {string} params.outputDir - Output directory to copy files back to
  * @param {string} params.locale - Main locale

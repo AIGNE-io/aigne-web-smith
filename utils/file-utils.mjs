@@ -1,5 +1,14 @@
 import { execSync } from "node:child_process";
-import { access, copyFile, mkdir, readdir, readFile, stat, unlink, writeFile } from "node:fs/promises";
+import {
+  access,
+  copyFile,
+  mkdir,
+  readdir,
+  readFile,
+  stat,
+  unlink,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 import { minimatch } from "minimatch";
@@ -676,7 +685,7 @@ export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
 }
 
 /**
- * Clean up files in a specific directory
+ * Cleans up files in a specific directory
  * @param {Object} options - Cleanup options
  * @param {string} options.dirPath - Directory path to clean
  * @param {Set<string>} [options.expectedFiles] - Set of expected file names (if not provided, deletes all .yaml files except those starting with _)
@@ -692,9 +701,7 @@ export async function cleanupDirectoryFiles({ dirPath, expectedFiles, results, d
     let filesToDelete;
     if (expectedFiles) {
       // Find files to delete (files that are not in expectedFiles and not starting with _)
-      filesToDelete = yamlFiles.filter(
-        (file) => !expectedFiles.has(file) && !file.startsWith("_"),
-      );
+      filesToDelete = yamlFiles.filter((file) => !expectedFiles.has(file) && !file.startsWith("_"));
     } else {
       // Delete all .yaml files except those starting with _
       filesToDelete = yamlFiles.filter((file) => !file.startsWith("_"));

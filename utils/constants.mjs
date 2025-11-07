@@ -621,7 +621,7 @@ export const REASONING_EFFORT_LEVELS = {
   },
   high: {
     lite: 500,
-    standard: 1000,
-    pro: 2000,
+    standard: 1200,
+    pro: 2500,
   },
 };

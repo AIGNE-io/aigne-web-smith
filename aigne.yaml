@@ -135,7 +135,7 @@ agents:
   - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/utils/analyze-feedback-intent.yaml
   - ./agents/utils/navigation-streamline.yaml
-
+  - ./agents/utils/reload-generate-media.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:

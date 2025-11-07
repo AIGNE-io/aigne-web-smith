@@ -17,6 +17,7 @@ skills:
             $,
             { "reviewContent": content }
           ])
+      - url: ../../utils/reload-generate-media.mjs
     reflection:
       reviewer:
         url: ../../utils/check-detail-result.mjs

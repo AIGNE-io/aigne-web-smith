@@ -86,8 +86,15 @@ import {
   findBestComponentMatch,
   generateDeterministicId,
 } from "../../../utils/generate-helper.mjs";
-import { determineTimestamps, loadExistingMetadata } from "../../../utils/metadata-utils.mjs";
-import { fmtPath, getFileName, log, logError, resolveValue, tryReadFileContent } from "../../../utils/utils.mjs";
+import { getOutputFilePath, loadExistingMetadata } from "../../../utils/metadata-utils.mjs";
+import {
+  fmtPath,
+  getFileName,
+  log,
+  logError,
+  resolveValue,
+  tryReadFileContent,
+} from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 const getEmptyValue = (_key) => {
@@ -1176,9 +1183,12 @@ export default async function composePagesData(input) {
         getFileName,
       });
 
-      // Prepare new content (without timestamps)
-      const newContent = {
+      // Build the complete yaml object first (with placeholder timestamps for comparison)
+      const yaml = {
         id: generateDeterministicId(fd.filePath),
+        createdAt: existingMeta?.createdAt || now,
+        updatedAt: existingMeta?.updatedAt || now,
+        publishedAt: existingMeta?.publishedAt || now,
         isPublic: true,
         locales: fd.locales,
         sections: fd.sections,
@@ -1186,36 +1196,61 @@ export default async function composePagesData(input) {
         dataSource: fd.dataSource,
       };
 
-      // Determine timestamps based on content comparison
-      const { createdAt, updatedAt, publishedAt } = determineTimestamps({
-        newContent,
-        existingMeta,
-        now,
-      });
-
-      const yaml = {
-        id: newContent.id,
-        createdAt,
-        updatedAt,
-        publishedAt,
-        isPublic: newContent.isPublic,
-        locales: newContent.locales,
-        sections: newContent.sections,
-        sectionIds: newContent.sectionIds,
-        dataSource: newContent.dataSource,
-      };
-
+      // Apply replaceEmptyValueDeep to the yaml object
       replaceEmptyValueDeep(yaml);
+
+      // Stringify to YAML for comparison
+      const newYamlText = stringify(yaml, { aliasDuplicateObjects: false });
+
+      // Load existing YAML text if file exists
+      let existingYamlText = null;
+      if (existingMeta) {
+        try {
+          const fullPath = getOutputFilePath({
+            outputDir,
+            filePath: fd.filePath,
+            getFileName,
+          });
+          existingYamlText = await tryReadFileContent(fullPath);
+        } catch (_err) {
+          // File might not exist
+        }
+      }
+
+      // Compare YAML texts to determine if content changed
+      let contentChanged = false;
+      if (existingYamlText) {
+        contentChanged = newYamlText !== existingYamlText;
+      } else {
+        contentChanged = true; // New file
+      }
+
+      // Update timestamps based on comparison result
+      if (!existingMeta) {
+        // New file: all timestamps are now
+        yaml.createdAt = now;
+        yaml.updatedAt = now;
+        yaml.publishedAt = now;
+      } else if (contentChanged) {
+        // Existing file with changes: keep createdAt and publishedAt, update updatedAt
+        yaml.createdAt = existingMeta.createdAt;
+        yaml.updatedAt = now;
+        yaml.publishedAt = existingMeta.publishedAt || now;
+      }
+      // else: no changes, timestamps already set from existingMeta
+
+      // Re-stringify with final timestamps
       const content = stringify(yaml, { aliasDuplicateObjects: false });
       allPagesKitYaml.push({
         filePath: fd.filePath,
         content,
       });
 
+      /* c8 ignore next */
       log("📝 [composePagesData] yaml prepared:", {
         file: fd.filePath,
         isNew: !existingMeta,
-        contentChanged: existingMeta && updatedAt === now,
+        contentChanged,
         sectionCount: Object.keys(fd.sections || {}).length,
         rootIds: fd.sectionIds.length,
         dsKeys: Object.keys(fd.dataSource || {}).length,

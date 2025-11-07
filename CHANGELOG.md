@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.0-beta.14](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.13...v1.6.0-beta.14) (2025-11-07)
+
+
+### Features
+
+* add reasoning effort configuration for customizable AI model settings ([#223](https://github.com/AIGNE-io/aigne-web-smith/issues/223)) ([47813ce](https://github.com/AIGNE-io/aigne-web-smith/commit/47813ce77277ece9ec74a38870ae11d1540d7a6d))
+* **doc:** update config doc and history entries for clarity and consistency ([#222](https://github.com/AIGNE-io/aigne-web-smith/issues/222)) ([1941dee](https://github.com/AIGNE-io/aigne-web-smith/commit/1941deed2f52edfbd84318ea546b92b771204e9d))
+* **guest:** allow guests to publish web pages on the official site ([#220](https://github.com/AIGNE-io/aigne-web-smith/issues/220)) ([3367ce9](https://github.com/AIGNE-io/aigne-web-smith/commit/3367ce9e5dbff39afc879f5dc312cab6e9f93ce4))
+
+
+### Bug Fixes
+
+* centralize reasoning effort constants and refactor initialization logic ([#225](https://github.com/AIGNE-io/aigne-web-smith/issues/225)) ([fe3c0cb](https://github.com/AIGNE-io/aigne-web-smith/commit/fe3c0cbcabe80c75da3f309e954efc524bb8fb81))
+* more accurate timing fields for pages ([#224](https://github.com/AIGNE-io/aigne-web-smith/issues/224)) ([bf074d9](https://github.com/AIGNE-io/aigne-web-smith/commit/bf074d9801d9c4fd15442c0f727416020c5d1d38))
+
 ## [1.6.0-beta.13](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.12...v1.6.0-beta.13) (2025-11-05)
 
 

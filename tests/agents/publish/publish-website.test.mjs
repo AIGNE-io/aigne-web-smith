@@ -27,6 +27,8 @@ const mockFsExtra = {
   readdir: mock(() => Promise.resolve(["page1.yaml"])),
   readFile: mock(() => Promise.resolve("title: Test Page")),
   writeFileSync: mock(() => {}),
+  writeFile: mock(() => Promise.resolve()),
+  copy: mock(() => Promise.resolve()),
 };
 
 mock.module("fs-extra", () => ({
@@ -156,11 +158,7 @@ describe("publish-website", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith(
-      "https://pages-kit.example.com",
-      "",
-      expect.any(Boolean),
-    );
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://pages-kit.example.com", "");
     expect(result.message).toBeDefined();
     expect(result.message).toContain("Successfully published to");
   });
@@ -178,11 +176,7 @@ describe("publish-website", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith(
-      "https://env-pages.example.com",
-      "",
-      expect.any(Boolean),
-    );
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env-pages.example.com", "");
   });
 
   test("should use production URL when PAGES_KIT_URL && appUrl are not set", async () => {
@@ -225,11 +219,7 @@ describe("publish-website", () => {
       message: "Please enter your website URL:",
       validate: expect.any(Function),
     });
-    expect(getAccessTokenSpy).toHaveBeenCalledWith(
-      "https://custom.example.com",
-      "",
-      expect.any(Boolean),
-    );
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "");
   });
 
   test("should validate URL input and accept valid URLs", async () => {

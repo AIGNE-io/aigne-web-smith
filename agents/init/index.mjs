@@ -28,6 +28,8 @@ import { listContentRelevantFiles } from "../utils/datasource.mjs";
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
+const DEFAULT_THINKING_EFFORT = "standard";
+
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
  * @param {Object} params
@@ -35,7 +37,15 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @param {string} params.fileName - File name
  * @returns {Promise<Object>}
  */
-export default async function init(
+export default async function init(input, options) {
+  const config = await _init(input, options);
+
+  options.context.userContext.thinkingEffort = config.thinking?.effort || DEFAULT_THINKING_EFFORT;
+
+  return config;
+}
+
+async function _init(
   { outputPath = WEB_SMITH_DIR, fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
@@ -379,6 +389,10 @@ export function generateYAML(input) {
     projectId: input.projectId || crypto.randomUUID(),
     projectSlug: input.projectSlug || "",
 
+    thinking: {
+      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT,
+    },
+
     // Page configuration
     pagePurpose: input.pagePurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
@@ -419,6 +433,19 @@ export function generateYAML(input) {
   }).trim();
 
   yaml += `${projectSection}\n\n`;
+
+  const modelSection = yamlStringify({
+    thinking: config.thinking,
+  }).trim();
+
+  yaml += `\
+# AI Thinking Configuration
+# thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:
+#   - lite: Fast responses with basic reasoning
+#   - standard: Balanced speed and reasoning capability
+#   - pro: In-depth reasoning with longer response times
+${modelSection}
+\n`;
 
   // Add page configuration with comments
   yaml += "# =============================================================================\n";

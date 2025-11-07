@@ -1,60 +1,65 @@
+type: team
 name: generatePageDetail
 description: Page detail generator
-model:
-  reasoning_effort: 800
-instructions:
-  - role: system
-    url: ../../../prompts/generate/page-detail/system-prompt.md
-  - role: user
-    url: ../../../prompts/generate/page-detail/user-prompt.md
-input_schema:
-  type: object
-  properties:
-    rules:
-      type: string
-      description: User's website structure requirements
-    locale:
-      type: string
-      description: User language, such as zh, en
-    datasources:
-      type: string
-      description: Global context for assisting detail generation
-    originalWebsiteStructure: ../../schema/website-structure.yaml
-    title:
-      type: string
-    description:
-      type: string
-    path:
-      type: string
-    parentId:
-      type:
-        - string
-        - "null"
-    glossary:
-      type: string
-      description: Glossary
-    additionalInformation:
-      type: string
-      description: Additional supplementary information
-    fieldConstraints:
-      type: string
-      description: Dynamic field usage constraints based on component library
-  required:
-    - rules
-    - datasources
-    - originalWebsiteStructure
-output_schema:
-  type: object
-  properties:
-    content:
-      type: string
-      description: >
-        Page detail content, must be a valid YAML document.
-        The YAML must strictly follow the defined page semantic structure
-        (include meta and sections), with correct indentation and hierarchy.
-        Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
-  required:
-    - content
+task_render_mode: collapse
 skills:
-  - ../../media/image/generate-image-team.yaml
+  - url: ../../utils/map-reasoning-effort-level.mjs
+    default_input:
+      level: medium
 
+  - type: ai
+    instructions:
+      - role: system
+        url: ../../../prompts/generate/page-detail/system-prompt.md
+      - role: user
+        url: ../../../prompts/generate/page-detail/user-prompt.md
+    input_schema:
+      type: object
+      properties:
+        rules:
+          type: string
+          description: User's website structure requirements
+        locale:
+          type: string
+          description: User language, such as zh, en
+        datasources:
+          type: string
+          description: Global context for assisting detail generation
+        originalWebsiteStructure: ../../schema/website-structure.yaml
+        title:
+          type: string
+        description:
+          type: string
+        path:
+          type: string
+        parentId:
+          type:
+            - string
+            - "null"
+        glossary:
+          type: string
+          description: Glossary
+        additionalInformation:
+          type: string
+          description: Additional supplementary information
+        fieldConstraints:
+          type: string
+          description: Dynamic field usage constraints based on component library
+      required:
+        - rules
+        - datasources
+        - originalWebsiteStructure
+    output_schema:
+      type: object
+      properties:
+        content:
+          type: string
+          description: >
+            Page detail content, must be a valid YAML document.
+            The YAML must strictly follow the defined page semantic structure
+            (include meta and sections), with correct indentation and hierarchy.
+            Do not wrap the YAML output inside markdown code fences (```yaml ... ```).
+      required:
+        - content
+    skills:
+      - ../../media/image/generate-image-team.yaml

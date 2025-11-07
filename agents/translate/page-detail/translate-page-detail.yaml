@@ -1,28 +1,34 @@
+type: team
 name: translatePageDetail
 description: Translate the page detail to another language
-model:
-  reasoning_effort: 1000
-instructions:
-  - role: system
-    url: ../../../prompts/translate/page-detail/system-prompt.md
-  - role: user
-    url: ../../../prompts/translate/page-detail/user-prompt.md
-input_schema:
-  type: object
-  properties:
-    language:
-      type: string
-      description: Language to translate the page detail into (e.g., 'zh' for Simplified Chinese, 'zh-TW' for Traditional Chinese, 'en' for English)
-    content:
-      type: string
-      description: Content to translate
-    glossary:
-      type: string
-      description: Glossary
-    feedback:
-      type: string
-      description: Feedback for translation improvement
-  required:
-    - language
-    - content
-output_key: translation
+task_render_mode: collapse
+skills:
+  - url: ../../utils/map-reasoning-effort-level.mjs
+    default_input:
+      level: medium
+
+  - type: ai
+    instructions:
+      - role: system
+        url: ../../../prompts/translate/page-detail/system-prompt.md
+      - role: user
+        url: ../../../prompts/translate/page-detail/user-prompt.md
+    input_schema:
+      type: object
+      properties:
+        language:
+          type: string
+          description: Language to translate the page detail into (e.g., 'zh' for Simplified Chinese, 'zh-TW' for Traditional Chinese, 'en' for English)
+        content:
+          type: string
+          description: Content to translate
+        glossary:
+          type: string
+          description: Glossary
+        feedback:
+          type: string
+          description: Feedback for translation improvement
+      required:
+        - language
+        - content
+    output_key: translation

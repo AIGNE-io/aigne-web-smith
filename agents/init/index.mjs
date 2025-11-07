@@ -28,6 +28,8 @@ import { listContentRelevantFiles } from "../utils/datasource.mjs";
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
+const DEFAULT_REASONING_EFFORT = 'standard';
+
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
  * @param {Object} params
@@ -36,6 +38,17 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
+  input,
+  options,
+) {
+  const config = await _init(input, options);
+
+  options.context.userContext.reasoningEffort = config.reasoningEffort || DEFAULT_REASONING_EFFORT;
+
+  return config;
+}
+
+async function _init(
   { outputPath = WEB_SMITH_DIR, fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
@@ -379,6 +392,8 @@ export function generateYAML(input) {
     projectId: input.projectId || crypto.randomUUID(),
     projectSlug: input.projectSlug || "",
 
+    reasoningEffort: input.reasoningEffort || DEFAULT_REASONING_EFFORT,
+
     // Page configuration
     pagePurpose: input.pagePurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
@@ -419,6 +434,18 @@ export function generateYAML(input) {
   }).trim();
 
   yaml += `${projectSection}\n\n`;
+
+  const modelSection = yamlStringify({
+    reasoningEffort: config.reasoningEffort,
+  }).trim();
+
+  yaml += `\
+# Model Configuration
+
+# Reasoning Effort: Level of reasoning effort for AI model, lower is faster but less thorough.
+# Options: lite, standard, pro
+${modelSection}
+\n`;
 
   // Add page configuration with comments
   yaml += "# =============================================================================\n";

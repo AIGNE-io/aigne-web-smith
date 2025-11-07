@@ -3,9 +3,11 @@ name: generateWebsiteStructure
 description: The website structure generator, using rules and datasources to generate website structure
 task_render_mode: collapse
 skills:
+  - url: ../utils/map-reasoning-effort-level.mjs
+    default_input:
+      level: low
+
   - type: ai
-    model:
-      reasoning_effort: 500
     instructions:
       - role: system
         url: ../../prompts/plan/system-prompt.md

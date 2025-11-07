@@ -1187,8 +1187,8 @@ export default async function composePagesData(input) {
       const yaml = {
         id: generateDeterministicId(fd.filePath),
         createdAt: existingMeta?.createdAt || now,
-        updatedAt: existingMeta?.updatedAt || now,
-        publishedAt: existingMeta?.publishedAt || now,
+        updatedAt: existingMeta?.updatedAt,
+        publishedAt: existingMeta?.publishedAt,
         isPublic: true,
         locales: fd.locales,
         sections: fd.sections,
@@ -1229,13 +1229,13 @@ export default async function composePagesData(input) {
       if (!existingMeta) {
         // New file: all timestamps are now
         yaml.createdAt = now;
-        yaml.updatedAt = now;
-        yaml.publishedAt = now;
+        yaml.updatedAt = "";
+        yaml.publishedAt = "";
       } else if (contentChanged) {
         // Existing file with changes: keep createdAt and publishedAt, update updatedAt
         yaml.createdAt = existingMeta.createdAt;
         yaml.updatedAt = now;
-        yaml.publishedAt = existingMeta.publishedAt || now;
+        yaml.publishedAt = existingMeta.publishedAt || "";
       }
       // else: no changes, timestamps already set from existingMeta
 

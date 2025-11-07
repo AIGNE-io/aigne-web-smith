@@ -28,7 +28,7 @@ import { listContentRelevantFiles } from "../utils/datasource.mjs";
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
-const DEFAULT_REASONING_EFFORT = "standard";
+const DEFAULT_THINKING_EFFORT = "standard";
 
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
@@ -40,8 +40,7 @@ const DEFAULT_REASONING_EFFORT = "standard";
 export default async function init(input, options) {
   const config = await _init(input, options);
 
-  options.context.userContext.customReasoningEffort =
-    config.reasoningEffort || DEFAULT_REASONING_EFFORT;
+  options.context.userContext.thinkingEffort = config.thinking?.effort || DEFAULT_THINKING_EFFORT;
 
   return config;
 }
@@ -390,7 +389,9 @@ export function generateYAML(input) {
     projectId: input.projectId || crypto.randomUUID(),
     projectSlug: input.projectSlug || "",
 
-    reasoningEffort: input.reasoningEffort || DEFAULT_REASONING_EFFORT,
+    thinking: {
+      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT,
+    },
 
     // Page configuration
     pagePurpose: input.pagePurpose || [],
@@ -434,17 +435,15 @@ export function generateYAML(input) {
   yaml += `${projectSection}\n\n`;
 
   const modelSection = yamlStringify({
-    reasoningEffort: config.reasoningEffort,
+    thinking: config.thinking,
   }).trim();
 
   yaml += `\
-# Model Configuration
-
-# Reasoning Effort: Level of reasoning effort for AI model
-# Options:
-#   - lite: Fast responses with basic reasoning.
-#   - standard: Balanced speed and reasoning capability.
-#   - pro: Thorough reasoning with longer response times.
+# AI Thinking Configuration
+# thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:
+#   - lite: Fast responses with basic reasoning
+#   - standard: Balanced speed and reasoning capability
+#   - pro: In-depth reasoning with longer response times
 ${modelSection}
 \n`;
 

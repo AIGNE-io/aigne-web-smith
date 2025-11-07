@@ -81,13 +81,13 @@ import {
   KEEP_CONFIG_KEYS,
   LIST_KEY,
 } from "../../../utils/constants.mjs";
-import { cleanupDirectoryFiles } from "../../../utils/file-utils.mjs";
 import {
   extractContentFields,
   findBestComponentMatch,
   generateDeterministicId,
 } from "../../../utils/generate-helper.mjs";
-import { fmtPath, log, logError, resolveValue, tryReadFileContent } from "../../../utils/utils.mjs";
+import { determineTimestamps, loadExistingMetadata } from "../../../utils/metadata-utils.mjs";
+import { fmtPath, getFileName, log, logError, resolveValue, tryReadFileContent } from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 const getEmptyValue = (_key) => {
@@ -1050,15 +1050,6 @@ export default async function composePagesData(input) {
     tmpDir,
   } = input;
 
-  try {
-    await cleanupDirectoryFiles({ dirPath: outputDir });
-    /* c8 ignore next */
-    log("🧹 [composePagesData] cleaned outputDir:", { outputDir });
-  } catch (e) {
-    /* c8 ignore next */
-    logError("⚠️  [composePagesData] clean outputDir failed:", { outputDir, error: e?.message });
-  }
-
   /* c8 ignore next */
   log("🔧 [composePagesData] start:", {
     pagesDir,
@@ -1175,32 +1166,61 @@ export default async function composePagesData(input) {
     }
 
     // 输出 YAML
-    fileDataMap.forEach((fd) => {
+    for (const fd of fileDataMap.values()) {
       const now = new Date().toISOString();
-      const yaml = {
+
+      // Load existing metadata (if file exists)
+      const existingMeta = await loadExistingMetadata({
+        outputDir,
+        filePath: fd.filePath,
+        getFileName,
+      });
+
+      // Prepare new content (without timestamps)
+      const newContent = {
         id: generateDeterministicId(fd.filePath),
-        createdAt: now,
-        updatedAt: now,
-        publishedAt: now,
         isPublic: true,
         locales: fd.locales,
         sections: fd.sections,
         sectionIds: fd.sectionIds,
         dataSource: fd.dataSource,
       };
+
+      // Determine timestamps based on content comparison
+      const { createdAt, updatedAt, publishedAt } = determineTimestamps({
+        newContent,
+        existingMeta,
+        now,
+      });
+
+      const yaml = {
+        id: newContent.id,
+        createdAt,
+        updatedAt,
+        publishedAt,
+        isPublic: newContent.isPublic,
+        locales: newContent.locales,
+        sections: newContent.sections,
+        sectionIds: newContent.sectionIds,
+        dataSource: newContent.dataSource,
+      };
+
       replaceEmptyValueDeep(yaml);
       const content = stringify(yaml, { aliasDuplicateObjects: false });
       allPagesKitYaml.push({
         filePath: fd.filePath,
         content,
       });
+
       log("📝 [composePagesData] yaml prepared:", {
         file: fd.filePath,
+        isNew: !existingMeta,
+        contentChanged: existingMeta && updatedAt === now,
         sectionCount: Object.keys(fd.sections || {}).length,
         rootIds: fd.sectionIds.length,
         dsKeys: Object.keys(fd.dataSource || {}).length,
       });
-    });
+    }
   } else {
     /* c8 ignore next */
     logError("⚠️  [composePagesData] middleFormatFiles is not an array");

@@ -150,8 +150,7 @@ async function cleanupInvalidFiles(websiteStructure, pagesDir, translateLanguage
   return results;
 }
 
-
-async function loadNavigationLocalesMap(pagesDir, locales = []) {
+export async function loadNavigationLocalesMap(pagesDir, locales = []) {
   const map = new Map();
   if (!pagesDir) return map;
 
@@ -204,7 +203,7 @@ async function loadNavigationLocalesMap(pagesDir, locales = []) {
 }
 
 // Generate sitemap YAML content, support nested structure, and the order is consistent with websiteStructure
-function generateSitemapYaml(
+export function generateSitemapYaml(
   websiteStructure,
   allPagesKitYaml = [],
   mainLocale,

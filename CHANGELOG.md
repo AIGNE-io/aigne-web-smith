@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.6.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.15...v1.6.0) (2025-11-07)
+
 ## [1.6.0-beta.15](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.14...v1.6.0-beta.15) (2025-11-07)
 
 

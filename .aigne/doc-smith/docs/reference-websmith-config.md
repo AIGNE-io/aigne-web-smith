@@ -58,9 +58,9 @@ Fields: `locale`, `translateLanguages`
 
 Purpose: define primary language and translation targets. Each language produces a full site structure.
 
-#### Group 4: Content Sources
+#### Group 4: Data Sources
 
-Specify content sources that AI analyzes as material and references for page generation.
+Specify data sources that AI analyzes as material and references for page generation.
 
 Fields: `sourcesPath`, `defaultDatasources`
 
@@ -315,7 +315,7 @@ Based on the real config above, here is what each field does:
   - Others behave similarly; each generates a separate site structure
 - How to apply: run `aigne web translate` after changes
 
-#### Content Sources
+#### Data Sources
 
 `sourcesPath`
 - Purpose: directories/files analyzed by the WebSmith AI agent (array). The AI uses these as the only references for generating site content. This directly determines quality, accuracy, and relevance.
@@ -613,7 +613,7 @@ targetAudienceTypes:
 
 ### Adaptation
 
-Scenario: Add new content sources
+Scenario: Add new data sources
 - Trigger: new docs or content added that AI must analyze. If the path isn’t added, later `aigne web generate` runs cannot read it.
 - Field: `sourcesPath`
 - Example:
@@ -973,11 +973,11 @@ Error: Invalid locale code 'invalid'. Supported codes: en, zh, zh-TW, ja, ko, fr
 
 ---
 
-### Error 5: "No content sources found"
+### Error 5: "No data sources found"
 
 **Error message:**
 ```
-Warning: No content sources found in sourcesPath. Generated content may be generic.
+Warning: No data sources found in sourcesPath. Generated content may be generic.
 ```
 
 **Cause:** `sourcesPath` is empty or all specified paths don't exist or are inaccessible.

@@ -58,9 +58,9 @@
 
 目的：定义主要语言和翻译目标。每种语言都会生成一个完整的网站结构。
 
-#### 第 4 组：内容源
+#### 第 4 组：数据源
 
-指定 AI 作为页面生成素材和参考进行分析的内容来源。
+指定 AI 作为页面生成素材和参考进行分析的数据来源。
 
 字段：`sourcesPath`, `defaultDatasources`
 
@@ -315,7 +315,7 @@ appUrl: https://mhevtaeg.user.aigne.io
   - 其他语言类似；每种语言都会生成一个独立的网站结构
 - 如何应用：更改后运行 `aigne web translate`
 
-#### 内容源
+#### 数据源
 
 `sourcesPath`
 - 目的：由 WebSmith AI Agent 分析的目录/文件（数组）。AI 仅使用这些作为生成网站内容的参考。这直接决定了质量、准确性和相关性。
@@ -613,7 +613,7 @@ targetAudienceTypes:
 
 ### 适应性调整
 
-场景：添加新的内容源
+场景：添加新的数据源
 - 触发条件：添加了 AI 必须分析的新文档或内容。如果未添加路径，后续的 `aigne web generate` 运行将无法读取它。
 - 字段：`sourcesPath`
 - 示例：
@@ -973,11 +973,11 @@ Error: Invalid locale code 'invalid'. Supported codes: en, zh, zh-TW, ja, ko, fr
 
 ---
 
-### 错误 5：“未找到内容源”
+### 错误 5："未找到数据源"
 
 **错误信息：**
 ```
-Warning: No content sources found in sourcesPath. Generated content may be generic.
+Warning: No data sources found in sourcesPath. Generated content may be generic.
 ```
 
 **原因：** `sourcesPath` 为空，或者所有指定的路径都不存在或无法访问。

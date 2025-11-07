@@ -58,9 +58,9 @@
 
 目的: プライマリ言語と翻訳対象を定義します。各言語で完全なサイト構造が生成されます。
 
-#### グループ4: コンテンツソース
+#### グループ4: データソース
 
-AIがページ生成のための資料や参照として分析するコンテンツソースを指定します。
+AIがページ生成のための資料や参照として分析するデータソースを指定します。
 
 フィールド: `sourcesPath`, `defaultDatasources`
 
@@ -315,7 +315,7 @@ appUrl: https://mhevtaeg.user.aigne.io
   - その他も同様に動作し、それぞれが別のサイト構造を生成します
 - 適用方法: 変更後、`aigne web translate` を実行します
 
-#### コンテンツソース
+#### データソース
 
 `sourcesPath`
 - 目的: WebSmith AI agent が分析するディレクトリ/ファイル（配列）。AIはこれらをサイトコンテンツ生成の唯一の参照として使用します。これは品質、正確性、関連性を直接決定します。
@@ -613,7 +613,7 @@ targetAudienceTypes:
 
 ### 適応
 
-シナリオ: 新しいコンテンツソースの追加
+シナリオ: 新しいデータソースの追加
 - トリガー: AIが分析すべき新しいドキュメントやコンテンツが追加された。パスが追加されないと、後の `aigne web generate` 実行時にそれを読み取ることができません。
 - フィールド: `sourcesPath`
 - 例:
@@ -973,11 +973,11 @@ Error: Invalid locale code 'invalid'. Supported codes: en, zh, zh-TW, ja, ko, fr
 
 ---
 
-### エラー5: "No content sources found" (コンテンツソースが見つかりません)
+### エラー5: "No data sources found" (データソースが見つかりません)
 
 **エラーメッセージ:**
 ```
-Warning: No content sources found in sourcesPath. Generated content may be generic.
+Warning: No data sources found in sourcesPath. Generated content may be generic.
 ```
 
 **原因:** `sourcesPath` が空であるか、指定されたすべてのパスが存在しないか、アクセスできません。

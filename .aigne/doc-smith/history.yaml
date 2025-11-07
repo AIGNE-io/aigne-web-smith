@@ -1,4 +1,9 @@
 entries:
+  - timestamp: 2025-11-07T07:16:08.983Z
+    operation: document_update
+    feedback: all "Content Source" changes "Data Sources" to be more uniform
+    docPaths:
+      - /reference/websmith-config
   - timestamp: 2025-11-06T13:39:08.976Z
     operation: document_update
     feedback: I have updated assets/documents/special-components/websmith-config.md

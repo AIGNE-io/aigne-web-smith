@@ -7,6 +7,7 @@ import { transliterate } from "transliteration";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
+  DEFAULT_THINKING_EFFORT_LEVEL,
   PAGE_STYLES,
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
@@ -28,8 +29,6 @@ import { listContentRelevantFiles } from "../utils/datasource.mjs";
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
-const DEFAULT_THINKING_EFFORT = "standard";
-
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
  * @param {Object} params
@@ -37,15 +36,7 @@ const DEFAULT_THINKING_EFFORT = "standard";
  * @param {string} params.fileName - File name
  * @returns {Promise<Object>}
  */
-export default async function init(input, options) {
-  const config = await _init(input, options);
-
-  options.context.userContext.thinkingEffort = config.thinking?.effort || DEFAULT_THINKING_EFFORT;
-
-  return config;
-}
-
-async function _init(
+export default async function init(
   { outputPath = WEB_SMITH_DIR, fileName = "config.yaml", skipIfExists = false },
   options,
 ) {
@@ -390,7 +381,7 @@ export function generateYAML(input) {
     projectSlug: input.projectSlug || "",
 
     thinking: {
-      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT,
+      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL,
     },
 
     // Page configuration

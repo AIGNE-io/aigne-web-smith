@@ -4,7 +4,12 @@ import chalk from "chalk";
 import slugify from "slugify";
 import { transliterate } from "transliteration";
 import { parse } from "yaml";
-import { DEFAULT_EXCLUDE_PATTERNS, WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
+import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_REASONING_EFFORT_LEVEL,
+  DEFAULT_THINKING_EFFORT_LEVEL,
+  WEB_SMITH_CONFIG_PATH,
+} from "../../utils/constants.mjs";
 import { findInvalidSourcePaths } from "../../utils/file-utils.mjs";
 import {
   normalizeAppUrl,
@@ -12,8 +17,25 @@ import {
   resolveFileReferences,
   toDisplayPath,
 } from "../../utils/utils.mjs";
+import mapReasoningEffortLevel from "./map-reasoning-effort-level.mjs";
 
-export default async function loadConfig({ config, appUrl }) {
+export default async function loadConfig(input, options) {
+  const config = await _loadConfig(input);
+
+  // Set thinking effort (lite/standard/pro) and map to reasoningEffort
+  options.context.userContext.thinkingEffort =
+    config.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL;
+
+  // Set global reasoningEffort based on thinkingEffort
+  options.context.userContext.reasoningEffort = mapReasoningEffortLevel(
+    { level: DEFAULT_REASONING_EFFORT_LEVEL },
+    options,
+  ).reasoningEffort;
+
+  return config;
+}
+
+async function _loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
 
   try {

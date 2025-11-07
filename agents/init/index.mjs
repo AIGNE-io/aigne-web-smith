@@ -28,7 +28,7 @@ import { listContentRelevantFiles } from "../utils/datasource.mjs";
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
-const DEFAULT_REASONING_EFFORT = 'standard';
+const DEFAULT_REASONING_EFFORT = "standard";
 
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
@@ -37,10 +37,7 @@ const DEFAULT_REASONING_EFFORT = 'standard';
  * @param {string} params.fileName - File name
  * @returns {Promise<Object>}
  */
-export default async function init(
-  input,
-  options,
-) {
+export default async function init(input, options) {
   const config = await _init(input, options);
 
   options.context.userContext.reasoningEffort = config.reasoningEffort || DEFAULT_REASONING_EFFORT;

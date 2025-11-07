@@ -4,7 +4,8 @@ export default function mapReasoningEffortLevel({ level }, options) {
   const g = REASONING_EFFORT_GROUPS[level] || REASONING_EFFORT_GROUPS["low"];
 
   return {
-    reasoningEffort: g[options.context.userContext.reasoningEffort] ?? DEFAULT_REASONING_EFFORT,
+    reasoningEffort:
+      g[options.context.userContext.customReasoningEffort] ?? DEFAULT_REASONING_EFFORT,
   };
 }
 

@@ -40,7 +40,8 @@ const DEFAULT_REASONING_EFFORT = "standard";
 export default async function init(input, options) {
   const config = await _init(input, options);
 
-  options.context.userContext.reasoningEffort = config.reasoningEffort || DEFAULT_REASONING_EFFORT;
+  options.context.userContext.customReasoningEffort =
+    config.reasoningEffort || DEFAULT_REASONING_EFFORT;
 
   return config;
 }

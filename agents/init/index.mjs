@@ -440,8 +440,11 @@ export function generateYAML(input) {
   yaml += `\
 # Model Configuration
 
-# Reasoning Effort: Level of reasoning effort for AI model, lower is faster but less thorough.
-# Options: lite, standard, pro
+# Reasoning Effort: Level of reasoning effort for AI model
+# Options:
+#   - lite: Fast responses with basic reasoning.
+#   - standard: Balanced speed and reasoning capability.
+#   - pro: Thorough reasoning with longer response times.
 ${modelSection}
 \n`;
 

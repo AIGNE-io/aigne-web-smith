@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.15](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.14...v1.6.0-beta.15) (2025-11-07)
+
+
+### Bug Fixes
+
+* reload media after generated media ([#226](https://github.com/AIGNE-io/aigne-web-smith/issues/226)) ([1b0a62b](https://github.com/AIGNE-io/aigne-web-smith/commit/1b0a62b63eab6abf93950888346e9edc1a7d7952))
+
 ## [1.6.0-beta.14](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.13...v1.6.0-beta.14) (2025-11-07)
 
 

@@ -9,9 +9,7 @@ import slugify from "slugify";
 import { joinURL, withoutTrailingSlash } from "ufo";
 import { parse } from "yaml";
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
-
 import { getBlockletMetaDid, getComponentMountPoint } from "../../utils/blocklet.mjs";
-
 import {
   BUNDLE_FILENAME,
   CLOUD_SERVICE_URL_PROD,
@@ -26,9 +24,9 @@ import {
   TMP_PAGES_DIR,
   WEB_SMITH_DIR,
 } from "../../utils/constants.mjs";
-
 import { deploy } from "../../utils/deploy.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
+import { updatePublishedAtTimestamp } from "../../utils/page-utils.mjs";
 import { scanForProtocolUrls } from "../../utils/protocol-utils.mjs";
 import { batchUploadMediaFiles, uploadFiles } from "../../utils/upload-files.mjs";
 import {
@@ -890,6 +888,21 @@ ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}?t=${timestamp}`).j
 
 💡 Optional: Update specific pages (\`aigne web update\`) or refine website structure (\`aigne web generate\`)
 `;
+
+      // Update publishedAt timestamp for successfully published pages
+      const mainLocale = locales?.[0] || "en";
+      const translateLanguages = locales?.slice(1) || [];
+      await updatePublishedAtTimestamp({
+        publishResults,
+        pagesDir: rootDir,
+        tmpPagesDir: pagesDir,
+        outputDir,
+        locale: mainLocale,
+        translateLanguages,
+        projectName,
+        websiteStructure,
+      });
+
       await saveValueToConfig("checkoutId", "", "Checkout ID for website deployment service");
       await saveValueToConfig("navigationType", "", "Navigation type for website");
       await saveValueToConfig("shouldSyncAll", "", "Should sync all for website");

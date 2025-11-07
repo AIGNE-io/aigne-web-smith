@@ -29,6 +29,7 @@ skills:
   - ../media/load-media-description.mjs
   - ../generate/page-detail/batch-generate-page-detail.yaml
   - ./page-detail/load-page-detail.mjs
+  - ../utils/reload-generate-media.mjs
   - type: team
     name: batchTranslatePageDetail and analyzeTranslateNavigations
     # model: openai/gpt-5

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-08T01:20:22.727Z
+  updateAt: 2025-11-08T01:28:33.380Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -55,6 +55,8 @@ composite:
       - Primary CTA (optional secondary)
 
       - Large product visual (screenshot/video) with soft corners/shadow
+
+      - The image height should not exceed 740px
 
 
       Use when

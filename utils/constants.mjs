@@ -574,9 +574,9 @@ export const LIST_KEY = "list";
 export const SECTION_META_FIELDS = ["sectionName", "sectionSummary", "fieldCombinations"];
 
 export const DEFAULT_PAGE_STYLE = {
-  maxWidth: "custom:1440px",
-  paddingY: "normal",
-  paddingX: "normal",
+  maxWidth: "custom:1600px",
+  paddingY: "small",
+  paddingX: "small",
 };
 
 export const EMPTY_VALUE = "___EMPTY_VALUE___";

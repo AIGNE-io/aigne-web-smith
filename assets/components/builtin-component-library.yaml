@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-07T14:29:19.508Z
+  updateAt: 2025-11-08T01:20:22.727Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -724,6 +724,7 @@ composite:
       - Content must be center-aligned, without stacking extra elements (e.g.,
       cards, features).  
     fieldCombinations:
+      - fullBackgroundHeroImage
       - spiltHeroHeroWithImageActions.0.link
       - spiltHeroHeroWithImageActions.0.text
       - spiltHeroWithImageDescription
@@ -821,7 +822,7 @@ composite:
               y: 0
               w: 5
               h: 1
-        background: 237d5dbd24b2298ad47a5810252499d5.png
+        background: <%= fullBackgroundHeroImage %>
         backgroundFullWidth: true
     dataSource:
       aeff04l86hopik0v: {}
@@ -4755,6 +4756,10 @@ composite:
       - faqList.1.question
       - faqList.2.answer
       - faqList.2.question
+      - faqList.3.answer
+      - faqList.3.question
+      - faqList.4.answer
+      - faqList.4.question
       - faqTitle
     section:
       id: lnrxvur80huc9pkr
@@ -4819,6 +4824,10 @@ composite:
                 answer: <%= faqList.1.answer %>
               - title: <%= faqList.2.question %>
                 answer: <%= faqList.2.answer %>
+              - title: <%= faqList.3.question %>
+                answer: <%= faqList.3.answer %>
+              - title: <%= faqList.4.question %>
+                answer: <%= faqList.4.answer %>
   - id: xq4x3ag4hdpt5z4e
     name: Carousel Section
     fieldCombinations:
@@ -4843,6 +4852,11 @@ composite:
       - slides.3.description
       - slides.3.image
       - slides.3.title
+      - slides.4.codeContent
+      - slides.4.codeFilename
+      - slides.4.description
+      - slides.4.image
+      - slides.4.title
     section:
       id: z0empxtrcuxis207
       name: Carousel
@@ -4934,3 +4948,9 @@ composite:
                   filename: <%= slides.3.codeFilename %>
                   content: <%= slides.3.codeContent %>
                 image: <%= slides.3.image %>
+              - image: <%= slides.4.image %>
+                title: <%= slides.4.title %>
+                description: <%= slides.4.description %>
+                code:
+                  filename: <%= slides.4.codeFilename %>
+                  content: <%= slides.4.codeContent %>

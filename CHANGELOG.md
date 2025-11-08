@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0...v1.7.0-beta) (2025-11-08)
+
+
+### Features
+
+* upgrade to use the built-in components of version v2 ([#229](https://github.com/AIGNE-io/aigne-web-smith/issues/229)) ([93e3915](https://github.com/AIGNE-io/aigne-web-smith/commit/93e3915c6140c5b7061762cdc635a4632e92b3cf))
+
 ## [1.6.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.15...v1.6.0) (2025-11-07)
 
 ## [1.6.0-beta.15](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0-beta.14...v1.6.0-beta.15) (2025-11-07)

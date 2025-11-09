@@ -43,6 +43,7 @@ export const addPageOutputSchema = z.object({
 // Delete page schemas
 export const deletePageInputSchema = z.object({
   path: z.string().min(1, "Path is required"),
+  recursive: z.boolean().optional().default(false),
 });
 
 export const deletePageOutputSchema = z.object({
@@ -140,6 +141,8 @@ export const getDeletePageInputJsonSchema = () => {
   const schema = zodToJsonSchema(deletePageInputSchema);
   if (schema.properties) {
     schema.properties.path.description = "URL path of the page to delete";
+    schema.properties.recursive.description =
+      "If true, recursively delete all child pages before deleting the parent page";
   }
   return schema;
 };

@@ -1,0 +1,47 @@
+type: team
+name: userRemovePage
+description: Remove pages from website structure
+skills:
+  - url: ../../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../../utils/load-config.mjs
+  - ./remove-pages-from-structure.mjs
+  - type: team
+    name: removeInvalidLinksTeam
+    skills:
+      - ./find-pages-with-invalid-links.mjs
+      - type: team
+        name: removeInvalidLinksFromPages
+        skills:
+          - ./remove-invalid-links-from-page.mjs
+          - ../../utils/save-single-page.mjs
+        iterate_on: pagesWithInvalidLinks
+  - ../../generate/page-detail/load-page-detail.mjs
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        {
+          "selectedPages": pagesWithInvalidLinks
+        }
+      ])
+  - type: team
+    name: batchTranslatePageDetail and analyzeTranslateNavigations
+    skills:
+      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - ../../translate/navigations/analyze-translate-navigations.mjs
+    mode: parallel
+  - ../../generate/page-data/compose-pages-data.mjs
+  - url: ../../utils/clear-generated-pages.mjs
+    default_input:
+      pages:
+        $get: deletedPages
+  - ../../utils/save-pages.mjs
+  - url: ../../utils/save-output.mjs
+    default_input:
+      saveKey: websiteStructure
+      savePath:
+        $get: tmpDir
+      fileName: website-structure.yaml
+mode: sequential

@@ -1,13 +1,10 @@
 #!/usr/bin/env aigne
 
 chat_model:
-  provider: google
-  name: gemini-2.5-pro
+  model: aignehub/gemini-2.5-pro
   temperature: 0.8
-  # name: gemini-2.5-flash
-  # provider: openai
-  # name: gpt-5-nano
-  # temperature: 1
+  reasoning_effort:
+    $get: reasoningEffort
 agents:
   # chat
   - ./agents/chat/index.yaml
@@ -140,7 +137,7 @@ agents:
   - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/utils/analyze-feedback-intent.yaml
   - ./agents/utils/navigation-streamline.yaml
-
+  - ./agents/utils/reload-generate-media.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:

@@ -1,134 +1,124 @@
 # WebSmith Config
 
-This guide explains the purpose and usage of the `config.yaml` file, the core configuration for any WebSmith project. You can find this file in your project's root directory at `.aigne/web-smith/config.yaml`.
+## What Is the Configuration File?
 
----
+### Basics
 
-## What is the Configuration File?
-
-### Basic Information
-
-The `config.yaml` file is the **core configuration file** for WebSmith. It uses the YAML format to store all the parameters that WebSmith needs to generate your website.
+`config.yaml` is WebSmith’s core configuration file. It uses YAML format and stores all parameters required for WebSmith to generate a website.
 
 **File Details**:
 - **File Name**: `config.yaml` (fixed name)
 - **Location**: `.aigne/web-smith/config.yaml` (relative to the project root)
 - **Format**: YAML (UTF-8 encoding)
 
-### Core Purpose
-
-The configuration file serves as the **central parameter carrier** for WebSmith's operations. Each time the `generate` command is executed, the AI agent reads this file and generates the website structure and content based on its settings.
-
-**Primary Functions**:
-- Define the website type and target audience.
-- Control the content generation strategy and writing style.
-- Determine the website scale and page structure.
-- Configure multilingual support.
-- Set deployment parameters.
-
 ---
 
-## What is the Configuration File For?
+## What Does the Configuration File Do?
 
 ### Core Function
 
-The `config.yaml` file is the **instruction manual** used when running the `aigne web generate` command. It tells the system how to generate the website. Through this file, you can specify the website's style and type, the AI's writing style, the scale of the site (single-page or multi-page), language versions, and all other key parameters that guide the AI agent in generating a website structure and content that meets your needs.
+The configuration file is the central parameter carrier for WebSmith. Every time the AI agent runs the `generate` command, it reads this file and generates site structure and content according to its settings.
 
-**In summary**: The configuration file is the sole basis and source of parameters for WebSmith's website generation. The entire process is based on the settings in this file.
+Primary purposes:
+- Define site type and target audience
+- Control content generation strategy and writing style
+- Decide site scale and page structure
+- Configure multilingual support
+- Set deployment parameters
 
 ### Functional Groups
 
-The fields in the configuration file are divided into the following functional groups:
+Fields are grouped by function as follows:
 
-#### Project Foundation
+#### Group 1: Project Basics
 
-This group contains the basic identification and display information for the project, used for website branding and SEO optimization.
+Basic identifiers and presentation info for branding and SEO.
 
-**Fields**: `projectName`, `projectDesc`, `projectLogo`, `projectId`, `projectSlug`, `projectCover`
+Fields: `projectName`, `projectDesc`, `projectLogo`, `projectId`, `projectSlug`, `projectCover`
 
-**Purpose**: Defines the website's name, description, logo, identifier, and other basic information, affecting page titles, navigation menus, SEO meta tags, and social media sharing.
+Purpose: define name, description, logo, identifiers, etc. Affects page titles, nav menus, SEO meta tags, and social sharing.
 
-#### Website Strategy
+#### Group 2: Site Strategy
 
-This group defines the website's type, style, scale, and generation strategy, and is the core configuration for controlling AI-generated content.
+Defines site type, tone, scale, and generation strategy. This controls how AI produces content.
 
-**Fields**: `pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
+Fields: `pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
 
-**Purpose**:
-- `pagePurpose`: Defines the website type (e.g., marketing landing page, e-commerce site, SaaS product website), which influences the generated page components and content organization.
-- `targetAudienceTypes`: Defines the target audience (e.g., end-users, developers, business owners), which affects the AI's writing style, language complexity, and choice of examples.
-- `websiteScale`: Defines the website scale (single-page or multi-page), controlling the number of pages to be generated.
-- `rules`: Provides detailed guidance for page generation, including structure, content, and style requirements.
+Purpose:
+- `pagePurpose`: define site type (e.g., landing page, ecommerce, SaaS), affecting components and content organization
+- `targetAudienceTypes`: define audience (e.g., end users, developers, business owners), affecting AI tone, complexity, and examples
+- `websiteScale`: define site scale (single vs multi‑page), controlling number of pages
+- `rules`: detailed guidance for structure, content, and style
 
-#### Internationalization
+#### Group 3: Languages
 
-This group configures the language versions of the website, supporting multilingual website generation.
+Configure language versions to support multilingual sites.
 
-**Fields**: `locale`, `translateLanguages`
+Fields: `locale`, `translateLanguages`
 
-**Purpose**: Defines the website's primary language and a list of languages for translation, controlling which language versions of the website are generated (a complete website structure is generated for each language).
+Purpose: define primary language and translation targets. Each language produces a full site structure.
 
-#### Content Sources
+#### Group 4: Data Sources
 
-This group specifies the content sources for the AI to analyze, which are used as material and reference information for generating website pages.
+Specify data sources that AI analyzes as material and references for page generation.
 
-**Fields**: `sourcesPath`, `defaultDatasources`
+Fields: `sourcesPath`, `defaultDatasources`
 
-**Purpose**:
-- `sourcesPath`: Specifies the document directories, Markdown files, YAML files, image resources, etc., for the AI to analyze. **This field determines the quality and effectiveness of the generated website content, directly affecting the accuracy, relevance, and professionalism of the AI-generated content.**
-- `defaultDatasources`: Specifies common data sources to be injected into every page, which are added to the context each time a command is run (e.g., `media.md`, which contains the location and descriptions of images in the project).
+Purpose:
+- `sourcesPath`: directories or files for AI analysis (Markdown, YAML, images, etc.). This directly determines content quality, accuracy, and relevance.
+- `defaultDatasources`: common datasources injected into every page when commands run (e.g., `media.md` with image locations and descriptions)
 
-#### Output and Deployment
+#### Group 5: Output & Deployment
 
-This group configures the output location for generated files and website deployment parameters.
+Configure output paths and deployment parameters.
 
-**Fields**: `pagesDir`, `appUrl`, `checkoutId`, `shouldSyncAll`, `navigationType`
+Fields: `pagesDir`, `appUrl`, `checkoutId`, `shouldSyncAll`, `navigationType`
 
-**Purpose**:
-- `pagesDir`: Specifies the directory where the generated page files are saved (output location).
-- `appUrl`: Specifies the deployment URL for the website, affecting generated links and SEO.
-- `checkoutId`, `shouldSyncAll`, `navigationType`: These are temporary variables used during development, serving only as placeholder data in the configuration file. Users do not need to be concerned with these values.
+Purpose:
+- `pagesDir`: where generated page files are written
+- `appUrl`: deployed site URL, affecting links and SEO
+- `checkoutId`, `shouldSyncAll`, `navigationType`: temporary variables used during development; you generally don’t need to manage them
 
-#### Media and Display
+#### Group 6: Media & Display
 
-This group configures parameters related to image quality and display.
+Configure image quality and related presentation parameters.
 
-**Fields**: `media.minImageWidth`, `lastGitHead`
+Fields: `media.minImageWidth`, `lastGitHead`
 
-**Purpose**:
-- `media.minImageWidth`: Defines the minimum image width requirement, used to filter out low-quality images.
-- `lastGitHead`: Records the Git commit ID from the last generation, used for incremental updates.
+Purpose:
+- `media.minImageWidth`: minimum image width to filter low‑quality assets
+- `lastGitHead`: last Git commit ID used for incremental updates
 
 ---
 
-## How is the Configuration File Generated?
+## How Is the Configuration File Created?
 
 ### Generation Method
 
-The configuration file is generated by running the following command:
+Use the following command:
 
 ```bash
 aigne web init
 ```
 
-This command starts an interactive wizard that guides you through the configuration process step-by-step:
+This command launches an interactive wizard to fill out:
 
-1.  **Website Type** (`pagePurpose`): Select the primary purpose of the website (multiple selections allowed).
-2.  **Target Audience** (`targetAudienceTypes`): Select the user groups the website is intended for (multiple selections allowed).
-3.  **Website Scale** (`websiteScale`): Choose the number of pages for the website.
-4.  **Primary Language** (`locale`): Select the main language of the website.
-5.  **Translation Languages** (`translateLanguages`): Choose the languages to translate into (multiple selections allowed).
-6.  **Page Output Directory** (`pagesDir`): Set the location to save the generated page files.
-7.  **Data Source Paths** (`sourcesPath`): Specify the content sources for the AI to analyze (multiple paths can be added).
-8.  **Custom Rules** (`rules`): Optionally, provide detailed requirements for page generation.
+- Site type (`pagePurpose`): primary purpose (multi‑select)
+- Target audience (`targetAudienceTypes`): who the site is for (multi‑select)
+- Site scale (`websiteScale`): number of pages
+- Primary language (`locale`)
+- Translation languages (`translateLanguages`) (multi‑select)
+- Output directory (`pagesDir`)
+- Source paths (`sourcesPath`) (multi‑entry)
+- Custom rules (`rules`) (optional)
 
-After completing the wizard, the configuration file is automatically saved to `.aigne/web-smith/config.yaml`.
+After completion, the file is saved to `.aigne/web-smith/config.yaml`.
 
-### Configuration Example
+### Real Configuration Example
 
-The following is the actual configuration file for the AIGNE WebSmith project itself:
+Below is the actual configuration from the AIGNE WebSmith project:
 
-```yaml
+```yaml config.yaml icon=logos:yaml
 projectName: AIGNE WebSmith
 projectDesc: "AI-powered website generation tool built on the AIGNE Framework"
 projectLogo: https://www.arcblock.io/content/uploads/2e5edbac4a7d5310c117d09601811c.png
@@ -179,283 +169,953 @@ navigationType: ""
 appUrl: https://mhevtaeg.user.aigne.io
 ```
 
-### Field Reference
+### Field-by-Field Explanation
 
-Based on the real configuration above, here is a detailed explanation of each field:
+Based on the real config above, here is what each field does:
 
-#### Project Foundation
+#### Project Basics
 
-**`projectName`**
-- **Purpose**: The display name of the project, shown in the page title (`<title>`), navigation menu, and site branding.
-- **Type**: String
-- **Impact of Changes**: Changing this value will update the name displayed across the entire website. It is recommended to keep it concise (under 50 characters) for better display and SEO.
-- **How to Apply**: Run `aigne web update` or `aigne web generate`.
+`projectName`
+- Purpose: display name shown in page `<title>`, navigation, and site branding
+- Current value: `AIGNE WebSmith`
+- Type: string
+- Impact:
+  - Changing the name updates titles and navigation labels across pages
+  - Keep concise; under 50 characters for readability and SEO
+- How to apply: run `aigne web publish` after changes
 
-**`projectDesc`**
-- **Purpose**: The project description, used for the SEO meta description tag (`<meta name="description">`) and social media sharing.
-- **Type**: String
-- **Impact of Changes**: Modifying this updates the meta tags and social sharing descriptions. It is recommended to keep it under 150 characters and include core keywords for SEO.
-- **How to Apply**: Run `aigne web update` or `aigne web generate`.
+`projectDesc`
+- Purpose: project description for SEO meta (`<meta name="description">`) and social sharing
+- Current value: `"AI-powered website generation tool built on the AIGNE Framework"`
+- Type: string
+- Impact:
+  - Updates meta description on pages and social shares
+  - Keep under ~150 characters for search snippets
+  - Include key terms for SEO
+- How to apply: run `aigne web publish` after changes
 
-**`projectLogo`**
-- **Purpose**: The project logo, used in the page header, browser favicon, and social sharing thumbnails.
-- **Type**: String (URL or file path)
-- **Impact of Changes**: Updates the logo across the site. Supports HTTPS URLs or relative paths (e.g., `./assets/images/logo.svg`). PNG or SVG formats are recommended.
-- **How to Apply**: Run `aigne web update` or `aigne web generate`.
+`projectLogo`
+- Purpose: logo for header navigation, favicon, and social thumbnails
+- Current value: `https://www.arcblock.io/content/uploads/2e5edbac4a7d5310c117d09601811c.png`
+- Type: string (URL or path)
+- Impact:
+  - Switching URL/path updates the logo site‑wide
+  - Supported: HTTP/HTTPS URL or relative path (e.g., `./assets/images/logo.svg`)
+  - Prefer PNG or SVG for crisp display
+- How to apply: run `aigne web publish` after changes
 
-**`projectId`**
-- **Purpose**: A unique identifier for the project, used by WebSmith services to associate deployments, history, and data sources.
-- **Type**: String (UUID format)
-- **Impact of Changes**: ⚠️ **Important**: Do not modify this ID unless you intend to create a new project. Changing it may break associations with existing deployments, history, and data sources.
-- **How to Apply**: If modification is necessary, run `aigne web generate` to regenerate.
+`projectId`
+- Purpose: unique project identifier used by WebSmith services to associate deployments, history, and datasources
+- Current value: `pg4d0000-0000-4000-a000-000000000000` (UUID)
+- Type: string (UUID: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
+- Impact:
+  - Changing to a new UUID makes this a new project to the system, which may:
+    - Break association with previous deployment links
+    - Lose linkage to project history
+    - Lose datasource associations 
+- How to apply: run `aigne web publish` after changes
 
-**`projectSlug`**
-- **Purpose**: The URL path prefix, affecting the site's deployment path and internal link generation.
-- **Type**: String (URL path format)
-- **Impact of Changes**: A value of `/` deploys the site to the root (e.g., `https://example.com/`), while `/docs` deploys it to `https://example.com/docs/`.
-- **How to Apply**: Run `aigne web generate` to update all links.
+`projectSlug`
+- Purpose: URL path prefix that affects deployment path and internal links
+- Current value: `/` (root)
+- Type: string (URL path)
+- Impact examples:
+  - `/`: site at root, e.g., `https://example.com/`
+  - `/portfolio`: site at `https://example.com/portfolio/`
+  - `/docs`: site at `https://example.com/docs/`
+  - Changing updates all internal links and deployment paths
+- How to apply: run `aigne web publish` after changes
 
-**`projectCover`**
-- **Purpose**: The website's cover image, used for previews on social media (e.g., Open Graph, Twitter Cards).
-- **Type**: String (file path)
-- **Impact of Changes**: Updates the preview image for social sharing. A high-quality image (at least 1200x630px) is recommended.
-- **How to Apply**: Run `aigne web update` or `aigne web generate`.
+`projectCover`
+- Purpose: site cover image for previews and social sharing (Open Graph, Twitter Card, etc.)
+- Current value: `.aigne/web-smith/cover.png`
+- Type: string (file path)
+- Impact:
+  - Changing the path updates preview images on social sharing
+  - Use high‑quality images (at least 1200×630)
+  - Formats: PNG, JPG/JPEG, WebP, etc.
+- How to apply: run `aigne web publish` after changes
 
-#### Website Strategy
+#### Site Strategy
 
-**`pagePurpose`**
-- **Purpose**: Defines the primary goal of the website, directly influencing the AI's generation strategy and page structure.
-- **Type**: Array (multiple selections allowed)
-- **Available Values**:
-  - `landingPage`: For marketing and conversion. Generates hero sections, features, CTAs, etc.
-  - `ecommerce`: For online sales. Generates product catalogs, shopping carts, etc.
-  - `saas`: For SaaS product websites. Generates feature descriptions, pricing, demos, etc.
-  - `portfolio`: For showcasing work. Generates visually-driven layouts, galleries, etc.
-  - `corporate`: For company information. Generates company overviews, services, team info, etc.
-  - `blog`: For content sharing. Generates content organization, SEO optimization, etc.
-  - `nonprofit`: For non-profit organizations. Generates mission statements, donation flows, etc.
-  - `education`: For educational websites. Generates course lists, learning paths, etc.
-  - `mixedPurpose`: For multi-purpose sites. Generates a combination of components.
-- **How to Apply**: Changing this alters the entire site's content strategy. Run `aigne web generate` to regenerate completely.
+`pagePurpose`
+- Purpose: defines primary purpose; directly influences AI strategy and page structure
+- Current value: `[landingPage]` (array)
+- Type: array (multi‑select)
+- Options and effects: 
+  - `landingPage` (current): conversion‑focused landing page; generates hero, features, CTA, FAQ, etc.
+  - `ecommerce`: online store; generates catalog, cart, checkout, reviews, etc.
+  - `saas`: SaaS product site; generates features, pricing, demo, onboarding, etc.
+  - `portfolio`: portfolio site; generates visual layouts, galleries, case studies, etc.
+  - `corporate`: company site; generates company overview, services, team, contact, etc.
+  - `blog`: blog; generates content structure, SEO, sharing, archives, etc.
+  - `nonprofit`: nonprofit; generates mission, donate flow, volunteer signup, etc.
+  - `education`: education; generates course lists, learning paths, progress tracking, etc.
 
-**`targetAudienceTypes`**
-- **Purpose**: Defines the target audience, influencing the AI's writing style, language complexity, and choice of examples.
-- **Type**: Array (multiple selections allowed)
-- **Available Values**:
-  - `customers`: For end-users. Uses simple language, emphasizes usability.
-  - `businessOwners`: For entrepreneurs. Focuses on ROI and business value.
-  - `marketers`: For marketing teams. Focuses on marketing metrics and brand awareness.
-  - `designers`: For designers. Emphasizes visual appeal and aesthetics.
-  - `developers`: For technical users. Provides technical details, code examples, API docs.
-  - `investors`: For stakeholders. Focuses on growth metrics and market opportunities.
-  - `jobSeekers`: For recruitment. Focuses on company culture and career growth.
-  - `students`: For learners. Uses an educational tone with step-by-step guidance.
-  - `generalPublic`: For a broad audience. Uses accessible language and multiple entry points.
-- **How to Apply**: Changes the tone and examples. Run `aigne web generate` to regenerate completely.
+`targetAudienceTypes`
+- Purpose: define target audiences; directly affects tone, complexity, and example choices
+- Current value: `[customers]` (array)
+- Type: array (multi‑select)
+- Options and effects:
+  - `customers` (current): end users/customers; simple language, emphasizes ease‑of‑use and outcomes; adds trust signals and user stories
+  - `businessOwners`: business owners/founders; ROI and business value focus; professional tone; includes business cases and return analyses
+  - `marketers`: marketing teams; KPI‑driven and brand focus; includes marketing tooling and analytics
+  - `designers`: designers; visual emphasis and design showcases; aesthetics and inspiration; includes design cases and visual tools
+  - `developers`: developers/technical users; technical detail, code examples, API docs; accuracy and implementation focus
+  - `investors`: investors/stakeholders; growth metrics, market opportunities, financial outlook; business plans and market data
+  - `jobSeekers`: job seekers; culture, growth, benefits focus; job listings and company culture
+  - `students`: students/learners; instructional tone, step‑by‑step guidance, progress tracking; tutorials and course materials
+  - `generalPublic`: general/mixed audiences; accessible language, multiple entry points, broad appeal
+- How to apply: run `aigne web clear && aigne web generate` after changes
 
-**`websiteScale`**
-- **Purpose**: Defines the scale of the website, controlling the number of pages and the complexity of the navigation structure.
-- **Type**: String (single selection)
-- **Available Values**:
-  - `singlePage`: A one-page website with multiple sections.
-  - `minimal`: A small site with 2-6 core pages (e.g., Home, About, Contact).
-  - `standard`: A standard site with 7-12 pages (recommended).
-  - `comprehensive`: A large site with 12+ pages.
-  - `aiDecide`: Lets the AI determine the appropriate scale based on other parameters.
-- **How to Apply**: Directly determines the number of generated pages. Run `aigne web generate` to regenerate all pages.
+`websiteScale`
+- Purpose: define site scale, controlling number of pages and nav complexity
+- Current value: `singlePage`
+- Type: string (single choice)
+- Options and effects:
+  - `singlePage` (current): one‑page site; all sections on a single scrollable page (hero, features, FAQ, CTA, etc.); good for quick launch/MVP
+  - `minimal`: 2–6 pages; home, about, services/products, contact, etc.; small business/simple sites
+  - `standard`: 7–12 pages; minimal + portfolio/blog, team, FAQ, pricing, etc.; professional sites, portfolios, small ecommerce (recommended)
+  - `comprehensive`: 12+ pages; standard + detailed service pages, case studies, resource center, etc.; large/complex/content‑rich sites
+  - `aiDecide`: let AI decide scale based on type, audience, and repo analysis; considers business needs, content volume, and maintenance capacity
+- How to apply: run `aigne web clear && aigne web generate` after changes
 
-**`rules`**
-- **Purpose**: Provides detailed instructions for page generation in Markdown format. This is the most critical field for guiding the AI.
-- **Type**: Multiline string (supports Markdown)
-- **Impact of Changes**: Directly influences the quality of the generated content, including page structure, content organization, and tone.
-- **How to Apply**: `rules` is a primary guide for content generation. Run `aigne web generate` to regenerate completely based on the new rules.
+`rules`
+- Purpose: detailed generation guidance for structure, content, and style (Markdown). This is the most important guidance for AI and directly affects quality and UX.
+- Current value: a multi‑line block with detailed guidance (see example above), including:
+  - Core Messaging & Strategy
+  - Answer Critical Questions “Above the Fold”
+  - Establish Credibility with Proof
+  - Define Clear Call to Action
+- Type: multi‑line string (Markdown supported)
+- Impact:
+  - Empty or sparse rules: AI falls back to defaults and may not fit your needs well
+  - Detailed rules: AI follows your guidance for structure, organization, and tone
+  - Changes: AI regenerates based on new rules, affecting sections and expression
+- How to apply: run `aigne web clear && aigne web generate` or `aigne web update` after changes
 
-#### Internationalization
+#### Languages
 
-**`locale`**
-- **Purpose**: Defines the primary language of the website. The AI first generates all content in this language.
-- **Type**: String
-- **Supported Codes**: Standard IETF language codes (e.g., `en`, `zh`, `ja`, `fr`, `de`).
-- **How to Apply**: Changes the primary language for all pages. Run `aigne web generate` to regenerate all content in the new language.
+`locale`
+- Purpose: primary site language used for base content generation
+- Current value: `en`
+- Type: string
+- Supported language codes: standard IETF codes such as `en`, `zh`, `zh-TW`, `ja`, `ko`, `fr`, `de`, `es`, `pt`, `ru`, `it`, `ar`, etc.
+- How to apply: run `aigne web clear && aigne web generate` after changes
 
-**`translateLanguages`**
-- **Purpose**: A list of additional languages to translate the website into. A complete, translated version of the site will be generated for each language.
-- **Type**: Array (multiple selections allowed)
-- **Supported Codes**: Same as `locale` (cannot include the `locale` value itself).
-- **How to Apply**: Adds or removes language versions. Run `aigne web generate` to regenerate all language versions.
+`translateLanguages`
+- Purpose: list of languages to translate into; each becomes a full site structure
+- Current value: `[zh, zh-TW, ja]`
+- Type: array (multi‑select)
+- Supported codes: same set as `locale` (must not include the `locale` itself)
+- Per‑language effects:
+  - `zh`: generates a full Simplified Chinese site
+  - `zh-TW`: generates a full Traditional Chinese site
+  - `ja`: generates a full Japanese site
+  - Others behave similarly; each generates a separate site structure
+- How to apply: run `aigne web translate` after changes
 
-#### Content Sources
+#### Data Sources
 
-**`sourcesPath`**
-- **Purpose**: Defines the content source directories/files for the AI to analyze. **This field is the determining factor for the quality, accuracy, and relevance of the generated content.**
-- **Type**: Array (list of paths)
-- **Impact of Changes**: Adding new paths expands the AI's knowledge base, potentially improving content quality. Removing paths may lead to missing information. Supports directories and files (`.md`, `.yaml`, `.json`, `.txt`).
-- **How to Apply**: New data sources will be analyzed. Run `aigne web generate`.
+`sourcesPath`
+- Purpose: directories/files analyzed by the WebSmith AI agent (array). The AI uses these as the only references for generating site content. This directly determines quality, accuracy, and relevance.
+- Current value:
+  ```yaml
+  - ./assets/documents
+  - ./README.md
+  - ./aigne.yaml
+  - ./assets/images
+  - ./assets/recordings/README.md
+  - ./CHANGELOG.md
+  - ./agents
+  ```
+- Type: array (paths)
+- Importance:
+  - Primary determinant of content quality: only these sources are used as references
+  - Recommendations:
+    - Include main docs and readme
+    - Include important project information sources
+    - Keep sources accurate and up‑to‑date
+    - Update regularly to match project state
+- Impact:
+  - Add paths: AI analyzes more material, often improving quality
+  - Remove paths: AI stops analyzing them and may miss information
+  - Path types:
+    - Directories (e.g., `./assets/documents`): recursively analyzed
+    - Files (e.g., `./README.md`): analyzed directly
+    - Supported types: `.md`, `.yaml`/`.yml`, `.json`, `.txt`, etc.
+    - Image directories: images aren’t analyzed but can be referenced
+- How to apply: run `aigne web clear && aigne web generate` or `aigne web update` after changes
 
-**`defaultDatasources`**
-- **Purpose**: Data sources that are injected into the context for every page generation task (e.g., a `media.md` file describing image assets).
-- **Type**: Array (list of file paths)
-- **Impact of Changes**: Useful for providing common, reusable information like contact details or brand assets.
-- **How to Apply**: Effective when running `aigne web update` or `aigne web generate`.
+`defaultDatasources`
+- Purpose: datasources automatically injected into every page context (e.g., media, contact info). These are added each time commands run, but not every resource is fully inlined; suitable for resource descriptions like `media.md`.
+- Current value: `[./media.md]`
+- Type: array (file paths)
+- Impact:
+  - Add: newly included common content (brand info, shared snippets, etc.)
+  - Remove: no longer injected
+  - Good for: `media.md` (image locations and descriptions), shared contact/brand info
+  - Supported: `.md`, `.yaml`/`.yml`, `.json`
+- How to apply: run `aigne web clear && aigne web generate` or `aigne web update` after changes
 
-#### Output and Deployment
+#### Output & Deployment
 
-**`pagesDir`**
-- **Purpose**: The output directory where WebSmith saves the generated page files (e.g., `page.yaml`, `_navigations.yaml`).
-- **Type**: String (path)
-- **Impact of Changes**: Changes the save location for generated files. If the directory doesn't exist, it will be created automatically.
-- **How to Apply**: Changes take effect on the next generation.
+`pagesDir`
+- Purpose: output directory for generated site files (e.g., `page.yaml`, `_navigations.yaml`)
+- Current value: `.aigne/web-smith/pages`
+- Type: string (path)
+- Impact:
+  - Changing (e.g., to `./output/pages`) moves future outputs there
+  - Prefer relative paths for portability
+  - Directory is auto‑created if missing
+- How to apply: future generations write to the new directory
 
-**`appUrl`**
-- **Purpose**: The final deployment URL for the website.
-- **Type**: String (URL format)
-- **Impact of Changes**: Determines the platform where the site is published. Must include the protocol (`https://`).
-- **How to Apply**: **Only takes effect during the `aigne web publish` command.**
+`appUrl`
+- Purpose: site deployment URL; determines where the site is published
+- Current value: `https://mhevtaeg.user.aigne.io`
+- Type: string (URL)
+- Impact:
+  - Changing to another URL publishes to a new target
+  - Must include protocol; `https://` is auto‑added if missing
+  - Set after final domain is known to avoid churn
+- How to apply: only used by `aigne web publish`; other commands ignore it
 
-**`checkoutId`**, **`shouldSyncAll`**, **`navigationType`**
-- **Purpose**: These are temporary variables used during development. Users should not modify these values as they are managed automatically by the system.
+`checkoutId`
+- Purpose: temporary development variable; stored for convenience only
+- Current value: `""`
+- Type: string
+- Note: managed by the system; you usually don’t need to set it
 
-#### Media and Display
+`shouldSyncAll`
+- Purpose: temporary development variable; stored for convenience only
+- Current value: `""`
+- Type: string (`"true"` or `""`)
+- Note: managed by the system; you usually don’t need to set it
 
-**`media.minImageWidth`**
-- **Purpose**: The minimum required width in pixels for images to be included. Used to filter out low-quality images.
-- **Type**: Integer (pixels)
-- **Impact of Changes**: A higher value ensures only high-quality images are used but may reduce the number of available images.
-- **How to Apply**: Run `aigne web generate` to re-filter and apply the new image selection.
+`navigationType`
+- Purpose: temporary development variable; stored for convenience only
+- Current value: `""`
+- Type: string
+- Note: managed by the system; you usually don’t need to set it
 
-**`lastGitHead`**
-- **Purpose**: Stores the Git commit hash from the last generation, used for incremental updates.
-- **Type**: String (Git commit hash)
-- **Impact of Changes**: This value is managed automatically by the system and should not be modified manually.
+#### Media & Display
+
+`media.minImageWidth`
+- Purpose: minimum image width (px) to filter low‑quality images; only images wider than this are used
+- Current value: `600`
+- Type: integer (pixels)
+- Effects:
+  - Lower (400–600): more images allowed, lower quality risk; quick launch
+  - Medium (600–800): balanced quality/quantity; default recommendation
+  - Higher (800–1000): higher quality, fewer images; portfolios/premium brands
+  - Very high (1000+): top visual quality, far fewer usable images
+- How to apply: run `aigne web clear && aigne web generate` or `aigne web update` after changes
+
+#### Other Config
+
+(No additional fields currently.)
+
+`lastGitHead`
+- Purpose: last Git commit ID at generation time (for incremental updates)
+- Current value: `c4a4d3db4bf230e2c6873419e26b6654c39613a5`
+- Type: string (Git commit hash)
+- Effects:
+  - Maintained automatically after each generation
+  - Used to detect changed files; manual edits may affect incremental behavior
+- Note: normally system‑managed; only edit with a valid hash if necessary
 
 ---
 
-## When to Modify the Configuration File
+## Fields at a Glance
 
-### Adjusting Core Functionality
+| Field | Type | Default | Example | Apply With |
+|---|---|---|---|---|
+| `projectName` | string | `""` | `"My Project"` | `publish` |
+| `projectDesc` | string | `""` | `"AI-powered website tool"` | `publish` |
+| `projectLogo` | string | `""` | `"https://example.com/logo.png"` | `publish` |
+| `projectId` | string | UUID | `"pg4d0000-0000-4000-a000-000000000000"` | `publish` |
+| `projectSlug` | string | `"/"` | `"/"` | `publish` |
+| `projectCover` | string | `""` | `"./assets/cover.png"` | `publish` |
+| `pagePurpose` | array | `[]` | `["landingPage"]` | `clear && generate` |
+| `targetAudienceTypes` | array | `[]` | `["customers"]` | `clear && generate` |
+| `websiteScale` | string | `"standard"` | `"standard"` | `clear && generate` |
+| `rules` | string | `""` | `"### Page Structure\n1. Hero section"` | `update` |
+| `locale` | string | `"en"` | `"en"` | `clear && generate` |
+| `translateLanguages` | array | `[]` | `["zh", "ja"]` | `translate` |
+| `pagesDir` | string | `"./aigne/web-smith/pages"` | `"./aigne/web-smith/pages"` | `generate` |
+| `sourcesPath` | array | `[]` | `["./README.md", "./docs"]` | `generate` |
+| `defaultDatasources` | array | `["./media.md"]` | `["./media.md"]` | `update` |
+| `media.minImageWidth` | integer | `800` | `800` | `update` |
+| `appUrl` | string | `""` | `"https://example.com"` | `publish` |
+| `lastGitHead` | string | `""` | `"c4a4d3db..."` | Auto |
+| `checkoutId` | string | `""` | `""` | Internal |
+| `shouldSyncAll` | string | `""` | `""` | Internal |
+| `navigationType` | string | `""` | `""` | Internal |
 
-**Scenario 1: Upgrading from a single-page to a multi-page site**
-- **Field to Modify**: `websiteScale` (e.g., from `singlePage` to `standard`)
-- **Command**: If documents have already been generated, run `aigne web clear` then `aigne web generate`.
-
-**Scenario 2: Changing the website's purpose**
-- **Field to Modify**: `pagePurpose` (e.g., from `saas` to `ecommerce`)
-- **Command**: If documents have already been generated, run `aigne web clear` then `aigne web generate`.
-
-**Scenario 3: Adjusting the target audience**
-- **Field to Modify**: `targetAudienceTypes` (e.g., from `customers` to `businessOwners`)
-- **Command**: If documents have already been generated, run `aigne web clear` then `aigne web generate`.
-
-### Updating Content Sources
-
-**Scenario 4: Adding new content sources**
-- **Field to Modify**: `sourcesPath` (add new file or directory paths)
-- **Command**: Run `aigne web generate`. The new sources will be available to the AI.
-
-### Refining and Fixing Issues
-
-**Scenario 5: Improving image quality**
-- **Field to Modify**: `media.minImageWidth` (e.g., increase from `600` to `1000`)
-- **Command**: Run `aigne web update` or `aigne web generate`.
-
-**Scenario 6: Refining AI-generated content**
-- **Field to Modify**: `rules` (add more specific instructions for structure, tone, etc.)
-- **Command**: Run `aigne web update` or `aigne web generate`.
-
-### Managing Languages
-
-**Scenario 7: Adding a new language**
-- **Field to Modify**: `translateLanguages` (add a new language code, e.g., `fr`)
-- **Command**: Run `aigne web translate` or `aigne web update`.
-
-**Scenario 8: Changing the primary language**
-- **Field to Modify**: `locale` (e.g., from `zh` to `en`)
-- **Command**: Run `aigne web clear` then `aigne web generate`.
-
-### Updating Basic Information
-
-**Scenario 9: Updating project branding**
-- **Fields to Modify**: `projectName`, `projectDesc`, `projectLogo`, `projectCover`
-- **Command**: Run `aigne web publish`.
-
-**Scenario 10: Setting the deployment URL**
-- **Field to Modify**: `appUrl`
-- **Command**: Run `aigne web publish`.
+**Note:** For detailed allowed values and descriptions, see the [Field-by-Field Explanation](#field-by-field-explanation) section below.
 
 ---
 
-## How to Apply Configuration Changes
+## Copy-Paste Examples
 
-### Applying Changes with Commands
+### Minimal Example: Single-Page, English-Only
 
-Different commands are required to apply changes to different fields:
+A minimal configuration for a single-page English website:
 
-- **Functionality (`pagePurpose`, `websiteScale`, `targetAudienceTypes`)**:
-  - `aigne web clear` then `aigne web generate` if content already exists.
-- **Content Sources (`sourcesPath`, `defaultDatasources`)**:
-  - `aigne web generate` or `aigne web update`.
-- **Issue Fixes (`media.minImageWidth`, `rules`)**:
-  - `aigne web update` or `aigne web generate`.
-- **Internationalization**:
-  - `translateLanguages`: `aigne web translate` or `aigne web update`.
-  - `locale`: `aigne web clear` then `aigne web generate`.
-- **Basic Information (`projectName`, `appUrl`, etc.)**:
-  - `aigne web publish`.
+```yaml
+configVersion: 1
+projectName: My Project
+projectDesc: "A simple landing page"
+projectLogo: ""
+projectId: pg4d1000-0000-4000-a000-000000000000
+projectSlug: /
+pagePurpose:
+  - landingPage
+targetAudienceTypes:
+  - customers
+websiteScale: singlePage
+rules: ""
+locale: en
+translateLanguages: []
+pagesDir: ./aigne/web-smith/pages
+sourcesPath:
+  - ./README.md
+defaultDatasources:
+  - ./media.md
+media:
+  minImageWidth: 800
+appUrl: ""
+```
 
-### Summary of Workflow
-
-1.  Modify the `config.yaml` file.
-2.  Save the file.
-3.  Run the appropriate command based on the field you changed.
-4.  Verify that the changes have taken effect by checking the generated files.
+**Command sequence:**
+```bash
+aigne web generate
+```
 
 ---
 
-## Handling Configuration Errors
+### Standard Example: Multi-Page, EN + JA
 
-### Common Errors
+A standard configuration for a multi-page website with English and Japanese:
 
-- **Incorrect Indentation**: YAML is sensitive to indentation. Use spaces (not tabs) consistently.
-- **Special Characters**: Use standard English colons (`:`) for key-value pairs, not other characters.
-- **Incorrect Value Types**: Providing a string where an array is expected (e.g., `pagePurpose: landingPage` instead of `pagePurpose: [landingPage]`). The system will fall back to default values.
-- **Missing Required Fields**: If a critical field is deleted, generation may proceed but result in a site with missing information (e.g., no title).
-- **Unknown Fields**: Adding a field that does not exist in the schema will be ignored by the system and will not cause an error.
+```yaml
+configVersion: 1
+projectName: My Project
+projectDesc: "AI-powered website generation tool"
+projectLogo: https://example.com/logo.png
+projectId: pg4d2000-0000-4000-a000-000000000000
+projectSlug: /
+pagePurpose:
+  - landingPage
+  - saas
+targetAudienceTypes:
+  - customers
+  - developers
+websiteScale: standard
+rules: |
+  ### Page Structure Requirements
+  1. Hero section must include clear value proposition
+  2. Use positive, confident tone
+  3. Include concrete case data
+locale: en
+translateLanguages:
+  - ja
+pagesDir: ./aigne/web-smith/pages
+sourcesPath:
+  - ./README.md
+  - ./docs
+  - ./CHANGELOG.md
+defaultDatasources:
+  - ./media.md
+media:
+  minImageWidth: 800
+appUrl: https://example.com
+```
+
+**Command sequence:**
+```bash
+aigne web generate
+aigne web translate
+aigne web publish
+```
+
+**Note:** Version will bump with breaking changes; migration notes provided.
+
+---
+
+## If Things Break
+
+If your website generation fails or produces unexpected results, use these recovery methods:
+
+- **Git revert:** If you're using version control, restore the previous working configuration:
+  ```bash
+  git revert HEAD
+  ```
+
+- **Clean regeneration:** Clear all generated files and regenerate from scratch:
+  ```bash
+  aigne web clear && aigne web generate
+  ```
+
+This restores a clean state and regenerates your website based on the current configuration.
+
+---
+
+## When Should You Change It?
+
+### Feature Adjustments
+
+Scenario: Upgrade from single‑page to multi‑page
+- Trigger: need to expand from a single page to a full site
+- Field: `websiteScale`
+- Example:
+```yaml
+# Before
+websiteScale: singlePage
+
+# After
+websiteScale: standard
+```
+- Apply:
+  - If nothing generated yet: run `aigne web generate`
+  - If already generated: run `aigne web clear` then `aigne web generate`
+
+Scenario: Change site type
+- Trigger: product positioning changes (e.g., SaaS → ecommerce)
+- Field: `pagePurpose`
+- Example:
+```yaml
+# Before
+pagePurpose:
+  - saas
+
+# After
+pagePurpose:
+  - ecommerce
+```
+- Apply: same as Scenario 1
+
+Scenario: Adjust target audience
+- Trigger: audience shifts (e.g., consumers → businesses)
+- Field: `targetAudienceTypes`
+- Example:
+```yaml
+# Before
+targetAudienceTypes:
+  - customers
+
+# After
+targetAudienceTypes:
+  - businessOwners
+  - developers
+```
+- Apply: same as Scenario 1
+
+### Adaptation
+
+Scenario: Add new data sources
+- Trigger: new docs or content added that AI must analyze. If the path isn’t added, later `aigne web generate` runs cannot read it.
+- Field: `sourcesPath`
+- Example:
+```yaml
+# Before
+sourcesPath:
+  - ./assets/documents
+
+# After: add new sources
+sourcesPath:
+  - ./assets/documents
+  - ./docs/api
+  - ./content/blog
+```
+- Apply: read during `aigne web generate` when prompts are filled
+
+### Fixes
+
+Scenario: Image quality is insufficient
+- Trigger: low‑quality images appear in output
+- Field: `media.minImageWidth`
+- Example:
+```yaml
+# Before: min 600px
+media:
+  minImageWidth: 600
+
+# After: min 1000px
+media:
+  minImageWidth: 1000
+```
+- Apply: `aigne web update` or `aigne web generate`
+
+Scenario: Generated content misses expectations
+- Trigger: tone/structure not as desired
+- Field: `rules`
+- Example:
+```yaml
+# Before: empty or too sparse
+rules: ""
+
+# After: detailed guidance
+rules: |
+  ### Page Structure Requirements
+  1. Above the fold must include:
+     * Clear product headline
+     * Concise description (≤ 2 sentences)
+     * Primary call‑to‑action
+
+  2. Content organization:
+     * Positive, confident tone
+     * Include concrete case data
+     * Avoid excessive marketing jargon
+```
+- Apply:
+  - Read by `aigne web update`
+  - Read during `aigne web generate` when prompts are filled
+  - Note: rules are sent with each prompt
+
+### Multilingual
+
+Scenario: Add a new language
+- Field: `translateLanguages`
+- Example:
+```yaml
+# Before: only Chinese + English
+locale: zh
+translateLanguages:
+  - en
+
+# After: add French and German
+locale: zh
+translateLanguages:
+  - en
+  - fr
+  - de
+```
+- Apply: `aigne web translate` or `aigne web update`
+
+Scenario: Change primary language
+- Field: `locale`
+- Example:
+```yaml
+# Before: Chinese primary
+locale: zh
+translateLanguages:
+  - en
+
+# After: English primary
+locale: en
+translateLanguages:
+  - zh
+```
+- Apply: run `aigne web clear` then `aigne web generate`
+
+### Basic Info Changes
+
+Scenario: Update project basics
+- Fields: `projectName`, `projectDesc`, `projectLogo`, `projectCover`
+- Example:
+```yaml
+# Before
+projectName: "Old Project Name"
+projectDesc: "Old description"
+projectLogo: "Old Logo URL"
+
+# After
+projectName: "New Project Name"
+projectDesc: "New description"
+projectLogo: "New Logo URL"
+projectCover: "./assets/images/new-cover.png"
+```
+- Apply: `aigne web publish` (other commands ignore these)
+
+Scenario: Integrate external deployment
+- Field: `appUrl`
+- Example:
+```yaml
+# Before
+appUrl: ""
+
+# After
+appUrl: https://your-app.user.aigne.io
+```
+- Apply: `aigne web publish` only; `appUrl` determines target platform
+
+### Verify Changes
+
+- Check generated page files to confirm updated values are present. For example, after changing `projectName`, ensure the new name appears where expected.
+
+---
+
+## What If The File Is Broken?
+
+### YAML Format Errors
+
+Scenario: Using full‑width (Chinese) colon
+```yaml
+projectName： "My Project"  # Wrong: full‑width colon
+```
+Correct:
+```yaml
+projectName: "My Project"  # Right: ASCII colon
+```
+Effects:
+- YAML parse failure; `aigne web generate` shows an error
+- Command aborts; site won’t be generated
+Recovery:
+1. Replace all full‑width colons with ASCII `:`
+2. Re‑run `aigne web generate`
+
+Scenario: Nonexistent fields
+```yaml
+projectName: "My Project"
+unknownField: "some value"
+```
+Effects:
+- CLI ignores unrecognized fields without error
+- File parses; field is ignored; generation unaffected
+- You must verify whether output matches expectations
+Recovery:
+1. Check generated output
+2. Consult this guide for valid field names
+3. Remove unknown fields
+
+Scenario: Indentation errors
+```yaml
+pagePurpose:
+- landingPage  # Wrong: missing indent
+targetAudienceTypes:
+  - customers  # Right: two‑space indent
+```
+Correct:
+```yaml
+pagePurpose:
+  - landingPage
+targetAudienceTypes:
+  - customers
+```
+Effects:
+- YAML parse failure; structure misread
+- Values may be lost or misinterpreted
+Recovery:
+1. Use spaces only (no Tabs) and consistent indentation (typically two spaces)
+2. Ensure arrays use proper `-` with correct indent
+
+Scenario: Deleting key fields
+```yaml
+# Accidentally removed projectName
+projectDesc: "Description"
+projectId: "pg4d0000-0000-4000-a000-000000000000"
+```
+Effects:
+- Title may be empty or defaulted
+- Some features may not work as intended
+- Parsing succeeds but output quality suffers
+Recovery:
+1. Restore from Git history if available
+2. Run `aigne web init` to regenerate and then merge customizations
+3. Fill missing required fields per this guide
+
+Scenario: Wrong value types
+`pagePurpose` must be an array, not a string:
+```yaml
+# Wrong
+pagePurpose: landingPage
+
+# Right
+pagePurpose:
+  - landingPage
+```
+`translateLanguages` must be an array, not a string:
+```yaml
+# Wrong
+translateLanguages: en
+
+# Right
+translateLanguages:
+  - en
+```
+Effects:
+- Defaults may be used when types are wrong
+- AI may fail to read values properly
+- Output may not match expectations
+Recovery:
+1. Confirm correct formats in this guide
+2. Use proper YAML array syntax with `-`
+3. Regenerate to verify
 
 ### Detection and Recovery
 
-- **Automatic Detection**: Running any `aigne web` command will parse the file. If there is a YAML syntax error, the command will fail and report it.
-- **Recovery Plan**:
-  1.  **Version Control**: The best practice is to keep your `config.yaml` under version control (e.g., Git). You can revert to a previously working version.
-  2.  **Validate and Correct**: Carefully review your file for syntax errors. Compare it against the examples in this guide.
-  3.  **Re-initialize**: If the file is severely corrupted, you can back it up, delete it, and run `aigne web init` to generate a new, clean configuration. You can then manually copy your custom settings from the backup.
+Method 1: Detect during generation
+- After edits, run `aigne web generate`
+- The system reports YAML/format errors with helpful messages
 
-### System Robustness
+Method 2: Restore from backup
+- If using Git, restore from history
+- If using manual backups:
+```bash
+cp config-backup-20240101.yaml .aigne/web-smith/config.yaml
+```
 
-- **File Not Found**: The system will guide you to run `aigne web init`.
-- **YAML Parsing Fails**: The system will report a user-friendly error.
-- **Unknown Fields**: Extra fields are ignored.
-- **Incorrect Value Format**: The system will use default values.
-- **Missing Fields**: Some fields have defaults (`locale` defaults to "en").
+Method 3: Regenerate the file
+- If you cannot repair it, run `aigne web init` to recreate it. Back up the old `config.yaml` first so you can merge custom values.
 
-### Preventive Measures
+### Product Robustness
 
-1.  **Use Version Control**: Keep `config.yaml` in Git.
-2.  **Back-Up Regularly**: Create backups before making significant changes.
-3.  **Use the CLI**: Prefer `aigne web init` for initial setup to avoid manual errors.
-4.  **Validate After Changes**: Run a command immediately after editing to check for errors.
+Per WebSmith behavior:
+1. Missing file: clear error and guidance to run `aigne web init`
+2. YAML parse failure: friendly error without crashing
+3. Unknown fields: ignored silently; generation proceeds; verify results manually
+4. Wrong value types: defaults may be used; parsing continues
+5. Missing optional fields: defaults applied (e.g., `locale` defaults to "en")
+
+### Prevention Tips
+
+1. Use version control for the config
+2. Make backups before major edits
+3. Prefer editing via CLI (`aigne web init`), reducing manual format errors
+4. Validate changes by running `aigne web generate` after edits
 
 ---
 
-## Frequently Asked Questions
+## Defaults & Precedence
 
-### Q1: What should I do if my changes to the config file don't take effect?
-**A**: First, ensure the file is saved. Second, check for YAML formatting errors. Third, make sure you are running the correct command to apply the specific change (e.g., `aigne web publish` for `projectName`).
+### Explicit Defaults
 
-### Q2: How do I add a new language?
-**A**: Add the language code to the `translateLanguages` array in your `config.yaml` file. Then, run `aigne web translate` or `aigne web update`.
+The following fields have explicit default values:
 
-### Q3: What if the generated content doesn't meet my expectations?
-**A**: This is often due to insufficient guidance. Try making your `rules` more detailed, adjusting `targetAudienceTypes` to be more specific, or adding more relevant content to your `sourcesPath`.
+- `locale`: defaults to `"en"` (English)
+- `websiteScale`: defaults to `"standard"` (7-12 pages)
+- `pagesDir`: defaults to `"./aigne/web-smith/pages"`
+- `translateLanguages`: defaults to `[]` (empty array, no translations)
+- `media.minImageWidth`: defaults to `800` (pixels)
 
-### Q4: How do I fix a format error in the config file?
-**A**: The most common errors are inconsistent indentation, using non-standard characters for colons, and incorrect data types (e.g., string instead of an array). Refer to the "What Happens if the Configuration File is Broken?" section for detailed recovery steps.
+### Precedence Rules
+
+Configuration precedence follows this order:
+
+1. **Explicit config values** take highest priority
+2. **`rules` override defaults** when specified; if `rules` is empty, AI falls back to defaults
+3. **Missing values fall back to defaults**; if a field is not specified or empty, the system uses its default value
+
+### i18n Fallback Behavior
+
+When generating multilingual sites:
+
+- **Primary language (`locale`)**: Always used as the base language for content generation
+- **Translation languages (`translateLanguages`)**: Content is translated from the primary language to each target language
+- **Fallback on missing translations**: If a translation fails, the system falls back to the primary language content
+- **Disabling i18n**: To disable internationalization, set `translateLanguages` to an empty array `[]`
+
+---
+
+## Troubleshooting
+
+### Error 1: "Config file not found"
+
+**Error message:**
+```
+Config file not found: .aigne/web-smith/config.yaml
+Please run 'aigne web init' to create the config file.
+```
+
+**Cause:** The configuration file doesn't exist at the expected location.
+
+**Fix:** Run `aigne web init` to create the configuration file interactively.
+
+---
+
+### Error 2: "Error parsing config file"
+
+**Error message:**
+```
+Error parsing config file: YAML syntax error at line 5, column 3: unexpected character
+```
+
+**Cause:** YAML syntax error in the configuration file (e.g., incorrect indentation, wrong colon, missing quotes).
+
+**Fix:**
+1. Check the line number mentioned in the error
+2. Verify YAML syntax (use spaces, not tabs; use correct colon format)
+3. Validate the file using a YAML validator
+4. Re-run `aigne web generate`
+
+---
+
+### Error 3: Switching from `standard` to `singlePage` without `clear`
+
+**Error message:**
+```
+Warning: Website structure mismatch detected. Generated pages may not match the new scale.
+```
+
+**Cause:** Changed `websiteScale` from `standard` to `singlePage` without running `clear` first, causing structure conflicts.
+
+**Fix:**
+1. Run `aigne web clear` to remove old generated files
+2. Run `aigne web generate` to regenerate with the new scale
+3. **Always run `clear` before `generate` when changing `websiteScale`**
+
+---
+
+### Error 4: "Invalid locale code"
+
+**Error message:**
+```
+Error: Invalid locale code 'invalid'. Supported codes: en, zh, zh-TW, ja, ko, fr, de, es, pt, ru, it, ar
+```
+
+**Cause:** Used an unsupported language code in `locale` or `translateLanguages`.
+
+**Fix:**
+1. Check the supported language codes list
+2. Use a valid IETF language code (e.g., `en`, `zh`, `ja`)
+3. Update the configuration and re-run the command
+
+---
+
+### Error 5: "No data sources found"
+
+**Error message:**
+```
+Warning: No data sources found in sourcesPath. Generated content may be generic.
+```
+
+**Cause:** `sourcesPath` is empty or all specified paths don't exist or are inaccessible.
+
+**Fix:**
+1. Verify that files/directories in `sourcesPath` exist
+2. Check file permissions (ensure files are readable)
+3. Add valid paths to `sourcesPath` (e.g., `["./README.md", "./docs"]`)
+4. Re-run `aigne web generate`
+
+---
+
+## Best Practices
+
+### `sourcesPath` Best Practices
+
+**Good folder layouts:**
+
+```
+project/
+├── README.md           # ✅ Include
+├── docs/               # ✅ Include
+│   ├── getting-started.md
+│   └── api-reference.md
+├── CHANGELOG.md        # ✅ Include
+└── assets/
+    ├── images/         # ✅ Include (for image references)
+    └── recordings/     # ❌ Skip (unless needed)
+```
+
+**Bad folder layouts:**
+
+```
+project/
+├── node_modules/       # ❌ Don't include (too large)
+├── dist/               # ❌ Don't include (generated files)
+├── .git/               # ❌ Don't include (version control)
+└── test/               # ❌ Don't include (test files)
+```
+
+**Best practices:**
+
+1. **Include essential documentation:**
+   - `README.md` (project overview)
+   - `docs/` directory (documentation)
+   - `CHANGELOG.md` (version history)
+
+2. **Include project configuration:**
+   - `aigne.yaml` (project configuration)
+   - Configuration files relevant to your project
+
+3. **Include image directories:**
+   - `assets/images/` (for image references)
+   - Note: Images aren't analyzed but can be referenced
+
+4. **Avoid large directories:**
+   - `node_modules/` (too large, unnecessary)
+   - `dist/` or `build/` (generated files)
+   - `.git/` (version control)
+
+5. **Glob patterns support:**
+   - **Glob patterns are NOT currently supported** in `sourcesPath`
+   - Use explicit file paths or directory paths
+   - Example: `["./README.md", "./docs"]` ✅
+   - Example: `["./docs/**/*.md"]` ❌ (not supported)
+
+6. **Ignore files:**
+   - **`.aigneignore` is NOT currently supported**
+   - Manually exclude unnecessary files/directories from `sourcesPath`
+
+---
+
+### `rules` Best Practices
+
+**6-bullet landing-page skeleton:**
+
+Copy this skeleton to your `rules` field and customize it:
+
+```yaml
+rules: |
+  ### I. Core Messaging & Strategy
+  1. Above the fold must answer: What it is, Who it's for, Why it's different, Primary action
+  2. Establish credibility with proof: Show demo, social proof, customer logos
+  3. Define clear CTA: Primary action aligned with audience, persistent mobile CTA
+  
+  ### II. Content Organization
+  4. Use positive, confident tone: Avoid marketing jargon, focus on benefits
+  5. Include concrete data: Case studies, metrics, real examples
+  6. Maintain consistency: Product naming, terminology, structure
+```
+
+**Tone guidance:**
+
+- **For customers:** Clear benefits, simple language, trust signals
+- **For developers:** Technical accuracy, code examples, API references
+- **For business owners:** ROI focus, time-saving benefits, professional tone
+
+**CTA guidance:**
+
+- **Primary CTA:** Main action you want users to take (e.g., "Generate My Site")
+- **Secondary CTAs:** Relegate to less prominent positions (e.g., "See it on GitHub")
+- **Mobile:** Keep a persistent primary CTA visible
+
+**Best practices:**
+
+1. **Be specific:** Include concrete requirements, not vague suggestions
+2. **Use structure:** Organize rules with headings and bullet points
+3. **Align with audience:** Match tone to `targetAudienceTypes`
+4. **Focus on outcomes:** Describe what you want, not how to achieve it
+5. **Keep it focused:** Avoid overly long rules (aim for < 2KB for performance)
+6. **Test and iterate:** Refine rules based on generated content quality
+
+---
+
+## FAQ
+
+Q1: Changes didn’t take effect
+- Possible causes: unsaved file, YAML errors, or you need to regenerate
+- Fixes: save, fix YAML, run `aigne web generate`, and verify output contains updated values
+
+Q2: How to add languages?
+- Steps:
+  1. Add codes under `translateLanguages`
+  2. Run `aigne web generate`
+  3. Check `.aigne/web-smith/pages/workspace/{lang}/`
+- Example:
+```yaml
+locale: zh
+translateLanguages:
+  - en
+  - ja
+  - fr  # newly added French
+```
+
+Q3: Generated content doesn’t match expectations
+- Causes: insufficient `rules`, misaligned `targetAudienceTypes`, or sparse `sourcesPath`
+- Fixes: enrich `rules`, adjust audience, add more sources
+
+Q4: How to fix format errors?
+- Common: full‑width colons, inconsistent indentation, bad arrays
+- Fixes: follow the guidance in Section 6, restore from backup if needed, and regenerate to verify

@@ -574,9 +574,9 @@ export const LIST_KEY = "list";
 export const SECTION_META_FIELDS = ["sectionName", "sectionSummary", "fieldCombinations"];
 
 export const DEFAULT_PAGE_STYLE = {
-  maxWidth: "custom:1440px",
-  paddingY: "normal",
-  paddingX: "normal",
+  maxWidth: "custom:1600px",
+  paddingY: "small",
+  paddingX: "small",
 };
 
 export const EMPTY_VALUE = "___EMPTY_VALUE___";
@@ -593,3 +593,35 @@ export const DEFAULT_PROJECT_SLUG = "/";
 
 export const NAVIGATIONS_FILE_NAME = "_navigations.yaml";
 export const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
+
+// Default thinking effort level, available options: 'lite', 'standard', 'pro'
+// This level can be defined by the user in the config file to influence reasoning effort mapping
+export const DEFAULT_THINKING_EFFORT_LEVEL = "standard";
+
+// Default reasoning effort level, available options: 'minimal', 'low', 'medium', 'high'
+export const DEFAULT_REASONING_EFFORT_LEVEL = "low";
+
+export const DEFAULT_REASONING_EFFORT_VALUE = 500;
+
+export const REASONING_EFFORT_LEVELS = {
+  minimal: {
+    lite: 100,
+    standard: 300,
+    pro: 500,
+  },
+  low: {
+    lite: 200,
+    standard: 500,
+    pro: 1000,
+  },
+  medium: {
+    lite: 300,
+    standard: 800,
+    pro: 1500,
+  },
+  high: {
+    lite: 500,
+    standard: 1200,
+    pro: 2500,
+  },
+};

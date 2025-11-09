@@ -69,7 +69,7 @@
  * - **无空组件**：任何数据源中残留 `EMPTY_VALUE` 的实例都会被移除，网格行位跟随压缩，避免界面出现空洞。
  */
 
-import { readFileSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
 import _ from "lodash";
@@ -86,7 +86,15 @@ import {
   findBestComponentMatch,
   generateDeterministicId,
 } from "../../../utils/generate-helper.mjs";
-import { fmtPath, log, logError, resolveValue, tryReadFileContent } from "../../../utils/utils.mjs";
+import { getOutputFilePath, loadExistingMetadata } from "../../../utils/metadata-utils.mjs";
+import {
+  fmtPath,
+  getFileName,
+  log,
+  logError,
+  resolveValue,
+  tryReadFileContent,
+} from "../../../utils/utils.mjs";
 import savePagesKitData from "./save-pages-data.mjs";
 
 const getEmptyValue = (_key) => {
@@ -1049,15 +1057,6 @@ export default async function composePagesData(input) {
     tmpDir,
   } = input;
 
-  try {
-    rmSync(outputDir, { recursive: true, force: true });
-    /* c8 ignore next */
-    log("🧹 [composePagesData] clean outputDir:", { outputDir });
-  } catch (e) {
-    /* c8 ignore next */
-    logError("⚠️  [composePagesData] clean outputDir failed:", { outputDir, error: e?.message });
-  }
-
   /* c8 ignore next */
   log("🔧 [composePagesData] start:", {
     pagesDir,
@@ -1174,32 +1173,89 @@ export default async function composePagesData(input) {
     }
 
     // 输出 YAML
-    fileDataMap.forEach((fd) => {
+    for (const fd of fileDataMap.values()) {
       const now = new Date().toISOString();
+
+      // Load existing metadata (if file exists)
+      const existingMeta = await loadExistingMetadata({
+        outputDir,
+        filePath: fd.filePath,
+        getFileName,
+      });
+
+      // Build the complete yaml object first (with placeholder timestamps for comparison)
       const yaml = {
         id: generateDeterministicId(fd.filePath),
-        createdAt: now,
-        updatedAt: now,
-        publishedAt: now,
+        createdAt: existingMeta?.createdAt || now,
+        updatedAt: existingMeta?.updatedAt,
+        publishedAt: existingMeta?.publishedAt,
         isPublic: true,
         locales: fd.locales,
         sections: fd.sections,
         sectionIds: fd.sectionIds,
         dataSource: fd.dataSource,
       };
+
+      // Apply replaceEmptyValueDeep to the yaml object
       replaceEmptyValueDeep(yaml);
+
+      // Stringify to YAML for comparison
+      const newYamlText = stringify(yaml, { aliasDuplicateObjects: false });
+
+      // Load existing YAML text if file exists
+      let existingYamlText = null;
+      if (existingMeta) {
+        try {
+          const fullPath = getOutputFilePath({
+            outputDir,
+            filePath: fd.filePath,
+            getFileName,
+          });
+          existingYamlText = await tryReadFileContent(fullPath);
+        } catch (_err) {
+          // File might not exist
+        }
+      }
+
+      // Compare YAML texts to determine if content changed
+      let contentChanged = false;
+      if (existingYamlText) {
+        contentChanged = newYamlText !== existingYamlText;
+      } else {
+        contentChanged = true; // New file
+      }
+
+      // Update timestamps based on comparison result
+      if (!existingMeta) {
+        // New file: all timestamps are now
+        yaml.createdAt = now;
+        yaml.updatedAt = "";
+        yaml.publishedAt = "";
+      } else if (contentChanged) {
+        // Existing file with changes: keep createdAt and publishedAt, update updatedAt
+        yaml.createdAt = existingMeta.createdAt;
+        yaml.updatedAt = now;
+        yaml.publishedAt = existingMeta.publishedAt || "";
+      }
+      // else: no changes, timestamps already set from existingMeta
+
+      // Re-stringify with final timestamps
       const content = stringify(yaml, { aliasDuplicateObjects: false });
       allPagesKitYaml.push({
         filePath: fd.filePath,
         content,
       });
+
+      /* c8 ignore next */
       log("📝 [composePagesData] yaml prepared:", {
         file: fd.filePath,
+        isNew: !existingMeta,
+        contentChanged,
         sectionCount: Object.keys(fd.sections || {}).length,
         rootIds: fd.sectionIds.length,
         dsKeys: Object.keys(fd.dataSource || {}).length,
       });
-    });
+    }
   } else {
     /* c8 ignore next */
     logError("⚠️  [composePagesData] middleFormatFiles is not an array");

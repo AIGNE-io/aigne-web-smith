@@ -7,6 +7,7 @@ import { transliterate } from "transliteration";
 import { stringify as yamlStringify } from "yaml";
 import { validateSelection } from "../../utils/conflict-detector.mjs";
 import {
+  DEFAULT_THINKING_EFFORT_LEVEL,
   PAGE_STYLES,
   SCALE_RECOMMENDATION_LOGIC,
   SUPPORTED_LANGUAGES,
@@ -379,6 +380,10 @@ export function generateYAML(input) {
     projectId: input.projectId || crypto.randomUUID(),
     projectSlug: input.projectSlug || "",
 
+    thinking: {
+      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL,
+    },
+
     // Page configuration
     pagePurpose: input.pagePurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
@@ -419,6 +424,19 @@ export function generateYAML(input) {
   }).trim();
 
   yaml += `${projectSection}\n\n`;
+
+  const modelSection = yamlStringify({
+    thinking: config.thinking,
+  }).trim();
+
+  yaml += `\
+# AI Thinking Configuration
+# thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:
+#   - lite: Fast responses with basic reasoning
+#   - standard: Balanced speed and reasoning capability
+#   - pro: In-depth reasoning with longer response times
+${modelSection}
+\n`;
 
   // Add page configuration with comments
   yaml += "# =============================================================================\n";

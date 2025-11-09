@@ -14,6 +14,8 @@ import {
 } from "./blocklet.mjs";
 import {
   BLOCKLET_ADD_COMPONENT_PAGES,
+  CLOUD_SERVICE_URL_PROD,
+  CLOUD_SERVICE_URL_STAGING,
   DEFAULT_APP_LOGO,
   PAGES_KIT_DID,
   PAGES_KIT_STORE_URL,
@@ -26,10 +28,9 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} appUrl - The application URL
  * @param {string} ltToken - Optional token from deployment service
- * @param {boolean} requiredAdminPassport - whether to require admin passport
  * @returns {Promise<string>} - The access token
  */
-export async function getAccessToken(appUrl, ltToken = "", requiredAdminPassport = true) {
+export async function getAccessToken(appUrl, ltToken = "") {
   const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
@@ -105,8 +106,8 @@ export async function getAccessToken(appUrl, ltToken = "", requiredAdminPassport
       appLogo: DEFAULT_APP_LOGO,
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
-        if (requiredAdminPassport) {
-          url.searchParams.set("required_roles", "owner,admin,pagesEditor");
+        if (![CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(url.origin)) {
+          url.searchParams.set("required_roles", "owner,admin");
         }
 
         if (ltToken) {

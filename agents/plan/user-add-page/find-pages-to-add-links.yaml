@@ -5,7 +5,7 @@ model:
 task_render_mode: hide
 instructions:
   - role: system
-    url: ../../prompts/plan/find-pages-to-add-links.md
+    url: ../../../prompts/plan/find-pages-to-add-links.md
 input_schema:
   type: object
   properties:

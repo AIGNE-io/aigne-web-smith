@@ -185,15 +185,12 @@ cli:
         - url: ./agents/history/view.mjs
           name: view
           alias: ["log", "list"]
-    - name: web
-      description: Manage website pages
-      agents:
-        - url: ./agents/plan/user-add-page/index.yaml
-          name: add-page
-          alias: ["add"]
-        - url: ./agents/plan/user-remove-page/index.yaml
-          name: remove-page
-          alias: ["rm"]
+    - name: add-page
+      alias: ["add"]
+      url: ./agents/plan/user-add-page/index.yaml
+    - name: remove-page
+      alias: ["rm"]
+      url: ./agents/plan/user-remove-page/index.yaml
     - ./agents/clear/index.yaml
 mcp_server:
   agents:

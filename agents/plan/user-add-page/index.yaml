@@ -10,7 +10,7 @@ skills:
   - ./add-pages-to-structure.mjs
   - type: team
     skills:
-      - ../../generate/page-detail/analyze-page-detail.yaml
+      - ../../generate/page-detail/analyze-page-detail.mjs
     iterate_on: newPages
     concurrency: 10
   - ./find-pages-to-add-links.yaml

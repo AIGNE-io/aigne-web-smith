@@ -33,7 +33,7 @@ skills:
       - ../../translate/navigations/analyze-translate-navigations.mjs
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs
-  - url: ../../utils/clear-generated-pages.mjs
+  - url: ../../clear/clear-generated-pages.mjs
     default_input:
       pages:
         $get: deletedPages

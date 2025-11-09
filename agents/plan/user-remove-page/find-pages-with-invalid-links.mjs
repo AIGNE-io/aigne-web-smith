@@ -1,13 +1,13 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
-import { LINK_PROTOCOL } from "../../utils/constants.mjs";
+import { LINK_PROTOCOL } from "../../../utils/constants.mjs";
 import {
   buildAllowedLinksFromStructure,
   scanForProtocolUrls,
   validateInternalLinks,
-} from "../../utils/protocol-utils.mjs";
-import { getFileName } from "../../utils/utils.mjs";
+} from "../../../utils/protocol-utils.mjs";
+import { getFileName } from "../../../utils/utils.mjs";
 
 /**
  * Find pages with invalid links after structure changes
@@ -74,7 +74,7 @@ export default async function findPagesWithInvalidLinks(input = {}) {
             const itemFlatName = item.path.replace(/^\//, "").replace(/\//g, "-");
             const itemFileName = getFileName({ locale, fileName: itemFlatName });
             return itemFileName === file || itemFlatName === flatName;
-          })?.path;
+          });
 
           if (pageInfo) {
             pagesWithInvalidLinks.push({

@@ -1,0 +1,42 @@
+type: team
+name: userAddPage
+description: Add pages to website structure
+skills:
+  - url: ../../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../../utils/load-config.mjs
+  - ../../utils/load-sources.mjs
+  - ./add-pages-to-structure.mjs
+  - type: team
+    skills:
+      - ../../generate/page-detail/analyze-page-detail.yaml
+    iterate_on: newPages
+    concurrency: 10
+  - ./find-pages-to-add-links.yaml
+  - type: team
+    name: addLinksToPagesTeam
+    skills:
+      - ./add-links-to-pages.mjs
+      - ../../utils/save-single-page.mjs
+    iterate_on: pagesWithNewLinks
+    concurrency: 10
+  - ../../generate/page-detail/load-page-detail.mjs
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        {
+          "selectedPages": pagesWithNewLinks
+        }
+      ])
+  - type: team
+    name: batchTranslatePageDetail and analyzeTranslateNavigations
+    skills:
+      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - ../../translate/navigations/analyze-translate-navigations.mjs
+    mode: parallel
+  - ../../generate/page-data/compose-pages-data.mjs
+  - ../../utils/save-pages.mjs
+  - url: ../../utils/save-output.mjs
+mode: sequential

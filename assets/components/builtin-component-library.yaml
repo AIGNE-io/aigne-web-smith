@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-10T03:10:53.792Z
+  updateAt: 2025-11-10T06:03:03.458Z
 atomic:
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
@@ -3216,7 +3216,7 @@ composite:
               w: 12
               h: 1
         gap: small
-        alignContent: start
+        alignContent: space-between
     dataSource:
       5eywv8uupz1tqo9a: {}
       xqonghu8tlz7cgww: {}

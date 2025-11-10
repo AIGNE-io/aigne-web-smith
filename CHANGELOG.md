@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta...v1.7.0-beta.1) (2025-11-10)
+
+
+### Bug Fixes
+
+* add validation check for existing translation files ([#232](https://github.com/AIGNE-io/aigne-web-smith/issues/232)) ([f9760fb](https://github.com/AIGNE-io/aigne-web-smith/commit/f9760fbf295b51cf35a728e8a351f099401359bb))
+
 ## [1.7.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0...v1.7.0-beta) (2025-11-08)
 
 

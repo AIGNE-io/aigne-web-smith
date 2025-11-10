@@ -34,7 +34,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
   const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
-  let accessToken = process.env.PAGES_KIT_ACCESS_TOKEN;
+  let accessToken = process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN;
 
   // Check if access token exists in environment or config file
   if (!accessToken) {
@@ -119,7 +119,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
     });
 
     accessToken = result.accessKeySecret;
-    process.env.PAGES_KIT_ACCESS_TOKEN = accessToken;
+    process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = accessToken;
 
     // Save the access token to config file
     const aigneDir = join(homedir(), ".aigne");

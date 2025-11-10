@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-10T06:03:03.458Z
+  updateAt: 2025-11-10T06:50:48.358Z
 atomic:
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
@@ -4933,6 +4933,10 @@ composite:
               style:
                 fontSize: '{ "xs": 32, "md": 48}'
                 variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
       azco0iqlflcdqzcc: {}
       7yvip0bd5csgd6vj:
         properties:

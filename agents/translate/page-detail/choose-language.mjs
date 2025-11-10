@@ -1,7 +1,8 @@
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { SUPPORTED_LANGUAGES } from "../../../utils/constants.mjs";
 import { getFileName, loadConfigFromFile, saveValueToConfig } from "../../../utils/utils.mjs";
+import checkDetailResult from "../../utils/check-detail-result.mjs";
 
 /**
  * Interactive language selector for translation from configured languages
@@ -12,7 +13,18 @@ import { getFileName, loadConfigFromFile, saveValueToConfig } from "../../../uti
  * @returns {Promise<Object>} Selected languages
  */
 export default async function chooseLanguage(
-  { langs, locale, selectedPages, tmpDir, skipIfExists = false, requiredFeedback = false },
+  {
+    langs,
+    locale,
+    selectedPages,
+    tmpDir,
+    pagesDir,
+    skipIfExists = false,
+    requiredFeedback = false,
+    websiteStructure,
+    componentLibrary,
+    mediaFiles,
+  },
   options,
 ) {
   let selectedLanguages = [];
@@ -96,7 +108,24 @@ export default async function chooseLanguage(
 
             try {
               await access(filePath);
+              // File exists, now check if content validation passes
+              const fileContent = await readFile(filePath, "utf8");
+              const validationResult = await checkDetailResult({
+                websiteStructure,
+                reviewContent: fileContent,
+                locale: lang,
+                componentLibrary,
+                mediaFiles,
+                pagesDir,
+                tmpDir,
+              });
+
+              // If validation fails, add to translates array
+              if (!validationResult.isApproved) {
+                translates.push({ language: lang });
+              }
             } catch {
+              // File doesn't exist, add to translates array
               translates.push({ language: lang });
             }
           } else {

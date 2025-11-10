@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-10T06:50:48.358Z
+  updateAt: 2025-11-10T07:29:45.321Z
 atomic:
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
@@ -3146,11 +3146,11 @@ composite:
       - The **visual should be vertically oriented** to avoid breaking the
       top-to-bottom flow.
     fieldCombinations:
+      - contentCard.actionLink
+      - contentCard.actionTitle
       - contentCardDescription
       - contentCardRightImage
       - contentCardTitle
-      - contentCardTitle.actionLink
-      - contentCardTitle.actionTitle
     section:
       id: 5eywv8uupz1tqo9a
       name: Content
@@ -3247,8 +3247,8 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= contentCardTitle.actionTitle %>
-                url: <%= contentCardTitle.actionLink %>
+                text: <%= contentCard.actionTitle %>
+                url: <%= contentCard.actionLink %>
                 variant: text
                 size: medium
                 target: auto

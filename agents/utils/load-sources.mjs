@@ -208,7 +208,7 @@ export default async function loadSources({
   // Log summary of filtered images
   if (filteredImageCount > 0) {
     console.log(
-      `\nTotal ${filteredImageCount} low-resolution image(s) filtered for better web display quality (minimum width: ${minImageWidth}px)\n`,
+      `\nTotal ${filteredImageCount} low-resolution image(s) ignored for better web display quality (minimum width: ${minImageWidth}px)\n`,
     );
   }
 

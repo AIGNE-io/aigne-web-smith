@@ -1,35 +1,39 @@
 # Find Pages to Add Links
 
-Analyze the website structure to identify which existing pages should link to newly added pages.
+Identify which existing pages in the website should link to newly added pages.
 
-## Input Data
+## Input
 
-You have three structures:
+<websiteStructure>
+{{originalWebsiteStructure}}
+</websiteStructure>
 
-1. **originalWebsiteStructure** — the website before adding new pages.
-2. **websiteStructure** — the updated website including the new pages.
-3. **newPages** — array of newly added pages, each with:
-   - `title`, `description`, `path`, `parentId`
-   - `navigation`: metadata (title, description)
-   - `sourceIds`: source file IDs
+<newPages>
+{{newPages}}
+</newPages>
 
 ## Task
 
-Find which **existing pages** (from `originalWebsiteStructure`) should reference **new pages** (from `newPages`).
+1. Analyze <websiteStructure> (the full site structure).
+2. Determine which existing pages should link to pages in <newPages>.
+3. For each such page, add a newLinks property — an array of new page paths it should link to.
+4. Return only those pages (a subset of <websiteStructure>) as pagesWithNewLinks.
 
-For each relevant existing page:
+Each item in pagesWithNewLinks must:
 
-- Specify which new page paths (`newPages.path`) it should link to.
+1. **Be an existing page** from <websiteStructure>
+2. Include all its original properties (path, title, description, parentId, navigation, sourceIds)
+3. Add newLinks: string[] (**non-empty**)
 
 ## Criteria
 
-When deciding link relationships, consider:
+When adding links, consider:
 
-1. **Parent–Child** — if a new page’s `parentId` matches an existing page’s `path`, the parent should link to it.
-2. **Semantic Similarity** — match by related titles/descriptions, shared themes, or logical topical relevance.
-3. **Navigation Context** — related navigation items may link to each other.
-4. **Hierarchy** — sibling or related section pages may cross-link.
-5. **Relevance** — only link where it makes sense (e.g. “Products” → product detail pages, “Services” → service pages).
+1. Parent–Child — If a new page’s parentId matches a page’s path, that parent should link to it.
+2. Semantic Similarity — Link related or thematically connected pages.
+3. Navigation Context — Pages in related navigation areas may link.
+4. Hierarchy — Sibling or section pages may cross-link.
+5. Relevance — Add links only where it logically makes sense.
 
 ## Output Format
 
@@ -42,6 +46,9 @@ Return JSON:
       "path": "/existing-page",
       "title": "Existing Page",
       "description": "Description",
+      "parentId": null,
+      "navigation": { "title": "Nav Title", "description": "Nav Description" },
+      "sourceIds": ["source1", "source2"],
       "newLinks": ["/new-page-1", "/new-page-2"]
     }
   ]

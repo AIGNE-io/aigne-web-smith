@@ -17,25 +17,20 @@ skills:
     concurrency: 10
   - ./find-pages-to-add-links.yaml
   - type: team
-    name: addLinksToPagesTeam
+    name: batchAddLinks
     skills:
       - ./add-links-to-pages.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithNewLinks
     concurrency: 10
   - ../../generate/page-detail/load-page-detail.mjs
-  - type: transform
-    jsonata: |
-      $merge([
-        $,
-        {
-          "selectedPages": pagesWithNewLinks
-        }
-      ])
+  - ./merge-pages-with-translations.mjs
   - type: team
     name: batchTranslatePageDetail and analyzeTranslateNavigations
     skills:
-      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - url: ../../translate/page-detail/batch-translate-page-detail.yaml
+        default_input:
+          skipIfExists: false
       - ../../translate/navigations/analyze-translate-navigations.mjs
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs

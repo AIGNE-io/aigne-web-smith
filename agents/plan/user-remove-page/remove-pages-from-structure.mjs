@@ -20,9 +20,9 @@ export default async function removePagesFromStructure(input = {}, options = {})
   }
 
   // Load website structure
-  const websiteStructureResult = await loadWebsiteStructureResult(tmpDir);
+  const websiteStructure = await loadWebsiteStructureResult(tmpDir);
 
-  if (!websiteStructureResult || websiteStructureResult.length === 0) {
+  if (!websiteStructure || websiteStructure.length === 0) {
     return {
       message: "🗑️ Remove Pages\n  • No website structure found. Please generate pages first.",
       error: true,
@@ -32,7 +32,7 @@ export default async function removePagesFromStructure(input = {}, options = {})
   // Use choose-pages to get selected pages
   const choosePagesResult = await choosePages(
     {
-      websiteStructureResult,
+      websiteStructureResult: websiteStructure,
       projectId,
       tmpDir,
       isTranslate: false,
@@ -50,7 +50,7 @@ export default async function removePagesFromStructure(input = {}, options = {})
   if (!selectedPages || selectedPages.length === 0) {
     return {
       message: "🗑️ Remove Pages\n  • No pages selected to remove.",
-      websiteStructure: websiteStructureResult,
+      websiteStructure: websiteStructure,
       deletedPages: [],
       errors: [],
     };
@@ -60,7 +60,7 @@ export default async function removePagesFromStructure(input = {}, options = {})
   if (!options.context.userContext) {
     options.context.userContext = {};
   }
-  options.context.userContext.currentStructure = [...websiteStructureResult];
+  options.context.userContext.currentStructure = [...websiteStructure];
   options.context.userContext.lastToolInputs = {};
 
   // Delete each selected page
@@ -111,7 +111,7 @@ export default async function removePagesFromStructure(input = {}, options = {})
   const updatedWebsiteStructure = options.context.userContext.currentStructure;
 
   return {
-    originalWebsiteStructure: websiteStructureResult,
+    originalWebsiteStructure: websiteStructure,
     websiteStructure: updatedWebsiteStructure,
     deletedPages: deletedPages.map((p) => p.path),
   };

@@ -6,9 +6,9 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
   const {
     path,
     invalidLinks: rawInvalidLinks,
+    websiteStructureResult,
     websiteStructure,
     tmpDir,
-    translates,
     pagesDir,
     locale,
     rules,
@@ -17,7 +17,7 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
     mediaFiles,
     componentLibrary,
   } = input;
-  const pageInfo = websiteStructure.find((item) => item.path === path);
+  const pageInfo = websiteStructureResult.find((item) => item.path === path);
 
   // Extract actual link URLs from error messages
   const invalidLinks = rawInvalidLinks
@@ -77,7 +77,7 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
     content,
     pagesDir,
     tmpDir,
-    translates,
+    translates: pageInfo.translates,
     locale,
     title: pageInfo.title,
     description: pageInfo.description,

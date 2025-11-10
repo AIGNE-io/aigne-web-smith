@@ -14,15 +14,15 @@ export default async function addPagesToStructure(input = {}, options = {}) {
 
   // Add page
   while (true) {
-    const feedback = await options.prompts
-      .input({
-        message: isFirstAdd
-          ? "You can add a new page.\n" +
-            "  • e.g. 'add an About page with the path /about-us'\n\n" +
-            "Press Enter to finish:"
-          : "You can continue adding pages, or press Enter to finish:",
-      })
-      .trim();
+    let feedback = await options.prompts.input({
+      message: isFirstAdd
+        ? "You can add a new page.\n" +
+          "  • e.g. 'add an About page with the path /about-us'\n\n" +
+          "Press Enter to finish:"
+        : "You can continue adding pages, or press Enter to finish:",
+    });
+
+    feedback = feedback.trim();
 
     // end the loop
     if (!feedback) {

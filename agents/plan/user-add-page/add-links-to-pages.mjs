@@ -9,16 +9,19 @@ export default async function addLinksToPages(input = {}, options = {}) {
   const {
     path,
     newLinks,
-    websiteStructure = [],
-    originalWebsiteStructure = [],
+    websiteStructure,
+    websiteStructureResult,
+    originalWebsiteStructure,
     tmpDir,
     pagesDir,
     locale,
     rules = "",
     glossary = "",
+    mediaFiles,
+    componentLibrary,
   } = input;
 
-  const pageInfo = websiteStructure.find((item) => item.path === path);
+  const pageInfo = websiteStructureResult.find((item) => item.path === path);
 
   if (!pageInfo) {
     throw new Error(`Page not found: ${path}`);
@@ -47,7 +50,7 @@ export default async function addLinksToPages(input = {}, options = {}) {
   // Call updatePageDetail to add links
   const updatePageDetailAgent = options.context.agents["updatePageDetail"];
   const linkPaths = newLinks.join(", ");
-  const feedback = `Add internal links to the following new pages: ${linkPaths}. Integrate these links naturally into the existing content, such as in relevant sections, navigation lists, or call-to-action areas. Ensure the links are contextually appropriate and enhance the user experience.`;
+  const feedback = `Add the following internal links to this page: ${linkPaths}. Identify suitable places within the existing content — such as relevant sections, navigation items, or CTAs — and insert the links naturally to maintain context and readability.`;
 
   await options.context.invoke(updatePageDetailAgent, {
     pageDetail,
@@ -73,7 +76,7 @@ export default async function addLinksToPages(input = {}, options = {}) {
     content,
     pagesDir,
     tmpDir,
-    translates: [],
+    translates: pageInfo.translates,
     locale,
     title: pageInfo.title,
     description: pageInfo.description,
@@ -82,9 +85,9 @@ export default async function addLinksToPages(input = {}, options = {}) {
     isTranslate: false,
     isShowMessage: false,
     throwErrorIfInvalid: false,
-    componentLibrary: [],
+    componentLibrary,
     websiteStructure,
-    mediaFiles: [],
+    mediaFiles,
   };
 }
 

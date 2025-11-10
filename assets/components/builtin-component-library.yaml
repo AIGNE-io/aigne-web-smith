@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-10T07:29:45.321Z
+  updateAt: 2025-11-10T07:39:38.259Z
 atomic:
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
@@ -311,6 +311,8 @@ composite:
       - fullBackgroundHeroImage
       - spiltHeroHeroWithImageActions.0.link
       - spiltHeroHeroWithImageActions.0.text
+      - spiltHeroHeroWithImageActions.1.link
+      - spiltHeroHeroWithImageActions.1.text
       - spiltHeroWithImageDescription
       - spiltHeroWithImageSubTitle
       - spiltHeroWithImageTitle
@@ -462,6 +464,21 @@ composite:
                 size: xlarge
                 target: auto
                 needLogin: false
+              - type: link
+                text: <%= spiltHeroHeroWithImageActions.1.text %>
+                url: <%= spiltHeroHeroWithImageActions.1.link %>
+                color: "linear-gradient(180.12deg, #B6FFFA -82.67%, #0B71FF 99.89%)"
+                borderColor: primary.main
+                variant: outlined
+                size: xlarge
+                target: auto
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1762760019151-7a6vlz4hb
       tevap2ft0wkr0rid: {}
       t18l0zi1rndjyn52:
         properties:
@@ -501,6 +518,8 @@ composite:
     fieldCombinations:
       - verticalHeroActions.0.link
       - verticalHeroActions.0.text
+      - verticalHeroActions.1.link
+      - verticalHeroActions.1.text
       - verticalHeroDescription
       - verticalHeroImage
       - verticalHeroTitle
@@ -627,6 +646,21 @@ composite:
                 size: xlarge
                 target: auto
                 needLogin: false
+              - type: link
+                text: <%= verticalHeroActions.1.text %>
+                url: <%= verticalHeroActions.1.link %>
+                color: "linear-gradient(180.12deg, #B6FFFA -82.67%, #0B71FF 99.89%)"
+                borderColor: primary.main
+                variant: outlined
+                size: xlarge
+                target: auto
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1762760244000-jyod2mt2v
       jpo6qc32ahrco6w6: {}
       60a0vb614icirdqh:
         properties:

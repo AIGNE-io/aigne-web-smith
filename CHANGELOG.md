@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.1...v1.7.0-beta.2) (2025-11-10)
+
+
+### Bug Fixes
+
+* tune naming for publish access token environment ([#234](https://github.com/AIGNE-io/aigne-web-smith/issues/234)) ([2887bd9](https://github.com/AIGNE-io/aigne-web-smith/commit/2887bd95487626ace7e4ecb200eb0c4222ab1ef8))
+
 ## [1.7.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta...v1.7.0-beta.1) (2025-11-10)
 
 

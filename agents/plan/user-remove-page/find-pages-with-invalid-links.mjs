@@ -1,10 +1,9 @@
-import { readdir, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse } from "yaml";
 import { LINK_PROTOCOL } from "../../../utils/constants.mjs";
 import {
   buildAllowedLinksFromStructure,
-  scanForProtocolUrls,
   validateInternalLinks,
 } from "../../../utils/protocol-utils.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
@@ -40,76 +39,47 @@ export default async function findPagesWithInvalidLinks(input = {}) {
 
   // Get locale directory
   const localeDir = join(tmpDir, locale);
-
   const pagesWithInvalidLinks = [];
-  let totalPagesChecked = 0;
 
-  try {
-    // Read all YAML files in the locale directory
-    const files = await readdir(localeDir);
-    const yamlFiles = files.filter((file) => file.endsWith(".yaml") && !file.startsWith("_"));
+  // Iterate through websiteStructure to check each page
+  for (const pageInfo of websiteStructure) {
+    try {
+      // Generate file name from page path
+      const flatName = pageInfo.path.replace(/^\//, "").replace(/\//g, "-");
+      const fileFullName = getFileName({ locale, fileName: flatName });
+      const filePath = join(localeDir, fileFullName);
 
-    totalPagesChecked = yamlFiles.length;
-
-    // Check each page file for invalid links
-    for (const file of yamlFiles) {
+      // Try to read the page file
+      let content;
       try {
-        const filePath = join(localeDir, file);
-        const content = await readFile(filePath, "utf8");
-
-        // Parse YAML content
-        const parsedContent = parse(content);
-
-        // Scan for link:// protocol URLs
-        const foundLinks = new Set();
-        scanForProtocolUrls(parsedContent, foundLinks, LINK_PROTOCOL);
-
-        // Validate links against allowed links
-        const linkErrors = validateInternalLinks(parsedContent, allowedLinks, LINK_PROTOCOL);
-
-        if (linkErrors.length > 0) {
-          // Find the page path from website structure
-          const flatName = file.replace(/\.yaml$/, "").replace(new RegExp(`^${locale}-`), "");
-          const pageInfo = websiteStructure.find((item) => {
-            const itemFlatName = item.path.replace(/^\//, "").replace(/\//g, "-");
-            const itemFileName = getFileName({ locale, fileName: itemFlatName });
-            return itemFileName === file || itemFlatName === flatName;
-          });
-
-          if (pageInfo) {
-            pagesWithInvalidLinks.push({
-              ...pageInfo,
-              path: pageInfo.path,
-              invalidLinks: linkErrors.map((err) => err.message),
-              linkCount: foundLinks.size,
-            });
-          }
-        }
+        content = await readFile(filePath, "utf8");
       } catch (error) {
-        // Skip files that can't be read or parsed
-        console.warn(`⚠️  Failed to check file ${file}: ${error.message}`);
+        // Skip if file doesn't exist
+        if (error.code === "ENOENT") {
+          console.warn(`⚠️  Page file not found: ${filePath}`);
+          continue;
+        }
       }
+      // Parse YAML content
+      const parsedContent = parse(content);
+
+      // Validate links against allowed links
+      const linkErrors = validateInternalLinks(parsedContent, allowedLinks, LINK_PROTOCOL);
+
+      if (linkErrors.length > 0) {
+        pagesWithInvalidLinks.push({
+          ...pageInfo,
+          path: pageInfo.path,
+          invalidLinks: linkErrors.map((err) => err.message),
+        });
+      }
+    } catch (error) {
+      // Skip pages that can't be read or parsed
+      console.warn(`⚠️  Failed to check page ${pageInfo.path}: ${error.message}`);
     }
-  } catch (error) {
-    // If locale directory doesn't exist, return empty result
-    if (error.code === "ENOENT") {
-      return {
-        pagesWithInvalidLinks: [],
-        message: `Locale directory ${localeDir} does not exist. No pages to check.`,
-      };
-    }
-    throw error;
   }
-
-  const message =
-    pagesWithInvalidLinks.length > 0
-      ? `Found ${pagesWithInvalidLinks.length} page(s) with invalid links out of ${totalPagesChecked} checked.`
-      : `All ${totalPagesChecked} page(s) have valid links.`;
-
   return {
     pagesWithInvalidLinks,
-    totalPagesChecked,
-    message,
   };
 }
 

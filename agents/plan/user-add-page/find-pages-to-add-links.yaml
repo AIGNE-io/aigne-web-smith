@@ -1,7 +1,5 @@
 name: findPagesToAddLinks
 description: Use AI to analyze website structure and determine which pages should reference newly added pages
-model:
-  reasoning_effort: 300
 task_render_mode: hide
 instructions:
   - role: system

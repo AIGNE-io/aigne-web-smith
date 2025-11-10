@@ -499,9 +499,6 @@ export function generateFieldConstraints(componentLibrary) {
     return "";
   }
 
-  // Extract atomic fields
-  const atomicFields = componentLibrary.filter((comp) => comp.type === "atomic");
-
   // Extract composite field combinations
   const compositeFields = componentLibrary.filter((comp) => comp.type === "composite");
 
@@ -509,19 +506,6 @@ export function generateFieldConstraints(componentLibrary) {
   let constraints = "";
 
   const listKeyWithSymbol = `\`${LIST_KEY}\``;
-
-  // Atomic fields section
-  constraints += "<atomic_component_information>\n";
-  const atomicComponentInfo = atomicFields.map((item) => {
-    return {
-      name: item.name,
-      summary: item.summary,
-    };
-  });
-  constraints += stringify(atomicComponentInfo, {
-    aliasDuplicateObjects: false,
-  });
-  constraints += "</atomic_component_information>\n\n";
 
   // Composite combinations section
   constraints += "<allowed_field_combinations>\n";
@@ -537,8 +521,8 @@ export function generateFieldConstraints(componentLibrary) {
   });
   constraints += "</allowed_field_combinations>\n\n";
 
-  constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
-- Each section must select one display component, and the componentName must match the \`name\` field in either <atomic_component_information> or <allowed_field_combinations>.
+  constraints += `- You can refer to the information in <allowed_field_combinations> to understand what each component defines
+- Each section must select one display component, and the componentName must match the \`name\` field in <allowed_field_combinations>.
 - Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
     - The emitted field set of each section (excluding "sectionName" and "sectionSummary" and "componentName") must be exactly equal to the chosen combination—no extra or missing keys.
 - Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`

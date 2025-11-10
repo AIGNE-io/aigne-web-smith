@@ -113,7 +113,6 @@ describe("generate-helper coverage", () => {
       },
     ]);
 
-    expect(constraints).toContain("<atomic_component_information>");
     expect(constraints).toContain("<allowed_field_combinations>");
     expect(constraints).toContain('fieldCombinations: \'["title","subtitle"]\'');
     expect(constraints).toContain("List Misuse");

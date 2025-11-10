@@ -18,7 +18,7 @@ import { getFileName } from "../../../utils/utils.mjs";
  * @returns {Promise<Object>} Result with list of page paths containing invalid links
  */
 export default async function findPagesWithInvalidLinks(input = {}) {
-  const { tmpDir, locale = "en", websiteStructure } = input;
+  const { tmpDir, locale = "en", websiteStructureResult, websiteStructure } = input;
 
   if (!tmpDir) {
     return {
@@ -27,7 +27,7 @@ export default async function findPagesWithInvalidLinks(input = {}) {
     };
   }
 
-  if (!websiteStructure || !Array.isArray(websiteStructure)) {
+  if (!websiteStructureResult || !Array.isArray(websiteStructureResult)) {
     return {
       pagesWithInvalidLinks: [],
       message: "No website structure provided. Cannot check for invalid links.",
@@ -42,7 +42,7 @@ export default async function findPagesWithInvalidLinks(input = {}) {
   const pagesWithInvalidLinks = [];
 
   // Iterate through websiteStructure to check each page
-  for (const pageInfo of websiteStructure) {
+  for (const pageInfo of websiteStructureResult) {
     try {
       // Generate file name from page path
       const flatName = pageInfo.path.replace(/^\//, "").replace(/\//g, "-");
@@ -86,3 +86,4 @@ export default async function findPagesWithInvalidLinks(input = {}) {
 findPagesWithInvalidLinks.taskTitle = "Find pages with invalid links";
 findPagesWithInvalidLinks.description =
   "Programmatically identify pages that contain invalid internal links after structure changes";
+``

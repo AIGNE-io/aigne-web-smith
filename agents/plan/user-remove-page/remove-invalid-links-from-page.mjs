@@ -8,11 +8,14 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
     invalidLinks: rawInvalidLinks,
     websiteStructure,
     tmpDir,
+    translates,
     pagesDir,
     locale,
     rules,
     originalWebsiteStructure,
     glossary,
+    mediaFiles,
+    componentLibrary,
   } = input;
   const pageInfo = websiteStructure.find((item) => item.path === path);
 
@@ -74,7 +77,7 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
     content,
     pagesDir,
     tmpDir,
-    translates: [],
+    translates,
     locale,
     title: pageInfo.title,
     description: pageInfo.description,
@@ -83,8 +86,8 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
     isTranslate: false,
     isShowMessage: false,
     throwErrorIfInvalid: false,
-    componentLibrary: [],
+    componentLibrary,
     websiteStructure,
-    mediaFiles: [],
+    mediaFiles,
   };
 }

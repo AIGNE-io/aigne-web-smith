@@ -8,6 +8,8 @@ skills:
   - ../../utils/load-config.mjs
   - ../../utils/load-sources.mjs
   - ./add-pages-to-structure.mjs
+  - ../../utils/transform-website-structure.yaml
+  - ../../utils/format-website-structure.mjs
   - type: team
     skills:
       - ../../generate/page-detail/analyze-page-detail.mjs

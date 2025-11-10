@@ -6,17 +6,17 @@ skills:
     default_input:
       skipIfExists: true
   - ../../utils/load-config.mjs
+  - ../../utils/load-sources.mjs
   - ./remove-pages-from-structure.mjs
+  - ../../utils/transform-website-structure.yaml
+  - ../../utils/format-website-structure.mjs
+  - ./find-pages-with-invalid-links.mjs
   - type: team
-    name: removeInvalidLinksTeam
+    name: batchRemoveInvalidLinks
     skills:
-      - ./find-pages-with-invalid-links.mjs
-      - type: team
-        name: removeInvalidLinksFromPages
-        skills:
-          - ./remove-invalid-links-from-page.mjs
-          - ../../utils/save-single-page.mjs
-        iterate_on: pagesWithInvalidLinks
+      - ./remove-invalid-links-from-page.mjs
+      - ../../utils/save-single-page.mjs
+    iterate_on: pagesWithInvalidLinks
   - ../../generate/page-detail/load-page-detail.mjs
   - type: transform
     jsonata: |
@@ -29,7 +29,9 @@ skills:
   - type: team
     name: batchTranslatePageDetail and analyzeTranslateNavigations
     skills:
-      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - url: ../../translate/page-detail/batch-translate-page-detail.yaml
+        default_input:
+          skipIfExists: false
       - ../../translate/navigations/analyze-translate-navigations.mjs
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs

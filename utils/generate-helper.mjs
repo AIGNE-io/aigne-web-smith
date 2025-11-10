@@ -538,8 +538,9 @@ export function generateFieldConstraints(componentLibrary) {
   constraints += "</allowed_field_combinations>\n\n";
 
   constraints += `- You can refer to the information in <atomic_component_information> to understand what each component defines
+- Each section must select one display component, and the componentName must match the \`name\` field in either <atomic_component_information> or <allowed_field_combinations>.
 - Each section MUST strictly follow the item's \`fieldCombinations\` listed in <allowed_field_combinations>, this table is for validation only—do not emit a "fieldCombinations" key in any section instance.
-    - The emitted field set of each section (excluding "sectionName" and "sectionSummary") must be exactly equal to the chosen combination—no extra or missing keys.
+    - The emitted field set of each section (excluding "sectionName" and "sectionSummary" and "componentName") must be exactly equal to the chosen combination—no extra or missing keys.
 - Layout sections may include a ${listKeyWithSymbol} field **only if** the chosen combination includes \`${LIST_KEY}.N\`
     - Each ${listKeyWithSymbol} item is itself a section and MUST independently follow <allowed_field_combinations>
 - This constraint applies recursively: all sections at any depth must strictly comply

@@ -1,4 +1,11 @@
 entries:
+  - timestamp: 2025-11-11T16:21:24.188Z
+    operation: document_update
+    feedback: 更新新的文档来更新. 我们不应该移除原有的一些内容,比如字段解释.
+      我们不应该移除旧的很多内容,实际/Users/yexiaofang/Arcblock/aigne-web-smith/assets/documents/quality-website-methodology.md
+      改动不多
+    docPaths:
+      - /reference/websmith-config
   - timestamp: 2025-11-11T15:55:29.705Z
     operation: document_update
     feedback: 应该新增一个指向guides的入口

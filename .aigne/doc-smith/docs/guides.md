@@ -105,8 +105,8 @@ This approach is designed to generate a functional website in under 30 minutes, 
 
 ### Process
 
-1.  **Configure `sourcesPath`**: In your `websmith-config.yaml`, point the `sourcesPath` to the directory containing your primary document(s).
-2.  **Generate**: Run the `websmith generate` command.
+1.  **Configure `sourcesPath`**: In your `config.yaml`, point the `sourcesPath` to the directory containing your primary document(s).
+2.  **Generate**: Run the `aigne web generate` command.
 3.  **Review and Iterate**: Examine the initial website and identify areas for improvement. Refine your source document and regenerate.
 
 This level is effective for straightforward products with existing documentation. However, it may not be sufficient for projects with complex messaging, multiple target audiences, or nuanced value propositions.
@@ -232,7 +232,7 @@ Adhering to proven patterns and avoiding common pitfalls will significantly impr
 
 -   **Assuming the AI Will "Figure It Out"**: The AI amplifies the information it is given. Vague input will always result in vague output. Be explicit about your positioning and audience.
 -   **Providing Only Feature Lists**: Features are meaningless without context. Connect each feature to the problem it solves and the benefit it provides.
--   **Mixing Knowledge with Formatting Instructions**: Do not include stylistic commands like "make this section more exciting" in your source files. Use the `rules` section of `websmith-config.yaml` to guide style and tone.
+-   **Mixing Knowledge with Formatting Instructions**: Do not include stylistic commands like "make this section more exciting" in your source files. Use the `rules` section of `config.yaml` to guide style and tone.
 -   **Using a Single, Large Document**: A monolithic document makes it difficult for the AI to discern structure and priority. Decompose knowledge into focused, topic-specific files.
 -   **Skipping Iteration**: The first generated output should be treated as a draft. Plan for a multi-step process of evaluation, refinement of source material, and regeneration.
 

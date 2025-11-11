@@ -1,3 +1,37 @@
+<datasources>
+{{ detailDataSources }}
+
+{{ additionalInformation }}
+
+<available_media_assets>
+{{ assetsContent }}
+</available_media_assets>
+
+{% ifAsync websiteScale != "singlePage" %}
+<available_internal_links>
+{{ linksContent }}
+</available_internal_links>
+{% endif %}
+
+<structure_plan>
+
+This is the website structure. You can refer to it to understand where the current page fits within the website structure.
+
+{{ websiteStructureYaml }}
+
+</structure_plan>
+
+</datasources>
+
+<output_constraints>
+{% include "../../common/rules/page-detail/content-organization-rules.md" %}
+
+{% include "../../common/rules/page-detail/resources-references-rules.md" %}
+
+** Sections Constraints（VERY IMPORTANT）:**
+
+{{ fieldConstraints }}
+</output_constraints>
 Fix the following section to resolve all validation errors:
 
 ## Section Information
@@ -16,10 +50,6 @@ Fix the following section to resolve all validation errors:
 {% else %}
 - No errors
 {% endfor %}
-
-## Constraints
-- Allowed Links: {% if allowedLinks %}{{allowedLinks}}{% else %}(none){% endif %}
-- Allowed Media: {% if allowedMediaFiles %}{{allowedMediaFiles}}{% else %}(none){% endif %}
 
 ## Page Context
 - Title: {{pageContext.meta.title}}

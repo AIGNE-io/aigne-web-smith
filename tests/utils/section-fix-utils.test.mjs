@@ -3,8 +3,10 @@ import {
   canAutoFixErrors,
   extractComponentName,
   extractSectionPath,
+  extractSectionRootPath,
   getRequiredFieldsByComponentName,
   getSectionByPath,
+  getSubPathAfterSection,
   groupErrorsBySection,
   replaceSectionByPath,
   sectionToYaml,
@@ -590,6 +592,218 @@ describe("tryAutoFixSection - missing fields", () => {
   });
 });
 
+describe("tryAutoFixSection - nested paths", () => {
+  test("removes extra field from nested heroCta object", () => {
+    const section = {
+      componentName: "heroCta",
+      heroTitle: "Title",
+      heroDescription: "Description",
+      heroCta: {
+        text: "Click",
+        link: "/link",
+        extraField: "remove this",
+      },
+    };
+    const errors = [
+      {
+        path: "sections.0.heroCta",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: ["extraField"],
+          missingFields: [],
+        },
+      },
+    ];
+
+    // Fix heroCta at path "sections.0.heroCta" - removing extra field
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroCta.text).toBe("Click");
+    expect(result.section.heroCta.link).toBe("/link");
+    expect(result.section.heroCta.extraField).toBeUndefined();
+  });
+
+  test("adds missing field to nested heroCta object", () => {
+    const section = {
+      componentName: "heroCta",
+      heroTitle: "Title",
+      heroDescription: "Description",
+      heroCta: {
+        text: "Click",
+      },
+    };
+    const errors = [
+      {
+        path: "sections.0.heroCta",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["link"],
+        },
+      },
+    ];
+
+    // Fix heroCta object at path "sections.0.heroCta" - adding missing field
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroCta.text).toBe("Click");
+    expect(result.section.heroCta.link).toBe("");
+  });
+
+  test("returns null if nested path doesn't exist", () => {
+    const section = {
+      componentName: "hero",
+      heroTitle: "Title",
+      heroDescription: "Description",
+    };
+    const errors = [
+      {
+        path: "sections.0.nonexistent.path",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: ["extra"],
+          missingFields: [],
+        },
+      },
+    ];
+
+    // Try to fix at non-existent path
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).toBeNull();
+  });
+
+  test("adds deeply nested field like featureRightImageActions.0.link", () => {
+    const section = {
+      componentName: "features",
+      title: "Features",
+      list: [
+        {
+          name: "Feature 1",
+          featureRightImageActions: [
+            {
+              text: "Click me",
+              // Missing link field
+            },
+          ],
+        },
+      ],
+    };
+    const errors = [
+      {
+        path: "sections.2.list.0",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["featureRightImageActions.0.link"],
+        },
+      },
+    ];
+
+    // Fix list.0 at path "sections.2.list.0"
+    const result = tryAutoFixSection(section, errors, "sections.2", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.list[0].featureRightImageActions[0].text).toBe("Click me");
+    expect(result.section.list[0].featureRightImageActions[0].link).toBe("");
+    expect(result.action).toContain("Added missing fields at sections.2.list.0: featureRightImageActions.0.link");
+  });
+
+  test("adds multiple array items with nested fields (featureRightImageActions)", () => {
+    const section = {
+      componentName: "Layout 1 Column Grid (Center)",
+      oneColumnGridTitle: "Go from Idea to Deployment",
+      list: [
+        {
+          componentName: "Feature Right Image",
+          featureRightImageTitle: "1. Develop with Ease",
+          featureRightImageDescription: "Use blocklet create to scaffold your project",
+          featureRightImageImage: "mediakit://blocklet-devtools-feature.png",
+          featureRightImageActions: [], // Empty array, need to add 2 items with 2 fields each
+        },
+      ],
+    };
+    const errors = [
+      {
+        path: "sections.2.list.0",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: [
+            "featureRightImageActions.0.link",
+            "featureRightImageActions.0.text",
+            "featureRightImageActions.1.link",
+            "featureRightImageActions.1.text",
+          ],
+        },
+      },
+    ];
+
+    // Fix list.0 at path "sections.2.list.0"
+    const result = tryAutoFixSection(section, errors, "sections.2", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+
+    // Check that 2 array items were created
+    expect(result.section.list[0].featureRightImageActions).toHaveLength(2);
+
+    // Check first item
+    expect(result.section.list[0].featureRightImageActions[0].link).toBe("");
+    expect(result.section.list[0].featureRightImageActions[0].text).toBe("");
+
+    // Check second item
+    expect(result.section.list[0].featureRightImageActions[1].link).toBe("");
+    expect(result.section.list[0].featureRightImageActions[1].text).toBe("");
+
+    expect(result.action).toContain("Added missing fields");
+  });
+
+  test("removes deeply nested extra field", () => {
+    const section = {
+      componentName: "features",
+      title: "Features",
+      list: [
+        {
+          name: "Feature 1",
+          featureRightImageActions: [
+            {
+              text: "Click me",
+              link: "/link",
+              extraField: "remove this",
+            },
+          ],
+        },
+      ],
+    };
+    const errors = [
+      {
+        path: "sections.2.list.0.featureRightImageActions.0",
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: ["extraField"],
+          missingFields: [],
+        },
+      },
+    ];
+
+    // Fix featureRightImageActions.0 at path "sections.2.list.0.featureRightImageActions.0"
+    const result = tryAutoFixSection(section, errors, "sections.2", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.list[0].featureRightImageActions[0].text).toBe("Click me");
+    expect(result.section.list[0].featureRightImageActions[0].link).toBe("/link");
+    expect(result.section.list[0].featureRightImageActions[0].extraField).toBeUndefined();
+    expect(result.action).toContain("Removed extra fields at sections.2.list.0.featureRightImageActions.0: extraField");
+  });
+});
+
 describe("tryAutoFixSection - edge cases", () => {
   test("returns null for non-auto-fixable errors", () => {
     const section = {
@@ -610,7 +824,7 @@ describe("tryAutoFixSection - edge cases", () => {
     expect(result).toBeNull();
   });
 
-  test("returns null if validation fails after removal", () => {
+  test("returns failed result if validation fails after removal", () => {
     const section = {
       componentName: "hero",
       heroTitle: "Title",
@@ -631,7 +845,13 @@ describe("tryAutoFixSection - edge cases", () => {
 
     // After removing heroDescription, the section will be invalid because
     // hero component requires both heroTitle and heroDescription
-    expect(result).toBeNull();
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(false);
+    expect(result.action).toContain("Cannot auto-fix");
+    expect(result.action).toContain("UNKNOWN_FIELD_COMBINATION");
+    // The section should still have the attempted fix (heroDescription removed)
+    expect(result.section.heroDescription).toBeUndefined();
+    expect(result.section.heroTitle).toBe("Title");
   });
 
   test("returns null for empty extraFields array", () => {
@@ -652,6 +872,48 @@ describe("tryAutoFixSection - edge cases", () => {
     const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
 
     expect(result).toBeNull();
+  });
+});
+
+describe("extractSectionRootPath", () => {
+  test("extracts root path from simple section path", () => {
+    expect(extractSectionRootPath("sections.0")).toBe("sections.0");
+    expect(extractSectionRootPath("sections.10")).toBe("sections.10");
+  });
+
+  test("extracts root path from nested path", () => {
+    expect(extractSectionRootPath("sections.2.list.0")).toBe("sections.2");
+    expect(extractSectionRootPath("sections.5.heroCta.text")).toBe("sections.5");
+    expect(extractSectionRootPath("sections.10.deeply.nested.path")).toBe("sections.10");
+  });
+
+  test("returns null for non-section paths", () => {
+    expect(extractSectionRootPath("title")).toBeNull();
+    expect(extractSectionRootPath("list.0")).toBeNull();
+    expect(extractSectionRootPath("")).toBeNull();
+  });
+
+  test("returns null for invalid inputs", () => {
+    expect(extractSectionRootPath(null)).toBeNull();
+    expect(extractSectionRootPath(undefined)).toBeNull();
+  });
+});
+
+describe("getSubPathAfterSection", () => {
+  test("returns empty string for simple section path", () => {
+    expect(getSubPathAfterSection("sections.0")).toBe("");
+    expect(getSubPathAfterSection("sections.10")).toBe("");
+  });
+
+  test("extracts sub-path from nested path", () => {
+    expect(getSubPathAfterSection("sections.2.list.0")).toBe("list.0");
+    expect(getSubPathAfterSection("sections.5.heroCta.text")).toBe("heroCta.text");
+    expect(getSubPathAfterSection("sections.10.deeply.nested.path")).toBe("deeply.nested.path");
+  });
+
+  test("returns empty string for non-section paths", () => {
+    expect(getSubPathAfterSection("title")).toBe("");
+    expect(getSubPathAfterSection("list.0")).toBe("");
   });
 });
 
@@ -881,7 +1143,8 @@ describe("replaceSectionByPath", () => {
       ],
     };
 
-    const newSectionYaml = "componentName: hero\nheroTitle: New Title\nheroDescription: New Description";
+    const newSectionYaml =
+      "componentName: hero\nheroTitle: New Title\nheroDescription: New Description";
 
     const result = replaceSectionByPath(parsedData, "sections.0", newSectionYaml);
 

@@ -76,7 +76,7 @@ Identify semantically identical fields with different names and rename them:
 For fields containing `link://` protocol:
 - Replace `link://invalid-link` with the most relevant link from allowedLinks
 - Match based on semantic similarity (e.g., "get-started" matches "getting-started")
-- If no relevant link found, remove the link field (but keep other content in the object)
+- If no relevant link is found, set the link field to an empty string
 
 ## 4. Fix Invalid Media
 

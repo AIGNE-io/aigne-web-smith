@@ -1,9 +1,5 @@
 import { parse, stringify } from "yaml";
 import {
-  buildAllowedLinksFromStructure,
-  buildAllowedMediaFilesFromList,
-} from "../../utils/protocol-utils.mjs";
-import {
   extractComponentName,
   getRequiredFieldsByComponentName,
   getSectionByPath,
@@ -13,7 +9,7 @@ import {
   tryAutoFixSection,
   validateFixedSection,
 } from "../../utils/section-fix-utils.mjs";
-import { formatValidationErrors, getFileName } from "../../utils/utils.mjs";
+import { formatValidationErrors } from "../../utils/utils.mjs";
 import checkDetailResult from "./check-detail-result.mjs";
 
 const MAX_RETRIES = 3;
@@ -113,10 +109,6 @@ export default async function fixDetailCheckErrors(
     };
   }
 
-  // Build allowed links and media files
-  const allowedLinks = buildAllowedLinksFromStructure(websiteStructure, locale, getFileName);
-  const allowedMediaFiles = buildAllowedMediaFilesFromList(mediaFiles);
-
   // Group errors by section
   const { grouped: errorsBySection, globalErrors } = groupErrorsBySection(
     fixableErrors,
@@ -202,21 +194,19 @@ export default async function fixDetailCheckErrors(
         continue;
       }
 
-      console.log("fixDetailCheckErrors", '1');
       // Cannot auto-fix, call AI Agent
       try {
         const sectionYaml = sectionToYaml(section);
         const sectionIndex = Number.parseInt(sectionPath.split(".")[1], 10);
 
         const fixResult = await options.context.invoke(options.context.agents.sectionErrorFixer, {
+          ...input,
           sectionYaml,
           sectionPath,
           sectionIndex,
           errors: sectionErrors,
           componentName,
           requiredFields,
-          allowedLinks: Array.from(allowedLinks),
-          allowedMediaFiles: Array.from(allowedMediaFiles),
           pageContext: {
             meta: currentParsedData.meta || {},
             path: sectionPath,
@@ -257,7 +247,6 @@ export default async function fixDetailCheckErrors(
             retry: retryCount,
             newErrors: validation.errors || [],
           });
-          failedSections.set(sectionPath, validation.errors || sectionErrors);
         }
       } catch (error) {
         fixActions.push({

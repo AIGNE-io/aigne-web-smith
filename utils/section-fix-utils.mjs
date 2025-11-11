@@ -2,6 +2,42 @@ import { parse, stringify } from "yaml";
 import { validateSingleSection } from "./utils.mjs";
 
 /**
+ * Extract section root path from a full path
+ * Examples:
+ * - "sections.0" -> "sections.0"
+ * - "sections.2.list.0" -> "sections.2"
+ * - "sections.10.heroCta.text" -> "sections.10"
+ * @param {string} fullPath - Full path (e.g., "sections.2.list.0")
+ * @returns {string|null} - Section root path (e.g., "sections.2") or null
+ */
+export function extractSectionRootPath(fullPath) {
+  if (!fullPath || typeof fullPath !== "string") {
+    return null;
+  }
+
+  // Match sections.N pattern at the start
+  const match = fullPath.match(/^(sections\.\d+)/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Get the sub-path after section root
+ * Examples:
+ * - "sections.0" -> ""
+ * - "sections.2.list.0" -> "list.0"
+ * - "sections.10.heroCta.text" -> "heroCta.text"
+ * @param {string} fullPath - Full path
+ * @returns {string} - Sub-path after section root, empty string if none
+ */
+export function getSubPathAfterSection(fullPath) {
+  const rootPath = extractSectionRootPath(fullPath);
+  if (!rootPath || fullPath === rootPath) {
+    return "";
+  }
+  return fullPath.slice(rootPath.length + 1); // +1 to skip the dot
+}
+
+/**
  * Extract section path root from error path (e.g., "sections.0")
  * @param {string} errorPath - The error path
  * @param {Object} error - The error object (optional, needed for internal_links/media_resources)
@@ -476,13 +512,13 @@ function removeFieldsFromSection(section, fieldsToRemove) {
 
 /**
  * Attempt to auto-fix section errors without AI
- * Handles:
- * 1. Removing extra fields
- * 2. Adding missing fields with empty string values
- * 3. Both removing and adding fields
- * @param {Object} section - Section object
- * @param {Array} errors - Array of errors
- * @param {string} sectionPath - Section path
+ * Handles nested paths by:
+ * 1. Grouping errors by their full path (from error.path field)
+ * 2. Extracting and fixing the target object at each nested path
+ * 3. Validating the entire section after fixes (if no nested paths)
+ * @param {Object} section - Section object (root section)
+ * @param {Array} errors - Array of errors (each error must have a path field)
+ * @param {string} sectionPath - Section root path (e.g., "sections.2")
  * @param {Array} componentLibrary - Component library
  * @returns {Object|null} - { fixed: boolean, section: Object, action: string } or null if cannot auto-fix
  */
@@ -491,31 +527,98 @@ export function tryAutoFixSection(section, errors, sectionPath, componentLibrary
     return null;
   }
 
-  let fixedSection = { ...section };
+  // Deep clone to avoid mutating original
+  let fixedSection = JSON.parse(JSON.stringify(section));
   const actions = [];
 
-  // Handle UNKNOWN_FIELD_COMBINATION errors
-  const fieldCombinationErrors = errors.filter((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
-  for (const error of fieldCombinationErrors) {
-    // Remove extra fields
-    const extraFields = extractExtraFields(error);
-    if (extraFields.length > 0) {
-      fixedSection = removeFieldsFromSection(fixedSection, extraFields);
-      actions.push(`Removed extra fields: ${extraFields.join(", ")}`);
+  // Group errors by their full path to handle nested paths
+  const errorsByPath = new Map();
+  for (const error of errors) {
+    const fullPath = error.path || sectionPath;
+    if (!errorsByPath.has(fullPath)) {
+      errorsByPath.set(fullPath, []);
+    }
+    errorsByPath.get(fullPath).push(error);
+  }
+
+  // Process each path group
+  for (const [fullPath, pathErrors] of errorsByPath.entries()) {
+    // Get the sub-path after section root (e.g., "list.0" from "sections.2.list.0")
+    const subPath = getSubPathAfterSection(fullPath);
+
+    // Get the target object to fix
+    // If subPath is empty, target is the section itself
+    // Otherwise, navigate to the nested object
+    let targetObject = fixedSection;
+    let parentObject = null;
+    let lastKey = null;
+
+    if (subPath) {
+      const subParts = subPath.split(".");
+      for (let i = 0; i < subParts.length - 1; i++) {
+        targetObject = targetObject[subParts[i]];
+        if (!targetObject) {
+          return null; // Path doesn't exist
+        }
+      }
+      parentObject = targetObject;
+      lastKey = subParts[subParts.length - 1];
+      targetObject = targetObject[lastKey];
+
+      if (!targetObject || typeof targetObject !== "object") {
+        return null; // Target is not an object
+      }
     }
 
-    // Add missing fields with empty values
-    const missingFields = extractMissingFields(error);
-    if (missingFields.length > 0) {
-      fixedSection = addFieldsToSection(fixedSection, missingFields);
-      actions.push(`Added missing fields: ${missingFields.join(", ")}`);
+    // Handle UNKNOWN_FIELD_COMBINATION errors for this path
+    const fieldCombinationErrors = pathErrors.filter((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
+    for (const error of fieldCombinationErrors) {
+      // Remove extra fields from target object
+      const extraFields = extractExtraFields(error);
+      if (extraFields.length > 0) {
+        targetObject = removeFieldsFromSection(targetObject, extraFields);
+        actions.push(`Removed extra fields at ${fullPath}: ${extraFields.join(", ")}`);
+      }
+
+      // Add missing fields to target object
+      const missingFields = extractMissingFields(error);
+      if (missingFields.length > 0) {
+        targetObject = addFieldsToSection(targetObject, missingFields);
+        actions.push(`Added missing fields at ${fullPath}: ${missingFields.join(", ")}`);
+      }
+    }
+
+    // Update the fixed section with the modified target object
+    if (subPath && parentObject && lastKey) {
+      parentObject[lastKey] = targetObject;
+    } else {
+      fixedSection = targetObject;
     }
   }
 
-  // Validate the fixed section
+  // Check if any error has nested path
+  const hasNestedPath = errors.some((error) => {
+    const fullPath = error.path || sectionPath;
+    return getSubPathAfterSection(fullPath) !== "";
+  });
+
+  // For nested paths, we don't validate because:
+  // 1. We only fixed a sub-object, not the entire section
+  // 2. Validation would try to validate the sub-object as if it were a complete section
+  // 3. The caller should validate the entire section after all fixes
+  if (hasNestedPath) {
+    return {
+      fixed: true,
+      section: fixedSection,
+      action: `Auto-fixed: ${actions.join("; ")}`,
+    };
+  }
+
+  // Only validate when fixing the root section (no sub-path)
+  const rootPath = extractSectionRootPath(sectionPath);
   const validation = validateSingleSection({
     section: fixedSection,
-    sectionPath,
+    sectionPath: rootPath || sectionPath,
     componentLibrary,
   });
 
@@ -528,5 +631,9 @@ export function tryAutoFixSection(section, errors, sectionPath, componentLibrary
   }
 
   // If still has errors after fixing, cannot auto-fix
-  return null;
+  return {
+    fixed: false,
+    section: fixedSection,
+    action: `Cannot auto-fix: ${validation.validationFeedback}`,
+  };
 }

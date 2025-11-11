@@ -1,74 +1,150 @@
 # 准备您的内容
 
-AIGNE WebSmith 使用人工智能来构建您的网站，但其输出质量直接取决于您所提供信息的质量。事先准备好您的内容并明确您的目标，是确保 AI 生成一个专业、准确、有效且满足您需求的网站最关键的一步。
+要想通过 AIGNE WebSmith 获得最佳效果，提供合适的源材料是最关键的一步。您网站的质量和相关性直接取决于您提供给 AI 的信息。本指南将详细说明在开始之前需要准备什么。
 
-本指南概述了在您开始之前应准备好的基本信息和资产。系统化的内容准备方法将简化生成过程，并产出更卓越的结果。
+在开始生成网站之前，收集所有描述您的项目、产品或业务的相关文档至关重要。AI 仅使用您提供的文件作为其知识库。高质量、全面的源材料将生成一个专业且准确的网站，而稀疏或不相关的内容将导致网站内容空泛且效果不佳。
 
-## 1. 收集您的源文档
+要深入了解如何构建您的知识以获得最佳结果，请参阅我们的[方法论](./guides.md)指南。
 
-AI 将根据您在源文档中提供的文本和信息来构建您的网站页面。这些是您网站内容的原始素材。
+```d2
+direction: down
 
-### 包含哪些内容
+User: {
+  shape: c4-person
+}
 
-收集任何描述您业务、产品或服务的现有文档。您的源文件越详细、组织得越好，效果就越好。好的源文件包括：
-*   商业计划书或执行摘要
-*   产品描述和规格表
-*   营销手册或传单
-*   公司的“关于我们”页面或使命宣言
-*   常见问题（FAQs）及其答案
-*   您撰写的文章或博客文章
+Source-Content: {
+  label: "源内容目录"
+  shape: rectangle
+  grid-columns: 2
 
-### 文件格式
+  Product-Documents: {
+    label: "产品文档\n(.md, .pdf, .docx)"
+  }
 
-*   **使用简单格式：** 纯文本（`.txt`）或 Markdown（`.md`）文件是理想选择。系统也可以处理其他常见的文档类型。
-*   **组织您的内容：** 在您的计算机上创建一个专用的独立文件夹来存放所有源文件。这样可以保持所有内容井然有序，并方便将 AIGNE CLI 指向正确的位置。
-*   **使用清晰的文件名：** 为您的文件使用描述性的名称（例如，`product-features.txt`、`company-history.md`）。这有助于您和 AI 理解每个文件的用途。
+  Marketing-Plans: {
+    label: "营销计划\n(.md, .pdf)"
+  }
 
-## 2. 收集媒体资产（图片和视频）
+  Business-Plans: {
+    label: "商业计划\n(.docx, .md)"
+  }
 
-视觉元素对于专业网站至关重要。AIGNE WebSmith 可以将您的图片和视频整合到生成的设计中。
+  Media-Assets: {
+    label: "媒体资产\n(.svg, .png)"
+  }
+}
 
-### 图片质量
+Websmith-Config: {
+  label: "websmith-config.yaml"
+  shape: rectangle
+}
 
-高质量的图片对于现代网站至关重要。低分辨率的照片会显得像素化且不专业，尤其是在大屏幕上。
-*   **最小宽度：** 确保您的图片最小宽度为 **800 像素**。系统会自动过滤掉较小的图片以保持质量。
-*   **相关性：** 选择与您的内容直接相关的图片。
-*   **文件命名：** 与文档一样，使用描述性的文件名（例如，`team-photo-2023.jpg` 而不是 `IMG_4812.JPG`）。
+AIGNE-WebSmith: {
+  label: "AIGNE WebSmith"
+  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+}
 
-### 媒体组织
+Generated-Website: {
+  label: "生成的网站"
+  shape: rectangle
+}
 
-将您所有最终的高质量图片和视频放入主源内容文件夹内的一个子文件夹中。通常可以将其命名为 `assets` 或 `media`。
-
-## 3. （可选）创建术语表以确保一致性
-
-为确保 AI 在整个网站中正确且一致地使用特定术语、品牌名称和缩略词，您可以提供一个术语表文件。如果您的行业有专业术语，这一点尤其有用。
-
-术语表是一个简单的文本文件，其中每一行定义一个术语。
-
-**术语表示例文件 (`glossary.txt`)**
+User -> Source-Content: "1. 准备并组织内容"
+User -> Websmith-Config: "2. 定义 sourcesPath"
+Websmith-Config -> AIGNE-WebSmith: "3. 提供配置"
+Source-Content -> AIGNE-WebSmith: "4. 读取源材料"
+AIGNE-WebSmith -> Generated-Website: "5. 生成网站"
 
 ```
-AIGNE：是 Artificial Intelligence General-purpose Networked Entity 的缩写。
-WebSmith：AI 网站生成工具的官方名称。
-Pages Kit：用于发布网站的平台。
+
+## `sourcesPath` 的作用
+
+在您的配置文件中，`sourcesPath` 参数告诉 AIGNE WebSmith 在哪里找到您的内容。您可以指定一个或多个目录，AI 将递归读取其中的文件，以了解您网站的主题。
+
+这是决定您生成网站质量最重要的一项设置。
+
+以下是 `websmith-config.yaml` 文件中如何定义 `sourcesPath` 的基本示例：
+
+```yaml websmith-config.yaml icon=lucide:file-code
+# 包含您源材料的目录。
+sourcesPath:
+  - ./docs
+  - ./product-briefs
+# 其他配置细节如下...
+pagePurpose: "To create a marketing website for a new SaaS product."
+targetAudienceTypes: "Potential customers, developers, and investors."
 ```
 
-此步骤可确保品牌一致性，并减少后续手动修正的需求。
+在此示例中，WebSmith 将使用 `./docs` 和 `./product-briefs` 目录中的所有支持文件作为生成网站的上下文。
 
-## 摘要清单
+## 源内容中应包含什么
 
-在进行下一步之前，请核实您已完成以下准备工作：
+要构建一个有效的网站，AI 需要清晰地了解您的目标。您的源内容应全面涵盖您的项目或业务的关键方面。
 
-| 任务 | 描述 |
-| :--- | :--- |
-| **收集源文档** | 所有相关文本文档都收集在一个有组织的独立文件夹中。 |
-| **收集媒体资产** | 所有图片均为高分辨率（最小宽度 800 像素）并存储在子文件夹中。 |
-| **创建术语表** | （可选）您已为关键术语和品牌名称创建了术语表文件。 |
+### 推荐的内容类型
 
-一旦您准备好内容，就可以开始创建您的第一个网站了。
+提供一系列详细说明您项目的文档。您的信息越详尽，AI 就越能创建出符合您愿景的内容。
 
----
+| 内容类型 | 描述 | 示例 |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+| **产品文档** | 对您的产品或服务的详细描述，包括其功能、优点和技术规格。 | `Product-Brief.md`、`Technical-Specifications.pdf`、`Feature-List.docx` |
+| **营销计划** | 关于您的目标受众、品牌基调、关键信息和竞争分析的信息。 | `Marketing-Strategy.md`、`Brand-Guidelines.pdf`、`Competitor-Analysis.pptx` |
+| **商业计划** | 对您的业务目标、使命、愿景和公司历史的宏观概述。 | `Business-Plan-Q3.docx`、`Company-Overview.md` |
+| **现有内容** | 任何已有的文章、博客文章或文档，可用于重新调整用途或作为风格和语气的参考。 | `Blog-Posts/`、`FAQ.md`、`About-Us.txt` |
+| **媒体文件** | 应包含在网站上的图像、徽标和其他视觉资产。确保它们的质量足以在网页上显示。 | `assets/logo.png`、`images/product-screenshot.jpg` |
 
-内容准备就绪后，您现在可以进入下一步。
+### 支持的文件格式
 
-- **下一步：** [您的第一个网站](./getting-started-your-first-website.md)
+AIGNE WebSmith 支持多种常见的文本内容和媒体资产文件格式。
+
+| 类别 | 支持的格式 |
+| :------------ | :----------------------------------------------------------------------------------- |
+| **文本** | `.md`、`.txt`、`.html`、`.json`、`.yaml`、`.xml` |
+| **文档** | `.pdf`、`.doc`、`.docx`、`.xls`、`.xlsx`、`.ppt`、`.pptx` |
+| **图像** | `.jpg`、`.jpeg`、`.png`、`.gif`、`.svg`、`.webp` |
+| **代码** | `.js`、`.ts`、`.py`、`.go`、`.rs`、`.java` 以及其他常见的编程语言文件 |
+
+## 如何组织您的内容目录
+
+一个组织良好的目录结构有助于您和 AI 有效地管理源材料。虽然对文件夹结构没有严格要求，但建议采用逻辑化的组织方式。
+
+考虑按用途对文件进行分组。这使得管理 `sourcesPath` 配置和理解正在使用的信息变得更加容易。
+
+以下是一个结构良好的内容目录示例：
+
+```sh project-sources/ icon=lucide:folder-tree
+project-sources/
+├── 01-business-plan/
+│   ├── company-overview.md
+│   └── mission-and-vision.txt
+├── 02-product-docs/
+│   ├── feature-list.md
+│   └── technical-specifications.pdf
+├── 03-marketing-materials/
+│   ├── brand-guidelines.pdf
+│   └── target-audience-profile.docx
+└── 04-media-assets/
+    ├── logo.svg
+    └── product-screenshot.png
+```
+
+然后，您可以将 `sourcesPath` 配置为指向根目录：
+
+```yaml websmith-config.yaml icon=lucide:file-code
+sourcesPath:
+  - ./project-sources
+# 其他配置...
+```
+
+## 总结
+
+准备内容是使用 AIGNE WebSmith 创建高质量网站的基础步骤。通过收集全面的源材料并使用 `sourcesPath` 正确指向它们，您为 AI 提供了生成准确、相关且专业的网页所需的上下文。
+
+内容准备就绪后，您现在可以创建配置文件并生成您的第一个网站了。
+
+<x-cards>
+<x-card data-title="您的第一个网站" data-icon="lucide:rocket" data-href="/getting-started/your-first-website">
+进入下一步，创建您的配置并生成您的网站。
+</x-card>
+</x-cards>

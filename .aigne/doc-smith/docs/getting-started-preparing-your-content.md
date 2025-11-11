@@ -1,74 +1,150 @@
 # Preparing Your Content
 
-AIGNE WebSmith uses Artificial Intelligence to build your website, but the quality of its output is directly dependent on the quality of the information you provide. Preparing your content and clarifying your goals beforehand is the most critical step to ensure the AI generates a professional, accurate, and effective website that meets your needs.
+To get the best results from AIGNE WebSmith, providing the right source material is the most critical step. The quality and relevance of your website depend directly on the information you provide to the AI. This guide outlines exactly what to prepare before you begin.
 
-This guide outlines the essential information and assets you should have ready before you begin. A systematic approach to content preparation will streamline the generation process and yield superior results.
+Before you start generating your website, it's essential to gather all the relevant documents that describe your project, product, or business. The AI uses only the files you provide as its knowledge base. High-quality, comprehensive source material will result in a professional and accurate website, while sparse or irrelevant content will lead to a generic and less effective site.
 
-## 1. Gather Your Source Documents
+For a deeper dive into structuring your knowledge for the best outcomes, refer to our [Methodology](./guides.md) guide.
 
-The AI will build your website's pages based on the text and information you provide in source documents. These are the raw materials for your website's content.
+```d2
+direction: down
 
-### What to Include
+User: {
+  shape: c4-person
+}
 
-Collect any existing documents that describe your business, product, or service. The more detailed and well-organized your source files are, the better. Good source files include:
-*   Business plans or executive summaries
-*   Product descriptions and specification sheets
-*   Marketing brochures or flyers
-*   Company "About Us" pages or mission statements
-*   Frequently Asked Questions (FAQs) and their answers
-*   Articles or blog posts you have written
+Source-Content: {
+  label: "Source Content Directory"
+  shape: rectangle
+  grid-columns: 2
 
-### File Formatting
+  Product-Documents: {
+    label: "Product Docs\n(.md, .pdf, .docx)"
+  }
 
-*   **Use simple formats:** Plain text (`.txt`) or Markdown (`.md`) files are ideal. The system can also process other common document types.
-*   **Organize your content:** Create a single, dedicated folder on your computer to hold all your source files. This keeps everything organized and makes it easy to point the AIGNE CLI to the correct location.
-*   **Use clear file names:** Name your files descriptively (e.g., `product-features.txt`, `company-history.md`). This helps both you and the AI understand the purpose of each file.
+  Marketing-Plans: {
+    label: "Marketing Plans\n(.md, .pdf)"
+  }
 
-## 2. Collect Media Assets (Images and Videos)
+  Business-Plans: {
+    label: "Business Plans\n(.docx, .md)"
+  }
 
-Visuals are essential for a professional website. AIGNE WebSmith can incorporate your images and videos into the generated design.
+  Media-Assets: {
+    label: "Media Assets\n(.svg, .png)"
+  }
+}
 
-### Image Quality
+Websmith-Config: {
+  label: "websmith-config.yaml"
+  shape: rectangle
+}
 
-High-quality images are crucial for a modern website. Low-resolution photos will appear pixelated and unprofessional, especially on large screens.
-*   **Minimum Width:** Ensure your images have a minimum width of **800 pixels**. The system will automatically filter out smaller images to maintain quality.
-*   **Relevance:** Choose images that are directly relevant to your content.
-*   **File Naming:** Just like with documents, use descriptive file names (e.g., `team-photo-2023.jpg` instead of `IMG_4812.JPG`).
+AIGNE-WebSmith: {
+  label: "AIGNE WebSmith"
+  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+}
 
-### Media Organization
+Generated-Website: {
+  label: "Generated Website"
+  shape: rectangle
+}
 
-Place all your final, high-quality images and videos into a subfolder within your main source content folder. A common name for this is `assets` or `media`.
-
-## 3. (Optional) Create a Glossary for Consistency
-
-To ensure the AI uses specific terms, brand names, and acronyms correctly and consistently across the entire website, you can provide a glossary file. This is particularly useful if your industry has specialized terminology.
-
-A glossary is a simple text file where each line defines a term.
-
-**Example Glossary File (`glossary.txt`)**
+User -> Source-Content: "1. Prepares & organizes content"
+User -> Websmith-Config: "2. Defines sourcesPath"
+Websmith-Config -> AIGNE-WebSmith: "3. Provides configuration"
+Source-Content -> AIGNE-WebSmith: "4. Reads source material"
+AIGNE-WebSmith -> Generated-Website: "5. Generates website"
 
 ```
-AIGNE: Stands for Artificial Intelligence General-purpose Networked Entity.
-WebSmith: The official name of the AI website generation tool.
-Pages Kit: The platform where websites are published.
+
+## The Role of `sourcesPath`
+
+In your configuration file, the `sourcesPath` parameter tells AIGNE WebSmith where to find your content. You can specify one or more directories, and the AI will recursively read the files within them to understand what your website should be about.
+
+This is the single most important setting for determining the quality of your generated website.
+
+Here is a basic example of how `sourcesPath` is defined in the `websmith-config.yaml` file:
+
+```yaml websmith-config.yaml icon=lucide:file-code
+# The directory containing your source material.
+sourcesPath:
+  - ./docs
+  - ./product-briefs
+# Other configuration details follow...
+pagePurpose: "To create a marketing website for a new SaaS product."
+targetAudienceTypes: "Potential customers, developers, and investors."
 ```
 
-This step ensures brand consistency and reduces the need for manual corrections later.
+In this example, WebSmith will use all supported files within the `./docs` and `./product-briefs` directories as the context for generating the website.
 
-## Summary Checklist
+## What to Include in Your Source Content
 
-Before proceeding to the next step, verify that you have completed the following preparations:
+To build an effective website, the AI needs a clear understanding of your objectives. Your source content should comprehensively cover the key aspects of your project or business.
 
-| Task | Description |
-| :--- | :--- |
-| **Gather Source Documents** | All relevant text documents are collected in a single, organized folder. |
-| **Collect Media Assets** | All images are high-resolution (min. 800px wide) and stored in a subfolder. |
-| **Create Glossary** | (Optional) You have created a glossary file for key terms and brand names. |
+### Recommended Content Types
 
-Once you have prepared your content, you are ready to create your first website.
+Provide a collection of documents that detail your project. The more thorough your information, the better the AI can create content that aligns with your vision.
 
----
+| Content Type          | Description                                                                                                                              | Example                                                                       |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+| **Product Documents** | Detailed descriptions of your product or service, its features, benefits, and technical specifications.                                  | `Product-Brief.md`, `Technical-Specifications.pdf`, `Feature-List.docx`       |
+| **Marketing Plans**   | Information about your target audience, brand voice, key messaging, and competitive analysis.                                            | `Marketing-Strategy.md`, `Brand-Guidelines.pdf`, `Competitor-Analysis.pptx`   |
+| **Business Plans**    | High-level overviews of your business goals, mission, vision, and company history.                                                       | `Business-Plan-Q3.docx`, `Company-Overview.md`                                |
+| **Existing Content**  | Any pre-existing articles, blog posts, or documentation that can be repurposed or used as a reference for style and tone.                | `Blog-Posts/`, `FAQ.md`, `About-Us.txt`                                       |
+| **Media Files**       | Images, logos, and other visual assets that should be included on the website. Ensure they are of sufficient quality for web display.     | `assets/logo.png`, `images/product-screenshot.jpg`                            |
 
-With your content prepared, you can now move on to the next step.
+### Supported File Formats
 
-- **Next:** [Your First Website](./getting-started-your-first-website.md)
+AIGNE WebSmith supports a wide range of common file formats for both text-based content and media assets.
+
+| Category      | Supported Formats                                                                    |
+| :------------ | :----------------------------------------------------------------------------------- |
+| **Text**      | `.md`, `.txt`, `.html`, `.json`, `.yaml`, `.xml`                                       |
+| **Documents** | `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`                              |
+| **Images**    | `.jpg`, `.jpeg`, `.png`, `.gif`, `.svg`, `.webp`                                       |
+| **Code**      | `.js`, `.ts`, `.py`, `.go`, `.rs`, `.java`, and other common programming language files |
+
+## How to Structure Your Content Directory
+
+A well-organized directory structure helps both you and the AI manage the source material effectively. There is no strict requirement for folder structure, but a logical organization is recommended.
+
+Consider grouping your files by their purpose. This makes it easier to manage your `sourcesPath` configuration and understand what information is being used.
+
+Here is an example of a well-structured content directory:
+
+```sh project-sources/ icon=lucide:folder-tree
+project-sources/
+├── 01-business-plan/
+│   ├── company-overview.md
+│   └── mission-and-vision.txt
+├── 02-product-docs/
+│   ├── feature-list.md
+│   └── technical-specifications.pdf
+├── 03-marketing-materials/
+│   ├── brand-guidelines.pdf
+│   └── target-audience-profile.docx
+└── 04-media-assets/
+    ├── logo.svg
+    └── product-screenshot.png
+```
+
+You can then configure your `sourcesPath` to point to the root directory:
+
+```yaml websmith-config.yaml icon=lucide:file-code
+sourcesPath:
+  - ./project-sources
+# Other configuration...
+```
+
+## Summary
+
+Preparing your content is a foundational step for creating a high-quality website with AIGNE WebSmith. By gathering comprehensive source materials and pointing to them correctly using `sourcesPath`, you provide the AI with the necessary context to generate accurate, relevant, and professional web pages.
+
+With your content prepared, you are now ready to create your configuration file and generate your first website.
+
+<x-cards>
+<x-card data-title="Your First Website" data-icon="lucide:rocket" data-href="/getting-started/your-first-website">
+Proceed to the next step to create your configuration and generate your website.
+</x-card>
+</x-cards>

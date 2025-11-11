@@ -2,44 +2,41 @@
 
 Before you can begin generating websites with AIGNE WebSmith, you must first install the AIGNE Command Line Interface (CLI). This tool provides the necessary commands to interact with the WebSmith framework. This section provides a step-by-step guide to the installation process.
 
-## Prerequisites
+## System Requirements
 
-To install and run the AIGNE CLI, your development environment must meet the following requirement:
+*   **Node.js >=20**: AIGNE WebSmith requires Node.js version 20 or higher
+*   **npm**: npm (Node Package Manager) is installed automatically with Node.js
 
-*   **Node.js and npm**: The AIGNE CLI is distributed as an npm package, which requires Node.js. If you do not have Node.js installed, please download and install it from the [official Node.js website](https://nodejs.org/). Installing Node.js will also install npm (Node Package Manager).
+If you do not have Node.js installed, please download and install it from the [official Node.js website](https://nodejs.org/).
 
-## Installing the AIGNE CLI
+## Installation
 
-The recommended method for installation is to install the CLI globally. This makes the `aigne` command accessible from any directory in your terminal.
-
-To perform a global installation, run the following command in your terminal:
+Run the following command in your terminal:
 
 ```bash
 npm install -g @aigne/cli
 ```
 
-### Installing the Beta Version
+## Advanced Installation Options
 
-For users who wish to test the latest features, a beta version is available. To install the beta version, you must first install the beta package and then run the upgrade command.
+### Beta Version
 
-Execute the following commands in your terminal:
+To install the beta version for testing the latest features:
 
 ```bash
 npm install -g @aigne/cli@beta
 aigne web upgrade --beta
 ```
 
-### Alternative: Local Installation
+### Local Installation
 
-Alternatively, you can install the AIGNE CLI as a local dependency within a specific project. This is suitable if you prefer to manage dependencies on a per-project basis.
-
-To install locally, navigate to your project's root directory and run:
+To install the CLI as a project dependency:
 
 ```bash
 npm install @aigne/cli
 ```
 
-When installed locally, you will need to use `npx aigne ...` or configure an npm script to run the commands.
+When installed locally, use `npx aigne ...` to run commands.
 
 ## Next Steps
 

@@ -6,7 +6,7 @@
 
 ## 更新流程
 
-內容更新是透過 `web update` 指令來啟動。此流程是互動式的，讓您能夠以自然語言向 AI Agent 提供回饋，接著 AI Agent 會智慧地修改頁面結構。
+內容更新是透過 `aigne web update` 指令來啟動。此流程是互動式的，讓您能夠以自然語言向 AI Agent 提供回饋，接著 AI Agent 會智慧地修改頁面結構。
 
 ```bash Command icon=lucide:terminal
 aigne web update

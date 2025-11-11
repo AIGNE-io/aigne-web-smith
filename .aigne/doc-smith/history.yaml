@@ -1,4 +1,29 @@
 entries:
+  - timestamp: 2025-11-11T15:55:29.705Z
+    operation: document_update
+    feedback: 应该新增一个指向guides的入口
+    docPaths:
+      - /getting-started/preparing-your-content
+  - timestamp: 2025-11-11T15:40:25.458Z
+    operation: document_update
+    feedback: 管理组件需要改为使用自定义组件库; 还需要新增方法论
+    docPaths:
+      - /advanced-features
+  - timestamp: 2025-11-11T14:53:13.842Z
+    operation: structure_update
+    feedback: Guides 可以换下名称,这个太过常态
+  - timestamp: 2025-11-11T14:46:37.276Z
+    operation: structure_update
+    feedback: 单独一个Guides是不是不合适不能作为二级内容吗
+  - timestamp: 2025-11-11T14:44:04.217Z
+    operation: structure_update
+    feedback: 新增如何准备 dataSource或者是如何产出高质量的page的方法, 可以考虑放到Preparing Your Content或者单独一个模块整页描述
+  - timestamp: 2025-11-11T14:37:52.050Z
+    operation: structure_update
+    feedback: Publish to a new dedicated website 应该包括两张图片
+  - timestamp: 2025-11-11T14:35:29.138Z
+    operation: structure_update
+    feedback: 新增如何准备 dataSource或者是如何产出高质量的page的方法
   - timestamp: 2025-11-07T07:16:08.983Z
     operation: document_update
     feedback: all "Content Source" changes "Data Sources" to be more uniform

@@ -45,10 +45,10 @@ skills:
       properties:
         projectName:
           type: string
-          description: Project name analyzed from datasources, should be the original project name
+          description: Project name analyzed from datasources, should be the original project name; trim leading/trailing spaces; if over 40 chars, shorten naturally without changing meaning.
         projectDesc:
           type: string
-          description: Project description generated from datasources analysis, concise description under 50 words
+          description: Project description analyzed from datasources, should reflect the original content; trim spaces; if over 160 chars, rephrase or shorten naturally while keeping key information.
         projectCoverPrompt:
           type: string
           description: |

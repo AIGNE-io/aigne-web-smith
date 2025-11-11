@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-10T07:39:38.259Z
+  updateAt: 2025-11-11T01:07:07.598Z
 atomic:
   - name: Action
     componentId: a44r0SiGV9AFn2Fj
@@ -218,7 +218,7 @@ composite:
                   text: <%= splitHeroWithBgColorDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
       audjmmetqzd1hm3k:
         properties:
@@ -628,7 +628,7 @@ composite:
                   text: <%= verticalHeroDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
       fi1a52drgfljqlzs:
         properties:
@@ -879,7 +879,7 @@ composite:
                   text: <%= centralHeroDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
           gs1rn5jmxfvpxptx:
             value:
@@ -970,6 +970,10 @@ composite:
       - list.1
       - list.2
       - list.3
+      - list.4
+      - list.5
+      - list.6
+      - list.7
       - oneColumnGridTitle
     section:
       id: khfke01rvdw8942t
@@ -1047,11 +1051,75 @@ composite:
                 paddingY: custom:32px
                 gridSettings:
                   desktop: {}
+            ywl8rjk5yfvu46ii:
+              id: ywl8rjk5yfvu46ii
+              name: <%= list.4 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                background: background.paper
+                border: solid
+                borderRadius: medium
+                gap: large
+                paddingX: custom:32px
+                paddingY: custom:32px
+                gridSettings:
+                  desktop: {}
+            6glgvjj0v96hkgks:
+              id: 6glgvjj0v96hkgks
+              name: <%= list.5 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                background: background.paper
+                border: solid
+                borderRadius: medium
+                gap: large
+                paddingX: custom:32px
+                paddingY: custom:32px
+                gridSettings:
+                  desktop: {}
+            vo9u6y2mga2wpian:
+              id: vo9u6y2mga2wpian
+              name: <%= list.6 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                background: background.paper
+                border: solid
+                borderRadius: medium
+                gap: large
+                paddingX: custom:32px
+                paddingY: custom:32px
+                gridSettings:
+                  desktop: {}
+            bu7h3s2m4pelwa7k:
+              id: bu7h3s2m4pelwa7k
+              name: <%= list.7 %>
+              component: layout-block
+              sections: {}
+              sectionIds: []
+              config:
+                background: background.paper
+                border: solid
+                borderRadius: medium
+                gap: large
+                paddingX: custom:32px
+                paddingY: custom:32px
+                gridSettings:
+                  desktop: {}
           sectionIds:
             - 3sf2bnw0o5buubpv
             - sm3mqjtcjqlk0q67
             - 9vanw79uwprb0kj3
             - ujh5fvt5kt2uhx47
+            - ywl8rjk5yfvu46ii
+            - 6glgvjj0v96hkgks
+            - vo9u6y2mga2wpian
+            - bu7h3s2m4pelwa7k
           config:
             gridSettings:
               desktop:
@@ -1100,6 +1168,10 @@ composite:
       sm3mqjtcjqlk0q67: {}
       9vanw79uwprb0kj3: {}
       ujh5fvt5kt2uhx47: {}
+      ywl8rjk5yfvu46ii: {}
+      6glgvjj0v96hkgks: {}
+      vo9u6y2mga2wpian: {}
+      bu7h3s2m4pelwa7k: {}
   - id: 3l57j5saa9958a9u
     name: Layout 2 Column Grid (Center)
     summary: >-
@@ -2092,7 +2164,7 @@ composite:
                   text: <%= ctaWithBgDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
           gs1rn5jmxfvpxptx:
             value:
@@ -2227,7 +2299,7 @@ composite:
                   text: <%= ctaDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
           gs1rn5jmxfvpxptx:
             value:
@@ -2385,7 +2457,7 @@ composite:
                   text: <%= featureRightImageDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
           gs1rn5jmxfvpxptx:
             value:
@@ -2562,7 +2634,7 @@ composite:
                   text: <%= featureLeftImageDescription %>
                   style:
                     color: ""
-                    fontSize: 20px
+                    fontSize: '{ "xs": 18, "md": 20}'
                     variant: body1
           gs1rn5jmxfvpxptx:
             value:
@@ -2771,8 +2843,8 @@ composite:
 
       - `title` should only contain the executed command
     fieldCombinations:
-      - terminalLeft.actionLink
       - terminalPlaybackData
+      - terminalRight.actionLink
       - terminalRight.actionTitle
       - terminalRight.description
       - terminalRight.title
@@ -2907,7 +2979,7 @@ composite:
               - id: btn-default-1
                 type: link
                 text: <%= terminalRight.actionTitle %>
-                url: <%= terminalLeft.actionLink %>
+                url: <%= terminalRight.actionLink %>
                 variant: text
                 size: medium
                 target: auto

@@ -29,12 +29,7 @@ const UNFIXABLE_ERROR_CODES = new Set([
   "INVALID_SECTION_TYPE",
 ]);
 
-export default async function fixDetailCheckErrors(
-  {
-    ...input
-  },
-  options,
-) {
+export default async function fixDetailCheckErrors({ ...input }, options) {
   const {
     websiteStructure,
     reviewContent,

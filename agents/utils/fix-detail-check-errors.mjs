@@ -10,6 +10,7 @@ import {
   groupErrorsBySection,
   replaceSectionByPath,
   sectionToYaml,
+  tryAutoFixSection,
   validateFixedSection,
 } from "../../utils/section-fix-utils.mjs";
 import { formatValidationErrors, getFileName } from "../../utils/utils.mjs";
@@ -48,13 +49,13 @@ export default async function fixDetailCheckErrors(
     isApproved: input.isApproved,
     detailFeedback: input.detailFeedback,
     errors: input.errors,
-  }
+  };
 
   // If already approved, return immediately
   if (validationResult.isApproved) {
     return {
       isApproved: true,
-      fixedContent: reviewContent,
+      reviewContent,
       fixActions: [],
       unfixableErrors: [],
       remainingErrors: [],
@@ -69,7 +70,7 @@ export default async function fixDetailCheckErrors(
   } catch (error) {
     return {
       isApproved: false,
-      fixedContent: reviewContent,
+      reviewContent,
       fixActions: [],
       unfixableErrors: [
         {
@@ -101,7 +102,7 @@ export default async function fixDetailCheckErrors(
   if (fixableErrors.length === 0) {
     return {
       isApproved: false,
-      fixedContent: reviewContent,
+      reviewContent,
       fixActions: [],
       unfixableErrors,
       remainingErrors: errors,
@@ -171,7 +172,35 @@ export default async function fixDetailCheckErrors(
         continue;
       }
 
-      // Call AI Agent to fix
+      // Try auto-fix first (program-based, no AI)
+      const autoFixResult = tryAutoFixSection(
+        section,
+        sectionErrors,
+        sectionPath,
+        componentLibrary,
+      );
+
+      if (autoFixResult?.fixed) {
+        // Auto-fix succeeded
+        const fixedSectionYaml = sectionToYaml(autoFixResult.section);
+        currentParsedData = replaceSectionByPath(currentParsedData, sectionPath, fixedSectionYaml);
+
+        fixActions.push({
+          sectionPath,
+          errorCodes: sectionErrors.map((e) => e.code),
+          action: autoFixResult.action,
+          success: true,
+          retry: retryCount,
+          method: "auto",
+        });
+
+        // Remove from error group
+        errorsBySection.delete(sectionPath);
+        continue;
+      }
+
+      console.log("fixDetailCheckErrors", '1');
+      // Cannot auto-fix, call AI Agent
       try {
         const sectionYaml = sectionToYaml(section);
         const sectionIndex = Number.parseInt(sectionPath.split(".")[1], 10);
@@ -210,6 +239,7 @@ export default async function fixDetailCheckErrors(
             action: `Fixed: ${sectionErrors.length} error(s) resolved`,
             success: true,
             retry: retryCount,
+            method: "ai",
           });
 
           // Remove from error group
@@ -271,7 +301,7 @@ export default async function fixDetailCheckErrors(
 
   return {
     isApproved: finalValidation.isApproved,
-    fixedContent,
+    reviewContent: fixedContent,
     fixActions,
     unfixableErrors,
     remainingErrors,

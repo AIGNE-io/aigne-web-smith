@@ -4,16 +4,40 @@ import { validateSingleSection } from "./utils.mjs";
 /**
  * Extract section path root from error path (e.g., "sections.0")
  * @param {string} errorPath - The error path
+ * @param {Object} error - The error object (optional, needed for internal_links/media_resources)
+ * @param {Object} parsedData - Parsed page data (optional, needed for internal_links/media_resources)
  * @returns {string|null} - Section path or null
  */
-export function extractSectionPath(errorPath) {
+export function extractSectionPath(errorPath, error = null, parsedData = null) {
   if (!errorPath || typeof errorPath !== "string") {
     return null;
   }
 
-  // Handle special paths
+  // Handle special paths - need to scan sections to find which one contains the resource
   if (errorPath === "internal_links" || errorPath === "media_resources") {
-    return null; // Need to scan content to determine section
+    if (!error || !parsedData || !parsedData.sections) {
+      return null;
+    }
+
+    // Get the invalid resource from error details
+    const invalidResource =
+      errorPath === "internal_links" ? error.details?.invalidLink : error.details?.invalidMedia;
+
+    if (!invalidResource) {
+      return null;
+    }
+
+    // Scan sections to find which one contains this resource
+    for (let i = 0; i < parsedData.sections.length; i++) {
+      const section = parsedData.sections[i];
+      const sectionJson = JSON.stringify(section);
+
+      if (sectionJson.includes(invalidResource)) {
+        return `sections.${i}`;
+      }
+    }
+
+    return null; // Resource not found in any section
   }
 
   // Extract sections.N part
@@ -24,15 +48,16 @@ export function extractSectionPath(errorPath) {
 /**
  * Group errors by section path
  * @param {Array} errors - Array of validation errors
- * @param {Object} _parsedData - Parsed page data (reserved for future use)
+ * @param {Object} parsedData - Parsed page data
  * @returns {Object} - { grouped: Map<sectionPath, errors[]>, globalErrors: Array }
  */
-export function groupErrorsBySection(errors, _parsedData) {
+export function groupErrorsBySection(errors, parsedData) {
   const grouped = new Map();
   const globalErrors = [];
 
   for (const error of errors) {
-    const sectionPath = extractSectionPath(error.path);
+    // Pass error and parsedData to handle internal_links/media_resources
+    const sectionPath = extractSectionPath(error.path, error, parsedData);
 
     if (!sectionPath) {
       // Global errors or special handling needed
@@ -46,14 +71,11 @@ export function groupErrorsBySection(errors, _parsedData) {
     grouped.get(sectionPath).push(error);
   }
 
-  // TODO: Handle internal_links and media_resources errors
-  // Need to scan _parsedData to find which section contains these resources
-
   return { grouped, globalErrors };
 }
 
 /**
- * Extract componentName from section or error messages
+ * Extract componentName from section or error details
  * @param {Object} section - Section object
  * @param {Array} errors - Array of errors for this section
  * @returns {string|null} - Component name or null
@@ -64,20 +86,12 @@ export function extractComponentName(section, errors) {
     return section.componentName;
   }
 
-  // Priority 2: Extract suggested component name from error messages
+  // Priority 2: Extract from error details (structured data)
   const fieldCombinationError = errors.find((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
 
-  if (fieldCombinationError?.message) {
-    const match = fieldCombinationError.message.match(/match component\(s\): ([^.]+)/);
-    if (match) {
-      const suggestedComponents = match[1].split(",").map((s) => s.trim());
-      // Return first suggested component
-      return suggestedComponents[0];
-    }
+  if (fieldCombinationError?.details?.suggestedComponents?.length > 0) {
+    return fieldCombinationError.details.suggestedComponents[0];
   }
-
-  // Priority 3: Infer from sectionName
-  // Can add heuristic rules later
 
   return null;
 }
@@ -206,4 +220,226 @@ export function validateFixedSection(sectionYaml, sectionPath, componentLibrary)
       ],
     };
   }
+}
+
+/**
+ * Check if errors can be auto-fixed by program (without AI)
+ * Only UNKNOWN_FIELD_COMBINATION errors with extra fields (no missing fields) can be auto-fixed
+ * @param {Array} errors - Array of errors for a section
+ * @returns {boolean} - True if can be auto-fixed
+ */
+export function canAutoFixErrors(errors) {
+  // Must have at least one UNKNOWN_FIELD_COMBINATION error
+  const fieldCombinationErrors = errors.filter((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
+  if (fieldCombinationErrors.length === 0) {
+    return false;
+  }
+
+  // Check all field combination errors using structured data
+  for (const error of fieldCombinationErrors) {
+    const { extraFields = [], missingFields = [] } = error.details || {};
+
+    // If has missing fields, cannot auto-fix
+    if (missingFields.length > 0) {
+      return false;
+    }
+
+    // Must have extra fields to remove
+    if (extraFields.length === 0) {
+      return false;
+    }
+  }
+
+  // Check if there are any other error types that cannot be auto-fixed
+  for (const error of errors) {
+    const { code } = error;
+
+    // These types cannot be auto-fixed programmatically
+    if (code === "INVALID_INTERNAL_LINK" || code === "INVALID_MEDIA_RESOURCE") {
+      return false;
+    }
+
+    // Only UNKNOWN_FIELD_COMBINATION errors can be auto-fixed
+    if (code !== "UNKNOWN_FIELD_COMBINATION") {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Extract extra fields from error details
+ * @param {Object} error - Error object
+ * @returns {Array<string>} - Array of extra field names
+ */
+function extractExtraFields(error) {
+  return error.details?.extraFields || [];
+}
+
+/**
+ * Remove extra fields from section
+ * Handles nested paths including:
+ * - Simple fields: "extraField"
+ * - Nested object fields: "heroCta.extra"
+ * - Array item properties: "list.0.extraProp", "splitHeroWithBgColorActions.0.link2"
+ * - Whole array items: "list.4", "list.5" (only when it's the last part of path)
+ * @param {Object} section - Section object
+ * @param {Array<string>} fieldsToRemove - Array of field paths to remove
+ * @returns {Object} - Section with fields removed
+ */
+function removeFieldsFromSection(section, fieldsToRemove) {
+  const result = { ...section };
+
+  // Separate complete array items to delete vs properties to delete
+  const arrayItemsToRemove = new Map(); // Map<arrayPath, Set<indices>>
+  const fieldsToDelete = []; // Regular field paths to delete
+
+  for (const fieldPath of fieldsToRemove) {
+    const parts = fieldPath.split(".");
+
+    // Find if path ends with a numeric index AND has no more parts after it
+    // e.g., "list.4" → delete whole item
+    // but "list.0.prop" → delete property from item
+    let isWholeArrayItem = false;
+    if (parts.length >= 2) {
+      const lastPart = parts[parts.length - 1];
+      if (/^\d+$/.test(lastPart)) {
+        // Last part is numeric - this means delete the whole array item
+        isWholeArrayItem = true;
+        const arrayPath = parts.slice(0, -1).join(".");
+        const index = Number.parseInt(lastPart, 10);
+
+        if (!arrayItemsToRemove.has(arrayPath)) {
+          arrayItemsToRemove.set(arrayPath, new Set());
+        }
+        arrayItemsToRemove.get(arrayPath).add(index);
+      }
+    }
+
+    if (!isWholeArrayItem) {
+      fieldsToDelete.push(fieldPath);
+    }
+  }
+
+  // Remove properties (including properties within array items)
+  for (const fieldPath of fieldsToDelete) {
+    const parts = fieldPath.split(".");
+    let current = result;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      const isNumeric = /^\d+$/.test(part);
+
+      if (i === parts.length - 1) {
+        // Last part - delete it
+        if (current && typeof current === "object") {
+          delete current[part];
+        }
+      } else {
+        // Navigate deeper
+        if (current && typeof current === "object") {
+          if (Array.isArray(current) && isNumeric) {
+            // Navigate into array
+            const index = Number.parseInt(part, 10);
+            if (index >= 0 && index < current.length) {
+              current = current[index];
+            } else {
+              break; // Index out of bounds
+            }
+          } else if (part in current) {
+            // Navigate into object
+            current = current[part];
+          } else {
+            break; // Path doesn't exist
+          }
+        } else {
+          break;
+        }
+      }
+    }
+  }
+
+  // Remove whole array items (in descending order to avoid index shifting)
+  for (const [arrayPath, indices] of arrayItemsToRemove.entries()) {
+    const parts = arrayPath.split(".");
+    let current = result;
+
+    // Navigate to the array
+    for (const part of parts) {
+      const isNumeric = /^\d+$/.test(part);
+      if (current && typeof current === "object") {
+        if (Array.isArray(current) && isNumeric) {
+          const index = Number.parseInt(part, 10);
+          current = current[index];
+        } else if (part in current) {
+          current = current[part];
+        } else {
+          current = null;
+          break;
+        }
+      } else {
+        current = null;
+        break;
+      }
+    }
+
+    // If we found an array, remove items in descending order
+    if (Array.isArray(current)) {
+      const sortedIndices = Array.from(indices).sort((a, b) => b - a); // Descending order
+      for (const index of sortedIndices) {
+        if (index >= 0 && index < current.length) {
+          current.splice(index, 1);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Attempt to auto-fix section errors without AI
+ * Only handles simple cases like removing extra fields
+ * @param {Object} section - Section object
+ * @param {Array} errors - Array of errors
+ * @param {string} sectionPath - Section path
+ * @param {Array} componentLibrary - Component library
+ * @returns {Object|null} - { fixed: boolean, section: Object, action: string } or null if cannot auto-fix
+ */
+export function tryAutoFixSection(section, errors, sectionPath, componentLibrary) {
+  if (!canAutoFixErrors(errors)) {
+    return null;
+  }
+
+  let fixedSection = { ...section };
+  const actions = [];
+
+  // Handle UNKNOWN_FIELD_COMBINATION errors - remove extra fields
+  const fieldCombinationErrors = errors.filter((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
+  for (const error of fieldCombinationErrors) {
+    const extraFields = extractExtraFields(error);
+    if (extraFields.length > 0) {
+      fixedSection = removeFieldsFromSection(fixedSection, extraFields);
+      actions.push(`Removed extra fields: ${extraFields.join(", ")}`);
+    }
+  }
+
+  // Validate the fixed section
+  const validation = validateSingleSection({
+    section: fixedSection,
+    sectionPath,
+    componentLibrary,
+  });
+
+  if (validation.isValid) {
+    return {
+      fixed: true,
+      section: fixedSection,
+      action: `Auto-fixed: ${actions.join("; ")}`,
+    };
+  }
+
+  // If still has errors after removing extra fields, cannot auto-fix
+  return null;
 }

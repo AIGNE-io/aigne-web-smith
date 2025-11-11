@@ -280,6 +280,13 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
           path: sectionPath,
           message,
           code: "UNKNOWN_FIELD_COMBINATION",
+          // Structured data for easy access
+          details: {
+            currentFields: fields,
+            extraFields: closest?.extra || [],
+            missingFields: closest?.missing || [],
+            suggestedComponents: Array.from(closest?.entry?.components ?? []),
+          },
         };
 
         const errorKey = `${error.path}:${error.code}`;

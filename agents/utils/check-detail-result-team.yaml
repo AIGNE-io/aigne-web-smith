@@ -1,0 +1,9 @@
+type: team
+name: checkDetailResultTeam
+description: Check the detail result
+skills:
+  - url: ./check-detail-result.mjs
+    default_input:
+      allowArrayFallback: true
+  - url: ./fix-detail-check-errors.mjs
+    default_input:

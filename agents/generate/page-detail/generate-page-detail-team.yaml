@@ -20,7 +20,7 @@ skills:
       - url: ../../utils/reload-generate-media.mjs
     reflection:
       reviewer:
-        url: ../../utils/check-detail-result.mjs
+        url: ../../utils/check-detail-result-team.yaml
         default_input:
           allowArrayFallback: true
       is_approved: isApproved

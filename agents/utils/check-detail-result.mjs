@@ -36,12 +36,6 @@ export default async function checkDetailResult({
       isApproved = false;
       detailFeedback.push(validation.validationFeedback);
     }
-
-    return {
-      isApproved,
-      detailFeedback: detailFeedback.join("\n"),
-      errors: validation.errors || [],
-    };
   }
 
   return {

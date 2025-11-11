@@ -145,6 +145,7 @@ When generating actual output, **do not wrap in code fences**.
 # Property names do not need to be wrapped in quotes
 sectionName: string # Required - section functional identifier, use camelCase naming
 sectionSummary: string # Required - section purpose description, describing function and content intent
+componentName: string # Required - The component name to be used in this section, must exist in <allowed_field_combinations> under the `name` field
 # CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
 # - Only use predefined field combinations
 # - No custom or partial fields

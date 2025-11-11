@@ -37,6 +37,11 @@ export function validateInternalLinks(pageData, allowedLinks, protocol) {
         path: "internal_links",
         message: `Invalid internal link: ${link}. This link is not in the allowed links list.`,
         code: "INVALID_INTERNAL_LINK",
+        // Structured data for easy access
+        details: {
+          invalidLink: link,
+          allowedLinks: Array.from(allowedLinks),
+        },
       });
     }
   }
@@ -65,6 +70,11 @@ export function validateMediaResources(pageData, allowedMediaFiles, protocol) {
         path: "media_resources",
         message: `Invalid media resource: ${mediaUrl}. This media file is not in the allowed media files list.`,
         code: "INVALID_MEDIA_RESOURCE",
+        // Structured data for easy access
+        details: {
+          invalidMedia: mediaUrl,
+          allowedMediaFiles: Array.from(allowedMediaFiles),
+        },
       });
     }
   }

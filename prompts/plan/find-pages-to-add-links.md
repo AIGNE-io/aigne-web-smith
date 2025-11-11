@@ -1,6 +1,6 @@
-# Find Pages to Add Links
+# Task: Find Pages to Add Links
 
-Identify which existing pages in the website should link to newly added pages.
+Determine which existing pages should link to newly added pages.
 
 ## Input
 
@@ -12,32 +12,34 @@ Identify which existing pages in the website should link to newly added pages.
 {{newPages}}
 </newPages>
 
-## Task
+<userFeedback>
+{{allFeedback}}
+</userFeedback>
 
-1. Analyze <websiteStructure> (the full site structure).
-2. Determine which existing pages should link to pages in <newPages>.
-3. For each such page, add a newLinks property — an array of new page paths it should link to.
-4. Return only those pages (a subset of <websiteStructure>) as pagesWithNewLinks.
+## Steps
 
-Each item in pagesWithNewLinks must:
+1. **Check <userFeedback> first.**  
+   - If users explicitly specify linking (e.g., “link FAQ from About”), follow exactly.
+2. **Analyze <websiteStructure>.**  
+   Identify existing pages that should link to those in <newPages> using the rules below.
+3. For each qualifying page, add a non-empty `newLinks` array containing new page paths.
+4. Output only these updated pages (subset of <websiteStructure>) as `pagesWithNewLinks`.
 
-1. **Be an existing page** from <websiteStructure>
-2. Include all its original properties (path, title, description, parentId, navigation, sourceIds)
-3. Add newLinks: string[] (**non-empty**)
+Each item in `pagesWithNewLinks` must:
+- Be an existing page from <websiteStructure>
+- Retain all original properties (`path`, `title`, `description`, `parentId`, `navigation`, `sourceIds`)
+- Include `newLinks: string[]`
 
-## Criteria
+## Linking Rules (in priority order)
 
-When adding links, consider:
-
-1. Parent–Child — If a new page’s parentId matches a page’s path, that parent should link to it.
-2. Semantic Similarity — Link related or thematically connected pages.
-3. Navigation Context — Pages in related navigation areas may link.
-4. Hierarchy — Sibling or section pages may cross-link.
-5. Relevance — Add links only where it logically makes sense.
+1. **User Instructions** — Follow explicit <userFeedback>.  
+2. **Parent–Child** — If a new page’s `parentId` equals a page’s `path`, the parent links to it.  
+3. **Semantic Similarity** — Link thematically related pages (e.g., “About” ↔ “Team”).  
+4. **Navigation Context** — Pages in the same navigation group may link.  
+5. **Hierarchy** — Sibling or section pages may cross-link.  
+6. **Relevance** — Add links only when it improves navigation logically.
 
 ## Output Format
-
-Return JSON:
 
 ```json
 {
@@ -53,4 +55,3 @@ Return JSON:
     }
   ]
 }
-```

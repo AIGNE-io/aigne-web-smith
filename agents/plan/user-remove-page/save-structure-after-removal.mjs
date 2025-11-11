@@ -2,11 +2,10 @@ import { recordUpdate } from "../../../utils/history-utils.mjs";
 import saveOutput from "../../utils/save-output.mjs";
 
 export default async function saveStructureAfterRemoval(
-  { originalWebsiteStructure, deletedPages, tmpDir, translateLanguages },
+  { deletedPages, tmpDir, translateLanguages },
   options,
 ) {
-  const deletedPagesSet = new Set(deletedPages);
-  const websiteStructure = originalWebsiteStructure.filter((v) => !deletedPagesSet.has(v.path));
+  const websiteStructure = options.context.userContext.currentStructure;
   const transformWebsiteStructure = options.context.agents["transformWebsiteStructure"];
   const { websiteStructureResult } = await options.context.invoke(transformWebsiteStructure, {
     websiteStructure,

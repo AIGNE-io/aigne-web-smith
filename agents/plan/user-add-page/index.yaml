@@ -8,19 +8,20 @@ skills:
   - ../../utils/load-config.mjs
   - ../../utils/load-sources.mjs
   - ./add-pages-to-structure.mjs
-  - url: ../../utils/save-output.mjs
-    default_input:
-      saveKey: websiteStructure
-      savePath:
-        $get: tmpDir
-      fileName: website-structure.yaml
   - ../../utils/transform-website-structure.yaml
   - ../../utils/format-website-structure.mjs
+  - url: ../../utils/normalize-website-structure.mjs
+    default_input:
+      key: newPages
+  - ../../media/load-media-description.mjs
   - type: team
     skills:
       - ../../generate/page-detail/analyze-page-detail.mjs
     iterate_on: newPages
     concurrency: 10
+  - url: ../../utils/normalize-website-structure.mjs
+    default_input:
+      key: newPages
   - ./find-pages-to-add-links.yaml
   - type: team
     name: batchAddLinks
@@ -28,7 +29,6 @@ skills:
       - ./add-links-to-pages.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithNewLinks
-    concurrency: 10
   - ../../generate/page-detail/load-page-detail.mjs
   - ./merge-pages-with-translations.mjs
   - type: team
@@ -40,5 +40,11 @@ skills:
       - ../../translate/navigations/analyze-translate-navigations.mjs
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs
+  - url: ../../utils/save-output.mjs
+    default_input:
+      saveKey: websiteStructure
+      savePath:
+        $get: tmpDir
+      fileName: website-structure.yaml
   - ../../utils/save-pages.mjs
 mode: sequential

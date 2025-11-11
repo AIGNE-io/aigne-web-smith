@@ -6,7 +6,7 @@ This process is distinct from modifying the overall site map. For instructions o
 
 ## The Update Process
 
-Content updates are initiated using the `web update` command. The process is interactive, allowing you to provide feedback in natural language to an AI agent, which then intelligently modifies the page structure.
+Content updates are initiated using the `aigne web update` command. The process is interactive, allowing you to provide feedback in natural language to an AI agent, which then intelligently modifies the page structure.
 
 ```bash Command icon=lucide:terminal
 aigne web update

@@ -6,7 +6,7 @@
 
 ## 更新プロセス
 
-コンテンツの更新は `web update` コマンドを使用して開始されます。このプロセスは対話形式で、自然言語でAI Agentにフィードバックを提供すると、AI Agentがページ構造をインテリジェントに変更します。
+コンテンツの更新は `aigne web update` コマンドを使用して開始されます。このプロセスは対話形式で、自然言語でAI Agentにフィードバックを提供すると、AI Agentがページ構造をインテリジェントに変更します。
 
 ```bash Command icon=lucide:terminal
 aigne web update

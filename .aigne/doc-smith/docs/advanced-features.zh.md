@@ -1,20 +1,17 @@
 # 高级功能
 
-本节探讨 AIGNE WebSmith 的高级功能，这些功能允许在核心网站生成任务之外进行更深度的定制和功能扩展。一旦您熟悉了基础知识，就可以使用这些功能来微调网站的构建块，并融入专门的、具有视觉吸引力的元素。
+掌握了生成和更新网站的基础知识后，您可以探索 AIGNE WebSmith 的高级功能，以获得更精细的控制，并添加独特、强大的视觉元素。本节将介绍如何管理组件库以及如何利用特殊组件来创建更具动态和吸引力的页面。
 
-这里介绍的功能主要集中在两个方面：管理 AI 用于构建页面的底层组件库，以及利用强大的预构建特殊组件来满足独特的演示需求。理解这些概念能让您更精确、更有创意地维护和增强您的网站。
+本节概述了高级功能。有关详细说明，请参阅具体的子文档：
 
-## 关键主题
-
-本节分为以下详细指南。有关深入的说明，请参阅具体的子页面。
-
-<x-cards data-columns="2">
-  <x-card data-title="管理组件" data-icon="lucide:library" data-href="/core-tasks/managing-components">
-    了解如何更新 WebSmith 用于构建您网站的本地可视化组件库。这对于访问新功能、应用关键更新或与您自己的 Pages Kit 实例中的自定义组件集同步至关重要。
-  </x-card>
-  <x-card data-title="使用特殊组件" data-icon="lucide:star" data-href="/advanced-features/using-special-components">
-    探索如何实现功能强大的预构建组件，例如终端播放器。这些元素提供了独特的功能和视觉吸引力，可以使您的页面更具互动性和信息量。
-  </x-card>
+<x-cards data-columns="3">
+  <x-card data-title="管理组件" data-icon="lucide:library" data-href="/advanced-features/managing-components">了解如何拉取和更新 WebSmith 用于构建网站视觉元素的组件库。</x-card>
+  <x-card data-title="使用特殊组件" data-icon="lucide:toy-brick" data-href="/advanced-features/using-special-components">探索如何实现功能强大的预构建组件（如终端播放器），以创建视觉效果丰富的网页。</x-card>
+  <x-card data-title="方法论" data-icon="lucide:milestone" data-href="/guides">遵循战略指南来构建您的源内容，以实现最高质量的 AI 生成网站。</x-card>
 </x-cards>
 
-通过掌握这些高级功能，您可以对网站的设计和功能进行更强的控制，确保其保持最新状态并有效满足您的特定需求。
+## 总结
+
+本节是通往 AIGNE WebSmith 更强大和可定制功能的门户。通过学习管理组件库和使用特殊组件，您可以显著增强所生成网站的视觉吸引力和功能。
+
+有关所有可用命令及其参数的完整列表，请参阅[命令行参考](./reference-command-line-reference.md)。

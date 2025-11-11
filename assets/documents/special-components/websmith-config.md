@@ -123,28 +123,40 @@ Purpose:
 
 ## How Is the Configuration File Created?
 
-### Generation Method
+The configuration file is created automatically when you start using WebSmith. There are two ways it can be generated:
 
-Use the following command:
+**Option 1: During first generation**
+```bash
+aigne web generate
+```
+If `config.yaml` doesn't exist, the command automatically launches an interactive wizard to create it, then proceeds with generation.
 
+**Option 2: Create separately**
 ```bash
 aigne web init
 ```
+This creates the configuration file through the same interactive wizard, without immediately starting generation.
 
-This command launches an interactive wizard to fill out:
+Both methods guide you through the same setup process, collecting information about your site type, audience, languages, and source paths.
 
-- Site type (`pagePurpose`): primary purpose (multi‑select)
-- Target audience (`targetAudienceTypes`): who the site is for (multi‑select)
-- Site scale (`websiteScale`): number of pages
-- Primary language (`locale`)
-- Translation languages (`translateLanguages`) (multi‑select)
-- Output directory (`pagesDir`)
-- Source paths (`sourcesPath`) (multi‑entry)
-- Custom rules (`rules`) (optional)
+### Updating Configuration
 
-After completion, the file is saved to `.aigne/web-smith/config.yaml`.
+After the configuration file is created, you can update it in two ways:
 
-### Real Configuration Example
+**Option 1: Edit directly**
+Open `.aigne/web-smith/config.yaml` with any text editor and modify the fields you need.
+
+**Option 2: Use the interactive wizard**
+```bash
+aigne web init
+```
+Run this command again to interactively update your configuration. It will load your current settings and let you modify them through the guided wizard.
+
+---
+
+## Configuration File Example
+
+### Real Configuration
 
 Below is the actual configuration from the AIGNE WebSmith project:
 
@@ -708,7 +720,9 @@ rules: |
 
 Scenario: Add a new language
 - Field: `translateLanguages`
-- Example:
+- Recommended method: run `aigne web translate` (it will guide you to select languages and update the config automatically)
+- Manual method: edit `translateLanguages` in `config.yaml`, then run `aigne web translate` or `aigne web update`
+- Example of manual edit:
 ```yaml
 # Before: only Chinese + English
 locale: zh
@@ -879,8 +893,7 @@ Effects:
 - Parsing succeeds but output quality suffers
 Recovery:
 1. Restore from Git history if available
-2. Run `aigne web init` to regenerate and then merge customizations
-3. Fill missing required fields per this guide
+2. Back up the current config, then run `aigne web init` to regenerate with correct fields
 
 Scenario: Wrong value types
 `pagePurpose` must be an array, not a string:
@@ -924,23 +937,22 @@ cp config-backup-20240101.yaml .aigne/web-smith/config.yaml
 ```
 
 Method 3: Regenerate the file
-- If you cannot repair it, run `aigne web init` to recreate it. Back up the old `config.yaml` first so you can merge custom values.
+- Back up the old `config.yaml` first so you can merge custom values
+- Run `aigne web init` to create a new configuration interactively
 
 ### Product Robustness
 
 Per WebSmith behavior:
-1. Missing file: clear error and guidance to run `aigne web init`
-2. YAML parse failure: friendly error without crashing
-3. Unknown fields: ignored silently; generation proceeds; verify results manually
-4. Wrong value types: defaults may be used; parsing continues
-5. Missing optional fields: defaults applied (e.g., `locale` defaults to "en")
+1. YAML parse failure: friendly error without crashing
+2. Unknown fields: ignored silently; generation proceeds; verify results manually
+3. Wrong value types: defaults may be used; parsing continues
+4. Missing optional fields: defaults applied (e.g., `locale` defaults to "en")
 
 ### Prevention Tips
 
 1. Use version control for the config
 2. Make backups before major edits
-3. Prefer editing via CLI (`aigne web init`), reducing manual format errors
-4. Validate changes by running `aigne web generate` after edits
+3. Validate changes by running `aigne web generate` after edits
 
 ---
 
@@ -982,12 +994,13 @@ When generating multilingual sites:
 **Error message:**
 ```
 Config file not found: .aigne/web-smith/config.yaml
-Please run 'aigne web init' to create the config file.
 ```
 
 **Cause:** The configuration file doesn't exist at the expected location.
 
-**Fix:** Run `aigne web init` to create the configuration file interactively.
+**Fix:** 
+- Run `aigne web generate` (it will guide you to create the configuration automatically, then start generation)
+- Or run `aigne web init` (it will guide you to create the configuration without starting generation)
 
 ---
 
@@ -1166,18 +1179,13 @@ Q1: Changes didn’t take effect
 - Fixes: save, fix YAML, run `aigne web generate`, and verify output contains updated values
 
 Q2: How to add languages?
-- Steps:
-  1. Add codes under `translateLanguages`
-  2. Run `aigne web generate`
-  3. Check `.aigne/web-smith/pages/workspace/{lang}/`
-- Example:
-```yaml
-locale: zh
-translateLanguages:
-  - en
-  - ja
-  - fr  # newly added French
-```
+- Run the translate command:
+  ```bash
+  aigne web translate
+  ```
+- The command will guide you to select which languages to add
+- Generated language versions will appear in `.aigne/web-smith/pages/workspace/{lang}/`
+- The command automatically updates `translateLanguages` in your `config.yaml`
 
 Q3: Generated content doesn’t match expectations
 - Causes: insufficient `rules`, misaligned `targetAudienceTypes`, or sparse `sourcesPath`

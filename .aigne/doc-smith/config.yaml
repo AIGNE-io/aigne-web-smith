@@ -48,8 +48,35 @@ readerKnowledgeLevel: completeBeginners
 documentationDepth: balancedCoverage
 
 # Custom Rules: Define specific documentation generation rules and requirements
-rules: ""
-
+rules: |
+  ### Content Quality & Tone
+  1. Avoid exaggerated marketing wording: Replace subjective adjectives (e.g., "powerful", "amazing") with factual descriptions
+  2. Use precise technical language that respects reader intelligence
+  3. Focus on concrete benefits and measurable outcomes, not vague claims
+  
+  ### Installation & Setup
+  4. System requirements and installation:
+     - Node.js version requirement: **>=20** (always specify this)
+     - Show only essential commands in main flow (typically just `install`)
+     - Move advanced options (beta channels, local dev) to separate sections
+     - Provide clear prerequisites upfront
+  
+  ### Configuration File Documentation (CRITICAL)
+  5. ALL config.yaml examples MUST include `sourcesPath` - never show incomplete configs
+  6. Emphasize `sourcesPath` importance prominently:
+     - It's the PRIMARY determinant of content quality, accuracy, and relevance
+     - AI uses ONLY these sources as references
+     - Missing or sparse sources result in generic, low-quality content
+  7. Configuration examples must be production-ready with realistic values
+  8. Show complete field sets - don't omit required fields for brevity
+  
+  ### CLI Documentation Standards
+  9. Always show CLI commands in original English - do not translate:
+     - Command names, flags, and options stay in English
+     - Interactive prompts should match exact CLI text
+     - Menu selections should use exact English text from the tool
+  10. When describing CLI interactions, quote exact menu text, don't paraphrase
+  
 # Target Audience: Describe your specific target audience and their characteristics
 targetAudience: ""
 
@@ -67,7 +94,10 @@ sourcesPath: # Source code paths to analyze
   - ./CHANGELOG.md
   - ./agents
   - ./assets/documents/special-components
-lastGitHead: 17fd7c2f8f85c9fa601ac221b87778a2bf1ad140
+  - ./assets/documents/quality-website-methodology.md
+  - ./assets/images/publish-to-paid-service-auth.png
+  - ./assets/images/publish-to-paid-service-checkout.png
+lastGitHead: 3aef2d556f2fdb40ef6ab4538bd7146e580fc5af
 appUrl: https://docsmith.aigne.io
 boardId: aigne-web-smith
 # Checkout ID for document deployment service

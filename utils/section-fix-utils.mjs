@@ -38,21 +38,22 @@ export function getSubPathAfterSection(fullPath) {
 }
 
 /**
- * Extract section path root from error path (e.g., "sections.0")
+ * Extract section path(s) from error path
+ * Returns an array because one error (e.g., invalid media/link) can affect multiple sections
  * @param {string} errorPath - The error path
  * @param {Object} error - The error object (optional, needed for internal_links/media_resources)
  * @param {Object} parsedData - Parsed page data (optional, needed for internal_links/media_resources)
- * @returns {string|null} - Section path or null
+ * @returns {string[]} - Array of section paths, empty array if none found
  */
 export function extractSectionPath(errorPath, error = null, parsedData = null) {
   if (!errorPath || typeof errorPath !== "string") {
-    return null;
+    return [];
   }
 
-  // Handle special paths - need to scan sections to find which one contains the resource
+  // Handle special paths - need to scan sections to find which ones contain the resource
   if (errorPath === "internal_links" || errorPath === "media_resources") {
     if (!error || !parsedData || !parsedData.sections) {
-      return null;
+      return [];
     }
 
     // Get the invalid resource from error details
@@ -60,29 +61,32 @@ export function extractSectionPath(errorPath, error = null, parsedData = null) {
       errorPath === "internal_links" ? error.details?.invalidLink : error.details?.invalidMedia;
 
     if (!invalidResource) {
-      return null;
+      return [];
     }
 
-    // Scan sections to find which one contains this resource
+    // Scan ALL sections to find which ones contain this resource
+    const matchingSections = [];
     for (let i = 0; i < parsedData.sections.length; i++) {
       const section = parsedData.sections[i];
       const sectionJson = JSON.stringify(section);
 
       if (sectionJson.includes(invalidResource)) {
-        return `sections.${i}`;
+        matchingSections.push(`sections.${i}`);
       }
     }
 
-    return null; // Resource not found in any section
+    return matchingSections; // May be empty, one, or multiple sections
   }
 
   // Extract sections.N part
   const match = errorPath.match(/^sections\.\d+/);
-  return match ? match[0] : null;
+  return match ? [match[0]] : [];
 }
 
 /**
  * Group errors by section path
+ * Note: One error can be added to multiple sections if it affects multiple sections
+ * (e.g., an invalid media resource used in multiple sections)
  * @param {Array} errors - Array of validation errors
  * @param {Object} parsedData - Parsed page data
  * @returns {Object} - { grouped: Map<sectionPath, errors[]>, globalErrors: Array }
@@ -93,18 +97,21 @@ export function groupErrorsBySection(errors, parsedData) {
 
   for (const error of errors) {
     // Pass error and parsedData to handle internal_links/media_resources
-    const sectionPath = extractSectionPath(error.path, error, parsedData);
+    const sectionPaths = extractSectionPath(error.path, error, parsedData);
 
-    if (!sectionPath) {
+    if (sectionPaths.length === 0) {
       // Global errors or special handling needed
       globalErrors.push(error);
       continue;
     }
 
-    if (!grouped.has(sectionPath)) {
-      grouped.set(sectionPath, []);
+    // Add this error to all matching sections
+    for (const sectionPath of sectionPaths) {
+      if (!grouped.has(sectionPath)) {
+        grouped.set(sectionPath, []);
+      }
+      grouped.get(sectionPath).push(error);
     }
-    grouped.get(sectionPath).push(error);
   }
 
   return { grouped, globalErrors };

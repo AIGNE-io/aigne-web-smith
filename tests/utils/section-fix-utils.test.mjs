@@ -919,18 +919,18 @@ describe("getSubPathAfterSection", () => {
 
 describe("extractSectionPath", () => {
   test("extracts section path from error path", () => {
-    expect(extractSectionPath("sections.0.heroTitle")).toBe("sections.0");
-    expect(extractSectionPath("sections.1.heroCta.text")).toBe("sections.1");
-    expect(extractSectionPath("sections.10.list.0.name")).toBe("sections.10");
+    expect(extractSectionPath("sections.0.heroTitle")).toEqual(["sections.0"]);
+    expect(extractSectionPath("sections.1.heroCta.text")).toEqual(["sections.1"]);
+    expect(extractSectionPath("sections.10.list.0.name")).toEqual(["sections.10"]);
   });
 
   test("returns section path for simple section error", () => {
-    expect(extractSectionPath("sections.0")).toBe("sections.0");
+    expect(extractSectionPath("sections.0")).toEqual(["sections.0"]);
   });
 
-  test("returns null for special paths without error and parsedData", () => {
-    expect(extractSectionPath("internal_links")).toBeNull();
-    expect(extractSectionPath("media_resources")).toBeNull();
+  test("returns empty array for special paths without error and parsedData", () => {
+    expect(extractSectionPath("internal_links")).toEqual([]);
+    expect(extractSectionPath("media_resources")).toEqual([]);
   });
 
   test("finds section path for internal_links error", () => {
@@ -946,7 +946,7 @@ describe("extractSectionPath", () => {
       details: { invalidLink: "link://contact" },
     };
 
-    expect(extractSectionPath("internal_links", error, parsedData)).toBe("sections.1");
+    expect(extractSectionPath("internal_links", error, parsedData)).toEqual(["sections.1"]);
   });
 
   test("finds section path for media_resources error", () => {
@@ -962,10 +962,31 @@ describe("extractSectionPath", () => {
       details: { invalidMedia: "mediakit://bg.png" },
     };
 
-    expect(extractSectionPath("media_resources", error, parsedData)).toBe("sections.1");
+    expect(extractSectionPath("media_resources", error, parsedData)).toEqual(["sections.1"]);
   });
 
-  test("returns null if resource not found in any section", () => {
+  test("finds multiple section paths when resource used in multiple sections", () => {
+    const parsedData = {
+      sections: [
+        { heroTitle: "Hero", image: "mediakit://shared.png" },
+        { title: "Section 2", background: "mediakit://shared.png" },
+        { title: "Section 3", icon: "mediakit://shared.png" },
+      ],
+    };
+    const error = {
+      path: "media_resources",
+      code: "INVALID_MEDIA_RESOURCE",
+      details: { invalidMedia: "mediakit://shared.png" },
+    };
+
+    expect(extractSectionPath("media_resources", error, parsedData)).toEqual([
+      "sections.0",
+      "sections.1",
+      "sections.2",
+    ]);
+  });
+
+  test("returns empty array if resource not found in any section", () => {
     const parsedData = {
       sections: [{ heroTitle: "Hero" }, { title: "Section 2" }],
     };
@@ -975,19 +996,19 @@ describe("extractSectionPath", () => {
       details: { invalidLink: "link://notfound" },
     };
 
-    expect(extractSectionPath("internal_links", error, parsedData)).toBeNull();
+    expect(extractSectionPath("internal_links", error, parsedData)).toEqual([]);
   });
 
-  test("returns null for non-section paths", () => {
-    expect(extractSectionPath("title")).toBeNull();
-    expect(extractSectionPath("description")).toBeNull();
-    expect(extractSectionPath("")).toBeNull();
+  test("returns empty array for non-section paths", () => {
+    expect(extractSectionPath("title")).toEqual([]);
+    expect(extractSectionPath("description")).toEqual([]);
+    expect(extractSectionPath("")).toEqual([]);
   });
 
-  test("returns null for invalid inputs", () => {
-    expect(extractSectionPath(null)).toBeNull();
-    expect(extractSectionPath(undefined)).toBeNull();
-    expect(extractSectionPath(123)).toBeNull();
+  test("returns empty array for invalid inputs", () => {
+    expect(extractSectionPath(null)).toEqual([]);
+    expect(extractSectionPath(undefined)).toEqual([]);
+    expect(extractSectionPath(123)).toEqual([]);
   });
 });
 
@@ -1090,6 +1111,36 @@ describe("groupErrorsBySection", () => {
 
     expect(grouped.size).toBe(1);
     expect(grouped.get("sections.2")).toHaveLength(3);
+    expect(globalErrors).toHaveLength(0);
+  });
+
+  test("adds same error to multiple sections when resource used in multiple sections", () => {
+    const parsedData = {
+      sections: [
+        { heroTitle: "Hero", image: "mediakit://shared.png" },
+        { title: "Section 2", background: "mediakit://shared.png" },
+        { title: "Section 3", icon: "mediakit://shared.png" },
+      ],
+    };
+    const errors = [
+      {
+        path: "media_resources",
+        message: "Invalid media",
+        code: "INVALID_MEDIA_RESOURCE",
+        details: { invalidMedia: "mediakit://shared.png" },
+      },
+    ];
+
+    const { grouped, globalErrors } = groupErrorsBySection(errors, parsedData);
+
+    // Same error should be added to all 3 sections
+    expect(grouped.size).toBe(3);
+    expect(grouped.get("sections.0")).toHaveLength(1);
+    expect(grouped.get("sections.1")).toHaveLength(1);
+    expect(grouped.get("sections.2")).toHaveLength(1);
+    expect(grouped.get("sections.0")[0].code).toBe("INVALID_MEDIA_RESOURCE");
+    expect(grouped.get("sections.1")[0].code).toBe("INVALID_MEDIA_RESOURCE");
+    expect(grouped.get("sections.2")[0].code).toBe("INVALID_MEDIA_RESOURCE");
     expect(globalErrors).toHaveLength(0);
   });
 });

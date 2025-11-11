@@ -53,7 +53,7 @@ export default async function fixDetailCheckErrors(
       ...input,
       isApproved: true,
       reviewContent,
-      fixActions: [],
+      fixAttempts: [],
       unfixableErrors: [],
       remainingErrors: [],
       detailFeedback: validationResult.detailFeedback || "",
@@ -69,7 +69,7 @@ export default async function fixDetailCheckErrors(
       ...input,
       isApproved: false,
       reviewContent,
-      fixActions: [],
+      fixAttempts: [],
       unfixableErrors: [
         {
           code: "YAML_SYNTAX_ERROR",
@@ -82,7 +82,7 @@ export default async function fixDetailCheckErrors(
   }
 
   // Initialize
-  const fixActions = [];
+  const fixAttempts = [];
   const unfixableErrors = [];
   const errors = validationResult.errors || [];
 
@@ -102,7 +102,7 @@ export default async function fixDetailCheckErrors(
       ...input,
       isApproved: false,
       reviewContent,
-      fixActions: [],
+      fixAttempts: [],
       unfixableErrors,
       remainingErrors: errors,
       detailFeedback: validationResult.detailFeedback || "",
@@ -129,10 +129,10 @@ export default async function fixDetailCheckErrors(
       // Get current section
       const section = getSectionByPath(currentParsedData, sectionPath);
       if (!section) {
-        fixActions.push({
+        fixAttempts.push({
           sectionPath,
           errorCodes: sectionErrors.map((e) => e.code),
-          action: "Failed: Section not found",
+          result: "Failed: Section not found",
           success: false,
           retry: retryCount,
         });
@@ -142,10 +142,10 @@ export default async function fixDetailCheckErrors(
       // Extract componentName
       const componentName = extractComponentName(section, sectionErrors);
       if (!componentName) {
-        fixActions.push({
+        fixAttempts.push({
           sectionPath,
           errorCodes: sectionErrors.map((e) => e.code),
-          action: "Failed: Cannot determine componentName",
+          result: "Failed: Cannot determine componentName",
           success: false,
           retry: retryCount,
         });
@@ -156,10 +156,10 @@ export default async function fixDetailCheckErrors(
       // Get required fields for this component
       const requiredFields = getRequiredFieldsByComponentName(componentLibrary, componentName);
       if (!requiredFields) {
-        fixActions.push({
+        fixAttempts.push({
           sectionPath,
           errorCodes: sectionErrors.map((e) => e.code),
-          action: `Failed: Component '${componentName}' not found in library`,
+          result: `Failed: Component '${componentName}' not found in library`,
           success: false,
           retry: retryCount,
         });
@@ -180,10 +180,10 @@ export default async function fixDetailCheckErrors(
         const fixedSectionYaml = sectionToYaml(autoFixResult.section);
         currentParsedData = replaceSectionByPath(currentParsedData, sectionPath, fixedSectionYaml);
 
-        fixActions.push({
+        fixAttempts.push({
           sectionPath,
           errorCodes: sectionErrors.map((e) => e.code),
-          action: autoFixResult.action,
+          result: autoFixResult.action,
           success: true,
           retry: retryCount,
           method: "auto",
@@ -226,10 +226,10 @@ export default async function fixDetailCheckErrors(
             fixedSectionYaml,
           );
 
-          fixActions.push({
+          fixAttempts.push({
             sectionPath,
             errorCodes: sectionErrors.map((e) => e.code),
-            action: `Fixed: ${sectionErrors.length} error(s) resolved`,
+            result: `Fixed: ${sectionErrors.length} error(s) resolved`,
             success: true,
             retry: retryCount,
             method: "ai",
@@ -239,20 +239,20 @@ export default async function fixDetailCheckErrors(
           errorsBySection.delete(sectionPath);
         } else {
           // Validation failed, keep original section
-          fixActions.push({
+          fixAttempts.push({
             sectionPath,
             errorCodes: sectionErrors.map((e) => e.code),
-            action: `Failed: Validation failed after fix - ${validation.validationFeedback}`,
+            result: `Failed: Validation failed after fix - ${validation.validationFeedback}`,
             success: false,
             retry: retryCount,
             newErrors: validation.errors || [],
           });
         }
       } catch (error) {
-        fixActions.push({
+        fixAttempts.push({
           sectionPath,
           errorCodes: sectionErrors.map((e) => e.code),
-          action: `Failed: AI Agent error - ${error.message}`,
+          result: `Failed: AI Agent error - ${error.message}`,
           success: false,
           retry: retryCount,
         });
@@ -296,7 +296,7 @@ export default async function fixDetailCheckErrors(
     content: fixedContent,
     isApproved: finalValidation.isApproved,
     reviewContent: fixedContent,
-    fixActions,
+    fixAttempts,
     unfixableErrors,
     remainingErrors,
     detailFeedback: formatValidationErrors(remainingErrors),

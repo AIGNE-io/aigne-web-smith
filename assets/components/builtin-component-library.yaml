@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-11T06:40:42.075Z
+  updateAt: 2025-11-11T08:09:59.369Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -85,7 +85,7 @@ composite:
 
       - Copy length:
         - Title ≤ 40 characters
-        - Description ≤ 140 characters per paragraph, max 2 paragraphs
+        - Description ≤ 160 characters 
     fieldCombinations:
       - verticalHeroActions.0.link
       - verticalHeroActions.0.text
@@ -291,6 +291,11 @@ composite:
 
       - The **two CTAs must clearly guide** the user to distinct next steps
       (action vs. information).
+
+
+      - Copy length:
+        - Title ≤ 40 characters
+        - Description ≤ 160 characters 
     fieldCombinations:
       - centralHeroActions.0.link
       - centralHeroActions.0.text
@@ -531,7 +536,7 @@ composite:
       - Copy length:
         - `splitHeroWithBgColorBigTitle` ≤ 40 characters
         - `splitHeroWithBgColorSubTitle` ≤ 60 characters
-        - `splitHeroWithBgColorDescription` ≤ 140 characters per paragraph, max 2 paragraphs
+        - `splitHeroWithBgColorDescription` ≤ 160 characters
     fieldCombinations:
       - splitHeroWithBgColorActions.0.link
       - splitHeroWithBgColorActions.0.text
@@ -2109,7 +2114,7 @@ composite:
     summary: >-
       Structure
 
-      - Left: title (1-3 lines) → short description (1–3 lines).
+      - Left: title (1 lines) → short description (1–2 lines).
 
       - Right: media area rendered from `featureRightImageImage` (rounded
       corners; object-fit: cover). A thin top rule or accent bar is optional.
@@ -2286,7 +2291,7 @@ composite:
     summary: >-
       Structure
 
-      - Right: title (1-3 lines) → short description (1–3 lines).
+      - Right: title (1 lines) → short description (1–2 lines).
 
       - Left: media area rendered from `featureLeftImageImage` (rounded corners;
       object-fit: cover). A thin top rule or accent bar is optional.
@@ -2495,7 +2500,7 @@ composite:
 
       - Copy length:
         - Title ≤ 40 characters
-        - Description ≤ 140 characters per paragraph, max 2 paragraphs
+        - Description ≤ 160 characters
     fieldCombinations:
       - cardDescription
       - cardTitle
@@ -2625,7 +2630,7 @@ composite:
       - `title` should only contain the executed command
 
       - Copy length:
-        - Description ≤ 140 characters per paragraph, max 2 paragraphs
+        - Description ≤ 160 characters 
     fieldCombinations:
       - terminalPlaybackData
       - terminalRight.actionLink
@@ -2838,7 +2843,7 @@ composite:
       - `title` should only contain the executed command
 
       - Copy length:
-        - Description ≤ 140 characters per paragraph, max 2 paragraphs
+        - Description ≤ 160 characters 
     fieldCombinations:
       - terminalLeft.actionLink
       - terminalLeft.actionTitle
@@ -3041,7 +3046,7 @@ composite:
 
       - Copy length:
         - Title ≤ 40 characters
-        - Description ≤ 140 characters per paragraph, max 2 paragraphs
+        - Description ≤ 160 characters
     fieldCombinations:
       - contentCard.actionLink
       - contentCard.actionTitle

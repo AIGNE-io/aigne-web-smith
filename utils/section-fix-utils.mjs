@@ -224,7 +224,12 @@ export function validateFixedSection(sectionYaml, sectionPath, componentLibrary)
 
 /**
  * Check if errors can be auto-fixed by program (without AI)
- * Only UNKNOWN_FIELD_COMBINATION errors with extra fields (no missing fields) can be auto-fixed
+ * Can auto-fix UNKNOWN_FIELD_COMBINATION errors in these cases:
+ * 1. Only extra fields (no missing fields) - remove extra fields
+ * 2. Only missing fields (no extra fields) - add missing fields with empty values
+ * Cannot auto-fix:
+ * - Both extra and missing fields - likely wrong component, needs AI to fix
+ * - INVALID_INTERNAL_LINK or INVALID_MEDIA_RESOURCE errors
  * @param {Array} errors - Array of errors for a section
  * @returns {boolean} - True if can be auto-fixed
  */
@@ -239,13 +244,14 @@ export function canAutoFixErrors(errors) {
   for (const error of fieldCombinationErrors) {
     const { extraFields = [], missingFields = [] } = error.details || {};
 
-    // If has missing fields, cannot auto-fix
-    if (missingFields.length > 0) {
+    // Cannot auto-fix if both extra and missing fields exist
+    // This indicates the component is likely completely wrong
+    if (extraFields.length > 0 && missingFields.length > 0) {
       return false;
     }
 
-    // Must have extra fields to remove
-    if (extraFields.length === 0) {
+    // Must have either extra fields or missing fields to fix
+    if (extraFields.length === 0 && missingFields.length === 0) {
       return false;
     }
   }
@@ -275,6 +281,76 @@ export function canAutoFixErrors(errors) {
  */
 function extractExtraFields(error) {
   return error.details?.extraFields || [];
+}
+
+/**
+ * Extract missing fields from error details
+ * @param {Object} error - Error object
+ * @returns {Array<string>} - Array of missing field names
+ */
+function extractMissingFields(error) {
+  return error.details?.missingFields || [];
+}
+
+/**
+ * Add missing fields to section with empty string values
+ * Handles nested paths including:
+ * - Simple fields: "title" -> { title: "" }
+ * - Nested object fields: "heroCta.text" -> { heroCta: { text: "" } }
+ * - Array item properties: "list.0.name" -> { list: [{ name: "" }] }
+ * @param {Object} section - Section object
+ * @param {Array<string>} fieldsToAdd - Array of field paths to add
+ * @returns {Object} - Section with fields added
+ */
+function addFieldsToSection(section, fieldsToAdd) {
+  const result = JSON.parse(JSON.stringify(section)); // Deep clone
+
+  for (const fieldPath of fieldsToAdd) {
+    const parts = fieldPath.split(".");
+    let current = result;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      const isLast = i === parts.length - 1;
+
+      if (isLast) {
+        // Last part - set the value
+        if (Array.isArray(current)) {
+          const index = Number.parseInt(part, 10);
+          // Ensure array is large enough
+          while (current.length <= index) {
+            current.push({});
+          }
+          current[index] = "";
+        } else {
+          current[part] = "";
+        }
+      } else {
+        // Navigate deeper, creating structure as needed
+        const nextPart = parts[i + 1];
+        const nextIsNumeric = /^\d+$/.test(nextPart);
+
+        if (Array.isArray(current)) {
+          const index = Number.parseInt(part, 10);
+          // Ensure array is large enough
+          while (current.length <= index) {
+            current.push({});
+          }
+          if (!current[index] || typeof current[index] !== "object") {
+            current[index] = nextIsNumeric ? [] : {};
+          }
+          current = current[index];
+        } else {
+          if (!current[part] || typeof current[part] !== "object") {
+            current[part] = nextIsNumeric ? [] : {};
+          }
+          current = current[part];
+        }
+      }
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -400,7 +476,10 @@ function removeFieldsFromSection(section, fieldsToRemove) {
 
 /**
  * Attempt to auto-fix section errors without AI
- * Only handles simple cases like removing extra fields
+ * Handles:
+ * 1. Removing extra fields
+ * 2. Adding missing fields with empty string values
+ * 3. Both removing and adding fields
  * @param {Object} section - Section object
  * @param {Array} errors - Array of errors
  * @param {string} sectionPath - Section path
@@ -415,13 +494,21 @@ export function tryAutoFixSection(section, errors, sectionPath, componentLibrary
   let fixedSection = { ...section };
   const actions = [];
 
-  // Handle UNKNOWN_FIELD_COMBINATION errors - remove extra fields
+  // Handle UNKNOWN_FIELD_COMBINATION errors
   const fieldCombinationErrors = errors.filter((e) => e.code === "UNKNOWN_FIELD_COMBINATION");
   for (const error of fieldCombinationErrors) {
+    // Remove extra fields
     const extraFields = extractExtraFields(error);
     if (extraFields.length > 0) {
       fixedSection = removeFieldsFromSection(fixedSection, extraFields);
       actions.push(`Removed extra fields: ${extraFields.join(", ")}`);
+    }
+
+    // Add missing fields with empty values
+    const missingFields = extractMissingFields(error);
+    if (missingFields.length > 0) {
+      fixedSection = addFieldsToSection(fixedSection, missingFields);
+      actions.push(`Added missing fields: ${missingFields.join(", ")}`);
     }
   }
 
@@ -440,6 +527,6 @@ export function tryAutoFixSection(section, errors, sectionPath, componentLibrary
     };
   }
 
-  // If still has errors after removing extra fields, cannot auto-fix
+  // If still has errors after fixing, cannot auto-fix
   return null;
 }

@@ -54,6 +54,7 @@ export default async function fixDetailCheckErrors(
   // If already approved, return immediately
   if (validationResult.isApproved) {
     return {
+      ...input,
       isApproved: true,
       reviewContent,
       fixActions: [],
@@ -69,6 +70,7 @@ export default async function fixDetailCheckErrors(
     parsedData = parse(reviewContent);
   } catch (error) {
     return {
+      ...input,
       isApproved: false,
       reviewContent,
       fixActions: [],
@@ -101,6 +103,7 @@ export default async function fixDetailCheckErrors(
   // If all errors are unfixable, return immediately
   if (fixableErrors.length === 0) {
     return {
+      ...input,
       isApproved: false,
       reviewContent,
       fixActions: [],
@@ -300,6 +303,8 @@ export default async function fixDetailCheckErrors(
   const remainingErrors = [...unfixableErrors, ...globalErrors, ...(finalValidation.errors || [])];
 
   return {
+    ...input,
+    content: fixedContent,
     isApproved: finalValidation.isApproved,
     reviewContent: fixedContent,
     fixActions,

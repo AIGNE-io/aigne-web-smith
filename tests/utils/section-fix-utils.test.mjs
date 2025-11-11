@@ -99,7 +99,20 @@ describe("canAutoFixErrors", () => {
     expect(canAutoFixErrors(errors)).toBe(true);
   });
 
-  test("returns false if UNKNOWN_FIELD_COMBINATION has missing fields", () => {
+  test("returns true if only UNKNOWN_FIELD_COMBINATION errors with missing fields", () => {
+    const errors = [
+      {
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["requiredField"],
+        },
+      },
+    ];
+    expect(canAutoFixErrors(errors)).toBe(true);
+  });
+
+  test("returns false if UNKNOWN_FIELD_COMBINATION has both extra and missing fields", () => {
     const errors = [
       {
         code: "UNKNOWN_FIELD_COMBINATION",
@@ -263,7 +276,31 @@ describe("tryAutoFixSection - simple object fields", () => {
     expect(result.section.heroDescription).toBe("Description");
   });
 
-  test("returns null if section has missing fields", () => {
+  test("adds missing fields with empty values", () => {
+    const section = {
+      componentName: "hero",
+    };
+    const errors = [
+      {
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["heroTitle", "heroDescription"],
+        },
+      },
+    ];
+
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroTitle).toBe("");
+    expect(result.section.heroDescription).toBe("");
+    expect(result.section.componentName).toBe("hero");
+    expect(result.action).toContain("Added missing fields");
+  });
+
+  test("returns null when has both extra and missing fields (needs AI)", () => {
     const section = {
       componentName: "hero",
       extraField: "Extra",
@@ -273,13 +310,15 @@ describe("tryAutoFixSection - simple object fields", () => {
         code: "UNKNOWN_FIELD_COMBINATION",
         details: {
           extraFields: ["extraField"],
-          missingFields: ["heroTitle"],
+          missingFields: ["heroTitle", "heroDescription"],
         },
       },
     ];
 
     const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
 
+    // Cannot auto-fix when both extra and missing fields exist
+    // This likely means the component is completely wrong and needs AI to fix
     expect(result).toBeNull();
   });
 });
@@ -472,6 +511,82 @@ describe("tryAutoFixSection - complex nested array fields", () => {
     expect(result.section.splitHeroWithBgColorActions[0].text).toBe("Action 1");
     expect(result.section.splitHeroWithBgColorActions[0].link).toBe("/link1");
     expect(result.section.splitHeroWithBgColorActions[0].extraProp).toBeUndefined();
+  });
+});
+
+describe("tryAutoFixSection - missing fields", () => {
+  test("adds simple missing fields", () => {
+    const section = {
+      componentName: "hero",
+      heroTitle: "Title",
+    };
+    const errors = [
+      {
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["heroDescription"],
+        },
+      },
+    ];
+
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroTitle).toBe("Title");
+    expect(result.section.heroDescription).toBe("");
+  });
+
+  test("adds nested missing fields", () => {
+    const section = {
+      componentName: "heroCta",
+      heroTitle: "Title",
+      heroDescription: "Description",
+    };
+    const errors = [
+      {
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["heroCta.text", "heroCta.link"],
+        },
+      },
+    ];
+
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroCta).toBeDefined();
+    expect(result.section.heroCta.text).toBe("");
+    expect(result.section.heroCta.link).toBe("");
+  });
+
+  test("adds missing fields with both simple and nested paths", () => {
+    const section = {
+      componentName: "heroCta",
+      heroTitle: "Title",
+    };
+    const errors = [
+      {
+        code: "UNKNOWN_FIELD_COMBINATION",
+        details: {
+          extraFields: [],
+          missingFields: ["heroDescription", "heroCta.text", "heroCta.link"],
+        },
+      },
+    ];
+
+    const result = tryAutoFixSection(section, errors, "sections.0", sampleComponentLibrary);
+
+    expect(result).not.toBeNull();
+    expect(result.fixed).toBe(true);
+    expect(result.section.heroTitle).toBe("Title");
+    expect(result.section.heroDescription).toBe("");
+    expect(result.section.heroCta).toBeDefined();
+    expect(result.section.heroCta.text).toBe("");
+    expect(result.section.heroCta.link).toBe("");
   });
 });
 

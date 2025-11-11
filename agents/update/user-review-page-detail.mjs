@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import YAML from "yaml";
-import { SECTION_META_FIELDS } from "../../utils/constants.mjs";
+import { SECTION_META_FIELDS, YAML_STRINGIFY_OPTIONS } from "../../utils/constants.mjs";
 import {
   extractContentFields,
   findBestComponentMatch,
@@ -60,14 +60,11 @@ export default async function userReviewPageDetail(
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
 
-  const yamlOptions = {
-    quotingType: '"',
-    defaultStringType: "QUOTE_DOUBLE",
-    lineWidth: 0,
-  };
-
   // share current page detail with updatePageDetail agent
-  options.context.userContext.currentPageDetail = YAML.stringify(currentPageDetail, yamlOptions);
+  options.context.userContext.currentPageDetail = YAML.stringify(
+    currentPageDetail,
+    YAML_STRINGIFY_OPTIONS,
+  );
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -107,7 +104,7 @@ export default async function userReviewPageDetail(
         ...rest,
         componentLibrary,
         feedback: feedback.trim(),
-        pageDetail: YAML.stringify(currentPageDetail, yamlOptions),
+        pageDetail: YAML.stringify(currentPageDetail, YAML_STRINGIFY_OPTIONS),
         fieldConstraints,
       });
 
@@ -141,7 +138,7 @@ export default async function userReviewPageDetail(
   }
 
   return {
-    content: YAML.stringify(currentPageDetail, yamlOptions),
+    content: YAML.stringify(currentPageDetail, YAML_STRINGIFY_OPTIONS),
   };
 }
 

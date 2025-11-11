@@ -8,7 +8,6 @@ skills:
   - ../../utils/load-config.mjs
   - ../../utils/load-sources.mjs
   - ./remove-pages-from-structure.mjs
-  - ../../utils/transform-website-structure.yaml
   - ../../utils/format-website-structure.mjs
   - ./find-pages-with-invalid-links.mjs
   - type: team
@@ -26,24 +25,15 @@ skills:
           "selectedPages": pagesWithInvalidLinks
         }
       ])
-  - type: team
-    name: batchTranslatePageDetail and analyzeTranslateNavigations
-    skills:
-      - url: ../../translate/page-detail/batch-translate-page-detail.yaml
-        default_input:
-          skipIfExists: false
-      - ../../translate/navigations/analyze-translate-navigations.mjs
-    mode: parallel
+  - url: ../../translate/page-detail/batch-translate-page-detail.yaml
+    default_input:
+      skipIfExists: false
   - ../../generate/page-data/compose-pages-data.mjs
   - url: ../../clear/clear-generated-pages.mjs
     default_input:
       pages:
         $get: deletedPages
+  - ./save-structure-after-removal.mjs
+  - ../../translate/navigations/analyze-translate-navigations.mjs
   - ../../utils/save-pages.mjs
-  - url: ../../utils/save-output.mjs
-    default_input:
-      saveKey: websiteStructure
-      savePath:
-        $get: tmpDir
-      fileName: website-structure.yaml
 mode: sequential

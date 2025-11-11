@@ -5,6 +5,7 @@ import {
   getUpdateSectionOutputJsonSchema,
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
+import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
 import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 import { validateSingleSection } from "../../../utils/utils.mjs";
 
@@ -160,11 +161,7 @@ export default async function updateSection(input, options) {
   Successfully updated section '${name}' with properties: ${updateFields.join(", ")}.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
-  const latestPageDetail = YAML.stringify(updatedPageDetail, {
-    quotingType: '"',
-    defaultStringType: "QUOTE_DOUBLE",
-    lineWidth: 0,
-  });
+  const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
   // update shared page detail
   options.context.userContext.currentPageDetail = latestPageDetail;
 

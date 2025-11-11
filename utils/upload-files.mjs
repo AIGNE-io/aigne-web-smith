@@ -7,7 +7,12 @@ import pRetry from "p-retry";
 import YAML from "yaml";
 
 import { getComponentMountPoint } from "./blocklet.mjs";
-import { MEDIA_KIT_DID, MEDIA_KIT_PROTOCOL, PAGES_KIT_DID } from "./constants.mjs";
+import {
+  MEDIA_KIT_DID,
+  MEDIA_KIT_PROTOCOL,
+  PAGES_KIT_DID,
+  YAML_STRINGIFY_OPTIONS,
+} from "./constants.mjs";
 import { findFilePath } from "./utils.mjs";
 
 // Type definitions removed for mjs format
@@ -40,9 +45,7 @@ function loadCache(cacheFilePath) {
 
 function saveCache(cacheFilePath, cache) {
   try {
-    const yamlContent = YAML.stringify(cache, {
-      lineWidth: 0,
-    });
+    const yamlContent = YAML.stringify(cache, YAML_STRINGIFY_OPTIONS);
 
     fs.writeFileSync(cacheFilePath, yamlContent, "utf-8");
   } catch (error) {

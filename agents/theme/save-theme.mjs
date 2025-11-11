@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import chalk from "chalk";
 import YAML from "yaml";
 
-import { WEB_SMITH_CONFIG_PATH } from "../../utils/constants.mjs";
+import { WEB_SMITH_CONFIG_PATH, YAML_STRINGIFY_OPTIONS } from "../../utils/constants.mjs";
 import { toKebabCase } from "../../utils/utils.mjs";
 
 export default async function saveTheme({ theme, config = WEB_SMITH_CONFIG_PATH }, options) {
@@ -56,7 +56,7 @@ export default async function saveTheme({ theme, config = WEB_SMITH_CONFIG_PATH 
       ...theme,
       createdAt: new Date().toISOString(),
     };
-    const content = YAML.stringify(themeWithTimestamp, { indent: 2 });
+    const content = YAML.stringify(themeWithTimestamp, YAML_STRINGIFY_OPTIONS);
     await fs.writeFile(filePath, content, "utf8");
 
     return {

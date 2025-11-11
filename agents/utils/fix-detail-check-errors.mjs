@@ -31,16 +31,19 @@ const UNFIXABLE_ERROR_CODES = new Set([
 
 export default async function fixDetailCheckErrors(
   {
+    ...input
+  },
+  options,
+) {
+  const {
     websiteStructure,
     reviewContent,
     allowArrayFallback = false,
     locale,
     componentLibrary,
     mediaFiles = [],
-    ...input
-  },
-  options,
-) {
+  } = input;
+
   const validationResult = {
     isApproved: input.isApproved,
     detailFeedback: input.detailFeedback,

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-11T08:59:35.233Z
+  updateAt: 2025-11-11T09:13:26.048Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -518,7 +518,7 @@ composite:
       - Left column (content):
         - Headline (`{{splitHeroWithBgColorTitle}}`, 1 lines, highest visual weight)
         - Sub Title (`{{splitHeroWithBgColorSubTitle}}`, 1 line, secondary emphasis)
-        - Description (`{{splitHeroWithBgColorDescription}}`, 1–2 short paragraphs, adds context/value)
+        - Description (`{{splitHeroWithBgColorDescription}}`, 1 short paragraphs, adds context/value)
         - Actions (`{{splitHeroWithBgColorActions.N.text}}` + `{{splitHeroWithBgColorActions.N.link}}`; one primary required, one secondary optional; arranged horizontally)
       - Right column (media):
         - Hero Image (`{{splitHeroWithBgColorImage}}`, product screenshot/context image; keep low-noise with comfortable whitespace)
@@ -3012,7 +3012,7 @@ composite:
 
       - Title (Single line, left-aligned, prominent font size)
 
-      - Description (2–4 lines of body text)
+      - Description (2 lines of body text)
 
       - Primary CTA (Text link with arrow, e.g., "Get Started")
 

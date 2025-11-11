@@ -711,7 +711,9 @@ describe("tryAutoFixSection - nested paths", () => {
     expect(result.fixed).toBe(true);
     expect(result.section.list[0].featureRightImageActions[0].text).toBe("Click me");
     expect(result.section.list[0].featureRightImageActions[0].link).toBe("");
-    expect(result.action).toContain("Added missing fields at sections.2.list.0: featureRightImageActions.0.link");
+    expect(result.action).toContain(
+      "Added missing fields at sections.2.list.0: featureRightImageActions.0.link",
+    );
   });
 
   test("adds multiple array items with nested fields (featureRightImageActions)", () => {
@@ -800,7 +802,9 @@ describe("tryAutoFixSection - nested paths", () => {
     expect(result.section.list[0].featureRightImageActions[0].text).toBe("Click me");
     expect(result.section.list[0].featureRightImageActions[0].link).toBe("/link");
     expect(result.section.list[0].featureRightImageActions[0].extraField).toBeUndefined();
-    expect(result.action).toContain("Removed extra fields at sections.2.list.0.featureRightImageActions.0: extraField");
+    expect(result.action).toContain(
+      "Removed extra fields at sections.2.list.0.featureRightImageActions.0: extraField",
+    );
   });
 });
 

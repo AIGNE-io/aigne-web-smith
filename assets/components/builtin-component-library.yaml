@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-11T08:09:59.369Z
+  updateAt: 2025-11-11T08:59:35.233Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2608,7 +2608,7 @@ composite:
       explicitly provided by the user.
 
       - The `terminalPlaybackData` field value must specify the JSON data file
-      name, such as: `mediakit://run.json`.
+      name
 
 
       ---
@@ -2616,6 +2616,9 @@ composite:
 
       Constraint
 
+
+      - The current component is only used when there is clearly available JSON
+      data for the Terminal component in the data source.
 
       - The visual should clearly correlate with the text in the left column
       (e.g., the playback must show the execution of the "aigne doc translate"
@@ -2821,7 +2824,7 @@ composite:
       explicitly provided by the user.
 
       - The `terminalPlaybackData` field value must specify the JSON data file
-      name, such as: `mediakit://run.json`.
+      name,
 
 
       ---
@@ -2829,6 +2832,9 @@ composite:
 
       Constraint
 
+
+      - The current component is only used when there is clearly available JSON
+      data for the Terminal component in the data source.
 
       - The visual should clearly correlate with the text in the right column
       (e.g., the playback must show the execution of the "aigne doc translate"
@@ -4768,6 +4774,11 @@ composite:
       - slides.4.description
       - slides.4.image
       - slides.4.title
+      - slides.5.codeContent
+      - slides.5.codeFilename
+      - slides.5.description
+      - slides.5.image
+      - slides.5.title
     section:
       id: z0empxtrcuxis207
       name: Carousel
@@ -4869,6 +4880,12 @@ composite:
                 code:
                   filename: <%= slides.4.codeFilename %>
                   content: <%= slides.4.codeContent %>
+              - image: <%= slides.5.image %>
+                title: <%= slides.5.title %>
+                description: <%= slides.5.description %>
+                code:
+                  filename: <%= slides.5.codeFilename %>
+                  content: <%= slides.5.codeContent %>
   - id: n2pwv4sm1exp2rjh
     name: Blog List
     summary: >-

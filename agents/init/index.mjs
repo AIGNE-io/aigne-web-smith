@@ -23,6 +23,8 @@ import {
   getTargetAudienceTypes,
   isGlobPattern,
   validatePath,
+  validateProjectDesc,
+  validateProjectName,
 } from "../../utils/utils.mjs";
 import { listContentRelevantFiles } from "../utils/datasource.mjs";
 
@@ -326,8 +328,18 @@ export default async function init(
 
   // Save project info to config
   const projectInfo = await getProjectInfo();
-  input.projectName = projectInfo.name;
-  input.projectDesc = projectInfo.description;
+  const nameValidation = validateProjectName(projectInfo.name);
+  const descValidation = validateProjectDesc(projectInfo.description);
+
+  if (!nameValidation.isValid) {
+    console.warn(chalk.yellow(`⚠️  ${nameValidation.warning}`));
+  }
+  if (!descValidation.isValid) {
+    console.warn(chalk.yellow(`⚠️  ${descValidation.warning}`));
+  }
+
+  input.projectName = nameValidation.value;
+  input.projectDesc = descValidation.value;
   input.projectLogo = projectInfo.icon;
   input.projectId = projectInfo.id;
   // Generate slug from project name using transliteration and slugify
@@ -372,10 +384,13 @@ export default async function init(
  */
 export function generateYAML(input) {
   // Create the main configuration object that will be safely serialized
+  const nameValidation = validateProjectName(input.projectName || "");
+  const descValidation = validateProjectDesc(input.projectDesc || "");
+
   const config = {
     // Project information (safely handled by yaml library)
-    projectName: input.projectName || "",
-    projectDesc: input.projectDesc || "",
+    projectName: nameValidation.value,
+    projectDesc: descValidation.value,
     projectLogo: input.projectLogo || "",
     projectId: input.projectId || crypto.randomUUID(),
     projectSlug: input.projectSlug || "",

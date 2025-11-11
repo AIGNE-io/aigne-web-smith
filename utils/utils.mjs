@@ -2018,3 +2018,45 @@ export function normalizeAppUrl(appUrl) {
     throw new Error(`Invalid appUrl: ${appUrl}. Please enter a valid website URL.`);
   }
 }
+
+/**
+ * Validate project name: trim leading/trailing spaces and check length limit.
+ * @param {string} projectName - The project name to validate
+ * @returns {Object} Validation result with isValid, value, and warning message
+ */
+export function validateProjectName(projectName) {
+  if (!projectName || typeof projectName !== "string") {
+    return { isValid: true, value: "", warning: null };
+  }
+  const trimmed = projectName.trim();
+  const maxLength = 40;
+  if (trimmed.length > maxLength) {
+    return {
+      isValid: false,
+      value: trimmed,
+      warning: `Project name exceeds ${maxLength} characters (current: ${trimmed.length}). Please generate a shorter name.`,
+    };
+  }
+  return { isValid: true, value: trimmed, warning: null };
+}
+
+/**
+ * Validate project description: trim leading/trailing spaces and check length limit.
+ * @param {string} projectDesc - The project description to validate
+ * @returns {Object} Validation result with isValid, value, and warning message
+ */
+export function validateProjectDesc(projectDesc) {
+  if (!projectDesc || typeof projectDesc !== "string") {
+    return { isValid: true, value: "", warning: null };
+  }
+  const trimmed = projectDesc.trim();
+  const maxLength = 160;
+  if (trimmed.length > maxLength) {
+    return {
+      isValid: false,
+      value: trimmed,
+      warning: `Project description exceeds ${maxLength} characters (current: ${trimmed.length}). Please generate a shorter description.`,
+    };
+  }
+  return { isValid: true, value: trimmed, warning: null };
+}

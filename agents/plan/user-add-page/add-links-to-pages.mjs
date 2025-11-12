@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
 
 /**
@@ -11,12 +12,9 @@ export default async function addLinksToPages(input = {}, options = {}) {
     newLinks,
     websiteStructure,
     websiteStructureResult,
-    originalWebsiteStructure,
     tmpDir,
     pagesDir,
     locale,
-    rules = "",
-    glossary = "",
     mediaFiles,
     componentLibrary,
   } = input;
@@ -52,20 +50,17 @@ export default async function addLinksToPages(input = {}, options = {}) {
   const linkPaths = newLinks.join(", ");
   const feedback = `Add the following internal links to this page: ${linkPaths}. Identify suitable places within the existing content — such as relevant sections, navigation items, or CTAs — and insert the links naturally to maintain context and readability.`;
 
+  const fieldConstraints = generateFieldConstraints(componentLibrary);
+
   await options.context.invoke(updatePageDetailAgent, {
+    ...input,
     pageDetail,
-    rules,
-    locale,
-    originalWebsiteStructure,
     title: pageInfo.title,
     description: pageInfo.description,
-    path,
     parentId: pageInfo.parentId || null,
-    glossary: glossary || "",
-    fieldConstraints: "",
+    fieldConstraints,
     feedback,
-    needDataSources: false,
-    datasources: "",
+    needDataSources: true,
   });
 
   const content = options.context.userContext.currentPageDetail;

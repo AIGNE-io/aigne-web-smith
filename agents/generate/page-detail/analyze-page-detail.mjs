@@ -72,16 +72,19 @@ export default async function analyzePageDetail(input, options) {
   let validationResult = {};
   let fixedContent = fileContent;
   if (detailGenerated && fileContent && websiteStructure) {
-    validationResult = await options.context.invoke(options.context.agents["checkDetailResultTeam"], {
-      ...input,
-      websiteStructure,
-      reviewContent: fileContent,
-      pagesDir,
-      tmpDir,
-      locale,
-      componentLibrary,
-      mediaFiles,
-    });
+    validationResult = await options.context.invoke(
+      options.context.agents["checkDetailResultTeam"],
+      {
+        ...input,
+        websiteStructure,
+        reviewContent: fileContent,
+        pagesDir,
+        tmpDir,
+        locale,
+        componentLibrary,
+        mediaFiles,
+      },
+    );
 
     if (!validationResult.isApproved) {
       isContentValidationFailed = true;

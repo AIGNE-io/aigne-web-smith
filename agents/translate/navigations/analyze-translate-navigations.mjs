@@ -12,12 +12,16 @@ import { ensureDir } from "../../../utils/utils.mjs";
  * @returns {Promise<Object>} Analysis result with pages that need translation
  */
 export default async function analyzeTranslateNavigations(input, options) {
-  const { originalWebsiteStructure, tmpDir, locales, locale } = input;
+  const { originalWebsiteStructure, websiteStructure = [], tmpDir, locales, locale } = input;
 
   if (!originalWebsiteStructure?.length) {
     // skip
     return {};
   }
+
+  // use the latest website structure to analyze
+  const websiteMap = new Set(websiteStructure.map((v) => v.path));
+  const currentStructure = originalWebsiteStructure.filter((v) => websiteMap.has(v.path));
 
   const selectedNavigationsMap = {};
 
@@ -34,7 +38,7 @@ export default async function analyzeTranslateNavigations(input, options) {
       } catch (_error) {
         // find if existing navigation is translated
         if (currentLocale === locale) {
-          localeNavigations = originalWebsiteStructure.map((page) => {
+          localeNavigations = currentStructure.map((page) => {
             return {
               path: page.path,
               navigation: page.navigation,
@@ -51,7 +55,7 @@ export default async function analyzeTranslateNavigations(input, options) {
         localeNavigationsGroupByPath = _.keyBy(localeNavigations, "path");
       }
 
-      originalWebsiteStructure.forEach((page) => {
+      currentStructure.forEach((page) => {
         const { navigation: baseNavigation, path } = page;
         const item = localeNavigationsGroupByPath?.[path];
         selectedNavigationsMap[path] ??= {

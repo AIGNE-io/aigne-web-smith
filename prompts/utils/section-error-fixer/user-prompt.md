@@ -3,14 +3,14 @@
 
 {{ additionalInformation }}
 
-<available_media_assets>
+<allowed_media_files>
 {{ assetsContent }}
-</available_media_assets>
+</allowed_media_files>
 
 {% ifAsync websiteScale != "singlePage" %}
-<available_internal_links>
+<allowed_links>
 {{ linksContent }}
-</available_internal_links>
+</allowed_links>
 {% endif %}
 
 <structure_plan>

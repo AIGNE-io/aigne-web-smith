@@ -4,12 +4,10 @@ export default async function mergePagesWithTranslations(
   { pagesWithNewLinks, newPages, translateLanguages = [], allFeedback },
   options,
 ) {
-  const websiteStructure = options.context.userContext.currentStructure;
-
   let selectedPages = [...pagesWithNewLinks, ...newPages];
   const transformWebsiteStructure = options.context.agents["transformWebsiteStructure"];
   const { websiteStructureResult } = await options.context.invoke(transformWebsiteStructure, {
-    selectedPages,
+    websiteStructure: selectedPages,
     translateLanguages,
   });
 
@@ -23,7 +21,5 @@ export default async function mergePagesWithTranslations(
 
   return {
     selectedPages,
-    websiteStructure, // for save
-    originalWebsiteStructure: websiteStructure, // Regenerate navigation after adding pages
   };
 }

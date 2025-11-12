@@ -1,48 +1,45 @@
 # 安裝
 
-在開始使用 AIGNE WebSmith 生成網站之前，您必須先安裝 AIGNE 命令列介面（CLI）。此工具提供了與 WebSmith 框架互動所需的指令。本節將提供安裝過程的逐步指南。
+在您開始使用 AIGNE WebSmith 生成網站之前，您必須先安裝 AIGNE 命令列介面（CLI）。此工具提供了與 WebSmith 框架互動所需的命令。本節將提供安裝過程的逐步指南。
 
-## 先決條件
+## 系統需求
 
-要安裝並執行 AIGNE CLI，您的開發環境必須滿足以下要求：
+*   **Node.js >=20**：AIGNE WebSmith 需要 Node.js 20 或更高版本
+*   **npm**：npm（Node Package Manager）會隨 Node.js 自動安裝
 
-*   **Node.js 和 npm**：AIGNE CLI 是以 npm 套件的形式分發，因此需要 Node.js。如果您尚未安裝 Node.js，請從 [Node.js 官方網站](https://nodejs.org/) 下載並安裝。安裝 Node.js 的同時也會安裝 npm（Node Package Manager）。
+如果您尚未安裝 Node.js，請從 [Node.js 官方網站](https://nodejs.org/) 下載並安裝。
 
-## 安裝 AIGNE CLI
+## 安裝
 
-建議的安裝方法是全域安裝 CLI。這樣您就可以在終端機的任何目錄中使用 `aigne` 指令。
-
-若要執行全域安裝，請在終端機中執行以下指令：
+在您的終端機中執行以下命令：
 
 ```bash
 npm install -g @aigne/cli
 ```
 
-### 安裝 Beta 版本
+## 進階安裝選項
 
-對於希望測試最新功能的使用者，我們提供了 beta 版本。若要安裝 beta 版本，您必須先安裝 beta 套件，然後執行升級指令。
+### Beta 版本
 
-請在終端機中執行以下指令：
+若要安裝 beta 版本以測試最新功能：
 
 ```bash
 npm install -g @aigne/cli@beta
 aigne web upgrade --beta
 ```
 
-### 替代方案：本機安裝
+### 本地安裝
 
-或者，您也可以將 AIGNE CLI 作為特定專案內的本機依賴項進行安裝。如果您偏好以每個專案為基礎來管理依賴項，這種方式會很適合。
-
-若要進行本機安裝，請導覽至您專案的根目錄並執行：
+若要將 CLI 安裝為專案依賴項：
 
 ```bash
 npm install @aigne/cli
 ```
 
-當在本機安裝時，您需要使用 `npx aigne ...` 或設定一個 npm 指令碼來執行指令。
+當本地安裝時，請使用 `npx aigne ...` 來執行命令。
 
 ## 後續步驟
 
-安裝完成後，您就可以開始建立您的第一個網站了。請繼續閱讀下一節以開始操作。
+安裝完成後，您就可以建立您的第一個網站了。請前往下一節開始。
 
-*   **[準備您的內容](./getting-started-preparing-your-content.md)**：說明您應該準備好哪些內容和資訊，以幫助 AI 為您生成最符合需求的網站。
+*   **[準備您的內容](./getting-started-preparing-your-content.md)**：說明您應該準備好哪些類型的內容和資訊，以幫助 AI 為您的需求生成最佳的網站。

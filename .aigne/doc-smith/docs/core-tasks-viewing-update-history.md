@@ -2,11 +2,11 @@
 
 AIGNE WebSmith automatically maintains a detailed log of every change you make to your website. Whether you're updating the content on a single page or reorganizing the entire site structure, each action is recorded. This history provides a clear, chronological record, allowing you to track your progress and review past modifications.
 
-The `web history` command is the primary tool for accessing this log. It allows you to view a list of all recorded updates in a format similar to version control systems like Git.
+The `aigne web history` command is the primary tool for accessing this log. It allows you to view a list of all recorded updates in a format similar to version control systems like Git.
 
 ## Viewing the History Log
 
-To see the complete list of updates, use the `web history view` command. This command displays all entries from the newest to the oldest.
+To see the complete list of updates, use the `aigne web history view` command. This command displays all entries from the newest to the oldest.
 
 ```bash Terminal icon=lucide:terminal
 aigne web history view
@@ -39,7 +39,7 @@ Each entry in the log contains several key pieces of information. Here is a brea
 
 ### Command Aliases
 
-For convenience, the `web history` command accepts several aliases for `view`. The following commands are equivalent and will produce the same output:
+For convenience, the `aigne web history` command accepts several aliases for `view`. The following commands are equivalent and will produce the same output:
 
 -   `aigne web history log`
 -   `aigne web history list`
@@ -48,7 +48,7 @@ Choose the one that is most memorable for you.
 
 ## Summary
 
-The `web history` command is an essential tool for tracking the evolution of your website. By reviewing the log, you can easily recall the details of past changes, understand when they were made, and see the reasons behind them.
+The `aigne web history` command is an essential tool for tracking the evolution of your website. By reviewing the log, you can easily recall the details of past changes, understand when they were made, and see the reasons behind them.
 
 For more information on the actions that create these history entries, please refer to the following sections:
 -   [Updating Website Content](./core-tasks-updating-website-content.md)

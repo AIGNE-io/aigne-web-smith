@@ -18,6 +18,10 @@ skills:
             { "reviewContent": content }
           ])
       - url: ../../utils/reload-generate-media.mjs
+      - url: ../../utils/check-detail-result.mjs
+        default_input:
+          allowArrayFallback: true
+      - url: ../../utils/fix-detail-check-errors.mjs
     reflection:
       reviewer:
         url: ../../utils/check-detail-result.mjs

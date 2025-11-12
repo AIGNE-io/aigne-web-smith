@@ -23,6 +23,7 @@
   * [Using Special Components](/advanced-features-using-special-components.md)
     * [Terminal Player](/advanced-features-using-special-components-terminal-player.md)
     * [Latest Updates](/advanced-features-using-special-components-latest-updates.md)
+  * [Methodology](/guides.md)
 * [Reference](/reference.md)
   * [Command Line Reference](/reference-command-line-reference.md)
   * [Changelog](/reference-changelog.md)

@@ -1117,5 +1117,5 @@ Q3: Generated content doesn’t match expectations
 - Fixes: enrich `rules`, adjust audience, add more sources
 
 Q4: How to fix format errors?
-- Common: full‑width colons, inconsistent indentation, bad arrays
-- Fixes: follow the guidance in Section 6, restore from backup if needed, and regenerate to verify
+- Common: full‑width colons, inconsistent indentation, bad arrays.
+- Fixes: follow the guidance in Section 6, restore from backup if needed, and regenerate to verify.

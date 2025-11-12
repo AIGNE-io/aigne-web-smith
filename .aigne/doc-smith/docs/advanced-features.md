@@ -1,20 +1,17 @@
 # Advanced Features
 
-This section explores advanced capabilities of AIGNE WebSmith that allow for greater customization and functionality beyond the core website generation tasks. Once you are comfortable with the basics, you can use these features to fine-tune your website's building blocks and incorporate specialized, visually engaging elements.
+Once you have mastered the basics of generating and updating your website, you can explore the advanced features of AIGNE WebSmith to gain more granular control and add unique, powerful visual elements. This section covers how to manage your component library and leverage specialized components for more dynamic and engaging pages.
 
-The features covered here focus on two main areas: managing the underlying component library that the AI uses to construct your pages, and leveraging powerful, pre-built special components for unique presentation needs. Understanding these concepts allows you to maintain and enhance your website with more precision and creativity.
+This section provides an overview of advanced capabilities. For detailed instructions, please refer to the specific sub-documents:
 
-## Key Topics
-
-This section is divided into the following detailed guides. For in-depth instructions, please refer to the specific sub-pages.
-
-<x-cards data-columns="2">
-  <x-card data-title="Managing Components" data-icon="lucide:library" data-href="/core-tasks/managing-components">
-    Learn how to update the local library of visual components that WebSmith uses to build your site. This is essential for accessing new features, applying critical updates, or syncing with a custom component set from your own Pages Kit instance.
-  </x-card>
-  <x-card data-title="Using Special Components" data-icon="lucide:star" data-href="/advanced-features/using-special-components">
-    Discover how to implement powerful, pre-built components like the Terminal Player. These elements provide unique functionality and visual appeal that can make your pages more interactive and informative.
-  </x-card>
+<x-cards data-columns="3">
+  <x-card data-title="Managing Components" data-icon="lucide:library" data-href="/advanced-features/managing-components">Learn how to pull and update the component library that WebSmith uses to construct your website's visual elements.</x-card>
+  <x-card data-title="Using Special Components" data-icon="lucide:toy-brick" data-href="/advanced-features/using-special-components">Discover how to implement powerful, pre-built components like the Terminal Player to create visually rich web pages.</x-card>
+  <x-card data-title="Methodology" data-icon="lucide:milestone" data-href="/guides">Follow a strategic guide for structuring your source content to achieve the highest quality AI-generated website.</x-card>
 </x-cards>
 
-By mastering these advanced features, you can exercise greater control over your website's design and functionality, ensuring it remains up-to-date and effectively meets your specific requirements.
+## Summary
+
+This section serves as a gateway to the more powerful and customizable aspects of AIGNE WebSmith. By learning to manage component libraries and utilize special components, you can significantly enhance the visual appeal and functionality of your generated website.
+
+For a complete list of all available commands and their parameters, consult the [Command Line Reference](./reference-command-line-reference.md).

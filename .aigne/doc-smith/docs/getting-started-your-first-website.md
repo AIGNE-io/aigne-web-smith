@@ -108,7 +108,20 @@ locale: en
 
 # Directory and source path configurations
 pagesDir: aigne/web-smith/pages  # Directory to save generated pages
+
+# Data source paths (CRITICAL!) - Source materials AI uses to generate content
+# This is the most important configuration for determining website quality
+sourcesPath:
+  - ./README.md
+  - ./docs
+  - ./CHANGELOG.md
+
+# Default datasources - Common resources included in every page
+defaultDatasources:
+  - ./media.md
 ```
+
+**Important Note: `sourcesPath` is the most critical part of the configuration file.** It specifies all the source materials the AI uses to generate website content. Without sufficient, high-quality data sources, the generated website content will be generic and inaccurate. Make sure to include all relevant documentation, descriptions, and information files.
 
 ## Step 4: Review and Approve the Website Plan
 

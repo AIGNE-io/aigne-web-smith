@@ -23,8 +23,9 @@ export default async function checkDetailResult({
   // Build allowed media files from media files list
   const allowedMediaFiles = buildAllowedMediaFilesFromList(mediaFiles);
 
+  let validation;
   if (reviewContent) {
-    const validation = validatePageDetail({
+    validation = validatePageDetail({
       pageDetailYaml: reviewContent,
       componentLibrary,
       allowArrayFallback,
@@ -41,5 +42,6 @@ export default async function checkDetailResult({
   return {
     isApproved,
     detailFeedback: detailFeedback.join("\n"),
+    errors: validation?.errors || [],
   };
 }

@@ -2,7 +2,7 @@
 
 AIGNE WebSmith is an AI-driven tool designed to automate the creation of professional, content-rich websites. It handles everything from planning the website's structure and writing the content to generating the final pages and publishing them online. This allows you to go from a simple idea to a live, SEO-optimized website with minimal effort and no technical expertise required.
 
-Built on the powerful [AIGNE Framework](https://www.aigne.io/framework), AIGNE WebSmith acts as your automated web development team. You provide the vision for your website, and the AI agents do the heavy lifting, ensuring a high-quality result that is ready for your audience.
+Built on the [AIGNE Framework](https://www.aigne.io/framework), AIGNE WebSmith acts as your automated web development team. You provide the vision for your website, and the AI agents do the heavy lifting, ensuring a high-quality result that is ready for your audience.
 
 ## Key Features
 

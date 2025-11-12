@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.7.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.3...v1.7.0) (2025-11-11)
+
+## [1.7.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.2...v1.7.0-beta.3) (2025-11-11)
+
+
+### Features
+
+* add automated section error fixing system with AI fallback ([#239](https://github.com/AIGNE-io/aigne-web-smith/issues/239)) ([7fe6421](https://github.com/AIGNE-io/aigne-web-smith/commit/7fe64215114d5cfa99afc658ec7f967855c1ed69))
+* **validate:** enforce maximum length for project name and description ([#238](https://github.com/AIGNE-io/aigne-web-smith/issues/238)) ([3aef2d5](https://github.com/AIGNE-io/aigne-web-smith/commit/3aef2d556f2fdb40ef6ab4538bd7146e580fc5af))
+
+
+### Bug Fixes
+
+* improve error handling and parameter extraction in detail check utilities ([#240](https://github.com/AIGNE-io/aigne-web-smith/issues/240)) ([16f1397](https://github.com/AIGNE-io/aigne-web-smith/commit/16f1397809c47bbb73997cc08f026f3cebed476b))
+* update chat model from aignehub/gemini-2.5-pro to google/gemini-2.5-pro ([0c01596](https://github.com/AIGNE-io/aigne-web-smith/commit/0c01596da4c6659ce6da080327d7ddf2bef5a650))
+
+## [1.7.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.1...v1.7.0-beta.2) (2025-11-10)
+
+
+### Bug Fixes
+
+* tune naming for publish access token environment ([#234](https://github.com/AIGNE-io/aigne-web-smith/issues/234)) ([2887bd9](https://github.com/AIGNE-io/aigne-web-smith/commit/2887bd95487626ace7e4ecb200eb0c4222ab1ef8))
+
+## [1.7.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta...v1.7.0-beta.1) (2025-11-10)
+
+
+### Bug Fixes
+
+* add validation check for existing translation files ([#232](https://github.com/AIGNE-io/aigne-web-smith/issues/232)) ([f9760fb](https://github.com/AIGNE-io/aigne-web-smith/commit/f9760fbf295b51cf35a728e8a351f099401359bb))
+
 ## [1.7.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.6.0...v1.7.0-beta) (2025-11-08)
 
 

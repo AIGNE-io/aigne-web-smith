@@ -1,4 +1,10 @@
 rules:
+  - id: pref_d420a83976418df1
+    active: true
+    scope: structure
+    rule: Do not use 'Guides' as a document or section name; use a more specific name instead.
+    feedback: Guides 可以换下名称,这个太过常态
+    createdAt: 2025-11-11T14:53:13.795Z
   - id: pref_f25159494408c284
     active: true
     scope: structure

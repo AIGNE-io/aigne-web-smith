@@ -9,6 +9,8 @@ import {
   loadConfigFromFile,
   saveValueToConfig,
   toRelativePath,
+  validateProjectDesc,
+  validateProjectName,
   validateWebsiteStructure,
 } from "../../utils/utils.mjs";
 
@@ -222,9 +224,18 @@ export default async function analyzeWebsiteStructure(
           result.projectName !== projectInfo.name &&
           !projectInfo.fromGitHub
         ) {
-          await saveValueToConfig("projectName", result.projectName);
-          message += `Project name: \`${result.projectName}\``;
-          hasUpdated = true;
+          const nameValidation = validateProjectName(result.projectName);
+          if (nameValidation.isValid) {
+            await saveValueToConfig("projectName", nameValidation.value);
+            message += `Project name: \`${nameValidation.value}\``;
+            hasUpdated = true;
+          } else {
+            console.warn(chalk.yellow(`⚠️  ${nameValidation.warning}`));
+            // Still save the value but warn the user
+            await saveValueToConfig("projectName", nameValidation.value);
+            message += `Project name: \`${nameValidation.value}\` ⚠️ (exceeds 40 character limit)`;
+            hasUpdated = true;
+          }
         }
 
         if (
@@ -232,9 +243,18 @@ export default async function analyzeWebsiteStructure(
           result.projectDesc !== projectInfo.description &&
           !projectInfo.fromGitHub
         ) {
-          await saveValueToConfig("projectDesc", result.projectDesc);
-          message += `\nProject description: \`${result.projectDesc}\``;
-          hasUpdated = true;
+          const descValidation = validateProjectDesc(result.projectDesc);
+          if (descValidation.isValid) {
+            await saveValueToConfig("projectDesc", descValidation.value);
+            message += `\nProject description: \`${descValidation.value}\``;
+            hasUpdated = true;
+          } else {
+            console.warn(chalk.yellow(`⚠️  ${descValidation.warning}`));
+            // Still save the value but warn the user
+            await saveValueToConfig("projectDesc", descValidation.value);
+            message += `\nProject description: \`${descValidation.value}\` ⚠️ (exceeds 160 character limit)`;
+            hasUpdated = true;
+          }
         }
 
         if (hasUpdated) {

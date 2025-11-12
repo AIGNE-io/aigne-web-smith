@@ -1,7 +1,7 @@
 #!/usr/bin/env aigne
 
 chat_model:
-  model: aignehub/gemini-2.5-pro
+  model: google/gemini-2.5-pro
   temperature: 0.8
   reasoning_effort:
     $get: reasoningEffort
@@ -118,6 +118,7 @@ agents:
   - ./agents/history/view.mjs
 
   # utils
+  - ./agents/utils/check-detail-result-team.yaml
   - ./agents/utils/check-detail-result.mjs
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/choose-pages.mjs
@@ -125,6 +126,8 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/utils/find-user-preferences-by-path.mjs
+  - ./agents/utils/fix-detail-check-errors.mjs
+  - ./agents/utils/section-error-fixer.yaml
   - ./agents/utils/transform-website-structure.yaml
   - ./agents/utils/format-website-structure.mjs
   - ./agents/utils/fs.mjs

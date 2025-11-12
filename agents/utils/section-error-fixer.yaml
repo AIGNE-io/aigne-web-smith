@@ -1,0 +1,8 @@
+name: sectionErrorFixer
+description: Fix validation errors in a page detail section by mapping fields and fixing invalid references
+instructions:
+  - role: system
+    url: ../../prompts/utils/section-error-fixer/system-prompt.md
+  - role: user
+    url: ../../prompts/utils/section-error-fixer/user-prompt.md
+output_key: fixedSection

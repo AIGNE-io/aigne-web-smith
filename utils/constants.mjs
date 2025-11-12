@@ -578,7 +578,12 @@ export const BUILTIN_COMPONENT_LIBRARY_NAME = "builtin-component-library.yaml";
 
 export const LIST_KEY = "list";
 
-export const SECTION_META_FIELDS = ["sectionName", "sectionSummary", "fieldCombinations"];
+export const SECTION_META_FIELDS = [
+  "sectionName",
+  "sectionSummary",
+  "fieldCombinations",
+  "componentName",
+];
 
 export const DEFAULT_PAGE_STYLE = {
   maxWidth: "custom:1600px",

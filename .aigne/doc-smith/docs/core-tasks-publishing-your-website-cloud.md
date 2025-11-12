@@ -37,7 +37,7 @@ Use the arrow keys to highlight the following choice and press Enter:
   New dedicated website - Paid service. Create a new website with custom domain and hosting for professional use.
 ```
 
-### Step 3: Authorize AIGNE WebSmith (First-Time Users Only)
+### Step 3: Authorize AIGNE WebSmith (First-Time Setup Required)
 
 If this is your first time publishing to WebSmith Cloud, the command-line tool needs to be authorized to publish on your behalf. This is a one-time security procedure.
 

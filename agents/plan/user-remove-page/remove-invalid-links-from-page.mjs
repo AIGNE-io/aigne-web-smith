@@ -1,31 +1,23 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getFileName } from "../../../utils/utils.mjs";
+import checkDetailResult from "../../utils/check-detail-result.mjs";
+import fixDetailCheckErrors from "../../utils/fix-detail-check-errors.mjs";
+
+const MAX_FIX_ATTEMPTS = 5;
 
 export default async function removeInvalidLinksFromPage(input = {}, options = {}) {
   const {
     path,
-    invalidLinks: rawInvalidLinks,
     websiteStructureResult,
     websiteStructure,
     tmpDir,
     pagesDir,
     locale,
-    rules,
-    originalWebsiteStructure,
-    glossary,
     mediaFiles,
     componentLibrary,
   } = input;
   const pageInfo = websiteStructureResult.find((item) => item.path === path);
-
-  // Extract actual link URLs from error messages
-  const invalidLinks = rawInvalidLinks
-    .map((msg) => {
-      const match = msg.match(/Invalid internal link: ([^\s.]+)/);
-      return match ? match[1] : null;
-    })
-    .filter(Boolean);
 
   if (!pageInfo) {
     throw new Error(`Page not found: ${path}`);
@@ -36,45 +28,80 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
   const fileFullName = getFileName({ fileName: flatName });
   const filePath = join(tmpDir, locale, fileFullName);
 
-  let pageDetail = "";
+  let reviewContent = "";
   try {
-    pageDetail = await readFile(filePath, "utf8");
+    reviewContent = await readFile(filePath, "utf8");
   } catch (error) {
     throw new Error(`Failed to read page content for ${path}: ${error.message}`);
   }
 
-  // Clear previous tool inputs
-  options.context.userContext.lastToolInputs = {};
-  options.context.userContext.currentPageDetail = pageDetail;
+  // Try to fix invalid links with check-detail-result and fix-detail-check-errors
+  let currentContent = reviewContent;
+  let attemptCount = 0;
 
-  // Call updatePageDetail to remove invalid links
-  const updatePageDetailAgent = options.context.agents["updatePageDetail"];
-  const feedback = `Remove invalid internal links: ${invalidLinks.join(
-    ", ",
-  )}. Delete any sections or content that reference these links.`;
+  while (attemptCount < MAX_FIX_ATTEMPTS) {
+    attemptCount++;
 
-  await options.context.invoke(updatePageDetailAgent, {
-    pageDetail,
-    rules,
-    locale,
-    originalWebsiteStructure,
-    title: pageInfo.title,
-    description: pageInfo.description,
-    path,
-    parentId: pageInfo.parentId || null,
-    glossary: glossary || "",
-    fieldConstraints: "",
-    feedback,
-    needDataSources: false,
-    datasources: "",
-  });
+    // Check for errors
+    const checkResult = await checkDetailResult(
+      {
+        ...input,
+        websiteStructure,
+        reviewContent: currentContent,
+        allowArrayFallback: true,
+        locale,
+        componentLibrary,
+        mediaFiles: mediaFiles || [],
+      },
+      options,
+    );
 
-  const content = options.context.userContext.currentPageDetail;
+    // If approved, we're done
+    if (checkResult.isApproved) {
+      break;
+    }
+
+    // If this is the last attempt, warn user and break
+    if (attemptCount >= MAX_FIX_ATTEMPTS) {
+      console.warn(
+        `⚠️  Warning: Failed to fix all invalid links in page ${path} after ${MAX_FIX_ATTEMPTS} attempts.`,
+      );
+      console.warn(`Remaining errors:\n${checkResult.detailFeedback}`);
+      break;
+    }
+
+    // Try to fix errors
+    const fixResult = await fixDetailCheckErrors(
+      {
+        ...input,
+        websiteStructure,
+        reviewContent: currentContent,
+        isApproved: checkResult.isApproved,
+        detailFeedback: checkResult.detailFeedback,
+        errors: checkResult.errors,
+        allowArrayFallback: true,
+        locale,
+        componentLibrary,
+        mediaFiles: mediaFiles || [],
+      },
+      options,
+    );
+
+    // Update content for next iteration
+    currentContent = fixResult.reviewContent || fixResult.content || currentContent;
+
+    console.log(`${filePath} ${attemptCount} isApproved: `, fixResult.isApproved)
+
+    // If fix result is approved, we're done
+    if (fixResult.isApproved) {
+      break;
+    }
+  }
 
   // page data for save
   return {
     path,
-    content,
+    content: currentContent,
     pagesDir,
     tmpDir,
     translates: pageInfo.translates,

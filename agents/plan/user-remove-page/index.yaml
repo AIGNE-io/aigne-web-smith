@@ -16,18 +16,10 @@ skills:
       - ./remove-invalid-links-from-page.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithInvalidLinks
+    mode: sequential
+    concurrency: 10
+  - ./translate-pages-with-invalid-links.mjs
   - ../../generate/page-detail/load-page-detail.mjs
-  - type: transform
-    jsonata: |
-      $merge([
-        $,
-        {
-          "selectedPages": pagesWithInvalidLinks
-        }
-      ])
-  - url: ../../translate/page-detail/batch-translate-page-detail.yaml
-    default_input:
-      skipIfExists: false
   - ../../generate/page-data/compose-pages-data.mjs
   - url: ../../clear/clear-generated-pages.mjs
     default_input:

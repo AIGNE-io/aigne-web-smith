@@ -10,7 +10,7 @@ import deletePage from "../website-structure-tools/delete-page.mjs";
  * @returns {Promise<Object>} Result with deleted pages and updated structure
  */
 export default async function removePagesFromStructure(input = {}, options = {}) {
-  const { tmpDir, locale = "en", projectId, translateLanguages = [] } = input;
+  const { tmpDir, locale = "en", projectId = [] } = input;
 
   if (!tmpDir) {
     return {
@@ -109,15 +109,9 @@ export default async function removePagesFromStructure(input = {}, options = {})
 
   // Get updated website structure
   const updatedWebsiteStructure = options.context.userContext.currentStructure;
-  const transformWebsiteStructure = options.context.agents["transformWebsiteStructure"];
-  const { websiteStructureResult } = await options.context.invoke(transformWebsiteStructure, {
-    websiteStructure,
-    translateLanguages,
-  });
 
   return {
     originalWebsiteStructure: websiteStructure,
-    websiteStructureResult, // Use the pre-deletion structure when cleaning up page files
     websiteStructure: updatedWebsiteStructure,
     deletedPages: deletedPages.map((p) => p.path),
   };

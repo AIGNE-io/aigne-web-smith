@@ -8,24 +8,24 @@ skills:
   - ../../utils/load-config.mjs
   - ../../utils/load-sources.mjs
   - ./remove-pages-from-structure.mjs
-  - ../../utils/format-website-structure.mjs
-  - ./find-pages-with-invalid-links.mjs
-  - type: team
-    name: batchRemoveInvalidLinks
-    skills:
-      - ./remove-invalid-links-from-page.mjs
-      - ../../utils/save-single-page.mjs
-    iterate_on: pagesWithInvalidLinks
-    mode: sequential
-    concurrency: 10
-  - ./translate-pages-with-invalid-links.mjs
-  - ../../generate/page-detail/load-page-detail.mjs
-  - ../../generate/page-data/compose-pages-data.mjs
-  - url: ../../clear/clear-generated-pages.mjs
+  - url: ../../utils/save-output.mjs
     default_input:
-      pages:
-        $get: deletedPages
-  - ./save-structure-after-removal.mjs
-  - ../../translate/navigations/analyze-translate-navigations.mjs
+      saveKey: websiteStructure
+      savePath:
+        $get: tmpDir
+      fileName: website-structure.yaml
+  - ../../utils/transform-website-structure.yaml
+  - ../../utils/format-website-structure.mjs
+  - ../../media/load-media-description.mjs
+  - ../../generate/page-detail/batch-generate-page-detail.yaml
+  - ../../generate/page-detail/load-page-detail.mjs
+  - ../../utils/reload-generate-media.mjs
+  - type: team
+    name: batchTranslatePageDetail and analyzeTranslateNavigations
+    skills:
+      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - ../../translate/navigations/analyze-translate-navigations.mjs
+    mode: parallel
+  - ../../generate/page-data/compose-pages-data.mjs
   - ../../utils/save-pages.mjs
 mode: sequential

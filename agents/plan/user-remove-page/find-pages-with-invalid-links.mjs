@@ -85,4 +85,3 @@ export default async function findPagesWithInvalidLinks(input = {}) {
 findPagesWithInvalidLinks.taskTitle = "Find pages with invalid links";
 findPagesWithInvalidLinks.description =
   "Programmatically identify pages that contain invalid internal links after structure changes";
-``;

@@ -71,7 +71,7 @@ export default async function removeInvalidLinksFromPage(input = {}, options = {
 
   const content = options.context.userContext.currentPageDetail;
 
-  // pagData for save
+  // pageData for save
   return {
     path,
     content,

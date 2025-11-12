@@ -69,7 +69,6 @@ export default async function findPagesWithInvalidLinks(input = {}) {
       if (linkErrors.length > 0) {
         pagesWithInvalidLinks.push({
           ...pageInfo,
-          path: pageInfo.path,
           invalidLinks: linkErrors.map((err) => err.message),
         });
       }

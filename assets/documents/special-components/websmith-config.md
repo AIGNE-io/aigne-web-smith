@@ -1102,7 +1102,7 @@ project/
 
 1. **Include essential documentation:**
    - `README.md` (project overview)
-   - `docs/` directory (documentation)
+   - `docs` directory (documentation)
    - `CHANGELOG.md` (version history)
 
 2. **Include project configuration:**

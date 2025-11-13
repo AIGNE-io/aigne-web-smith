@@ -4,12 +4,14 @@
 
 ### Basics
 
-`config.yaml` is WebSmith’s core configuration file. It uses YAML format and stores all parameters required for WebSmith to generate a website.
+`config.yaml` is WebSmith’s core configuration file. It uses YAML format and stores all parameters required for WebSmith to generate, translate, and publish a website.
 
-**File Details**:
-- **File Name**: `config.yaml` (fixed name)
-- **Location**: `.aigne/web-smith/config.yaml` (relative to the project root)
-- **Format**: YAML (UTF-8 encoding)
+![Guided review screen for .aigne/web-smith/config.yaml](../../../assets/images/web-smith-config.png)
+
+**File details**
+- **File name:** `config.yaml` (fixed)
+- **Location:** `.aigne/web-smith/config.yaml`, relative to the project root
+- **Format:** YAML (UTF-8)
 
 ---
 
@@ -17,7 +19,7 @@
 
 ### Core Function
 
-The configuration file is the central parameter carrier for WebSmith. Every time the AI agent runs the `generate` command, it reads this file and generates site structure and content according to its settings.
+The configuration file is the central parameter carrier for WebSmith. Every time WebSmith runs the `generate` command, it reads this file and produces site structure and content according to its settings.
 
 Primary purposes:
 - Define site type and target audience
@@ -40,13 +42,13 @@ Purpose: define name, description, logo, identifiers, etc. Affects page titles, 
 
 #### Group 2: Site Strategy
 
-Defines site type, tone, scale, and generation strategy. This controls how AI produces content.
+Defines site type, tone, scale, and generation strategy. This controls how WebSmith produces content.
 
 Fields: `pagePurpose`, `targetAudienceTypes`, `websiteScale`, `rules`
 
 Purpose:
 - `pagePurpose`: define site type (e.g., landing page, ecommerce, SaaS), affecting components and content organization
-- `targetAudienceTypes`: define audience (e.g., end users, developers, business owners), affecting AI tone, complexity, and examples
+- `targetAudienceTypes`: define audience (e.g., end users, developers, business owners), affecting WebSmith’s tone, complexity, and examples
 - `websiteScale`: define site scale (single vs multi‑page), controlling number of pages
 - `rules`: detailed guidance for structure, content, and style
 
@@ -60,12 +62,12 @@ Purpose: define primary language and translation targets. Each language produces
 
 #### Group 4: Data Sources
 
-Specify data sources that AI analyzes as material and references for page generation.
+Specify data sources that WebSmith analyzes as material and references for page generation.
 
 Fields: `sourcesPath`, `defaultDatasources`
 
 Purpose:
-- `sourcesPath`: directories or files for AI analysis (Markdown, YAML, images, etc.). This directly determines content quality, accuracy, and relevance.
+- `sourcesPath`: directories or files WebSmith analyzes (Markdown, YAML, images, etc.). This directly determines content quality, accuracy, and relevance.
 - `defaultDatasources`: common datasources injected into every page when commands run (e.g., `media.md` with image locations and descriptions)
 
 #### Group 5: Output & Deployment
@@ -97,7 +99,7 @@ Purpose:
 
 Use the following command:
 
-```bash
+```bash Init icon=lucide:terminal
 aigne web init
 ```
 
@@ -239,7 +241,7 @@ Based on the real config above, here is what each field does:
 #### Site Strategy
 
 `pagePurpose`
-- Purpose: defines primary purpose; directly influences AI strategy and page structure
+- Purpose: defines primary purpose; directly influences generation strategy and page structure
 - Current value: `[landingPage]` (array)
 - Type: array (multi‑select)
 - Options and effects: 
@@ -277,11 +279,11 @@ Based on the real config above, here is what each field does:
   - `minimal`: 2–6 pages; home, about, services/products, contact, etc.; small business/simple sites
   - `standard`: 7–12 pages; minimal + portfolio/blog, team, FAQ, pricing, etc.; professional sites, portfolios, small ecommerce (recommended)
   - `comprehensive`: 12+ pages; standard + detailed service pages, case studies, resource center, etc.; large/complex/content‑rich sites
-  - `aiDecide`: let AI decide scale based on type, audience, and repo analysis; considers business needs, content volume, and maintenance capacity
+  - `aiDecide`: let WebSmith decide scale based on type, audience, and repo analysis; considers business needs, content volume, and maintenance capacity
 - How to apply: run `aigne web clear && aigne web generate` after changes
 
 `rules`
-- Purpose: detailed generation guidance for structure, content, and style (Markdown). This is the most important guidance for AI and directly affects quality and UX.
+- Purpose: detailed generation guidance for structure, content, and style (Markdown). This is the most important guidance for WebSmith and directly affects quality and UX.
 - Current value: a multi‑line block with detailed guidance (see example above), including:
   - Core Messaging & Strategy
   - Answer Critical Questions “Above the Fold”
@@ -289,9 +291,9 @@ Based on the real config above, here is what each field does:
   - Define Clear Call to Action
 - Type: multi‑line string (Markdown supported)
 - Impact:
-  - Empty or sparse rules: AI falls back to defaults and may not fit your needs well
-  - Detailed rules: AI follows your guidance for structure, organization, and tone
-  - Changes: AI regenerates based on new rules, affecting sections and expression
+  - Empty or sparse rules: WebSmith falls back to defaults and may not fit your needs well
+  - Detailed rules: WebSmith follows your guidance for structure, organization, and tone
+  - Changes: WebSmith regenerates based on new rules, affecting sections and expression
 - How to apply: run `aigne web clear && aigne web generate` or `aigne web update` after changes
 
 #### Languages
@@ -318,7 +320,7 @@ Based on the real config above, here is what each field does:
 #### Data Sources
 
 `sourcesPath`
-- Purpose: directories/files analyzed by the WebSmith AI agent (array). The AI uses these as the only references for generating site content. This directly determines quality, accuracy, and relevance.
+- Purpose: directories/files analyzed by the WebSmith WebSmith engine (array). WebSmith uses these as the only references for generating site content. This directly determines quality, accuracy, and relevance.
 - Current value:
   ```yaml
   - ./assets/documents
@@ -338,8 +340,8 @@ Based on the real config above, here is what each field does:
     - Keep sources accurate and up‑to‑date
     - Update regularly to match project state
 - Impact:
-  - Add paths: AI analyzes more material, often improving quality
-  - Remove paths: AI stops analyzing them and may miss information
+  - Add paths: WebSmith analyzes more material, often improving quality
+  - Remove paths: WebSmith stops analyzing them and may miss information
   - Path types:
     - Directories (e.g., `./assets/documents`): recursively analyzed
     - Files (e.g., `./README.md`): analyzed directly
@@ -488,7 +490,7 @@ appUrl: ""
 ```
 
 **Command sequence:**
-```bash
+```bash Generate Website icon=lucide:terminal
 aigne web generate
 ```
 
@@ -533,7 +535,7 @@ appUrl: https://example.com
 ```
 
 **Command sequence:**
-```bash
+```bash Generate Website icon=lucide:terminal
 aigne web generate
 aigne web translate
 aigne web publish
@@ -548,12 +550,12 @@ aigne web publish
 If your website generation fails or produces unexpected results, use these recovery methods:
 
 - **Git revert:** If you're using version control, restore the previous working configuration:
-  ```bash
+  ```bash Run command icon=lucide:terminal
   git revert HEAD
   ```
 
 - **Clean regeneration:** Clear all generated files and regenerate from scratch:
-  ```bash
+  ```bash Run command icon=lucide:terminal
   aigne web clear && aigne web generate
   ```
 
@@ -614,7 +616,7 @@ targetAudienceTypes:
 ### Adaptation
 
 Scenario: Add new data sources
-- Trigger: new docs or content added that AI must analyze. If the path isn’t added, later `aigne web generate` runs cannot read it.
+- Trigger: new docs or content added that WebSmith must analyze. If the path isn’t added, later `aigne web generate` runs cannot read it.
 - Field: `sourcesPath`
 - Example:
 ```yaml
@@ -836,7 +838,7 @@ translateLanguages:
 ```
 Effects:
 - Defaults may be used when types are wrong
-- AI may fail to read values properly
+- WebSmith may fail to read values properly
 - Output may not match expectations
 Recovery:
 1. Confirm correct formats in this guide
@@ -852,7 +854,7 @@ Method 1: Detect during generation
 Method 2: Restore from backup
 - If using Git, restore from history
 - If using manual backups:
-```bash
+```bash Cp Config-backup-20240101.yaml .aigne/web-smith/config.yaml icon=lucide:terminal
 cp config-backup-20240101.yaml .aigne/web-smith/config.yaml
 ```
 
@@ -894,7 +896,7 @@ The following fields have explicit default values:
 Configuration precedence follows this order:
 
 1. **Explicit config values** take highest priority
-2. **`rules` override defaults** when specified; if `rules` is empty, AI falls back to defaults
+2. **`rules` override defaults** when specified; if `rules` is empty, WebSmith falls back to defaults
 3. **Missing values fall back to defaults**; if a field is not specified or empty, the system uses its default value
 
 ### i18n Fallback Behavior
@@ -1022,7 +1024,7 @@ project/
 
 1. **Include essential documentation:**
    - `README.md` (project overview)
-   - `docs/` directory (documentation)
+   - `docs` directory (documentation)
    - `CHANGELOG.md` (version history)
 
 2. **Include project configuration:**

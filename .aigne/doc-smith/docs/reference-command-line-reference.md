@@ -3,7 +3,7 @@
 This document provides a comprehensive, factual reference for all commands available in the AIGNE WebSmith Command Line Interface (CLI). Each entry includes a description of the command's function, its available aliases, and a detailed list of its parameters and subcommands.
 
 The standard syntax for CLI operations is as follows:
-```bash
+```bash Run Command icon=lucide:terminal
 aigne web <command> [subcommand] [parameters]
 ```
 
@@ -34,7 +34,7 @@ The `generate` command orchestrates the creation of a complete website, from pla
 **Aliases:** `gen`, `g`
 
 **Usage:**
-```bash
+```bash Generate Website icon=lucide:terminal
 aigne web generate
 ```
 
@@ -52,7 +52,7 @@ The `publish` command uploads the generated website files to a Pages Kit instanc
 **Aliases:** `pub`, `p`
 
 **Usage:**
-```bash
+```bash Publish --appurl "https://example.com" icon=lucide:terminal
 aigne web publish --appUrl "https://example.com"
 ```
 
@@ -70,7 +70,7 @@ The `update` command modifies the content of an existing website based on user-p
 **Alias:** `up`
 
 **Usage:**
-```bash
+```bash Update --pages "/about" --feedback "add A Mission Statement." icon=lucide:terminal
 aigne web update --pages "/about" --feedback "Add a mission statement."
 ```
 
@@ -86,7 +86,7 @@ aigne web update --pages "/about" --feedback "Add a mission statement."
 The `translate` command translates the content of existing website pages into one or more specified languages.
 
 **Usage:**
-```bash
+```bash Translate --pages "/home" --langs "fr,de,es" icon=lucide:terminal
 aigne web translate --pages "/home" --langs "fr,de,es"
 ```
 
@@ -110,7 +110,7 @@ Generates a new theme based on the website's design and user suggestions.
 **Alias:** `gen`
 
 **Usage:**
-```bash
+```bash Theme Generate --name "customtheme" icon=lucide:terminal
 aigne web theme generate --name "CustomTheme"
 ```
 
@@ -125,7 +125,7 @@ Applies a previously generated theme to the website.
 **Alias:** `a`
 
 **Usage:**
-```bash
+```bash Apply Theme icon=lucide:terminal
 aigne web theme apply
 ```
 This subcommand does not have any specific parameters. It applies the currently configured theme.
@@ -141,7 +141,7 @@ The `component` command manages the component library for the website.
 Pulls components from a specified URL to update the local component library.
 
 **Usage:**
-```bash
+```bash Component Pull --url "https://your-pages-kit/api/..." icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -154,7 +154,7 @@ Lists the components available in the current library.
 **Aliases:** `ls`, `l`
 
 **Usage:**
-```bash
+```bash Component List icon=lucide:terminal
 aigne web component list
 ```
 This subcommand does not take any parameters.
@@ -163,7 +163,7 @@ This subcommand does not take any parameters.
 The `chat` command starts an interactive session for generating, updating, and managing the website conversationally. This is the default command executed when `aigne web` is run without specifying another command.
 
 **Usage:**
-```bash
+```bash Command icon=lucide:terminal
 aigne web
 ```
 This command does not take any parameters.
@@ -178,7 +178,7 @@ Lists all saved user preferences.
 **Alias:** `ls`
 
 **Usage:**
-```bash
+```bash List Preferences icon=lucide:terminal
 aigne web prefs list
 ```
 This subcommand does not take any parameters.
@@ -189,7 +189,7 @@ Removes one or more specified preferences.
 **Alias:** `rm`
 
 **Usage:**
-```bash
+```bash Prefs Remove --id "pref_abc123" icon=lucide:terminal
 aigne web prefs remove --id "pref_abc123"
 ```
 <x-field-group>
@@ -202,7 +202,7 @@ Toggles the active status of one or more preferences.
 **Alias:** `t`
 
 **Usage:**
-```bash
+```bash Prefs Toggle --id "pref_abc123" icon=lucide:terminal
 aigne web prefs toggle --id "pref_abc123"
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ Displays the update history in a compact, log-style format. Each entry includes 
 **Aliases:** `log`, `list`
 
 **Usage:**
-```bash
+```bash View Update History icon=lucide:terminal
 aigne web history view
 ```
 This subcommand does not take any parameters.
@@ -229,7 +229,7 @@ This subcommand does not take any parameters.
 The `clear` command removes generated files, workspace data, or configuration settings from the project directory.
 
 **Usage:**
-```bash
+```bash Clear --targets "generatedpages" "websiteconfig" icon=lucide:terminal
 aigne web clear --targets "generatedPages" "websiteConfig"
 ```
 
@@ -247,4 +247,4 @@ aigne web clear --targets "generatedPages" "websiteConfig"
 
 ## Summary
 
-This reference guide has detailed the primary commands and parameters for the AIGNE WebSmith CLI. For task-oriented instructions, refer to the guides in the [Core Tasks](./core-tasks.md) section of the documentation.
+This reference guide has detailed the primary commands and parameters for the AIGNE WebSmith CLI. For task-oriented instructions, refer to the guides in the [Guides](./guides.md) section of the documentation.

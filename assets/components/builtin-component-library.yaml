@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-11T09:13:26.048Z
+  updateAt: 2025-11-13T03:46:54.926Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2245,7 +2245,7 @@ composite:
             value:
               text: <%= featureRightImageTitle %>
               style:
-                fontSize: '{ "xs": 32, "md": 48}'
+                fontSize: '{ "xs": 32, "md": 40}'
                 variant: h1
           v5utpm7bu9yvdpnq:
             value: flex-start
@@ -2422,7 +2422,7 @@ composite:
             value:
               text: <%= featureLeftImageTitle %>
               style:
-                fontSize: '{ "xs": 32, "md": 48}'
+                fontSize: '{ "xs": 32, "md": 40}'
                 variant: h1
           v5utpm7bu9yvdpnq:
             value: flex-start
@@ -2558,6 +2558,7 @@ composite:
             value:
               text: <%= cardTitle %>
               style:
+                fontSize: '{ "xs": 24, "md": 24}'
                 variant: h2
           9ajrz12ik7esfk1z:
             value:
@@ -2749,6 +2750,7 @@ composite:
             value:
               text: <%= terminalRight.title %>
               style:
+                fontSize: '{ "xs": 24, "md": 24}'
                 variant: h2
           v5utpm7bu9yvdpnq:
             value: flex-start
@@ -2965,6 +2967,7 @@ composite:
             value:
               text: <%= terminalLeft.title %>
               style:
+                fontSize: '{ "xs": 24, "md": 24}'
                 variant: h2
           v5utpm7bu9yvdpnq:
             value: flex-start
@@ -3134,6 +3137,7 @@ composite:
             value:
               text: <%= contentCardTitle %>
               style:
+                fontSize: '{ "xs": 24, "md": 24}'
                 variant: h2
           9ajrz12ik7esfk1z:
             value:

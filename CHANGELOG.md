@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0...v1.8.0-beta) (2025-11-13)
+
+
+### Features
+
+* support for add-page and remove-page ([#231](https://github.com/AIGNE-io/aigne-web-smith/issues/231)) ([d02fe21](https://github.com/AIGNE-io/aigne-web-smith/commit/d02fe21b0425b870ad7ba98d4bc28c4a0f95c8e2))
+
 ## [1.7.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.3...v1.7.0) (2025-11-11)
 
 ## [1.7.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0-beta.2...v1.7.0-beta.3) (2025-11-11)

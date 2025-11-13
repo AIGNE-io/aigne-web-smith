@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta...v1.8.0-beta.1) (2025-11-13)
+
+
+### Bug Fixes
+
+* enhance tool error management and update component styling consistency ([#244](https://github.com/AIGNE-io/aigne-web-smith/issues/244)) ([0ea03ff](https://github.com/AIGNE-io/aigne-web-smith/commit/0ea03fffd433d1ed1edd979e0972a810081e1f70))
+
 ## [1.8.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.7.0...v1.8.0-beta) (2025-11-13)
 
 

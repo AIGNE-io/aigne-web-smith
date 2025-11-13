@@ -1,0 +1,31 @@
+type: team
+name: userRemovePage
+description: Remove pages from website structure
+skills:
+  - url: ../../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../../utils/load-config.mjs
+  - ../../utils/load-sources.mjs
+  - ./remove-pages-from-structure.mjs
+  - url: ../../utils/save-output.mjs
+    default_input:
+      saveKey: websiteStructure
+      savePath:
+        $get: tmpDir
+      fileName: website-structure.yaml
+  - ../../utils/transform-website-structure.yaml
+  - ../../utils/format-website-structure.mjs
+  - ../../media/load-media-description.mjs
+  - ../../generate/page-detail/batch-generate-page-detail.yaml
+  - ../../generate/page-detail/load-page-detail.mjs
+  - ../../utils/reload-generate-media.mjs
+  - type: team
+    name: batchTranslatePageDetail and analyzeTranslateNavigations
+    skills:
+      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - ../../translate/navigations/analyze-translate-navigations.mjs
+    mode: parallel
+  - ../../generate/page-data/compose-pages-data.mjs
+  - ../../utils/save-pages.mjs
+mode: sequential

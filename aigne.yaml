@@ -66,6 +66,8 @@ agents:
   - ./agents/plan/validate-website-structure.yaml
   - ./agents/plan/update-website-structure.yaml
   - ./agents/plan/user-review-website-structure.mjs
+  - ./agents/plan/user-add-page/index.yaml
+  - ./agents/plan/user-remove-page/index.yaml
 
   # update website structure tools
   - ./agents/plan/website-structure-tools/add-page.mjs
@@ -183,6 +185,12 @@ cli:
         - url: ./agents/history/view.mjs
           name: view
           alias: ["log", "list"]
+    - name: add-page
+      alias: ["add"]
+      url: ./agents/plan/user-add-page/index.yaml
+    - name: remove-page
+      alias: ["rm"]
+      url: ./agents/plan/user-remove-page/index.yaml
     - ./agents/clear/index.yaml
 mcp_server:
   agents:

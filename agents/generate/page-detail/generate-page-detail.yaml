@@ -6,7 +6,6 @@ skills:
   - url: ../../utils/map-reasoning-effort-level.mjs
     default_input:
       level: high
-
   - type: ai
     instructions:
       - role: system

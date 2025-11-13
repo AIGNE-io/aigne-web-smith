@@ -3,6 +3,13 @@ import { join } from "node:path";
 
 export const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
 
+export const YAML_STRINGIFY_OPTIONS = {
+  lineWidth: 0,
+  quotingType: '"',
+  defaultKeyType: "PLAIN",
+  defaultStringType: "QUOTE_DOUBLE",
+};
+
 export const WEB_ACTION = {
   translate: "translate",
   update: "update",

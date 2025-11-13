@@ -76,13 +76,56 @@ Identify semantically identical fields with different names and rename them:
 ## 3. Fix Invalid Links
 
 For fields containing `link://` protocol:
-- Replace `link://invalid-link` with the most relevant link from allowedLinks
-- Match based on semantic similarity (e.g., "get-started" matches "getting-started")
-- If no relevant link is found, set the link field to an empty string
+
+1. Using the context of `pageContext`, find a suitable link from `allowedLinks` to replace the invalid link.
+2. **Do not consider the original link or its related fields**; they are outdated.
+3. Replace **all relevant fields** in the section that are associated with the link (e.g., link URL, title, text, description, actions) according to the matched link from `allowedLinks`.
+4. If no suitable link can be found, clear the section completely, including all fields associated with the invalid link.
+
+### Example1
+
+`/support` has been removed. Use `/faq` instead:
+
+before:
+
+```yaml
+splitHeroWithBgColorActions:
+  - text: "Support Center"
+    link: "link:///support"
+```
+
+after: 
+
+```yaml
+splitHeroWithBgColorActions:
+  - text: "Your Questions Answered"
+    link: "link:///faq"
+```
+
+### Example2
+
+If `/about-us` has been removed and no new link is available, clear the original link
+
+before:
+
+```yaml
+splitHeroWithBgColorActions:
+  - text: "Meet the Team"
+    link: "link:///about-us"
+```
+
+after:
+
+```yaml
+splitHeroWithBgColorActions:
+  - text: ""
+    link: ""
+```
 
 ## 4. Fix Invalid Media
 
 For fields containing `media://` protocol:
+
 - Replace `media://invalid-media` with the most relevant media from allowedMediaFiles
 - Match based on file purpose or name similarity
 - If no relevant media found, remove the media field (but keep other content in the object)

@@ -101,7 +101,11 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
     rest.websiteScale,
     currentStructure.length,
   );
-  return { websiteStructure: currentStructure, websiteScale: updatedWebsiteScale };
+  return {
+    websiteStructure: currentStructure,
+    originalWebsiteStructure: JSON.parse(JSON.stringify(currentStructure)),
+    websiteScale: updatedWebsiteScale,
+  };
 }
 
 userReviewWebsiteStructure.taskTitle = "User review and modify website structure";

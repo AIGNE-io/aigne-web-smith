@@ -141,7 +141,6 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
     message,
     clearedCount,
     clearedPages,
-    results,
   };
 }
 

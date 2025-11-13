@@ -2,7 +2,6 @@ import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
-import checkDetailResult from "../../utils/check-detail-result.mjs";
 
 export default async function analyzePageDetail(input, options) {
   const {
@@ -71,24 +70,36 @@ export default async function analyzePageDetail(input, options) {
   // If file exists, check content validation
   let isContentValidationFailed = false;
   let validationResult = {};
+  let fixedContent = fileContent;
   if (detailGenerated && fileContent && websiteStructure) {
-    validationResult = await checkDetailResult({
-      websiteStructure,
-      reviewContent: fileContent,
-      pagesDir,
-      tmpDir,
-      locale,
-      componentLibrary,
-      mediaFiles,
-    });
+    validationResult = await options.context.invoke(
+      options.context.agents["checkDetailResultTeam"],
+      {
+        ...input,
+        websiteStructure,
+        reviewContent: fileContent,
+        pagesDir,
+        tmpDir,
+        locale,
+        componentLibrary,
+        mediaFiles,
+      },
+    );
 
     if (!validationResult.isApproved) {
       isContentValidationFailed = true;
     }
+    fixedContent = validationResult.reviewContent || fileContent;
   }
 
   // If file exists and content validation passed, return
   if (detailGenerated && !isContentValidationFailed) {
+    await options.context.invoke(options.context.agents["saveSinglePage"], {
+      ...input,
+      throwErrorIfInvalid: true,
+      content: fixedContent,
+    });
+
     return {
       path,
       pagesDir,

@@ -4,13 +4,17 @@ import {
   getDeletePageOutputJsonSchema,
   validateDeletePageInput,
 } from "../../../types/website-structure-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function deletePage(input, options) {
+  initializeFailureCount(options);
   // Validate input using Zod schema
   const validation = validateDeletePageInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot delete page: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure: input.websiteStructure,
       error: { message: errorMessage },
@@ -30,6 +34,8 @@ export default async function deletePage(input, options) {
 
   if (lastToolInputs.deletePage && isEqual(lastToolInputs.deletePage, currentInput)) {
     const errorMessage = `Cannot delete page: This operation has already been processed. Please do not call deletePage again with the same parameters.`;
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -41,6 +47,8 @@ export default async function deletePage(input, options) {
   if (pageIndex === -1) {
     const errorMessage = `Cannot delete page: Page '${path}' does not exist. Please choose an existing page to delete.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -54,6 +62,8 @@ export default async function deletePage(input, options) {
   if (childPages.length > 0 && !recursive) {
     const errorMessage = `Cannot delete page: Page '${path}' has ${childPages.length} child page(s): ${childPages.map((p) => p.path).join(", ")}. Please first move or delete these child pages, or set recursive=true to delete them all.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },

@@ -4,13 +4,17 @@ import {
   getAddPageOutputJsonSchema,
   validateAddPageInput,
 } from "../../../types/website-structure-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function addPage(input, options) {
+  initializeFailureCount(options);
   // Validate input using Zod schema
   const validation = validateAddPageInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot add page: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure: input.websiteStructure,
       error: { message: errorMessage },
@@ -30,6 +34,8 @@ export default async function addPage(input, options) {
 
   if (lastToolInputs.addPage && isEqual(lastToolInputs.addPage, currentInput)) {
     const errorMessage = `Cannot add page: This operation has already been processed. Please do not call addPage again with the same parameters.`;
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -42,6 +48,8 @@ export default async function addPage(input, options) {
     if (!parentExists) {
       const errorMessage = `Cannot add page: Parent page '${parentId}' not found.`;
       console.log(`⚠️  ${errorMessage}`);
+      handleFailure(options);
+
       return {
         websiteStructure,
         error: { message: errorMessage },
@@ -54,6 +62,8 @@ export default async function addPage(input, options) {
   if (existingPage) {
     const errorMessage = `Cannot add page: A page with path '${path}' already exists. Choose a different path.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },

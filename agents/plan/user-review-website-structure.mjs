@@ -1,4 +1,5 @@
 import { recordUpdate } from "../../utils/history-utils.mjs";
+import { resetFailureCount } from "../../utils/retry-utils.mjs";
 import {
   printWebsiteStructure,
   updateWebsiteScaleIfNeeded,
@@ -66,8 +67,9 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
       break;
     }
 
-    // Clear previous tool inputs before calling updateWebsiteStructure agent
+    // Clear previous tool inputs and reset failure count before calling updateWebsiteStructure agent
     options.context.userContext.lastToolInputs = {};
+    resetFailureCount(options);
 
     try {
       // Call updateWebsiteStructure agent with feedback
@@ -88,12 +90,20 @@ export default async function userReviewWebsiteStructure({ websiteStructure, ...
       // Print current website structure in a user-friendly format
       printWebsiteStructure(currentStructure);
     } catch (error) {
-      console.error("Error processing your feedback:");
-      console.error(`Type: ${error.name}`);
-      console.error(`Message: ${error.message}`);
-      console.error(`Stack: ${error.stack}`);
-      console.log("\nPlease try rephrasing your feedback or continue with the current structure.");
-      break;
+      // Check if this is a max retry error
+      if (error.name === "MaxRetryError") {
+        console.log(
+          "\n⚠️  Maximum retry attempts reached. Please provide clearer or more specific feedback and try again.\n",
+        );
+        // Continue the loop to allow user to input new feedback
+      } else {
+        console.error("Error processing feedback:", {
+          type: error.name,
+          message: error.message,
+        });
+        console.log("\nPlease rephrase feedback or continue with current structure.");
+        break;
+      }
     }
   }
 

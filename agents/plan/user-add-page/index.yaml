@@ -33,7 +33,6 @@ skills:
   - type: team
     name: batchAddLinks
     skills:
-      - ../../utils/transform-detail-datasources.mjs
       - ./add-links-to-pages.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithNewLinks

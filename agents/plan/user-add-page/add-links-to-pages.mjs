@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
+import transformDetailDatasources from "../../utils/transform-detail-datasources.mjs";
 
 /**
  * Add links to a single page that should reference newly added pages
@@ -17,6 +18,8 @@ export default async function addLinksToPages(input = {}, options = {}) {
     locale,
     mediaFiles,
     componentLibrary,
+    defaultDatasources = [],
+    datasourcesList = [],
   } = input;
 
   const pageInfo = websiteStructureResult.find((item) => item.path === path);
@@ -46,18 +49,22 @@ export default async function addLinksToPages(input = {}, options = {}) {
   options.context.userContext.currentPageDetail = pageDetail;
 
   // Call updatePageDetail to add links
-  const updatePageDetailAgent = options.context.agents["updatePageDetail"];
+  const detailDataSources = transformDetailDatasources({
+    defaultDatasources: defaultDatasources,
+    sourceIds: pageInfo.sourceIds,
+    datasourcesList,
+  });
   const linkPaths = newLinks.join(", ");
   const feedback = `Add the following internal links to this page: ${linkPaths}. Identify suitable places within the existing content — such as relevant sections, navigation items, or CTAs — and insert the links naturally to maintain context and readability.`;
-
   const fieldConstraints = generateFieldConstraints(componentLibrary);
+
+  const updatePageDetailAgent = options.context.agents["updatePageDetail"];
 
   await options.context.invoke(updatePageDetailAgent, {
     ...input,
+    ...pageInfo,
+    detailDataSources,
     pageDetail,
-    title: pageInfo.title,
-    description: pageInfo.description,
-    parentId: pageInfo.parentId || null,
     fieldConstraints,
     feedback,
     needDataSources: true,

@@ -4,8 +4,10 @@ export default async function mergePagesWithTranslations(
   { pagesWithNewLinks, newPages, translateLanguages = [], allFeedback },
   options,
 ) {
-  const currentStructure = options.context.userContext.currentStructure;
-  let selectedPages = [...pagesWithNewLinks, ...newPages];
+  const currentStructure = options.context?.userContext?.currentStructure || [];
+  const updatedPages = new Set(pagesWithNewLinks.map((v) => v.path));
+
+  let selectedPages = [...currentStructure.filter((v) => updatedPages.has(v.path)), ...newPages];
   const transformWebsiteStructure = options.context.agents["transformWebsiteStructure"];
   const { websiteStructureResult } = await options.context.invoke(transformWebsiteStructure, {
     websiteStructure: selectedPages,
@@ -22,6 +24,6 @@ export default async function mergePagesWithTranslations(
 
   return {
     selectedPages,
-    originalWebsiteStructure: currentStructure, // for analyze navigation
+    originalWebsiteStructure: JSON.parse(JSON.stringify(currentStructure)), // for analyze navigation
   };
 }

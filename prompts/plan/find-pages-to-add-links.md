@@ -46,11 +46,6 @@ Each item in `pagesWithNewLinks` must:
   "pagesWithNewLinks": [
     {
       "path": "/existing-page",
-      "title": "Existing Page",
-      "description": "Description",
-      "parentId": null,
-      "navigation": { "title": "Nav Title", "description": "Nav Description" },
-      "sourceIds": ["source1", "source2"],
       "newLinks": ["/new-page-1", "/new-page-2"]
     }
   ]

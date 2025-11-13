@@ -111,7 +111,7 @@ export default async function removePagesFromStructure(input = {}, options = {})
   const updatedWebsiteStructure = options.context.userContext.currentStructure;
 
   return {
-    originalWebsiteStructure: websiteStructure,
+    originalWebsiteStructure: JSON.parse(JSON.stringify(updatedWebsiteStructure)),
     websiteStructure: updatedWebsiteStructure,
     deletedPages: deletedPages.map((p) => p.path),
   };

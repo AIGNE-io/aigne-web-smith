@@ -32,29 +32,6 @@ output_schema:
           path:
             type: string
             description: The path of the existing page that should be updated
-          title:
-            type: string
-            description: The title of the existing page
-          description:
-            type: string
-            description: The description of the existing page
-          parentId: 
-            type:
-              - string
-              - "null"
-          sourceIds:
-            type: array
-            items:
-              type: string
-          navigation: 
-            type: array
-            items: 
-              type: object
-              properties:
-                title:
-                  type: string
-                description:
-                  type: string
           newLinks:
             type: array
             description: Array of new page paths that should be added as links to this page
@@ -62,8 +39,6 @@ output_schema:
               type: string
         required:
           - path
-          - title
-          - description
           - newLinks
   required:
     - pagesWithNewLinks

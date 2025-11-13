@@ -4,13 +4,17 @@ import {
   getMovePageOutputJsonSchema,
   validateMovePageInput,
 } from "../../../types/website-structure-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function movePage(input, options) {
+  initializeFailureCount(options);
   // Validate input using Zod schema
   const validation = validateMovePageInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot move page: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure: input.websiteStructure,
       error: { message: errorMessage },
@@ -30,6 +34,8 @@ export default async function movePage(input, options) {
 
   if (lastToolInputs.movePage && isEqual(lastToolInputs.movePage, currentInput)) {
     const errorMessage = `Cannot move page: This operation has already been processed. Please do not call movePage again with the same parameters.`;
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -41,6 +47,8 @@ export default async function movePage(input, options) {
   if (pageIndex === -1) {
     const errorMessage = `Cannot move page: Page '${path}' does not exist. Please select an existing page to move.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -55,6 +63,8 @@ export default async function movePage(input, options) {
     if (!newParentExists) {
       const errorMessage = `Cannot move page: Target parent page '${newParentId}' does not exist. Please select an existing parent page.`;
       console.log(`⚠️  ${errorMessage}`);
+      handleFailure(options);
+
       return {
         websiteStructure,
         error: { message: errorMessage },
@@ -75,6 +85,8 @@ export default async function movePage(input, options) {
     if (isDescendant(path, newParentId)) {
       const errorMessage = `Cannot move page: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please select a parent that is not nested under the page being moved.`;
       console.log(`⚠️  ${errorMessage}`);
+      handleFailure(options);
+
       return {
         websiteStructure,
         error: { message: errorMessage },
@@ -89,6 +101,8 @@ export default async function movePage(input, options) {
     if (pathExists) {
       const errorMessage = `Cannot move page: A page with path '${newPath}' already exists. Choose a different path.`;
       console.log(`⚠️  ${errorMessage}`);
+      handleFailure(options);
+
       return {
         websiteStructure,
         error: { message: errorMessage },

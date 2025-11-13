@@ -4,13 +4,17 @@ import {
   getUpdatePageOutputJsonSchema,
   validateUpdatePageInput,
 } from "../../../types/website-structure-schema.mjs";
+import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
 
 export default async function updatePage(input, options) {
+  initializeFailureCount(options);
   // Validate input using Zod schema
   const validation = validateUpdatePageInput(input);
   if (!validation.success) {
     const errorMessage = `Cannot update page: ${validation.error}`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure: input.websiteStructure,
       error: { message: errorMessage },
@@ -30,6 +34,8 @@ export default async function updatePage(input, options) {
 
   if (lastToolInputs.updatePage && isEqual(lastToolInputs.updatePage, currentInput)) {
     const errorMessage = `Cannot update page: This operation has already been processed. Please do not call updatePage again with the same parameters.`;
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },
@@ -41,6 +47,8 @@ export default async function updatePage(input, options) {
   if (pageIndex === -1) {
     const errorMessage = `Cannot update page: Page '${path}' does not exist. Please specify an existing page path.`;
     console.log(`⚠️  ${errorMessage}`);
+    handleFailure(options);
+
     return {
       websiteStructure,
       error: { message: errorMessage },

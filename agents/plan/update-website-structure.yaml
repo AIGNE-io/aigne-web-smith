@@ -9,6 +9,7 @@ skills:
       level: low
 
   - type: ai
+    catch_tools_error: false
     instructions:
       - role: system
         url: ../../prompts/plan/update-website-structure-system.md

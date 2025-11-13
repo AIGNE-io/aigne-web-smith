@@ -257,7 +257,7 @@ export default async function publishWebsite(
             ]
           : []),
         {
-          name: `${chalk.blue(`WebSmith Cloud (${CLOUD_SERVICE_URL_PROD})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
+          name: `${chalk.blue(`WebSmith Cloud (${BASE_URL})`)} – ${chalk.green("Free")} hosting. Your pages will be public accessible. Best for open-source projects or community sharing.`,
           value: "default",
         },
         {
@@ -386,7 +386,7 @@ export default async function publishWebsite(
     }
   }
 
-  appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
+  appUrl = appUrl || BASE_URL;
 
   // Now handle projectId after appUrl is finalized
   const hasProjectIdInConfig = config?.projectId;

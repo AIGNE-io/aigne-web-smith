@@ -30,6 +30,7 @@ skills:
       key: newPages
   - ../../utils/reload-generate-media.mjs
   - ./find-pages-to-add-links.yaml
+  - ./review-pages-with-new-links.mjs
   - type: team
     name: batchAddLinks
     skills:
@@ -49,4 +50,5 @@ skills:
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs
   - ../../utils/save-pages.mjs
+  - ./print-add-page-summary.mjs
 mode: sequential

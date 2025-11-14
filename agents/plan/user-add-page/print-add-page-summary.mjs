@@ -3,7 +3,7 @@ import chalk from "chalk";
 /**
  * Print summary of generated pages and pages with new links
  */
-export default async function printAddPageSummary({ newPages = [], pagesWithNewLinks = [] }) {
+export default async function printAddPageSummary({ newPages = [] }, options) {
   let message = `\n${"=".repeat(80)}\n`;
   message += `${chalk.bold.cyan("📊 Summary")}\n`;
   message += `${"=".repeat(80)}\n\n`;
@@ -33,6 +33,7 @@ export default async function printAddPageSummary({ newPages = [], pagesWithNewL
   }
 
   // Display pages with new links
+  const pagesWithNewLinks = options.context?.userContext?.originalPagesWithNewLinks || [];
   if (pagesWithNewLinks && pagesWithNewLinks.length > 0) {
     message += `🔗 Pages Updated with New Links:\n`;
     message += `   Total: ${pagesWithNewLinks.length} page(s)\n\n`;

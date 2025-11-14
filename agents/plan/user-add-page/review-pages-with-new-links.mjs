@@ -7,6 +7,9 @@ export default async function reviewPagesWithNewLinks({ pagesWithNewLinks = [] }
     return { pagesWithNewLinks: [] };
   }
 
+  // save original pagesWithNewLinks to user context
+  options.context.userContext.originalPagesWithNewLinks = pagesWithNewLinks;
+
   // Let user select which pages to update (default: all selected)
   const selectedPages = await options.prompts.checkbox({
     message:

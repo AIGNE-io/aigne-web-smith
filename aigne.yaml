@@ -145,7 +145,6 @@ agents:
 cli:
   chat: ./agents/chat/index.yaml
   agents:
-    - ./agents/utils/test.mjs
     - ./agents/init/index.mjs
     - ./agents/generate/index.yaml
     - ./agents/update/index.yaml

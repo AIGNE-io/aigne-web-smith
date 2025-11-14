@@ -16,7 +16,7 @@ export default async function reviewPagesWithInvalidLinks(
   // Let user select which pages to fix (default: all selected)
   const selectedPages = await options.prompts.checkbox({
     message:
-      "Select pages to fix (all selected by default, press Enter to confirm, or unselect all to skip):",
+      "Select Pages with Invalid Links to Fix (all selected by default, press Enter to confirm, or unselect all to skip):",
     choices: pagesWithInvalidLinks.map((page, index) => ({
       name: `${page.path}${page.title !== page.path ? ` (${page.title})` : ""} - Invalid: ${page.invalidLinks.join(", ")}`,
       value: index,

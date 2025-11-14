@@ -80,4 +80,4 @@ publish -> live_site: "上线"
 
 ---
 
-本节涵盖了管理您网站的基本命令。有关所有可用命令及其参数的完整列表，请参阅[命令行参考](./reference-command-line-reference.md)。
+本节涵盖了管理您网站的基本命令。有关所有可用命令及其参数的完整列表，请参阅[命令参考](./reference-command.md)。

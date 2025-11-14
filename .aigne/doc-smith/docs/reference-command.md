@@ -1,6 +1,6 @@
-# Command Line Reference
+# Command Reference
 
-This document provides a comprehensive, factual reference for all commands available in the AIGNE WebSmith Command Line Interface (CLI). Each entry includes a description of the command's function, its available aliases, and a detailed list of its parameters and subcommands.
+This reference lists all commands available in the AIGNE WebSmith CLI, including their aliases, parameters, and usage examples.
 
 The standard syntax for CLI operations is as follows:
 ```bash Run Command icon=lucide:terminal
@@ -34,7 +34,7 @@ The `generate` command orchestrates the creation of a complete website, from pla
 **Aliases:** `gen`, `g`
 
 **Usage:**
-```bash Generate Website icon=lucide:terminal
+```bash Generate icon=lucide:terminal
 aigne web generate
 ```
 
@@ -52,7 +52,7 @@ The `publish` command uploads the generated website files to a Pages Kit instanc
 **Aliases:** `pub`, `p`
 
 **Usage:**
-```bash Publish --appurl "https://example.com" icon=lucide:terminal
+```bash Publish icon=lucide:terminal
 aigne web publish --appUrl "https://example.com"
 ```
 
@@ -70,7 +70,7 @@ The `update` command modifies the content of an existing website based on user-p
 **Alias:** `up`
 
 **Usage:**
-```bash Update --pages "/about" --feedback "add A Mission Statement." icon=lucide:terminal
+```bash Update icon=lucide:terminal
 aigne web update --pages "/about" --feedback "Add a mission statement."
 ```
 
@@ -86,7 +86,7 @@ aigne web update --pages "/about" --feedback "Add a mission statement."
 The `translate` command translates the content of existing website pages into one or more specified languages.
 
 **Usage:**
-```bash Translate --pages "/home" --langs "fr,de,es" icon=lucide:terminal
+```bash Translate icon=lucide:terminal
 aigne web translate --pages "/home" --langs "fr,de,es"
 ```
 
@@ -110,7 +110,7 @@ Generates a new theme based on the website's design and user suggestions.
 **Alias:** `gen`
 
 **Usage:**
-```bash Theme Generate --name "customtheme" icon=lucide:terminal
+```bash Theme Generate icon=lucide:terminal
 aigne web theme generate --name "CustomTheme"
 ```
 
@@ -141,7 +141,7 @@ The `component` command manages the component library for the website.
 Pulls components from a specified URL to update the local component library.
 
 **Usage:**
-```bash Component Pull  icon=lucide:terminal
+```bash Component Pull icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ Displays the update history in a compact, log-style format. Each entry includes 
 **Aliases:** `log`, `list`
 
 **Usage:**
-```bash Manage Update History icon=lucide:terminal
+```bash History View icon=lucide:terminal
 aigne web history view
 ```
 This subcommand does not take any parameters.
@@ -229,7 +229,7 @@ This subcommand does not take any parameters.
 The `clear` command removes generated files, workspace data, or configuration settings from the project directory.
 
 **Usage:**
-```bash Clear --targets "generatedpages" "websiteconfig" icon=lucide:terminal
+```bash Clear icon=lucide:terminal
 aigne web clear --targets "generatedPages" "websiteConfig"
 ```
 

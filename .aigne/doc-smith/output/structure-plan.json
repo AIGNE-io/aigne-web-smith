@@ -55,6 +55,57 @@
     "parentId": "/guides"
   },
   {
+    "title": "Update Website",
+    "description": "Learn how to use the 'update' command to make changes or provide feedback to refine the content on your existing pages.",
+    "path": "/guides/update-website",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/generate/index.yaml",
+      "agents/plan/update-website-structure.yaml",
+      "agents/update/index.yaml",
+      "agents/update/update-page-detail.yaml"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Update Structure",
+    "description": "Learn how to modify the overall structure of your website, such as adding, removing, or reorganizing pages.",
+    "path": "/guides/update-website/update-structure",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/plan/index.yaml",
+      "agents/generate/index.yaml",
+      "agents/plan/update-website-structure.yaml",
+      "types/website-structure-schema.mjs"
+    ],
+    "parentId": "/guides/update-website"
+  },
+  {
+    "title": "Update Page",
+    "description": "Learn how to refine the content and details within an individual webpage.",
+    "path": "/guides/update-website/update-page",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/update/index.yaml",
+      "agents/update/update-page-detail.yaml",
+      "types/page-detail-schema.mjs",
+      "assets/images/web-smith-update.png"
+    ],
+    "parentId": "/guides/update-website"
+  },
+  {
+    "title": "Manage Update History",
+    "description": "Track every update WebSmith has applied so you always know what changed, when, and why.",
+    "path": "/guides/update-website/manage-update-history",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/history/view.mjs",
+      "utils/history-utils.mjs"
+    ],
+    "parentId": "/guides/update-website"
+  },
+  {
     "title": "Publish Website",
     "description": "Explains every publish target, from WebSmith Cloud to fully custom infrastructure, with prerequisites and validation tips.",
     "path": "/guides/publish-website",
@@ -117,46 +168,6 @@
     "parentId": "/guides/publish-website"
   },
   {
-    "title": "Update Website",
-    "description": "Learn how to use the 'update' command to make changes or provide feedback to refine the content on your existing pages.",
-    "path": "/guides/update-website",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "agents/generate/index.yaml",
-      "agents/plan/update-website-structure.yaml",
-      "agents/update/index.yaml",
-      "agents/update/update-page-detail.yaml"
-    ],
-    "parentId": "/guides"
-  },
-  {
-    "title": "Update Structure",
-    "description": "Learn how to modify the overall structure of your website, such as adding, removing, or reorganizing pages.",
-    "path": "/guides/update-website/update-structure",
-    "sourceIds": [
-      "aigne.yaml",
-      "agents/plan/index.yaml",
-      "agents/generate/index.yaml",
-      "agents/plan/update-website-structure.yaml",
-      "types/website-structure-schema.mjs"
-    ],
-    "parentId": "/guides/update-website"
-  },
-  {
-    "title": "Update Page",
-    "description": "Learn how to refine the content and details within an individual webpage.",
-    "path": "/guides/update-website/update-page",
-    "sourceIds": [
-      "aigne.yaml",
-      "agents/update/index.yaml",
-      "agents/update/update-page-detail.yaml",
-      "types/page-detail-schema.mjs",
-      "assets/images/web-smith-update.png"
-    ],
-    "parentId": "/guides/update-website"
-  },
-  {
     "title": "Localize Website",
     "description": "Explains how to use the 'translate' command to automatically create different language versions of your website pages.",
     "path": "/guides/localize-website",
@@ -186,17 +197,6 @@
     "parentId": "/guides"
   },
   {
-    "title": "Interactive Mode",
-    "description": "Use the interactive mode as a conversational co-pilot to iteratively plan, edit, and polish your site.",
-    "path": "/guides/interactive-mode",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "agents/chat/index.yaml"
-    ],
-    "parentId": "/guides"
-  },
-  {
     "title": "Manage Preferences",
     "description": "Explains how to use the 'prefs' command to view, manage, and clear saved user preferences to customize WebSmith's behavior.",
     "path": "/guides/manage-preferences",
@@ -209,17 +209,6 @@
     "parentId": "/guides"
   },
   {
-    "title": "Manage Update History",
-    "description": "Track every update WebSmith has applied so you always know what changed, when, and why.",
-    "path": "/guides/update-website/manage-update-history",
-    "sourceIds": [
-      "aigne.yaml",
-      "agents/history/view.mjs",
-      "utils/history-utils.mjs"
-    ],
-    "parentId": "/guides/update-website"
-  },
-  {
     "title": "Cleanup Workspace",
     "description": "Shows you how to use the 'clear' command to safely remove generated files, workspace data, or the entire configuration.",
     "path": "/guides/cleanup-workspace",
@@ -227,6 +216,17 @@
       "aigne.yaml",
       "agents/clear/index.yaml",
       "agents/clear/choose-contents.mjs"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Interactive Mode（Beta）",
+    "description": "Use the interactive mode as a conversational co-pilot to iteratively plan, edit, and polish your site.",
+    "path": "/guides/interactive-mode",
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      "agents/chat/index.yaml"
     ],
     "parentId": "/guides"
   },
@@ -276,6 +276,17 @@
     ]
   },
   {
+    "title": "Latest Updates",
+    "description": "Provides information on how to use the 'Latest Updates' component to showcase recent changes, news, or blog posts on your website.",
+    "path": "/advanced-features/use-special-components/latest-updates",
+    "parentId": "/advanced-features/use-special-components",
+    "sourceIds": [
+      "CHANGELOG.md",
+      "README.md",
+      "assets/documents/special-components/latest-updates.md"
+    ]
+  },
+  {
     "title": "Reference",
     "description": "Provides detailed reference material, including a complete list of commands, version history, and licensing information.",
     "path": "/reference",
@@ -290,9 +301,9 @@
     "icon": "lucide:library"
   },
   {
-    "title": "Command Line Reference",
+    "title": "Command Reference",
     "description": "A comprehensive guide to all available commands and their parameters, for users who want to explore advanced capabilities.",
-    "path": "/reference/command-line-reference",
+    "path": "/reference/command",
     "sourceIds": [
       "README.md",
       "aigne.yaml",
@@ -306,20 +317,9 @@
     "parentId": "/reference"
   },
   {
-    "title": "Latest Updates",
-    "description": "Provides information on how to use the 'Latest Updates' component to showcase recent changes, news, or blog posts on your website.",
-    "path": "/advanced-features/use-special-components/latest-updates",
-    "parentId": "/advanced-features/use-special-components",
-    "sourceIds": [
-      "CHANGELOG.md",
-      "README.md",
-      "assets/documents/special-components/latest-updates.md"
-    ]
-  },
-  {
-    "title": "WebSmith Config",
-    "description": "A detailed guide to understanding and modifying all the settings in the `websmith-config.yaml` file to customize your website generation process.",
-    "path": "/reference/websmith-config",
+    "title": "Config Reference",
+    "description": "A detailed guide to understanding and modifying all the settings in the `config.yaml` file to customize your website generation process.",
+    "path": "/reference/config",
     "parentId": "/reference",
     "sourceIds": [
       "assets/documents/special-components/websmith-config.md",
@@ -336,6 +336,15 @@
       ".aigne/doc-smith/docs/getting-started-preparing-your-content.md"
     ],
     "icon": "lucide:book"
+  },
+  {
+    "title": "Trouble Shooting",
+    "description": "Solutions to common problems with configuration, generation, publishing, and translation. Includes error messages, causes, and step-by-step fixes.",
+    "path": "/reference/trouble-shooting",
+    "parentId": "/reference",
+    "sourceIds": [
+      ".aigne/doc-smith/docs/reference-trouble-shooting.md"
+    ]
   },
   {
     "title": "Release Notes",

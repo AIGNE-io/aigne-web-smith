@@ -1,6 +1,6 @@
-# コマンドラインリファレンス
+# コマンドリファレンス
 
-このドキュメントは、AIGNE WebSmith コマンドラインインターフェース（CLI）で利用可能なすべてのコマンドに関する包括的で事実に基づいたリファレンスを提供します。各エントリには、コマンドの機能の説明、利用可能なエイリアス、およびそのパラメータとサブコマンドの詳細なリストが含まれています。
+本リファレンスでは、AIGNE WebSmith CLI で利用可能なすべてのコマンドを、エイリアス、パラメーター、使用例と共に掲載しています。
 
 CLI 操作の標準的な構文は次のとおりです：
 ```bash コマンドの実行 icon=lucide:terminal
@@ -34,7 +34,7 @@ aigne web <command> [subcommand] [parameters]
 **エイリアス:** `gen`, `g`
 
 **使用法:**
-```bash ウェブサイトの生成 icon=lucide:terminal
+```bash 生成 icon=lucide:terminal
 aigne web generate
 ```
 
@@ -52,7 +52,7 @@ aigne web generate
 **エイリアス:** `pub`, `p`
 
 **使用法:**
-```bash 公開 --appurl "https://example.com" icon=lucide:terminal
+```bash 公開 icon=lucide:terminal
 aigne web publish --appUrl "https://example.com"
 ```
 
@@ -70,7 +70,7 @@ aigne web publish --appUrl "https://example.com"
 **エイリアス:** `up`
 
 **使用法:**
-```bash 更新 --pages "/about" --feedback "add A Mission Statement." icon=lucide:terminal
+```bash 更新 icon=lucide:terminal
 aigne web update --pages "/about" --feedback "Add a mission statement."
 ```
 
@@ -86,7 +86,7 @@ aigne web update --pages "/about" --feedback "Add a mission statement."
 `translate` コマンドは、既存のウェブサイトページのコンテンツを1つ以上の指定された言語に翻訳します。
 
 **使用法:**
-```bash 翻訳 --pages "/home" --langs "fr,de,es" icon=lucide:terminal
+```bash 翻訳 icon=lucide:terminal
 aigne web translate --pages "/home" --langs "fr,de,es"
 ```
 
@@ -110,7 +110,7 @@ aigne web translate --pages "/home" --langs "fr,de,es"
 **エイリアス:** `gen`
 
 **使用法:**
-```bash テーマの生成 --name "customtheme" icon=lucide:terminal
+```bash テーマ生成 icon=lucide:terminal
 aigne web theme generate --name "CustomTheme"
 ```
 
@@ -141,7 +141,7 @@ aigne web theme apply
 指定された URL からコンポーネントをプルして、ローカルのコンポーネントライブラリを更新します。
 
 **使用法:**
-```bash コンポーネントのプル --url "https://your-pages-kit/api/..." icon=lucide:terminal
+```bash コンポーネントプル icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -189,7 +189,7 @@ aigne web prefs list
 **エイリアス:** `rm`
 
 **使用法:**
-```bash 設定の削除 --id "pref_abc123" icon=lucide:terminal
+```bash 設定削除 icon=lucide:terminal
 aigne web prefs remove --id "pref_abc123"
 ```
 <x-field-group>
@@ -202,7 +202,7 @@ aigne web prefs remove --id "pref_abc123"
 **エイリアス:** `t`
 
 **使用法:**
-```bash 設定の切り替え --id "pref_abc123" icon=lucide:terminal
+```bash 設定切替 icon=lucide:terminal
 aigne web prefs toggle --id "pref_abc123"
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ aigne web prefs toggle --id "pref_abc123"
 **エイリアス:** `log`, `list`
 
 **使用法:**
-```bash 更新履歴の表示 icon=lucide:terminal
+```bash 履歴表示 icon=lucide:terminal
 aigne web history view
 ```
 このサブコマンドはパラメータを取りません。
@@ -229,7 +229,7 @@ aigne web history view
 `clear` コマンドは、プロジェクトディレクトリから生成されたファイル、ワークスペースデータ、または設定を削除します。
 
 **使用法:**
-```bash クリア --targets "generatedpages" "websiteconfig" icon=lucide:terminal
+```bash クリア icon=lucide:terminal
 aigne web clear --targets "generatedPages" "websiteConfig"
 ```
 

@@ -71,13 +71,7 @@ Once the site is provisioned and authorization succeeds, AIGNE WebSmith uploads 
 
 If a previous attempt to create a dedicated website was initiated but not completed (e.g., the payment process was abandoned), the system will save the session details. The next time you run `aigne web publish`, you will see an additional option to resume the process.
 
-```text
-? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.aigne.io) – Free hosting...
-  Your existing website - ...
-❯ Resume previous website setup - Already paid. Continue where you left off. Your payment has already been processed.
-  New dedicated website - Paid service...
-```
+![Prompt showing option to resume previous website setup](../../../assets/images/web-smith-publish-resume.png)
 
 Selecting this "Resume" option allows you to continue from where you left off without needing to start over or pay again if the payment was already processed. The system will use the saved `checkoutId` to restore the previous session and complete the website setup.
 

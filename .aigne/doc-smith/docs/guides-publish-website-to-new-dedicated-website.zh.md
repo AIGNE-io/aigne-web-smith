@@ -77,15 +77,9 @@ aigne web publish
 
 如果之前创建专用网站的尝试已启动但未完成（例如，支付过程被放弃），系统将保存会话详情。下次运行 `aigne web publish` 时，您将看到一个额外的选项来恢复该过程。
 
-```text
-? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.aigne.io) – Free hosting...
-  Your existing website - ...
-❯ Resume previous website setup - Already paid. Continue where you left off. Your payment has already been processed.
-  New dedicated website - Paid service...
-```
+![提示显示恢复之前网站设置的选项](../../../assets/images/web-smith-publish-resume.png)
 
-选择此“Resume”选项可让您从上次中断的地方继续，如果支付已处理，则无需重新开始或再次支付。系统将使用已保存的 `checkoutId` 来恢复之前的会话并完成网站设置。
+选择此"Resume"选项可让您从上次中断的地方继续，如果支付已处理，则无需重新开始或再次支付。系统将使用已保存的 `checkoutId` 来恢复之前的会话并完成网站设置。
 
 ## 总结
 

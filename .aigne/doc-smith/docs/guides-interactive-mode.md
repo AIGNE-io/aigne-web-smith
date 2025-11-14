@@ -1,4 +1,4 @@
-# Interactive Mode
+# Interactive Mode（Beta）
 
 > **Note:** Interactive mode is currently in beta. While fully functional, you may encounter unexpected behavior. We appreciate your feedback as we continue to improve this experience.
 

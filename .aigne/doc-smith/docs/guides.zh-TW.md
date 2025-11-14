@@ -80,4 +80,4 @@ publish -> live_site: "上線"
 
 ---
 
-本節涵蓋了管理您網站的基本命令。有關所有可用命令及其參數的完整列表，請參閱[命令列參考](./reference-command-line-reference.md)。
+本節涵蓋了管理您網站的基本命令。有關所有可用命令及其參數的完整列表，請參閱[命令參考](./reference-command.md)。

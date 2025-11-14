@@ -176,4 +176,72 @@ descriptions:
       final line confirms that "Your website is ready at:" and provides a
       clickable URL in blue text.
     generatedAt: 2025-11-13T16:28:34.864Z
-lastUpdated: 2025-11-13T16:28:34.864Z
+  9bd5ace4b4707eaad91b76a65846f8d3966f240c274499afe29d264afcf5948d:
+    path: ../../../assets/images/web-smith-remove-page-success.png
+    description: This screenshot captures a command-line interface (CLI) output
+      indicating the successful generation of web pages by the "aigne web" tool.
+      It displays a success message with a green checkmark, followed by "Next"
+      steps (indicated by a rocket emoji) for publishing the website, and
+      "Optional" actions (with a lightbulb emoji) for updating or refining
+      pages, with relevant commands highlighted.
+    generatedAt: 2025-11-14T06:46:00.527Z
+  08ffeee2c464948cfc213ff7c8338be6a787ecf102c9320a2aace840c084fea9:
+    path: ../../../assets/images/web-smith-remove-page-select.png
+    description: This screenshot displays a command-line interface (CLI) or
+      text-based user interface (TUI) presenting a selection menu. The prompt
+      asks the user to "Select pages to clear:", offering options like "Smart
+      Video Streaming Credit Service", "About the Project", and "Frequently
+      Asked Questions". "About the Project" is highlighted in blue and marked
+      with a green filled circle, indicating it is currently selected, with
+      instructions for navigation and selection provided at the bottom.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  935785420285cb1027ca3062e6972925f5db63e71acfb42bed64e71de3d18c29:
+    path: ../../../assets/images/web-smith-publish-resume.png
+    description: 'This screenshot depicts a command-line interface (CLI) with a
+      prompt to "Select platform to publish your pages." It presents four
+      options: "Resume previous website setup" (highlighted in yellow),
+      "WebSmith Cloud" (free hosting), "Your existing website," and "New
+      dedicated website" (paid service), each with a brief description. The
+      bottom of the interface shows navigation instructions: "↑↓ navigate • ↵
+      select".'
+    generatedAt: 2025-11-14T06:46:00.529Z
+  5cb5c195b0e4866571425c56bf6f0a4856abfcb62e4f3d4e9bcea854b7d48a0b:
+    path: ../../../assets/images/web-smith-add-page-input.png
+    description: This screenshot depicts a command-line interface displaying the
+      "Current Website Structure" of a "Smart Video Streaming Credit Service."
+      The interface prompts the user to add a new page, providing an example
+      command, and then asks the user to "Press Enter to finish," indicating an
+      awaiting input. It illustrates an interactive step in a text-based website
+      management tool.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  2a34f9a60fcc76c931c4153f774ce0224b7478950cbe789a32772584d59d2f2d:
+    path: ../../../assets/images/web-smith-add-page-success.png
+    description: This screenshot displays a command-line interface used for managing
+      a website's page structure. It shows a prompt indicating that a new page
+      can be added, followed by a warning message that a page with the path
+      '/about' already exists, requiring a different path. The current website
+      structure is visible, listing pages like "Smart Video Streaming Credit
+      Service [/home]", "About the Project [/about]", and "Frequently Asked
+      Questions [/about/faq]", concluding with an input prompt to continue
+      adding pages or finish.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  3bbc51f345651e5f617d240e897e1fd40d33b0f4d7124cb96fc88ea79332533c:
+    path: ../../../assets/images/web-smith-observe.png
+    description: This terminal screenshot displays the execution of the `aigne
+      observe --port 8888` command. The output confirms the observability
+      database path and indicates that the observability server is successfully
+      running on `http://localhost:8888`, providing a clear example of how to
+      start and verify the server's operation.
+    generatedAt: 2025-11-14T09:40:44.776Z
+  5a700be9522f2b53fc01c35348e80f4bf3c1468b0849913cd665dc9760c356e7:
+    path: ../../../assets/images/web-smith-observe-dashboard.png
+    description: This screenshot shows the AIGNE Observability dashboard, featuring
+      a "Trace Timeline" on the left that lists various functions, their IDs,
+      and execution times, including steps for website generation and media
+      description. The right panel details the selected "saveOutput" function,
+      showcasing its input JSON containing configuration parameters for a
+      website project, such as file names, project descriptions, target
+      audiences, and localization settings. The dashboard also tracks token
+      usage and latency at the top.
+    generatedAt: 2025-11-14T09:40:44.777Z
+lastUpdated: 2025-11-14T09:40:44.781Z

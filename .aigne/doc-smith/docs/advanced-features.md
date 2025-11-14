@@ -13,4 +13,4 @@ This section provides an overview of advanced capabilities. For detailed instruc
 
 This section serves as a gateway to the more powerful and customizable aspects of AIGNE WebSmith. By learning to manage component libraries and utilize special components, you can significantly enhance the visual appeal and functionality of your generated website.
 
-For a complete list of all available commands and their parameters, consult the [Command Line Reference](./reference-command-line-reference.md).
+For a complete list of all available commands and their parameters, consult the [Command Reference](./reference-command.md).

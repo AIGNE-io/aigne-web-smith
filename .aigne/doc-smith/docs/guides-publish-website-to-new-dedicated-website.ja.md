@@ -75,13 +75,7 @@ WebSmithがコンテンツをアップロードする前に、公開許可リク
 
 以前に専用ウェブサイトの作成が開始されたものの完了しなかった場合（例：支払いプロセスが中断された場合）、システムはセッションの詳細を保存します。次回 `aigne web publish` を実行すると、プロセスを再開するための追加オプションが表示されます。
 
-```text
-? Select platform to publish your pages:
-  WebSmith Cloud (https://websmith.aigne.io) – Free hosting...
-  Your existing website - ...
-❯ Resume previous website setup - Already paid. Continue where you left off. Your payment has already been processed.
-  New dedicated website - Paid service...
-```
+![以前のウェブサイト設定を再開するオプションを示すプロンプト](../../../assets/images/web-smith-publish-resume.png)
 
 この「再開」オプションを選択すると、最初からやり直したり、支払いがすでに処理されている場合に再度支払ったりすることなく、中断したところから続行できます。システムは保存された `checkoutId` を使用して前のセッションを復元し、ウェブサイトのセットアップを完了します。
 

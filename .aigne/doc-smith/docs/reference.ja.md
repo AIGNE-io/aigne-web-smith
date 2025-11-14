@@ -5,14 +5,17 @@
 リファレンス資料は、以下の詳細ページで構成されています。
 
 <x-cards>
-  <x-card data-title="コマンドラインリファレンス" data-icon="lucide:terminal" data-href="/reference/command-line-reference">
+  <x-card data-title="コマンドリファレンス" data-icon="lucide:terminal" data-href="/reference/command">
     利用可能なすべてのコマンド、そのエイリアス、パラメータ、および使用例を網羅した包括的なガイド。
   </x-card>
-    <x-card data-title="WebSmith 設定" data-icon="lucide:wrench" data-href="/reference/websmith-config">
+    <x-card data-title="設定リファレンス" data-icon="lucide:wrench" data-href="/reference/config">
     プロジェクト構造、生成設定、デプロイ設定など、WebSmith の動作をカスタマイズするための設定オプション。
   </x-card>
   <x-card data-title="素材の準備" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     WebSmith が正確で高品質なページを生成できるように、要件、ソースドキュメント、エビデンスを収集するための再現可能なプロセス。
+  </x-card>
+  <x-card data-title="トラブルシューティング" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">
+    設定、生成、公開、翻訳に関する一般的な問題の解決策。エラーメッセージ、原因、段階的な修正手順が含まれています。
   </x-card>
 </x-cards>
 

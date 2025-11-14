@@ -80,4 +80,4 @@ Below you will find detailed guides for each of these workflows.
 
 ---
 
-This section covers the fundamental commands for managing your website. For a comprehensive list of all available commands and their parameters, please consult the [Command Line Reference](./reference-command-line-reference.md).
+This section covers the fundamental commands for managing your website. For a comprehensive list of all available commands and their parameters, please consult the [Command Reference](./reference-command.md).

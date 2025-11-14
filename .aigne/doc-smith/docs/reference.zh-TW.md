@@ -5,14 +5,17 @@
 參考資料分為以下幾個詳細頁面：
 
 <x-cards>
-  <x-card data-title="Command Line Reference" data-icon="lucide:terminal" data-href="/reference/command-line-reference">
+  <x-card data-title="命令參考" data-icon="lucide:terminal" data-href="/reference/command">
     所有可用指令、其別名、參數和使用範例的全面指南。
   </x-card>
-    <x-card data-title="WebSmith Config" data-icon="lucide:wrench" data-href="/reference/websmith-config">
+    <x-card data-title="設定參考" data-icon="lucide:wrench" data-href="/reference/config">
     用於自訂 WebSmith 行為的配置選項和設定，包括專案結構、生成偏好和部署設定。
   </x-card>
   <x-card data-title="準備素材" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     一個可重複的流程，用於收集簡報、原始文件和證據，以便 WebSmith 能夠生成準確、高品質的頁面。
+  </x-card>
+  <x-card data-title="故障排除" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">
+    針對配置、生成、發佈和翻譯的常見問題的解決方案。包含錯誤訊息、原因和逐步修復指南。
   </x-card>
 </x-cards>
 

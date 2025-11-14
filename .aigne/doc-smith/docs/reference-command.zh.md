@@ -1,6 +1,6 @@
-# 命令行参考
+# 命令参考
 
-本文档为 AIGNE WebSmith 命令行界面（CLI）中所有可用命令提供了全面、详实的参考。每个条目都包含对命令功能的描述、其可用别名以及其参数和子命令的详细列表。
+本参考列出了 AIGNE WebSmith CLI 的所有可用命令，包括别名、参数和使用示例。
 
 CLI 操作的标准语法如下：
 ```bash 运行命令 icon=lucide:terminal
@@ -34,7 +34,7 @@ aigne web <command> [subcommand] [parameters]
 **别名：** `gen`, `g`
 
 **用法：**
-```bash 生成网站 icon=lucide:terminal
+```bash 生成 icon=lucide:terminal
 aigne web generate
 ```
 
@@ -52,7 +52,7 @@ aigne web generate
 **别名：** `pub`, `p`
 
 **用法：**
-```bash 发布 --appurl "https://example.com" icon=lucide:terminal
+```bash 发布 icon=lucide:terminal
 aigne web publish --appUrl "https://example.com"
 ```
 
@@ -70,7 +70,7 @@ aigne web publish --appUrl "https://example.com"
 **别名：** `up`
 
 **用法：**
-```bash 更新 --pages "/about" --feedback "add A Mission Statement." icon=lucide:terminal
+```bash 更新 icon=lucide:terminal
 aigne web update --pages "/about" --feedback "Add a mission statement."
 ```
 
@@ -86,7 +86,7 @@ aigne web update --pages "/about" --feedback "Add a mission statement."
 `translate` 命令将现有网站页面的内容翻译成一种或多种指定语言。
 
 **用法：**
-```bash 翻译 --pages "/home" --langs "fr,de,es" icon=lucide:terminal
+```bash 翻译 icon=lucide:terminal
 aigne web translate --pages "/home" --langs "fr,de,es"
 ```
 
@@ -110,7 +110,7 @@ aigne web translate --pages "/home" --langs "fr,de,es"
 **别名：** `gen`
 
 **用法：**
-```bash 主题生成 --name "customtheme" icon=lucide:terminal
+```bash 主题生成 icon=lucide:terminal
 aigne web theme generate --name "CustomTheme"
 ```
 
@@ -141,7 +141,7 @@ aigne web theme apply
 从指定 URL 拉取组件以更新本地组件库。
 
 **用法：**
-```bash 组件拉取 --url "https://your-pages-kit/api/..." icon=lucide:terminal
+```bash 组件拉取 icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -189,7 +189,7 @@ aigne web prefs list
 **别名：** `rm`
 
 **用法：**
-```bash 移除偏好 --id "pref_abc123" icon=lucide:terminal
+```bash 移除偏好 icon=lucide:terminal
 aigne web prefs remove --id "pref_abc123"
 ```
 <x-field-group>
@@ -202,7 +202,7 @@ aigne web prefs remove --id "pref_abc123"
 **别名：** `t`
 
 **用法：**
-```bash 切换偏好 --id "pref_abc123" icon=lucide:terminal
+```bash 切换偏好 icon=lucide:terminal
 aigne web prefs toggle --id "pref_abc123"
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ aigne web prefs toggle --id "pref_abc123"
 **别名：** `log`, `list`
 
 **用法：**
-```bash 管理更新历史 icon=lucide:terminal
+```bash 查看历史 icon=lucide:terminal
 aigne web history view
 ```
 该子命令不接受任何参数。
@@ -229,7 +229,7 @@ aigne web history view
 `clear` 命令从项目目录中移除生成的文件、工作区数据或配置设置。
 
 **用法：**
-```bash 清除 --targets "generatedpages" "websiteconfig" icon=lucide:terminal
+```bash 清除 icon=lucide:terminal
 aigne web clear --targets "generatedPages" "websiteConfig"
 ```
 

@@ -17,7 +17,7 @@ config: {
 }
 
 generate: {
-  label: "2. 生成网站\n`aigne web generate`"
+  label: "2. 创建网站\n`aigne web generate`"
   shape: rectangle
 }
 
@@ -46,7 +46,7 @@ publish -> live_site: "上线"
 您将在下面找到每个工作流程的详细指南。
 
 <x-cards data-columns="2">
-  <x-card data-title="生成网站" data-icon="lucide:bot" data-href="/guides/generate-website">
+  <x-card data-title="创建网站" data-icon="lucide:bot" data-href="/guides/create-website">
     了解如何使用 `generate` 命令从一个概述您需求的配置文件中创建一个完整的网站。
   </x-card>
   <x-card data-title="发布网站" data-icon="lucide:upload-cloud" data-href="/guides/publish-website">
@@ -64,14 +64,14 @@ publish -> live_site: "上线"
   <x-card data-title="使用自定义组件库" data-icon="lucide:cubes" data-href="/advanced-features/use-custom-component-libraries">
     解释如何使用 `component` 命令来拉取和更新用于构建您网站的组件库。
   </x-card>
-  <x-card data-title="使用交互式聊天（测试版）" data-icon="lucide:message-square-plus" data-href="/guides/use-interactive-chat-beta">
+  <x-card data-title="互动模式" data-icon="lucide:message-square-plus" data-href="/guides/interactive-mode">
     学习如何使用 `chat` 命令以对话方式交互式地构建和修改您的网站。
   </x-card>
   <x-card data-title="管理偏好设置" data-icon="lucide:settings-2" data-href="/guides/manage-preferences">
     解释如何使用 `prefs` 命令查看、管理和清除已保存的用户偏好设置，以自定义 WebSmith 的行为。
   </x-card>
-  <x-card data-title="查看更新历史" data-icon="lucide:history" data-href="/guides/view-update-history">
-    学习如何使用 `history` 命令来查看对您网站内容和结构所做的所有先前更新的日志。
+  <x-card data-title="管理更新历史" data-icon="lucide:history" data-href="/guides/update-website/manage-update-history">
+    学习如何使用 `history` 命令来审查更新过程中记录的所有变更。
   </x-card>
   <x-card data-title="清理工作区" data-icon="lucide:trash-2" data-href="/guides/cleanup-workspace">
     向您展示如何使用 `clear` 命令安全地移除生成的文件、工作区数据或整个配置。

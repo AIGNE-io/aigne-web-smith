@@ -53,4 +53,4 @@ aigne web clear --targets websiteStructure generatedPages
 
 `clear` 命令提供了一种安全可控的方式来管理您项目的生成资产和配置。使用交互模式进行引导式清理，或使用 `--targets` 标志进行直接、自动化的控制。请务必谨慎操作，尤其是在清理 `websiteConfig` 时，以避免意外的数据丢失。
 
-在清理您的工作区或生成的页面后，您可能希望继续重新生成网站。更多详情，请参阅[生成网站](./guides-generate-website.md)。
+在清理您的工作区或生成的页面后，您可能希望重新创建网站。更多详情，请参阅[创建网站](./guides-create-website.md)。

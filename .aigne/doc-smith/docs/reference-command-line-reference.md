@@ -7,7 +7,7 @@ The standard syntax for CLI operations is as follows:
 aigne web <command> [subcommand] [parameters]
 ```
 
-Executing `aigne web` without a command initiates an interactive chat session.
+Executing `aigne web` without a command initiates interactive mode.
 
 ## Main Commands
 
@@ -21,7 +21,7 @@ The following table summarizes the primary commands. Each command is detailed fu
 | [translate](#translate) | | Translates website pages into different languages. |
 | [theme](#theme) | | Manages website visual themes, including generation and application. |
 | [component](#component) | `comp` | Manages the component library used to build the website. |
-| [chat](#chat) | | Starts an interactive chat session for website management (default). |
+| [chat](#chat) | | Starts interactive mode for website management (default). |
 | [prefs](#prefs) | | Manages saved user preferences learned from feedback. |
 | [history](#history) | | Displays a log of previous updates made to the website. |
 | [clear](#clear) | | Removes generated files, workspace data, or configuration settings. |
@@ -141,7 +141,7 @@ The `component` command manages the component library for the website.
 Pulls components from a specified URL to update the local component library.
 
 **Usage:**
-```bash Component Pull --url "https://your-pages-kit/api/..." icon=lucide:terminal
+```bash Component Pull  icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -189,7 +189,7 @@ Removes one or more specified preferences.
 **Alias:** `rm`
 
 **Usage:**
-```bash Prefs Remove --id "pref_abc123" icon=lucide:terminal
+```bash Prefs Remove icon=lucide:terminal
 aigne web prefs remove --id "pref_abc123"
 ```
 <x-field-group>
@@ -202,7 +202,7 @@ Toggles the active status of one or more preferences.
 **Alias:** `t`
 
 **Usage:**
-```bash Prefs Toggle --id "pref_abc123" icon=lucide:terminal
+```bash Prefs Toggle icon=lucide:terminal
 aigne web prefs toggle --id "pref_abc123"
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ Displays the update history in a compact, log-style format. Each entry includes 
 **Aliases:** `log`, `list`
 
 **Usage:**
-```bash View Update History icon=lucide:terminal
+```bash Manage Update History icon=lucide:terminal
 aigne web history view
 ```
 This subcommand does not take any parameters.

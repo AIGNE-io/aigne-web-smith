@@ -31,9 +31,11 @@ Choose the destination that matches your hosting strategy. Each card below links
   <x-card data-title="To Existing Website" data-icon="lucide:server" data-href="/guides/publish-website/custom">
     For users who already have a website built on the ArcBlock platform. This guide explains how to integrate and publish your newly generated pages to your existing infrastructure.
   </x-card>
-  <x-card data-title="To New Dedicated Website" data-icon="lucide:globe" data-href="/guides/publish-website/new-dedicated-website">
+ <x-card data-title="To New Dedicated Website" data-icon="lucide:globe" data-href="/guides/publish-website/new-dedicated-website">
     A paid service that creates a new, dedicated website with custom domain and hosting capabilities. This is the recommended choice for professional and commercial use.
   </x-card>
 </x-cards>
+
+Before publishing large batches of edits, run through [Manage Update History](./guides-update-website-manage-update-history.md) so you know exactly which changes are about to go live.
 
 If you want to move from WebSmith Cloud to another destination (or vice versa), run `aigne web clear --targets deploymentConfig` to reset the cached deploy target, then run `aigne web publish` again and choose the new destination.

@@ -186,7 +186,7 @@ WebSmith 的設計目標就是一次生成優質網站——但品質取決於�
   <x-card data-title="入門指南" data-icon="lucide:rocket" data-href="/getting-started">
     安裝 AIGNE CLI，執行 `aigne web generate`，並審核您的第一個網站。
   </x-card>
-  <x-card data-title="產生網站" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="建立網站" data-icon="lucide:wrench" data-href="/guides/create-website">
     了解在產生工作流程中可用的每個選項。
   </x-card>
   <x-card data-title="發布網站" data-icon="lucide:globe" data-href="/guides/publish-website">

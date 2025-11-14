@@ -133,7 +133,7 @@ rules: >
   <x-card data-title="准备素材" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     构建一个可重复使用的内容套件，确保每次生成都从高质量的输入开始。
   </x-card>
-  <x-card data-title="生成网站" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="创建网站" data-icon="lucide:wrench" data-href="/guides/create-website">
     深入了解 `generate` 工作流的高级选项。
   </x-card>
   <x-card data-title="发布网站" data-icon="lucide:rocket" data-href="/guides/publish-website">

@@ -17,7 +17,7 @@ config: {
 }
 
 generate: {
-  label: "2. Generate Website\n`aigne web generate`"
+  label: "2. Create Website\n`aigne web generate`"
   shape: rectangle
 }
 
@@ -46,7 +46,7 @@ publish -> live_site: "Go Live"
 Below you will find detailed guides for each of these workflows.
 
 <x-cards data-columns="2">
-  <x-card data-title="Generate Website" data-icon="lucide:bot" data-href="/guides/generate-website">
+  <x-card data-title="Create Website" data-icon="lucide:bot" data-href="/guides/create-website">
     Learn how to use the `generate` command to create a complete website from a configuration file that outlines your requirements.
   </x-card>
   <x-card data-title="Publish Website" data-icon="lucide:upload-cloud" data-href="/guides/publish-website">
@@ -64,14 +64,14 @@ Below you will find detailed guides for each of these workflows.
   <x-card data-title="Use Custom Component Libraries" data-icon="lucide:cubes" data-href="/advanced-features/use-custom-component-libraries">
     Explains how to use the `component` command to pull and update the component library used to build your website.
   </x-card>
-  <x-card data-title="Use Interactive Chat (Beta)" data-icon="lucide:message-square-plus" data-href="/guides/use-interactive-chat-beta">
+  <x-card data-title="Interactive Mode" data-icon="lucide:message-square-plus" data-href="/guides/interactive-mode">
     Learn how to use the `chat` command to interactively build and modify your website in a conversational way.
   </x-card>
   <x-card data-title="Manage Preferences" data-icon="lucide:settings-2" data-href="/guides/manage-preferences">
     Explains how to use the `prefs` command to view, manage, and clear saved user preferences to customize WebSmith's behavior.
   </x-card>
-  <x-card data-title="View Update History" data-icon="lucide:history" data-href="/guides/view-update-history">
-    Learn how to use the `history` command to review a log of all previous updates made to your website content and structure.
+  <x-card data-title="Manage Update History" data-icon="lucide:history" data-href="/guides/update-website/manage-update-history">
+    Learn how to use the `history` command to audit every change recorded during the update process.
   </x-card>
   <x-card data-title="Cleanup Workspace" data-icon="lucide:trash-2" data-href="/guides/cleanup-workspace">
     Shows you how to use the `clear` command to safely remove generated files, workspace data, or the entire configuration.

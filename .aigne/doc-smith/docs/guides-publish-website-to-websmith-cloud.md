@@ -56,16 +56,7 @@ This process may take a few minutes, depending on the size of your website.
 
 Upon successful completion, the terminal displays a confirmation message. This message includes the total number of pages and assets published, along with the direct URLs to access your live website.
 
-```text
-✅ Pages published successfully! (`10/10` pages, `25` media assets)
-
-🔗 Live URLs:
-   https://websmith.aigne.io/your-project-slug/
-   https://websmith.aigne.io/your-project-slug/about
-   https://websmith.aigne.io/your-project-slug/services
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![Terminal output confirming page and asset upload success](../../../assets/images/web-smith-publish-success.png)
 
 You can now visit these URLs in your web browser to view your published website.
 

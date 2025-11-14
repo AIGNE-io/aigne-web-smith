@@ -7,7 +7,7 @@ CLI 操作的标准语法如下：
 aigne web <command> [subcommand] [parameters]
 ```
 
-执行不带命令的 `aigne web` 会启动一个交互式聊天会话。
+执行不带命令的 `aigne web` 会启动互动模式。
 
 ## 主要命令
 
@@ -21,7 +21,7 @@ aigne web <command> [subcommand] [parameters]
 | [translate](#translate) | | 将网站页面翻译成不同语言。 |
 | [theme](#theme) | | 管理网站视觉主题，包括生成和应用。 |
 | [component](#component) | `comp` | 管理用于构建网站的组件库。 |
-| [chat](#chat) | | 启动一个用于网站管理的交互式聊天会话（默认）。 |
+| [chat](#chat) | | 启动一个用于网站管理的互动模式（默认）。 |
 | [prefs](#prefs) | | 管理从反馈中学习到的已保存的用户偏好。 |
 | [history](#history) | | 显示对网站所做先前更新的日志。 |
 | [clear](#clear) | | 移除生成的文件、工作区数据或配置设置。 |
@@ -220,7 +220,7 @@ aigne web prefs toggle --id "pref_abc123"
 **别名：** `log`, `list`
 
 **用法：**
-```bash 查看更新历史 icon=lucide:terminal
+```bash 管理更新历史 icon=lucide:terminal
 aigne web history view
 ```
 该子命令不接受任何参数。

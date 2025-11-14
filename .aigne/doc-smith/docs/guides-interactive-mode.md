@@ -1,6 +1,6 @@
-# Use Interactive Chat (Beta)
+# Interactive Mode
 
-> **Note:** The interactive chat feature is currently in beta. While fully functional, you may encounter unexpected behavior. We appreciate your feedback as we continue to improve this experience.
+> **Note:** Interactive mode is currently in beta. While fully functional, you may encounter unexpected behavior. We appreciate your feedback as we continue to improve this experience.
 
 Use this guide to launch `aigne web chat`, speak to WebSmith in natural language, and let the assistant trigger generate/update/publish actions on your behalf.
 
@@ -8,7 +8,7 @@ The `chat` command provides an interactive, conversational interface for buildin
 
 ## How It Works
 
-The interactive chat session is powered by a dedicated AI agent that understands your requests and can use other WebSmith tools to perform tasks. It maintains a memory of your conversation, allowing you to make sequential changes and build on previous actions.
+Interactive mode is powered by a dedicated AI agent that understands your requests and can use other WebSmith tools to perform tasks. It maintains a memory of your conversation, allowing you to make sequential changes and build on previous actions.
 
 The general workflow follows a simple, conversational loop:
 
@@ -16,7 +16,7 @@ The general workflow follows a simple, conversational loop:
 direction: down
 
 start: {
-  label: "Start Chat Session"
+  label: "Start Interactive Session"
   shape: oval
 }
 
@@ -38,7 +38,7 @@ show_result: {
 }
 
 end: {
-  label: "End Chat Session"
+  label: "End Interactive Session"
   shape: oval
 }
 
@@ -73,7 +73,7 @@ The chat assistant can perform most of the core tasks available in the AIGNE Web
 
 ## Example Conversation
 
-Here is an example of how you might use the interactive chat to create, modify, and publish a simple website.
+Here is an example of how you might use interactive mode to create, modify, and publish a simple website.
 
 ```bash Command Line icon=lucide:terminal
 aigne web
@@ -128,16 +128,16 @@ exit
 > Goodbye!
 ```
 
-## Exiting the Chat
+## Exit Interactive Mode
 
-To end your interactive session at any time, simply type `exit` or `quit` and press Enter.
+To end your session at any time, type `exit` or `quit` and press Enter.
 
 ---
 
-The interactive chat is a powerful way to manage your entire website lifecycle without needing to memorize specific commands and parameters. For more direct control, you can always use the standard commands detailed in the following sections.
+Interactive mode is a powerful way to manage your entire website lifecycle without needing to memorize specific commands and parameters. For more direct control, you can always use the standard commands detailed in the following sections.
 
 ### Further Reading
 
-*   [Generate Website](./guides-generate-website.md)
+*   [Create Website](./guides-create-website.md)
 *   [Update Website](./guides-update-website.md)
 *   [Publish Website](./guides-publish-website.md)

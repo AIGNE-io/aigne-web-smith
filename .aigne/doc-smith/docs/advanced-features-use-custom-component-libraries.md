@@ -106,4 +106,4 @@ You must now run the `generate` command to create your website pages using the u
 
 The `component pull` command is the standard procedure for keeping your local environment's visual building blocks in sync with your custom Pages Kit repository. The process involves pulling the latest library, reviewing the changes, confirming the update, and finally, re-generating your website to apply the new components.
 
-For more information on creating pages, please proceed to the [Generate Website](./guides-generate-website.md) section.
+For more information on creating pages, proceed to the [Create Website](./guides-create-website.md) section.

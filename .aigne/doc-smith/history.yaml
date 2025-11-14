@@ -227,12 +227,12 @@ entries:
   - timestamp: 2025-10-16T14:30:01.199Z
     operation: document_update
     feedback: In the History output, the operation type should be either page_update or structure_update.
-    documentPath: /guides/view-update-history
+    documentPath: /guides/update-website/manage-update-history
   - timestamp: 2025-10-16T14:15:32.467Z
     operation: document_update
     feedback: The optional values for `pagePurpose`, `targetAudienceTypes`, and `websiteScale` in the
       configuration options and `config.yaml` example require updating.
-    documentPath: /guides/generate-website
+    documentPath: /guides/create-website
   - timestamp: 2025-10-16T14:11:46.414Z
     operation: document_update
     feedback: "Step 5: View Your Generated Website You must publish the website before viewing it in a
@@ -307,7 +307,7 @@ entries:
   - timestamp: 2025-10-16T11:44:48.635Z
     operation: document_update
     feedback: aigne history -> aigne web history
-    documentPath: /guides/view-update-history
+    documentPath: /guides/update-website/manage-update-history
   - timestamp: 2025-10-16T11:42:13.954Z
     operation: document_update
     feedback: websmith prefs -> aigne web prefs
@@ -315,12 +315,12 @@ entries:
   - timestamp: 2025-10-16T11:31:56.960Z
     operation: document_update
     feedback: aigne chat -> aigne web chat. aigne web chat -> aigne web
-    documentPath: /guides/use-interactive-chat-beta
+    documentPath: /guides/interactive-mode
   - timestamp: 2025-10-16T11:13:22.907Z
     operation: document_update
     feedback: aigne web chat -> aigne web. This command is currently a beta feature. You need to add a
       beta note before the documentation and modify the title.
-    documentPath: /guides/use-interactive-chat-beta
+    documentPath: /guides/interactive-mode
   - timestamp: 2025-10-16T10:56:23.589Z
     operation: document_update
     feedback: aigne.config.yaml -> config.yaml
@@ -418,7 +418,7 @@ entries:
   - timestamp: 2025-10-13T08:02:44.639Z
     operation: document_update
     feedback: generate Describe the generate command parameters using the x-field component.
-    documentPath: /guides/generate-website
+    documentPath: /guides/create-website
   - timestamp: 2025-10-13T02:50:01.693Z
     operation: document_update
     feedback: Remove the Status column from the Summary Checklist

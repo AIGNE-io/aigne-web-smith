@@ -58,16 +58,7 @@ WebSmith Cloud に初めて公開する場合、コマンドラインツール�
 
 正常に完了すると、ターミナルに確認メッセージが表示されます。このメッセージには、公開されたページとアセットの総数、およびライブウェブサイトにアクセスするための直接 URL が含まれています。
 
-```text
-✅ Pages published successfully! (`10/10` pages, `25` media assets)
-
-🔗 Live URLs:
-   https://websmith.aigne.io/your-project-slug/
-   https://websmith.aigne.io/your-project-slug/about
-   https://websmith.aigne.io/your-project-slug/services
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![ターミナル出力でページとアセットのアップロード成功を確認](../../../assets/images/web-smith-publish-success.png)
 
 これらの URL をウェブブラウザで開いて、公開されたウェブサイトを表示できます。
 

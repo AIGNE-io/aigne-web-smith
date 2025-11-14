@@ -48,12 +48,6 @@ aigne web publish
 
 1.  **支払い**: ターミナルに支払いプロセスが開始されたことを示すメッセージが表示されます。デフォルトのウェブブラウザで安全な支払いリンクが開きます。
 
-    ```text
-    🚀 Starting deployment...
-    ⏳ Step 1/4: Waiting for payment...
-    🔗 Payment link: https://payment.example.com/session/checkout_12345
-    ```
-
 ![専用ウェブサイトの支払いを確認するチェックアウト画面](../../../assets/images/web-smith-payment.png)
 
 2.  **プロビジョニング**: 支払いが完了すると、WebSmithは自動的に再開します。ターミナルは、サービスがプロビジョニングされ、開始され、検証されるのを待ちます。ユーザー側でこれ以上のアクションは必要ありません。

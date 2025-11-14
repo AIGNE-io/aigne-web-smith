@@ -178,7 +178,7 @@ WebSmith は、優れたウェブサイトを一度で生成するように設�
   <x-card data-title="はじめに" data-icon="lucide:rocket" data-href="/getting-started">
     AIGNE CLI をインストールし、`aigne web generate` を実行して、最初のサイトを確認します。
   </x-card>
-  <x-card data-title="ウェブサイトの生成" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="ウェブサイトの作成" data-icon="lucide:wrench" data-href="/guides/create-website">
     生成ワークフロー中に利用可能なすべてのオプションを学びます。
   </x-card>
   <x-card data-title="ウェブサイトの公開" data-icon="lucide:globe" data-href="/guides/publish-website">

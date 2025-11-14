@@ -44,12 +44,6 @@ After selecting the option, the automated setup process will begin:
 
 1.  **Payment**: A message will appear in your terminal indicating that the payment process is starting. A secure payment link will be opened in your default web browser.
 
-    ```text
-    🚀 Starting deployment...
-    ⏳ Step 1/4: Waiting for payment...
-    🔗 Payment link: https://payment.example.com/session/checkout_12345
-    ```
-
 ![Checkout screen confirming payment for the dedicated website](../../../assets/images/web-smith-payment.png)
 
 2.  **Provisioning**: After payment completes, WebSmith resumes automatically. The terminal waits for the service to be provisioned, started, and verified—no further action is required on your part.

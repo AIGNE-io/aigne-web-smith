@@ -133,7 +133,7 @@ rules: >
   <x-card data-title="資料の準備" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     すべての生成が高品質の入力から始まるように、再現可能なコンテンツキットを構築します。
   </x-card>
-  <x-card data-title="ウェブサイトの生成" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="ウェブサイトの作成" data-icon="lucide:wrench" data-href="/guides/create-website">
     `generate` ワークフローの高度なオプションについてさらに深く掘り下げます。
   </x-card>
   <x-card data-title="ウェブサイトの公開" data-icon="lucide:rocket" data-href="/guides/publish-website">

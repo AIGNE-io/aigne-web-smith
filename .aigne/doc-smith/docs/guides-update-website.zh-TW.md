@@ -6,7 +6,10 @@
 
 本節對這兩種流程進行了高層次的概述。有關詳細的逐步說明，請參考下面連結的特定子文件。
 
-<x-cards data-columns="2">
+<x-cards data-columns="3">
+  <x-card data-title="管理更新歷史" data-icon="lucide:history" data-href="/guides-update-website-manage-update-history">
+    利用 `history` 指令檢視每一次紀錄在案的變更，掌握修改發生的時間與原因。
+  </x-card>
   <x-card data-title="更新結構" data-icon="lucide:layout-template" data-href="/guides-update-website-update-structure">
     了解如何進行結構性變更，例如在您的網站中新增、移除或重組頁面。
   </x-card>
@@ -17,6 +20,6 @@
 
 ## 總結
 
-通過將結構性更新和頁面級別更新分開，WebSmith 為管理您的網站提供了一個邏輯且高效的工作流程。
+透過將結構更新、頁面更新與稽核紀錄分離，WebSmith 為管理您的網站提供了一個邏輯且高效的工作流程。
 
 在進行所需的變更後，下一步通常是將其發布上線。有關此方面的指導，請參閱 [發布網站](./guides-publish-website.md) 文章。

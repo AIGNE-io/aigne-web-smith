@@ -133,7 +133,7 @@ Open the generated pages locally or continue straight to the [Publish Website](.
   <x-card data-title="Prepare Materials" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     Build a repeatable content kit so every generation starts with high-quality inputs.
   </x-card>
-  <x-card data-title="Generate Website" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="Create Website" data-icon="lucide:wrench" data-href="/guides/create-website">
     Dive deeper into advanced options for the `generate` workflow.
   </x-card>
   <x-card data-title="Publish Website" data-icon="lucide:rocket" data-href="/guides/publish-website">

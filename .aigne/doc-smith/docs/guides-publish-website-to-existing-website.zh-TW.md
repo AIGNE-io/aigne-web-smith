@@ -16,7 +16,7 @@
 
 如果您的網站尚未設定，您可以從 Blocklet Store 獲取必要的元件：
 
-- [在您的網站上安裝 Pages Kit](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
+- [在您的網站上安裝 Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
 
 ## 發佈流程
 
@@ -64,18 +64,7 @@ aigne web publish
 
 成功完成後，終端機將顯示一條確認訊息，包括您新發佈頁面的線上 URL。
 
-```text 成功訊息
-✅ Pages published successfully! (`5/5` pages, `12` media assets)
-
-🔗 Live URLs:
-   https://my-awesome-site.com/docs/
-   https://my-awesome-site.com/docs/introduction
-   https://my-awesome-site.com/docs/getting-started
-   https://my-awesome-site.com/docs/api-reference
-   https://my-awesome-site.com/docs/contact
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![終端機輸出確認頁面和資產上傳成功](../../../assets/images/web-smith-publish-success.png)
 
 ## 故障排除
 

@@ -1,4 +1,4 @@
-# Generate Website
+# Create Website
 
 Use this guide to turn your source material into a live-ready site with a single command. You will inspect the available `aigne web generate` flags, approve the AI-generated sitemap, and understand where the finished pages land on disk.
 
@@ -6,7 +6,7 @@ If you need a quick reference to every flag and alias, run `aigne web -h`; the s
 
 ![Output of `aigne web -h`, showing available flags and aliases](../../../assets/images/web-smith-help.png)
 
-## The Generation Process
+## Creation Workflow
 
 The `aigne web generate` command initiates the entire website creation process. It reads your configuration, analyzes your source materials, plans the website's structure, generates content for each page, and assembles the final files.
 
@@ -14,17 +14,17 @@ The `aigne web generate` command initiates the entire website creation process. 
 
 To run the generation process, execute the following command in your terminal:
 
-```bash Generate Website icon=lucide:terminal
+```bash Create Website icon=lucide:terminal
 aigne web generate
 ```
 
 You can also use the aliases `gen` or `g`:
 
-```bash Generate Website icon=lucide:terminal
+```bash Create Website icon=lucide:terminal
 aigne web gen
 ```
 
-### The Generation Process
+### What Happens During Generate
 
 When you run the `generate` command, WebSmith performs the following sequence of operations:
 
@@ -54,7 +54,7 @@ The `generate` command accepts several optional parameters to customize its beha
 
 **Example with parameters:**
 
-```bash # Regenerate Website icon=lucide:terminal
+```bash Regenerate Website icon=lucide:terminal
 # Regenerate the entire website using a glossary file
 aigne web generate --forceRegenerate --glossary "@glossary.md"
 ```

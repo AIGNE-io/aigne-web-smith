@@ -6,7 +6,7 @@ Modifying the structure of your website—such as adding new pages, removing obs
 
 This document explains how to modify your site's structure using the `aigne web generate` command. During this process, an AI agent interprets your feedback in natural language to add, remove, update, or move pages. Understanding the available operations helps you provide clear instructions to achieve your desired site layout.
 
-The primary command for applying structural changes is `aigne web generate`. For more details on the generation process itself, see [Generate Website](./guides-generate-website.md).
+The primary command for applying structural changes is `aigne web generate`. For more details on the creation process itself, see [Create Website](./guides-create-website.md).
 ## The Structure Update Process
 
 When you run the `aigne web generate` command, the system first analyzes your content sources and proposes a website structure. You are then given an opportunity to review and modify this structure interactively.
@@ -59,5 +59,5 @@ Here are some examples of how you can phrase your feedback to perform specific s
 This interactive process ensures your website's structure is always organized, up-to-date, and aligned with your goals. The system handles the technical details, allowing you to focus on the logical arrangement of your content.
 
 For more hands-on guidance, please refer to the following sections:
-- [Generate Website](./guides-generate-website.md)
-- [Use Interactive Chat (Beta)](./guides-use-interactive-chat-beta.md)
+- [Create Website](./guides-create-website.md)
+- [Interactive Mode](./guides-interactive-mode.md)

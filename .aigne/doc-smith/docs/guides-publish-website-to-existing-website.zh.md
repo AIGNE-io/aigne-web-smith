@@ -12,7 +12,7 @@
 
 如果您的网站尚未设置，您可以从 Blocklet Store 获取必要的组件：
 
-- [在您的网站上安装 Pages Kit](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
+- [在您的网站上安装 Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
 
 ## 发布流程
 

@@ -17,7 +17,7 @@ config: {
 }
 
 generate: {
-  label: "2. ウェブサイトを生成\n`aigne web generate`"
+  label: "2. ウェブサイトを作成\n`aigne web generate`"
   shape: rectangle
 }
 
@@ -46,7 +46,7 @@ publish -> live_site: "公開"
 以下に、これらの各ワークフローに関する詳細なガイドがあります。
 
 <x-cards data-columns="2">
-  <x-card data-title="ウェブサイトの生成" data-icon="lucide:bot" data-href="/guides/generate-website">
+  <x-card data-title="ウェブサイトの作成" data-icon="lucide:bot" data-href="/guides/create-website">
     `generate` コマンドを使用して、要件をまとめた設定ファイルから完全なウェブサイトを作成する方法を学びます。
   </x-card>
   <x-card data-title="ウェブサイトの公開" data-icon="lucide:upload-cloud" data-href="/guides/publish-website">
@@ -64,14 +64,14 @@ publish -> live_site: "公開"
   <x-card data-title="カスタムコンポーネントライブラリの使用" data-icon="lucide:cubes" data-href="/advanced-features/use-custom-component-libraries">
     `component` コマンドを使用して、ウェブサイトの構築に使用されるコンポーネントライブラリを取得および更新する方法を説明します。
   </x-card>
-  <x-card data-title="インタラクティブチャットの使用 (ベータ版)" data-icon="lucide:message-square-plus" data-href="/guides/use-interactive-chat-beta">
+  <x-card data-title="インタラクティブモード" data-icon="lucide:message-square-plus" data-href="/guides/interactive-mode">
     `chat` コマンドを使用して、対話形式でウェブサイトを構築および変更する方法を学びます。
   </x-card>
   <x-card data-title="設定の管理" data-icon="lucide:settings-2" data-href="/guides/manage-preferences">
     `prefs` コマンドを使用して、保存されたユーザー設定を表示、管理、クリアして WebSmith の動作をカスタマイズする方法を説明します。
   </x-card>
-  <x-card data-title="更新履歴の表示" data-icon="lucide:history" data-href="/guides/view-update-history">
-    `history` コマンドを使用して、ウェブサイトのコンテンツと構造に加えられたすべての以前の更新ログを確認する方法を学びます。
+  <x-card data-title="更新履歴の管理" data-icon="lucide:history" data-href="/guides/update-website/manage-update-history">
+    `history` コマンドを使用して、更新プロセス中に記録されたすべての変更を追跡する方法を学びます。
   </x-card>
   <x-card data-title="ワークスペースのクリーンアップ" data-icon="lucide:trash-2" data-href="/guides/cleanup-workspace">
     `clear` コマンドを使用して、生成されたファイル、ワークスペースデータ、または設定全体を安全に削除する方法を示します。

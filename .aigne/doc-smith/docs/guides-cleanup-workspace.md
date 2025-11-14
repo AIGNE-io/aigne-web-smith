@@ -53,4 +53,4 @@ aigne web clear --targets websiteStructure generatedPages
 
 The `clear` command provides a safe and controlled way to manage your project's generated assets and configuration. Use the interactive mode for guided cleanup or the `--targets` flag for direct, automated control. Always exercise caution, especially when clearing the `websiteConfig`, to avoid unintended data loss.
 
-After clearing your workspace or generated pages, you may want to proceed with generating the website again. For more details, see [Generate Website](./guides-generate-website.md).
+After clearing your workspace or generated pages, you may want to create the website again. For more details, see [Create Website](./guides-create-website.md).

@@ -11,7 +11,7 @@
       "CLAUDE.md"
     ],
     "parentId": "",
-    "icon": "lucide:compass"
+    "icon": "lucide:book-open"
   },
   {
     "title": "Getting Started",
@@ -41,9 +41,9 @@
     "icon": "lucide:book"
   },
   {
-    "title": "Generate Website",
-    "description": "Breaks down the generate workflow, including configuration fields, prompts, and ways to validate the output before publish.",
-    "path": "/guides/generate-website",
+    "title": "Create Website",
+    "description": "Breaks down the create workflow, including configuration fields, prompts, and ways to validate the output before publish.",
+    "path": "/guides/create-website",
     "sourceIds": [
       "README.md",
       "aigne.yaml",
@@ -186,9 +186,9 @@
     "parentId": "/guides"
   },
   {
-    "title": "Use Interactive Chat (Beta)",
-    "description": "Use the 'chat' command as a conversational co-pilot to iteratively plan, edit, and polish your site.",
-    "path": "/guides/use-interactive-chat-beta",
+    "title": "Interactive Mode",
+    "description": "Use the interactive mode as a conversational co-pilot to iteratively plan, edit, and polish your site.",
+    "path": "/guides/interactive-mode",
     "sourceIds": [
       "README.md",
       "aigne.yaml",
@@ -209,15 +209,15 @@
     "parentId": "/guides"
   },
   {
-    "title": "View Update History",
-    "description": "Learn how to use the 'history' command to review a log of all previous updates made to your website content and structure.",
-    "path": "/guides/view-update-history",
+    "title": "Manage Update History",
+    "description": "Track every update WebSmith has applied so you always know what changed, when, and why.",
+    "path": "/guides/update-website/manage-update-history",
     "sourceIds": [
       "aigne.yaml",
       "agents/history/view.mjs",
       "utils/history-utils.mjs"
     ],
-    "parentId": "/guides"
+    "parentId": "/guides/update-website"
   },
   {
     "title": "Cleanup Workspace",

@@ -192,7 +192,7 @@ WebSmith is designed to generate great websites in one shot—but the quality de
   <x-card data-title="Getting Started" data-icon="lucide:rocket" data-href="/getting-started">
     Install the AIGNE CLI, run `aigne web generate`, and review your first site.
   </x-card>
-  <x-card data-title="Generate Website" data-icon="lucide:wrench" data-href="/guides/generate-website">
+  <x-card data-title="Create Website" data-icon="lucide:wrench" data-href="/guides/create-website">
     Learn every option available during the generate workflow.
   </x-card>
   <x-card data-title="Publish Website" data-icon="lucide:globe" data-href="/guides/publish-website">

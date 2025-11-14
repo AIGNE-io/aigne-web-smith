@@ -7,7 +7,7 @@ CLI 操作的標準語法如下：
 aigne web <command> [subcommand] [parameters]
 ```
 
-執行 `aigne web` 而不帶指令將會啟動一個互動式聊天會話。
+執行 `aigne web` 而不帶指令將會啟動互動模式。
 
 ## 主要指令
 
@@ -21,7 +21,7 @@ aigne web <command> [subcommand] [parameters]
 | [translate](#translate) | | 將網站頁面翻譯成不同語言。 |
 | [theme](#theme) | | 管理網站視覺主題，包括產生和套用。 |
 | [component](#component) | `comp` | 管理用於建構網站的元件庫。 |
-| [chat](#chat) | | 啟動互動式聊天會話以進行網站管理（預設）。 |
+| [chat](#chat) | | 啟動互動模式以進行網站管理（預設）。 |
 | [prefs](#prefs) | | 管理從回饋中學習到的已儲存使用者偏好設定。 |
 | [history](#history) | | 顯示對網站所做的先前更新日誌。 |
 | [clear](#clear) | | 移除產生的檔案、工作區資料或設定。 |
@@ -141,7 +141,7 @@ aigne web theme apply
 從指定的 URL 拉取元件以更新本地元件庫。
 
 **用法：**
-```bash Component Pull --url "https://your-pages-kit/api/..." icon=lucide:terminal
+```bash Component Pull  icon=lucide:terminal
 aigne web component pull --url "https://your-pages-kit/api/..."
 ```
 <x-field-group>
@@ -189,7 +189,7 @@ aigne web prefs list
 **別名：** `rm`
 
 **用法：**
-```bash Prefs Remove --id "pref_abc123" icon=lucide:terminal
+```bash Prefs Remove icon=lucide:terminal
 aigne web prefs remove --id "pref_abc123"
 ```
 <x-field-group>
@@ -202,7 +202,7 @@ aigne web prefs remove --id "pref_abc123"
 **別名：** `t`
 
 **用法：**
-```bash Prefs Toggle --id "pref_abc123" icon=lucide:terminal
+```bash Prefs Toggle icon=lucide:terminal
 aigne web prefs toggle --id "pref_abc123"
 ```
 <x-field-group>
@@ -220,7 +220,7 @@ aigne web prefs toggle --id "pref_abc123"
 **別名：** `log`, `list`
 
 **用法：**
-```bash View Update History icon=lucide:terminal
+```bash 管理更新歷史 icon=lucide:terminal
 aigne web history view
 ```
 此子指令不接受任何參數。

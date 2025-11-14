@@ -106,4 +106,4 @@ Do you want to update (save) the built-in components file? (y/N)
 
 `component pull` 命令是保持您本地环境的可视化构建模块与您的自定义 Pages Kit 存储库同步的标准流程。该过程包括拉取最新的库、审查变更、确认更新，最后重新生成您的网站以应用新组件。
 
-有关创建页面的更多信息，请继续阅读[生成网站](./guides-generate-website.md)部分。
+有关创建页面的更多信息，请继续阅读[创建网站](./guides-create-website.md)部分。

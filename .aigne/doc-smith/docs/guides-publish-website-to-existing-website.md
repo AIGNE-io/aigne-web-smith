@@ -12,7 +12,7 @@ To successfully publish to your own website, the following conditions must be me
 
 If your website is not yet set up, you can acquire the necessary components from the Blocklet Store:
 
-- [Install Pages Kit on your website](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
+- [Install Pages Kit on your website](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
 
 ## Publishing Process
 
@@ -60,18 +60,7 @@ After authorization, the terminal command proceeds to:
 
 Upon successful completion, a confirmation message will be displayed in the terminal, including the live URLs for your newly published pages.
 
-```text Success Message
-✅ Pages published successfully! (`5/5` pages, `12` media assets)
-
-🔗 Live URLs:
-   https://my-awesome-site.com/docs/
-   https://my-awesome-site.com/docs/introduction
-   https://my-awesome-site.com/docs/getting-started
-   https://my-awesome-site.com/docs/api-reference
-   https://my-awesome-site.com/docs/contact
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![Terminal output confirming page and asset upload success](../../../assets/images/web-smith-publish-success.png)
 
 ## Troubleshooting
 
@@ -83,7 +72,7 @@ If you encounter an error during the publishing process, refer to the common iss
 
 - **Error: "This website does not have required components for publishing"**
   - **Cause:** The target website is a valid Blocklet but is missing the required "Pages Kit" component.
-  - **Solution:** Install the Pages Kit component on your website. You can find instructions [here](https://www.arcblock.io/docs/blocklet-development/en/add-components).
+  - **Solution:** Install the Pages Kit component on your website. You can install [here](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o).
 
 - **Error: "Unable to connect" or "Failed to obtain access token"**
   - **Cause:** This typically indicates a network issue, or the target server is unavailable. It can also occur if you reject the authorization request in your browser.

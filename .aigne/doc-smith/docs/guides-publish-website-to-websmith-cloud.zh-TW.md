@@ -58,16 +58,7 @@ aigne web publish
 
 成功完成後，終端機會顯示一則確認訊息。此訊息包含已發布的頁面與資產總數，以及用於存取您線上網站的直接 URL。
 
-```text
-✅ Pages published successfully! (`10/10` pages, `25` media assets)
-
-🔗 Live URLs:
-   https://websmith.aigne.io/your-project-slug/
-   https://websmith.aigne.io/your-project-slug/about
-   https://websmith.aigne.io/your-project-slug/services
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![終端機輸出確認頁面和資產上傳成功](../../../assets/images/web-smith-publish-success.png)
 
 您現在可以在網頁瀏覽器中訪問這些 URL 來檢視您已發布的網站。
 

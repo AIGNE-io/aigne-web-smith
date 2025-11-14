@@ -16,7 +16,7 @@
 
 ウェブサイトがまだセットアップされていない場合は、Blocklet Store から必要なコンポーネントを入手できます。
 
-- [あなたのウェブサイトに Pages Kit をインストールする](https://store.blocklet.dev/blocklets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ)
+- [あなたのウェブサイトに Pages Kit をインストールする](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o)
 
 ## 公開プロセス
 
@@ -64,18 +64,7 @@ aigne web publish
 
 正常に完了すると、新しく公開されたページのライブ URL を含む確認メッセージがターミナルに表示されます。
 
-```text 成功メッセージ
-✅ Pages published successfully! (`5/5` pages, `12` media assets)
-
-🔗 Live URLs:
-   https://my-awesome-site.com/docs/
-   https://my-awesome-site.com/docs/introduction
-   https://my-awesome-site.com/docs/getting-started
-   https://my-awesome-site.com/docs/api-reference
-   https://my-awesome-site.com/docs/contact
-
-💡 Optional: Update specific pages (`aigne web update`) or refine website structure (`aigne web generate`)
-```
+![ターミナル出力でページとアセットのアップロード成功を確認](../../../assets/images/web-smith-publish-success.png)
 
 ## トラブルシューティング
 

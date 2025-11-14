@@ -10,8 +10,8 @@ export default async function printAddPageSummary({ newPages = [], pagesWithNewL
 
   // Display newly generated pages
   if (newPages && newPages.length > 0) {
-    message += `${chalk.bold.green("✨ Newly Generated Pages:")}\n`;
-    message += `${chalk.green(`   Total: ${newPages.length} page(s)\n\n`)}`;
+    message += `✨ Newly Generated Pages:\n`;
+    message += `   Total: ${newPages.length} page(s)\n\n`;
     newPages.forEach((page, index) => {
       const title = page.title || page.path;
       message += `   ${chalk.cyan(`${index + 1}. ${page.path}`)}\n`;
@@ -28,20 +28,20 @@ export default async function printAddPageSummary({ newPages = [], pagesWithNewL
       message += `\n`;
     });
   } else {
-    message += `${chalk.bold.green("✨ Newly Generated Pages:")}\n`;
+    message += `✨ Newly Generated Pages:\n`;
     message += `${chalk.gray("   No new pages were generated.\n\n")}`;
   }
 
   // Display pages with new links
   if (pagesWithNewLinks && pagesWithNewLinks.length > 0) {
-    message += `${chalk.bold.blue("🔗 Pages Updated with New Links:")}\n`;
-    message += `${chalk.blue(`   Total: ${pagesWithNewLinks.length} page(s)\n\n`)}`;
+    message += `🔗 Pages Updated with New Links:\n`;
+    message += `   Total: ${pagesWithNewLinks.length} page(s)\n\n`;
     pagesWithNewLinks.forEach((page, index) => {
       message += `   ${chalk.cyan(`${index + 1}. ${page.path}`)}\n`;
       message += `      Added links to: ${chalk.yellow(page.newLinks.join(", "))}\n\n`;
     });
   } else {
-    message += `${chalk.bold.blue("🔗 Pages Updated with New Links:")}\n`;
+    message += `🔗 Pages Updated with New Links:\n`;
     message += `${chalk.gray("   No pages were updated with new links.\n\n")}`;
   }
 

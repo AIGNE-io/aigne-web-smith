@@ -13,20 +13,20 @@ export default async function printRemovePageSummary({
 
   // Display removed pages
   if (deletedPages && deletedPages.length > 0) {
-    message += `${chalk.bold.red("🗑️  Removed Pages:")}\n`;
-    message += `${chalk.red(`   Total: ${deletedPages.length} page(s)\n\n`)}`;
+    message += `🗑️  Removed Pages:\n`;
+    message += `   Total: ${deletedPages.length} page(s)\n\n`;
     deletedPages.forEach((path, index) => {
       message += `   ${chalk.cyan(`${index + 1}. ${path}`)}\n\n`;
     });
   } else {
-    message += `${chalk.bold.red("🗑️  Removed Pages:")}\n`;
+    message += `🗑️  Removed Pages:\n`;
     message += `${chalk.gray("   No pages were removed.\n\n")}`;
   }
 
   // Display pages with invalid links
   if (pagesWithInvalidLinks && pagesWithInvalidLinks.length > 0) {
-    message += `${chalk.bold.yellow("⚠️  Pages fixed (Remove invalid links):")}\n`;
-    message += `${chalk.yellow(`   Total: ${pagesWithInvalidLinks.length} page(s)\n\n`)}`;
+    message += `✅ Pages fixed (Removed invalid links):\n`;
+    message += `   Total: ${pagesWithInvalidLinks.length} page(s)\n\n`;
     pagesWithInvalidLinks.forEach((page, index) => {
       message += `   ${chalk.cyan(`${index + 1}. ${page.path}`)}\n`;
       if (page.title !== page.path) {
@@ -35,7 +35,7 @@ export default async function printRemovePageSummary({
       message += `      Invalid links fixed: ${chalk.gray(page.invalidLinks.join(", "))}\n\n`;
     });
   } else {
-    message += `${chalk.bold.yellow("⚠️  Pages fixed (Remove invalid links):")}\n`;
+    message += `✅ Pages fixed (Removed invalid links):\n`;
     message += `${chalk.gray("   No pages needed fixed.\n\n")}`;
   }
 

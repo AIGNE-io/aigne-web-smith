@@ -168,7 +168,7 @@ export default async function updateSection(input, options) {
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
-  
+
   // update shared page detail
   pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls

@@ -1,4 +1,5 @@
-import { get, set } from "lodash";
+import get from "lodash/get.js";
+import set from "lodash/set.js";
 
 /**
  * @module retry-utils

@@ -1,8 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
-import { getFileName } from "../../../utils/utils.mjs";
 import { userContextAt } from "../../../utils/retry-utils.mjs";
+import { getFileName } from "../../../utils/utils.mjs";
 import transformDetailDatasources from "../../utils/transform-detail-datasources.mjs";
 
 /**

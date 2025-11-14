@@ -79,7 +79,7 @@ export default async function updateMeta(input, options) {
   if (description !== undefined) updatedFields.push("description");
 
   const successMessage = `updateMeta executed successfully.
-  Successfully updated page meta: ${updatedFields.join(", ")} on page '${path}'.
+  Successfully updated the page meta: ${updatedFields.join(", ")} on page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);

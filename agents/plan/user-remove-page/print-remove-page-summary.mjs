@@ -36,7 +36,7 @@ export default async function printRemovePageSummary({
     });
   } else {
     message += `✅ Pages fixed (Removed invalid links):\n`;
-    message += `${chalk.gray("   No pages needed fixed.\n\n")}`;
+    message += `${chalk.gray("   No pages needed to be fixed.\n\n")}`;
   }
 
   message += `${"=".repeat(80)}\n\n`;

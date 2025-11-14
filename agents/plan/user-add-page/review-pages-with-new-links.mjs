@@ -36,4 +36,4 @@ export default async function reviewPagesWithNewLinks({ pagesWithNewLinks = [] }
 
 reviewPagesWithNewLinks.taskTitle = "Review pages to update";
 reviewPagesWithNewLinks.description =
-  "Let user review and select which pages should be updated with new links";
+  "Let the user review and select which pages should be updated with new links";

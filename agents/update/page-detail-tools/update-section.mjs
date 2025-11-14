@@ -164,7 +164,7 @@ export default async function updateSection(input, options) {
   };
 
   const successMessage = `updateSection executed successfully.
-  Successfully updated section '${name}' with properties: ${updateFields.join(", ")} on page '${path}'.
+  Successfully updated section '${name}' on page '${path}' with properties: ${updateFields.join(", ")}.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);

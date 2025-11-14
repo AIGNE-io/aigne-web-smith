@@ -170,7 +170,7 @@ export default async function addSection(input, options) {
       ? ` at position ${insertIndex}`
       : ` at the end (position ${insertIndex})`;
   const successMessage = `addSection executed successfully.
-  Successfully added section '${parsedSection.sectionName}'${positionText} to page '${path}'.
+  Successfully added section '${parsedSection.sectionName}'${positionText} on page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);

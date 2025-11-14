@@ -19,9 +19,10 @@ export default async function printAddPageSummary({ newPages = [], pagesWithNewL
         console.log(`      Title: ${chalk.yellow(title)}`);
       }
       if (page.description) {
-        const desc = page.description.length > 60 
-          ? `${page.description.substring(0, 60)}...` 
-          : page.description;
+        const desc =
+          page.description.length > 60
+            ? `${page.description.substring(0, 60)}...`
+            : page.description;
         console.log(`      Description: ${chalk.gray(desc)}`);
       }
       console.log();
@@ -56,4 +57,3 @@ export default async function printAddPageSummary({ newPages = [], pagesWithNewL
 
 printAddPageSummary.taskTitle = "Print add page summary";
 printAddPageSummary.description = "Display summary of generated pages and pages with new links";
-

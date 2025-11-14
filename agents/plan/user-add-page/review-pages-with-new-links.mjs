@@ -10,7 +10,7 @@ export default async function reviewPagesWithNewLinks({ pagesWithNewLinks = [] }
   // Let user select which pages to update (default: all selected)
   const selectedPages = await options.prompts.checkbox({
     message:
-      "Select Pages That Need New Links added (all selected by default, press Enter to confirm, or unselect all to skip):",
+      "Select pages that need new links added (all selected by default, press Enter to confirm, or unselect all to skip):",
     choices: pagesWithNewLinks.map((page, index) => ({
       name: `${page.path} → ${page.newLinks.join(", ")}`,
       value: index,

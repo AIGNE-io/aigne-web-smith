@@ -215,52 +215,52 @@ aigne web clear && aigne web generate
 
 3. **查看錯誤記錄：** 仔細閱讀終端中顯示的錯誤資訊，通常會有具體的提示
 
-4. **查看詳細記錄：** 使用下文介紹的記錄工具，取得詳細的執行記錄
+4. **使用 AIGNE Observability：** 使用下文介紹的 AIGNE Observability 工具，取得詳細的執行記錄
 
 5. **尋求社群協助：** 造訪 [AIGNE 社群](https://community.arcblock.io/discussions/boards/aigne) 提問，其他使用者或開發者可能會幫助你
 
 ---
 
-## 查看詳細記錄來排查問題
+## 使用 AIGNE Observability 排查問題
 
-當你遇到複雜問題需要深入排查，或者要向社群回報問題時，可以使用 WebSmith 的記錄功能。它會詳細記錄每一步的執行過程，幫助你或技術支援人員快速找到問題所在。
+當你遇到複雜問題需要深入排查，或者要向社群回報問題時，可以使用 **AIGNE Observability**。它會詳細記錄每一步的執行過程，幫助你或技術支援人員快速找到問題所在。
 
-### 啟動記錄伺服器
+### 啟動 Observability 伺服器
 
-執行以下命令啟動本機記錄伺服器：
+執行以下命令啟動本機 Observability 伺服器：
 
-```bash 啟動記錄伺服器 icon=lucide:terminal
-aigne observe --port 8888
+```bash 啟動 Observability 伺服器 icon=lucide:terminal
+aigne observe
 ```
 
 你會看到輸出顯示：
-- 資料庫路徑：記錄資料儲存的位置
-- 伺服器位址：在瀏覽器中開啟這個位址可以查看記錄
+- 資料庫路徑：追蹤資料儲存的位置
+- 伺服器位址：在瀏覽器中開啟這個位址可以查看 Observability 儀表板
 
-![記錄伺服器執行中](../../../assets/images/web-smith-observe.png)
+![Observability 伺服器執行中](../../../assets/images/web-smith-observe.png)
 
 ### 查看執行記錄
 
-1. **開啟記錄頁面：** 點選輸出中顯示的伺服器位址，或在瀏覽器中開啟
+1. **開啟儀表板：** 點選輸出中顯示的伺服器位址，或在瀏覽器中開啟
 
-2. **查看操作記錄：** 記錄頁面會顯示所有 WebSmith 的操作，包括：
+2. **查看操作記錄：** 儀表板會顯示所有 WebSmith 的操作，包括：
    - 輸入和輸出的資料
    - 每一步花費的時間
    - 執行的操作步驟和結果
    - 詳細的錯誤資訊
 
-![顯示執行記錄的記錄頁面](../../../assets/images/web-smith-observe-dashboard.png)
+![顯示執行記錄的 Observability 儀表板](../../../assets/images/web-smith-observe-dashboard.png)
 
-### 使用記錄回報問題
+### 使用 Observability 回報問題
 
 向社群回報問題時：
 
-1. **儲存記錄：** 在出現問題的操作期間保持記錄伺服器執行
-2. **匯出記錄：** 從記錄頁面匯出相關的執行記錄
+1. **擷取追蹤：** 在出現問題的操作期間保持 Observability 伺服器執行
+2. **匯出追蹤資料：** 從儀表板匯出相關的執行記錄
 3. **回報問題：** 造訪 [AIGNE 社群](https://community.arcblock.io/discussions/boards/aigne) 並附上：
    - 問題描述
    - 重現步驟
-   - 匯出的記錄檔案
+   - 匯出的追蹤檔案
    - 你的設定（如相關）
 
-> **提示：** 記錄包含了 WebSmith 執行的完整資訊，包括每一步的操作和結果。將這些資訊提供給技術支援或社群，可以大大提高問題解決的效率。
+> **提示：** 追蹤記錄包含了 WebSmith 執行的完整資訊，包括每一步的操作和結果。將這些資訊提供給技術支援或社群，可以大大提高問題解決的效率。

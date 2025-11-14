@@ -215,52 +215,52 @@ If the methods above don't solve your problem, you can try:
 
 3. **Check error logs:** Carefully read the error messages displayed in the terminal, which usually contain specific hints
 
-4. **View detailed logs:** Use the logging tools described below to get detailed execution records
+4. **Use AIGNE Observability:** Use the AIGNE Observability tool described below to get detailed execution records
 
 5. **Seek community help:** Visit the [AIGNE Community](https://community.arcblock.io/discussions/boards/aigne) to ask questions, other users or developers may be able to help
 
 ---
 
-## View Detailed Logs to Troubleshoot
+## Using AIGNE Observability to Troubleshoot
 
-When you need to investigate complex issues in depth or report problems to the community, you can use WebSmith's logging feature. It records detailed execution processes for each step to help you or technical support staff quickly find issues.
+When you need to investigate complex issues in depth or report problems to the community, you can use **AIGNE Observability**. It records detailed execution processes for each step to help you or technical support staff quickly find issues.
 
-### Start the Log Server
+### Start the Observability Server
 
-Run the following command to start the local log server:
+Run the following command to start the local observability server:
 
-```bash Start Log Server icon=lucide:terminal
-aigne observe --port 8888
+```bash Start Observability Server icon=lucide:terminal
+aigne observe
 ```
 
 You'll see output showing:
-- Database path: where log data is saved
-- Server address: open this address in your browser to view logs
+- Database path: where trace data is saved
+- Server address: open this address in your browser to view the observability dashboard
 
-![Log server running](../../../assets/images/web-smith-observe.png)
+![Observability server running](../../../assets/images/web-smith-observe.png)
 
 ### View Execution Records
 
-1. **Open the log page:** Click the server address shown in the output or open it in your browser
+1. **Open the dashboard:** Click the server address shown in the output or open it in your browser
 
-2. **View operation records:** The log page displays all WebSmith operations, including:
+2. **View operation records:** The dashboard displays all WebSmith operations, including:
    - Input and output data
    - Time taken for each step
    - Operation steps executed and their results
    - Detailed error information
 
-![Log page showing execution records](../../../assets/images/web-smith-observe-dashboard.png)
+![Observability dashboard showing execution records](../../../assets/images/web-smith-observe-dashboard.png)
 
-### Report Issues with Logs
+### Report Issues with Observability
 
 When reporting problems to the community:
 
-1. **Save the logs:** Keep the log server running during the problematic operation
-2. **Export the logs:** Export the relevant execution records from the log page
+1. **Capture the trace:** Keep the observability server running during the problematic operation
+2. **Export the trace data:** Export the relevant execution records from the dashboard
 3. **Report the issue:** Visit the [AIGNE Community](https://community.arcblock.io/discussions/boards/aigne) and attach:
    - Description of the problem
    - Steps to reproduce
-   - Exported log file
+   - Exported trace file
    - Your configuration (if relevant)
 
-> **Tip:** Log records contain complete information about WebSmith's execution, including operations and results for each step. Providing this information to technical support or the community can greatly improve problem-solving efficiency.
+> **Tip:** Trace records contain complete information about WebSmith's execution, including operations and results for each step. Providing this information to technical support or the community can greatly improve problem-solving efficiency.

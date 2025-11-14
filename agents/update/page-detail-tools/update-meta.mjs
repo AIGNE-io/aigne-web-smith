@@ -6,7 +6,11 @@ import {
   validateUpdateMetaInput,
 } from "../../../types/page-detail-schema.mjs";
 import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 
 export default async function updateMeta(input, options) {
   initializeFailureCount(options);
@@ -25,15 +29,17 @@ export default async function updateMeta(input, options) {
     };
   }
 
-  const { title, description } = validation.data;
-  let pageDetail = options.context?.userContext?.currentPageDetail;
+  const { title, description, path } = validation.data;
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  let pageDetail = pageDetailCtx.get();
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const lastToolInputs = lastToolInputsCtx.get() || {};
   const currentInput = { title, description };
 
   if (lastToolInputs.updateMeta && isEqual(lastToolInputs.updateMeta, currentInput)) {
@@ -73,18 +79,15 @@ export default async function updateMeta(input, options) {
   if (description !== undefined) updatedFields.push("description");
 
   const successMessage = `updateMeta executed successfully.
-  Successfully updated page meta: ${updatedFields.join(", ")}.
+  Successfully updated page meta: ${updatedFields.join(", ")} on page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
-  // update shared page detail
-  options.context.userContext.currentPageDetail = latestPageDetail;
 
+  // update shared page detail
+  pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls
-  if (!options.context.userContext.lastToolInputs) {
-    options.context.userContext.lastToolInputs = {};
-  }
-  options.context.userContext.lastToolInputs.updateMeta = currentInput;
+  lastToolInputsCtx.set("updateMeta", currentInput);
 
   return {
     status: "success",

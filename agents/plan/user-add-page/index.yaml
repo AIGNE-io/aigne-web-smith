@@ -36,6 +36,7 @@ skills:
       - ./add-links-to-pages.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithNewLinks
+    concurrency: 10
   - ../../generate/page-detail/load-page-detail.mjs
   - ./merge-pages-with-translations.mjs
   - type: team

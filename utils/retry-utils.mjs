@@ -1,3 +1,5 @@
+import { get, set } from "lodash";
+
 /**
  * @module retry-utils
  * @description Utility functions for managing retry attempts and failure handling in agent tools.
@@ -168,4 +170,44 @@ export function contextValue(options, key, value) {
 export function hasContextKey(options, key) {
   const userContext = getUserContext(options);
   return userContext ? key in userContext : false;
+}
+
+/**
+ * Create a context path manager that provides get/set/clear operations
+ * @param {object} options - The options object containing user context
+ * @param {string} path - The context path (e.g., 'currentPageDetails./about' or 'lastToolInputs./about')
+ * @returns {object} An object with { get, set } methods and a contextPath method for sub-paths
+ */
+export function userContextAt(options, path) {
+  const userContext = getUserContext(options);
+  if (!userContext) {
+    throw new Error("userContext is not available");
+  }
+
+  return {
+    /**
+     * Get a value from the context path
+     * @param {string} [key] - Optional key for nested access (e.g., 'updateMeta' for lastToolInputs)
+     * @returns {*} The value at the path, or undefined if not found
+     */
+    get(key) {
+      if (key !== undefined) {
+        return get(userContext, `${path}.${key}`);
+      }
+      return get(userContext, path);
+    },
+
+    /**
+     * Set a value in the context path
+     * @param {string|*} key - If key is provided, this is the key; otherwise this is the value
+     * @param {*} [value] - The value to set (required if first param is a key)
+     */
+    set(key, value) {
+      if (value !== undefined) {
+        set(userContext, `${path}.${key}`, value);
+      } else {
+        set(userContext, path, key);
+      }
+    },
+  };
 }

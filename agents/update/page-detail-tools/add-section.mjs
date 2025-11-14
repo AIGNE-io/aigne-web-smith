@@ -7,7 +7,11 @@ import {
   validateAddSectionInput,
 } from "../../../types/page-detail-schema.mjs";
 import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function addSection(input, options) {
@@ -27,16 +31,18 @@ export default async function addSection(input, options) {
     };
   }
 
-  const { section, position } = validation.data;
+  const { section, position, path } = validation.data;
   const { componentLibrary } = input;
-  let pageDetail = options.context?.userContext?.currentPageDetail;
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  let pageDetail = pageDetailCtx.get();
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const lastToolInputs = lastToolInputsCtx.get() || {};
   const currentInput = { section, position };
 
   if (lastToolInputs.addSection && isEqual(lastToolInputs.addSection, currentInput)) {
@@ -164,18 +170,15 @@ export default async function addSection(input, options) {
       ? ` at position ${insertIndex}`
       : ` at the end (position ${insertIndex})`;
   const successMessage = `addSection executed successfully.
-  Successfully added section '${parsedSection.sectionName}'${positionText}.
+  Successfully added section '${parsedSection.sectionName}'${positionText} to page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
+  
   // update shared page detail
-  options.context.userContext.currentPageDetail = latestPageDetail;
-
+  pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls
-  if (!options.context.userContext.lastToolInputs) {
-    options.context.userContext.lastToolInputs = {};
-  }
-  options.context.userContext.lastToolInputs.addSection = currentInput;
+  lastToolInputsCtx.set("addSection", currentInput);
 
   return {
     status: "success",

@@ -7,7 +7,7 @@ import {
   generateFieldConstraints,
 } from "../../utils/generate-helper.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
-import { resetFailureCount } from "../../utils/retry-utils.mjs";
+import { resetFailureCount, userContextAt } from "../../utils/retry-utils.mjs";
 import { getSectionFormatterByMatch } from "./formatters/index.mjs";
 
 export default async function userReviewPageDetail(
@@ -61,10 +61,8 @@ export default async function userReviewPageDetail(
   let iterationCount = 0;
 
   // share current page detail with updatePageDetail agent
-  options.context.userContext.currentPageDetail = YAML.stringify(
-    currentPageDetail,
-    YAML_STRINGIFY_OPTIONS,
-  );
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${rest.path}`);
+  pageDetailCtx.set(YAML.stringify(currentPageDetail, YAML_STRINGIFY_OPTIONS));
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -95,7 +93,8 @@ export default async function userReviewPageDetail(
     const fieldConstraints = generateFieldConstraints(componentLibrary);
 
     // Clear previous tool inputs and reset failure count before calling updatePageDetail agent
-    options.context.userContext.lastToolInputs = {};
+    const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${rest.path}`);
+    lastToolInputsCtx.set({});
     resetFailureCount(options);
 
     try {
@@ -108,7 +107,7 @@ export default async function userReviewPageDetail(
         fieldConstraints,
       });
 
-      currentPageDetail = YAML.parse(options.context.userContext.currentPageDetail);
+      currentPageDetail = YAML.parse(pageDetailCtx.get());
 
       // Record the update (both YAML + Git)
       recordUpdate({

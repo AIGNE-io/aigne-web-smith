@@ -128,6 +128,10 @@ Error handling:
 </output_constraints>
 
 <tool_arguments_constraints>
+
+**Common required parameter for all tools:**
+- `path`: The page path (required for all tools: `updateMeta`, `addSection`, `deleteSection`, `updateSection`, `moveSection`)
+
 The `section` parameter of Tool `addSection` must meet the following rules:
    - Must contain complete section information
    - Must use YAML format

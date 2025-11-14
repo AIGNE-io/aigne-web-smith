@@ -7,7 +7,11 @@ import {
   validateDeleteSectionInput,
 } from "../../../types/page-detail-schema.mjs";
 import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 
 export default async function deleteSection(input, options) {
   initializeFailureCount(options);
@@ -26,15 +30,17 @@ export default async function deleteSection(input, options) {
     };
   }
 
-  const { name } = validation.data;
-  let pageDetail = options.context?.userContext?.currentPageDetail;
+  const { name, path } = validation.data;
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  let pageDetail = pageDetailCtx.get();
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const lastToolInputs = lastToolInputsCtx.get() || {};
   const currentInput = { name };
 
   if (lastToolInputs.deleteSection && isEqual(lastToolInputs.deleteSection, currentInput)) {
@@ -101,18 +107,15 @@ export default async function deleteSection(input, options) {
   };
 
   const successMessage = `deleteSection executed successfully.
-  Successfully deleted section '${sectionToDelete.sectionName}'.
+  Successfully deleted section '${sectionToDelete.sectionName}' from page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
-  // update shared page detail
-  options.context.userContext.currentPageDetail = latestPageDetail;
 
+  // update shared page detail
+  pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls
-  if (!options.context.userContext.lastToolInputs) {
-    options.context.userContext.lastToolInputs = {};
-  }
-  options.context.userContext.lastToolInputs.deleteSection = currentInput;
+  lastToolInputsCtx.set("deleteSection", currentInput);
 
   return {
     status: "success",

@@ -6,7 +6,11 @@ import {
   validateMoveSectionInput,
 } from "../../../types/page-detail-schema.mjs";
 import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 
 export default async function moveSection(input, options) {
   initializeFailureCount(options);
@@ -25,15 +29,17 @@ export default async function moveSection(input, options) {
     };
   }
 
-  const { name, position: newPosition } = validation.data;
-  let pageDetail = options.context?.userContext?.currentPageDetail;
+  const { name, position: newPosition, path } = validation.data;
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  let pageDetail = pageDetailCtx.get();
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const lastToolInputs = lastToolInputsCtx.get() || {};
   const currentInput = { name, position: newPosition };
 
   if (lastToolInputs.moveSection && isEqual(lastToolInputs.moveSection, currentInput)) {
@@ -144,18 +150,15 @@ export default async function moveSection(input, options) {
   };
 
   const successMessage = `moveSection executed successfully.
-  Successfully moved section '${sectionToMove.sectionName}' from position ${sectionIndex} to position ${adjustedTargetIndex}.
+  Successfully moved section '${sectionToMove.sectionName}' from position ${sectionIndex} to position ${adjustedTargetIndex} on page '${path}'.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
+  
   // update shared page detail
-  options.context.userContext.currentPageDetail = latestPageDetail;
-
+  pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls
-  if (!options.context.userContext.lastToolInputs) {
-    options.context.userContext.lastToolInputs = {};
-  }
-  options.context.userContext.lastToolInputs.moveSection = currentInput;
+  lastToolInputsCtx.set("moveSection", currentInput);
 
   return {
     status: "success",

@@ -1240,3 +1240,9 @@ b6de125a5a48cc084916dd5803a5990c1dd34250039914453f3101b89d1e7d4b:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/3bbc51f345651e5f.png
       upload_time: 2025-11-14T09:48:31.847Z
+e10d985846bc26431749266d10b90075e59ff4ad89e9304d5cf43f5b91ccc159:
+  local_path: assets/images/web-smith-observe.png
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/e10d985846bc2643.png
+      upload_time: 2025-11-14T10:25:52.911Z

@@ -244,4 +244,12 @@ descriptions:
       audiences, and localization settings. The dashboard also tracks token
       usage and latency at the top.
     generatedAt: 2025-11-14T09:40:44.777Z
-lastUpdated: 2025-11-14T09:40:44.781Z
+  e10d985846bc26431749266d10b90075e59ff4ad89e9304d5cf43f5b91ccc159:
+    path: ../../../assets/images/web-smith-observe.png
+    description: This screenshot displays a terminal window showing the execution
+      and output of the `aigne observe` command. The output indicates the path
+      to the observability database and confirms that an observability server is
+      running on `http://localhost:7891`. The terminal prompt includes
+      directory, Git branch, and status information.
+    generatedAt: 2025-11-14T10:28:16.840Z
+lastUpdated: 2025-11-14T10:28:16.844Z

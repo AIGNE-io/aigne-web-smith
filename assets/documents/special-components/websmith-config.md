@@ -986,7 +986,6 @@ When generating multilingual sites:
 - **Disabling i18n**: To disable internationalization, set `translateLanguages` to an empty array `[]`
 
 ---
-
 ## Troubleshooting
 
 This guide helps you diagnose and fix common issues when working with AIGNE WebSmith. If you encounter problems during generation, publishing, or configuration, check the scenarios below for solutions.
@@ -995,7 +994,7 @@ This guide helps you diagnose and fix common issues when working with AIGNE WebS
 
 ### Configuration Issues
 
-#### Issue 1: Error parsing config file
+#### Issue 1: Configuration file format error
 
 **Error message:**
 ```
@@ -1013,33 +1012,38 @@ appUrl: https://staging.websmith.aigne.io
 ^
 ```
 
-**Cause:** YAML syntax error in the configuration file (e.g., incorrect indentation, wrong colon, missing quotes).
+**Possible causes:** There's a YAML syntax error in your configuration file. Common issues include:
+- Using tabs instead of spaces for indentation
+- Using full-width colons (：) instead of ASCII colons (:)
+- Missing required quotes
+- Duplicate configuration items
 
-**Fix:**
-1. Check the line number mentioned in the error message
-2. Verify YAML syntax (use spaces, not tabs; use correct colon format)
-3. Validate the file using a YAML validator
-4. Re-run `aigne web publish`
+**How to fix:**
+1. Check the line number mentioned in the error message to locate the issue
+2. Verify the indentation on that line (use spaces, not tabs)
+3. Make sure the colon is an ASCII colon (:), not a full-width colon (：)
+4. Use an online YAML validator to check the syntax
+5. Re-run `aigne web publish` after fixing
 
 ---
 
-Except for the above cases where the configuration file format is incorrect and needs to be handled, in other cases, if the correct parameters are not matched, the system will use default parameters to generate resources.
+> **Tip:** Except for configuration file format errors that need to be fixed, if some parameters are not configured correctly, the system will automatically use default values, which won't affect basic functionality.
 
 ### Generation Issues
 
 #### Issue 2: Generated content doesn't match expectations
 
-**Symptoms:**
-- Content tone is off
-- Structure doesn't follow requirements
-- Missing key information
+**You might encounter:**
+- The tone of generated content doesn't match your requirements
+- The page structure doesn't match what you expected
+- Some important information is missing
 
-**Common causes:**
-1. Insufficient or unclear `rules` in config
-2. Misaligned `targetAudienceTypes`
-3. Sparse or irrelevant `sourcesPath`
+**Possible causes:**
+1. The `rules` description in your config is insufficient or unclear
+2. The `targetAudienceTypes` setting doesn't match your actual target audience
+3. There are too few or irrelevant reference documents in `sourcesPath`
 
-**Fix:**
+**How to fix:**
 1. **Enrich `rules`:** Add detailed guidance in your `config.yaml`:
    ```yaml
    rules: |
@@ -1074,25 +1078,25 @@ Except for the above cases where the configuration file format is incorrect and 
 
 #### Issue 3: Images are low quality or missing
 
-**Symptoms:**
+**You might encounter:**
 - Low-resolution images in generated pages
 - Expected images not appearing
 
-**Cause:** `media.minImageWidth` threshold is filtering out images.
+**Cause:** The `media.minImageWidth` setting is too high, filtering out some images.
 
-**Fix:**
-1. Check current setting in `config.yaml`:
+**How to fix:**
+1. Open the `config.yaml` file and find the `media` configuration:
    ```yaml
    media:
      minImageWidth: 800  # Current threshold
    ```
 
-2. Adjust based on your needs:
-   - Lower (400-600): More images, lower quality risk
-   - Medium (600-800): Balanced quality/quantity (recommended)
-   - Higher (800-1000): Higher quality, fewer images
+2. Adjust this value based on your needs:
+   - **400-600**: Will include more images, but some may be lower quality
+   - **600-800**: Balanced quality and quantity (recommended setting)
+   - **800-1000**: Only high-quality images are kept, quantity will be reduced
 
-3. Apply changes:
+3. Run the update command after saving the file:
    ```bash
    aigne web update
    ```
@@ -1101,137 +1105,153 @@ Except for the above cases where the configuration file format is incorrect and 
 
 ### Publishing Issues
 
-#### Issue 4: Missing or invalid `appUrl`
+#### Issue 4: URL invalid error when publishing
 
+**Error message:**
 ```
 Error: ⚠️  The provided URL is not a valid website on ArcBlock platform
 
 💡 Solution: Start here to set up your own website to host pages:
 ```
 
-**Fix:** Set a valid deployment URL:
+**Cause:** The `appUrl` in your configuration is empty or points to an invalid website address.
+
+**How to fix:**
+Set the correct deployment address in `config.yaml`:
 ```yaml
-# Write the correct URL
+# Enter your website address
 appUrl: https://your-site.user.aigne.io
 
-# Or clear it and modify via CLI
+# If you don't have a website yet, you can clear this configuration
 # appUrl: ""
 ```
 
-#### Issue 5: Authorization expired
+#### Issue 5: Authorization expired error when publishing
 
+**Error message:**
 ```
 ❌ Failed to publish pages: bundle: not authorized
 ```
 
-**Fix:** Re-authorize by running the following commands:
+**Cause:** Your login credentials have expired and need to be re-authorized.
+
+**How to fix:**
+Run the following commands in order:
 ```bash
-# Clear invalid tokens and republish
+# First, clear old authorization information
 aigne web clear
+
+# Then republish, the system will prompt you to log in again
 aigne web publish
 ```
 
 ---
 
-### Recovery Methods
+### How to Recover
 
-#### Method 1: Git revert
+#### Method 1: Restore using Git
 
-If you're using version control, restore the previous working configuration:
+If you're using Git to manage your code, you can quickly restore to a previously working configuration:
 
 ```bash
+# Stash current changes
 git stash
 ```
 
-Then regenerate:
+Then regenerate the website:
 ```bash
 aigne web generate
 ```
 
+> **Tip:** If you want to restore the stashed changes later, you can run `git stash pop`
+
 ---
 
-#### Method 2: Clean regeneration
+#### Method 2: Clean and regenerate
 
-Clear all generated files and regenerate from scratch:
+If you encounter issues that are hard to locate, you can clear all generated files and regenerate from scratch:
 
 ```bash
+# Clear all generated files, then regenerate
 aigne web clear && aigne web generate
 ```
 
-This restores a clean state and regenerates your website based on the current configuration.
+> **Note:** This will delete all generated content, but won't affect your configuration files. After execution, the system will regenerate the website based on the current configuration.
 
 ---
 
-### Prevention Tips
+### Usage Tips
 
-1. **Use version control:** Track config changes with Git
-2. **Make backups:** Copy config before major edits
-3. **Validate changes:** Run `aigne web generate` after edits to catch errors early
-4. **Use a YAML validator:** Check syntax before running commands
-5. **Start small:** Test with minimal config before adding complexity
-6. **Document changes:** Keep notes on what you changed and why
+Here are some practical tips to help you avoid common issues:
+
+1. **Save your change history:** If you're using Git, remember to commit after each configuration file change, so you can easily go back to a previous version if something goes wrong
+2. **Back up before making changes:** Before modifying important configurations, copy your configuration file as a backup, just in case
+3. **Test immediately after changes:** After each configuration change, run `aigne web generate` right away to test, so you can catch any issues early
+4. **Check if the format is correct:** After modifying YAML files, you can use online tools to check if there are any format errors
+5. **Start simple:** Begin with the simplest configuration, and after confirming everything works, gradually add more complex features
+6. **Keep notes of your changes:** Simply note down what you changed and why, so it's easier to find the cause when problems occur later
 
 ---
 
 ### Getting More Help
 
-If you've tried the solutions above and still encounter issues:
+If the methods above don't solve your problem, you can try:
 
-1. **Check the documentation:** Review the [Config Reference](./reference-config.md) guide for detailed field descriptions
+1. **Check configuration documentation:** Review [Config Reference](./reference-config.md) for detailed descriptions of each configuration item
 
-2. **Review command reference:** See [Command Reference](./reference-command.md) for detailed command usage
+2. **Check command documentation:** Refer to [Command Reference](./reference-command.md) for detailed command usage
 
-3. **Examine logs:** Check the terminal output for specific error messages
+3. **Check error logs:** Carefully read the error messages displayed in the terminal, which usually contain specific hints
 
-4. **Use Observability tools:** See below for how to capture detailed traces
+4. **View detailed logs:** Use the logging tools described below to get detailed execution records
 
-5. **Community support:** Visit the [AIGNE Community](https://community.arcblock.io/discussions/boards/aigne) for help
+5. **Seek community help:** Visit the [AIGNE Community](https://community.arcblock.io/discussions/boards/aigne) to ask questions, other users or developers may be able to help
 
 ---
 
-## Using Observability for Debugging
+### View Detailed Logs to Troubleshoot
 
-When you need to report an issue or debug complex problems, WebSmith's observability feature captures detailed execution traces that help diagnose what went wrong.
+When you need to investigate complex issues in depth or report problems to the community, you can use WebSmith's logging feature. It records detailed execution processes for each step to help you or technical support staff quickly find issues.
 
-### Start the Observability Server
+#### Start the Log Server
 
-Run the following command to start the local trace server:
+Run the following command to start the local log server:
 
-```bash Start Observability Server icon=lucide:terminal
+```bash Start Log Server icon=lucide:terminal
 aigne observe --port 8888
 ```
 
 You'll see output showing:
-- Database path: where trace data is stored
-- Server URL: the local address to access the observability dashboard
+- Database path: where log data is saved
+- Server address: open this address in your browser to view logs
 
-![Observability server running](../../../assets/images/web-smith-observe.png)
+![Log server running](../../../assets/images/web-smith-observe.png)
 
-### View Trace Records
+#### View Execution Records
 
-1. **Open the dashboard:** Click the server URL shown in the output or open it in your browser
+1. **Open the log page:** Click the server address shown in the output or open it in your browser
 
-2. **Browse traces:** The dashboard displays all WebSmith operations with:
-   - Input/output tokens
-   - Execution time
-   - Function calls and their results
-   - Error details
+2. **View operation records:** The log page displays all WebSmith operations, including:
+   - Input and output data
+   - Time taken for each step
+   - Operation steps executed and their results
+   - Detailed error information
 
-![Observability dashboard showing trace records](../../../assets/images/web-smith-observe-dashboard.png)
+![Log page showing execution records](../../../assets/images/web-smith-observe-dashboard.png)
 
-### Report Issues with Traces
+#### Report Issues with Logs
 
 When reporting problems to the community:
 
-1. **Capture the trace:** Keep the observability server running during the problematic operation
-2. **Download trace data:** Export the relevant trace record from the dashboard
+1. **Save the logs:** Keep the log server running during the problematic operation
+2. **Export the logs:** Export the relevant execution records from the log page
 3. **Report the issue:** Visit the [AIGNE Community](https://community.arcblock.io/discussions/boards/aigne) and attach:
    - Description of the problem
    - Steps to reproduce
-   - Downloaded trace file
+   - Exported log file
    - Your configuration (if relevant)
 
-**Tip:** Traces contain detailed information about WebSmith's execution, making it much easier for the team to diagnose and fix issues.
+> **Tip:** Log records contain complete information about WebSmith's execution, including operations and results for each step. Providing this information to technical support or the community can greatly improve problem-solving efficiency.
 
 
 ## Best Practices

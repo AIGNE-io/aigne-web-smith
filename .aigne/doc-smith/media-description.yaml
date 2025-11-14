@@ -9,4 +9,247 @@ descriptions:
       the successful installation of the website and registration of the domain,
       complete with green progress indicators and a "View Subscription" button.
     generatedAt: 2025-11-11T14:54:23.036Z
-lastUpdated: 2025-11-11T14:54:23.045Z
+  c94310712109a8b2b45b913abea9d25d5342d63bf819a7be44ad14159093563e:
+    path: ../../../assets/images/web-smith-update.png
+    description: This screenshot displays a command-line interface (CLI) or
+      text-based user interface (TUI) presenting "Section 4" of content for
+      review, including a title, description, and two action links. Below the
+      content, there are prompts asking the user to review the content and
+      suggest improvements, indicating an interactive content management or
+      generation process.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  37bb741556b9f11c195831ed57950d0bb55ebcde51d693be6cb9288e654b19e7:
+    path: ../../../assets/images/web-smith-publish-exist.png
+    description: This screenshot displays a command-line interface (CLI) showing the
+      output of the `aigne web publish` command. It presents connection details
+      for `AIGNEHub` and `google/gemini-2.5-pro`, followed by a prompt to select
+      a platform for publishing web pages. The option "Your existing website" is
+      currently highlighted, indicating the user's selection to integrate and
+      publish directly on their current site.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  8141d94b0cb8a9e1c78eb9de7d055ffec1d48d923af227b6fb7ad9e638eb3290:
+    path: ../../../assets/images/web-smith-theme.png
+    description: This screenshot displays a terminal window showing the `aigne` CLI
+      tool being used to generate a web theme. It details the integration with
+      AIGNEHub and the Google Gemini 2.5-pro model, prompting for user
+      suggestions before processing the theme generation. The output confirms
+      the creation and saving of "Vibrant Trust" theme as a YAML file, along
+      with token and credit usage information.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  0a11eced20ec5faacbcebd1a81ed3e41f77f03cfb50b7eafc6bf45ab0daa8095:
+    path: ../../../assets/images/web-smith-translate.png
+    description: This screenshot depicts a command-line interface (CLI) showing the
+      `aigne web translate` command being executed. The terminal displays the
+      configuration for an AI translation service, including the provider
+      (AIGNEHub) and model (Google Gemini 2.5 Pro), followed by interactive
+      prompts to select the content to translate and a list of target languages,
+      with Simplified Chinese currently highlighted.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  b29df027c128a1b5ca35d4d14033ac3895497a9fb1b302cbf11247fecb7832f2:
+    path: ../../../assets/images/web-smith-publish-exist-url.png
+    description: This screenshot displays a text-based interface guiding a user
+      through the process of publishing web pages. It highlights the option to
+      integrate and publish to an "existing website" and provides a link for
+      setting up a new website, followed by a prompt to enter the user's website
+      URL.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  8aafb31d05a6eb7e005d11e2414590b139f7ccfaa25a4e69fe4716bc592d47c4:
+    path: ../../../assets/images/web-smith-publish-dedicated.png
+    description: This screenshot captures a terminal window executing the `aigne web
+      publish` command, displaying options for publishing web pages. The "New
+      dedicated website" option is highlighted, indicating a paid service for
+      custom domains and professional hosting. The image also shows API
+      configuration details for AIGNEHub, including the model
+      `google/gemini-2.5-pro` and an API URL.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  b0bfe4d2a2714ae1943fe5ed5866256c16b50b51bb43fe0dd64cf05003db8465:
+    path: ../../../assets/images/web-smith-publish-dedicated-process.png
+    description: This screenshot displays a console output detailing the steps
+      involved in publishing a new dedicated website, identified as a paid
+      service. It shows selections for the platform and navigation type,
+      followed by the initiation of deployment and a prompt for payment
+      including a payment link.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  e5d22e10373c2d042d29fb1278a24282aec36effe948037ff7e538fd7e0ddd8a:
+    path: ../../../assets/images/web-smith-payment.png
+    description: This image displays a clean user interface for a payment summary
+      and details page. The "Order Summary" section details a "Website Hosting
+      Service" at "10 ABT / month" with listed features, while the "Payment
+      Details" section allows selection between "ABT ArcBlock Main" and "USD
+      Stripe" for payment. Customer information is shown above a prominent
+      "Subscribe" button, illustrating a final step in a subscription or
+      checkout flow.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  deba2c42f80e591d13153f69208d7c267c7fe9ca228362631f34d31833639f80:
+    path: ../../../assets/images/web-smith-publish-cloud.png
+    description: This screenshot displays a terminal interface where the `aigne web
+      publish` command has been executed. It shows a configuration box detailing
+      the AI model provider (AIGNEHub), model (google/gemini-2.5-pro), API URL,
+      and a masked API key. Below this, the user is prompted to select a
+      publishing platform, with "WebSmith Cloud" highlighted as a free hosting
+      option suitable for open-source projects.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  5c43d2c28254dc14511e6631342698e914d9fa9813073c9ad799f821c11d5fff:
+    path: ../../../assets/images/web-smith-help.png
+    description: This screenshot displays the command-line interface (CLI) help
+      output for the "aigne web" tool, used to generate and maintain project
+      website pages. It lists various commands such as `upgrade`, `init`,
+      `generate`, `publish`, and `translate`, each accompanied by a concise
+      description of its function and some indicating command aliases. The
+      interface is presented with white monospace text on a dark background,
+      characteristic of a terminal window, and includes a section for "Agent
+      Parameters."
+    generatedAt: 2025-11-13T13:01:40.369Z
+  2df83fe441708a5a77ad05ed41ed0d7cb216a0ac67b44e63b3cd1fc73f6a69c8:
+    path: ../../../assets/images/web-smith-generate-structure.png
+    description: A screenshot of a terminal interface displays the successful
+      configuration of a project, followed by a prompt to generate the website
+      structure. The interface then presents a generated "Current Website
+      Structure" for "Smart Video Streaming Credit Service," and the user has
+      selected "No, looks good" in response to a prompt asking if they want to
+      make changes.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  8ddf5f5d4dafa4ec1289e3ad425728803ccb0737c5cf426f7c77c76101d484aa:
+    path: ../../../assets/images/web-smith-publish-cloud-auth.png
+    description: This screenshot displays a user interface for authorizing "AIGNE
+      WebSmith" to connect, featuring a user profile for "Xiao Fang" and an
+      information box detailing the connection permissions. The dialog provides
+      options to "Cancel" or "Approve" the connection, with prominent purple
+      branding and decentralized identity (DID) elements visible throughout the
+      interface.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  d6a219f07c1c839c112f0ea03dc148dbf8e2e932aa49754dc7fe68c458adac32:
+    path: ../../../assets/images/hero-background.webp
+    description: This illustration depicts a dark blue, star-filled cosmic scene
+      with a large, dark celestial body partially visible on the left. On the
+      right, stylized space equipment floats, including an amber solar panel, a
+      central grey cylindrical module emitting a blue glow, and several smaller
+      ancillary units. Faint swirling blue lines in the background add a
+      dynamic, technological feel to the space environment.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  a0f6b275e9ffe71413a53d2013a946ebb20d059c3bdd244b4dedc6d60a3db393:
+    path: ../../../assets/images/web-smith-generate-success.png
+    description: This screenshot displays terminal output confirming that "Pages
+      generated successfully!" for a website, indicating the output directory.
+      It then provides clear "Next" steps to publish the website using `aigne
+      web publish` and "Optional" commands like `aigne web update` or `aigne web
+      generate` for further refinement, enhanced by relevant emoji icons and
+      colored text.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  a7ca31b2bbce4b994dd8feebcfbf89ff8c2fbdf1dffffc2dff74e808be92588d:
+    path: ../../../assets/images/unlock-theme.webp
+    description: This screenshot displays a web application's "Theming"
+      configuration page, offering comprehensive customization options for a
+      website's appearance. It features sections for adjusting color palettes
+      with associated hex codes and labels (e.g., primary, secondary, success,
+      error), and typography settings showing "Roboto" as the selected font for
+      headings and body text. A prominent "Unlock Theme" button with a padlock
+      icon suggests control over theme editing, while a live preview pane on the
+      right showcases the applied theme changes.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  114809cb26a0ee8776130a9c7485908f8b76d990e2cf01be3e3499f84f3b8471:
+    path: ../../../assets/images/web-smith-config.png
+    description: This screenshot displays the AIGNE WebSmith configuration wizard,
+      presented as a text-based interface on a dark background. It outlines an
+      8-step process for website setup, including questions about website type,
+      audience, language, and data source paths, with several steps already
+      completed and their answers visible. The image highlights how users define
+      core aspects of their website and specify content sources like
+      `./screenshots` and `./README.md`.
+    generatedAt: 2025-11-13T13:01:40.369Z
+  ee30758408f794f2f9e121dc72d9ad2c16f6732e53e77659b4a818e253dd901a:
+    path: ../../../assets/images/web-smith-publish-success.png
+    description: This screenshot depicts a successful website publishing process
+      displayed in a dark-themed terminal interface. It shows a sequence of
+      completed steps, including configuration, translation, and website
+      publication, noting "0 input tokens, 0 output tokens, 7 agent calls"
+      related to the process. The output confirms successful publication with a
+      live URL and provides optional commands for further updates or structure
+      refinement.
+    generatedAt: 2025-11-13T16:28:34.864Z
+  713f433202bad291608d63585e76bf97a4979728bcd561abc751e79f32225629:
+    path: ../../../assets/images/web-smith-payment-success-url.png
+    description: This screenshot displays a multi-step progress update for setting
+      up and deploying a website, presented on a dark background with light gray
+      text. It shows steps 2 through 4, detailing "Setting up," "Starting," and
+      "Getting your website URL," each accompanied by a relevant emoji. The
+      final line confirms that "Your website is ready at:" and provides a
+      clickable URL in blue text.
+    generatedAt: 2025-11-13T16:28:34.864Z
+  9bd5ace4b4707eaad91b76a65846f8d3966f240c274499afe29d264afcf5948d:
+    path: ../../../assets/images/web-smith-remove-page-success.png
+    description: This screenshot captures a command-line interface (CLI) output
+      indicating the successful generation of web pages by the "aigne web" tool.
+      It displays a success message with a green checkmark, followed by "Next"
+      steps (indicated by a rocket emoji) for publishing the website, and
+      "Optional" actions (with a lightbulb emoji) for updating or refining
+      pages, with relevant commands highlighted.
+    generatedAt: 2025-11-14T06:46:00.527Z
+  08ffeee2c464948cfc213ff7c8338be6a787ecf102c9320a2aace840c084fea9:
+    path: ../../../assets/images/web-smith-remove-page-select.png
+    description: This screenshot displays a command-line interface (CLI) or
+      text-based user interface (TUI) presenting a selection menu. The prompt
+      asks the user to "Select pages to clear:", offering options like "Smart
+      Video Streaming Credit Service", "About the Project", and "Frequently
+      Asked Questions". "About the Project" is highlighted in blue and marked
+      with a green filled circle, indicating it is currently selected, with
+      instructions for navigation and selection provided at the bottom.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  935785420285cb1027ca3062e6972925f5db63e71acfb42bed64e71de3d18c29:
+    path: ../../../assets/images/web-smith-publish-resume.png
+    description: 'This screenshot depicts a command-line interface (CLI) with a
+      prompt to "Select platform to publish your pages." It presents four
+      options: "Resume previous website setup" (highlighted in yellow),
+      "WebSmith Cloud" (free hosting), "Your existing website," and "New
+      dedicated website" (paid service), each with a brief description. The
+      bottom of the interface shows navigation instructions: "↑↓ navigate • ↵
+      select".'
+    generatedAt: 2025-11-14T06:46:00.529Z
+  5cb5c195b0e4866571425c56bf6f0a4856abfcb62e4f3d4e9bcea854b7d48a0b:
+    path: ../../../assets/images/web-smith-add-page-input.png
+    description: This screenshot depicts a command-line interface displaying the
+      "Current Website Structure" of a "Smart Video Streaming Credit Service."
+      The interface prompts the user to add a new page, providing an example
+      command, and then asks the user to "Press Enter to finish," indicating an
+      awaiting input. It illustrates an interactive step in a text-based website
+      management tool.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  2a34f9a60fcc76c931c4153f774ce0224b7478950cbe789a32772584d59d2f2d:
+    path: ../../../assets/images/web-smith-add-page-success.png
+    description: This screenshot displays a command-line interface used for managing
+      a website's page structure. It shows a prompt indicating that a new page
+      can be added, followed by a warning message that a page with the path
+      '/about' already exists, requiring a different path. The current website
+      structure is visible, listing pages like "Smart Video Streaming Credit
+      Service [/home]", "About the Project [/about]", and "Frequently Asked
+      Questions [/about/faq]", concluding with an input prompt to continue
+      adding pages or finish.
+    generatedAt: 2025-11-14T06:46:00.529Z
+  3bbc51f345651e5f617d240e897e1fd40d33b0f4d7124cb96fc88ea79332533c:
+    path: ../../../assets/images/web-smith-observe.png
+    description: This terminal screenshot displays the execution of the `aigne
+      observe --port 8888` command. The output confirms the observability
+      database path and indicates that the observability server is successfully
+      running on `http://localhost:8888`, providing a clear example of how to
+      start and verify the server's operation.
+    generatedAt: 2025-11-14T09:40:44.776Z
+  5a700be9522f2b53fc01c35348e80f4bf3c1468b0849913cd665dc9760c356e7:
+    path: ../../../assets/images/web-smith-observe-dashboard.png
+    description: This screenshot shows the AIGNE Observability dashboard, featuring
+      a "Trace Timeline" on the left that lists various functions, their IDs,
+      and execution times, including steps for website generation and media
+      description. The right panel details the selected "saveOutput" function,
+      showcasing its input JSON containing configuration parameters for a
+      website project, such as file names, project descriptions, target
+      audiences, and localization settings. The dashboard also tracks token
+      usage and latency at the top.
+    generatedAt: 2025-11-14T09:40:44.777Z
+  e10d985846bc26431749266d10b90075e59ff4ad89e9304d5cf43f5b91ccc159:
+    path: ../../../assets/images/web-smith-observe.png
+    description: This screenshot displays a terminal window showing the execution
+      and output of the `aigne observe` command. The output indicates the path
+      to the observability database and confirms that an observability server is
+      running on `http://localhost:7891`. The terminal prompt includes
+      directory, Git branch, and status information.
+    generatedAt: 2025-11-14T10:28:16.840Z
+lastUpdated: 2025-11-14T10:28:16.844Z

@@ -51,13 +51,13 @@ entries:
     feedback: "`aigne web prefs remove` and `aigne web prefs toggle` support the --id parameter instead
       of directly specifying the ID."
     docPaths:
-      - /core-tasks/managing-preferences
+      - /guides/manage-preferences
   - timestamp: 2025-11-05T13:34:26.188Z
     operation: document_update
     feedback: The prefs command has changed. Please update content related to prefs.
     docPaths:
       - /reference/command-line-reference
-      - /core-tasks/managing-preferences
+      - /guides/manage-preferences
   - timestamp: 2025-11-04T15:45:40.865Z
     operation: document_update
     feedback: I have updated assets/documents/special-components/websmith-config.md strictly
@@ -126,7 +126,7 @@ entries:
   - timestamp: 2025-10-17T08:27:42.264Z
     operation: document_update
     feedback: add Latest Updates to Available Components
-    documentPath: /advanced-features/using-special-components
+    documentPath: /advanced-features/use-special-components
   - timestamp: 2025-10-17T07:45:45.691Z
     operation: document_update
     feedback: remove Advanced Features Diagram image
@@ -146,21 +146,21 @@ entries:
     operation: document_update
     feedback: Recalculate the relative reference path for unlock-theme.webp, which itself is located in
       the assets directory within the working directory.
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-17T07:12:33.113Z
     operation: document_update
     feedback: The relative path for unlock-theme.webp is incorrect. It is located in the assets/images/
       directory under the workspace directory.
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-17T07:09:31.286Z
     operation: document_update
     feedback: Theme lock is a feature of the Blocklet App. The reference path for unlock-theme.webp is
       incorrect.
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-17T07:02:11.879Z
     operation: document_update
     feedback: Adding Notes on Theme Lock Under “Applying a Theme”
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-16T15:03:21.528Z
     operation: document_update
     feedback: The `aigne web generate` config parameter is not required.
@@ -196,9 +196,9 @@ entries:
       remove it
 
       6. For more information on other special components, please refer to the documentation on the
-      [Terminal Player](./advanced-features-using-special-components-terminal-player.md). -> link to
+      [Terminal Player](./advanced-features-use-special-components-terminal-player.md). -> link to
       ./advanced-features-using-special-components
-    documentPath: /advanced-features/using-special-components/latest-updates
+    documentPath: /advanced-features/use-special-components/latest-updates
   - timestamp: 2025-10-17T07:36:05.089Z
     operation: structure_update
     feedback: Add a subdocument titled `Latest Updates` under `Using Special Components` to guide users
@@ -213,7 +213,7 @@ entries:
 
       - [ArcBlock Terminal Player Converter](https://arcblock.github.io/ux/?path=/story/data-display-terminal-player--recording-guide)
       - [asciinema Documentation](https://docs.asciinema.org/)
-    documentPath: /advanced-features/using-special-components/terminal-player
+    documentPath: /advanced-features/use-special-components/terminal-player
   - timestamp: 2025-10-16T14:53:21.615Z
     operation: document_update
     feedback: Do not use the --input parameter with the aigne web generate command. The `langs`
@@ -223,16 +223,16 @@ entries:
   - timestamp: 2025-10-16T14:34:33.745Z
     operation: document_update
     feedback: The list of targets that can be cleared is incomplete.
-    documentPath: /core-tasks/clearing-generated-content
+    documentPath: /guides/cleanup-workspace
   - timestamp: 2025-10-16T14:30:01.199Z
     operation: document_update
     feedback: In the History output, the operation type should be either page_update or structure_update.
-    documentPath: /core-tasks/viewing-update-history
+    documentPath: /guides/update-website/manage-update-history
   - timestamp: 2025-10-16T14:15:32.467Z
     operation: document_update
     feedback: The optional values for `pagePurpose`, `targetAudienceTypes`, and `websiteScale` in the
       configuration options and `config.yaml` example require updating.
-    documentPath: /core-tasks/generating-a-website
+    documentPath: /guides/create-website
   - timestamp: 2025-10-16T14:11:46.414Z
     operation: document_update
     feedback: "Step 5: View Your Generated Website You must publish the website before viewing it in a
@@ -242,24 +242,24 @@ entries:
     operation: document_update
     feedback: aigne generate -> aigne web generate, aigne update -> aigne web update (user must provider
       feedback)
-    documentPath: /advanced-features/using-special-components/terminal-player
+    documentPath: /advanced-features/use-special-components/terminal-player
   - timestamp: 2025-10-16T13:27:48.183Z
     operation: document_update
     feedback: This section `## Using the Terminal Player Component` is unnecessary and should be
       removed. Simply explain how to include the above recoding JSON in the data source and use
       `aigne web generate` and `aigne web update` to update it.
-    documentPath: /advanced-features/using-special-components/terminal-player
+    documentPath: /advanced-features/use-special-components/terminal-player
   - timestamp: 2025-10-16T13:07:29.956Z
     operation: document_update
     feedback: "## Using the Terminal Player Component section This is unnecessary for users. You need to
       guide users to add the corresponding JSON data to the data source and trigger Aigne Web
       Generate and Aigne Web Update for the specified pages."
-    documentPath: /advanced-features/using-special-components/terminal-player
+    documentPath: /advanced-features/use-special-components/terminal-player
   - timestamp: 2025-10-16T12:55:13.974Z
     operation: document_update
     feedback: This doc should focus on using custom component libraries in WebSmith, though the
       command-related content can remain. You'll need to slightly modify the title and body text.
-    documentPath: /advanced-features/managing-components
+    documentPath: /advanced-features/use-custom-component-libraries
   - timestamp: 2025-10-16T12:40:43.844Z
     operation: structure_update
     feedback: update Terminal Player's sourceIds, must include
@@ -293,7 +293,7 @@ entries:
   - timestamp: 2025-10-16T12:00:21.694Z
     operation: document_update
     feedback: update the latest changelog
-    documentPath: /reference/changelog
+    documentPath: /reference/release-notes
   - timestamp: 2025-10-16T11:58:12.739Z
     operation: document_update
     feedback: aigne web chat -> aigne web. aigne web clear --targets is error, workspace is changed to
@@ -303,63 +303,63 @@ entries:
     operation: document_update
     feedback: please re-generate doc by latest datasource. Website Structure's Command Flag is error, is
       `websiteStructure`. ./.websmith/tmp -> workspace
-    documentPath: /core-tasks/clearing-generated-content
+    documentPath: /guides/cleanup-workspace
   - timestamp: 2025-10-16T11:44:48.635Z
     operation: document_update
     feedback: aigne history -> aigne web history
-    documentPath: /core-tasks/viewing-update-history
+    documentPath: /guides/update-website/manage-update-history
   - timestamp: 2025-10-16T11:42:13.954Z
     operation: document_update
     feedback: websmith prefs -> aigne web prefs
-    documentPath: /core-tasks/managing-preferences
+    documentPath: /guides/manage-preferences
   - timestamp: 2025-10-16T11:31:56.960Z
     operation: document_update
     feedback: aigne chat -> aigne web chat. aigne web chat -> aigne web
-    documentPath: /core-tasks/using-the-interactive-chat
+    documentPath: /guides/interactive-mode
   - timestamp: 2025-10-16T11:13:22.907Z
     operation: document_update
     feedback: aigne web chat -> aigne web. This command is currently a beta feature. You need to add a
       beta note before the documentation and modify the title.
-    documentPath: /core-tasks/using-the-interactive-chat
+    documentPath: /guides/interactive-mode
   - timestamp: 2025-10-16T10:56:23.589Z
     operation: document_update
     feedback: aigne.config.yaml -> config.yaml
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-16T10:50:56.440Z
     operation: document_update
     feedback: aigne theme generate -> must contand aigne web, should be aigne web theme generate,
       Everything else remains the same.. aigne theme apply -> aigne web theme apply
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-16T09:55:56.748Z
     operation: document_update
     feedback: aigne update -> aigne web update, please correct all errors.
-    documentPath: /core-tasks/updating-website-content/updating-page-content
+    documentPath: /guides/update-content/updating-page-content
   - timestamp: 2025-10-16T09:49:58.055Z
     operation: document_update
     feedback: type your desired changes in plain English -> This passage should not mention English.
       Simply provide natural language prompts.
-    documentPath: /core-tasks/updating-website-content/updating-website-structure
+    documentPath: /guides/update-content/updating-website-structure
   - timestamp: 2025-10-15T07:14:15.420Z
     operation: document_update
     feedback: |-
       Publish to a dedicated website. Currently, two important details are missing:
       1. It will default to publishing to the Default Project.
       2. Supports selecting whether to push locales, navigations, and branding together.
-    documentPath: /core-tasks/publishing-your-website/new-dedicated-website
+    documentPath: /guides/publish-website/new-dedicated-website
   - timestamp: 2025-10-15T07:02:53.692Z
     operation: document_update
     feedback: "**An ArcBlock-Powered Website:** change `ArcBlock` -> `Blocklet Server`"
-    documentPath: /core-tasks/publishing-your-website/custom
+    documentPath: /guides/publish-website/custom
   - timestamp: 2025-10-15T06:59:18.107Z
     operation: document_update
     feedback: "For alternative deployment targets, refer to the following guides: This should be
       mentioned in the final section of the documentation."
-    documentPath: /core-tasks/publishing-your-website/cloud
+    documentPath: /guides/publish-website/cloud
   - timestamp: 2025-10-15T06:56:44.481Z
     operation: document_update
     feedback: In the `general workflow is as follows` section, the interactive prompt should not include
       flags like No or Yes; it should only contain different branch selections.
-    documentPath: /core-tasks/publishing-your-website
+    documentPath: /guides/publish-website
   - timestamp: 2025-10-15T06:40:30.469Z
     operation: document_update
     feedback: The final follow-up step should be preparing your content, not jumping straight into
@@ -372,45 +372,45 @@ entries:
   - timestamp: 2025-10-13T09:55:07.081Z
     operation: document_update
     feedback: The Target column in the Clearable Targets table uses the original target enumeration values.
-    documentPath: /core-tasks/clearing-generated-content
+    documentPath: /guides/cleanup-workspace
   - timestamp: 2025-10-13T09:50:22.388Z
     operation: document_update
     feedback: In the theme generation process, there is no step labeled `Name Your Theme`. In the theme
       application process, the steps `Confirm the Target` and `Final Confirmation` need to be
       merged.
-    documentPath: /core-tasks/managing-themes
+    documentPath: /guides/customize-theme
   - timestamp: 2025-10-13T09:34:18.783Z
     operation: document_update
     feedback: Complete the table operations in Core Structural Operations
-    documentPath: /core-tasks/updating-website-content/updating-website-structure
+    documentPath: /guides/update-content/updating-website-structure
   - timestamp: 2025-10-13T09:30:04.889Z
     operation: document_update
     feedback: Add a section titled `Core Structural Operations`, describing the operations supported by
       structural adjustments in a simple table, followed by some case examples.
-    documentPath: /core-tasks/updating-website-content/updating-website-structure
+    documentPath: /guides/update-content/updating-website-structure
   - timestamp: 2025-10-13T09:25:24.019Z
     operation: document_update
     feedback: move section `Command Parameters` next to section `The Update Process`
-    documentPath: /core-tasks/updating-website-content/updating-page-content
+    documentPath: /guides/update-content/updating-page-content
   - timestamp: 2025-10-13T09:22:38.940Z
     operation: document_update
     feedback: remove setion `Available Structural Changes`
-    documentPath: /core-tasks/updating-website-content/updating-website-structure
+    documentPath: /guides/update-content/updating-website-structure
   - timestamp: 2025-10-13T08:51:27.290Z
     operation: document_update
     feedback: To update the website structure, use the `aigne web generate` command. Common examples can
       be provided to illustrate this.
-    documentPath: /core-tasks/updating-website-content/updating-website-structure
+    documentPath: /guides/update-content/updating-website-structure
   - timestamp: 2025-10-13T08:48:08.349Z
     operation: document_update
     feedback: Please reference the two sub-articles titled “Updating Website Structure” and “Updating
       Page Content.”
-    documentPath: /core-tasks/updating-website-content
+    documentPath: /guides/update-content
   - timestamp: 2025-10-13T08:45:10.163Z
     operation: document_update
     feedback: "Briefly describe two scenarios: one involves using `aigne web generate` to update the
       website structure, and the other involves using `aigne web update` to update page content."
-    documentPath: /core-tasks/updating-website-content
+    documentPath: /guides/update-content
   - timestamp: 2025-10-13T08:08:40.565Z
     operation: document_update
     feedback: Delete `Define Your Website's Purpose and Audience` and start with preparing source documents.
@@ -418,7 +418,7 @@ entries:
   - timestamp: 2025-10-13T08:02:44.639Z
     operation: document_update
     feedback: generate Describe the generate command parameters using the x-field component.
-    documentPath: /core-tasks/generating-a-website
+    documentPath: /guides/create-website
   - timestamp: 2025-10-13T02:50:01.693Z
     operation: document_update
     feedback: Remove the Status column from the Summary Checklist

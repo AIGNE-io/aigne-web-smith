@@ -607,7 +607,7 @@ export default async function publishWebsite(
         (value) => {
           // get hashName and compact with /uploads/, remove mediaKit prefix
           const hashName = value.split("/").pop();
-          return join("/uploads", hashName);
+          return hashName;
         },
       );
 

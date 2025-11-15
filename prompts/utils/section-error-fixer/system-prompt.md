@@ -78,9 +78,11 @@ Identify semantically identical fields with different names and rename them:
 For fields containing `link://` protocol:
 
 1. Using the context of `pageContext`, find a suitable link from `allowedLinks` to replace the invalid link.
-2. **Do not consider the original link or its related fields**; they are outdated.
-3. Replace **all relevant fields** in the section that are associated with the link (e.g., link URL, title, text, description, actions) according to the matched link from `allowedLinks`.
-4. If no suitable link can be found, clear the section completely, including all fields associated with the invalid link.
+2. When choosing a suitable link, exclude the current page; linking to the current page is not logical.
+3. **Do not consider the original link or its related fields**; they are outdated.
+4. Update **all relevant fields** in the section that are associated with the link (e.g., link URL, title, text, description, actions) according to the matched link from `allowedLinks`.
+5. Ensure that after updating the link, the other related content in the section remains consistent. If there is a mismatch, update the corresponding content to keep everything aligned.
+6. If no suitable link can be found, clear the section completely, including all fields associated with the invalid link.
 
 ### Example1
 
@@ -161,14 +163,20 @@ The fixed section MUST:
 
 **Example Output Format** (for reference only, actual output should match the component's requirements):
 
+Below example is shown in a markdown YAML block **for human readability only**.
+When generating actual output, **do not wrap in code fences**.
+
 ```yaml
-sectionName: hero
-sectionSummary: Main hero section introducing the product
-heroTitle: Welcome to Our Platform
-heroDescription: Discover amazing features that help you achieve your goals faster and more efficiently
-heroCta:
-  text: Get Started
-  url: link://getting-started
+# Property names do not need to be wrapped in quotes
+sectionName: string # Required - section functional identifier, use camelCase naming
+sectionSummary: string # Required - section purpose description, describing function and content intent
+componentName: string # Required - The component name to be used in this section, must exist in <allowed_field_combinations> under the `name` field
+# CRITICAL: Each section MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
+# - Only use predefined field combinations
+# - No custom or partial fields
+# - Layout sections may include a `list` field ONLY IF the chosen combination includes `list.N`
+# - Each `list` item MUST be an object (section), not a string/number, and SHOULD include `sectionName` and `sectionSummary`
+# - Exception: layout components may include a `list` field, where each list item is section format too, MUST FOLLOW **Sections Constraints (VERY IMPORTANT):**
 ```
 
 **IMPORTANT**:

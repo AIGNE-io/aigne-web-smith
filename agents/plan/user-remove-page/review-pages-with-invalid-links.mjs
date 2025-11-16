@@ -43,7 +43,8 @@ export default async function reviewPagesWithInvalidLinks(
 
   return {
     pagesWithInvalidLinks: filteredPagesWithInvalidLinks,
-    websiteStructureResult,
+    websiteStructureResult, // for batch generate
+    selectedPages: [...websiteStructureResult], // for batch translate
   };
 }
 

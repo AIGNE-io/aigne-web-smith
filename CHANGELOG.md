@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.1...v1.8.0-beta.2) (2025-11-16)
+
+
+### Features
+
+* allow manual triggering of the publish docs process ([#246](https://github.com/AIGNE-io/aigne-web-smith/issues/246)) ([1632cf8](https://github.com/AIGNE-io/aigne-web-smith/commit/1632cf8afaf2095712b3a90c790c391093402acb))
+
+
+### Bug Fixes
+
+* add review before add/remove page ([#249](https://github.com/AIGNE-io/aigne-web-smith/issues/249)) ([c323315](https://github.com/AIGNE-io/aigne-web-smith/commit/c323315207b249007937c0d623b892e08353545d))
+
 ## [1.8.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta...v1.8.0-beta.1) (2025-11-13)
 
 

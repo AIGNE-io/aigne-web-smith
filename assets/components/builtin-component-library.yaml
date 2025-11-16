@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-13T03:46:54.926Z
+  updateAt: 2025-11-16T02:16:14.257Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2463,6 +2463,436 @@ composite:
               height: 1394
           nch5frsfoap2lw33:
             value: true
+  - id: lenvbk7w4t5bypyr
+    name: Feature Right With ScreenShot
+    summary: >-
+      Structure
+
+      - Left: title (1 line) → short description (1–3 lines).
+
+      - Right: media area rendered from `featureRightScreenShot` (rounded
+      corners; object-fit: cover). A thin top rule or accent bar is optional.
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting visual on the right.
+
+      - Prioritize using this component to display application screenshots; the
+      component will show a beautified background for the screenshot
+
+
+      Constraints
+
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
+
+      - `featureRightScreenShot` must be a valid image, more suitable for
+      displaying application screenshots.
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+
+      - The value of `screenShotBackground` must be chosen from the list below,
+      selecting a matching background color based on the description of the
+      application screenshot
+        - linear-gradient(120deg, rgba(96,89,171,1) 0%, rgba(130,125,190,1) 100%);
+        - linear-gradient(120deg, rgba(95,116,118,1) 0%, rgba(131,158,153,1) 100%);
+        - linear-gradient(120deg, rgba(165,165,165,1) 0%, rgba(198,192,192,1) 100%);
+        - linear-gradient(120deg, rgba(168,166,194,1) 0%, rgba(203,202,219,1) 100%);
+        - linear-gradient(120deg, rgba(89,98,74,1) 0%, rgba(114,121,106,1) 100%);
+        - linear-gradient(120deg, rgba(196,102,135,1) 0%, rgba(239,134,171,1) 100%);
+        - linear-gradient(120deg, rgba(153,73,74,1) 0%, rgba(160,116,117,1) 100%);
+        - linear-gradient(120deg, rgba(209,171,174,1) 0%, rgba(235,206,207,1) 100%);
+        - linear-gradient(120deg, rgba(77,123,126,1) 0%, rgba(107,139,143,1) 100%);
+    fieldCombinations:
+      - featureRightScreenShot
+      - featureRightScreenShotActions.0.link
+      - featureRightScreenShotActions.0.text
+      - featureRightScreenShotActions.1.link
+      - featureRightScreenShotActions.1.text
+      - featureRightScreenShotDescription
+      - featureRightScreenShotTitle
+      - screenShotBackground
+    section:
+      id: nfa6vr0ia6wxfcmz
+      name: Feature Right Image
+      component: layout-block
+      sections:
+        eopar7brgzeu9yh6:
+          id: eopar7brgzeu9yh6
+          name: CTA
+          component: layout-block
+          sections:
+            hu56tej3ovqcmv3g:
+              id: hu56tej3ovqcmv3g
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            regux97o50z4cg7b:
+              id: regux97o50z4cg7b
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - hu56tej3ovqcmv3g
+            - regux97o50z4cg7b
+          config:
+            gridSettings:
+              desktop:
+                hu56tej3ovqcmv3g:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                regux97o50z4cg7b:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            paddingY: none
+            gap: normal
+            maxWidth: full
+        15gqmlrcfz07mg0o:
+          id: 15gqmlrcfz07mg0o
+          name: ScreenShot Background
+          component: layout-block
+          sections:
+            flhdhysn3jqg5vsa:
+              id: flhdhysn3jqg5vsa
+              name: Image
+              component: layout-block
+              sections:
+                ioq9ludwuer5uk03:
+                  id: ioq9ludwuer5uk03
+                  name: Media
+                  component: custom-component
+                  config:
+                    componentId: xoHu0JPjPs122kaaa-
+              sectionIds:
+                - ioq9ludwuer5uk03
+              config:
+                borderRadius: medium
+                gridSettings:
+                  desktop:
+                    ioq9ludwuer5uk03:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                background: transparent
+          sectionIds:
+            - flhdhysn3jqg5vsa
+          config:
+            gridSettings:
+              desktop:
+                flhdhysn3jqg5vsa:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            paddingX: 'custom:{"xs": "32px", "md": "64px"}'
+            paddingY: 'custom:{"xs": "24px", "md": "48px"}'
+            background: <%= screenShotBackground %>
+            borderRadius: medium
+      sectionIds:
+        - eopar7brgzeu9yh6
+        - 15gqmlrcfz07mg0o
+      config:
+        gridSettings:
+          desktop:
+            eopar7brgzeu9yh6:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+            15gqmlrcfz07mg0o:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+        paddingX: none
+        paddingY: large
+        maxWidth: full
+        gap: large
+    dataSource:
+      nfa6vr0ia6wxfcmz: {}
+      eopar7brgzeu9yh6: {}
+      hu56tej3ovqcmv3g:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= featureRightScreenShotDescription %>
+                  style:
+                    color: ""
+                    fontSize: '{ "xs": 18, "md": 20}'
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= featureRightScreenShotTitle %>
+              style:
+                fontSize: '{ "xs": 32, "md": 40}'
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      regux97o50z4cg7b:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= featureRightScreenShotActions.0.text %>
+                url: <%= featureRightScreenShotActions.0.link %>
+                variant: contained
+                size: xlarge
+                target: _self
+                needLogin: false
+              - id: btn-1759121436561-6r9xmg35x
+                text: <%= featureRightScreenShotActions.1.text %>
+                variant: outlined
+                borderColor: primary.main
+                size: xlarge
+                url: <%= featureRightScreenShotActions.1.link %>
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+      flhdhysn3jqg5vsa: {}
+      ioq9ludwuer5uk03:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= featureRightScreenShot %>
+              mediaKitUrl: <%= featureRightScreenShot %>
+              width: 1184
+              height: 864
+          nch5frsfoap2lw33:
+            value: true
+      15gqmlrcfz07mg0o: {}
+  - id: c4l2vzb72jqpofqu
+    name: Feature Left With ScreenShot
+    summary: >-
+      Structure
+
+      - Left: media area rendered from `featureLeftScreenShot`. A thin top rule
+      or accent bar is optional.
+
+      - Right: title (1 line) → short description (1–3 lines).
+
+
+      Use when
+
+      - You want copy-first messaging with a supporting visual on the left.
+
+      - Prioritize using this component to display application screenshots, the
+      component will show a beautified background for the screenshot
+
+
+      Constraints
+
+      - For application screenshots without backgrounds, must use components
+      with 'With ScreenShot' in their name for display
+
+      - `featureLeftScreenShot` must be a valid image, more suitable for
+      displaying application screenshots.
+
+      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      lists inside the card.
+
+      - The value of `screenShotBackground` must be chosen from the list below,
+      selecting a matching background color based on the description of the
+      application screenshot
+        - linear-gradient(120deg, rgba(96,89,171,1) 0%, rgba(130,125,190,1) 100%);
+        - linear-gradient(120deg, rgba(95,116,118,1) 0%, rgba(131,158,153,1) 100%);
+        - linear-gradient(120deg, rgba(165,165,165,1) 0%, rgba(198,192,192,1) 100%);
+        - linear-gradient(120deg, rgba(168,166,194,1) 0%, rgba(203,202,219,1) 100%);
+        - linear-gradient(120deg, rgba(89,98,74,1) 0%, rgba(114,121,106,1) 100%);
+        - linear-gradient(120deg, rgba(196,102,135,1) 0%, rgba(239,134,171,1) 100%);
+        - linear-gradient(120deg, rgba(153,73,74,1) 0%, rgba(160,116,117,1) 100%);
+        - linear-gradient(120deg, rgba(209,171,174,1) 0%, rgba(235,206,207,1) 100%);
+        - linear-gradient(120deg, rgba(77,123,126,1) 0%, rgba(107,139,143,1) 100%);
+    fieldCombinations:
+      - featureLeftScreenShot
+      - featureLeftScreenShotActions.0.link
+      - featureLeftScreenShotActions.0.text
+      - featureLeftScreenShotActions.1.link
+      - featureLeftScreenShotActions.1.text
+      - featureLeftScreenShotDescription
+      - featureLeftScreenShotTitle
+      - screenShotBackground
+    section:
+      id: nfa6vr0ia6wxfcmz
+      name: Feature Left Image
+      component: layout-block
+      sections:
+        eopar7brgzeu9yh6:
+          id: eopar7brgzeu9yh6
+          name: CTA
+          component: layout-block
+          sections:
+            hu56tej3ovqcmv3g:
+              id: hu56tej3ovqcmv3g
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            regux97o50z4cg7b:
+              id: regux97o50z4cg7b
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+          sectionIds:
+            - hu56tej3ovqcmv3g
+            - regux97o50z4cg7b
+          config:
+            gridSettings:
+              desktop:
+                hu56tej3ovqcmv3g:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                regux97o50z4cg7b:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            paddingY: none
+            gap: normal
+            maxWidth: full
+        15gqmlrcfz07mg0o:
+          id: 15gqmlrcfz07mg0o
+          name: ScreenShot Background
+          component: layout-block
+          sections:
+            flhdhysn3jqg5vsa:
+              id: flhdhysn3jqg5vsa
+              name: Image
+              component: layout-block
+              sections:
+                ioq9ludwuer5uk03:
+                  id: ioq9ludwuer5uk03
+                  name: Media
+                  component: custom-component
+                  config:
+                    componentId: xoHu0JPjPs122kaaa-
+              sectionIds:
+                - ioq9ludwuer5uk03
+              config:
+                borderRadius: medium
+                gridSettings:
+                  desktop:
+                    ioq9ludwuer5uk03:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                background: transparent
+          sectionIds:
+            - flhdhysn3jqg5vsa
+          config:
+            gridSettings:
+              desktop:
+                flhdhysn3jqg5vsa:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+            paddingX: 'custom:{"xs": "32px", "md": "64px"}'
+            paddingY: 'custom:{"xs": "24px", "md": "48px"}'
+            background: <%= screenShotBackground %>
+            borderRadius: medium
+      sectionIds:
+        - eopar7brgzeu9yh6
+        - 15gqmlrcfz07mg0o
+      config:
+        gridSettings:
+          desktop:
+            eopar7brgzeu9yh6:
+              x: 6
+              y: 0
+              w: 6
+              h: 1
+            15gqmlrcfz07mg0o:
+              x: 0
+              y: 0
+              w: 6
+              h: 1
+        paddingX: none
+        paddingY: large
+        maxWidth: full
+        gap: large
+    dataSource:
+      nfa6vr0ia6wxfcmz: {}
+      eopar7brgzeu9yh6: {}
+      hu56tej3ovqcmv3g:
+        properties:
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759121327460-gc8w9kaxt
+                  type: text
+                  text: <%= featureLeftScreenShotDescription %>
+                  style:
+                    color: ""
+                    fontSize: '{ "xs": 18, "md": 20}'
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= featureLeftScreenShotTitle %>
+              style:
+                fontSize: '{ "xs": 32, "md": 40}'
+                variant: h1
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+      regux97o50z4cg7b:
+        properties:
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= featureLeftScreenShotActions.0.text %>
+                url: <%= featureLeftScreenShotActions.0.link %>
+                variant: contained
+                size: xlarge
+                target: _self
+                needLogin: false
+              - id: btn-1759121436561-6r9xmg35x
+                text: <%= featureLeftScreenShotActions.1.text %>
+                variant: outlined
+                borderColor: primary.main
+                size: xlarge
+                url: <%= featureLeftScreenShotActions.1.link %>
+          r8t5y6u7i1o2p3a4:
+            value: 16
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          v9979xeclpsbvn0n:
+            value: flex-start
+      flhdhysn3jqg5vsa: {}
+      ioq9ludwuer5uk03:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= featureLeftScreenShot %>
+              mediaKitUrl: <%= featureLeftScreenShot %>
+              width: 1184
+              height: 864
+          nch5frsfoap2lw33:
+            value: true
+      15gqmlrcfz07mg0o: {}
   - id: 4m9qxn0c9lhmn3dd
     name: Content Card With Icon
     summary: >-

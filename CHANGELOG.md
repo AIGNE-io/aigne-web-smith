@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.2...v1.8.0-beta.3) (2025-11-17)
+
+
+### Features
+
+* add screenshot feature components with gradient backgrounds ([#250](https://github.com/AIGNE-io/aigne-web-smith/issues/250)) ([d0f2271](https://github.com/AIGNE-io/aigne-web-smith/commit/d0f2271232c91e9762f7694e425cd6022a02310b))
+
+
+### Bug Fixes
+
+* improve error handling and auth flow in publish-website agent ([#254](https://github.com/AIGNE-io/aigne-web-smith/issues/254)) ([1351de4](https://github.com/AIGNE-io/aigne-web-smith/commit/1351de49b711f7566c309062f677ccc61551b6ba))
+* skip translation when no page is selected ([#253](https://github.com/AIGNE-io/aigne-web-smith/issues/253)) ([bb24216](https://github.com/AIGNE-io/aigne-web-smith/commit/bb242161dfb563eaab8099ecbc4ed4a6be15de36))
+
 ## [1.8.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.1...v1.8.0-beta.2) (2025-11-16)
 
 

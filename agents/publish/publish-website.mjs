@@ -863,10 +863,14 @@ export default async function publishWebsite(
 
         const publishedPaths = publishResults
           .filter((result) => result?.success && result?.data?.url)
-          .map((result) => ({
-            url: result.data.url,
-            path: result.data.route?.path,
-          }));
+          .map((result) => {
+            const url = new URL(result.data.url);
+
+            return {
+              url: url.toString().replace(url.origin, appUrlInfo.origin),
+              path: result.data.route?.path,
+            };
+          });
         const pathToIndexMap =
           websiteStructure?.reduce((map, page, index) => {
             const routePath = formatRoutePath(page.path);
@@ -897,7 +901,7 @@ export default async function publishWebsite(
         const assetWord = uploadedMediaCount === 1 ? "asset" : "assets";
 
         const timestamp = Date.now();
-        message = `✅ Successfully published to ${appUrl}! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
+        message = `✅ Successfully published to ${appUrl} ! (\`${successCount}/${totalCount}\` ${pageWord}${uploadedMediaCount > 0 ? `, \`${uploadedMediaCount}\` media ${assetWord}` : ""})
 
 🔗 Live URLs:
 ${publishedUrls.map((url) => `   ${withoutTrailingSlash(url)}?t=${timestamp}`).join("\n")}

@@ -25,7 +25,7 @@ skills:
   - type: team
     name: batchTranslatePageDetail and analyzeTranslateNavigations
     skills:
-      - ../../translate/page-detail/batch-translate-page-detail.yaml
+      - ./translate-pages-with-invalid-links.mjs
       - ../../translate/navigations/analyze-translate-navigations.mjs
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs

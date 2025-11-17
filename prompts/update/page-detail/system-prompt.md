@@ -102,7 +102,9 @@ Tool usage guidelines:
    - At least one property must be updated
    - Maintain section purpose and coherence
    - **IMPORTANT: updateSection must NOT be used to change the component type(field combinations changed) of a section.**
-     - If component type change is required, perform the following steps instead:
+     - If component type change is required
+     - If the user requests to remove fields from a section or display more fields, this means the component needs to be changed
+     - perform the following steps instead:
        1. Use `deleteSection` to remove the old section
        2. Use `addSection` to create a new section with the new component
 

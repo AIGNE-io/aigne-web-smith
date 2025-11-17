@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-17T09:17:17.082Z
+  updateAt: 2025-11-17T13:10:35.292Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -759,13 +759,13 @@ composite:
         - `centralHeroWithoutImageSubTitle` ≤ 60 characters
         - `centralHeroWithoutImageDescription` ≤ 160 characters
     fieldCombinations:
+      - centralHeroWithoutImageActions.0.link
+      - centralHeroWithoutImageActions.0.text
       - centralHeroWithoutImageActions.1.link
       - centralHeroWithoutImageActions.1.text
       - centralHeroWithoutImageDescription
       - centralHeroWithoutImageSubTitle
       - centralHeroWithoutImageTitle
-      - splitHeroWithBgColorActions.0.link
-      - splitHeroWithBgColorActions.0.text
     section:
       id: 47s2nbxmghffigj5
       name: Central Hero Without Image
@@ -877,8 +877,8 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= splitHeroWithBgColorActions.0.text %>
-                url: <%= splitHeroWithBgColorActions.0.link %>
+                text: <%= centralHeroWithoutImageActions.0.text %>
+                url: <%= centralHeroWithoutImageActions.0.link %>
                 variant: contained
                 size: xlarge
                 target: auto

@@ -8,6 +8,7 @@ Content and Organization:
 - Adjacent Layout components must use different content components
 - When multiple components are suitable, compare with previously used components and select ones that haven't been used yet.
 - `Layout n Column Grid` components are visually similar, so alternate them with `Layout Bento Grid n+n` components to avoid visual fatigue.
+- The first section on the page must use a component whose name contains 'Hero'.
 - Hero sections must lead with a benefit-driven headline(or with sub title), follow with a one-sentence explaining how the product/service delivers that benefit, stay scannable (headline + clear CTA), speak directly to the core pain being solved, and surface available trust signals (logos, testimonials, proof points) within the immediate viewport.
 - Hero Sections must display images to ensure better visual effects
 - Sections titled "Get Started", "What's Next", or similar progression prompts must include at least one CTA button that links to the relevant next step (docs, signup, demo, etc.) so users know exactly where to go next.

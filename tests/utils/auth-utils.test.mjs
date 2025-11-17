@@ -318,10 +318,14 @@ describe("auth-utils", () => {
       try {
         await getPagesKitMountPoint("https://example.com");
       } catch (error) {
-        expect(error.message).toContain("⚠️  The provided URL is not a valid website on ArcBlock platform");
+        expect(error.message).toContain(
+          "⚠️  The provided URL is not a valid website on ArcBlock platform",
+        );
         expect(error.message).toContain("💡 Solution:");
         expect(error.message).toContain("Start here to set up your own website to host pages:");
-        expect(error.message).toContain("https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o");
+        expect(error.message).toContain(
+          "https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o",
+        );
       }
     });
 
@@ -338,10 +342,16 @@ describe("auth-utils", () => {
       try {
         await getPagesKitMountPoint("https://example.com");
       } catch (error) {
-        expect(error.message).toContain("⚠️  This website does not have required components for publishing");
+        expect(error.message).toContain(
+          "⚠️  This website does not have required components for publishing",
+        );
         expect(error.message).toContain("💡 Solution:");
-        expect(error.message).toContain("Please refer to the documentation to add page publishing components:");
-        expect(error.message).toContain("https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s");
+        expect(error.message).toContain(
+          "Please refer to the documentation to add page publishing components:",
+        );
+        expect(error.message).toContain(
+          "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s",
+        );
       }
     });
 
@@ -364,7 +374,9 @@ describe("auth-utils", () => {
         expect(error.message).toContain("Server temporarily unavailable");
         expect(error.message).toContain("Incorrect URL address");
         expect(error.message).toContain("Suggestion:");
-        expect(error.message).toContain("Please check your network connection and URL address, then try again");
+        expect(error.message).toContain(
+          "Please check your network connection and URL address, then try again",
+        );
       }
     });
 
@@ -459,255 +471,253 @@ describe("auth-utils", () => {
       expect(result).toBe("config-token");
     });
 
-  test("should successfully complete authorization flow", async () => {
-    // Mock getComponentMountPoint for the short URL generation in openPage
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+    test("should successfully complete authorization flow", async () => {
+      // Mock getComponentMountPoint for the short URL generation in openPage
+      getComponentMountPointSpy.mockResolvedValue("/payment-mount");
 
-    const result = await getAccessToken("https://example.com");
+      const result = await getAccessToken("https://example.com");
 
-    expect(result).toBe("new-access-token");
+      expect(result).toBe("new-access-token");
 
-    expect(mockCreateConnect).toHaveBeenCalledWith(
-      expect.objectContaining({
-        connectAction: "gen-simple-access-key",
-        source: "AIGNE WebSmith connect to website",
-        closeOnSuccess: true,
-        appName: "AIGNE WebSmith",
-        openPage: expect.any(Function),
-      }),
-    );
-
-    // Verify environment variable is set
-    expect(process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN).toBe("new-access-token");
-
-    // Verify config file is saved
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      "/mock/home/.aigne/web-smith-connected.yaml",
-      "mock yaml",
-    );
-    expect(stringifySpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        "example.com": {
-          WEB_SMITH_PUBLISH_ACCESS_TOKEN: "new-access-token",
-        },
-      }),
-    );
-  });
-
-  test("should create .aigne directory if it doesn't exist", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    existsSyncSpy.mockReturnValueOnce(false); // .aigne directory doesn't exist
-
-    const result = await getAccessToken("https://example.com");
-
-    expect(result).toBe("new-access-token");
-    expect(mkdirSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne", { recursive: true });
-  });
-
-  test("should call openPage function with correct URL and locale", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-
-    let capturedOpenPage;
-    mockCreateConnect.mockImplementation((options) => {
-      capturedOpenPage = options.openPage;
-      return Promise.resolve({ accessKeySecret: "new-access-token" });
-    });
-
-    const result = await getAccessToken("https://example.com", "", "zh");
-
-    expect(result).toBe("new-access-token");
-    expect(typeof capturedOpenPage).toBe("function");
-
-    // Test that openPage calls the mock open function
-    await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalled();
-    expect(consoleLogSpy).toHaveBeenCalled();
-  });
-
-  test("should handle createConnect errors", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    mockCreateConnect.mockRejectedValue(new Error("Network error"));
-
-    await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.",
-    );
-  });
-
-  test("should handle ltToken parameter", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-
-    let capturedOpenPage;
-    mockCreateConnect.mockImplementation((options) => {
-      capturedOpenPage = options.openPage;
-      return Promise.resolve({ accessKeySecret: "new-access-token" });
-    });
-
-    await getAccessToken("https://example.com", "lt-token-123");
-
-    expect(typeof capturedOpenPage).toBe("function");
-    await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalled();
-  });
-
-  // GETOFFICIALACCESSTOKEN TESTS
-  describe("getOfficialAccessToken", () => {
-    test("should throw error for missing baseUrl parameter", async () => {
-      await expect(getOfficialAccessToken()).rejects.toThrow(
-        "baseUrl parameter is required for getOfficialAccessToken.",
+      expect(mockCreateConnect).toHaveBeenCalledWith(
+        expect.objectContaining({
+          connectAction: "gen-simple-access-key",
+          source: "AIGNE WebSmith connect to website",
+          closeOnSuccess: true,
+          appName: "AIGNE WebSmith",
+          openPage: expect.any(Function),
+        }),
       );
-      await expect(getOfficialAccessToken("")).rejects.toThrow(
-        "baseUrl parameter is required for getOfficialAccessToken.",
+
+      // Verify environment variable is set
+      expect(process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN).toBe("new-access-token");
+
+      // Verify config file is saved
+      expect(writeFileSpy).toHaveBeenCalledWith(
+        "/mock/home/.aigne/web-smith-connected.yaml",
+        "mock yaml",
+      );
+      expect(stringifySpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          "example.com": {
+            WEB_SMITH_PUBLISH_ACCESS_TOKEN: "new-access-token",
+          },
+        }),
       );
     });
 
-    test("should return access token from environment variable", async () => {
-      process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "env-official-token";
+    test("should create .aigne directory if it doesn't exist", async () => {
+      getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+      existsSyncSpy.mockReturnValueOnce(false); // .aigne directory doesn't exist
 
-      const result = await getOfficialAccessToken("https://example.com");
+      const result = await getAccessToken("https://example.com");
 
-      expect(result).toBe("env-official-token");
+      expect(result).toBe("new-access-token");
+      expect(mkdirSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne", { recursive: true });
     });
 
-    test("should handle different URL formats", async () => {
-      process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "test-official-token";
+    test("should call openPage function with correct URL and locale", async () => {
+      getComponentMountPointSpy.mockResolvedValue("/payment-mount");
 
-      const urls = [
-        "https://example.com",
-        "http://example.com",
-        "https://example.com:8080",
-        "https://sub.example.com/path",
-      ];
-
-      for (const url of urls) {
-        const result = await getOfficialAccessToken(url);
-        expect(result).toBe("test-official-token");
-      }
-    });
-
-    test("should handle invalid URL", async () => {
-      process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "test-official-token";
-
-      await expect(getOfficialAccessToken("invalid-url")).rejects.toThrow();
-    });
-
-    test("should work with localhost URLs", async () => {
-      process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "local-official-token";
-
-      const result = await getOfficialAccessToken("http://localhost:3000");
-
-      expect(result).toBe("local-official-token");
-    });
-
-    test("should read access token from config file", async () => {
-      existsSyncSpy.mockReturnValue(true);
-      readFileSpy.mockResolvedValue(`WEB_SMITH_PUBLISH_ACCESS_TOKEN: config-official-token`);
-      parseSpy.mockReturnValue({
-        "example.com": {
-          WEB_SMITH_PUBLISH_ACCESS_TOKEN: "config-official-token",
-        },
+      let capturedOpenPage;
+      mockCreateConnect.mockImplementation((options) => {
+        capturedOpenPage = options.openPage;
+        return Promise.resolve({ accessKeySecret: "new-access-token" });
       });
 
-      const result = await getOfficialAccessToken("https://example.com");
+      const result = await getAccessToken("https://example.com", "", "zh");
 
-      expect(result).toBe("config-official-token");
+      expect(result).toBe("new-access-token");
+      expect(typeof capturedOpenPage).toBe("function");
+
+      // Test that openPage calls the mock open function
+      await capturedOpenPage("https://auth.example.com");
+      expect(mockOpen).toHaveBeenCalled();
+      expect(consoleLogSpy).toHaveBeenCalled();
     });
 
-    test("should return undefined when openPage is false and no token found", async () => {
-      const result = await getOfficialAccessToken("https://example.com", false);
+    test("should handle createConnect errors", async () => {
+      getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+      mockCreateConnect.mockRejectedValue(new Error("Network error"));
 
-      expect(result).toBeUndefined();
-      expect(mockCreateConnect).not.toHaveBeenCalled();
-    });
-
-  test("should successfully complete authorization flow", async () => {
-    // Mock getComponentMountPoint for the short URL generation in openPage
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-
-    const result = await getOfficialAccessToken("https://example.com");
-
-    expect(result).toBe("new-access-token");
-
-    // Verify the authorization flow
-    expect(mockCreateConnect).toHaveBeenCalledWith(
-      expect.objectContaining({
-        connectAction: "gen-simple-access-key",
-        source: "AIGNE WebSmith connect to official service",
-        closeOnSuccess: true,
-        appName: "AIGNE WebSmith",
-        openPage: expect.any(Function),
-      }),
-    );
-
-    // Verify config file is saved
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      "/mock/home/.aigne/web-smith-connected.yaml",
-      "mock yaml",
-    );
-    expect(stringifySpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        "example.com": {
-          WEB_SMITH_PUBLISH_ACCESS_TOKEN: "new-access-token",
-        },
-      }),
-    );
-  });
-
-  test("should create .aigne directory if it doesn't exist", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    existsSyncSpy.mockReturnValueOnce(false); // .aigne directory doesn't exist
-
-    const result = await getOfficialAccessToken("https://example.com");
-
-    expect(result).toBe("new-access-token");
-    expect(mkdirSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne", { recursive: true });
-  });
-
-  test("should call openPage function with correct behavior and locale", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    let capturedOpenPage;
-    mockCreateConnect.mockImplementation((options) => {
-      capturedOpenPage = options.openPage;
-      return Promise.resolve({ accessKeySecret: "new-access-token" });
-    });
-
-    const result = await getOfficialAccessToken("https://example.com", true, "zh");
-
-    expect(result).toBe("new-access-token");
-    expect(typeof capturedOpenPage).toBe("function");
-
-    // Test that openPage calls the mock open function and logs
-    await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalled();
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "🔗 Please open the following URL in your browser to authorize access: ",
-      expect.any(String),
-      "\n",
-    );
-  });
-
-  test("should handle authorization failure", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
-
-    await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-      "⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.",
-    );
-  });
-
-  test("should handle config file save errors gracefully", async () => {
-    getComponentMountPointSpy.mockResolvedValue("/payment-mount");
-    writeFileSpy.mockRejectedValue(new Error("Write error"));
-
-    const result = await getOfficialAccessToken("https://example.com");
-
-    expect(result).toBe("new-access-token");
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Could not save the token to the configuration file:"),
-      expect.any(Error),
+      await expect(getAccessToken("https://example.com")).rejects.toThrow(
+        "⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.",
       );
     });
+
+    test("should handle ltToken parameter", async () => {
+      getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+
+      let capturedOpenPage;
+      mockCreateConnect.mockImplementation((options) => {
+        capturedOpenPage = options.openPage;
+        return Promise.resolve({ accessKeySecret: "new-access-token" });
+      });
+
+      await getAccessToken("https://example.com", "lt-token-123");
+
+      expect(typeof capturedOpenPage).toBe("function");
+      await capturedOpenPage("https://auth.example.com");
+      expect(mockOpen).toHaveBeenCalled();
+    });
+
+    // GETOFFICIALACCESSTOKEN TESTS
+    describe("getOfficialAccessToken", () => {
+      test("should throw error for missing baseUrl parameter", async () => {
+        await expect(getOfficialAccessToken()).rejects.toThrow(
+          "baseUrl parameter is required for getOfficialAccessToken.",
+        );
+        await expect(getOfficialAccessToken("")).rejects.toThrow(
+          "baseUrl parameter is required for getOfficialAccessToken.",
+        );
+      });
+
+      test("should return access token from environment variable", async () => {
+        process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "env-official-token";
+
+        const result = await getOfficialAccessToken("https://example.com");
+
+        expect(result).toBe("env-official-token");
+      });
+
+      test("should handle different URL formats", async () => {
+        process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "test-official-token";
+
+        const urls = [
+          "https://example.com",
+          "http://example.com",
+          "https://example.com:8080",
+          "https://sub.example.com/path",
+        ];
+
+        for (const url of urls) {
+          const result = await getOfficialAccessToken(url);
+          expect(result).toBe("test-official-token");
+        }
+      });
+
+      test("should handle invalid URL", async () => {
+        process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "test-official-token";
+
+        await expect(getOfficialAccessToken("invalid-url")).rejects.toThrow();
+      });
+
+      test("should work with localhost URLs", async () => {
+        process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN = "local-official-token";
+
+        const result = await getOfficialAccessToken("http://localhost:3000");
+
+        expect(result).toBe("local-official-token");
+      });
+
+      test("should read access token from config file", async () => {
+        existsSyncSpy.mockReturnValue(true);
+        readFileSpy.mockResolvedValue(`WEB_SMITH_PUBLISH_ACCESS_TOKEN: config-official-token`);
+        parseSpy.mockReturnValue({
+          "example.com": {
+            WEB_SMITH_PUBLISH_ACCESS_TOKEN: "config-official-token",
+          },
+        });
+
+        const result = await getOfficialAccessToken("https://example.com");
+
+        expect(result).toBe("config-official-token");
+      });
+
+      test("should return undefined when openPage is false and no token found", async () => {
+        const result = await getOfficialAccessToken("https://example.com", false);
+
+        expect(result).toBeUndefined();
+        expect(mockCreateConnect).not.toHaveBeenCalled();
+      });
+
+      test("should successfully complete authorization flow", async () => {
+        // Mock getComponentMountPoint for the short URL generation in openPage
+        getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+
+        const result = await getOfficialAccessToken("https://example.com");
+
+        expect(result).toBe("new-access-token");
+
+        // Verify the authorization flow
+        expect(mockCreateConnect).toHaveBeenCalledWith(
+          expect.objectContaining({
+            connectAction: "gen-simple-access-key",
+            source: "AIGNE WebSmith connect to official service",
+            closeOnSuccess: true,
+            appName: "AIGNE WebSmith",
+            openPage: expect.any(Function),
+          }),
+        );
+
+        // Verify config file is saved
+        expect(writeFileSpy).toHaveBeenCalledWith(
+          "/mock/home/.aigne/web-smith-connected.yaml",
+          "mock yaml",
+        );
+        expect(stringifySpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            "example.com": {
+              WEB_SMITH_PUBLISH_ACCESS_TOKEN: "new-access-token",
+            },
+          }),
+        );
+      });
+
+      test("should create .aigne directory if it doesn't exist", async () => {
+        getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+        existsSyncSpy.mockReturnValueOnce(false); // .aigne directory doesn't exist
+
+        const result = await getOfficialAccessToken("https://example.com");
+
+        expect(result).toBe("new-access-token");
+        expect(mkdirSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne", { recursive: true });
+      });
+
+      test("should call openPage function with correct behavior and locale", async () => {
+        getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+        let capturedOpenPage;
+        mockCreateConnect.mockImplementation((options) => {
+          capturedOpenPage = options.openPage;
+          return Promise.resolve({ accessKeySecret: "new-access-token" });
+        });
+
+        const result = await getOfficialAccessToken("https://example.com", true, "zh");
+
+        expect(result).toBe("new-access-token");
+        expect(typeof capturedOpenPage).toBe("function");
+
+        // Test that openPage calls the mock open function and logs
+        await capturedOpenPage("https://auth.example.com");
+        expect(mockOpen).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalledWith(
+          "🔗 Please open the following URL in your browser to authorize access: ",
+          expect.any(String),
+          "\n",
+        );
+      });
+
+      test("should handle authorization failure", async () => {
+        getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+        mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
+
+        await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
+          "⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.",
+        );
+      });
+
+      test("should handle config file save errors gracefully", async () => {
+        getComponentMountPointSpy.mockResolvedValue("/payment-mount");
+        writeFileSpy.mockRejectedValue(new Error("Write error"));
+
+        const result = await getOfficialAccessToken("https://example.com");
+
+        expect(result).toBe("new-access-token");
+        expect(consoleWarnSpy).toHaveBeenCalledWith(
+          expect.stringContaining("Could not save the token to the configuration file:"),
+          expect.any(Error),
+        );
+      });
+    });
   });
 });
-
-});
-

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-16T02:16:14.257Z
+  updateAt: 2025-11-17T09:17:17.082Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -715,6 +715,189 @@ composite:
               mediaKitUrl: <%= splitHeroWithBgColorImage %>
           nch5frsfoap2lw33:
             value: true
+  - id: a4zqy14zvpa1bzl7
+    name: Central Hero Without Image
+    summary: >-
+      Structure (top → bottom)
+
+      - Headline (1 lines, centered)
+
+      - Subtitle (1 line, centered)
+
+      - Description (1–2 lines, centered)
+
+      - Primary CTA (with solid background) and Secondary CTA (with outline,
+      optional) (stacked or side-by-side, centered)
+
+      - Background with a gradient or solid color
+
+
+      Use when
+
+      - You want a fast “one message + one or two actions” component.
+
+      - The content is a core message, such as a product announcement, feature
+      highlight, or call to sign up/download.
+
+      - You need a simple, centered layout that works well across different
+      screen sizes.
+
+      - You want to draw attention to the action buttons immediately following
+      the text.
+
+
+      Constraint
+
+      - Text content for the Headline, Subtitle, and Description must be concise
+      to maintain the component's clean and centered aesthetic.
+
+      - Ensure the Primary and Secondary CTAs have sufficient contrast, and the
+      Secondary CTA should visually be less prominent than the Primary CTA.
+
+      Copy length:
+        - `centralHeroWithoutImageTitle` ≤ 40 characters
+        - `centralHeroWithoutImageSubTitle` ≤ 60 characters
+        - `centralHeroWithoutImageDescription` ≤ 160 characters
+    fieldCombinations:
+      - centralHeroWithoutImageActions.1.link
+      - centralHeroWithoutImageActions.1.text
+      - centralHeroWithoutImageDescription
+      - centralHeroWithoutImageSubTitle
+      - centralHeroWithoutImageTitle
+      - splitHeroWithBgColorActions.0.link
+      - splitHeroWithBgColorActions.0.text
+    section:
+      id: 47s2nbxmghffigj5
+      name: Central Hero Without Image
+      component: layout-block
+      sections:
+        s845vi5cm966xm22:
+          id: s845vi5cm966xm22
+          name: Text
+          component: layout-block
+          sections:
+            audjmmetqzd1hm3k:
+              id: audjmmetqzd1hm3k
+              name: Action
+              component: custom-component
+              config:
+                componentId: a44r0SiGV9AFn2Fj
+            h3j9cf78lhljrpqt:
+              id: h3j9cf78lhljrpqt
+              name: Title
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            ki2fjnys4atn2zbc:
+              id: ki2fjnys4atn2zbc
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+          sectionIds:
+            - h3j9cf78lhljrpqt
+            - ki2fjnys4atn2zbc
+            - audjmmetqzd1hm3k
+          config:
+            gridSettings:
+              desktop:
+                audjmmetqzd1hm3k:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+                h3j9cf78lhljrpqt:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                ki2fjnys4atn2zbc:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+            gap: normal
+      sectionIds:
+        - s845vi5cm966xm22
+      config:
+        gap: large
+        paddingY: large
+        gridSettings:
+          desktop:
+            s845vi5cm966xm22:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+        background: auto
+        backgroundFullWidth: true
+    dataSource:
+      47s2nbxmghffigj5: {}
+      s845vi5cm966xm22: {}
+      h3j9cf78lhljrpqt:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= centralHeroWithoutImageTitle %>
+              style:
+                fontSize: '{ "xs": 40, "md": 48 }'
+                variant: h1
+      ki2fjnys4atn2zbc:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= centralHeroWithoutImageSubTitle %>
+              style:
+                variant: h3
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1762479137883-x8lbuyqv9
+                  type: text
+                  text: <%= centralHeroWithoutImageDescription %>
+                  style:
+                    color: ""
+                    fontSize: '{ "xs": 18, "md": 20}'
+                    variant: body1
+      audjmmetqzd1hm3k:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          v9979xeclpsbvn0n:
+            value: center
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= splitHeroWithBgColorActions.0.text %>
+                url: <%= splitHeroWithBgColorActions.0.link %>
+                variant: contained
+                size: xlarge
+                target: auto
+                needLogin: false
+              - type: link
+                text: <%= centralHeroWithoutImageActions.1.text %>
+                url: <%= centralHeroWithoutImageActions.1.link %>
+                color: "linear-gradient(180.12deg, #B6FFFA -82.67%, #0B71FF 99.89%)"
+                borderColor: primary.main
+                variant: outlined
+                size: xlarge
+                target: auto
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1762502505551-trhusl31k
   - id: 2d3dmx7f4b4obr8q
     name: Layout 1 Column Grid (Center)
     summary: >-
@@ -915,6 +1098,36 @@ composite:
                   y: 1
                   w: 12
                   h: 1
+                9vanw79uwprb0kj3:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+                ujh5fvt5kt2uhx47:
+                  x: 0
+                  y: 3
+                  w: 12
+                  h: 1
+                ywl8rjk5yfvu46ii:
+                  x: 0
+                  y: 4
+                  w: 12
+                  h: 1
+                6glgvjj0v96hkgks:
+                  x: 0
+                  y: 5
+                  w: 12
+                  h: 1
+                vo9u6y2mga2wpian:
+                  x: 0
+                  y: 6
+                  w: 12
+                  h: 1
+                bu7h3s2m4pelwa7k:
+                  x: 0
+                  y: 7
+                  w: 12
+                  h: 1
             gap: large
             paddingY: large
       sectionIds:
@@ -1040,6 +1253,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
+                paddingX: custom:32px
+                paddingY: custom:32px
             tbznv9zxoja1ujbl:
               id: tbznv9zxoja1ujbl
               name: <%= list.2 %>
@@ -1052,6 +1267,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
+                paddingX: custom:32px
+                paddingY: custom:32px
             tka05pvcp8jkelu6:
               id: tka05pvcp8jkelu6
               name: <%= list.3 %>
@@ -1064,6 +1281,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
+                paddingY: custom:32px
+                paddingX: custom:32px
           sectionIds:
             - o5ocwpdzw2vump86
             - kvstnnswcwz9s1y6

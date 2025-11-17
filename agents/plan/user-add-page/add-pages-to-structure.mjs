@@ -3,8 +3,9 @@ import { printWebsiteStructure } from "../../../utils/website-structure-utils.mj
 
 export default async function addPagesToStructure(input = {}, options = {}) {
   const { originalWebsiteStructure = [] } = input;
-  const analyzeFeedbackIntentAgent = options.context?.agents?.["analyzeFeedbackIntent"];
-  const updateWebsiteStructureAgent = options.context?.agents?.["updateWebsiteStructure"];
+  const analyzeStructureFeedbackIntent =
+    options.context?.agents?.["analyzeStructureFeedbackIntent"];
+  const updateWebsiteStructure = options.context?.agents?.["updateWebsiteStructure"];
   const allFeedback = [];
   let currentStructure = [...originalWebsiteStructure];
   let isFirstAdd = true;
@@ -35,7 +36,7 @@ export default async function addPagesToStructure(input = {}, options = {}) {
 
     try {
       // validate feedback
-      const { intentType } = await options.context.invoke(analyzeFeedbackIntentAgent, {
+      const { intentType } = await options.context.invoke(analyzeStructureFeedbackIntent, {
         feedback,
       });
 
@@ -51,7 +52,7 @@ export default async function addPagesToStructure(input = {}, options = {}) {
       const allApplicableRules = [...structureRules, ...globalRules];
       const userPreferences = allApplicableRules.map((rule) => rule.rule).join("\n\n");
 
-      await options.context.invoke(updateWebsiteStructureAgent, {
+      await options.context.invoke(updateWebsiteStructure, {
         ...input,
         feedback,
         websiteStructure: currentStructure,

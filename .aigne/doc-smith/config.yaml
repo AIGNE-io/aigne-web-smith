@@ -95,9 +95,8 @@ sourcesPath: # Source code paths to analyze
   - ./agents
   - ./assets/documents/special-components
   - ./assets/documents/quality-website-methodology.md
-  - ./assets/images/publish-to-paid-service-auth.png
-  - ./assets/images/publish-to-paid-service-checkout.png
-lastGitHead: 3aef2d556f2fdb40ef6ab4538bd7146e580fc5af
+  - ./assets/images
+lastGitHead: c40798ad19bdf3c0d8ed08bbc9f04b70838db039
 appUrl: https://docsmith.aigne.io
 boardId: aigne-web-smith
 # Checkout ID for document deployment service

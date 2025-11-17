@@ -54,6 +54,7 @@ Fix the following section to resolve all validation errors:
 ## Page Context
 - Title: {{pageContext.meta.title}}
 - Description: {{pageContext.meta.description}}
+- Path: {{pageContext.path}}
 
 ---
 

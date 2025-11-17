@@ -138,7 +138,8 @@ agents:
   - ./agents/utils/save-pages.mjs
   - ./agents/utils/save-single-page.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  - ./agents/utils/analyze-feedback-intent.yaml
+  - ./agents/utils/analyze-page-feedback-intent.yaml
+  - ./agents/utils/analyze-structure-feedback-intent.yaml
   - ./agents/utils/navigation-streamline.yaml
   - ./agents/utils/reload-generate-media.mjs
 cli:

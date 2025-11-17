@@ -3,7 +3,7 @@ name: updateWebsiteStructure
 description: Update website structure based on user feedback and intentions using structure modification tools
 task_render_mode: collapse
 skills:
-  - url: ../utils/analyze-feedback-intent.yaml
+  - url: ../utils/analyze-structure-feedback-intent.yaml
   - url: ../utils/map-reasoning-effort-level.mjs
     default_input:
       level: low

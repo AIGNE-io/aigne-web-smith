@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { generateFieldConstraints } from "../../../utils/generate-helper.mjs";
+import { userContextAt } from "../../../utils/retry-utils.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
 import transformDetailDatasources from "../../utils/transform-detail-datasources.mjs";
 
@@ -44,9 +45,11 @@ export default async function addLinksToPages(input = {}, options = {}) {
     throw new Error(`Failed to read page content for ${path}: ${error.message}`);
   }
 
-  // Clear previous tool inputs
-  options.context.userContext.lastToolInputs = {};
-  options.context.userContext.currentPageDetail = pageDetail;
+  // Clear previous tool inputs and set initial page detail
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  lastToolInputsCtx.set({});
+  pageDetailCtx.set(pageDetail);
 
   // Call updatePageDetail to add links
   const detailDataSources = transformDetailDatasources({
@@ -70,7 +73,7 @@ export default async function addLinksToPages(input = {}, options = {}) {
     needDataSources: true,
   });
 
-  const content = options.context.userContext.currentPageDetail;
+  const content = pageDetailCtx.get();
 
   // page data for save
   return {

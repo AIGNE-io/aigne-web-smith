@@ -8,16 +8,18 @@ skills:
   - ../../utils/load-config.mjs
   - ../../utils/load-sources.mjs
   - ./remove-pages-from-structure.mjs
+  - ./find-pages-with-invalid-links.mjs
+  - ./review-pages-with-invalid-links.mjs
   - url: ../../utils/save-output.mjs
     default_input:
       saveKey: websiteStructure
       savePath:
         $get: tmpDir
       fileName: website-structure.yaml
-  - ../../utils/transform-website-structure.yaml
   - ../../utils/format-website-structure.mjs
   - ../../media/load-media-description.mjs
   - ../../generate/page-detail/batch-generate-page-detail.yaml
+  - ../../utils/transform-website-structure.yaml
   - ../../generate/page-detail/load-page-detail.mjs
   - ../../utils/reload-generate-media.mjs
   - type: team
@@ -28,4 +30,5 @@ skills:
     mode: parallel
   - ../../generate/page-data/compose-pages-data.mjs
   - ../../utils/save-pages.mjs
+  - ./print-remove-page-summary.mjs
 mode: sequential

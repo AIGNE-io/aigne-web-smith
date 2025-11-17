@@ -6,7 +6,11 @@ import {
   validateUpdateSectionInput,
 } from "../../../types/page-detail-schema.mjs";
 import { YAML_STRINGIFY_OPTIONS } from "../../../utils/constants.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 import { validateSingleSection } from "../../../utils/utils.mjs";
 
 export default async function updateSection(input, options) {
@@ -26,16 +30,18 @@ export default async function updateSection(input, options) {
     };
   }
 
-  const { name, updates } = validation.data;
+  const { name, updates, path } = validation.data;
   const { componentLibrary } = input;
-  let pageDetail = options.context?.userContext?.currentPageDetail;
+  const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
+  let pageDetail = pageDetailCtx.get();
 
   if (!pageDetail) {
     pageDetail = input.pageDetail;
   }
 
   // Check for duplicate calls by comparing with last input
-  const lastToolInputs = options.context?.userContext?.lastToolInputs || {};
+  const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
+  const lastToolInputs = lastToolInputsCtx.get() || {};
   const currentInput = { name, updates };
 
   if (lastToolInputs.updateSection && isEqual(lastToolInputs.updateSection, currentInput)) {
@@ -158,18 +164,15 @@ export default async function updateSection(input, options) {
   };
 
   const successMessage = `updateSection executed successfully.
-  Successfully updated section '${name}' with properties: ${updateFields.join(", ")}.
+  Successfully updated section '${name}' on page '${path}' with properties: ${updateFields.join(", ")}.
   Check if the latest version of pageDetail meets user feedback, if so, all operations have been successfully executed.`;
 
   const latestPageDetail = YAML.stringify(updatedPageDetail, YAML_STRINGIFY_OPTIONS);
-  // update shared page detail
-  options.context.userContext.currentPageDetail = latestPageDetail;
 
+  // update shared page detail
+  pageDetailCtx.set(latestPageDetail);
   // Save current input to prevent duplicate calls
-  if (!options.context.userContext.lastToolInputs) {
-    options.context.userContext.lastToolInputs = {};
-  }
-  options.context.userContext.lastToolInputs.updateSection = currentInput;
+  lastToolInputsCtx.set("updateSection", currentInput);
 
   return {
     status: "success",

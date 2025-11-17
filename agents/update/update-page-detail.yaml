@@ -3,7 +3,7 @@ name: updatePageDetail
 description: Update page detail content based on user feedback and intentions using content modification tools
 task_render_mode: collapse
 skills:
-  - url: ../utils/analyze-feedback-intent.yaml
+  - url: ../utils/analyze-page-feedback-intent.yaml
   - url: ../utils/map-reasoning-effort-level.mjs
     default_input:
       level: low

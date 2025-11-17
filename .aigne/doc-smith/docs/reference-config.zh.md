@@ -913,7 +913,7 @@ cp config-backup-20240101.yaml .aigne/web-smith/config.yaml
 ## 相关指南
 
 <x-cards>
-  <x-card data-title="故障排除" data-icon="lucide:wrench" data-href="./reference-trouble-shooting">
+  <x-card data-title="问题排查" data-icon="lucide:wrench" data-href="./reference-trouble-shooting">
     配置、生成、发布和翻译的常见问题解决方案。包含错误消息、原因和详细修复步骤。
   </x-card>
   <x-card data-title="准备素材" data-icon="lucide:folder-check" data-href="./reference-prepare-materials">

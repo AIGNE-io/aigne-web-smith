@@ -14,7 +14,7 @@
   <x-card data-title="準備素材" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">
     一個可重複的流程，用於收集簡報、原始文件和證據，以便 WebSmith 能夠生成準確、高品質的頁面。
   </x-card>
-  <x-card data-title="故障排除" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">
+  <x-card data-title="問題排查" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">
     針對配置、生成、發佈和翻譯的常見問題的解決方案。包含錯誤訊息、原因和逐步修復指南。
   </x-card>
 </x-cards>

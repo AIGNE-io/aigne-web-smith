@@ -148,7 +148,7 @@ const validateProjectFn = async ({ appUrl, accessToken, projectData }) => {
   headers.append("Authorization", `Bearer ${accessToken}`);
   headers.append("Content-Type", "application/json");
 
-  const response = await fetch(joinURL(appUrl || "/", "/api/sdk/project/validate"), {
+  const response = await fetch(joinURL(appUrl, "/api/sdk/project/validate"), {
     method: "POST",
     headers,
     body: JSON.stringify({ projectData }),
@@ -217,7 +217,7 @@ export default async function publishWebsite(
 
     // ----------------- main publish process flow -----------------------------
     const useEnvAppUrl = !!(
-      process.env.DOC_SMITH_PUBLISH_URL ||
+      process.env.WEB_SMITH_PUBLISH_URL ||
       process.env.PAGES_KIT_URL ||
       appUrl
     );
@@ -225,7 +225,7 @@ export default async function publishWebsite(
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
     appUrl = normalizeAppUrl(
-      process.env.DOC_SMITH_PUBLISH_URL || process.env.PAGES_KIT_URL || appUrl || config?.appUrl,
+      process.env.WEB_SMITH_PUBLISH_URL || process.env.PAGES_KIT_URL || appUrl || config?.appUrl,
     );
     const hasInputAppUrl = !!appUrl;
 

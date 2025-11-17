@@ -194,7 +194,7 @@ describe("publish-website", () => {
     // Clear environment variables
     delete process.env.PAGES_KIT_URL;
     delete process.env.PAGES_ROOT_DIR;
-    delete process.env.DOC_SMITH_PUBLISH_URL;
+    delete process.env.WEB_SMITH_PUBLISH_URL;
     delete process.env.WEB_SMITH_BASE_URL;
   });
 

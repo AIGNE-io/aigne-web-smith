@@ -23,6 +23,8 @@ export class ComponentNotFoundError extends Error {
   }
 }
 
+const BLOCKLET_INFO_CACHE = {};
+
 /**
  * Get blocklet configuration from the application URL
  * @param {string} appUrl - Application URL
@@ -31,6 +33,19 @@ export class ComponentNotFoundError extends Error {
 export async function getBlockletConfig(appUrl) {
   const url = new URL(appUrl);
   const blockletJsUrl = `${url.origin}/__blocklet__.js?type=json`;
+
+  const cacheInfo = BLOCKLET_INFO_CACHE[appUrl];
+
+  // Cache for 10 min
+  if (cacheInfo) {
+    if (Date.now() > cacheInfo.__blocklet_info_cache_timestamp + 1000 * 60 * 10) {
+      delete BLOCKLET_INFO_CACHE[appUrl];
+    } else {
+      // Return a copy without the cache timestamp
+      const { __blocklet_info_cache_timestamp, ...config } = cacheInfo;
+      return config;
+    }
+  }
 
   let blockletJs;
   try {

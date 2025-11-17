@@ -161,7 +161,9 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
             }),
           );
           const data = await response.json();
-          finalUrl = data.url;
+          if (data.url) {
+            finalUrl = data.url;
+          }
         } catch {
           // Ignore error
         }
@@ -246,7 +248,9 @@ export async function getOfficialAccessToken(baseUrl, openPage = true, locale = 
             }),
           );
           const data = await response.json();
-          finalUrl = data.url;
+          if (data.url) {
+            finalUrl = data.url;
+          }
         } catch {
           // Ignore error
         }

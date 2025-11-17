@@ -14,11 +14,11 @@ const SUCCESS_MESSAGE = {
 /**
  * Deploy a new website for your pages and return the installation URL
  * @param {string} id - Cached checkout ID (optional)
- * @param {string} cachedUrl - Cached payment URL (optional)
+ * @param {string} locale - preferred locale
  * @returns {Promise<Object>} - The deployment result with URLs
  */
-export async function deploy(id, cachedUrl) {
-  const authToken = await getOfficialAccessToken(BASE_URL);
+export async function deploy(id, locale) {
+  const authToken = await getOfficialAccessToken(BASE_URL, true, locale);
 
   if (!authToken) {
     throw new Error("Failed to get official access token");
@@ -34,7 +34,6 @@ export async function deploy(id, cachedUrl) {
 
   const result = await client.deploy({
     cachedCheckoutId: id,
-    cachedPaymentUrl: cachedUrl,
     needShortUrl: true,
     pageInfo: { successMessage: SUCCESS_MESSAGE },
     hooks: {
@@ -76,7 +75,7 @@ export async function deploy(id, cachedUrl) {
     },
   });
 
-  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors, sessionId } = result;
+  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors, sessionId, data } = result;
 
   const token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
 
@@ -87,5 +86,6 @@ export async function deploy(id, cachedUrl) {
     subscriptionUrl,
     token,
     sessionId,
+    data,
   };
 }

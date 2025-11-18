@@ -1293,7 +1293,6 @@ export default async function composePagesData(input) {
 
     return { ...input, allPagesKitYaml };
   } catch (e) {
-    log(e);
     logError("❌ [composePagesData] error:", {
       error: e?.message,
     });

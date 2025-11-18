@@ -571,13 +571,25 @@ function instantiateComponentTemplate({ component, sectionData, sectionIndex, pa
     }
   });
 
-  const prunedSectionIds = [];
+  let prunedSectionIds = [];
+  let allPlaceholdersNotFilled = true;
   Object.entries(transformedDataSource).forEach(([sectionId]) => {
     const stats = placeholderStatsById.get(sectionId);
     if (stats && stats.placeholders > 0 && stats.filled === 0) {
       prunedSectionIds.push(sectionId);
     }
+
+    if (stats && stats.placeholders > 0 && stats.filled > 0) {
+      allPlaceholdersNotFilled = false;
+    }
   });
+
+  // If all placeholders in the section are not filled, delete the entire section
+  if (allPlaceholdersNotFilled) {
+    // Remove all sections to delete the entire section
+    prunedSectionIds = [...clonedSection.sectionIds];
+    log("🔎 [instantiateComponentTemplate] all placeholders not filled, pruned all section");
+  }
 
   prunedSectionIds.forEach((sectionId) => {
     const removed = pruneSectionById(clonedSection, sectionId);

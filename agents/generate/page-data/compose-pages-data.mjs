@@ -692,7 +692,8 @@ function pruneEmptyLayoutBlocks(section) {
       child.sections &&
       typeof child.sections === "object" &&
       Object.keys(child.sections).length > 0;
-    // 判断 child.name 是否匹配 "<%= xxx.yyy %>" 格式，例如 "<%= list.0 %>"
+
+    // Do not process sections with placeholders
     const childIsPlaceholder =
       typeof child.name === "string" && /^<%=\s*[\w.-]+\s*%>$/.test(child.name);
     const isEmptyLayout =

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.3...v1.8.0-beta.4) (2025-11-18)
+
+
+### Features
+
+* add new Central Hero Without Image component ([#255](https://github.com/AIGNE-io/aigne-web-smith/issues/255)) ([0d4ca9c](https://github.com/AIGNE-io/aigne-web-smith/commit/0d4ca9c0cc626ca8fb88614a53778736acecad20))
+* replace description fields with descriptionList in feature components ([#257](https://github.com/AIGNE-io/aigne-web-smith/issues/257)) ([e489226](https://github.com/AIGNE-io/aigne-web-smith/commit/e4892263afcea93ec1456c96e0118dd5f5ae0ffc))
+
 ## [1.8.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.2...v1.8.0-beta.3) (2025-11-17)
 
 

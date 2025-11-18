@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-18T11:06:29.516Z
+  updateAt: 2025-11-18T11:20:57.704Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2366,6 +2366,7 @@ composite:
       - list.0
       - list.1
       - list.2
+      - list.3
     section:
       id: nfa6vr0ia6wxfcmz
       name: Feature Right Image
@@ -2412,10 +2413,18 @@ composite:
                   sections: {}
                   sectionIds: []
                   config: {}
+                v0u4hr7p6xzk7hxe:
+                  id: v0u4hr7p6xzk7hxe
+                  name: <%= list.3 %>
+                  component: layout-block
+                  sections: {}
+                  sectionIds: []
+                  config: {}
               sectionIds:
                 - jcqtx6qz5w1g4c71
                 - q2iwrct5yrk4y089
                 - c9i566fjuflikcf3
+                - v0u4hr7p6xzk7hxe
               config:
                 gridSettings:
                   desktop:
@@ -2432,6 +2441,11 @@ composite:
                     c9i566fjuflikcf3:
                       x: 0
                       y: 2
+                      w: 12
+                      h: 1
+                    v0u4hr7p6xzk7hxe:
+                      x: 0
+                      y: 3
                       w: 12
                       h: 1
                 gap: small
@@ -2560,6 +2574,7 @@ composite:
       jcqtx6qz5w1g4c71: {}
       q2iwrct5yrk4y089: {}
       c9i566fjuflikcf3: {}
+      v0u4hr7p6xzk7hxe: {}
   - id: o7e2pqrfjfeoemkp
     name: Feature Left Image
     summary: >-
@@ -2597,6 +2612,7 @@ composite:
       - list.0
       - list.1
       - list.2
+      - list.3
     section:
       id: nfa6vr0ia6wxfcmz
       name: Feature Left Image
@@ -2643,10 +2659,18 @@ composite:
                   sections: {}
                   sectionIds: []
                   config: {}
+                hxgdyahr3ecktqao:
+                  id: hxgdyahr3ecktqao
+                  name: <%= list.3 %>
+                  component: layout-block
+                  sections: {}
+                  sectionIds: []
+                  config: {}
               sectionIds:
                 - 40rgoqgjtdf36fhi
                 - zqrjcr7zuhskvu4s
                 - e7h2qb9th2dmh2z3
+                - hxgdyahr3ecktqao
               config:
                 gridSettings:
                   desktop:
@@ -2663,6 +2687,11 @@ composite:
                     e7h2qb9th2dmh2z3:
                       x: 0
                       y: 2
+                      w: 12
+                      h: 1
+                    hxgdyahr3ecktqao:
+                      x: 0
+                      y: 3
                       w: 12
                       h: 1
                 gap: small
@@ -2791,6 +2820,7 @@ composite:
       40rgoqgjtdf36fhi: {}
       zqrjcr7zuhskvu4s: {}
       e7h2qb9th2dmh2z3: {}
+      hxgdyahr3ecktqao: {}
   - id: lenvbk7w4t5bypyr
     name: Feature Right With ScreenShot
     summary: >-
@@ -2845,6 +2875,7 @@ composite:
       - list.0
       - list.1
       - list.2
+      - list.3
       - screenShotBackground
     section:
       id: nfa6vr0ia6wxfcmz
@@ -2892,10 +2923,18 @@ composite:
                   sections: {}
                   sectionIds: []
                   config: {}
+                496s76lson3b7yo9:
+                  id: 496s76lson3b7yo9
+                  name: <%= list.3 %>
+                  component: layout-block
+                  sections: {}
+                  sectionIds: []
+                  config: {}
               sectionIds:
                 - psp774uj86r6ofg4
                 - eh16vc5liv8f7zzq
                 - 49bz744q6u79u4z1
+                - 496s76lson3b7yo9
               config:
                 gridSettings:
                   desktop:
@@ -2912,6 +2951,11 @@ composite:
                     49bz744q6u79u4z1:
                       x: 0
                       y: 2
+                      w: 12
+                      h: 1
+                    496s76lson3b7yo9:
+                      x: 0
+                      y: 3
                       w: 12
                       h: 1
                 gap: small
@@ -3060,6 +3104,7 @@ composite:
       psp774uj86r6ofg4: {}
       eh16vc5liv8f7zzq: {}
       49bz744q6u79u4z1: {}
+      496s76lson3b7yo9: {}
   - id: btwto93p8zq491om
     name: Feature Left With ScreenShot
     summary: >-
@@ -3114,6 +3159,7 @@ composite:
       - list.0
       - list.1
       - list.2
+      - list.3
       - screenShotBackground
     section:
       id: nfa6vr0ia6wxfcmz
@@ -3161,10 +3207,18 @@ composite:
                   sections: {}
                   sectionIds: []
                   config: {}
+                ja9sfk80z6pim7qk:
+                  id: ja9sfk80z6pim7qk
+                  name: <%= list.3 %>
+                  component: layout-block
+                  sections: {}
+                  sectionIds: []
+                  config: {}
               sectionIds:
                 - tmxdymm1a8im07lf
                 - ulb581tm2u3z4ibu
                 - vs77pyhv0t84xoyr
+                - ja9sfk80z6pim7qk
               config:
                 gridSettings:
                   desktop:
@@ -3181,6 +3235,11 @@ composite:
                     vs77pyhv0t84xoyr:
                       x: 0
                       y: 2
+                      w: 12
+                      h: 1
+                    ja9sfk80z6pim7qk:
+                      x: 0
+                      y: 3
                       w: 12
                       h: 1
                 gap: small
@@ -3329,6 +3388,7 @@ composite:
       tmxdymm1a8im07lf: {}
       ulb581tm2u3z4ibu: {}
       vs77pyhv0t84xoyr: {}
+      ja9sfk80z6pim7qk: {}
   - id: qzm2hja7n4ibuy4v
     name: Description Item
     summary: >

@@ -278,28 +278,6 @@ function formatFieldValue(key, value, indent = "") {
 }
 
 const fieldMappings = [
-  // Media related
-  { pattern: "image", display: "🖼️ Image" },
-  { pattern: "img", display: "🖼️ Image" },
-  { pattern: "picture", display: "🖼️ Image" },
-  { pattern: "photo", display: "🖼️ Photo" },
-  { pattern: "video", display: "🎥 Video" },
-  { pattern: "audio", display: "🔊 Audio" },
-
-  // Interactive elements
-  { pattern: "actionLink", display: "🔗 Link" },
-  { pattern: "actionTitle", display: "🔘 Action" },
-  { pattern: "action", display: "🔘 Action" },
-  { pattern: "button", display: "🔘 Button" },
-  { pattern: "link", display: "🔗 Link" },
-  { pattern: "url", display: "🔗 URL" },
-  { pattern: "href", display: "🔗 Link" },
-
-  // List related
-  { pattern: "list", display: "List" },
-  { pattern: "items", display: "Items" },
-  { pattern: "options", display: "Options" },
-
   // Title related - ordered by priority
   { pattern: "subTitle", display: "SubTitle" },
   { pattern: "title", display: "Title" },
@@ -312,6 +290,28 @@ const fieldMappings = [
   { pattern: "content", display: "Content" },
   { pattern: "text", display: "Text" },
   { pattern: "body", display: "Content" },
+
+  // Interactive elements
+  { pattern: "actionLink", display: "🔗 Link" },
+  { pattern: "actionTitle", display: "🔘 Action" },
+  { pattern: "action", display: "🔘 Action" },
+  { pattern: "button", display: "🔘 Button" },
+  { pattern: "link", display: "🔗 Link" },
+  { pattern: "url", display: "🔗 URL" },
+  { pattern: "href", display: "🔗 Link" },
+
+  // Media related
+  { pattern: "image", display: "🖼️ Image" },
+  { pattern: "img", display: "🖼️ Image" },
+  { pattern: "picture", display: "🖼️ Image" },
+  { pattern: "photo", display: "🖼️ Photo" },
+  { pattern: "video", display: "🎥 Video" },
+  { pattern: "audio", display: "🔊 Audio" },
+
+  // List related
+  { pattern: "list", display: "List" },
+  { pattern: "items", display: "Items" },
+  { pattern: "options", display: "Options" },
 
   // Code related
   { pattern: "code", display: "💻 Code" },

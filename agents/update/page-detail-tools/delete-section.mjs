@@ -45,6 +45,7 @@ export default async function deleteSection(input, options) {
 
   if (lastToolInputs.deleteSection && isEqual(lastToolInputs.deleteSection, currentInput)) {
     const errorMessage = `Cannot delete section: This operation has already been processed. Please do not call deleteSection again with the same parameters.`;
+    handleFailure(options);
     return {
       status: "error",
       pageDetail,

@@ -44,6 +44,7 @@ export default async function updateMeta(input, options) {
 
   if (lastToolInputs.updateMeta && isEqual(lastToolInputs.updateMeta, currentInput)) {
     const errorMessage = `Cannot update meta: This operation has already been processed. Please do not call updateMeta again with the same parameters.`;
+    handleFailure(options);
     return {
       status: "error",
       pageDetail,

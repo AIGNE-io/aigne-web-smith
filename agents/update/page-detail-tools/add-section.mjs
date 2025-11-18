@@ -47,6 +47,7 @@ export default async function addSection(input, options) {
 
   if (lastToolInputs.addSection && isEqual(lastToolInputs.addSection, currentInput)) {
     const errorMessage = `Cannot add section: This operation has already been processed. Please do not call addSection again with the same parameters.`;
+    handleFailure(options);
     return {
       status: "error",
       pageDetail,

@@ -44,6 +44,7 @@ export default async function moveSection(input, options) {
 
   if (lastToolInputs.moveSection && isEqual(lastToolInputs.moveSection, currentInput)) {
     const errorMessage = `Cannot move section: This operation has already been processed. Please do not call moveSection again with the same parameters.`;
+    handleFailure(options);
     return {
       status: "error",
       pageDetail,

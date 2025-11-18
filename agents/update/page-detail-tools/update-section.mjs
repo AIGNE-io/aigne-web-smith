@@ -46,6 +46,7 @@ export default async function updateSection(input, options) {
 
   if (lastToolInputs.updateSection && isEqual(lastToolInputs.updateSection, currentInput)) {
     const errorMessage = `Cannot update section: This operation has already been processed. Please do not call updateSection again with the same parameters.`;
+    handleFailure(options);
     return {
       status: "error",
       pageDetail,

@@ -679,6 +679,9 @@ function pruneEmptyLayoutBlocks(section) {
     const child = section.sections?.[childId];
     if (!child) {
       cleanupLayoutConfig(section.config, childId);
+      log("🔎 [pruneEmptyLayoutBlocks] child not found:", {
+        childId,
+      });
       return;
     }
 
@@ -689,10 +692,17 @@ function pruneEmptyLayoutBlocks(section) {
       child.sections &&
       typeof child.sections === "object" &&
       Object.keys(child.sections).length > 0;
-    const isEmptyLayout = isLayoutBlock(child) && !childHasIds && !childHasSections;
+    // 判断 child.name 是否匹配 "<%= xxx.yyy %>" 格式，例如 "<%= list.0 %>"
+    const childIsPlaceholder =
+      typeof child.name === "string" && /^<%=\s*[\w.-]+\s*%>$/.test(child.name);
+    const isEmptyLayout =
+      isLayoutBlock(child) && !childHasIds && !childHasSections && !childIsPlaceholder;
 
     if (isEmptyLayout) {
       cleanupLayoutConfig(section.config, childId);
+      log("🔎 [pruneEmptyLayoutBlocks] child is empty layout block:", {
+        childId,
+      });
       return;
     }
 
@@ -769,11 +779,11 @@ function replaceSlotWithChild(slot, childSection) {
   childSection.name = `${parent.name}-${position + 1}`;
 
   // 4) 处理 childSection.config 的内容，需要复用 placeholderNode config 的部分内容，保证整体的一致性
-  if (childSection.config) {
+  if (childSection?.config) {
     childSection.config = {
       ...childSection.config,
       // 这些 key 是跟 list 布局相关的，其它的都会影响到内容本身，所以不能 pick
-      ..._.pick(placeholderNode.config, KEEP_CONFIG_KEYS),
+      ..._.pick(placeholderNode?.config || {}, KEEP_CONFIG_KEYS),
     };
   }
 
@@ -1056,231 +1066,238 @@ export default async function composePagesData(input) {
     outputDir,
     tmpDir,
   } = input;
-
-  /* c8 ignore next */
-  log("🔧 [composePagesData] start:", {
-    pagesDir,
-    components: componentLibrary?.length || 0,
-    locale,
-    translateLanguages,
-  });
-
-  const allPagesKitYaml = [];
-  const fileDataMap = new Map();
-
-  if (Array.isArray(middleFormatFiles)) {
-    // 组装多语言处理队列
-    const filesToProcess = [
-      ...middleFormatFiles.map((f) => ({ ...f, language: locale, isMainLanguage: true })),
-      ...(translateLanguages && tmpDir
-        ? translateLanguages.flatMap((lang) =>
-            middleFormatFiles.map((f) => ({
-              filePath: f.filePath,
-              content: null,
-              language: lang,
-              isMainLanguage: false,
-            })),
-          )
-        : []),
-    ];
-
+  try {
     /* c8 ignore next */
-    log("📚 [composePagesData] filesToProcess:", {
-      count: filesToProcess.length,
-      main: filesToProcess.filter((f) => f.isMainLanguage).length,
-      i18n: filesToProcess.filter((f) => !f.isMainLanguage).length,
+    log("🔧 [composePagesData] start:", {
+      pagesDir,
+      components: componentLibrary?.length || 0,
+      locale,
+      translateLanguages,
     });
 
-    for (const file of filesToProcess) {
-      let content = file.content;
-      if (!file.isMainLanguage) {
-        content = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
-      } else if (typeof content === "string") {
-        try {
-          content = parse(content);
-        } catch (e) {
-          logError("❌ [composePagesData] parse main content failed:", {
+    const allPagesKitYaml = [];
+    const fileDataMap = new Map();
+
+    if (Array.isArray(middleFormatFiles)) {
+      // 组装多语言处理队列
+      const filesToProcess = [
+        ...middleFormatFiles.map((f) => ({ ...f, language: locale, isMainLanguage: true })),
+        ...(translateLanguages && tmpDir
+          ? translateLanguages.flatMap((lang) =>
+              middleFormatFiles.map((f) => ({
+                filePath: f.filePath,
+                content: null,
+                language: lang,
+                isMainLanguage: false,
+              })),
+            )
+          : []),
+      ];
+
+      /* c8 ignore next */
+      log("📚 [composePagesData] filesToProcess:", {
+        count: filesToProcess.length,
+        main: filesToProcess.filter((f) => f.isMainLanguage).length,
+        i18n: filesToProcess.filter((f) => !f.isMainLanguage).length,
+      });
+
+      for (const file of filesToProcess) {
+        let content = file.content;
+        if (!file.isMainLanguage) {
+          content = await readMiddleFormatFile(tmpDir, file.language, file.filePath);
+        } else if (typeof content === "string") {
+          try {
+            content = parse(content);
+          } catch (e) {
+            logError("❌ [composePagesData] parse main content failed:", {
+              file: file.filePath,
+              error: e?.message,
+            });
+            continue;
+          }
+        }
+        if (!content) {
+          logError("⚠️  [composePagesData] skip empty content:", {
             file: file.filePath,
-            error: e?.message,
+            lang: file.language,
           });
           continue;
         }
-      }
-      if (!content) {
-        logError("⚠️  [composePagesData] skip empty content:", {
+
+        const { roots, flat } = composeSectionsWithComponents(content, componentLibrary);
+
+        if (!fileDataMap.has(file.filePath)) {
+          fileDataMap.set(file.filePath, {
+            filePath: file.filePath,
+            meta: content.meta,
+            locales: {},
+            sections: {},
+            sectionIds: [],
+            dataSource: {},
+          });
+        }
+        const fd = fileDataMap.get(file.filePath);
+
+        // multi locale support
+        fd.locales[file.language] = {
+          backgroundColor: "",
+          // @TODO support component library page style later
+          style: DEFAULT_PAGE_STYLE,
+          title: content.meta?.title,
+          description: content.meta?.description,
+          image: content.meta?.image,
+          header: { sticky: true },
+        };
+
+        // 顶层仅挂根实例；子实例已在父实例内按 slot 替换，无需重复挂载
+        if (file.isMainLanguage) {
+          roots.forEach((r) => {
+            const s = r.instantiation?.section;
+            if (!s) return;
+            fd.sections[s.id] = s;
+            if (!fd.sectionIds.includes(s.id)) fd.sectionIds.push(s.id);
+          });
+          log("🌲 [composePagesData] root instances attached:", {
+            file: file.filePath,
+            roots: roots.filter((r) => !!r.instantiation?.section).length,
+          });
+        }
+
+        // dataSource：统一聚合（所有节点）
+        let dsAdded = 0;
+        flat.forEach(({ instantiation }) => {
+          if (!instantiation) return;
+          Object.entries(instantiation.dataSource || {}).forEach(([id, data]) => {
+            if (!id || data === undefined) return;
+            if (!fd.dataSource[id]) fd.dataSource[id] = {};
+            fd.dataSource[id][file.language] = _.cloneDeep(data);
+            dsAdded++;
+          });
+        });
+        log("🍱 [composePagesData] dataSource aggregated:", {
           file: file.filePath,
           lang: file.language,
-        });
-        continue;
-      }
-
-      const { roots, flat } = composeSectionsWithComponents(content, componentLibrary);
-
-      if (!fileDataMap.has(file.filePath)) {
-        fileDataMap.set(file.filePath, {
-          filePath: file.filePath,
-          meta: content.meta,
-          locales: {},
-          sections: {},
-          sectionIds: [],
-          dataSource: {},
-        });
-      }
-      const fd = fileDataMap.get(file.filePath);
-
-      // multi locale support
-      fd.locales[file.language] = {
-        backgroundColor: "",
-        // @TODO support component library page style later
-        style: DEFAULT_PAGE_STYLE,
-        title: content.meta?.title,
-        description: content.meta?.description,
-        image: content.meta?.image,
-        header: { sticky: true },
-      };
-
-      // 顶层仅挂根实例；子实例已在父实例内按 slot 替换，无需重复挂载
-      if (file.isMainLanguage) {
-        roots.forEach((r) => {
-          const s = r.instantiation?.section;
-          if (!s) return;
-          fd.sections[s.id] = s;
-          if (!fd.sectionIds.includes(s.id)) fd.sectionIds.push(s.id);
-        });
-        log("🌲 [composePagesData] root instances attached:", {
-          file: file.filePath,
-          roots: roots.filter((r) => !!r.instantiation?.section).length,
+          added: dsAdded,
+          totalKeys: Object.keys(fd.dataSource).length,
         });
       }
 
-      // dataSource：统一聚合（所有节点）
-      let dsAdded = 0;
-      flat.forEach(({ instantiation }) => {
-        if (!instantiation) return;
-        Object.entries(instantiation.dataSource || {}).forEach(([id, data]) => {
-          if (!id || data === undefined) return;
-          if (!fd.dataSource[id]) fd.dataSource[id] = {};
-          fd.dataSource[id][file.language] = _.cloneDeep(data);
-          dsAdded++;
+      // 输出 YAML
+      for (const fd of fileDataMap.values()) {
+        const now = new Date().toISOString();
+
+        // Load existing metadata (if file exists)
+        const existingMeta = await loadExistingMetadata({
+          outputDir,
+          filePath: fd.filePath,
+          getFileName,
         });
-      });
-      log("🍱 [composePagesData] dataSource aggregated:", {
-        file: file.filePath,
-        lang: file.language,
-        added: dsAdded,
-        totalKeys: Object.keys(fd.dataSource).length,
-      });
-    }
 
-    // 输出 YAML
-    for (const fd of fileDataMap.values()) {
-      const now = new Date().toISOString();
+        // Build the complete yaml object first (with placeholder timestamps for comparison)
+        const yaml = {
+          id: generateDeterministicId(fd.filePath),
+          createdAt: existingMeta?.createdAt || now,
+          updatedAt: existingMeta?.updatedAt,
+          publishedAt: existingMeta?.publishedAt,
+          isPublic: true,
+          locales: fd.locales,
+          sections: fd.sections,
+          sectionIds: fd.sectionIds,
+          dataSource: fd.dataSource,
+        };
 
-      // Load existing metadata (if file exists)
-      const existingMeta = await loadExistingMetadata({
-        outputDir,
-        filePath: fd.filePath,
-        getFileName,
-      });
+        // Apply replaceEmptyValueDeep to the yaml object
+        replaceEmptyValueDeep(yaml);
 
-      // Build the complete yaml object first (with placeholder timestamps for comparison)
-      const yaml = {
-        id: generateDeterministicId(fd.filePath),
-        createdAt: existingMeta?.createdAt || now,
-        updatedAt: existingMeta?.updatedAt,
-        publishedAt: existingMeta?.publishedAt,
-        isPublic: true,
-        locales: fd.locales,
-        sections: fd.sections,
-        sectionIds: fd.sectionIds,
-        dataSource: fd.dataSource,
-      };
+        // Stringify to YAML for comparison
+        const newYamlText = stringify(yaml, { aliasDuplicateObjects: false });
 
-      // Apply replaceEmptyValueDeep to the yaml object
-      replaceEmptyValueDeep(yaml);
-
-      // Stringify to YAML for comparison
-      const newYamlText = stringify(yaml, { aliasDuplicateObjects: false });
-
-      // Load existing YAML text if file exists
-      let existingYamlText = null;
-      if (existingMeta) {
-        try {
-          const fullPath = getOutputFilePath({
-            outputDir,
-            filePath: fd.filePath,
-            getFileName,
-          });
-          existingYamlText = await tryReadFileContent(fullPath);
-        } catch (_err) {
-          // File might not exist
+        // Load existing YAML text if file exists
+        let existingYamlText = null;
+        if (existingMeta) {
+          try {
+            const fullPath = getOutputFilePath({
+              outputDir,
+              filePath: fd.filePath,
+              getFileName,
+            });
+            existingYamlText = await tryReadFileContent(fullPath);
+          } catch (_err) {
+            // File might not exist
+          }
         }
+
+        // Compare YAML texts to determine if content changed
+        let contentChanged = false;
+        if (existingYamlText) {
+          contentChanged = newYamlText !== existingYamlText;
+        } else {
+          contentChanged = true; // New file
+        }
+
+        // Update timestamps based on comparison result
+        if (!existingMeta) {
+          // New file: all timestamps are now
+          yaml.createdAt = now;
+          yaml.updatedAt = "";
+          yaml.publishedAt = "";
+        } else if (contentChanged) {
+          // Existing file with changes: keep createdAt and publishedAt, update updatedAt
+          yaml.createdAt = existingMeta.createdAt;
+          yaml.updatedAt = now;
+          yaml.publishedAt = existingMeta.publishedAt || "";
+        }
+        // else: no changes, timestamps already set from existingMeta
+
+        // Re-stringify with final timestamps
+        const content = stringify(yaml, { aliasDuplicateObjects: false });
+        allPagesKitYaml.push({
+          filePath: fd.filePath,
+          content,
+        });
+
+        /* c8 ignore next */
+        log("📝 [composePagesData] yaml prepared:", {
+          file: fd.filePath,
+          isNew: !existingMeta,
+          contentChanged,
+          sectionCount: Object.keys(fd.sections || {}).length,
+          rootIds: fd.sectionIds.length,
+          dsKeys: Object.keys(fd.dataSource || {}).length,
+        });
       }
-
-      // Compare YAML texts to determine if content changed
-      let contentChanged = false;
-      if (existingYamlText) {
-        contentChanged = newYamlText !== existingYamlText;
-      } else {
-        contentChanged = true; // New file
-      }
-
-      // Update timestamps based on comparison result
-      if (!existingMeta) {
-        // New file: all timestamps are now
-        yaml.createdAt = now;
-        yaml.updatedAt = "";
-        yaml.publishedAt = "";
-      } else if (contentChanged) {
-        // Existing file with changes: keep createdAt and publishedAt, update updatedAt
-        yaml.createdAt = existingMeta.createdAt;
-        yaml.updatedAt = now;
-        yaml.publishedAt = existingMeta.publishedAt || "";
-      }
-      // else: no changes, timestamps already set from existingMeta
-
-      // Re-stringify with final timestamps
-      const content = stringify(yaml, { aliasDuplicateObjects: false });
-      allPagesKitYaml.push({
-        filePath: fd.filePath,
-        content,
-      });
-
+    } else {
       /* c8 ignore next */
-      log("📝 [composePagesData] yaml prepared:", {
-        file: fd.filePath,
-        isNew: !existingMeta,
-        contentChanged,
-        sectionCount: Object.keys(fd.sections || {}).length,
-        rootIds: fd.sectionIds.length,
-        dsKeys: Object.keys(fd.dataSource || {}).length,
-      });
+      logError("⚠️  [composePagesData] middleFormatFiles is not an array");
     }
-  } else {
+
+    // 保存输出
+    allPagesKitYaml.forEach(({ filePath, content }) => {
+      try {
+        savePagesKitData({
+          path: basename(filePath).split(".")?.[0] || filePath,
+          locale,
+          pagesDir,
+          pagesKitYaml: content,
+          outputDir,
+        });
+        log("💾 [composePagesData] saved:", { file: filePath, bytes: content.length });
+      } catch (e) {
+        logError("❌ [composePagesData] save failed:", { file: filePath, error: e?.message });
+      }
+    });
+
     /* c8 ignore next */
-    logError("⚠️  [composePagesData] middleFormatFiles is not an array");
+    log("🎉 [composePagesData] done");
+
+    return { ...input, allPagesKitYaml };
+  } catch (e) {
+    log(e)
+    logError("❌ [composePagesData] error:", {
+      error: e?.message,
+    });
+    return {};
   }
-
-  // 保存输出
-  allPagesKitYaml.forEach(({ filePath, content }) => {
-    try {
-      savePagesKitData({
-        path: basename(filePath).split(".")?.[0] || filePath,
-        locale,
-        pagesDir,
-        pagesKitYaml: content,
-        outputDir,
-      });
-      log("💾 [composePagesData] saved:", { file: filePath, bytes: content.length });
-    } catch (e) {
-      logError("❌ [composePagesData] save failed:", { file: filePath, error: e?.message });
-    }
-  });
-
-  /* c8 ignore next */
-  log("🎉 [composePagesData] done");
-
-  return { ...input, allPagesKitYaml };
 }
 
 composePagesData.taskTitle = "Compose Pages Data";

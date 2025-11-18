@@ -278,7 +278,6 @@ function formatFieldValue(key, value, indent = "") {
 }
 
 const fieldMappings = [
-
   // Title related - ordered by priority
   { pattern: "subTitle", display: "SubTitle" },
   { pattern: "title", display: "Title" },

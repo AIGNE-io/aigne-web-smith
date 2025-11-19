@@ -37,6 +37,16 @@ Current page information:
 
 </page_constraints>
 
+<available_media_assets>
+{{ assetsContent }}
+</available_media_assets>
+
+{% ifAsync websiteScale != "singlePage" %}
+<available_internal_links>
+{{ linksContent }}
+</available_internal_links>
+{% endif %}
+
 <tools>
 Tool usage guidelines:
 
@@ -51,9 +61,8 @@ You have access to an **image generation tool** that can create high-quality, AI
 **When to Use:**
 
 **IMPORTANT: Prioritize using existing images from <available_media_assets> first.** Only invoke the image generation tool when:
+- **Images are missing, or the existing images are completely unsuitable**.
 - Configure sections images
-- **ensuring every page has a hero section image configured**
-- Existing images from <available_media_assets> are insufficient or unavailable for sections
 - The visual presentation requires custom imagery that better aligns with specific content themes
 - You need to create consistent visual identity across related sections that existing assets don't support
 

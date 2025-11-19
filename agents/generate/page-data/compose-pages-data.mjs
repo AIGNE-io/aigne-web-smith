@@ -734,7 +734,7 @@ function pruneEmptyLayoutBlocks(section) {
 
 /** 从子节点 path 中提取 list 索引（…,"list", N, …） */
 function extractListIndexFromPath(path) {
-  const i = path.findIndex((p) => p === LIST_KEY);
+  const i = path.findLastIndex((p) => p === LIST_KEY);
   if (i === -1 || i + 1 >= path.length) return null;
   const v = path[i + 1];
   const n = typeof v === "number" ? v : Number(v);
@@ -805,6 +805,7 @@ function replaceSlotWithChild(slot, childSection) {
     parentId: parent.id,
     placeholderId,
     childId: childSection.id,
+    parentSectionIds: parent.sectionIds,
   });
 }
 

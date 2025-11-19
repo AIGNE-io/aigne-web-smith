@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-18T11:20:57.704Z
+  updateAt: 2025-11-19T12:24:57.392Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -258,7 +258,6 @@ composite:
 
       Use when
 
-
       - You want to immediately introduce a **key, high-level concept** (like
       "Confidential AI").
 
@@ -276,6 +275,8 @@ composite:
 
 
       Constraint
+
+      - Only used on the site homepage (path is /home)
 
 
       - The visual **must be a high-fidelity representation** of the product UI
@@ -1648,8 +1649,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             ha2hmvpaji4x04zh:
               id: ha2hmvpaji4x04zh
               name: <%= list.1 %>
@@ -1662,8 +1663,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             r2fxo96x7xf2x4u8:
               id: r2fxo96x7xf2x4u8
               name: <%= list.2 %>
@@ -1676,8 +1677,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             7a3aprjlns04sf3m:
               id: 7a3aprjlns04sf3m
               name: <%= list.4 %>
@@ -1690,8 +1691,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             gsijilqq7en5ojxx:
               id: gsijilqq7en5ojxx
               name: <%= list.5 %>
@@ -1704,8 +1705,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             1wcd95tgxzeljen5:
               id: 1wcd95tgxzeljen5
               name: <%= list.6 %>
@@ -1718,8 +1719,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             7oswhmnl4onj911u:
               id: 7oswhmnl4onj911u
               name: <%= list.3 %>
@@ -1732,8 +1733,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
             nyljop1s4vb1th3h:
               id: nyljop1s4vb1th3h
               name: <%= list.7 %>
@@ -1746,8 +1747,8 @@ composite:
                 background: background.paper
                 border: solid
                 borderRadius: medium
-                paddingX: small
-                paddingY: small
+                paddingX: custom:32px
+                paddingY: custom:32px
           sectionIds:
             - zd379sictz0d576q
             - ha2hmvpaji4x04zh
@@ -2349,6 +2350,9 @@ composite:
 
       Constraints
 
+      - When using multiple Feature Sections consecutively, the `Feature Right
+      Image` and `Feature Left Image` components must be used alternately.
+
       - `featureRightImageImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
@@ -2596,6 +2600,9 @@ composite:
 
       Constraints
 
+      - When using multiple Feature Sections consecutively, the `Feature Right
+      Image` and `Feature Left Image` components must be used alternately.
+
       - `featureLeftImageImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; 
@@ -2841,6 +2848,13 @@ composite:
 
 
       Constraints
+
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
+
+      - When using multiple Feature Sections consecutively, the `Feature Right
+      ScreenShot` and `Feature Left ScreenShot` components must be used
+      alternately.
 
       - For application screenshots without backgrounds, must use components
       with 'With ScreenShot' in their name for display
@@ -3126,6 +3140,13 @@ composite:
 
       Constraints
 
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
+
+      - When using multiple Feature Sections consecutively, the `Feature Right
+      ScreenShot` and `Feature Left ScreenShot` components must be used
+      alternately.
+
       - For application screenshots without backgrounds, must use components
       with 'With ScreenShot' in their name for display
 
@@ -3317,12 +3338,12 @@ composite:
         gridSettings:
           desktop:
             eopar7brgzeu9yh6:
-              x: 0
+              x: 6
               y: 0
               w: 6
               h: 1
             15gqmlrcfz07mg0o:
-              x: 6
+              x: 0
               y: 0
               w: 6
               h: 1

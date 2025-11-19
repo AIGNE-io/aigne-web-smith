@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.4...v1.8.0-beta.5) (2025-11-18)
+
+
+### Bug Fixes
+
+* enhance section pruning logic in component template instantiation ([#258](https://github.com/AIGNE-io/aigne-web-smith/issues/258)) ([2fe964b](https://github.com/AIGNE-io/aigne-web-smith/commit/2fe964bccf91f773e89cbe37ac34aa221b45455f))
+
 ## [1.8.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.3...v1.8.0-beta.4) (2025-11-18)
 
 

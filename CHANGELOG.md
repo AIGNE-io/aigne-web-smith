@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.8...v1.8.0-beta.9) (2025-11-20)
+
+
+### Bug Fixes
+
+* **component-lib:** correct card background to grey.25 ([#266](https://github.com/AIGNE-io/aigne-web-smith/issues/266)) ([9fbfe66](https://github.com/AIGNE-io/aigne-web-smith/commit/9fbfe66aea6ee4309bf88d4e56505abf161eb991))
+
 ## [1.8.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.7...v1.8.0-beta.8) (2025-11-20)
 
 

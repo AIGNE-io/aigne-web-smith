@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T07:23:55.667Z
+  updateAt: 2025-11-20T08:49:20.352Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -966,7 +966,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -985,7 +985,7 @@ composite:
                   desktop: {}
                 gap: large
                 paddingY: custom:32px
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -996,7 +996,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1011,7 +1011,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1026,7 +1026,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1041,7 +1041,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1056,7 +1056,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1071,7 +1071,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1239,7 +1239,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1253,7 +1253,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1267,7 +1267,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1281,7 +1281,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingY: custom:32px
@@ -1421,7 +1421,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1435,7 +1435,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1449,7 +1449,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1463,7 +1463,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1477,7 +1477,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1491,7 +1491,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1648,7 +1648,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1662,7 +1662,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1676,7 +1676,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1690,7 +1690,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1704,7 +1704,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1718,7 +1718,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1732,7 +1732,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1746,7 +1746,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1921,7 +1921,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1937,7 +1937,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1953,7 +1953,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1969,7 +1969,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1985,7 +1985,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -2277,7 +2277,7 @@ composite:
       sectionIds:
         - sakedvx7f5j3z75d
       config:
-        background: background.paper
+        background: grey25
         paddingY: large
         borderRadius: medium
         paddingX: none
@@ -4270,6 +4270,8 @@ composite:
               height: 498
           jjv0hvr8wrixt1f3:
             value: 2
+          nch5frsfoap2lw33:
+            value: true
   - id: 9zo9dt3ki8yuidu1
     name: Changelog
     summary: >-
@@ -4856,7 +4858,7 @@ composite:
               w: 12
               h: 1
               id: do35jzobe9fv1z8i
-        background: background.paper
+        background: grey25
         paddingX: small
         paddingY: small
         borderRadius: medium

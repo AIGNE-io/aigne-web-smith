@@ -148,7 +148,7 @@ function findClosestFieldCombination(fields, index, { requireSuperset = false } 
       if (entry.fields.some((allowedField) => allowedField.startsWith(`${field}.`))) return false;
 
       return true;
-    } );
+    });
     if (requireSuperset && extra.length > 0) {
       return;
     }
@@ -161,7 +161,7 @@ function findClosestFieldCombination(fields, index, { requireSuperset = false } 
       if (fields.some((sourceField) => field.startsWith(`${sourceField}.`))) return false;
 
       return true;
-    } );
+    });
     const penalty = requireSuperset ? missing.length : extra.length + missing.length;
 
     if (!bestMatch || penalty < bestMatch.penalty) {

@@ -232,7 +232,6 @@ export function extractContentFields(obj, prefix = "") {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
-
     } else if (Array.isArray(value) && value.length === 0) {
       // Empty array still participates in component matching
       fields.add(currentPath);

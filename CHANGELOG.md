@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.7...v1.8.0-beta.8) (2025-11-20)
+
+
+### Features
+
+* add video size filtering with configurable maxVideoSize parameter ([#264](https://github.com/AIGNE-io/aigne-web-smith/issues/264)) ([09153ba](https://github.com/AIGNE-io/aigne-web-smith/commit/09153ba79077a913023869fc42e0b16d55b13385))
+
 ## [1.8.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.6...v1.8.0-beta.7) (2025-11-20)
 
 

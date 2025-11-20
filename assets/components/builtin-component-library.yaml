@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-19T12:24:57.392Z
+  updateAt: 2025-11-20T06:20:10.772Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2334,10 +2334,10 @@ composite:
     summary: >-
       Structure
 
-      - Left: title (1 lines) → descriptionList).
+      - Left: title (1 line) → descriptionList).
 
-      - Right: media area rendered from `featureRightImageImage` (rounded
-      corners; object-fit: cover). A thin top rule or accent bar is optional.
+      - Right: media area rendered from `featureRightImage` (rounded corners;
+      object-fit: cover). A thin top rule or accent bar is optional.
 
 
       Use when
@@ -2353,7 +2353,7 @@ composite:
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.
 
-      - `featureRightImageImage` must be a valid image
+      - `featureRightImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
@@ -2586,7 +2586,7 @@ composite:
 
       - Right: title (1 line) → descriptionList.
 
-      - Left: media area rendered from `featureLeftImageImage` (rounded corners;
+      - Left: media area rendered from `featureLeftImage` (rounded corners;
       object-fit: cover). A thin top rule or accent bar is optional.
 
 
@@ -2603,7 +2603,7 @@ composite:
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.
 
-      - `featureLeftImageImage` must be a valid image
+      - `featureLeftImage` must be a valid image
 
       - Keep copy concise: title ≤ 60 chars; 
 

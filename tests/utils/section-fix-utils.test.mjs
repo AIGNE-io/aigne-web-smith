@@ -725,7 +725,7 @@ describe("tryAutoFixSection - nested paths", () => {
           componentName: "Feature Right Image",
           featureRightImageTitle: "1. Develop with Ease",
           featureRightImageDescription: "Use blocklet create to scaffold your project",
-          featureRightImageImage: "mediakit://blocklet-devtools-feature.png",
+          featureRightImage: "mediakit://blocklet-devtools-feature.png",
           featureRightImageActions: [], // Empty array, need to add 2 items with 2 fields each
         },
       ],

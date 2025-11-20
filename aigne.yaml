@@ -190,7 +190,7 @@ cli:
       alias: ["add"]
       url: ./agents/plan/user-add-page/index.yaml
     - name: remove-page
-      alias: ["rm"]
+      alias: ["remove", "rm"]
       url: ./agents/plan/user-remove-page/index.yaml
     - ./agents/clear/index.yaml
 mcp_server:

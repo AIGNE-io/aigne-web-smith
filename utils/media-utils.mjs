@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import imageSize from "image-size";
 import { MEDIA_KIT_PROTOCOL } from "./constants.mjs";
@@ -11,10 +11,11 @@ import { getFileType, getMimeType } from "./file-utils.mjs";
  * @param {object} [options] - Optional configuration
  * @param {string} [options.metadataPath] - Path to metadata file
  * @param {number} [options.minImageWidth] - Minimum image width filter (returns null if below)
+ * @param {number} [options.maxVideoSize] - Maximum video size in MB (returns null if above)
  * @returns {Promise<object|null>} Media item object or null if filtered out
  */
 export async function buildMediaItem(filePath, basePath, options = {}) {
-  const { metadataPath = null, minImageWidth = 0 } = options;
+  const { metadataPath = null, minImageWidth = 800, maxVideoSize = 10 } = options;
   const fileName = path.basename(filePath);
   const relativePath = path.relative(basePath, filePath);
 
@@ -43,6 +44,26 @@ export async function buildMediaItem(filePath, basePath, options = {}) {
       }
     } catch (err) {
       console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
+    }
+  }
+
+  // For video files, check file size
+  if (mediaItem.type === "video") {
+    try {
+      const stats = await stat(filePath);
+      const fileSizeInBytes = stats.size;
+      const fileSizeMB = fileSizeInBytes / (1024 * 1024);
+      mediaItem.size = fileSizeInBytes;
+
+      // Filter out videos larger than maxVideoSize (in MB)
+      if (maxVideoSize > 0 && fileSizeMB > maxVideoSize) {
+        console.log(
+          `Ignored video: ${fileName} (${fileSizeMB.toFixed(2)}MB > ${maxVideoSize}MB maximum)`,
+        );
+        return null;
+      }
+    } catch (err) {
+      console.warn(`⚠️  Failed to get file size for ${fileName}: ${err.message}`);
     }
   }
 

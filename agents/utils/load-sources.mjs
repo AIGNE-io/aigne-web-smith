@@ -8,7 +8,9 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../utils/constants.mjs";
 import {
+  isImageFile,
   isMediaFile,
+  isVideoFile,
   loadFilesFromSourcePaths,
   loadMediaFilesFromAssets,
 } from "../../utils/file-utils.mjs";
@@ -80,7 +82,7 @@ export default async function loadSources({
   media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
-  const { minImageWidth } = media || { minImageWidth: 800 };
+  const { minImageWidth, maxVideoSize } = media || { minImageWidth: 800, maxVideoSize: 10 };
 
   if (sourcesPath) {
     const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
@@ -126,16 +128,21 @@ export default async function loadSources({
   files.push(...assetMediaFiles);
 
   let filteredImageCount = 0;
+  let filteredVideoCount = 0;
 
   await Promise.all(
     files.map(async (file) => {
       if (isMediaFile(file)) {
         // This is a media file
-        const mediaItem = await buildMediaItem(file, pagesDir, { minImageWidth });
+        const mediaItem = await buildMediaItem(file, pagesDir, { minImageWidth, maxVideoSize });
 
         // If filtered out (null), skip
         if (!mediaItem) {
-          filteredImageCount++;
+          if (isVideoFile(file)) {
+            filteredVideoCount++;
+          } else if (isImageFile(file)) {
+            filteredImageCount++;
+          }
           return;
         }
 
@@ -209,6 +216,13 @@ export default async function loadSources({
   if (filteredImageCount > 0) {
     console.log(
       `\nTotal ${filteredImageCount} low-resolution image(s) ignored for better web display quality (minimum width: ${minImageWidth}px)\n`,
+    );
+  }
+
+  // Log summary of filtered videos
+  if (filteredVideoCount > 0) {
+    console.log(
+      `\nTotal ${filteredVideoCount} large video(s) ignored for better performance (maximum size: ${maxVideoSize}MB)\n`,
     );
   }
 
@@ -333,6 +347,10 @@ loadSources.input_schema = {
       minImageWidth: {
         type: "number",
         description: "Minimum image width in pixels to include",
+      },
+      maxVideoSize: {
+        type: "number",
+        description: "Maximum video size in MB to include",
       },
     },
   },

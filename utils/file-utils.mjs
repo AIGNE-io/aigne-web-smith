@@ -630,14 +630,15 @@ export function isDirExcluded(dir, excludePatterns) {
  */
 export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
   if (!Array.isArray(sourcePaths) || sourcePaths.length === 0) {
-    return [];
+    return { excluded: [], notFound: [] };
   }
 
   if (!Array.isArray(excludePatterns) || excludePatterns.length === 0) {
-    return [];
+    return { excluded: [], notFound: [] };
   }
 
-  const invalidPaths = [];
+  const excluded = [];
+  const notFound = [];
 
   for (const sourcePath of sourcePaths) {
     if (typeof sourcePath !== "string" || !sourcePath) {
@@ -658,7 +659,7 @@ export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
     if (isGlobPattern(sourcePath)) {
       const representativePath = getPathPrefix(sourcePath);
       if (isDirExcluded(representativePath, excludePatterns)) {
-        invalidPaths.push(sourcePath);
+        excluded.push(sourcePath);
       }
       continue;
     }
@@ -672,16 +673,16 @@ export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
       // Check dir with minimatch
       if (stats.isDirectory()) {
         if (isDirExcluded(sourcePath, excludePatterns)) {
-          invalidPaths.push(sourcePath);
+          excluded.push(sourcePath);
         }
       }
     } catch {
       // Path doesn't exist
-      invalidPaths.push(sourcePath);
+      notFound.push(sourcePath);
     }
   }
 
-  return invalidPaths;
+  return { excluded, notFound };
 }
 
 /**

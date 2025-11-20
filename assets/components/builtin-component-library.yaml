@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T06:20:10.772Z
+  updateAt: 2025-11-20T08:49:20.352Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -80,6 +80,8 @@ composite:
 
 
       Constraint
+
+      - Only used on the site homepage (path is /home)
 
       - The {{verticalHeroImage}} must be provided as a valid asset.
 
@@ -964,7 +966,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -983,7 +985,7 @@ composite:
                   desktop: {}
                 gap: large
                 paddingY: custom:32px
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -994,7 +996,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1009,7 +1011,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1024,7 +1026,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1039,7 +1041,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1054,7 +1056,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1069,7 +1071,7 @@ composite:
               sections: {}
               sectionIds: []
               config:
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: large
@@ -1237,7 +1239,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1251,7 +1253,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1265,7 +1267,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1279,7 +1281,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingY: custom:32px
@@ -1419,7 +1421,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1433,7 +1435,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1447,7 +1449,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1461,7 +1463,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1475,7 +1477,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1489,7 +1491,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1646,7 +1648,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1660,7 +1662,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1674,7 +1676,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1688,7 +1690,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1702,7 +1704,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1716,7 +1718,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1730,7 +1732,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1744,7 +1746,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 paddingX: custom:32px
@@ -1919,7 +1921,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1935,7 +1937,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1951,7 +1953,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1967,7 +1969,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -1983,7 +1985,7 @@ composite:
               config:
                 gridSettings:
                   desktop: {}
-                background: background.paper
+                background: grey25
                 border: solid
                 borderRadius: medium
                 gap: normal
@@ -2088,10 +2090,10 @@ composite:
       - Copy: title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
     fieldCombinations:
-      - ctaWithBgActions.0.link
-      - ctaWithBgActions.0.text
-      - ctaWithBgActions.1.link
-      - ctaWithBgActions.1.text
+      - ctaActions.0.link
+      - ctaActions.0.text
+      - ctaActions.1.link
+      - ctaActions.1.text
       - ctaWithBgDescription
       - ctaWithBgTitle
     section:
@@ -2180,18 +2182,18 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= ctaWithBgActions.0.text %>
-                url: <%= ctaWithBgActions.0.link %>
+                text: <%= ctaActions.0.text %>
+                url: <%= ctaActions.0.link %>
                 variant: contained
                 size: xlarge
                 target: _self
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
-                text: <%= ctaWithBgActions.1.text %>
+                text: <%= ctaActions.1.text %>
                 variant: outlined
                 borderColor: primary.main
                 size: xlarge
-                url: <%= ctaWithBgActions.1.link %>
+                url: <%= ctaActions.1.link %>
           r8t5y6u7i1o2p3a4:
             value: 16
   - id: 7fu0m2oim8r6z8h5
@@ -2275,7 +2277,7 @@ composite:
       sectionIds:
         - sakedvx7f5j3z75d
       config:
-        background: background.paper
+        background: grey25
         paddingY: large
         borderRadius: medium
         paddingX: none
@@ -3420,8 +3422,6 @@ composite:
 
       Structure (left → right)
 
-      - Icon
-
       - Description Text
 
       ---
@@ -4145,8 +4145,8 @@ composite:
         - Title ≤ 40 characters
         - Description ≤ 160 characters
     fieldCombinations:
-      - contentCard.actionLink
-      - contentCard.actionTitle
+      - contentCardActionLink
+      - contentCardActionTitle
       - contentCardDescription
       - contentCardRightImage
       - contentCardTitle
@@ -4247,8 +4247,8 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= contentCard.actionTitle %>
-                url: <%= contentCard.actionLink %>
+                text: <%= contentCardActionTitle %>
+                url: <%= contentCardActionLink %>
                 variant: text
                 size: medium
                 target: auto
@@ -4270,6 +4270,8 @@ composite:
               height: 498
           jjv0hvr8wrixt1f3:
             value: 2
+          nch5frsfoap2lw33:
+            value: true
   - id: 9zo9dt3ki8yuidu1
     name: Changelog
     summary: >-
@@ -4856,7 +4858,7 @@ composite:
               w: 12
               h: 1
               id: do35jzobe9fv1z8i
-        background: background.paper
+        background: grey25
         paddingX: small
         paddingY: small
         borderRadius: medium

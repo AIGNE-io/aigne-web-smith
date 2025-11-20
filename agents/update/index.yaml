@@ -32,7 +32,7 @@ skills:
       - ../update/user-review-page-detail.mjs
       - ../utils/save-single-page.mjs
     iterate_on: selectedPages
-    concurrency: 10
+    concurrency: 6
   - ../generate/page-detail/load-page-detail.mjs
   - type: team
     name: batchTranslatePageDetail

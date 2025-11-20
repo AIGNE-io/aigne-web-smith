@@ -1,5 +1,8 @@
+import { join } from "node:path";
+import chalk from "chalk";
+import pLimit from "p-limit";
 import { WEBSITE_SCALE } from "./constants.mjs";
-import { saveValueToConfig } from "./utils.mjs";
+import { getFileName, pathExists, saveValueToConfig } from "./utils.mjs";
 
 export function getWebsiteScaleByPageCount(pageCount) {
   // Sort scales by max value (ascending)
@@ -30,7 +33,10 @@ export async function updateWebsiteScaleIfNeeded(originalWebsiteScale, pageCount
   return originalWebsiteScale;
 }
 
-export function formatWebsiteStructure(structure) {
+/**
+ * Build a tree structure from a flat website structure array using parentId
+ */
+export function buildWebsiteTree(structure) {
   // Build a tree structure for better display
   const nodeMap = new Map();
   const rootNodes = [];
@@ -56,6 +62,83 @@ export function formatWebsiteStructure(structure) {
       rootNodes.push(nodeMap.get(node.path));
     }
   });
+
+  return { rootNodes, nodeMap };
+}
+
+/**
+ * Build checkbox choices from tree structure with visual hierarchy
+ */
+export async function buildChoicesFromTree(nodes, prefix = "", depth = 0, context = {}) {
+  const { locale = "en", tmpDir } = context;
+  const localeDir = join(tmpDir, locale);
+  const choices = [];
+
+  // Limit concurrent file checks to 50 per level to avoid overwhelming the file system
+  const limit = pLimit(50);
+
+  // Process nodes with controlled concurrency while maintaining order
+  const nodePromises = nodes.map((node, i) =>
+    limit(async () => {
+      const isLastSibling = i === nodes.length - 1;
+      const hasChildren = node.children && node.children.length > 0;
+
+      // Build the tree prefix - top level nodes don't have ├─ or └─
+      const treePrefix = depth === 0 ? "" : prefix + (isLastSibling ? "└─ " : "├─ ");
+      const flatName = node.path.replace(/^\//, "").replace(/\//g, "-");
+      const filename = getFileName({ fileName: flatName, locale });
+
+      // Check file existence if docsDir is provided
+      let fileExists = true;
+      let missingFileText = "";
+      if (localeDir) {
+        const filePath = join(localeDir, filename);
+        fileExists = await pathExists(filePath);
+        if (!fileExists) {
+          missingFileText = chalk.red(" - file not found");
+        }
+      }
+
+      // warningText only shows when file exists, missingFileText has higher priority
+      const warningText =
+        fileExists && hasChildren ? chalk.yellow(" - will cascade delete all child pages") : "";
+
+      const displayName = `${treePrefix}${node.title} (${filename})${warningText}${missingFileText}`;
+
+      const choice = {
+        name: displayName,
+        value: node.path,
+        short: node.title,
+        disabled: !fileExists,
+      };
+
+      // Recursively process children
+      let childChoices = [];
+      if (hasChildren) {
+        const childPrefix = depth === 0 ? "" : prefix + (isLastSibling ? "   " : "│  ");
+        childChoices = await buildChoicesFromTree(node.children, childPrefix, depth + 1, context);
+      }
+
+      return { choice, childChoices };
+    }),
+  );
+
+  // Wait for all nodes at this level to complete, maintaining order
+  const results = await Promise.all(nodePromises);
+
+  // Build choices array in order
+  for (const { choice, childChoices } of results) {
+    choices.push(choice);
+    if (childChoices.length > 0) {
+      choices.push(...childChoices);
+    }
+  }
+
+  return choices;
+}
+
+export function formatWebsiteStructure(structure) {
+  const { rootNodes } = buildWebsiteTree(structure);
 
   function printNode(node, depth = 0) {
     const INDENT_SPACES = "  ";

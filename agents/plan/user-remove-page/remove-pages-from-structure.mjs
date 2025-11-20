@@ -1,6 +1,5 @@
-import { WEB_ACTION } from "../../../utils/constants.mjs";
 import { loadWebsiteStructureResult } from "../../../utils/pages-finder-utils.mjs";
-import choosePages from "../../utils/choose-pages.mjs";
+import { buildChoicesFromTree, buildWebsiteTree } from "../../../utils/website-structure-utils.mjs";
 import deletePage from "../website-structure-tools/delete-page.mjs";
 
 /**
@@ -10,7 +9,7 @@ import deletePage from "../website-structure-tools/delete-page.mjs";
  * @returns {Promise<Object>} Result with deleted pages and updated structure
  */
 export default async function removePagesFromStructure(input = {}, options = {}) {
-  const { tmpDir, locale = "en", projectId = [] } = input;
+  const { tmpDir, locale = "en" } = input;
 
   if (!tmpDir) {
     return {
@@ -23,37 +22,35 @@ export default async function removePagesFromStructure(input = {}, options = {})
   const websiteStructure = await loadWebsiteStructureResult(tmpDir);
 
   if (!websiteStructure || websiteStructure.length === 0) {
-    return {
-      message: "🗑️ Remove Pages\n  • No website structure found. Please generate pages first.",
-      error: true,
-    };
+    console.warn("🗑️ Remove Pages\n  • No website structure found. Please generate pages first.");
+    process.exit(0);
   }
 
-  // Use choose-pages to get selected pages
-  const choosePagesResult = await choosePages(
-    {
-      websiteStructureResult: websiteStructure,
-      projectId,
-      tmpDir,
-      isTranslate: false,
-      feedback: null,
-      locale,
-      requiredFeedback: false,
-      multipleSelection: true,
-      action: WEB_ACTION.clear,
-    },
-    options,
-  );
+  const websiteStructureMap = new Map(websiteStructure.map((page) => [page.path, page]));
 
-  const selectedPages = choosePagesResult.selectedPages;
+  // Build tree structure
+  const { rootNodes } = buildWebsiteTree(websiteStructure);
 
-  if (!selectedPages || selectedPages.length === 0) {
-    return {
-      message: "🗑️ Remove Pages\n  • No pages selected to remove.",
-      websiteStructure: websiteStructure,
-      deletedPages: [],
-      errors: [],
-    };
+  // Build choices with tree structure visualization
+  const choices = await buildChoicesFromTree(rootNodes, "", 0, { locale, tmpDir });
+
+  // Let user select pages to delete
+  let selectedPaths = [];
+  try {
+    selectedPaths = await options.prompts.checkbox({
+      message: "Select pages to remove (Press Enter with no selection to finish):",
+      choices,
+    });
+  } catch {
+    // User cancelled or no selection made
+    console.log("No pages were removed.");
+    process.exit(0);
+  }
+
+  // If no pages selected, exit
+  if (!selectedPaths || selectedPaths.length === 0) {
+    console.log("No pages were removed.");
+    process.exit(0);
   }
 
   // Initialize context for deletePage tool
@@ -67,11 +64,13 @@ export default async function removePagesFromStructure(input = {}, options = {})
   const deletedPages = [];
   const errors = [];
 
-  for (const page of selectedPages) {
+  for (const path of selectedPaths) {
+    const page = websiteStructureMap.get(path);
+
     try {
       const deleteResult = await deletePage(
         {
-          path: page.path,
+          path,
           recursive: true,
         },
         options,
@@ -79,22 +78,22 @@ export default async function removePagesFromStructure(input = {}, options = {})
 
       if (deleteResult.error) {
         errors.push({
-          path: page.path,
-          title: page.title || page.path,
+          path: path,
+          title: page?.title || path,
           error: deleteResult.error.message,
         });
       } else {
         deletedPages.push({
-          path: page.path,
-          title: page.title || page.path,
+          path: path,
+          title: page?.title || path,
         });
         // Update current structure for next iteration
         options.context.userContext.currentStructure = deleteResult.websiteStructure;
       }
     } catch (error) {
       errors.push({
-        path: page.path,
-        title: page.title || page.path,
+        path,
+        title: page?.title || path,
         error: error.message,
       });
     }
@@ -104,6 +103,11 @@ export default async function removePagesFromStructure(input = {}, options = {})
     console.warn(
       `🗑️ Remove Pages\n  • Failed to remove pages:\n${errors.map((e) => `    - ${e.title}: ${e.error}`).join("\n")}`,
     );
+    process.exit(0);
+  }
+
+  if (deletedPages.length === 0) {
+    console.log("No pages were removed.");
     process.exit(0);
   }
 

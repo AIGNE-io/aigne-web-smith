@@ -232,6 +232,10 @@ export function extractContentFields(obj, prefix = "") {
       value.forEach((_item, index) => {
         fields.add(`${currentPath}.${index}`);
       });
+
+    } else if (Array.isArray(value) && value.length === 0) {
+      // Empty array still participates in component matching
+      fields.add(currentPath);
     } else if (typeof value === "object" && value !== null) {
       // recursive extract sub fields
       const subFields = extractContentFields(value, currentPath);

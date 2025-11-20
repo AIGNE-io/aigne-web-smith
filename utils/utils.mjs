@@ -140,12 +140,28 @@ function findClosestFieldCombination(fields, index, { requireSuperset = false } 
 
   index.entries.forEach((entry) => {
     const allowedSet = entry.fieldSet || new Set(entry.fields);
-    const extra = fields.filter((field) => !allowedSet.has(field));
+    const extra = fields.filter((field) => {
+      // if the field is in the allowed set, it is not extra
+      if (allowedSet.has(field)) return false;
+
+      // field that belong to allowedSet but have empty internal values are also considered extra
+      if (entry.fields.some((allowedField) => allowedField.startsWith(`${field}.`))) return false;
+
+      return true;
+    } );
     if (requireSuperset && extra.length > 0) {
       return;
     }
 
-    const missing = entry.fields.filter((field) => !sourceSet.has(field));
+    const missing = entry.fields.filter((field) => {
+      // if the field is in the source set, it is not missing
+      if (sourceSet.has(field)) return false;
+
+      // field that belong to source set but have empty internal values are also considered missing
+      if (fields.some((sourceField) => field.startsWith(`${sourceField}.`))) return false;
+
+      return true;
+    } );
     const penalty = requireSuperset ? missing.length : extra.length + missing.length;
 
     if (!bestMatch || penalty < bestMatch.penalty) {
@@ -225,6 +241,7 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
   }
 
   const fields = normalizeFieldList(extractContentFields(section));
+
   const normalizedIndexFreeFields = new Set(fields.map(stripNumericSegments));
   if (fields.length > 0) {
     const key = fields.join("|");
@@ -247,6 +264,10 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
         supersetMatch.extra.length === 0 &&
         supersetMatch.missing.every((field) => {
           if (!hasNumericSegment(field)) return false;
+
+          // actions are not considered missing
+          if (field.toLowerCase().includes("action")) return true;
+
           const normalized = stripNumericSegments(field);
           return normalizedIndexFreeFields.has(normalized);
         });

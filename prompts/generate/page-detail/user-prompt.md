@@ -3,16 +3,6 @@
 
 {{ additionalInformation }}
 
-<available_media_assets>
-{{ assetsContent }}
-</available_media_assets>
-
-{% ifAsync websiteScale != "singlePage" %}
-<available_internal_links>
-{{ linksContent }}
-</available_internal_links>
-{% endif %}
-
 <structure_plan>
 
 This is the website structure. You can refer to it to understand where the current page fits within the website structure.

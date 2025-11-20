@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.5...v1.8.0-beta.6) (2025-11-19)
+
+
+### Bug Fixes
+
+* enhance the stability of component usage ([#260](https://github.com/AIGNE-io/aigne-web-smith/issues/260)) ([2544d19](https://github.com/AIGNE-io/aigne-web-smith/commit/2544d1993d6625b8ab845a23d2ce95d699447603))
+
 ## [1.8.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.4...v1.8.0-beta.5) (2025-11-18)
 
 

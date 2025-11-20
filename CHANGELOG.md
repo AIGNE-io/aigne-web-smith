@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.6...v1.8.0-beta.7) (2025-11-20)
+
+
+### Bug Fixes
+
+* reduce concurrency from 10 to 6 across agent configurations ([#262](https://github.com/AIGNE-io/aigne-web-smith/issues/262)) ([5fdc873](https://github.com/AIGNE-io/aigne-web-smith/commit/5fdc873f2a9d473cde5e35fe1f57add1fe026ff7))
+
 ## [1.8.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.5...v1.8.0-beta.6) (2025-11-19)
 
 

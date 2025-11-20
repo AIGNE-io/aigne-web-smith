@@ -40,5 +40,5 @@ input_schema:
                   type: string
       description: Array of media files (images/videos) that need descriptions
 iterate_on: mediaToDescribe
-concurrency: 5
+concurrency: 6
 mode: sequential

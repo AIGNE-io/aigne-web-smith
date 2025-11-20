@@ -1,10 +1,8 @@
 import { existsSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { join } from "node:path";
-import { WEB_ACTION } from "../../utils/constants.mjs";
-import { loadWebsiteStructureResult } from "../../utils/pages-finder-utils.mjs";
+import { loadWebsiteStructureResult, getMainLanguageFiles, fileNameToFlatPath, findItemByFlatName } from "../../utils/pages-finder-utils.mjs";
 import { getFileName, toDisplayPath } from "../../utils/utils.mjs";
-import choosePages from "../utils/choose-pages.mjs";
 
 const title = "Pages";
 
@@ -14,13 +12,12 @@ const title = "Pages";
  * @param {string} input.tmpDir - Temporary directory path (workspace directory)
  * @param {string} input.locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @param {Array<string>} input.locales - All available locales including translations
- * @param {string} input.projectId - Project identifier
  * @param {Array<string>} [input.pages] - Optional array of page paths to clear (bypasses selection)
  * @param {Object} options - Additional options with prompts and context
  * @returns {Promise<Object>} Result with message and cleared pages info
  */
 export default async function clearGeneratedPages(input = {}, options = {}) {
-  const { tmpDir, locale = "en", locales = [], projectId, pages } = input;
+  const { tmpDir, locale = "en", locales = [], pages } = input;
 
   if (!tmpDir) {
     return {
@@ -29,29 +26,106 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
     };
   }
 
-  // Load website structure result
+  // Load website structure result (may be null)
   const websiteStructureResult = await loadWebsiteStructureResult(tmpDir);
 
-  // Use choose-pages to get selected pages
-  const choosePagesResult = await choosePages(
-    {
-      pages,
-      websiteStructureResult,
-      projectId,
-      tmpDir,
-      isTranslate: false,
-      feedback: null,
+  const mainFileTmpDir = join(tmpDir, locale);
+  let selectedPages = [];
+
+  // If pages parameter is provided, use it directly
+  if (pages && pages.length > 0) {
+    // Convert page paths to selectedPages format
+    for (const pagePath of pages) {
+      // Convert page path to flatName
+      const flatName = fileNameToFlatPath(pagePath.replace(/^\//, "").replace(/\//g, "-"));
+      const foundItem = websiteStructureResult
+        ? findItemByFlatName(websiteStructureResult, flatName)
+        : null;
+
+      // Generate expected file name for main locale
+      const fileName = getFileName({
+        locale,
+        fileName: flatName,
+      });
+
+      selectedPages.push({
+        fileName,
+        flatName,
+        title: foundItem?.title,
+      });
+    }
+  } else {
+    // Get all main language page files
+    const mainLanguageFiles = await getMainLanguageFiles(
+      mainFileTmpDir,
       locale,
-      requiredFeedback: false, // Don't require feedback for clearing
-      multipleSelection: true,
-      action: WEB_ACTION.clear,
-    },
-    options,
-  );
+      websiteStructureResult,
+    );
 
-  const selectedPages = choosePagesResult.selectedPages;
+    if (mainLanguageFiles.length === 0) {
+      return {
+        message: `🗂️ ${title}\n  • No pages found to clear.`,
+      };
+    }
 
-  if (!selectedPages || selectedPages.length === 0) {
+    // Create choices with title and filename
+    const choices = mainLanguageFiles.map((fileName) => {
+      const flatName = fileNameToFlatPath(fileName);
+      const foundItem = websiteStructureResult
+        ? findItemByFlatName(websiteStructureResult, flatName)
+        : null;
+
+      const displayName = foundItem?.title
+        ? `${foundItem.title} (${fileName})`
+        : fileName;
+
+      return {
+        name: displayName,
+        value: fileName,
+        flatName,
+        title: foundItem?.title,
+      };
+    });
+
+    // Let user select files
+    const selectedFileNames = await options.prompts.checkbox({
+      message: "Select pages to clear:",
+      source: (term) => {
+        if (!term) return choices;
+
+        return choices.filter((choice) =>
+          choice.name.toLowerCase().includes(term.toLowerCase()),
+        );
+      },
+      validate: (answer) => {
+        if (answer.length === 0) {
+          return "Please select at least one page";
+        }
+        return true;
+      },
+    });
+
+    if (!selectedFileNames || selectedFileNames.length === 0) {
+      return {
+        message: `🗂️ ${title}\n  • No pages selected to clear.`,
+      };
+    }
+
+    // Convert selected files to selectedPages format using choice data
+    const choiceMap = new Map(choices.map((v) => [v.value, v]));
+    selectedPages = selectedFileNames.map((fileName) => {
+      const item = choiceMap.get(fileName);
+      const flatName = fileNameToFlatPath(fileName);
+
+      return {
+        fileName, 
+        flatName, 
+        title: item?.title, 
+      };
+    });
+  }
+
+  if (selectedPages.length === 0) {
     return {
       message: `🗂️ ${title}\n  • No pages selected to clear.`,
     };
@@ -66,9 +140,8 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
 
   // For each selected page, delete its files from all locale directories
   for (const page of selectedPages) {
-    const pagePath = page.path;
-    const flatName = pagePath.replace(/^\//, "").replace(/\//g, "-");
-    const pageTitle = page.title || pagePath;
+    const { fileName, flatName, title } = page;
+    const pageTitle = title || fileName;
 
     let pageCleared = false;
 
@@ -81,13 +154,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
         continue;
       }
 
-      // Generate the expected file name for this locale
-      const expectedFileName = getFileName({
-        locale: currentLocale,
-        fileName: flatName,
-      });
-
-      const filePath = join(localeDir, expectedFileName);
+      const filePath = join(localeDir, fileName);
 
       // Check if file exists and delete it
       if (existsSync(filePath)) {
@@ -114,14 +181,14 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
     if (pageCleared) {
       clearedCount++;
       clearedPages.push({
-        path: pagePath,
+        path: flatName,
         title: pageTitle,
       });
     } else {
       results.push({
         status: "noop",
         message: `• ${pageTitle} not found in generated pages`,
-        path: pagePath,
+        path: flatName,
       });
     }
   }

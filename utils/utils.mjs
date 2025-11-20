@@ -265,7 +265,7 @@ function validateSectionFieldCombination({ section, sectionPath, index, errors, 
         supersetMatch.missing.every((field) => {
           if (!hasNumericSegment(field)) return false;
 
-          // actions are not considered missing
+          // action fields are not considered missing
           if (field.toLowerCase().includes("action")) return true;
 
           const normalized = stripNumericSegments(field);

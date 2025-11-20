@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T06:20:10.772Z
+  updateAt: 2025-11-20T07:23:55.667Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -80,6 +80,8 @@ composite:
 
 
       Constraint
+
+      - Only used on the site homepage (path is /home)
 
       - The {{verticalHeroImage}} must be provided as a valid asset.
 
@@ -2088,10 +2090,10 @@ composite:
       - Copy: title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
     fieldCombinations:
-      - ctaWithBgActions.0.link
-      - ctaWithBgActions.0.text
-      - ctaWithBgActions.1.link
-      - ctaWithBgActions.1.text
+      - ctaActions.0.link
+      - ctaActions.0.text
+      - ctaActions.1.link
+      - ctaActions.1.text
       - ctaWithBgDescription
       - ctaWithBgTitle
     section:
@@ -2180,18 +2182,18 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= ctaWithBgActions.0.text %>
-                url: <%= ctaWithBgActions.0.link %>
+                text: <%= ctaActions.0.text %>
+                url: <%= ctaActions.0.link %>
                 variant: contained
                 size: xlarge
                 target: _self
                 needLogin: false
               - id: btn-1759121436561-6r9xmg35x
-                text: <%= ctaWithBgActions.1.text %>
+                text: <%= ctaActions.1.text %>
                 variant: outlined
                 borderColor: primary.main
                 size: xlarge
-                url: <%= ctaWithBgActions.1.link %>
+                url: <%= ctaActions.1.link %>
           r8t5y6u7i1o2p3a4:
             value: 16
   - id: 7fu0m2oim8r6z8h5
@@ -3420,8 +3422,6 @@ composite:
 
       Structure (left → right)
 
-      - Icon
-
       - Description Text
 
       ---
@@ -4145,8 +4145,8 @@ composite:
         - Title ≤ 40 characters
         - Description ≤ 160 characters
     fieldCombinations:
-      - contentCard.actionLink
-      - contentCard.actionTitle
+      - contentCardActionLink
+      - contentCardActionTitle
       - contentCardDescription
       - contentCardRightImage
       - contentCardTitle
@@ -4247,8 +4247,8 @@ composite:
             value:
               - id: btn-default-1
                 type: link
-                text: <%= contentCard.actionTitle %>
-                url: <%= contentCard.actionLink %>
+                text: <%= contentCardActionTitle %>
+                url: <%= contentCardActionLink %>
                 variant: text
                 size: medium
                 target: auto

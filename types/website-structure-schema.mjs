@@ -120,7 +120,8 @@ export const getAddPageInputJsonSchema = () => {
       schema.properties.navigation.properties.description.description =
         "User-facing action summary (**20–40 characters**) describing what visitors can do";
     }
-    schema.properties.parentId.description = "Parent page path. Use null for top-level pages";
+    schema.properties.parentId.description =
+      "Parent page path. Use 'null' (string) for top-level pages";
     schema.properties.sourceIds.description =
       "Associated sourceIds from datasources, cannot be empty. For each page, you must include as sourceIds the files that contain media resource descriptions or screenshot information.";
   }

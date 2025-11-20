@@ -56,7 +56,6 @@ export default async function addPagesToStructure(input = {}, options = {}) {
         ...input,
         feedback,
         websiteStructure: currentStructure,
-        needDataSources: true,
         userPreferences,
       });
 

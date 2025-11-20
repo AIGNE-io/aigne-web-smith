@@ -12,7 +12,7 @@ Each page has the following properties:
 - title: Page title
 - description: Page description
 - path: URL path (must start with /, no language prefix, homepage uses /home)
-- parentId: Parent page path (null for top-level pages)
+- parentId: Parent page path (use the string "null" for top-level pages)
 - sourceIds: Associated sourceIds from datasources (cannot be empty)
 </structure_context>
 

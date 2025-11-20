@@ -7,9 +7,8 @@ export default async function printRemovePageSummary({
   deletedPages = [],
   pagesWithInvalidLinks = [],
 }) {
-  let message = `\n${"=".repeat(80)}\n`;
-  message += `${chalk.bold.cyan("📊 Summary")}\n`;
-  message += `${"=".repeat(80)}\n\n`;
+  let message = `\n---\n`;
+  message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
 
   // Display removed pages
   if (deletedPages && deletedPages.length > 0) {
@@ -38,8 +37,6 @@ export default async function printRemovePageSummary({
     message += `✅ Pages fixed (Removed invalid links):\n`;
     message += `${chalk.gray("   No pages needed to be fixed.\n\n")}`;
   }
-
-  message += `${"=".repeat(80)}\n\n`;
 
   return { message };
 }

@@ -1,7 +1,12 @@
 import { existsSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import { join } from "node:path";
-import { loadWebsiteStructureResult, getMainLanguageFiles, fileNameToFlatPath, findItemByFlatName } from "../../utils/pages-finder-utils.mjs";
+import {
+  fileNameToFlatPath,
+  findItemByFlatName,
+  getMainLanguageFiles,
+  loadWebsiteStructureResult,
+} from "../../utils/pages-finder-utils.mjs";
 import { getFileName, toDisplayPath } from "../../utils/utils.mjs";
 
 const title = "Pages";
@@ -75,9 +80,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
         ? findItemByFlatName(websiteStructureResult, flatName)
         : null;
 
-      const displayName = foundItem?.title
-        ? `${foundItem.title} (${fileName})`
-        : fileName;
+      const displayName = foundItem?.title ? `${foundItem.title} (${fileName})` : fileName;
 
       return {
         name: displayName,
@@ -93,9 +96,7 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
       source: (term) => {
         if (!term) return choices;
 
-        return choices.filter((choice) =>
-          choice.name.toLowerCase().includes(term.toLowerCase()),
-        );
+        return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
       },
       validate: (answer) => {
         if (answer.length === 0) {
@@ -118,9 +119,9 @@ export default async function clearGeneratedPages(input = {}, options = {}) {
       const flatName = fileNameToFlatPath(fileName);
 
       return {
-        fileName, 
-        flatName, 
-        title: item?.title, 
+        fileName,
+        flatName,
+        title: item?.title,
       };
     });
   }

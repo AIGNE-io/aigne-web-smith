@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T12:47:10.770Z
+  updateAt: 2025-11-20T13:46:10.827Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2094,7 +2094,7 @@ composite:
       - ctaActions.0.text
       - ctaActions.1.link
       - ctaActions.1.text
-      - ctaWithBgDescription
+      - ctaDescription
       - ctaWithBgTitle
     section:
       id: 90wxntoeft7ab8fc
@@ -2165,7 +2165,7 @@ composite:
               list:
                 - id: item-1759121327460-gc8w9kaxt
                   type: text
-                  text: <%= ctaWithBgDescription %>
+                  text: <%= ctaDescription %>
                   style:
                     color: ""
                     fontSize: '{ "xs": 18, "md": 20}'
@@ -2274,7 +2274,7 @@ composite:
       sectionIds:
         - sakedvx7f5j3z75d
       config:
-        background: grey25
+        background: background.paper
         paddingY: large
         borderRadius: medium
         paddingX: none

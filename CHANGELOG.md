@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.10...v1.8.0-beta.11) (2025-11-21)
+
+
+### Bug Fixes
+
+* **DescriptionItem:** improve display with stack layout ([#271](https://github.com/AIGNE-io/aigne-web-smith/issues/271)) ([a3fba1c](https://github.com/AIGNE-io/aigne-web-smith/commit/a3fba1cb5411ec9b5ceb8a8fc488295ff42f3e92))
+
 ## [1.8.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.9...v1.8.0-beta.10) (2025-11-21)
 
 

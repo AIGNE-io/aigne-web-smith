@@ -124,7 +124,7 @@ export default async function movePage(input, options) {
   const updatedPage = {
     ...pageToMove,
     path: finalPath,
-    parentId: newParentId || null,
+    parentId: newParentId || "null",
   };
 
   // Update the website structure

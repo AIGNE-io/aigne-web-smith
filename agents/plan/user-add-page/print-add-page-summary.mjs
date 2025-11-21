@@ -1,12 +1,18 @@
 import chalk from "chalk";
+import { recordUpdate } from "../../../utils/history-utils.mjs";
 
 /**
  * Print summary of generated pages and pages with new links
  */
-export default async function printAddPageSummary({ newPages = [] }, options) {
-  let message = `\n${"=".repeat(80)}\n`;
-  message += `${chalk.bold.cyan("📊 Summary")}\n`;
-  message += `${"=".repeat(80)}\n\n`;
+export default async function printAddPageSummary({ newPages = [], allFeedback = [] }, options) {
+  let message = `\n---\n`;
+  message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
+
+  // Record the update
+  recordUpdate({
+    operation: "structure_update",
+    feedback: allFeedback.join("\n"),
+  });
 
   // Display newly generated pages
   if (newPages && newPages.length > 0) {
@@ -45,8 +51,6 @@ export default async function printAddPageSummary({ newPages = [] }, options) {
     message += `🔗 Pages Updated with New Links:\n`;
     message += `${chalk.gray("   No pages were updated with new links.\n\n")}`;
   }
-
-  message += `${"=".repeat(80)}\n\n`;
 
   return {
     message,

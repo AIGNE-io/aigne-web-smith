@@ -1,8 +1,11 @@
+import { toDisplayLink } from "../../../utils/protocol-utils.mjs";
+import { getFileName } from "../../../utils/utils.mjs";
+
 /**
  * Review pagesWithInvalidLinks and let user select which pages should be fixed
  */
 export default async function reviewPagesWithInvalidLinks(
-  { pagesWithInvalidLinks = [], websiteStructure = [] },
+  { pagesWithInvalidLinks = [], websiteStructure = [], locale = "en" },
   options,
 ) {
   // If no pages to review, return empty array
@@ -13,15 +16,24 @@ export default async function reviewPagesWithInvalidLinks(
     };
   }
 
+  // Create choices for user selection, default all checked
+  const choices = pagesWithInvalidLinks.map((page, index) => {
+    const flatName = page.path.replace(/^\//, "").replace(/\//g, "-");
+    const filename = getFileName({ locale, fileName: flatName });
+
+    return {
+      name: `${page.title} (${filename})`,
+      value: index,
+      checked: true, // Default all selected
+      description: `Invalid Links(${page.invalidLinks?.length || 0}): ${page.invalidLinks?.map(toDisplayLink)?.join(", ")}`,
+    };
+  });
+
   // Let user select which pages to fix (default: all selected)
   const selectedPages = await options.prompts.checkbox({
     message:
       "Select Pages with Invalid Links to Fix (all selected by default, press Enter to confirm, or unselect all to skip):",
-    choices: pagesWithInvalidLinks.map((page, index) => ({
-      name: `${page.path}${page.title !== page.path ? ` (${page.title})` : ""} - Invalid: ${page.invalidLinks.join(", ")}`,
-      value: index,
-      checked: true, // Default to all selected
-    })),
+    choices,
   });
 
   // Filter pagesWithInvalidLinks based on user selection

@@ -262,9 +262,19 @@ export async function loadWebsiteStructureResult(tmpDir) {
   try {
     await access(websiteStructurePath);
     const websiteStructureResult = await readFile(websiteStructurePath, "utf8");
+
     if (websiteStructureResult) {
       try {
-        return parse(websiteStructureResult);
+        const structure = parse(websiteStructureResult);
+
+        // Compatibility handling: convert parentId null values to the string 'null'
+        structure.forEach((v) => {
+          if (v.parentId === null) {
+            v.parentId = "null";
+          }
+        });
+
+        return structure;
       } catch (err) {
         console.error(`Failed to parse website-structure.yaml: ${err.message}`);
         return null;

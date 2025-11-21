@@ -1,3 +1,5 @@
+import { LINK_PROTOCOL } from "./constants.mjs";
+
 /**
  * Recursively scan for protocol values in an object
  * @param {any} obj - The object to scan
@@ -142,4 +144,14 @@ export function buildAllowedMediaFilesFromList(mediaFiles) {
   });
 
   return allowedMediaFiles;
+}
+
+/**
+ * Convert link path to display link e.g. link:///about-us -> /about-us
+ */
+export function toDisplayLink(linkPath = "") {
+  if (linkPath.startsWith(LINK_PROTOCOL)) {
+    return linkPath.slice(LINK_PROTOCOL.length);
+  }
+  return linkPath;
 }

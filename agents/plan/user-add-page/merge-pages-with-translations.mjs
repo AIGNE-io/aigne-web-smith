@@ -1,7 +1,5 @@
-import { recordUpdate } from "../../../utils/history-utils.mjs";
-
 export default async function mergePagesWithTranslations(
-  { pagesWithNewLinks, newPages, translateLanguages = [], allFeedback },
+  { pagesWithNewLinks, newPages, translateLanguages = [] },
   options,
 ) {
   const currentStructure = options.context?.userContext?.currentStructure || [];
@@ -15,12 +13,6 @@ export default async function mergePagesWithTranslations(
   });
 
   selectedPages = websiteStructureResult;
-
-  // Record the update
-  recordUpdate({
-    operation: "structure_update",
-    feedback: allFeedback.join("\n"),
-  });
 
   return {
     selectedPages,

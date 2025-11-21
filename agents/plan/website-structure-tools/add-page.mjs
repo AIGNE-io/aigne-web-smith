@@ -76,7 +76,7 @@ export default async function addPage(input, options) {
     description,
     path,
     navigation: { ...navigation },
-    parentId: parentId || null,
+    parentId: parentId || "null",
     sourceIds: [...sourceIds],
   };
 

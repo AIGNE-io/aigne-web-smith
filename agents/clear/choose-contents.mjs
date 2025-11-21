@@ -21,20 +21,6 @@ export default async function chooseContents(input = {}, options = {}) {
   let configCleared = false;
 
   const targetsDefinition = {
-    websiteStructure: {
-      path: websiteStructureCandidate,
-      label: "website structure",
-      description: ({ tmpDir }) =>
-        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stay)`,
-      onClear: async ({ displayPath, results, targetPath }) => {
-        await rm(targetPath, { recursive: true, force: true });
-        results.push({
-          status: "removed",
-          message: `📖 Website Structure \n  ✔ Cleared ${displayPath}`,
-          path: displayPath,
-        });
-      },
-    },
     generatedPages: {
       path: generatedPagesCandidate,
       label: "generated pages",
@@ -53,6 +39,20 @@ export default async function chooseContents(input = {}, options = {}) {
         results.push({
           status: result.error ? "error" : "removed",
           message: result.message,
+          path: displayPath,
+        });
+      },
+    },
+    websiteStructure: {
+      path: websiteStructureCandidate,
+      label: "website structure",
+      description: ({ tmpDir }) =>
+        `Delete website structure in './${toDisplayPath(join(tmpDir, "website-structure.yaml"))}' (pages stay)`,
+      onClear: async ({ displayPath, results, targetPath }) => {
+        await rm(targetPath, { recursive: true, force: true });
+        results.push({
+          status: "removed",
+          message: `📖 Website Structure \n  ✔ Cleared ${displayPath}`,
           path: displayPath,
         });
       },

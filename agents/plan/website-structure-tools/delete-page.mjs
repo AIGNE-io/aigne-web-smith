@@ -4,7 +4,11 @@ import {
   getDeletePageOutputJsonSchema,
   validateDeletePageInput,
 } from "../../../types/website-structure-schema.mjs";
-import { handleFailure, initializeFailureCount } from "../../../utils/retry-utils.mjs";
+import {
+  handleFailure,
+  initializeFailureCount,
+  userContextAt,
+} from "../../../utils/retry-utils.mjs";
 
 export default async function deletePage(input, options) {
   initializeFailureCount(options);
@@ -26,6 +30,20 @@ export default async function deletePage(input, options) {
 
   if (!websiteStructure) {
     websiteStructure = input.websiteStructure;
+  }
+
+  const deletedPathsContext = userContextAt(options, "deletedPaths");
+  const deletedPaths = deletedPathsContext.get() || [];
+
+  // Check if path has already been deleted
+  if (recursive) {
+    if (deletedPaths.includes(path)) {
+      const message = `Skipping duplicate deletion. Page '${path}' has already been deleted.`;
+      return {
+        websiteStructure,
+        message,
+      };
+    }
   }
 
   // Check for duplicate calls by comparing with last input
@@ -87,6 +105,11 @@ export default async function deletePage(input, options) {
   // Remove all pages to delete from the structure
   const updatedStructure = websiteStructure.filter((item) => !pathsToDelete.has(item.path));
   const deletedCount = pathsToDelete.size - 1; // Exclude the main page from count
+
+  // Add paths to deleted paths
+  if (recursive) {
+    deletedPathsContext.set(deletedPaths.concat(Array.from(pathsToDelete)));
+  }
 
   const successMessage = `deletePage executed successfully.
   Successfully deleted page '${pageToDelete.title}' from path '${path}'${recursive && deletedCount > 0 ? ` along with ${deletedCount} child page(s)` : ""}.

@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { toDisplayLink } from "../../../utils/protocol-utils.mjs";
 
 /**
  * Print summary of removed pages and pages with invalid links
@@ -7,9 +8,8 @@ export default async function printRemovePageSummary({
   deletedPages = [],
   pagesWithInvalidLinks = [],
 }) {
-  let message = `\n${"=".repeat(80)}\n`;
-  message += `${chalk.bold.cyan("📊 Summary")}\n`;
-  message += `${"=".repeat(80)}\n\n`;
+  let message = `\n---\n`;
+  message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
 
   // Display removed pages
   if (deletedPages && deletedPages.length > 0) {
@@ -32,14 +32,12 @@ export default async function printRemovePageSummary({
       if (page.title !== page.path) {
         message += `      Title: ${chalk.yellow(page.title)}\n`;
       }
-      message += `      Invalid links fixed: ${chalk.gray(page.invalidLinks.join(", "))}\n\n`;
+      message += `      Invalid links fixed: ${chalk.gray(page.invalidLinks.map(toDisplayLink).join(", "))}\n\n`;
     });
   } else {
     message += `✅ Pages fixed (Removed invalid links):\n`;
     message += `${chalk.gray("   No pages needed to be fixed.\n\n")}`;
   }
-
-  message += `${"=".repeat(80)}\n\n`;
 
   return { message };
 }

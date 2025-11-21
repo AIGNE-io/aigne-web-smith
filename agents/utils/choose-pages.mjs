@@ -29,8 +29,8 @@ function createFileChoice(fileName, websiteStructureResult) {
   const foundItem = findItemByFlatName(websiteStructureResult, flatName);
 
   if (foundItem?.title) {
-    // Show title with path for context: "Home"
-    const displayName = foundItem.title;
+    // Show title with filename for context: "Home (index.md)"
+    const displayName = `${foundItem.title} (${fileName})`;
     return {
       name: displayName,
       value: fileName,

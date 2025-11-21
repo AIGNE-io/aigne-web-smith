@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-21T05:10:27.170Z
+  updateAt: 2025-11-21T05:23:39.219Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2349,6 +2349,9 @@ composite:
 
       Constraints
 
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
+
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.
 
@@ -2598,6 +2601,9 @@ composite:
 
 
       Constraints
+
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
 
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.

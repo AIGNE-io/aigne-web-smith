@@ -19,4 +19,4 @@ skills:
         default_input:
           isTranslate: true
     iterate_on: selectedPages
-    concurrency: 10
+    concurrency: 6

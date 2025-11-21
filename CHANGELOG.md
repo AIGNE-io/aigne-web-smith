@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.8.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.8...v1.8.0-beta.9) (2025-11-20)
+
+
+### Bug Fixes
+
+* **component-lib:** correct card background to grey.25 ([#266](https://github.com/AIGNE-io/aigne-web-smith/issues/266)) ([9fbfe66](https://github.com/AIGNE-io/aigne-web-smith/commit/9fbfe66aea6ee4309bf88d4e56505abf161eb991))
+
+## [1.8.0-beta.8](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.7...v1.8.0-beta.8) (2025-11-20)
+
+
+### Features
+
+* add video size filtering with configurable maxVideoSize parameter ([#264](https://github.com/AIGNE-io/aigne-web-smith/issues/264)) ([09153ba](https://github.com/AIGNE-io/aigne-web-smith/commit/09153ba79077a913023869fc42e0b16d55b13385))
+
+## [1.8.0-beta.7](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.6...v1.8.0-beta.7) (2025-11-20)
+
+
+### Bug Fixes
+
+* reduce concurrency from 10 to 6 across agent configurations ([#262](https://github.com/AIGNE-io/aigne-web-smith/issues/262)) ([5fdc873](https://github.com/AIGNE-io/aigne-web-smith/commit/5fdc873f2a9d473cde5e35fe1f57add1fe026ff7))
+
 ## [1.8.0-beta.6](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.5...v1.8.0-beta.6) (2025-11-19)
 
 

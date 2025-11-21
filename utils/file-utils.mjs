@@ -462,6 +462,26 @@ export function isMediaFile(filePath) {
 }
 
 /**
+ * Check if a file is an image file
+ * @param {string} filePath - File path
+ * @returns {boolean} True if the file is an image
+ */
+export function isImageFile(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  return IMAGE_EXTENSIONS.includes(ext);
+}
+
+/**
+ * Check if a file is a video file
+ * @param {string} filePath - File path
+ * @returns {boolean} True if the file is a video
+ */
+export function isVideoFile(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  return VIDEO_EXTENSIONS.includes(ext);
+}
+
+/**
  * Get file type from file path based on extension
  * @param {string} filePath - File path
  * @returns {string} File type: 'image', 'video', or 'media'

@@ -3,13 +3,7 @@
     "title": "Overview",
     "description": "Provides a high-level introduction to AIGNE WebSmith, explaining what it does, its key features, and how it helps users automatically create professional websites.",
     "path": "/overview",
-    "sourceIds": [
-      "README.md",
-      "package.json",
-      "ROADMAP.md",
-      "aigne.yaml",
-      "CLAUDE.md"
-    ],
+    "sourceIds": ["README.md", "package.json", "ROADMAP.md", "aigne.yaml", "CLAUDE.md"],
     "parentId": "",
     "icon": "lucide:book-open"
   },
@@ -31,11 +25,7 @@
     "title": "Guides",
     "description": "Explains how to perform common day-to-day operations with WebSmith, such as publishing your site, updating content, and managing translations.",
     "path": "/guides",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "CLAUDE.md"
-    ],
+    "sourceIds": ["README.md", "aigne.yaml", "CLAUDE.md"],
     "parentId": "",
     "icon": "lucide:book"
   },
@@ -97,11 +87,7 @@
     "title": "Manage Update History",
     "description": "Track every update WebSmith has applied so you always know what changed, when, and why.",
     "path": "/guides/update-website/manage-update-history",
-    "sourceIds": [
-      "aigne.yaml",
-      "agents/history/view.mjs",
-      "utils/history-utils.mjs"
-    ],
+    "sourceIds": ["aigne.yaml", "agents/history/view.mjs", "utils/history-utils.mjs"],
     "parentId": "/guides/update-website"
   },
   {
@@ -211,22 +197,14 @@
     "title": "Cleanup Workspace",
     "description": "Shows you how to use the 'clear' command to safely remove generated files, workspace data, or the entire configuration.",
     "path": "/guides/cleanup-workspace",
-    "sourceIds": [
-      "aigne.yaml",
-      "agents/clear/index.yaml",
-      "agents/clear/choose-contents.mjs"
-    ],
+    "sourceIds": ["aigne.yaml", "agents/clear/index.yaml", "agents/clear/choose-contents.mjs"],
     "parentId": "/guides"
   },
   {
     "title": "Interactive Mode（Beta）",
     "description": "Use the interactive mode as a conversational co-pilot to iteratively plan, edit, and polish your site.",
     "path": "/guides/interactive-mode",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "agents/chat/index.yaml"
-    ],
+    "sourceIds": ["README.md", "aigne.yaml", "agents/chat/index.yaml"],
     "parentId": "/guides"
   },
   {
@@ -234,11 +212,7 @@
     "description": "Explore advanced capabilities of AIGNE WebSmith to further customize and enhance your website, including component management and using specialized visual elements.",
     "path": "/advanced-features",
     "parentId": "",
-    "sourceIds": [
-      "README.md",
-      "CHANGELOG.md",
-      "agents/component/pull-components-team.yaml"
-    ],
+    "sourceIds": ["README.md", "CHANGELOG.md", "agents/component/pull-components-team.yaml"],
     "icon": "lucide:sliders-horizontal"
   },
   {
@@ -259,20 +233,14 @@
     "description": "Learn how to leverage powerful, pre-built components like the Terminal Player and FullBackground Hero to create visually engaging and interactive web pages.",
     "path": "/advanced-features/use-special-components",
     "parentId": "/advanced-features",
-    "sourceIds": [
-      "CHANGELOG.md",
-      "README.md"
-    ]
+    "sourceIds": ["CHANGELOG.md", "README.md"]
   },
   {
     "title": "Terminal Player",
     "description": "Provides instructions on how to embed and use the Terminal Player component to display terminal recordings and command-line interactions on your website.",
     "path": "/advanced-features/use-special-components/terminal-player",
     "parentId": "/advanced-features/use-special-components",
-    "sourceIds": [
-      "CHANGELOG.md",
-      "assets/documents/special-components/terminal-player.md"
-    ]
+    "sourceIds": ["CHANGELOG.md", "assets/documents/special-components/terminal-player.md"]
   },
   {
     "title": "Latest Updates",
@@ -289,13 +257,7 @@
     "title": "Reference",
     "description": "Provides detailed reference material, including a complete list of commands, version history, and licensing information.",
     "path": "/reference",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "CHANGELOG.md",
-      "LICENSE.md",
-      "CONTRIBUTE.md"
-    ],
+    "sourceIds": ["README.md", "aigne.yaml", "CHANGELOG.md", "LICENSE.md", "CONTRIBUTE.md"],
     "parentId": "",
     "icon": "lucide:library"
   },
@@ -330,9 +292,7 @@
     "description": "Shows how to collect briefs, source docs, and assets so the AI can build higher-quality sites in fewer iterations.",
     "path": "/reference/prepare-materials",
     "parentId": "/reference",
-    "sourceIds": [
-      "assets/documents/quality-website-methodology.md"
-    ],
+    "sourceIds": ["assets/documents/quality-website-methodology.md"],
     "icon": "lucide:book"
   },
   {
@@ -340,18 +300,13 @@
     "description": "Solutions to common problems with configuration, generation, publishing, and translation. Includes error messages, causes, and step-by-step fixes.",
     "path": "/reference/trouble-shooting",
     "parentId": "/reference",
-    "sourceIds": [
-      "assets/documents/special-components/websmith-config.md"
-    ]
+    "sourceIds": ["assets/documents/special-components/websmith-config.md"]
   },
   {
     "title": "Release Notes",
     "description": "Lists all the updates, bug fixes, and new features that have been added to AIGNE WebSmith over time.",
     "path": "/release-notes",
-    "sourceIds": [
-      "CHANGELOG.md",
-      "RELEASE.md"
-    ],
+    "sourceIds": ["CHANGELOG.md", "RELEASE.md"],
     "parentId": "",
     "icon": "lucide:megaphone"
   },

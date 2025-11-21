@@ -3,6 +3,7 @@ name: generate
 alias:
   - gen
   - g
+  - create
 description: Automatically generates comprehensive website pages
 skills:
   - url: ../init/index.mjs

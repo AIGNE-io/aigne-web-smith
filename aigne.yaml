@@ -1,7 +1,7 @@
 #!/usr/bin/env aigne
 
 chat_model:
-  model: google/gemini-2.5-pro
+  model: gemini-3-pro-preview
   temperature: 0.8
   reasoning_effort:
     $get: reasoningEffort

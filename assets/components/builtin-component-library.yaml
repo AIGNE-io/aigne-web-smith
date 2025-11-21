@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T08:49:20.352Z
+  updateAt: 2025-11-21T05:23:39.219Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -86,7 +86,7 @@ composite:
       - The {{verticalHeroImage}} must be provided as a valid asset.
 
       - Copy length:
-        - Title ≤ 40 characters
+        - Title ≤ 80 characters
         - Description ≤ 160 characters 
     fieldCombinations:
       - verticalHeroActions.0.link
@@ -297,7 +297,7 @@ composite:
 
 
       - Copy length:
-        - Title ≤ 40 characters
+        - Title ≤ 80 characters
         - Description ≤ 160 characters 
     fieldCombinations:
       - centralHeroActions.0.link
@@ -537,8 +537,8 @@ composite:
       recommended), total ≤ 2; verb-first, 2–4 words.
 
       - Copy length:
-        - `splitHeroWithBgColorBigTitle` ≤ 40 characters
-        - `splitHeroWithBgColorSubTitle` ≤ 60 characters
+        - `splitHeroWithBgColorBigTitle` ≤ 80 characters
+        - `splitHeroWithBgColorSubTitle` ≤ 80 characters
         - `splitHeroWithBgColorDescription` ≤ 160 characters
     fieldCombinations:
       - splitHeroWithBgColorActions.0.link
@@ -758,8 +758,8 @@ composite:
       Secondary CTA should visually be less prominent than the Primary CTA.
 
       Copy length:
-        - `centralHeroWithoutImageTitle` ≤ 40 characters
-        - `centralHeroWithoutImageSubTitle` ≤ 60 characters
+        - `centralHeroWithoutImageTitle` ≤ 80 characters
+        - `centralHeroWithoutImageSubTitle` ≤ 80 characters
         - `centralHeroWithoutImageDescription` ≤ 160 characters
     fieldCombinations:
       - centralHeroWithoutImageActions.0.link
@@ -2087,14 +2087,14 @@ composite:
       - Actions: **min 1, max 2** buttons; each requires `text` and `link`.
       Primary first; secondary optional.
 
-      - Copy: title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
+      - Copy: title ≤ 80 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
     fieldCombinations:
       - ctaActions.0.link
       - ctaActions.0.text
       - ctaActions.1.link
       - ctaActions.1.text
-      - ctaWithBgDescription
+      - ctaDescription
       - ctaWithBgTitle
     section:
       id: 90wxntoeft7ab8fc
@@ -2165,7 +2165,7 @@ composite:
               list:
                 - id: item-1759121327460-gc8w9kaxt
                   type: text
-                  text: <%= ctaWithBgDescription %>
+                  text: <%= ctaDescription %>
                   style:
                     color: ""
                     fontSize: '{ "xs": 18, "md": 20}'
@@ -2204,9 +2204,6 @@ composite:
       - Centered vertical stack inside a contained panel: title (1–2 lines) →
       short description (1–3 lines) → CTAs (primary + optional secondary).
 
-      - Panel uses subtle background, rounded corners, and generous vertical
-      padding.
-
 
       Use when
 
@@ -2221,7 +2218,7 @@ composite:
       - Actions: **min 1, max 2** buttons; each requires `text` and `link`.
       Primary first; secondary optional.
 
-      - Copy: title ≤ 60 chars; description ≤ 120–160 chars; avoid lists or
+      - Copy: title ≤ 80 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
     fieldCombinations:
       - ctaActions.0.link
@@ -2352,12 +2349,15 @@ composite:
 
       Constraints
 
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
+
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.
 
       - `featureRightImage` must be a valid image
 
-      - Keep copy concise: title ≤ 60 chars; description ≤ 120–160 chars; avoid
+      - Keep copy concise: title ≤ 80 chars; description ≤ 120–160 chars; avoid
       lists inside the card.
 
       - The 'descriptionList' is displayed in the list, and only the
@@ -2602,12 +2602,15 @@ composite:
 
       Constraints
 
+      - When displaying application screenshots, you must use components that
+      include `With ScreenShot` in their names.
+
       - When using multiple Feature Sections consecutively, the `Feature Right
       Image` and `Feature Left Image` components must be used alternately.
 
       - `featureLeftImage` must be a valid image
 
-      - Keep copy concise: title ≤ 60 chars; 
+      - Keep copy concise: title ≤ 80 chars; 
 
       - The 'descriptionList' is displayed in the list, and only the
       `Description Item` component can be used.
@@ -2864,7 +2867,7 @@ composite:
       - `featureRightScreenShot` must be a valid image, more suitable for
       displaying application screenshots.
 
-      - Keep copy concise: title ≤ 60 chars;
+      - Keep copy concise: title ≤ 80 chars;
 
       - The 'descriptionList' is displayed in the list, and only the
       `Description Item` component can be used.
@@ -3155,7 +3158,7 @@ composite:
       - `featureLeftScreenShot` must be a valid image, more suitable for
       displaying application screenshots.
 
-      - Keep copy concise: title ≤ 60 chars;
+      - Keep copy concise: title ≤ 80 chars;
 
       - The 'descriptionList' is displayed in the list, and only the
       `Description Item` component can be used.
@@ -3438,7 +3441,10 @@ composite:
 
       Constraint
 
-      - **The description text ({{description}}) must not exceed 40
+      - The `Description Item` component is used to display in a list, ensuring
+      at least 2 descriptions.
+
+      - **The description text ({{description}}) must not exceed 80
       characters.**
 
       - **This component must only be used as a child item within a
@@ -3587,7 +3593,7 @@ composite:
       missing.
 
       - Copy length:
-        - Title ≤ 40 characters
+        - Title ≤ 80 characters
         - Description ≤ 160 characters
     fieldCombinations:
       - cardDescription
@@ -4142,7 +4148,7 @@ composite:
       top-to-bottom flow.
 
       - Copy length:
-        - Title ≤ 40 characters
+        - Title ≤ 80 characters
         - Description ≤ 160 characters
     fieldCombinations:
       - contentCardActionLink

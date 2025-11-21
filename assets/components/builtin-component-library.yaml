@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-21T05:23:39.219Z
+  updateAt: 2025-11-21T09:47:09.338Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -3519,6 +3519,12 @@ composite:
               h: 1
               id: l3q1ar4dslmk33b7
         alignContent: start
+        layoutMode: stack
+        stackDirection: row
+        stackItems:
+          9hsg5zdzfvzbdyjx:
+            flex: fixed
+            width: 36px
     dataSource:
       muoo9josc1kmysnx: {}
       9hsg5zdzfvzbdyjx: {}

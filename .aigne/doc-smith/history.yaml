@@ -1,4 +1,108 @@
 entries:
+  - timestamp: 2025-11-21T19:05:18.039Z
+    operation: document_update
+    feedback: "add code block use-case for 'Step 2: Automatic Link Correction (Optional) (H3)' and 'Step
+      3: Review the Summary (H3)'"
+    docPaths:
+      - /guides/update-website/remove-page
+  - timestamp: 2025-11-21T19:03:01.726Z
+    operation: document_update
+    feedback: every step under ''The Process' should use code block as use-case instead of image
+    docPaths:
+      - /guides/update-website/remove-page
+  - timestamp: 2025-11-21T19:00:48.389Z
+    operation: document_update
+    feedback: rename 'How to Remove a Page (H2)' to 'The Process'. every step should use code block as
+      use-case instead of image
+    docPaths:
+      - /guides/update-website/remove-page
+  - timestamp: 2025-11-21T18:43:32.432Z
+    operation: document_update
+    feedback: Use real-world examples to construct code blocks.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T18:37:47.637Z
+    operation: document_update
+    feedback: Each step under Process requires a code block use case.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T18:35:18.824Z
+    operation: document_update
+    feedback: rename 'How It Works' to 'The process'. Each step requires the provision of a use case (in
+      the form of a code block).
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T18:31:47.204Z
+    operation: document_update
+    feedback: "Remove 'Summary' and make every process as H3. merge 'Displays Current Structure (H3)'
+      and 'Interactive Prompts (H3)'. merge 'Interactive Process (H3)' and 'Iterative Addition (H3)'
+      and 'Content Generation (H3)'. The process should be: 1. Create a new page 2. Review the page
+      requiring the link addition 3. Generate and update the summary page. Ignore the existing
+      steps. The correct steps should be: 1. Add new pagse 2. Review the page requiring the link
+      addition 3. Generate and update the summary page. Ignore the existing steps. The correct
+      procedure is: create a new page, review the page requiring the link addition, and output a
+      summary of the newly created page.. Each step uses a code block instead of an image
+      reference."
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:52:57.962Z
+    operation: document_update
+    feedback: Refine each step's use case to align with real-world scenarios.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:43:53.792Z
+    operation: document_update
+    feedback: regenerate the use-case
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:35:53.546Z
+    operation: document_update
+    feedback: Simulate authentic CLI output
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:29:15.382Z
+    operation: document_update
+    feedback: The code block of 'THe Process' must match the actual output.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:26:28.683Z
+    operation: document_update
+    feedback: "add code block use-case for the 'Step 2: Review of Links to Existing Pages (H3)' and the
+      'Step 3: Generation and Summary Report (H3)'"
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:22:57.777Z
+    operation: document_update
+    feedback: Each step uses a code block instead of an image as the use case
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:21:25.256Z
+    operation: document_update
+    feedback: Adding alias use-case in 'Command Usage'
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:10:49.873Z
+    operation: document_update
+    feedback: >-
+      remove 'How It Works', add 'Command Usage'. Rename 'Interactive Walkthrough (H2)' to 'The
+      Process''. remove the. remove the '1. Run the Command (H3)'. The process should be divided
+      into:
+
+      1. Interactive page addition
+
+      2. Review of links to existing pages
+
+      3. Summary report. Each step adds a use case via a code block, not an image screenshot.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T13:16:04.663Z
+    operation: structure_update
+    feedback: >-
+      Add a new document named “Add Page” under the "Update Website" to introduce how to use the
+      `aigne web add-page` command.
+
+      Add a new document named “Remove Page” under the "Update Website" to introduce how to use the
+      `aigne web remove-page` command.
   - timestamp: 2025-11-11T16:21:24.188Z
     operation: document_update
     feedback: 更新新的文档来更新. 我们不应该移除原有的一些内容,比如字段解释.

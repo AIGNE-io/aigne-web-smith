@@ -1,39 +1,40 @@
-# 发布网站
+网站生成后，最后一步是让它在线可访问。本指南涵盖了使用 AIGNE WebSmith 发布网站的各种方法，确保您可以选择最适合您技术和预算要求的选项。
 
-当您的页面在本地看起来效果不错时，运行 `aigne web publish` 将其推送到线上。该命令每次都使用相同的流程——选择一个目标，授权一次，然后 WebSmith 会为您上传所有页面和资产。
+`aigne web publish` 命令是部署您生成的网站文件的主要工具。根据您的需求，您可以部署到免费的 WebSmith Cloud、与您自己现有的基础设施集成，或者建立一个新的专用网站。
 
-## 最快路径 (WebSmith Cloud)
+### 发布目的地
 
-如果您只需要一个公开的 URL，请按照以下步骤操作：
-
-1. **运行命令**  
-   ```bash 快速发布 icon=lucide:terminal
-   aigne web publish
-   ```  
-   别名 `aigne web pub` 和 `aigne web p` 也同样有效。
-2. **选择 WebSmith Cloud**  
-   当提示出现时，选择 **WebSmith Cloud**（默认选项）并按 Enter 键。
-3. **授权一次**  
-   终端会打开一个浏览器，以便您登录并批准发布访问权限。完成这个一次性步骤后，凭据将被缓存在本地。
-4. **等待部署**  
-   WebSmith 会压缩您生成的文件，上传媒体，并在完成后打印出线上 URL。稍后重新运行相同的命令即可发布更新——除非您更改目标，否则不会有额外的提示。
-
-> **提示：** 要编写部署脚本或跳过提示，请添加 `--appUrl https://your-site.com`。终端命令会记住上次发布到的 URL，因此未来的运行将是全自动的。
-
-## 何时使用其他选项
-
-选择与您的托管策略相匹配的目标。下面的每张卡片都链接到一个专门的指南。
+WebSmith 提供三个不同的发布目标。有关详细的分步说明，请参阅每个选项的具体指南。
 
 <x-cards data-columns="3">
-  <x-card data-title="到 WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/cloud">
-    让您的网站上线的快捷方式。使用我们免费的公共托管服务。此选项非常适合测试、开源项目或社区共享。
-  </x-card>
-  <x-card data-title="到现有网站" data-icon="lucide:server" data-href="/guides/publish-website/custom">
-    适用于已经在 ArcBlock 平台上构建了网站的用户。本指南将解释如何将您新生成的页面集成并发布到您现有的基础设施中。
-  </x-card>
-  <x-card data-title="到新的专用网站" data-icon="lucide:globe" data-href="/guides/publish-website/new-dedicated-website">
-    一项付费服务，可创建一个具有自定义域名和托管功能的新的专用网站。这是专业和商业用途的推荐选择。
-  </x-card>
+  <x-card data-title="到 WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/to-websmith-cloud">发布到我们免费的、托管的托管平台。非常适合开源项目、个人网站或社区共享。</x-card>
+  <x-card data-title="到现有网站" data-icon="lucide:server" data-href="/guides/publish-website/to-existing-website">将生成的页面直接集成并部署到您当前自我管理的网站基础设施上。</x-card>
+  <x-card data-title="到新的专用网站" data-icon="lucide:globe" data-href="/guides/publish-website/to-new-dedicated-website">创建并发布到一个拥有自定义域名和专业托管的全新、全托管网站。这是一项付费服务。</x-card>
 </x-cards>
 
-如果您想从 WebSmith Cloud 迁移到另一个目标（或反之），请运行 `aigne web clear --targets deploymentConfig` 来重置缓存的部署目标，然后再次运行 `aigne web publish` 并选择新的目标。
+### 一般流程
+
+无论发布到哪个目的地，发布过程都由一个命令启动。然后，该工具将引导您完成任何必要的身份验证或配置步骤。
+
+1.  **生成您的网站**：在发布之前，请确保您已使用 `aigne web generate` 命令创建了您的网站。
+2.  **运行发布命令**：在您的终端中执行以下命令：
+    ```sh aigne web publish icon=lucide:upload-cloud
+    aigne web publish
+    ```
+3.  **遵循交互式提示**：CLI 将向您展示可用的发布选项。如果您没有指定目标，系统会要求您选择一个。对于首次连接到某个服务，浏览器窗口将打开以进行身份验证。
+
+    ![WebSmith 发布选项](../../../assets/images/web-smith-publish-resume.png)
+
+4.  **验证部署**：命令完成后，它将输出一条确认消息和您已发布页面的实时 URL。建议访问这些链接以验证部署是否成功以及网站是否按预期显示。
+
+    ![成功发布输出](../../../assets/images/web-smith-publish-success.png)
+
+### 总结
+
+发布您的网站是一个由 `aigne web publish` 命令处理的简单过程。通过提供多个部署目标，WebSmith 确保了对各种用例的灵活性。
+
+有关每种发布方法的具体说明，请参阅详细指南：
+
+-   [到 WebSmith Cloud](./guides-publish-website-to-websmith-cloud.md)
+-   [到现有网站](./guides-publish-website-to-existing-website.md)
+-   [到新的专用网站](./guides-publish-website-to-new-dedicated-website.md)

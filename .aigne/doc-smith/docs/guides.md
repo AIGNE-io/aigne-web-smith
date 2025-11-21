@@ -1,83 +1,82 @@
 # Guides
 
-Once you have completed the initial setup and generated your first website, you will primarily use a set of guides for day-to-day operations. This hub summarizes the most common workflows—generate, publish, refine content, localize, and adjust styling—so you can jump straight to the task you need.
+Need to manage your website day-to-day? This section provides step-by-step guides for common operations like creating your site, publishing updates, managing translations, and customizing the look and feel. Follow these tutorials to keep your website running smoothly.
 
-Each task is designed to be a straightforward command-line operation. The typical workflow involves generating the initial site, iteratively updating its content or structure, and then publishing the changes.
-
-### Standard Workflow
-
-The following diagram illustrates the standard, sequential workflow for creating and maintaining a website with WebSmith.
-
+The following diagram illustrates the typical lifecycle of managing a website with these commands:
 ```d2
 direction: down
 
-config: {
-  label: "1. Define Requirements\n(e.g., my-website.yaml)"
-  shape: rectangle
+User: {
+  shape: c4-person
 }
 
-generate: {
-  label: "2. Create Website\n`aigne web generate`"
+Local-Workspace: {
+  label: "Local Workspace"
   shape: rectangle
+  style.stroke-dash: 4
+
+  websmith-create: {
+    label: "1. websmith create"
+  }
+
+  Development-Cycle: {
+    label: "2. Development Cycle (Iterative)"
+    shape: rectangle
+    websmith-update: {
+      label: "websmith update"
+    }
+    websmith-theme: {
+      label: "websmith theme"
+    }
+    websmith-translate: {
+      label: "websmith translate"
+    }
+  }
+
+  websmith-publish: {
+    label: "3. websmith publish"
+  }
 }
 
-update: {
-  label: "3. Refine Content\n`aigne web update`"
-  shape: rectangle
-}
-
-publish: {
-  label: "4. Publish Website\n`aigne web publish`"
-  shape: rectangle
-}
-
-live_site: {
-  label: "Live Website"
+WebSmith-Cloud: {
+  label: "WebSmith Cloud"
   shape: cylinder
 }
 
-config -> generate: "Initial Creation"
-generate -> update: "Review & Refine"
-update -> update: "Iterative Changes"
-update -> publish: "Deploy Changes"
-publish -> live_site: "Go Live"
+User -> Local-Workspace.websmith-create: "Initialize site"
+Local-Workspace.websmith-create -> Local-Workspace.Development-Cycle
+Local-Workspace.Development-Cycle -> Local-Workspace.websmith-publish: "Finalize changes"
+Local-Workspace.websmith-publish -> WebSmith-Cloud: "Deploy website"
+
 ```
 
-Below you will find detailed guides for each of these workflows.
-
 <x-cards data-columns="2">
-  <x-card data-title="Create Website" data-icon="lucide:bot" data-href="/guides/create-website">
-    Learn how to use the `generate` command to create a complete website from a configuration file that outlines your requirements.
+  <x-card data-title="Create Website" data-icon="lucide:plus-square" data-href="/guides/create-website">
+    Breaks down the create workflow, including configuration fields, prompts, and ways to validate the output before publishing.
+  </x-card>
+  <x-card data-title="Update Website" data-icon="lucide:file-pen-line" data-href="/guides/update-website">
+    Learn how to use the 'update' command to make changes or provide feedback to refine the content on your existing pages.
   </x-card>
   <x-card data-title="Publish Website" data-icon="lucide:upload-cloud" data-href="/guides/publish-website">
-    Explore the different options for publishing your website, from the free WebSmith Cloud to your own custom domain.
-  </x-card>
-  <x-card data-title="Update Website" data-icon="lucide:file-pen-line" data-href="/guides-update-website">
-    Understand when to update your structure versus a single page, then jump to the detailed guides for each workflow.
+    Explains every publish target, from WebSmith Cloud to fully custom infrastructure, with prerequisites and validation tips.
   </x-card>
   <x-card data-title="Localize Website" data-icon="lucide:languages" data-href="/guides/localize-website">
-    Use the `translate` command to automatically create different language versions of your website pages.
+    Explains how to use the 'translate' command to automatically create different language versions of your website pages.
   </x-card>
   <x-card data-title="Customize Theme" data-icon="lucide:palette" data-href="/guides/customize-theme">
-    Covers how to use the `theme` command to generate and apply different visual styles and color schemes to your website.
-  </x-card>
-  <x-card data-title="Use Custom Component Libraries" data-icon="lucide:cubes" data-href="/advanced-features/use-custom-component-libraries">
-    Explains how to use the `component` command to pull and update the component library used to build your website.
-  </x-card>
-  <x-card data-title="Interactive Mode" data-icon="lucide:message-square-plus" data-href="/guides/interactive-mode">
-    Learn how to use the `chat` command to interactively build and modify your website in a conversational way.
+    Covers how to use the 'theme' command to generate and apply different visual styles and color schemes to your website.
   </x-card>
   <x-card data-title="Manage Preferences" data-icon="lucide:settings-2" data-href="/guides/manage-preferences">
-    Explains how to use the `prefs` command to view, manage, and clear saved user preferences to customize WebSmith's behavior.
-  </x-card>
-  <x-card data-title="Manage Update History" data-icon="lucide:history" data-href="/guides/update-website/manage-update-history">
-    Learn how to use the `history` command to audit every change recorded during the update process.
+    Explains how to use the 'prefs' command to view, manage, and clear saved user preferences to customize WebSmith's behavior.
   </x-card>
   <x-card data-title="Cleanup Workspace" data-icon="lucide:trash-2" data-href="/guides/cleanup-workspace">
-    Shows you how to use the `clear` command to safely remove generated files, workspace data, or the entire configuration.
+    Shows you how to use the 'clear' command to safely remove generated files, workspace data, or the entire configuration.
+  </x-card>
+  <x-card data-title="Interactive Mode (Beta)" data-icon="lucide:bot" data-href="/guides/interactive-mode">
+    Use the interactive mode as a conversational co-pilot to iteratively plan, edit, and polish your site.
   </x-card>
 </x-cards>
 
----
+## Summary
 
-This section covers the fundamental commands for managing your website. For a comprehensive list of all available commands and their parameters, please consult the [Command Reference](./reference-command.md).
+These guides cover the essential commands for managing your website's lifecycle. For more advanced topics and a complete command listing, please refer to the [Advanced Features](./advanced-features.md) and [Reference](./reference.md) sections.

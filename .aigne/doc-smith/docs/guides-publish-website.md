@@ -1,41 +1,40 @@
-# Publish Website
+Once your website is generated, the final step is to make it accessible online. This guide covers the various methods to publish your site using AIGNE WebSmith, ensuring you can choose the option that best fits your technical and budget requirements.
 
-As soon as your pages look good locally, run `aigne web publish` to push them live. The command uses the same flow every time—pick a destination, authorize once, and WebSmith uploads all pages plus assets for you.
+The `aigne web publish` command is the primary tool for deploying your generated website files. Depending on your needs, you can deploy to the free WebSmith Cloud, integrate with your own existing infrastructure, or set up a new dedicated website.
 
-## Fastest path (WebSmith Cloud)
+### Publishing Destinations
 
-If you just need a public URL, follow these steps:
-
-1. **Run the command**  
-   ```bash Quick publish icon=lucide:terminal
-   aigne web publish
-   ```  
-   Aliases `aigne web pub` and `aigne web p` work as well.
-2. **Choose WebSmith Cloud**  
-   When the prompt appears, select **WebSmith Cloud** (the default option) and press Enter.
-3. **Authorize once**  
-   The terminal opens a browser so you can sign in and approve publishing access. After this one-time step, credentials are cached locally.
-4. **Wait for deployment**  
-   WebSmith zips your generated files, uploads media, and prints the live URLs when it finishes. Re-run the same command later to publish updates—no extra prompts unless you change destinations.
-
-> **Tip:** To script deployments or skip the prompt, add `--appUrl https://your-site.com`. The terminal command remembers the last URL it published to, so future runs are fully automatic.
-
-## When to use other options
-
-Choose the destination that matches your hosting strategy. Each card below links to a focused walkthrough.
+WebSmith provides three distinct publishing targets. For detailed step-by-step instructions, please refer to the specific guides for each option.
 
 <x-cards data-columns="3">
-  <x-card data-title="To WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/cloud">
-    The quickest way to get your site online. Use our free, public hosting service. This option is ideal for testing, open-source projects, or community sharing.
-  </x-card>
-  <x-card data-title="To Existing Website" data-icon="lucide:server" data-href="/guides/publish-website/custom">
-    For users who already have a website built on the ArcBlock platform. This guide explains how to integrate and publish your newly generated pages to your existing infrastructure.
-  </x-card>
- <x-card data-title="To New Dedicated Website" data-icon="lucide:globe" data-href="/guides/publish-website/new-dedicated-website">
-    A paid service that creates a new, dedicated website with custom domain and hosting capabilities. This is the recommended choice for professional and commercial use.
-  </x-card>
+  <x-card data-title="To WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/to-websmith-cloud">Publish to our free, managed hosting platform. Ideal for open-source projects, personal sites, or community sharing.</x-card>
+  <x-card data-title="To Existing Website" data-icon="lucide:server" data-href="/guides/publish-website/to-existing-website">Integrate and deploy the generated pages directly onto your current, self-managed website infrastructure.</x-card>
+  <x-card data-title="To New Dedicated Website" data-icon="lucide:globe" data-href="/guides/publish-website/to-new-dedicated-website">Create and publish to a new, fully-managed website with a custom domain and professional hosting. This is a paid service.</x-card>
 </x-cards>
 
-Before publishing large batches of edits, run through [Manage Update History](./guides-update-website-manage-update-history.md) so you know exactly which changes are about to go live.
+### General Process
 
-If you want to move from WebSmith Cloud to another destination (or vice versa), run `aigne web clear --targets deploymentConfig` to reset the cached deploy target, then run `aigne web publish` again and choose the new destination.
+Regardless of the destination, the publishing process is initiated with a single command. The tool will then guide you through any necessary authentication or configuration steps.
+
+1.  **Generate Your Website**: Before publishing, ensure your website has been created using the `aigne web generate` command.
+2.  **Run the Publish Command**: Execute the following command in your terminal:
+    ```sh aigne web publish icon=lucide:upload-cloud
+    aigne web publish
+    ```
+3.  **Follow Interactive Prompts**: The CLI will present you with the available publishing options. If you haven't specified a target, you will be asked to select one. For first-time connections to a service, a browser window will open for authentication.
+
+    ![WebSmith Publish Options](../../../assets/images/web-smith-publish-resume.png)
+
+4.  **Validate Deployment**: After the command completes, it will output a confirmation message and the live URLs for your published pages. It is recommended to visit these links to verify that the deployment was successful and the website appears as expected.
+
+    ![Successful Publish Output](../../../assets/images/web-smith-publish-success.png)
+
+### Summary
+
+Publishing your website is a straightforward process handled by the `aigne web publish` command. By offering multiple deployment targets, WebSmith ensures flexibility for various use cases.
+
+For specific instructions on each publishing method, refer to the detailed guides:
+
+-   [To WebSmith Cloud](./guides-publish-website-to-websmith-cloud.md)
+-   [To Existing Website](./guides-publish-website-to-existing-website.md)
+-   [To New Dedicated Website](./guides-publish-website-to-new-dedicated-website.md)

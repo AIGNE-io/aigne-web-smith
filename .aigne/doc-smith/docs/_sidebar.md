@@ -6,6 +6,8 @@
     * [Update Structure](/guides-update-website-update-structure.md)
     * [Update Page](/guides-update-website-update-page.md)
     * [Manage Update History](/guides-update-website-manage-update-history.md)
+    * [Add Page](/guides-update-website-add-page.md)
+    * [Remove Page](/guides-update-website-remove-page.md)
   * [Publish Website](/guides-publish-website.md)
     * [To WebSmith Cloud](/guides-publish-website-to-websmith-cloud.md)
     * [To Existing Website](/guides-publish-website-to-existing-website.md)

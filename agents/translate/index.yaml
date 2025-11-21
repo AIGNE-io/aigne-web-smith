@@ -1,5 +1,7 @@
 type: team
 name: translate
+alias:
+  - localize
 description: Translate page content to chosen languages
 skills:
   - url: ../init/index.mjs

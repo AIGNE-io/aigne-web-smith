@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.12...v1.8.0) (2025-11-21)
+
+## [1.8.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.11...v1.8.0-beta.12) (2025-11-21)
+
+
+### Features
+
+* **translate:** add alias 'localize' to translate agent ([#274](https://github.com/AIGNE-io/aigne-web-smith/issues/274)) ([8de2063](https://github.com/AIGNE-io/aigne-web-smith/commit/8de2063be34ca6d4d9f65c9598f31d77d060a3a9))
+
 ## [1.8.0-beta.11](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.10...v1.8.0-beta.11) (2025-11-21)
 
 

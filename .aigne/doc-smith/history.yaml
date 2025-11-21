@@ -1,4 +1,21 @@
 entries:
+  - timestamp: 2025-11-21T19:05:18.039Z
+    operation: document_update
+    feedback: "add code block use-case for 'Step 2: Automatic Link Correction (Optional) (H3)' and 'Step
+      3: Review the Summary (H3)'"
+    docPaths:
+      - /guides/update-website/remove-page
+  - timestamp: 2025-11-21T19:03:01.726Z
+    operation: document_update
+    feedback: every step under ''The Process' should use code block as use-case instead of image
+    docPaths:
+      - /guides/update-website/remove-page
+  - timestamp: 2025-11-21T19:00:48.389Z
+    operation: document_update
+    feedback: rename 'How to Remove a Page (H2)' to 'The Process'. every step should use code block as
+      use-case instead of image
+    docPaths:
+      - /guides/update-website/remove-page
   - timestamp: 2025-11-21T18:43:32.432Z
     operation: document_update
     feedback: Use real-world examples to construct code blocks.

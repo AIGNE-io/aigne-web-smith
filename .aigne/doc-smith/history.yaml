@@ -1,4 +1,62 @@
 entries:
+  - timestamp: 2025-11-21T17:52:57.962Z
+    operation: document_update
+    feedback: Refine each step's use case to align with real-world scenarios.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:43:53.792Z
+    operation: document_update
+    feedback: regenerate the use-case
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:35:53.546Z
+    operation: document_update
+    feedback: Simulate authentic CLI output
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:29:15.382Z
+    operation: document_update
+    feedback: The code block of 'THe Process' must match the actual output.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:26:28.683Z
+    operation: document_update
+    feedback: "add code block use-case for the 'Step 2: Review of Links to Existing Pages (H3)' and the
+      'Step 3: Generation and Summary Report (H3)'"
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:22:57.777Z
+    operation: document_update
+    feedback: Each step uses a code block instead of an image as the use case
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:21:25.256Z
+    operation: document_update
+    feedback: Adding alias use-case in 'Command Usage'
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T17:10:49.873Z
+    operation: document_update
+    feedback: >-
+      remove 'How It Works', add 'Command Usage'. Rename 'Interactive Walkthrough (H2)' to 'The
+      Process''. remove the. remove the '1. Run the Command (H3)'. The process should be divided
+      into:
+
+      1. Interactive page addition
+
+      2. Review of links to existing pages
+
+      3. Summary report. Each step adds a use case via a code block, not an image screenshot.
+    docPaths:
+      - /guides/update-website/add-page
+  - timestamp: 2025-11-21T13:16:04.663Z
+    operation: structure_update
+    feedback: >-
+      Add a new document named “Add Page” under the "Update Website" to introduce how to use the
+      `aigne web add-page` command.
+
+      Add a new document named “Remove Page” under the "Update Website" to introduce how to use the
+      `aigne web remove-page` command.
   - timestamp: 2025-11-11T16:21:24.188Z
     operation: document_update
     feedback: 更新新的文档来更新. 我们不应该移除原有的一些内容,比如字段解释.

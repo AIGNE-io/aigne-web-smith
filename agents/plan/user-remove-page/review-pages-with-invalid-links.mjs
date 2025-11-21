@@ -1,3 +1,4 @@
+import { toDisplayLink } from "../../../utils/protocol-utils.mjs";
 import { getFileName } from "../../../utils/utils.mjs";
 
 /**
@@ -24,7 +25,7 @@ export default async function reviewPagesWithInvalidLinks(
       name: `${page.title} (${filename})`,
       value: index,
       checked: true, // Default all selected
-      description: `Invalid Links(${page.invalidLinks?.length || 0}): ${page.invalidLinks?.join(", ")}`,
+      description: `Invalid Links(${page.invalidLinks?.length || 0}): ${page.invalidLinks?.map(toDisplayLink)?.join(", ")}`,
     };
   });
 

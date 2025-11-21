@@ -14,12 +14,6 @@ export default async function reviewPagesWithNewLinks(input, options) {
     return { pagesWithNewLinks: [] };
   }
 
-  // pagesWithNewLinks.map((page, index) => ({
-  //   name: `${page.path} → ${page.newLinks.join(", ")}`,
-  //   value: index,
-  //   checked: true, // Default to all selected
-  // })),
-
   // Build choices with file existence check
   const limit = pLimit(50);
   const choices = await Promise.all(

@@ -24,7 +24,7 @@ skills:
     skills:
       - ../../generate/page-detail/analyze-page-detail.mjs
     iterate_on: newPages
-    concurrency: 10
+    concurrency: 5
   - url: ../../utils/normalize-website-structure.mjs
     default_input:
       key: newPages
@@ -37,7 +37,7 @@ skills:
       - ./add-links-to-pages.mjs
       - ../../utils/save-single-page.mjs
     iterate_on: pagesWithNewLinks
-    concurrency: 10
+    concurrency: 5
   - ../../generate/page-detail/load-page-detail.mjs
   - ./merge-pages-with-translations.mjs
   - type: team

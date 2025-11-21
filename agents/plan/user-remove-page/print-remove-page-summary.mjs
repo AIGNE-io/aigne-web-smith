@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { toDisplayLink } from "../../../utils/protocol-utils.mjs";
 
 /**
  * Print summary of removed pages and pages with invalid links
@@ -31,7 +32,7 @@ export default async function printRemovePageSummary({
       if (page.title !== page.path) {
         message += `      Title: ${chalk.yellow(page.title)}\n`;
       }
-      message += `      Invalid links fixed: ${chalk.gray(page.invalidLinks.join(", "))}\n\n`;
+      message += `      Invalid links fixed: ${chalk.gray(page.invalidLinks.map(toDisplayLink).join(", "))}\n\n`;
     });
   } else {
     message += `✅ Pages fixed (Removed invalid links):\n`;

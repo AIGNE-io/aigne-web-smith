@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-20T13:46:10.827Z
+  updateAt: 2025-11-21T05:10:27.170Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2274,7 +2274,7 @@ composite:
       sectionIds:
         - sakedvx7f5j3z75d
       config:
-        background: background.paper
+        background: grey25
         paddingY: large
         borderRadius: medium
         paddingX: none
@@ -3434,6 +3434,9 @@ composite:
       ---
 
       Constraint
+
+      - The `Description Item` component is used to display in a list, ensuring
+      at least 2 descriptions.
 
       - **The description text ({{description}}) must not exceed 80
       characters.**

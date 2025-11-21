@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0-beta.10](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.9...v1.8.0-beta.10) (2025-11-21)
+
+
+### Features
+
+* upgrade default model to gemini-3-pro-preview ([#268](https://github.com/AIGNE-io/aigne-web-smith/issues/268)) ([d4fdd75](https://github.com/AIGNE-io/aigne-web-smith/commit/d4fdd7521d1bf3c894406d187370d7e1b555f380))
+
+
+### Bug Fixes
+
+* enhance the robustness of add/remove page ([#269](https://github.com/AIGNE-io/aigne-web-smith/issues/269)) ([7797cee](https://github.com/AIGNE-io/aigne-web-smith/commit/7797ceebae8f781d00f9efd23ca23bcc7d9c446e))
+
 ## [1.8.0-beta.9](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.8...v1.8.0-beta.9) (2025-11-20)
 
 

@@ -1408,3 +1408,27 @@ e10d985846bc26431749266d10b90075e59ff4ad89e9304d5cf43f5b91ccc159:
     https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
       url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/2a34f9a60fcc76c9.png
       upload_time: 2025-11-21T13:17:14.365Z
+a90223b1fbb0e17239ec66ef2e6d162d01596b4c62ad45374d32c1c9be6aa792:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/494c3ef2f0f871dd679db317ae0bc12c624260946b89bcd6e4fd0f7d51a67610.svg
+  sites:
+    https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
+      url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/a90223b1fbb0e172.svg
+      upload_time: 2025-11-21T18:44:40.197Z
+68c4fb9520b266d26cd87ab53fd1e5e29a3d10d625c0e9297ef606da81343737:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/3f39f307f8eb4e5641de25b2622b7f023b9c4b25bfa09f7fbed9e0acc3d24497.svg
+  sites:
+    https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
+      url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/68c4fb9520b266d2.svg
+      upload_time: 2025-11-21T18:44:40.824Z
+cc0ffa5c44358426a7544fa479584358e984cdc9281ae6fbd2a55dc4ca188f1b:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/ed0a550d5250a8997b015249fe37e5de1cdc49eb74e075099905fd7b61bf07b1.svg
+  sites:
+    https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
+      url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/cc0ffa5c44358426.svg
+      upload_time: 2025-11-21T18:44:41.433Z
+1c8c17e20adb9b57602044f26d481965e9275d5e0f7f783d9270fdb614fb8fdf:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/64f73ef76d5012f961816d1fc790932d588ca749823b047865bfc47052916408.svg
+  sites:
+    https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
+      url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/1c8c17e20adb9b57.svg
+      upload_time: 2025-11-21T18:44:42.051Z

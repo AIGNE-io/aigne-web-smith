@@ -1,39 +1,40 @@
-# 發佈網站
+網站產生後，最後一步就是讓它在線上可供存取。本指南涵蓋了使用 AIGNE WebSmith 發佈您網站的各種方法，確保您可以選擇最符合您技術和預算需求的選項。
 
-當您的頁面在本地看起來不錯時，執行 `aigne web publish` 將其發佈上線。此命令每次都使用相同的流程——選擇一個目的地，授權一次，然後 WebSmith 會為您上傳所有頁面及資產。
+`aigne web publish` 指令是部署您產生的網站檔案的主要工具。根據您的需求，您可以部署到免費的 WebSmith Cloud、與您自己現有的基礎設施整合，或設定一個新的專用網站。
 
-## 最快路徑 (WebSmith Cloud)
+### 發佈目的地
 
-如果您只需要一個公開的 URL，請遵循以下步驟：
-
-1. **執行命令**
-   ```bash 快速發佈 icon=lucide:terminal
-   aigne web publish
-   ```
-   別名 `aigne web pub` 和 `aigne web p` 也同樣有效。
-2. **選擇 WebSmith Cloud**
-   當提示出現時，選擇 **WebSmith Cloud**（預設選項）並按下 Enter。
-3. **授權一次**
-   終端機會打開一個瀏覽器，以便您登入並批准發佈存取權限。完成這一次性步驟後，憑證將被快取在本地。
-4. **等待部署**
-   WebSmith 會壓縮您生成的檔案，上傳媒體，並在完成後印出上線的 URL。稍後重新執行相同的命令以發佈更新——除非您更改目的地，否則不會有額外的提示。
-
-> **提示：** 若要編寫部署腳本或跳過提示，請新增 `--appUrl https://your-site.com`。終端機命令會記住上次發佈的 URL，因此未來的執行將完全自動化。
-
-## 何時使用其他選項
-
-根據您的託管策略選擇目的地。下面的每張卡片都連結到一個專門的演練。
+WebSmith 提供三個不同的發佈目標。關於詳細的逐步說明，請參考每個選項的具體指南。
 
 <x-cards data-columns="3">
-  <x-card data-title="至 WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/cloud">
-    讓您的網站上線的最快方式。使用我們免費的公開託管服務。此選項非常適合測試、開源專案或社群分享。
-  </x-card>
-  <x-card data-title="至現有網站" data-icon="lucide:server" data-href="/guides/publish-website/custom">
-    適用於已在 ArcBlock 平台上建立網站的用戶。本指南說明如何將您新生成的頁面整合併發佈到現有基礎設施。
-  </x-card>
-  <x-card data-title="至新的專用網站" data-icon="lucide:globe" data-href="/guides/publish-website/new-dedicated-website">
-    一項付費服務，可創建一個具有自訂網域和託管功能的新專用網站。這是專業和商業用途的推薦選擇。
-  </x-card>
+  <x-card data-title="至 WebSmith Cloud" data-icon="lucide:cloud" data-href="/guides/publish-website/to-websmith-cloud">發佈至我們免費、託管的託管平台。適合開源專案、個人網站或社群分享。</x-card>
+  <x-card data-title="至現有網站" data-icon="lucide:server" data-href="/guides/publish-website/to-existing-website">將產生的頁面直接整合並部署到您目前自行管理的網站基礎設施上。</x-card>
+  <x-card data-title="至新的專用網站" data-icon="lucide:globe" data-href="/guides/publish-website/to-new-dedicated-website">建立並發佈到一個具備自訂網域和專業託管的全新、完全託管的網站。此為付費服務。</x-card>
 </x-cards>
 
-如果您想從 WebSmith Cloud 轉移到另一個目的地（或反之），請執行 `aigne web clear --targets deploymentConfig` 來重設快取的部署目標，然後再次執行 `aigne web publish` 並選擇新的目的地。
+### 一般流程
+
+無論目的地為何，發佈流程都由一個指令啟動。該工具隨後會引導您完成任何必要的身份驗證或設定步驟。
+
+1.  **產生您的網站**：在發佈前，請確保您已使用 `aigne web generate` 指令建立您的網站。
+2.  **執行發佈指令**：在您的終端機中執行以下指令：
+    ```sh aigne web publish icon=lucide:upload-cloud
+    aigne web publish
+    ```
+3.  **遵循互動式提示**：CLI 將會呈現可用的發佈選項。如果您尚未指定目標，系統將會要求您選擇一個。首次連接至某個服務時，將會開啟一個瀏覽器視窗進行身份驗證。
+
+    ![WebSmith 發佈選項](../../../assets/images/web-smith-publish-resume.png)
+
+4.  **驗證部署**：指令完成後，將會輸出確認訊息以及您已發佈頁面的線上網址。建議您造訪這些連結，以驗證部署是否成功，且網站顯示是否符合預期。
+
+    ![成功發佈輸出](../../../assets/images/web-smith-publish-success.png)
+
+### 摘要
+
+發佈您的網站是一個由 `aigne web publish` 指令處理的直接流程。透過提供多個部署目標，WebSmith 確保了各種使用案例的靈活性。
+
+關於每種發佈方法的具體說明，請參考詳細指南：
+
+-   [至 WebSmith Cloud](./guides-publish-website-to-websmith-cloud.md)
+-   [至現有網站](./guides-publish-website-to-existing-website.md)
+-   [至新的專用網站](./guides-publish-website-to-new-dedicated-website.md)

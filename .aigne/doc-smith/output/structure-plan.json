@@ -309,5 +309,35 @@
     "sourceIds": ["CHANGELOG.md", "RELEASE.md"],
     "parentId": "",
     "icon": "lucide:megaphone"
+  },
+  {
+    "title": "Add Page",
+    "description": "Learn how to use the `aigne web add-page` command to add new pages to your website structure.",
+    "path": "/guides/update-website/add-page",
+    "parentId": "/guides/update-website",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/plan/user-add-page/index.yaml",
+      "agents/plan/user-add-page/add-links-to-pages.mjs",
+      "agents/plan/user-add-page/add-pages-to-structure.mjs",
+      "agents/plan/user-add-page/find-pages-to-add-links.yaml",
+      "agents/plan/user-add-page/review-pages-with-new-links",
+      "agents/plan/user-add-page/print-add-page-summary.mjs"
+    ]
+  },
+  {
+    "title": "Remove Page",
+    "description": "Learn how to use the `aigne web remove-page` command to remove existing pages from your website structure.",
+    "path": "/guides/update-website/remove-page",
+    "parentId": "/guides/update-website",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/plan/user-remove-page/index.yaml",
+      "agents/plan/user-remove-page/remove-pages-from-structure.mjs",
+      "agents/plan/user-remove-page/find-pages-with-invalid-links.mjs",
+      "agents/plan/user-remove-page/review-pages-with-invalid-links.mjs",
+      "agents/plan/user-remove-page/translate-pages-with-invalid-links.mjs",
+      "agents/plan/user-remove-page/print-remove-page-summary.mjs"
+    ]
   }
 ]

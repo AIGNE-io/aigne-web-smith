@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0...v1.9.0-beta) (2025-11-24)
+
+
+### Features
+
+* update builtin components ([#277](https://github.com/AIGNE-io/aigne-web-smith/issues/277)) ([fc3d4b3](https://github.com/AIGNE-io/aigne-web-smith/commit/fc3d4b376c0cc5ed8fb9fe50163180ee4875452e))
+
 ## [1.8.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.12...v1.8.0) (2025-11-21)
 
 ## [1.8.0-beta.12](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0-beta.11...v1.8.0-beta.12) (2025-11-21)

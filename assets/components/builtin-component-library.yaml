@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-24T09:26:14.357Z
+  updateAt: 2025-11-24T09:40:09.077Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -4773,6 +4773,8 @@ composite:
                 target: _self
                 needLogin: false
                 endIcon: lucide:arrow-right
+          zfvgojskjd0mdl1l:
+            value: false
   - id: z0eoe7384zturc07
     name: User Review
     summary: >-

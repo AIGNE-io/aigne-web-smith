@@ -1,13 +1,28 @@
 type: image
 name: generateImage
 image_model: 
-  model: google/gemini-2.5-flash-image-preview
+  model: gemini-3-pro-image-preview
   imageConfig:
     aspectRatio: "4:3"
 instructions: |
-  An isometric, minimalist illustration in shades of {{media.sitePrimaryColor}} on a dark color background, depicting abstract technological concepts.
+  Industry:
+  A bold and vibrant modern-style website UI illustration designed for the technology industry.
+  Color Scheme:
+  Use brand colors: primary color {{media.sitePrimaryColor}}. The background must use a gradient created from the brand colors.
+  Core Style:
+  3D High Quality Render；
+  Futuristic/Tech Abstract Art；
+  Clean/Minimalist Aesthetic；
+  High-Gloss White Plastic & Transparent Glass Materials；
+  Icy/Electric Blue Digital Glow；
+  Soft Focus/Depth of Field (DOF) in a Geometric Environment；
+  Main Element:
+  Place a large, stylized main element in the center of the composition.
   {{aiPrompt}}
-  The style is clean, sharp, and modern, with a focus on geometric shapes and a sense of depth through layered elements.
+  Negative Prompt:
+  typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
+  clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
+  lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus.
 input_schema:
   type: object
   properties:

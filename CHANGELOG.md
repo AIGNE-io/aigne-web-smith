@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta...v1.9.0-beta.1) (2025-11-24)
+
+
+### Features
+
+* upgrade image model to gemini-3-pro and enhance prompt with 3D rendering specifications ([#279](https://github.com/AIGNE-io/aigne-web-smith/issues/279)) ([4399029](https://github.com/AIGNE-io/aigne-web-smith/commit/4399029fa6e4a0c52fd522d1bea023a02592aa36))
+
 ## [1.9.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.8.0...v1.9.0-beta) (2025-11-24)
 
 

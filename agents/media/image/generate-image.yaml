@@ -1,13 +1,22 @@
 type: image
 name: generateImage
 image_model: 
-  model: google/gemini-2.5-flash-image-preview
+  model: gemini-3-pro-preview
   imageConfig:
     aspectRatio: "4:3"
 instructions: |
-  An isometric, minimalist illustration in shades of {{media.sitePrimaryColor}} on a dark color background, depicting abstract technological concepts.
+  Industry:
+  A bold and vibrant modern-style website UI illustration designed for the technology industry.
+  Color Scheme:
+  Use brand colors: primary color {{media.sitePrimaryColor}}. The background must use a gradient created from the brand colors.
+  Core Style:
+  A clean, isometric 3D illustration featuring two blue location pin icons of varying sizes, standing prominently on a light blue or white square platform with a subtle grid pattern. The pins have a glossy, modern finish, casting soft shadows on the platform, which itself has a slightly translucent or reflective quality, creating a sense of depth and clean design. The overall composition emphasizes navigation, location services, or mapping.
+  Main Element:
   {{aiPrompt}}
-  The style is clean, sharp, and modern, with a focus on geometric shapes and a sense of depth through layered elements.
+  Negative Prompt:
+  typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
+  clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
+  lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus.
 input_schema:
   type: object
   properties:

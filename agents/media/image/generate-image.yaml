@@ -10,8 +10,14 @@ instructions: |
   Color Scheme:
   Use brand colors: primary color {{media.sitePrimaryColor}}. The background must use a gradient created from the brand colors.
   Core Style:
-  Ultra-minimalist and elevated 3D product photography aesthetic. Characterized by high-key, soft box lighting creating even illumination and minimal to zero shadows on a bright, pristine white or neutral light gray background. Emphasize smooth, matte, and uniform color materials against clean air, conveying a sense of weightlessness and sophisticated suspension. The composition must be crisp, clean, and highly focused, using a subtle, muted, or pastel color palette to enhance the professional, high-end quality. Studio photography quality, extremely clean render, high resolution, extreme depth of field.
+  3D High Quality Render；
+  Futuristic/Tech Abstract Art；
+  Clean/Minimalist Aesthetic；
+  High-Gloss White Plastic & Transparent Glass Materials；
+  Icy/Electric Blue Digital Glow；
+  Soft Focus/Depth of Field (DOF) in a Geometric Environment；
   Main Element:
+  Place a large, stylized main element in the center of the composition.
   {{aiPrompt}}
   Negative Prompt:
   typography, letters, writing, words, watermark, signature, logo, signage, banner, username,

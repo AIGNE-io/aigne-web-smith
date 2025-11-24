@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-21T09:47:09.338Z
+  updateAt: 2025-11-24T09:26:14.357Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -718,6 +718,12 @@ composite:
               mediaKitUrl: <%= splitHeroWithBgColorImage %>
           nch5frsfoap2lw33:
             value: true
+          jjv0hvr8wrixt1f3:
+            value: 2
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
   - id: a4zqy14zvpa1bzl7
     name: Central Hero Without Image
     summary: >-
@@ -2576,6 +2582,12 @@ composite:
               height: 1394
           nch5frsfoap2lw33:
             value: true
+          jjv0hvr8wrixt1f3:
+            value: 2
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
       8z2rca492tm4nsx4: {}
       jcqtx6qz5w1g4c71: {}
       q2iwrct5yrk4y089: {}
@@ -2828,6 +2840,12 @@ composite:
               height: 1394
           nch5frsfoap2lw33:
             value: true
+          jjv0hvr8wrixt1f3:
+            value: 2
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
       8z2rca492tm4nsx4: {}
       40rgoqgjtdf36fhi: {}
       zqrjcr7zuhskvu4s: {}
@@ -3118,6 +3136,12 @@ composite:
               height: 864
           nch5frsfoap2lw33:
             value: true
+          jjv0hvr8wrixt1f3:
+            value: 2
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
       15gqmlrcfz07mg0o: {}
       h5fj0tfllwfud3bk: {}
       psp774uj86r6ofg4: {}
@@ -3409,6 +3433,12 @@ composite:
               height: 864
           nch5frsfoap2lw33:
             value: true
+          jjv0hvr8wrixt1f3:
+            value: 2
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
       15gqmlrcfz07mg0o: {}
       h5fj0tfllwfud3bk: {}
       tmxdymm1a8im07lf: {}
@@ -4284,6 +4314,10 @@ composite:
             value: 2
           nch5frsfoap2lw33:
             value: true
+          q9hrdv5nh1pb5ved:
+            value: 600px
+          dxn6zvv5bn6dn3mr:
+            value: contain
   - id: 9zo9dt3ki8yuidu1
     name: Changelog
     summary: >-

@@ -1,7 +1,7 @@
 type: image
 name: generateImage
 image_model: 
-  model: gemini-3-pro-preview
+  model: gemini-3-pro-image-preview
   imageConfig:
     aspectRatio: "4:3"
 instructions: |
@@ -10,7 +10,7 @@ instructions: |
   Color Scheme:
   Use brand colors: primary color {{media.sitePrimaryColor}}. The background must use a gradient created from the brand colors.
   Core Style:
-  A clean, isometric 3D illustration featuring two blue location pin icons of varying sizes, standing prominently on a light blue or white square platform with a subtle grid pattern. The pins have a glossy, modern finish, casting soft shadows on the platform, which itself has a slightly translucent or reflective quality, creating a sense of depth and clean design. The overall composition emphasizes navigation, location services, or mapping.
+  Ultra-minimalist and elevated 3D product photography aesthetic. Characterized by high-key, soft box lighting creating even illumination and minimal to zero shadows on a bright, pristine white or neutral light gray background. Emphasize smooth, matte, and uniform color materials against clean air, conveying a sense of weightlessness and sophisticated suspension. The composition must be crisp, clean, and highly focused, using a subtle, muted, or pastel color palette to enhance the professional, high-end quality. Studio photography quality, extremely clean render, high resolution, extreme depth of field.
   Main Element:
   {{aiPrompt}}
   Negative Prompt:

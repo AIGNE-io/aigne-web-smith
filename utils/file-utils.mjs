@@ -227,9 +227,16 @@ export function getMediaDescriptionCachePath() {
 
 /**
  * Get cover image file path
- * @returns {string} Absolute path to cover.png
+ * @param {string} [projectCover] - Optional project cover path from config
+ * @returns {string} Absolute path to cover image
  */
-export function getCoverImagePath() {
+export function getCoverImagePath(projectCover) {
+  if (projectCover) {
+    return path.isAbsolute(projectCover)
+      ? projectCover
+      : path.join(process.cwd(), projectCover);
+  }
+  // Default path
   return path.join(process.cwd(), WEB_SMITH_DIR, "cover.png");
 }
 

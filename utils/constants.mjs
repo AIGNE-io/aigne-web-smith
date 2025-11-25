@@ -634,3 +634,46 @@ export const REASONING_EFFORT_LEVELS = {
     pro: 2500,
   },
 };
+
+// Industry style configurations for image generation
+export const INDUSTRY_STYLES = {
+  technology: {
+    name: "Technology Industry",
+    style: `3D High Quality Render;
+Futuristic/Tech Abstract Art;
+Clean/Minimalist Aesthetic;
+High-Gloss White Plastic & Transparent Glass Materials;
+Icy/Electric Blue Digital Glow;
+Soft Focus/Depth of Field (DOF) in a Geometric Environment;`,
+  },
+
+  gaming: {
+    name: "Gaming Industry",
+    style: `Wide shot of a fantasy game landscape;
+stylized art style, hand-painted textures;
+Ghibli inspired, cel-shaded;
+atmospheric perspective, vast depth of field;
+epic scale, vibrant and vivid colors;
+concept art, digital painting, artstation trending, unreal engine 5 stylized;`,
+  },
+
+  artistic: {
+    name: "Artistic Illustration",
+    style: `dreamlike, high-fidelity visual style with soft-focus edges;
+gentle glowing highlights, luminous, ethereal color palette;
+magical and diffused lighting, warm and cool tones in smooth gradient;
+painterly-but-ultra-detailed aesthetic, filmic lighting with surreal, cosmic ambience;
+delicate, atmospheric, lightly sparkling textures, illuminated from within;`,
+  },
+
+  health: {
+    name: "Health & Wellness Industry",
+    style: `Bold, hand-drawn doodle illustration style;
+highly simplified, abstract character or object centered;
+very thick, uneven, organic black outlines with visible pen/brush strokes;
+flat, high-saturation background color (bright yellow or white);
+imperfectly shaped color block for sketch aesthetic;
+extremely limited color palette (3-4 flat, saturated colors), no shading;
+rough, immediate, hand-painted feel, minimalist, expressive, humorous;`,
+  },
+};

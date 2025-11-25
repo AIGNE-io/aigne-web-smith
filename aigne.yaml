@@ -68,6 +68,8 @@ agents:
   - ./agents/plan/user-review-website-structure.mjs
   - ./agents/plan/user-add-page/index.yaml
   - ./agents/plan/user-remove-page/index.yaml
+  - ./agents/plan/industry/analyze-industry.mjs
+  - ./agents/plan/industry/detect-industry.yaml
 
   # update website structure tools
   - ./agents/plan/website-structure-tools/add-page.mjs

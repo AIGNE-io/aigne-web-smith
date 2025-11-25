@@ -4,9 +4,10 @@ image_model:
   model: gemini-3-pro-image-preview
   imageConfig:
     aspectRatio: "4:3"
+    imageSize: "2K"
 instructions: |
   Industry:
-  A bold and vibrant modern-style website UI illustration designed for the {{industryName}}.
+  A bold and vibrant modern-style illustration designed for the {{industryName}}.
 
   Color Scheme:
   Use brand colors: primary color {{media.sitePrimaryColor}}. The background must use a gradient created from the brand colors.

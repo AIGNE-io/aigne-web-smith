@@ -28,6 +28,7 @@ skills:
   - ../utils/transform-website-structure.yaml
   - ../utils/format-website-structure.mjs
   - ../media/load-media-description.mjs
+  - ../plan/industry/analyze-industry.mjs
   - ../generate/page-detail/batch-generate-page-detail.yaml
   - ./page-detail/load-page-detail.mjs
   - ../utils/reload-generate-media.mjs

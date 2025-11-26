@@ -1,0 +1,44 @@
+type: team
+name: detectIndustry
+description: Analyze project industry based on website structure and project info
+task_render_mode: collapse
+skills:
+  - url: ../../utils/map-reasoning-effort-level.mjs
+    default_input:
+      level: minimal
+
+  - type: ai
+    task_render_mode: hide
+    instructions:
+      url: ../../../prompts/plan/industry/detect-industry.md
+    input_schema:
+      type: object
+      properties:
+        projectName:
+          type: string
+          description: Project name
+        projectDesc:
+          type: string
+          description: Project description
+        websiteStructure:
+          type: string
+          description: Website structure in JSON format
+      required:
+        - websiteStructure
+    output_schema:
+      type: object
+      properties:
+        industry:
+          type: string
+          enum: [technology, gaming, artistic, health]
+          description: Detected industry code
+        confidence:
+          type: number
+          description: Confidence level 0-1
+        reason:
+          type: string
+          description: Reasoning for the decision
+      required:
+        - industry
+        - confidence
+        - reason

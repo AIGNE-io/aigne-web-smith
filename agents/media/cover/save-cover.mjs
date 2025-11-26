@@ -36,9 +36,11 @@ export default async function saveCover({ aiPrompt, ...coverImageData }) {
     }
 
     const message = "Cover image has been successfully generated and saved to website assets";
+    const savedPath = processedImages[0].images[0].path;
 
     return {
       message,
+      savedPath,
     };
   } catch (error) {
     const errorMessage = `Failed to save cover image: ${error.message}`;

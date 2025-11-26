@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-24T09:40:09.077Z
+  updateAt: 2025-11-26T07:30:57.589Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -721,7 +721,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 2
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
   - id: a4zqy14zvpa1bzl7
@@ -2585,7 +2585,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 2
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
       8z2rca492tm4nsx4: {}
@@ -2843,7 +2843,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 2
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
       8z2rca492tm4nsx4: {}
@@ -3139,7 +3139,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 2
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
       15gqmlrcfz07mg0o: {}
@@ -3436,7 +3436,7 @@ composite:
           jjv0hvr8wrixt1f3:
             value: 2
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
       15gqmlrcfz07mg0o: {}
@@ -4312,12 +4312,12 @@ composite:
               height: 498
           jjv0hvr8wrixt1f3:
             value: 2
-          nch5frsfoap2lw33:
-            value: true
           q9hrdv5nh1pb5ved:
-            value: 600px
+            value: 500px
           dxn6zvv5bn6dn3mr:
             value: contain
+          nch5frsfoap2lw33:
+            value: true
   - id: 9zo9dt3ki8yuidu1
     name: Changelog
     summary: >-

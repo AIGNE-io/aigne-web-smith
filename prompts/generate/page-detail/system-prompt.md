@@ -72,8 +72,8 @@ When invoking the tool, provide clear and specific information:
 
 - imageName: Use kebab case naming that reflects the section and purpose (e.g., `hero-main-visual`, `feature-dashboard-preview`, `testimonial-avatar`)
 - aiPrompt: Provide detailed, context-rich descriptions for generating web-optimized images. Include:
-  - Describe the core content of the project through abstract concepts
-  - Only describe in detail the main subjects planned to be shown in the image and their positional relationships
+  - Describe the main subject(s) presented in the image
+  - Describe the positional relationships between the main subjects shown in the image
 
 - imageDescription: 
   - Explain the image's role in the page structure

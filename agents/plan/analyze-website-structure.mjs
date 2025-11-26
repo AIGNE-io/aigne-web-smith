@@ -15,7 +15,15 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, locale, ...rest },
+  {
+    originalWebsiteStructure,
+    lastGitHead,
+    pagesDir,
+    forceRegenerate,
+    locale,
+    projectCover,
+    ...rest
+  },
   options,
 ) {
   // Helper function to check and streamline navigation items
@@ -100,7 +108,7 @@ export default async function analyzeWebsiteStructure(
   let finalFeedback = "";
 
   // Check if a cover image already exists.
-  const coverPath = getCoverImagePath();
+  const coverPath = getCoverImagePath(projectCover);
   let coverExists = false;
   try {
     await access(coverPath);
@@ -271,11 +279,17 @@ export default async function analyzeWebsiteStructure(
     // Generate a cover if it does not exist.
     if (!coverExists) {
       try {
-        await options.context.invoke(options.context.agents["generateCoverTeam"], {
-          aiPrompt: result.projectCoverPrompt,
-        });
+        const coverResult = await options.context.invoke(
+          options.context.agents["generateCoverTeam"],
+          {
+            aiPrompt: result.projectCoverPrompt,
+          },
+        );
 
-        await saveValueToConfig("projectCover", toRelativePath(coverPath));
+        // Save the actual path returned by the cover generation
+        if (coverResult.savedPath) {
+          await saveValueToConfig("projectCover", toRelativePath(coverResult.savedPath));
+        }
       } catch (error) {
         console.warn("Failed to generate cover image:", error.message);
       }

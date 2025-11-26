@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta.1...v1.9.0-beta.2) (2025-11-26)
+
+
+### Features
+
+* add industry-specific image generation and analysis system ([#281](https://github.com/AIGNE-io/aigne-web-smith/issues/281)) ([a0d344d](https://github.com/AIGNE-io/aigne-web-smith/commit/a0d344da4f86bb0e2e03c1d118e96c52d04f852c))
+
 ## [1.9.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta...v1.9.0-beta.1) (2025-11-24)
 
 

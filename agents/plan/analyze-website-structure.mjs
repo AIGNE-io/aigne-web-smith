@@ -15,7 +15,15 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function analyzeWebsiteStructure(
-  { originalWebsiteStructure, lastGitHead, pagesDir, forceRegenerate, locale, projectCover, ...rest },
+  {
+    originalWebsiteStructure,
+    lastGitHead,
+    pagesDir,
+    forceRegenerate,
+    locale,
+    projectCover,
+    ...rest
+  },
   options,
 ) {
   // Helper function to check and streamline navigation items
@@ -271,9 +279,12 @@ export default async function analyzeWebsiteStructure(
     // Generate a cover if it does not exist.
     if (!coverExists) {
       try {
-        const coverResult = await options.context.invoke(options.context.agents["generateCoverTeam"], {
-          aiPrompt: result.projectCoverPrompt,
-        });
+        const coverResult = await options.context.invoke(
+          options.context.agents["generateCoverTeam"],
+          {
+            aiPrompt: result.projectCoverPrompt,
+          },
+        );
 
         // Save the actual path returned by the cover generation
         if (coverResult.savedPath) {

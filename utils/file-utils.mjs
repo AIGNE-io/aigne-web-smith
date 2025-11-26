@@ -232,9 +232,7 @@ export function getMediaDescriptionCachePath() {
  */
 export function getCoverImagePath(projectCover) {
   if (projectCover) {
-    return path.isAbsolute(projectCover)
-      ? projectCover
-      : path.join(process.cwd(), projectCover);
+    return path.isAbsolute(projectCover) ? projectCover : path.join(process.cwd(), projectCover);
   }
   // Default path
   return path.join(process.cwd(), WEB_SMITH_DIR, "cover.png");

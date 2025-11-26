@@ -3,7 +3,7 @@ import { saveValueToConfig } from "../../../utils/utils.mjs";
 
 export default async function analyzeIndustry(
   { industry, websiteStructure, projectName, projectDesc },
-  options
+  options,
 ) {
   // If industry is already configured and valid, return directly
   if (industry && INDUSTRY_STYLES[industry]) {
@@ -27,7 +27,7 @@ export default async function analyzeIndustry(
   await saveValueToConfig(
     "industry",
     result.industry,
-    "Industry classification (auto-detected, can be manually overridden); Available options: technology | gaming | artistic | health"
+    "Industry classification (auto-detected, can be manually overridden); Available options: technology | gaming | artistic | health",
   );
 
   // Get the corresponding style configuration

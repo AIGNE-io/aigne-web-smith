@@ -27,7 +27,7 @@ export default async function analyzeIndustry(
   await saveValueToConfig(
     "industry",
     result.industry,
-    "Industry classification (auto-detected, can be manually overridden); Available options: technology | gaming | artistic | health",
+    "Industry classification (auto-detected, can be manually overridden). Available options: technology | gaming | artistic | health",
   );
 
   // Get the corresponding style configuration

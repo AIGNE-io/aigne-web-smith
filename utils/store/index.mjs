@@ -11,7 +11,7 @@ export async function createStore() {
   });
 
   async function migrate() {
-    // system don't support keyring
+    // system doesn't support keyring
     if (secretStore instanceof FileStore) {
       return true;
     }

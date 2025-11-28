@@ -29,21 +29,6 @@ export async function createStore() {
     }
     await rm(filepath);
   }
-  function getItem(...args) {
-    return secretStore.getItem(...args);
-  }
-
-  function setItem(...args) {
-    return secretStore.setItem(...args);
-  }
-
-  function deleteItem(...args) {
-    return secretStore.deleteItem(...args);
-  }
-
-  function listMap() {
-    return secretStore.listMap();
-  }
 
   async function clear() {
     const map = await secretStore.listMap();
@@ -54,11 +39,7 @@ export async function createStore() {
 
   await migrate();
 
-  return {
-    getItem,
-    setItem,
-    deleteItem,
-    clear,
-    listMap,
-  };
+  secretStore.clear = clear;
+
+  return secretStore;
 }

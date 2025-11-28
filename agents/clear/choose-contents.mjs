@@ -1,7 +1,6 @@
 import { rm } from "node:fs/promises";
 import { join, resolve as resolvePath } from "node:path";
 
-import { WEB_SMITH_ENV_FILE } from "../../utils/constants.mjs";
 import { getMediaDescriptionCachePath, getTranslationCachePath } from "../../utils/file-utils.mjs";
 import { pathExists, resolveToAbsolute, toDisplayPath } from "../../utils/utils.mjs";
 
@@ -93,11 +92,11 @@ export default async function chooseContents(input = {}, options = {}) {
       },
     },
     authTokens: {
-      path: WEB_SMITH_ENV_FILE,
+      path: "secret store", // Always available since stored in secret store
       label: "authorizations",
       description: () =>
-        `Delete authorization information in '${WEB_SMITH_ENV_FILE}' (requires re-authorization after clearing).`,
-      onClear: async ({ displayPath, results }) => {
+        `Delete authorization information (requires re-authorization after clearing).`,
+      onClear: async ({ results }) => {
         const clearAgent = options.context?.agents?.["clearAuthTokens"];
         if (!clearAgent) {
           throw new Error("Clear agent clearAuthTokens not found in context");
@@ -108,7 +107,7 @@ export default async function chooseContents(input = {}, options = {}) {
         results.push({
           status: result.error ? "error" : "removed",
           message: result.message,
-          path: displayPath,
+          path: "secret store",
         });
       },
     },
@@ -156,7 +155,7 @@ export default async function chooseContents(input = {}, options = {}) {
   const availabilityEntries = await Promise.all(
     Object.entries(targetsDefinition).map(async ([key, def]) => {
       if (!def.path) return [key, false];
-      const exists = await pathExists(def.path);
+      const exists = def.path === "secret store" ? true : await pathExists(def.path);
       return [key, exists];
     }),
   );

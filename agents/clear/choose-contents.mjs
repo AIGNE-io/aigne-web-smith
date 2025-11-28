@@ -92,7 +92,7 @@ export default async function chooseContents(input = {}, options = {}) {
       },
     },
     authTokens: {
-      path: "secure store", // Always available since stored in secure store
+      path: "secret store", // Always available since stored in secret store
       label: "authorizations",
       description: () =>
         `Delete authorization information (requires re-authorization after clearing).`,
@@ -107,7 +107,7 @@ export default async function chooseContents(input = {}, options = {}) {
         results.push({
           status: result.error ? "error" : "removed",
           message: result.message,
-          path: "secure store",
+          path: "secret store",
         });
       },
     },
@@ -155,7 +155,7 @@ export default async function chooseContents(input = {}, options = {}) {
   const availabilityEntries = await Promise.all(
     Object.entries(targetsDefinition).map(async ([key, def]) => {
       if (!def.path) return [key, false];
-      const exists = def.path === "secure store" ? true : await pathExists(def.path);
+      const exists = def.path === "secret store" ? true : await pathExists(def.path);
       return [key, exists];
     }),
   );

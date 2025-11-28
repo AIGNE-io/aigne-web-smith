@@ -27,8 +27,8 @@ importers:
         specifier: ^0.16.10
         version: 0.16.10(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/secrets':
-        specifier: 0.1.1-beta
-        version: 0.1.1-beta
+        specifier: 0.1.1-beta.3
+        version: 0.1.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@blocklet/payment-broker-client':
         specifier: ^1.22.24
         version: 1.22.24
@@ -208,8 +208,8 @@ packages:
   '@aigne/poe@1.1.0':
     resolution: {integrity: sha512-YoNjXjC1PfDETqrRzh16GZMqO+1S4ZlOYTfauUeq4y6RZ5rlx8Q2sBP0t1YPy+o2S1onGMRp+LEWQxvAG7VuYg==}
 
-  '@aigne/secrets@0.1.1-beta':
-    resolution: {integrity: sha512-UzbOB1ri2mxMod4ovS1mECuDoVsi4Y/aNpVS8DgymT7/AqkZNbWKXEcPDbWJMY3XzgmbkFy0B5I4418fOX7eGQ==}
+  '@aigne/secrets@0.1.1-beta.3':
+    resolution: {integrity: sha512-Uing8+lvaZQ5tPzYlnLc8SO5JxybbdcCD0G3zqeeJk6p8isHSRqcFGjtYkN+REYqqOg5d/z1hSbdVf9gvznkXw==}
 
   '@aigne/sqlite@0.4.6':
     resolution: {integrity: sha512-R5N4pnIlPrHpy7iYRwA4VdCuNsLV6hAvxYc8/JJQymTtU8FbVIFnaF8yskJFlZL0KtmEopC2FfNTtarxwRmojA==}
@@ -5215,10 +5215,47 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/secrets@0.1.1-beta':
+  '@aigne/secrets@0.1.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
+      '@aigne/core': 1.69.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@zowe/secrets-for-zowe-sdk': 8.29.4
       yaml: 2.8.1
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - bare-abort-controller
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - react-native-b4a
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
 
   '@aigne/sqlite@0.4.6(@opentelemetry/api@1.9.0)':
     dependencies:

@@ -40,7 +40,7 @@
     "@aigne/core": "^1.69.0",
     "@aigne/gemini": "^0.14.10",
     "@aigne/openai": "^0.16.10",
-    "@aigne/secrets": "0.1.1-beta",
+    "@aigne/secrets": "0.1.1-beta.3",
     "@blocklet/payment-broker-client": "^1.22.24",
     "adm-zip": "^0.5.16",
     "chalk": "^5.5.0",

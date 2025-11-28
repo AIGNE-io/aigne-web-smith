@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta.2...v1.9.0-beta.3) (2025-11-28)
+
+
+### Features
+
+* migrate auth token storage from YAML file to secret store ([#283](https://github.com/AIGNE-io/aigne-web-smith/issues/283)) ([b2e4fbc](https://github.com/AIGNE-io/aigne-web-smith/commit/b2e4fbcf6fdca03a2413f5cbe4e05566f3f10bca))
+
 ## [1.9.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta.1...v1.9.0-beta.2) (2025-11-26)
 
 

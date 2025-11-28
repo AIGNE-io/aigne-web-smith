@@ -1,5 +1,4 @@
 import { existsSync, mkdirSync } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
@@ -7,7 +6,6 @@ import { PAYMENT_KIT_DID } from "@blocklet/payment-broker-client";
 import chalk from "chalk";
 import open from "open";
 import { joinURL, withQuery } from "ufo";
-import { parse, stringify } from "yaml";
 
 import {
   ComponentNotFoundError,
@@ -22,6 +20,7 @@ import {
   PAGES_KIT_DID,
   PAGES_KIT_STORE_URL,
 } from "./constants.mjs";
+import { createStore } from "./store/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -30,10 +29,6 @@ const FETCH_INTERVAL = 3000; // 3 seconds
 
 const RETRY_COUNT = (TIMEOUT_MINUTES * 60 * 1000) / FETCH_INTERVAL;
 
-export function getWebSmithEnvFilePath() {
-  return join(homedir(), ".aigne", "web-smith-connected.yaml");
-}
-
 /**
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} baseUrl - The application URL
@@ -41,7 +36,7 @@ export function getWebSmithEnvFilePath() {
  */
 export async function getCachedAccessToken(baseUrl) {
   const { hostname: targetHostname } = new URL(baseUrl);
-  const WEB_SMITH_ENV_FILE = getWebSmithEnvFilePath();
+  const store = await createStore();
 
   let accessToken =
     process.env.WEB_SMITH_PUBLISH_ACCESS_TOKEN || process.env.PAGES_KIT_ACCESS_TOKEN;
@@ -49,21 +44,8 @@ export async function getCachedAccessToken(baseUrl) {
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
-      if (existsSync(WEB_SMITH_ENV_FILE)) {
-        const data = await readFile(WEB_SMITH_ENV_FILE, "utf8");
-        if (
-          data.includes("WEB_SMITH_PUBLISH_ACCESS_TOKEN") ||
-          data.includes("PAGES_KIT_ACCESS_TOKEN")
-        ) {
-          // Handle empty or invalid YAML files
-          const envs = data.trim() ? parse(data) : null;
-          if (envs?.[targetHostname]?.WEB_SMITH_PUBLISH_ACCESS_TOKEN) {
-            accessToken = envs[targetHostname].WEB_SMITH_PUBLISH_ACCESS_TOKEN;
-          } else if (envs?.[targetHostname]?.PAGES_KIT_ACCESS_TOKEN) {
-            accessToken = envs[targetHostname].PAGES_KIT_ACCESS_TOKEN;
-          }
-        }
-      }
+      const storeItem = await store.getItem(targetHostname);
+      accessToken = storeItem?.WEB_SMITH_PUBLISH_ACCESS_TOKEN || storeItem?.PAGES_KIT_ACCESS_TOKEN;
     } catch (error) {
       console.warn("Could not read the configuration file:", error.message);
     }
@@ -286,29 +268,14 @@ export async function getOfficialAccessToken(baseUrl, openPage = true, locale = 
  */
 async function saveTokenToConfigFile(hostname, fields) {
   try {
-    const configFile = getWebSmithEnvFilePath();
+    const store = await createStore();
 
     const aigneDir = join(homedir(), ".aigne");
     if (!existsSync(aigneDir)) {
       mkdirSync(aigneDir, { recursive: true });
     }
 
-    let existingConfig = {};
-    if (existsSync(configFile)) {
-      const fileContent = await readFile(configFile, "utf8");
-      const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
-      existingConfig = parsedConfig || {};
-    }
-
-    await writeFile(
-      configFile,
-      stringify({
-        ...existingConfig,
-        [hostname]: {
-          ...fields,
-        },
-      }),
-    );
+    await store.setItem(hostname, fields);
   } catch (error) {
     console.warn(`Could not save the token to the configuration file: ${error.message}`, error);
     // The token is already in the environment, so we don't need to throw an error here.

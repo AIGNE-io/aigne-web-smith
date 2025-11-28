@@ -1,6 +1,3 @@
-import { homedir } from "node:os";
-import { join } from "node:path";
-
 export const ENABLE_LOGS = process.env.ENABLE_LOGS === "true";
 
 export const YAML_STRINGIFY_OPTIONS = {
@@ -601,7 +598,6 @@ export const DEFAULT_PROJECT_ID = "pg4d0000-0000-4000-a000-000000000000";
 export const DEFAULT_PROJECT_SLUG = "/";
 
 export const NAVIGATIONS_FILE_NAME = "_navigations.yaml";
-export const WEB_SMITH_ENV_FILE = join(homedir(), ".aigne", "web-smith-connected.yaml");
 
 // Default thinking effort level, available options: 'lite', 'standard', 'pro'
 // This level can be defined by the user in the config file to influence reasoning effort mapping

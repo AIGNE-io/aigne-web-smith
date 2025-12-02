@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-11-26T07:30:57.589Z
+  updateAt: 2025-12-02T06:56:23.197Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -242,6 +242,280 @@ composite:
               mediaKitUrl: <%= verticalHeroImage %>
           5fjm8opvqth7wk71:
             value: 600px
+  - id: m7tyemfijqo02bus
+    name: Central Hero Without Bg
+    summary: >-
+      Structure (top → bottom)
+
+
+      - Headline (1–2 lines, centered)
+
+
+      - Primary CTA
+
+
+      - Large product visual (screenshot) featuring a dashboard, enclosed in a
+      soft-cornered/shadowed container.
+
+
+      - Without Background
+
+
+      Use when
+
+      - You want to immediately introduce a **key, high-level concept** (like
+      "Confidential AI").
+
+
+      - You want to give the user **two clear paths** right away: "Start" and
+      "Learn More."
+
+
+      - The **product's core value is best demonstrated** by showing its
+      UI/dashboard in a clean, focused visual.
+
+
+      - The content is **light and introductory**, focusing on the main promise
+      ("Hardware-secured compute platform...").
+
+
+      Constraint
+
+      - Only used on the site homepage (path is /home)
+
+
+      - The visual **must be a high-fidelity representation** of the product UI
+      to build credibility.
+
+
+      - The **headline must be compelling and succinct** as it's the main hook.
+
+
+      - The **headline must be restricted to 8 words or less**, ensuring
+      simplicity and clarity.
+
+
+      - The **two CTAs must clearly guide** the user to distinct next steps
+      (action vs. information).
+
+
+      - Copy length:
+        - Title ≤ 80 characters
+        - Description ≤ 160 characters 
+    fieldCombinations:
+      - centralHeroWithoutBgActions.0.link
+      - centralHeroWithoutBgActions.0.text
+      - centralHeroWithoutBgActions.1.link
+      - centralHeroWithoutBgActions.1.text
+      - centralHeroWithoutBgDescription
+      - centralHeroWithoutBgImage
+      - centralHeroWithoutBgTitle
+    section:
+      id: vjcv026632tqlm0f
+      name: Central Hero Without Bg
+      component: layout-block
+      sections:
+        f8ldyig0srbtgp5m:
+          id: f8ldyig0srbtgp5m
+          name: Text
+          component: layout-block
+          sections:
+            hhck3h05vnxjrkfo:
+              id: hhck3h05vnxjrkfo
+              name: Title
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            lahun20iehgaard5:
+              id: lahun20iehgaard5
+              name: Description
+              component: custom-component
+              config:
+                componentId: xoHu0J44322kDYc-
+            wm8d8ar9ek1b24gy:
+              id: wm8d8ar9ek1b24gy
+              name: Btns
+              component: layout-block
+              sections:
+                wl7v2sk19c3btc57:
+                  id: wl7v2sk19c3btc57
+                  name: Action
+                  component: custom-component
+                  config:
+                    componentId: a44r0SiGV9AFn2Fj
+              sectionIds:
+                - wl7v2sk19c3btc57
+              config:
+                gridSettings:
+                  desktop:
+                    wl7v2sk19c3btc57:
+                      x: 0
+                      y: 0
+                      w: 12
+                      h: 1
+                textAlign: center
+                maxWidth: full
+                gap: small
+          sectionIds:
+            - hhck3h05vnxjrkfo
+            - lahun20iehgaard5
+            - wm8d8ar9ek1b24gy
+          config:
+            gap: normal
+            gridSettings:
+              desktop:
+                hhck3h05vnxjrkfo:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+                lahun20iehgaard5:
+                  x: 0
+                  y: 1
+                  w: 12
+                  h: 1
+                wm8d8ar9ek1b24gy:
+                  x: 0
+                  y: 2
+                  w: 12
+                  h: 1
+        pi57qqy11nbu8ps2:
+          id: pi57qqy11nbu8ps2
+          name: Image
+          component: layout-block
+          sections:
+            t6zhykfln3vh0jqo:
+              id: t6zhykfln3vh0jqo
+              name: Media
+              component: custom-component
+              config:
+                componentId: xoHu0JPjPs122kaaa-
+          sectionIds:
+            - t6zhykfln3vh0jqo
+          config:
+            borderRadius: medium
+            gridSettings:
+              desktop:
+                t6zhykfln3vh0jqo:
+                  x: 0
+                  y: 0
+                  w: 12
+                  h: 1
+      sectionIds:
+        - f8ldyig0srbtgp5m
+        - pi57qqy11nbu8ps2
+      config:
+        background: transparent
+        paddingX: none
+        paddingY: large
+        gap: large
+        gridSettings:
+          desktop:
+            f8ldyig0srbtgp5m:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            pi57qqy11nbu8ps2:
+              x: 2
+              y: 1
+              w: 8
+              h: 1
+          mobile:
+            f8ldyig0srbtgp5m:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+            pi57qqy11nbu8ps2:
+              x: 0
+              y: 1
+              w: 12
+              h: 1
+        backgroundFullWidth: true
+    dataSource:
+      vjcv026632tqlm0f: {}
+      f8ldyig0srbtgp5m: {}
+      hhck3h05vnxjrkfo:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= centralHeroWithoutBgTitle %>
+              style:
+                fontSize: '{ "xs": 40, "md": 80 }'
+                variant: h1
+      lahun20iehgaard5:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          kyg0hdy5uqq4gc1o:
+            value: center
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1759472738716-8jpjkgjdk
+                  type: text
+                  text: <%= centralHeroWithoutBgDescription %>
+                  style:
+                    color: ""
+                    fontSize: '{ "xs": 18, "md": 20}'
+                    variant: body1
+          gs1rn5jmxfvpxptx:
+            value:
+              text: ""
+              style:
+                variant: h3
+      wm8d8ar9ek1b24gy: {}
+      wl7v2sk19c3btc57:
+        properties:
+          v5utpm7bu9yvdpnq:
+            value: center
+          v9979xeclpsbvn0n:
+            value: center
+          b8x4m3n9kp7qtw5r:
+            value:
+              - id: btn-default-1
+                type: link
+                text: <%= centralHeroWithoutBgActions.0.text %>
+                url: <%= centralHeroWithoutBgActions.0.link %>
+                variant: contained
+                size: xlarge
+                target: auto
+                needLogin: false
+              - type: link
+                text: <%= centralHeroWithoutBgActions.1.text %>
+                url: <%= centralHeroWithoutBgActions.1.link %>
+                color: "linear-gradient(180.12deg, #B6FFFA -82.67%, #0B71FF 99.89%)"
+                borderColor: primary.main
+                variant: outlined
+                size: xlarge
+                target: auto
+                startIcon: ""
+                endIcon: ""
+                needLogin: false
+                imageUrl: ""
+                imageUrlDark: ""
+                imageHoverAnimation: true
+                id: btn-1762483874587-hf6l88bvd
+      pi57qqy11nbu8ps2: {}
+      t6zhykfln3vh0jqo:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= centralHeroWithoutBgImage %>
+              mediaKitUrl: <%= centralHeroWithoutBgImage %>
+              width: 2048
+              height: 1536
+          jjv0hvr8wrixt1f3:
+            value: 1
+          02dp1e6zfq2xwkt3:
+            value: 3:2
+          nch5frsfoap2lw33:
+            value: true
   - id: zk6cb4ai8xymie49
     name: Central Hero
     summary: >-

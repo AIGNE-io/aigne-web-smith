@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0...v1.10.0-beta) (2025-12-02)
+
+
+### Features
+
+* add 'Central Hero Without Bg' component ([#286](https://github.com/AIGNE-io/aigne-web-smith/issues/286)) ([96e9d40](https://github.com/AIGNE-io/aigne-web-smith/commit/96e9d40ccc1c8ed48a6dde65d50c3773a397ef91))
+
 ## [1.9.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta.3...v1.9.0) (2025-11-28)
 
 ## [1.9.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0-beta.2...v1.9.0-beta.3) (2025-11-28)

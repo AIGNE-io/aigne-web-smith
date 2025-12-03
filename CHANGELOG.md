@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta...v1.10.0-beta.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* adjust UserReview layout ([#289](https://github.com/AIGNE-io/aigne-web-smith/issues/289)) ([306d6dd](https://github.com/AIGNE-io/aigne-web-smith/commit/306d6dd789d61a5565beab43cfa49a5b314c6d8a))
+
 ## [1.10.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.9.0...v1.10.0-beta) (2025-12-02)
 
 

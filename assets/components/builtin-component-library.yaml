@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-02T06:56:23.197Z
+  updateAt: 2025-12-03T08:05:39.474Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -5104,56 +5104,43 @@ composite:
           component: custom-component
           config:
             componentId: xoHu0J44322kDYc-
-        th9r84johvojpr6s:
-          id: th9r84johvojpr6s
+        9yi0k003o0a9n52e:
+          id: 9yi0k003o0a9n52e
           name: User
           component: layout-block
           sections:
-            do35jzobe9fv1z8i:
-              id: do35jzobe9fv1z8i
+            2x0vj1q3qdkfc8mo:
+              id: 2x0vj1q3qdkfc8mo
               name: Media
               component: custom-component
               config:
                 componentId: xoHu0JPjPs122kaaa-
-            zf1s9y77l821pofu:
-              id: zf1s9y77l821pofu
+            8sad7vdnv5uujwx0:
+              id: 8sad7vdnv5uujwx0
               name: RichText
               component: custom-component
               config:
                 componentId: xoHu0J44322kDYc-
           sectionIds:
-            - do35jzobe9fv1z8i
-            - zf1s9y77l821pofu
+            - 2x0vj1q3qdkfc8mo
+            - 8sad7vdnv5uujwx0
           config:
             gridSettings:
               desktop:
-                do35jzobe9fv1z8i:
+                2x0vj1q3qdkfc8mo:
                   x: 0
                   y: 0
-                  w: 2
+                  w: 12
                   h: 1
-                zf1s9y77l821pofu:
-                  x: 0
-                  y: 1
-                  w: 10
-                  h: 1
-              mobile:
-                do35jzobe9fv1z8i:
-                  x: 0
-                  y: 0
-                  w: 2
-                  h: 1
-                zf1s9y77l821pofu:
-                  x: 2
-                  y: 0
-                  w: 10
-                  h: 1
-            gap: normal
-            paddingY: none
-            alignContent: center
+            layoutMode: stack
+            stackDirection: row
+            stackItems:
+              2x0vj1q3qdkfc8mo:
+                flex: fixed
+                width: 50px
       sectionIds:
         - cgksquknkrfo5m42
-        - th9r84johvojpr6s
+        - 9yi0k003o0a9n52e
       config:
         gridSettings:
           desktop:
@@ -5162,7 +5149,7 @@ composite:
               y: 0
               w: 12
               h: 1
-            th9r84johvojpr6s:
+            9yi0k003o0a9n52e:
               x: 0
               y: 1
               w: 12
@@ -5187,6 +5174,8 @@ composite:
         gap: large
         border: solid
         alignContent: space-between
+        layoutMode: grid
+        stackDirection: row
     dataSource:
       crdmoiee60y82o70: {}
       cgksquknkrfo5m42:
@@ -5246,6 +5235,43 @@ composite:
                   style:
                     color: ""
                     fontSize: 18px
+                    variant: caption
+      2x0vj1q3qdkfc8mo:
+        properties:
+          7m5pz8nefl5j9hqq:
+            value:
+              url: <%= userReview.avatarImage %>
+              mediaKitUrl: <%= userReview.avatarImage %>
+          9tjhmxpe86r4on41:
+            value: <%= userReview.userName %>
+          02dp1e6zfq2xwkt3:
+            value: 1:1
+          x8beiec3fxx5des1:
+            value: 40px
+          5fjm8opvqth7wk71:
+            value: 40px
+          jjv0hvr8wrixt1f3:
+            value: 1
+      8sad7vdnv5uujwx0:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value:
+              text: <%= userReview.userName %>
+              style:
+                variant: body2
+          v5utpm7bu9yvdpnq:
+            value: flex-start
+          kyg0hdy5uqq4gc1o:
+            value: flex-start
+          9ajrz12ik7esfk1z:
+            value:
+              list:
+                - id: item-1764748847207-hxbpvs6ug
+                  type: text
+                  text: <%= userReview.description %>
+                  style:
+                    color: ""
+                    fontSize: 12px
                     variant: caption
   - id: zs27yroulnj5hadr
     name: Metric Card

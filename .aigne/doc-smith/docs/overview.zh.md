@@ -1,153 +1,66 @@
 # 概述
 
-需要上线一个专业的网站，但没有时间编码或雇佣开发团队？AIGNE WebSmith 可将整个流程自动化，将您的产品简介转化为一个完整的多页网站，内容引人入胜、设计现代且经过 SEO 优化——所有这些只需一个命令即可完成。
+本文档对 AIGNE WebSmith 进行了高层级的介绍。阅读完毕后，您将了解其核心目标、关键功能以及用于自动化创建专业网站（从初始规划到最终发布）的基础工作流程。
 
-AIGNE WebSmith 是一款 AI 驱动的工具，可根据您的愿景和需求自动创建专业网站。它基于 [AIGNE 框架](https://www.aigne.io/framework) 构建，并利用 [Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o) 组件来生成可用于生产环境的响应式网站。
+AIGNE WebSmith 是一款由 AI 驱动的工具，可自动化创建经过 SEO 优化的专业网站。它能根据您提供的源材料生成完整的内容和模板，并可直接发布最终站点。该系统旨在简化整个 Web 开发流程，最大限度地减少手动工作和技术要求。
 
-该工具解决了网站创建中的常见挑战：构建耗时、需要技术专业知识，以及在多个页面间保持内容质量很困难。通过将此过程自动化，WebSmith 可帮助确保您的网站专业、一致，并在数小时内准备好上线，而非数周。
+## 关键功能
 
-## 主要功能
+WebSmith 提供了一套全面的功能，用于自动化网站的创建和管理。该系统围绕四大核心能力构建：AI 驱动的生成、专业的模板系统、质量保证和直接发布。
 
-AIGNE WebSmith 通过一套智能功能简化了整个网站创建过程。
-
-<x-cards data-columns="3">
-  <x-card data-title="AI 驱动生成" data-icon="lucide:brain-circuit">
-    WebSmith 使用 AI 智能规划您的网站结构，为每个页面生成引人入胜且相关的内容，并确保从一开始就为搜索引擎进行优化。
-  </x-card>
-  <x-card data-title="专业模板" data-icon="lucide:layout-template">
-    您的网站将使用一个包含现代化、专业设计组件的库来构建。最终的模板是完全响应式的，确保您的网站在桌面、平板电脑和移动设备上都看起来很棒。
-  </x-card>
-  <x-card data-title="一键发布" data-icon="lucide:rocket">
-    网站生成后，只需一个命令即可发布。WebSmith 会处理整个过程，为您提供一个实时 URL，以便立即与世界分享。
-  </x-card>
-</x-cards>
-
-## 核心能力
-
-WebSmith 提供了一套全面的功能，以处理从概念到发布的完整网站生命周期。
-
-*   **AI 驱动生成**：分析您的需求，提出一个逻辑合理的网站结构，并生成能够有效向目标受众传达您信息的内容。
-*   **多语言支持**：将您的网站翻译成 12 种语言，包括英语、中文（简体）和日语。翻译过程具有上下文感知能力，以保持品牌语调和技术准确性。
-*   **与 LLM 集成**：可连接各种大型语言模型（LLM）。默认情况下，它使用 [AIGNE Hub](https://www.aigne.io/hub)，该服务允许您在 Google Gemini 和 OpenAI GPT 等模型之间切换，而无需单独的 API 密钥。您也可以配置自己的 API 密钥以直接访问提供商。
-*   **使用 Pages Kit 进行专业设计**：使用 [Pages Kit](https://store.blocklet.dev/blocklets/z8iZiDFg3vkkrPwsiba1TLXy3H9XHzFERsP8o) 生成网站，这是一个包含现代化、响应式组件的库。每个部分都看起来可用于生产环境，并在桌面、平板电脑和移动设备上无缝工作。
-*   **智能更新**：检测您需求中的变化，并更新网站的相应页面。您还可以提供具体反馈来优化生成的内容。
-*   **发布选项**：只需一个命令即可发布您的网站。您可以部署到 WebSmith Cloud 或您自己的自定义域名，并完全控制部署配置。
+| 功能领域 | 描述 |
+| :--- | :--- |
+| **AI 驱动的生成** | 利用 AI 分析需求、规划最优站点结构、一次性为所有页面生成详细内容，并应用 SEO 最佳实践。支持中英文内容生成。 |
+| **专业模板** | 创建与 Pages Kit 兼容的模板，采用基于组件的设计，包含 Hero、CTA 和 FAQ 等元素。模板具有响应式特性，能适配移动和桌面显示。 |
+| **质量保证** | 包含一个自动化评估系统，用于评估网站架构、用户体验和内容一致性。该系统由一套超过 32 个覆盖核心功能的测试用例支持。 |
+| **一键发布** | 支持将多页面网站直接批量发布到 Pages Kit。它提供状态监控，并在成功部署后立即提供公共访问链接。 |
 
 ## 工作原理
 
-WebSmith 通过分析您的需求来运作，以了解您的愿景、目标受众和期望的功能。基于此分析，它会生成一套完整的网站，从导航结构到详细的页面内容和样式。
+WebSmith 采用一系列专业的 AI Agent 顺序工作，以构建和部署网站。每个 Agent 负责流程中的一个特定阶段，确保从构思到发布的整个工作流程结构化且可靠。
 
-```d2
-direction: down
+下图展示了这一顺序流程：
 
-Requirements: {
-  label: "产品简介与需求"
-  shape: rectangle
-}
+<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
-AIGNE-WebSmith: {
-  label: "AIGNE WebSmith"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
+流程如下：
 
-  Planning-Engine: {
-    label: "规划引擎"
-    shape: rectangle
-  }
+1.  **结构规划**：一个 Agent 分析您的项目需求，以设计一个智能且逻辑清晰的网站架构。
+2.  **内容生成**：基于规划好的结构，另一个 Agent 为每个页面生成高质量的相关内容。
+3.  **模板生成**：第三个 Agent 获取生成的内容，并将其组装成专业的、基于组件的模板。
+4.  **评估与发布**：最后，在发布 Agent 上传已完成的网站之前，评估 Agent 会对输出质量进行评估。
 
-  Generation-Engine: {
-    label: "生成引擎"
-    shape: rectangle
-  }
+这种模块化的、基于 Agent 的架构确保每一步都由专门的流程处理，从而产出一致且高质量的最终产品。
 
-  Theme-Engine: {
-    label: "主题引擎"
-    shape: rectangle
-  }
+## 核心组件
 
-  LLMs: {
-    label: "大型语言模型"
-    shape: rectangle
+WebSmith 的功能通过一组独特的命令行界面 (CLI) 命令提供。每个命令对应系统中的一个核心组件或工作流程。
 
-    AIGNE-Hub: {
-      label: "AIGNE Hub"
-    }
-
-    Direct-Access: {
-      label: "直接访问"
-      shape: rectangle
-      Google-Gemini: {}
-      OpenAI-GPT: {}
-    }
-  }
-}
-
-Pages-Kit: {
-  label: "Pages Kit 组件"
-  shape: rectangle
-}
-
-Published-Website: {
-  label: "已发布的网站"
-  shape: rectangle
-
-  WebSmith-Cloud: {
-    label: "WebSmith Cloud"
-  }
-
-  Custom-Domain: {
-    label: "自定义域名"
-  }
-}
-
-Requirements -> AIGNE-WebSmith.Planning-Engine: "分析"
-AIGNE-WebSmith.Planning-Engine -> AIGNE-WebSmith.Generation-Engine: "规划"
-AIGNE-WebSmith.Generation-Engine <-> AIGNE-WebSmith.LLMs: "利用"
-AIGNE-WebSmith.Generation-Engine -> AIGNE-WebSmith.Theme-Engine: "生成"
-AIGNE-WebSmith.Theme-Engine -> Pages-Kit: "应用"
-Pages-Kit -> Published-Website: "发布"
-```
-
-1.  **描述您的网站**：您首先创建一个简单的文件，概述您的网站是关于什么的，目标受众是谁，以及您需要哪些页面。这可以是一个新的 SaaS 产品、个人作品集或技术文档中心。
-2.  **通过命令生成**：您运行 `aigne web generate` 命令。AI 会分析您的需求，规划出最佳的网站结构，编写所有内容，并使用专业的设计组件组装页面。
-3.  **即时发布**：准备就绪后，您运行 `aigne web publish` 命令。WebSmith 会上传所有必要的文件，并为您的新网站提供一个实时 URL。
-
-## 可用命令
-
-WebSmith 通过命令行界面进行操作。下表总结了主要命令及其功能。
-
-| 命令 | 描述 |
-| :--- | :--- |
-| `generate` | 根据您的需求和内容简介创建一个新网站。 |
-| `update` | 根据反馈或需求变化修改现有页面。 |
-| `translate` | 将您的网站翻译成 12 种支持的语言中的一种或多种。 |
-| `publish` | 将您的网站部署到一个可实时访问的 URL。 |
-| `theme` | 生成或更新您网站的视觉主题和样式。 |
-| `history` | 查看对您网站所做更新的历史记录。 |
-| `chat` | 启动交互模式会话以生成和管理您的网站。 |
-| `clear` | 移除生成的文件、配置和缓存数据。 |
-| `init` | 通过一个交互式过程引导您创建一个初始配置文件。 |
-| `prefs` | 管理用于网站生成的已保存偏好和配置。 |
-
-## WebSmith 适用于谁？
-
-AIGNE WebSmith 非常适合任何需要快速创建高质量网站的人，包括：
-
-- **中小型企业主**：上线专业的网站以吸引客户。
-- **开发者与初创公司**：快速创建营销网站、登陆页面或产品展示。
-- **市场营销人员**：无需依赖开发团队即可部署活动网站和内容中心。
-- **代理机构**：快速构建原型并以一致的质量交付客户网站。
-
-## 下一步
-
-准备好创建您的第一个网站了吗？请遵循我们全面的指南开始吧。
-
-<x-cards>
-  <x-card data-title="入门指南" data-icon="lucide:rocket" data-href="/getting-started">
-    遵循我们的分步指南安装 AIGNE WebSmith，连接到 AIGNE Hub，并在 30 分钟内生成您的第一个专业网站。
+<x-cards data-columns="2">
+  <x-card data-title="生成" data-icon="lucide:bot" data-href="/guides/create-website">
+    根据用户定义的需求，生成包括结构和内容在内的完整网站。
+  </x-card>
+  <x-card data-title="发布" data-icon="lucide:rocket" data-href="/guides/publish-website">
+    将生成的网站发布到各种目标，包括 WebSmith Cloud 或您自己的基础设施。
+  </x-card>
+  <x-card data-title="更新" data-icon="lucide:file-pen-line" data-href="/guides/update-website">
+    根据新的反馈或需求，修改现有网站的内容或结构。
+  </x-card>
+  <x-card data-title="翻译" data-icon="lucide:languages" data-href="/guides/localize-website">
+    将现有网站内容翻译成多种语言，如中文、日语、法语和德语。
+  </x-card>
+  <x-card data-title="主题" data-icon="lucide:palette" data-href="/guides/customize-theme">
+    通过生成和应用不同的样式和配色方案来管理网站的视觉主题。
+  </x-card>
+  <x-card data-title="组件" data-icon="lucide:library" data-href="/advanced-features/use-custom-component-libraries">
+    管理用于构建网站视觉元素的组件库。
   </x-card>
 </x-cards>
+
+## 总结
+
+本概述介绍了 AIGNE WebSmith 的主要功能和架构。现在，您应该对 WebSmith 是什么、其主要功能以及用于与之交互的命令有了基本的了解。
+
+对于后续步骤，我们建议您继续阅读[快速入门](./getting-started.md)指南，该指南提供了安装、配置和生成您第一个网站的分步教程。

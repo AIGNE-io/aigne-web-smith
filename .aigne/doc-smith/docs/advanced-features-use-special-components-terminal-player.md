@@ -8,58 +8,11 @@ This component utilizes recordings created in the `asciinema` format, which ensu
 
 The workflow for using the Terminal Player can be broken down into a sequence of clear, manageable steps. The process begins with the developer recording a terminal session and concludes with the end-user viewing the interactive playback on the website.
 
-```d2
-direction: down
+The following diagram illustrates this process:
 
-Developer: {
-  shape: c4-person
-}
-
-Terminal: {
-  label: "Terminal\n(with asciinema CLI)"
-  shape: rectangle
-}
-
-Cast-File: {
-  label: "my-demo.cast"
-  shape: rectangle
-}
-
-Online-Converter: {
-  label: "ArcBlock Online Converter"
-  shape: rectangle
-}
-
-JSON-File: {
-  label: "my-demo.json"
-  shape: rectangle
-}
-
-Website-Project: {
-  label: "Website Project"
-  shape: rectangle
-
-  Page-Config: {
-    label: "Page YAML Configuration"
-  }
-
-  Terminal-Player-Component: {
-    label: "TerminalPlayer Component"
-  }
-}
-
-Website-Visitor: {
-  shape: c4-person
-}
-
-Developer -> Terminal: "1. Record session"
-Terminal -> Cast-File: "2. Generates"
-Cast-File -> Online-Converter: "3. Upload & Convert"
-Online-Converter -> JSON-File: "4. Download"
-JSON-File -> Website-Project.Page-Config: "5. Referenced in config"
-Website-Project.Page-Config -> Website-Project.Terminal-Player-Component: "Configures"
-Website-Project.Terminal-Player-Component -> Website-Visitor: "6. Displays Playback"
-```
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
+![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Creating a Terminal Recording
 

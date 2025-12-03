@@ -6,36 +6,9 @@ Great websites start before you run `aigne web generate`. This guide gives you a
 
 Here's how the process flows from gathering materials to getting your first website:
 
-```d2
-direction: right
-
-Gather: {
-  label: "Gather briefs + assets"
-  shape: rectangle
-}
-
-Organize: {
-  label: "Organize sources/"
-  shape: rectangle
-}
-
-Configure: {
-  label: "Update config.yaml"
-  shape: rectangle
-}
-
-Generate: {
-  label: "Run `aigne web generate`"
-  shape: rectangle
-}
-
-Review: {
-  label: "Review pages + iterate"
-  shape: rectangle
-}
-
-Gather -> Organize -> Configure -> Generate -> Review
-```
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
+![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 Each step builds on the previous one. Better inputs mean better output—it's that simple. A well-organized content kit helps WebSmith create authoritative, on-brand pages from the start.
 

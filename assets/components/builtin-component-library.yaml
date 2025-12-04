@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-03T08:53:06.877Z
+  updateAt: 2025-12-04T03:53:18.956Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -52,6 +52,12 @@ atomic:
   - name: ArcblockArchitect
     componentId: xoHu0JPjPs1kDYc-
     summary: ""
+    blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
+    blockletTitle: Pages Templates
+  - name: HubpostForm
+    componentId: UwYO11_mXY22kc3o
+    summary: Embed the information collection form provided by Hubpost, which can be
+      used for user information and sales leads.
     blockletId: z2qZy7yZnaYuiZEVbKJiDQUdEK6u8QbcPepun
     blockletTitle: Pages Templates
 composite:
@@ -6508,3 +6514,71 @@ composite:
                     color: ""
                     fontSize: 16px
                     variant: body1
+  - id: 7kub7gdsb6t6gtrf
+    name: Hubpost Form
+    summary: >-
+      Structure
+
+      - Dynamically embeds forms provided by Hubpost to collect user information
+      and sales leads
+
+
+      Use when
+
+      - Use the `HubpostForm` component when the current user has provided the
+      required parameters for the Hubpost form from the data source
+
+      - Required parameters include:
+        - scriptUrl: The form script URL provided by Hubpost
+        - dataRegion: The form region provided by Hubpost
+        - dataFormId: The form ID provided by Hubpost
+        - dataPortalId: The portal ID provided by Hubpost
+
+      Constraints
+
+      - All parameters must be configured to render the form correctly
+
+      - Allow users to use similar semantic parameter names, and automatically
+      convert them to the correct parameter names, for example:
+        - Script Url → scriptUrl
+        - Data Region → dataRegion
+        - Data Form Id → dataFormId
+        - Data Portal Id → dataPortalId
+    fieldCombinations:
+      - dataFormId
+      - dataPortalId
+      - dataRegion
+      - scriptUrl
+    section:
+      id: 8gftyjwkps6u0hil
+      name: Hubpost Form
+      component: layout-block
+      sections:
+        gxkov2r8vdei5xo9:
+          id: gxkov2r8vdei5xo9
+          name: HubpostForm
+          component: custom-component
+          config:
+            componentId: UwYO11_mXY22kc3o
+      sectionIds:
+        - gxkov2r8vdei5xo9
+      config:
+        gridSettings:
+          desktop:
+            gxkov2r8vdei5xo9:
+              x: 0
+              y: 0
+              w: 12
+              h: 1
+    dataSource:
+      8gftyjwkps6u0hil: {}
+      gxkov2r8vdei5xo9:
+        properties:
+          gs1rn5jmxfvpxptx:
+            value: <%= scriptUrl %>
+          3ckcfvf6b7zyskk8:
+            value: <%= dataFormId %>
+          r4ofujyom1xjb01m:
+            value: <%= dataPortalId %>
+          9ajrz12ik7esfk1z:
+            value: <%= dataRegion %>

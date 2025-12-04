@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.1...v1.10.0-beta.2) (2025-12-04)
+
+
+### Features
+
+* add HubpostForm component to builtin component library ([#293](https://github.com/AIGNE-io/aigne-web-smith/issues/293)) ([05f2f3f](https://github.com/AIGNE-io/aigne-web-smith/commit/05f2f3fe7b3fb023d9560cdd0c0a78824b3ab124))
+
+
+### Bug Fixes
+
+* **article:** remove code spans from titles & update websmith docs images ([#291](https://github.com/AIGNE-io/aigne-web-smith/issues/291)) ([b02a580](https://github.com/AIGNE-io/aigne-web-smith/commit/b02a5803898251dd755ca013e5b7d7f5dcb388d2))
+
 ## [1.10.0-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta...v1.10.0-beta.1) (2025-12-03)
 
 

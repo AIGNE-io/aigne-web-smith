@@ -1,4 +1,24 @@
 entries:
+  - timestamp: 2025-12-03T13:18:28.292Z
+    operation: document_update
+    feedback: update image
+    docPaths:
+      - /overview
+      - /getting-started
+      - /guides
+      - /guides/interactive-mode
+      - /advanced-features/use-special-components/terminal-player
+      - /reference/prepare-materials
+  - timestamp: 2025-12-02T13:55:57.871Z
+    operation: document_update
+    feedback: update diagram
+    docPaths:
+      - /guides/interactive-mode
+      - /reference/prepare-materials
+      - /advanced-features/use-special-components/terminal-player
+      - /getting-started
+      - /guides/create-website
+      - /overview
   - timestamp: 2025-11-21T19:05:18.039Z
     operation: document_update
     feedback: "add code block use-case for 'Step 2: Automatic Link Correction (Optional) (H3)' and 'Step

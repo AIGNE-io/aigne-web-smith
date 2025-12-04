@@ -2,54 +2,6 @@
 
 Need to manage your website day-to-day? This section provides step-by-step guides for common operations like creating your site, publishing updates, managing translations, and customizing the look and feel. Follow these tutorials to keep your website running smoothly.
 
-The following diagram illustrates the typical lifecycle of managing a website with these commands:
-```d2
-direction: down
-
-User: {
-  shape: c4-person
-}
-
-Local-Workspace: {
-  label: "Local Workspace"
-  shape: rectangle
-  style.stroke-dash: 4
-
-  websmith-create: {
-    label: "1. websmith create"
-  }
-
-  Development-Cycle: {
-    label: "2. Development Cycle (Iterative)"
-    shape: rectangle
-    websmith-update: {
-      label: "websmith update"
-    }
-    websmith-theme: {
-      label: "websmith theme"
-    }
-    websmith-translate: {
-      label: "websmith translate"
-    }
-  }
-
-  websmith-publish: {
-    label: "3. websmith publish"
-  }
-}
-
-WebSmith-Cloud: {
-  label: "WebSmith Cloud"
-  shape: cylinder
-}
-
-User -> Local-Workspace.websmith-create: "Initialize site"
-Local-Workspace.websmith-create -> Local-Workspace.Development-Cycle
-Local-Workspace.Development-Cycle -> Local-Workspace.websmith-publish: "Finalize changes"
-Local-Workspace.websmith-publish -> WebSmith-Cloud: "Deploy website"
-
-```
-
 <x-cards data-columns="2">
   <x-card data-title="Create Website" data-icon="lucide:plus-square" data-href="/guides/create-website">
     Breaks down the create workflow, including configuration fields, prompts, and ways to validate the output before publishing.

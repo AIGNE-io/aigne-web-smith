@@ -1,136 +1,101 @@
 # インタラクティブモード（ベータ）
 
-> **注:** インタラクティブモード機能は現在ベータ版です。完全に機能しますが、予期しない動作が発生する可能性があります。この体験を改善し続けるため、皆様からのフィードバックをお待ちしております。
+> **Note:** インタラクティブモードは現在ベータ版です。完全に機能しますが、予期せぬ動作が発生する可能性があります。この体験を改善し続けるため、皆様からのフィードバックをお待ちしております。
 
-このガイドを使用して `aigne web chat` を起動し、自然言語で WebSmith と対話し、アシスタントにあなたに代わって生成/更新/公開アクションをトリガーさせます。
+このガイドを使用して `aigne web chat` を起動し、自然言語で WebSmith に話しかけ、アシスタントにあなたに代わって生成/更新/公開アクションを実行させます。
 
-`chat` コマンドは、ウェブサイトの構築と管理のためのインタラクティブな対話型インターフェースを提供します。`generate` や `update` のような個別のコマンドを実行する代わりに、あなたのニーズを平易な言葉で説明するだけで、AI アシスタントがプロセスを案内します。これは、よりガイド付きの体験を好むユーザーにとって理想的な出発点です。
+`chat` コマンドは、ウェブサイトを構築・管理するための対話型の会話インターフェースを提供します。`generate` や `update` のような個別のコマンドを実行する代わりに、あなたのニーズを平易な言葉で説明するだけで、AI アシスタントがプロセスを案内してくれます。これは、よりガイド付きの体験を好むユーザーにとって理想的な出発点です。
 
 ## 仕組み
 
-インタラクティブモードセッションは、あなたのリクエストを理解し、他の WebSmith ツールを使用してタスクを実行できる専用の AI agent によって提供されます。会話の記憶を保持するため、連続して変更を加えたり、以前のアクションを基に構築したりすることができます。
+インタラクティブモードは、あなたのリクエストを理解し、他の WebSmith ツールを使用してタスクを実行できる専用の AI Agent によって動作します。会話の記憶を保持するため、連続した変更を加えたり、以前のアクションに基づいて構築したりすることが可能です。
 
-一般的なワークフローは、シンプルな対話ループに従います:
+一般的なワークフローは、以下の図に示すように、単純な会話ループに従います。
 
-```d2
-direction: down
-
-start: {
-  label: "セッションを開始"
-  shape: oval
-}
-
-user_input: {
-  label: "ユーザーがリクエストを提供\n（例：「ウェブサイトを作成して」）"
-}
-
-ai_process: {
-  label: "AI アシスタントがリクエストを分析"
-}
-
-execute_task: {
-  label: "AI が適切なコマンドを実行\n（generate、update、publish など）"
-  shape: diamond
-}
-
-show_result: {
-  label: "アシスタントが結果を表示し\n次の指示を待つ"
-}
-
-end: {
-  label: "セッションを終了"
-  shape: oval
-}
-
-start -> user_input
-user_input -> ai_process
-ai_process -> execute_task
-execute_task -> show_result: "成功"
-show_result -> user_input
-execute_task -> user_input: "追加情報が必要"
-user_input -> end: "ユーザーが 'exit' と入力"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![インタラクティブモード（ベータ）](assets/diagram/interactive-mode-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## インタラクティブセッションの開始
 
-開始するには、ターミナルから `chat` コマンドを実行します：
+開始するには、ターミナルから `chat` コマンドを実行します。
 
 ```bash Command icon=lucide:terminal
 aigne web
 ```
 
-これによりアシスタントが起動し、挨拶の後、あなたの指示を待ちます。
+これによりアシスタントが起動し、挨拶をしてあなたの指示を待ちます。
 
 ## できること
 
-インタラクティブモードのアシスタントは、AIGNE WebSmith CLI で利用可能なほとんどのコアタスクを実行できます。単に次のように依頼するだけです：
+チャットアシスタントは、AIGNE WebSmith CLI で利用可能なほとんどのコアタスクを実行できます。単純に以下のように依頼するだけです。
 
-*   **新しいウェブサイトの生成**: ウェブサイトの要件、ターゲットオーディエンス、希望するスタイルを説明します。
+*   **新しいウェブサイトの生成**: ウェブサイトの要件、ターゲットオーディエンス、希望のスタイルを説明します。
 *   **既存コンテンツの更新**: 変更したいページやセクションを指定し、新しい詳細を提供します。
 *   **ページの翻訳**: 特定のページを別の言語に翻訳するようリクエストします。
 *   **サイトの公開**: Pages Kit にウェブサイトを公開する準備ができたことをアシスタントに伝えます。
-*   **ファイルの管理**: 現在のファイル構造や特定のページの内容を表示するように依頼します。
+*   **ファイルの管理**: 現在のファイル構造や特定のページの内容を表示するよう依頼します。
 
 ## 会話例
 
-以下は、インタラクティブモードを使用して簡単なウェブサイトを作成、変更、公開する方法の例です。
+以下は、インタラクティブモードを使用して簡単なウェブサイトを作成、修正、公開する方法の例です。
 
 ```bash Command Line icon=lucide:terminal
 aigne web
 
-> Welcome to the AIGNE WebSmith interactive assistant!
-> How can I help you build your website today?
+> AIGNE WebSmith インタラクティブアシスタントへようこそ！
+> 本日はどのようなウェブサイト構築のお手伝いをいたしましょうか？
 
 You:
-チームがプロジェクトを管理するのに役立つ新しいSaaS製品のウェブサイトを作成する必要があります。
+チームのプロジェクト管理を支援する新しいSaaS製品のウェブサイトを作成する必要があります。
 
-> Of course. Could you please provide a few more details?
-> - What are the core features of the product?
-> - Who is the target audience?
-> - What style should the website have (e.g., business, modern, playful)?
+> かしこまりました。もう少し詳細を教えていただけますか？
+> - 製品の主な機能は何ですか？
+> - ターゲットオーディエンスは誰ですか？
+> - ウェブサイトはどのようなスタイル（例：ビジネス、モダン、遊び心のある）にすべきですか？
 
 You:
 主な機能はタスク追跡、チームコラボレーション、レポーティングです。ターゲットオーディエンスは中小企業の経営者です。モダンなビジネススタイルでお願いします。
 
-> Thank you. I have enough information to plan the website structure.
-> I will now generate the following pages:
-> - Home
-> - Features
-> - Pricing
-> - About Us
-> - Contact
+> ありがとうございます。ウェブサイトの構造を計画するのに十分な情報を得ました。
+> これから以下のページを生成します：
+> - ホーム
+> - 機能
+> - 価格
+> - 会社概要
+> - お問い合わせ
 > ...
-> [Generation process starts]
+> [生成プロセス開始]
 > ...
-> Website generation is complete. The files have been saved to the 'output' directory.
-> What would you like to do next?
+> ウェブサイトの生成が完了しました。ファイルは「output」ディレクトリに保存されました。
+> 次に何をしますか？
 
 You:
-ホームページに顧客の声セクションを追加してください。
+ホームページに顧客の推薦文のセクションを追加してください。
 
-> Understood. I will add a customer testimonials section to the homepage.
-> [Update process starts]
+> 承知いたしました。ホームページに顧客の推薦文セクションを追加します。
+> [更新プロセス開始]
 > ...
-> The homepage has been updated. Is there anything else?
+> ホームページが更新されました。他に何かありますか？
 
 You:
 いいえ、今のところは以上です。ウェブサイトを公開してください。
 
-> I will now publish the website to your configured Pages Kit project.
-> [Publishing process starts]
+> 設定された Pages Kit プロジェクトにウェブサイトを公開します。
+> [公開プロセス開始]
 > ...
-> Your website has been successfully published.
-> You can now exit the chat by typing 'exit'.
+> あなたのウェブサイトは正常に公開されました。
+> 「exit」と入力するとチャットを終了できます。
 
 You:
 exit
 
-> Goodbye!
+> さようなら！
 ```
 
 ## インタラクティブモードの終了
 
-インタラクティブセッションをいつでも終了するには、単に `exit` または `quit` と入力して Enter キーを押します。
+セッションをいつでも終了するには、`exit` または `quit` と入力して Enter キーを押します。
 
 ---
 

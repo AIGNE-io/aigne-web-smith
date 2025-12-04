@@ -10,46 +10,11 @@ The `chat` command provides an interactive, conversational interface for buildin
 
 Interactive mode is powered by a dedicated AI agent that understands your requests and can use other WebSmith tools to perform tasks. It maintains a memory of your conversation, allowing you to make sequential changes and build on previous actions.
 
-The general workflow follows a simple, conversational loop:
+The general workflow follows a simple, conversational loop, as illustrated in the diagram below:
 
-```d2
-direction: down
-
-start: {
-  label: "Start Interactive Session"
-  shape: oval
-}
-
-user_input: {
-  label: "User provides a request\n(e.g., 'Create a website')"
-}
-
-ai_process: {
-  label: "AI Assistant analyzes the request"
-}
-
-execute_task: {
-  label: "AI executes the appropriate command\n(generate, update, publish, etc.)"
-  shape: diamond
-}
-
-show_result: {
-  label: "Assistant shows the result\nand awaits the next instruction"
-}
-
-end: {
-  label: "End Interactive Session"
-  shape: oval
-}
-
-start -> user_input
-user_input -> ai_process
-ai_process -> execute_task
-execute_task -> show_result: "Success"
-show_result -> user_input
-execute_task -> user_input: "Needs more info"
-user_input -> end: "User types 'exit'"
-```
+<!-- DIAGRAM_IMAGE_START:sequence:4:3 -->
+![Interactive Mode（Beta）](assets/diagram/interactive-mode-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Starting an Interactive Session
 

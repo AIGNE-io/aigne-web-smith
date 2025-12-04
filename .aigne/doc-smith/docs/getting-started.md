@@ -4,41 +4,9 @@ Use this guide as the fastest path to a working site: install the AIGNE CLI, gat
 
 ## See the end-to-end flow
 
-```d2
-direction: right
-
-Developer: {
-  label: "You"
-  shape: c4-person
-}
-
-Install: {
-  label: "Install AIGNE CLI"
-  shape: rectangle
-}
-
-Workspace: {
-  label: "Create project + gather sources"
-  shape: rectangle
-}
-
-Generate: {
-  label: "Run `aigne web generate`"
-  shape: rectangle
-}
-
-Plan: {
-  label: "Approve website plan"
-  shape: diamond
-}
-
-Review: {
-  label: "Inspect generated pages"
-  shape: rectangle
-}
-
-Developer -> Install -> Workspace -> Generate -> Plan -> Review -> Developer
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Prerequisites
 

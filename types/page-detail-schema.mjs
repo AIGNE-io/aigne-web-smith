@@ -59,9 +59,13 @@ export const updateMetaInputSchema = z
     description: z.string().min(1).optional(),
     image: z.string().min(1).optional(),
   })
-  .refine((data) => data.title !== undefined || data.description !== undefined || data.image !== undefined, {
-    message: "At least one field (title, description, or image) must be provided for update",
-  });
+  .refine(
+    (data) =>
+      data.title !== undefined || data.description !== undefined || data.image !== undefined,
+    {
+      message: "At least one field (title, description, or image) must be provided for update",
+    },
+  );
 
 export const updateMetaOutputSchema = z.object({
   pageDetail: z.string(),
@@ -159,12 +163,13 @@ export const getUpdateMetaInputJsonSchema = () => {
     schema.properties.path.description = "Page path (required)";
     schema.properties.title.description = "New page title (optional)";
     schema.properties.description.description = "New page description (optional)";
-    schema.properties.image.description = "New page image (optional, e.g., mediakit://hero-commercialization-store.jpg)";
+    schema.properties.image.description =
+      "New page image (optional, e.g., mediakit://hero-commercialization-store.jpg)";
   }
   schema.anyOf = [
     { required: ["path", "title"] },
     { required: ["path", "description"] },
-    { required: ["path", "image"] }
+    { required: ["path", "image"] },
   ];
   return schema;
 };

@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-05T07:18:59.633Z
+  updateAt: 2025-12-05T08:43:12.377Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -2626,7 +2626,7 @@ composite:
                 url: <%= ctaActions.0.link %>
                 variant: contained
                 size: xlarge
-                target: _self
+                target: auto
                 needLogin: false
                 startIcon: <%= ctaActions.0.startIcon %>
               - id: btn-1759121436561-6r9xmg35x

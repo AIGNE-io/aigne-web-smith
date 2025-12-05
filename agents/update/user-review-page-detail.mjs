@@ -153,6 +153,7 @@ function printPageDetail(pageDetail, compositeComponents = [], verbose = false) 
     console.log(`\n📌 Meta Information:`);
     if (pageDetail.meta?.title) console.log(`   Title: ${pageDetail.meta.title}`);
     if (pageDetail.meta?.description) console.log(`   Description: ${pageDetail.meta.description}`);
+    if (pageDetail.meta?.image) console.log(`   Image: ${pageDetail.meta.image}`);
 
     // Print sections with simplified preview
     if (pageDetail.sections && Array.isArray(pageDetail.sections)) {

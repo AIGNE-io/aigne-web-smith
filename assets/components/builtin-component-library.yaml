@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-05T04:13:51.398Z
+  updateAt: 2025-12-05T07:18:59.633Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -306,7 +306,8 @@ composite:
 
 
       - For each CTA, automatically generate a distinct icon that reflects its
-      text and intent.
+      text and intent. icon must be a **Iconify icon**, prioritize the use of
+      `lucide` Icon Library.
 
 
       - Copy length:
@@ -2384,7 +2385,8 @@ composite:
       extra elements.
 
       - For each CTA, automatically generate a distinct icon that reflects its
-      text and intent.
+      text and intent. icon must be a **Iconify icon**, prioritize the use of
+      `lucide` Icon Library.
     fieldCombinations:
       - ctaActions.0.link
       - ctaActions.0.startIcon
@@ -2522,7 +2524,8 @@ composite:
       extra elements.
 
       - For each CTA, automatically generate a distinct icon that reflects its
-      text and intent.
+      text and intent. icon must be a **Iconify icon**, prioritize the use of
+      `lucide` Icon Library.
     fieldCombinations:
       - ctaActions.0.link
       - ctaActions.0.startIcon

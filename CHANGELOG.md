@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.4...v1.10.0-beta.5) (2025-12-05)
+
+
+### Bug Fixes
+
+* **CTA:** set target value to 'auto' ([#299](https://github.com/AIGNE-io/aigne-web-smith/issues/299)) ([ebd24db](https://github.com/AIGNE-io/aigne-web-smith/commit/ebd24db09be0db226b6fed50602c1af3f23ee7ed))
+
 ## [1.10.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.3...v1.10.0-beta.4) (2025-12-05)
 
 

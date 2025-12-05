@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.2...v1.10.0-beta.3) (2025-12-05)
+
+
+### Features
+
+* **CTA:** support auto-generated icons for CTA buttons ([#295](https://github.com/AIGNE-io/aigne-web-smith/issues/295)) ([05b442f](https://github.com/AIGNE-io/aigne-web-smith/commit/05b442f9034283f06422543dfa245cdf026d8594))
+
 ## [1.10.0-beta.2](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.1...v1.10.0-beta.2) (2025-12-04)
 
 

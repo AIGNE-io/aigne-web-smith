@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-04T03:53:18.956Z
+  updateAt: 2025-12-05T03:28:22.484Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -4592,6 +4592,8 @@ composite:
               height: 498
           jjv0hvr8wrixt1f3:
             value: 2
+          k7m9x2p4vw8q5n3z:
+            value: false
           q9hrdv5nh1pb5ved:
             value: 500px
           dxn6zvv5bn6dn3mr:

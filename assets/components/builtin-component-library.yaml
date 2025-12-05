@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-04T03:53:18.956Z
+  updateAt: 2025-12-05T04:13:51.398Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -305,13 +305,19 @@ composite:
       (action vs. information).
 
 
+      - For each CTA, automatically generate a distinct icon that reflects its
+      text and intent.
+
+
       - Copy length:
         - Title ≤ 80 characters
         - Description ≤ 160 characters 
     fieldCombinations:
       - centralHeroWithoutBgActions.0.link
+      - centralHeroWithoutBgActions.0.startIcon
       - centralHeroWithoutBgActions.0.text
       - centralHeroWithoutBgActions.1.link
+      - centralHeroWithoutBgActions.1.startIcon
       - centralHeroWithoutBgActions.1.text
       - centralHeroWithoutBgDescription
       - centralHeroWithoutBgImage
@@ -492,6 +498,7 @@ composite:
                 size: xlarge
                 target: auto
                 needLogin: false
+                startIcon: <%= centralHeroWithoutBgActions.0.startIcon %>
               - type: link
                 text: <%= centralHeroWithoutBgActions.1.text %>
                 url: <%= centralHeroWithoutBgActions.1.link %>
@@ -500,7 +507,7 @@ composite:
                 variant: outlined
                 size: xlarge
                 target: auto
-                startIcon: ""
+                startIcon: <%= centralHeroWithoutBgActions.1.startIcon %>
                 endIcon: ""
                 needLogin: false
                 imageUrl: ""
@@ -2375,10 +2382,15 @@ composite:
 
       - Copy: title ≤ 80 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
+
+      - For each CTA, automatically generate a distinct icon that reflects its
+      text and intent.
     fieldCombinations:
       - ctaActions.0.link
+      - ctaActions.0.startIcon
       - ctaActions.0.text
       - ctaActions.1.link
+      - ctaActions.1.startIcon
       - ctaActions.1.text
       - ctaDescription
       - ctaWithBgTitle
@@ -2474,12 +2486,14 @@ composite:
                 size: xlarge
                 target: _self
                 needLogin: false
+                startIcon: <%= ctaActions.0.startIcon %>
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= ctaActions.1.text %>
                 variant: outlined
                 borderColor: primary.main
                 size: xlarge
                 url: <%= ctaActions.1.link %>
+                startIcon: <%= ctaActions.1.startIcon %>
           r8t5y6u7i1o2p3a4:
             value: 16
   - id: 7fu0m2oim8r6z8h5
@@ -2506,10 +2520,15 @@ composite:
 
       - Copy: title ≤ 80 chars; description ≤ 120–160 chars; avoid lists or
       extra elements.
+
+      - For each CTA, automatically generate a distinct icon that reflects its
+      text and intent.
     fieldCombinations:
       - ctaActions.0.link
+      - ctaActions.0.startIcon
       - ctaActions.0.text
       - ctaActions.1.link
+      - ctaActions.1.startIcon
       - ctaActions.1.text
       - ctaDescription
       - ctaTitle
@@ -2606,12 +2625,14 @@ composite:
                 size: xlarge
                 target: _self
                 needLogin: false
+                startIcon: <%= ctaActions.0.startIcon %>
               - id: btn-1759121436561-6r9xmg35x
                 text: <%= ctaActions.1.text %>
                 variant: outlined
                 borderColor: primary.main
                 size: xlarge
                 url: <%= ctaActions.1.link %>
+                startIcon: <%= ctaActions.1.startIcon %>
           r8t5y6u7i1o2p3a4:
             value: 16
   - id: ub3j4sk56pptrl1n
@@ -4592,6 +4613,8 @@ composite:
               height: 498
           jjv0hvr8wrixt1f3:
             value: 2
+          k7m9x2p4vw8q5n3z:
+            value: false
           q9hrdv5nh1pb5ved:
             value: 500px
           dxn6zvv5bn6dn3mr:

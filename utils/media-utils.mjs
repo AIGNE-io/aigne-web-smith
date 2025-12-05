@@ -36,7 +36,11 @@ export async function buildMediaItem(filePath, basePath, options = {}) {
       mediaItem.height = dimensions.height;
 
       // Filter out images with width less than minImageWidth
-      if (minImageWidth > 0 && dimensions.width < minImageWidth) {
+      if (
+        minImageWidth > 0 &&
+        dimensions.width < minImageWidth &&
+        mediaItem.mimeType !== "image/svg+xml"
+      ) {
         console.log(
           `Ignored image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
         );

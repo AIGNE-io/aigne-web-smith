@@ -29,7 +29,7 @@ export default async function updateMeta(input, options) {
     };
   }
 
-  const { title, description, path } = validation.data;
+  const { title, description, image, path } = validation.data;
   const pageDetailCtx = userContextAt(options, `currentPageDetails.${path}`);
   let pageDetail = pageDetailCtx.get();
 
@@ -40,7 +40,7 @@ export default async function updateMeta(input, options) {
   // Check for duplicate calls by comparing with last input
   const lastToolInputsCtx = userContextAt(options, `lastToolInputs.${path}`);
   const lastToolInputs = lastToolInputsCtx.get() || {};
-  const currentInput = { title, description };
+  const currentInput = { title, description, image };
 
   if (lastToolInputs.updateMeta && isEqual(lastToolInputs.updateMeta, currentInput)) {
     const errorMessage = `Cannot update meta: This operation has already been processed. Please do not call updateMeta again with the same parameters.`;
@@ -71,13 +71,18 @@ export default async function updateMeta(input, options) {
   // Create updated page detail object
   const updatedPageDetail = {
     ...parsedPageDetail,
-    ...(title !== undefined && { title }),
-    ...(description !== undefined && { description }),
+    meta: {
+      ...parsedPageDetail.meta,
+      ...(title !== undefined && { title }),
+      ...(description !== undefined && { description }),
+      ...(image !== undefined && { image }),
+    },
   };
 
   const updatedFields = [];
   if (title !== undefined) updatedFields.push(`title to '${title}'`);
   if (description !== undefined) updatedFields.push("description");
+  if (image !== undefined) updatedFields.push(`image to '${image}'`);
 
   const successMessage = `updateMeta executed successfully.
   Successfully updated the page meta: ${updatedFields.join(", ")} on page '${path}'.
@@ -98,6 +103,6 @@ export default async function updateMeta(input, options) {
 }
 
 updateMeta.taskTitle = "Update page meta";
-updateMeta.description = "Update page metadata including title and description fields";
+updateMeta.description = "Update page metadata including title, description, and image fields";
 updateMeta.inputSchema = getUpdateMetaInputJsonSchema();
 updateMeta.outputSchema = getUpdateMetaOutputJsonSchema();

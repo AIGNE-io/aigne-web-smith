@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.0-beta.4](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.3...v1.10.0-beta.4) (2025-12-05)
+
+
+### Bug Fixes
+
+* **CTA:** ensure valid Iconify icons ([#297](https://github.com/AIGNE-io/aigne-web-smith/issues/297)) ([f56aa4c](https://github.com/AIGNE-io/aigne-web-smith/commit/f56aa4c94059d6d66da583a902dc725bd59b552c))
+* support for reading SVG content to generate media descriptions ([#300](https://github.com/AIGNE-io/aigne-web-smith/issues/300)) ([7d234f2](https://github.com/AIGNE-io/aigne-web-smith/commit/7d234f2ae1b0d2f2f093d968623c53439570a261))
+
 ## [1.10.0-beta.3](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.2...v1.10.0-beta.3) (2025-12-05)
 
 

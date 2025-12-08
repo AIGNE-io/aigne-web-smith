@@ -1,5 +1,5 @@
 meta:
-  updateAt: 2025-12-05T08:43:12.377Z
+  updateAt: 2025-12-08T08:52:10.895Z
 atomic:
   - name: RichText
     componentId: xoHu0J44322kDYc-
@@ -383,9 +383,9 @@ composite:
                   w: 12
                   h: 1
                 lahun20iehgaard5:
-                  x: 0
+                  x: 2
                   y: 1
-                  w: 12
+                  w: 8
                   h: 1
                 wm8d8ar9ek1b24gy:
                   x: 0
@@ -655,9 +655,9 @@ composite:
                   w: 12
                   h: 1
                 lahun20iehgaard5:
-                  x: 0
+                  x: 2
                   y: 1
-                  w: 12
+                  w: 8
                   h: 1
                 wm8d8ar9ek1b24gy:
                   x: 0
@@ -1109,9 +1109,9 @@ composite:
                   w: 12
                   h: 1
                 ki2fjnys4atn2zbc:
-                  x: 0
+                  x: 2
                   y: 1
-                  w: 12
+                  w: 8
                   h: 1
             gap: normal
       sectionIds:

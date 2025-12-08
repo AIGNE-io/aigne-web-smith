@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0...v1.10.1-beta) (2025-12-08)
+
+
+### Bug Fixes
+
+* update builtin components ([#303](https://github.com/AIGNE-io/aigne-web-smith/issues/303)) ([25de02f](https://github.com/AIGNE-io/aigne-web-smith/commit/25de02ff25289ec3f35f47314c7ba267e2178057))
+
 ## [1.10.0](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.5...v1.10.0) (2025-12-05)
 
 ## [1.10.0-beta.5](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0-beta.4...v1.10.0-beta.5) (2025-12-05)

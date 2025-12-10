@@ -1432,3 +1432,141 @@ cc0ffa5c44358426a7544fa479584358e984cdc9281ae6fbd2a55dc4ca188f1b:
     https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy-192-168-1-32.ip.abtnet.io:
       url: https://bbqavnwzylzwp55nhqfg3hiapsan4z3d7jgy6vzt3fy.did.abtnet.io/image-bin/uploads/1c8c17e20adb9b57.svg
       upload_time: 2025-11-21T18:44:42.051Z
+a8e8c09c4c9e7c6e948f149623c776fa317f02ea2eed9d4ca8e6ddd982456998:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/a8e8c09c4c9e7c6e.jpg
+      upload_time: 2025-12-10T10:27:02.105Z
+76cf186f467012cd078f74fc2f32b900f18016f3c920ea799734419f142c63b7:
+  local_path: .aigne/doc-smith/docs/assets/diagram/getting-started-01.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/76cf186f467012cd.jpg
+      upload_time: 2025-12-10T10:27:02.619Z
+d3f8fc5f2fa1c2f031e867aa42c51fe61cd3483a9b1bb2fbd69c5120daec3047:
+  local_path: .aigne/doc-smith/docs/assets/diagram/interactive-mode-diagram-0.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/d3f8fc5f2fa1c2f0.jpg
+      upload_time: 2025-12-10T10:27:03.815Z
+78d2fd9f3bc12bc6a3e0e16b282216ca8e88bbc1834263cefb0f7cddd4a181d7:
+  local_path: .aigne/doc-smith/docs/assets/diagram/getting-started-01.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/78d2fd9f3bc12bc6.jpg
+      upload_time: 2025-12-10T10:27:05.026Z
+31db050cb8cf1df370133848967645456f0cdd81f6c283f463f5e621a04c2a48:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/31db050cb8cf1df3.jpg
+      upload_time: 2025-12-10T10:27:05.860Z
+456e4217de95df612d2484eb3c72de85b30ca6355b9fc3148113bdcb1807272f:
+  local_path: .aigne/doc-smith/docs/assets/diagram/interactive-mode-diagram-0.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/456e4217de95df61.jpg
+      upload_time: 2025-12-10T10:27:06.090Z
+767fd2fc134ed6af120f466a0db8d1274e13fd54f5af293a5403e156ed667051:
+  local_path: .aigne/doc-smith/docs/assets/diagram/getting-started-01.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/767fd2fc134ed6af.jpg
+      upload_time: 2025-12-10T10:27:07.087Z
+8fbbbb85c38a18575a131d0dc2bb8f95440615ae3cc09a0f6947e28269342c89:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/8fbbbb85c38a1857.jpg
+      upload_time: 2025-12-10T10:27:08.080Z
+2aed241b86e5862ac4842a63b79c877971233460dbb14f536fe284510c8df97a:
+  local_path: .aigne/doc-smith/docs/assets/diagram/interactive-mode-diagram-0.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/2aed241b86e5862a.jpg
+      upload_time: 2025-12-10T10:27:08.255Z
+9fb5d5520e1b71bcb066b1490b4ab377bfe2f7495be0204098ed84b245819807:
+  local_path: .aigne/doc-smith/docs/assets/diagram/getting-started-01.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/9fb5d5520e1b71bc.jpg
+      upload_time: 2025-12-10T10:27:08.922Z
+738f5001db292b9cd96860639f62a61f8a06d031e264086d86ec33016cc161ae:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/738f5001db292b9c.jpg
+      upload_time: 2025-12-10T10:27:09.837Z
+7dbca973087a9eaddd9f571fd4adf019d03b618cd1add70c9c011644f3cfa3aa:
+  local_path: .aigne/doc-smith/docs/assets/diagram/interactive-mode-diagram-0.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/7dbca973087a9ead.jpg
+      upload_time: 2025-12-10T10:27:10.040Z
+8475404d894661cb5545ceec70bba0aa1f480781326f7618542ecc2f6e6c1213:
+  local_path: .aigne/doc-smith/docs/assets/diagram/reference-prepare-materials-diagram-0.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/8475404d894661cb.jpg
+      upload_time: 2025-12-10T10:27:14.273Z
+e021b4c3cca927561ecf81651ffd0c4cb9d589390fdf1cc98fa9ed4fc538d723:
+  local_path: .aigne/doc-smith/docs/assets/diagram/reference-prepare-materials-diagram-0.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/e021b4c3cca92756.jpg
+      upload_time: 2025-12-10T10:27:16.607Z
+be2df1d1543db6760cbb37306da97cd5251d1184497740fb26cfec94405ab2d3:
+  local_path: .aigne/doc-smith/docs/assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/be2df1d1543db676.jpg
+      upload_time: 2025-12-10T10:27:16.758Z
+211b3ef20ad7e10e496ebbf601f62b50da25829abe59790ad3e8e9bd9ecf9cba:
+  local_path: .aigne/doc-smith/docs/assets/diagram/reference-prepare-materials-diagram-0.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/211b3ef20ad7e10e.jpg
+      upload_time: 2025-12-10T10:27:18.714Z
+b3a5301841dfa741d2a2b038f22f99c6ca42c8f688599a66f10355d951f3342b:
+  local_path: .aigne/doc-smith/docs/assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/b3a5301841dfa741.jpg
+      upload_time: 2025-12-10T10:27:18.867Z
+97b1a6d782c82988c2e5067953045e3f560bcb475fd11272b6762fbb21ae4c31:
+  local_path: .aigne/doc-smith/docs/assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/97b1a6d782c82988.jpg
+      upload_time: 2025-12-10T10:27:20.600Z
+4d1d4761d958b64cf784f0fb16ef67a36c5a11e765abaace74108386821df98f:
+  local_path: .aigne/doc-smith/docs/assets/diagram/reference-prepare-materials-diagram-0.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/4d1d4761d958b64c.jpg
+      upload_time: 2025-12-10T10:27:20.801Z
+0d9a11e3974f55b166dd7fae174be0378a8f99dc087c0f71126302a57b1d5f6b:
+  local_path: .aigne/doc-smith/docs/assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/0d9a11e3974f55b1.jpg
+      upload_time: 2025-12-10T10:27:22.843Z
+581d12384ba7c42e8d45155c8b15323d8dbc411340c3555efc80fe3aab45aa8a:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.zh.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/581d12384ba7c42e.jpg
+      upload_time: 2025-12-10T10:48:09.770Z
+88cb73c267bb6be3ab753b4fd28ff614384d118a0aedbd898f50bb17b3502c55:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.zh-TW.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/88cb73c267bb6be3.jpg
+      upload_time: 2025-12-10T10:48:11.598Z
+e95b3ca6834d9e37d5f70cf6bddd452d773757bd04a48ce42977e53368bd3f9d:
+  local_path: .aigne/doc-smith/docs/assets/diagram/overview-diagram-0.ja.jpg
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/e95b3ca6834d9e37.jpg
+      upload_time: 2025-12-10T10:48:13.748Z

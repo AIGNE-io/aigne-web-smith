@@ -6,8 +6,8 @@
 
 資料収集から最初のウェブサイトができるまでのプロセスの流れは以下の通りです。
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
-![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
+![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 各ステップは前のステップに基づいています。より良いインプットが、より良いアウトプットを生み出します—それほど単純なことです。整理されたコンテンツキットは、WebSmith が最初から権威があり、ブランドに沿ったページを作成するのに役立ちます。

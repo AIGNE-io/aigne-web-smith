@@ -6,7 +6,7 @@ Great websites start before you run `aigne web generate`. This guide gives you a
 
 Here's how the process flows from gathering materials to getting your first website:
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
 ![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

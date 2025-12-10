@@ -21,8 +21,8 @@ WebSmith 採用一系列專業的 AI agent，這些 agent 依序工作以建立�
 
 下圖說明了此順序流程：
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
-![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765348253 -->
+![Overview](assets/diagram/overview-diagram-0.zh-TW.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 流程如下：

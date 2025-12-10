@@ -10,7 +10,7 @@ The workflow for using the Terminal Player can be broken down into a sequence of
 
 The following diagram illustrates this process:
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
 ![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

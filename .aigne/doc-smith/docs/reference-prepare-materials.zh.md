@@ -6,8 +6,8 @@
 
 以下是从收集材料到获得第一个网站的流程：
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
-![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
+![Prepare Materials](assets/diagram/reference-prepare-materials-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 每一步都建立在前一步的基础上。更好的输入意味着更好的输出——就这么简单。一个组织良好的内容套件能帮助 WebSmith 从一开始就创建出权威且符合品牌形象的页面。

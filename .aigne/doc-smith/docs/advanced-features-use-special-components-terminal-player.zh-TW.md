@@ -10,8 +10,8 @@
 
 下圖說明了此流程：
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
-![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
+![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.zh-TW.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 建立終端機錄製檔

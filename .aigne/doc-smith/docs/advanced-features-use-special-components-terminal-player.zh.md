@@ -10,8 +10,8 @@
 
 下图说明了此过程：
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
-![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
+![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 创建终端录制

@@ -12,7 +12,7 @@ Interactive mode is powered by a dedicated AI agent that understands your reques
 
 The general workflow follows a simple, conversational loop, as illustrated in the diagram below:
 
-<!-- DIAGRAM_IMAGE_START:sequence:4:3 -->
+<!-- DIAGRAM_IMAGE_START:sequence:4:3:1765348253 -->
 ![Interactive Mode（Beta）](assets/diagram/interactive-mode-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

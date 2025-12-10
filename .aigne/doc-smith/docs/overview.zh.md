@@ -21,8 +21,8 @@ WebSmith 采用一系列专业的 AI Agent 顺序工作，以构建和部署网�
 
 下图展示了这一顺序流程：
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
-![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765348253 -->
+![Overview](assets/diagram/overview-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 流程如下：

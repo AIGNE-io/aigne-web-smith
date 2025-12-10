@@ -21,7 +21,7 @@ WebSmith employs a series of specialized AI agents that work sequentially to bui
 
 The following diagram illustrates this sequential process:
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+<!-- DIAGRAM_IMAGE_START:architecture:16:9:1765348253 -->
 ![Overview](assets/diagram/overview-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

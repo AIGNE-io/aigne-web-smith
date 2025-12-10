@@ -4,8 +4,8 @@ Use this guide as the fastest path to a working site: install the AIGNE CLI, gat
 
 ## See the end-to-end flow
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:4:3:1765349001 -->
+![Getting Started](assets/diagram/getting-started-01.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## Prerequisites

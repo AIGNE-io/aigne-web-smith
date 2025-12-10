@@ -12,8 +12,8 @@
 
 一般的工作流程遵循一個簡單的對話循環，如下圖所示：
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![互動模式（Beta）](assets/diagram/interactive-mode-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:sequence:4:3:1765348253 -->
+![互動模式（Beta）](assets/diagram/interactive-mode-diagram-0.zh-TW.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 啟動互動式工作階段

@@ -12,8 +12,8 @@
 
 总体工作流程遵循一个简单的对话循环，如下图所示：
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Interactive Mode（Beta）](assets/diagram/interactive-mode-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:sequence:4:3:1765348253 -->
+![Interactive Mode（Beta）](assets/diagram/interactive-mode-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 启动交互式会话

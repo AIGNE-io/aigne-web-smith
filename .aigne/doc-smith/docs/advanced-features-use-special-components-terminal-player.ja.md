@@ -10,8 +10,8 @@
 
 以下の図は、このプロセスを示しています：
 
-<!-- DIAGRAM_IMAGE_START:flowchart:16:9 -->
-![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:flowchart:16:9:1765348253 -->
+![Terminal Player](assets/diagram/advanced-features-use-special-components-terminal-player-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## ターミナル録画の作成

@@ -12,8 +12,8 @@
 
 一般的なワークフローは、以下の図に示すように、単純な会話ループに従います。
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![インタラクティブモード（ベータ）](assets/diagram/interactive-mode-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:sequence:4:3:1765348253 -->
+![インタラクティブモード（ベータ）](assets/diagram/interactive-mode-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## インタラクティブセッションの開始

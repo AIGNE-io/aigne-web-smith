@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.10.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1-beta.1...v1.10.1) (2025-12-17)
+
 ## [1.10.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1-beta...v1.10.1-beta.1) (2025-12-17)
 
 

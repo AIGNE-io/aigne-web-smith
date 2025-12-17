@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1-beta...v1.10.1-beta.1) (2025-12-17)
+
+
+### Bug Fixes
+
+* **sitemap:** handle nodes without titles by recursing into children ([#306](https://github.com/AIGNE-io/aigne-web-smith/issues/306)) ([dd59724](https://github.com/AIGNE-io/aigne-web-smith/commit/dd597244f627e7ad65ab013df011f9fd8252f94a))
+
 ## [1.10.1-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.0...v1.10.1-beta) (2025-12-08)
 
 

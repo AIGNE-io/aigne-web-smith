@@ -1918,6 +1918,9 @@ export const formatRoutePath = (path) => {
   if (path === "/home") {
     return "/";
   }
+  if (path.startsWith("/home/")) {
+    return path.replace(/^\/home/, "");
+  }
   return path;
 };
 

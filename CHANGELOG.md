@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0-beta](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1...v1.11.0-beta) (2025-12-17)
+
+
+### Features
+
+* update diagram references and add new images for various guides ([#305](https://github.com/AIGNE-io/aigne-web-smith/issues/305)) ([821f3ca](https://github.com/AIGNE-io/aigne-web-smith/commit/821f3ca7e4856ecd72b9f30b90100f9eb2fcaf9c))
+
 ## [1.10.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1-beta.1...v1.10.1) (2025-12-17)
 
 ## [1.10.1-beta.1](https://github.com/AIGNE-io/aigne-web-smith/compare/v1.10.1-beta...v1.10.1-beta.1) (2025-12-17)

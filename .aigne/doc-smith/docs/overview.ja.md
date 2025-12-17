@@ -21,8 +21,8 @@ WebSmith は、ウェブサイトを構築しデプロイするために順次�
 
 次の図は、この順次プロセスを示しています。
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
-![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765348253 -->
+![Overview](assets/diagram/overview-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 プロセスは以下の通りです。

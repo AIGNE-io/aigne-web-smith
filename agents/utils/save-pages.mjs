@@ -294,6 +294,10 @@ export function generateSitemapYaml(
           sitemapItem.children = walk(children, fullSegments);
         }
         items.push(sitemapItem);
+      } else if (item.__children && Object.keys(item.__children).length > 0) {
+        // No title for this node, but recurse into children
+        const childItems = walk(item.__children, fullSegments);
+        items.push(...childItems);
       }
     }
     return items;
